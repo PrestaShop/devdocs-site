@@ -1,6 +1,6 @@
 # PrestaShop Technical Documentation Site
 
-[![Build](https://github.com/PrestaShop/docs/actions/workflows/build.yml/badge.svg)](https://github.com/PrestaShop/docs/actions/workflows/build.yml)
+[![Build](https://github.com/PrestaShop/devdocs-site/actions/workflows/build.yml/badge.svg)](https://github.com/PrestaShop/devdocs-site/actions/workflows/build.yml)
 
 This repository contains the sources to build [DevDocs - PrestaShop's technical documentation site](https://devdocs.prestashop.com/).
 
