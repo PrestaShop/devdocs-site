@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>PrestaShop Webservice lib on PrestaShop Developer Documentation</title>
+    <link>https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/</link>
+    <description>Recent content in PrestaShop Webservice lib on PrestaShop Developer Documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Setup library</title>
+      <link>https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/setup-library/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/setup-library/</guid>
+      <description>Setup library Now that your webservice is configured and accessible you might want to use it. To help you perform requests on your webservice, you can use the PHP library for PrestaShop Webservices.
+Install the library Prerequisites  You need a server with mod_rewrite enabled You need the curl extension enabled in PHP  Installing with Composer If you are starting a new project you can init your composer project along with the dependency:</description>
+    </item>
+    
+    <item>
+      <title>Listing resources</title>
+      <link>https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/listing-resources/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/listing-resources/</guid>
+      <description>Listing resources Let&amp;rsquo;s now see how to view a full list of customer IDs. We could display more information and customize it, but that&amp;rsquo;s for another part of this tutorial.
+As we saw in the previous code sample, we need the get() method to retrieve an XML file containing all the customers. The parameter has to be a key-value array, where we define the resource we want:
+   Key Value     resource customers    Using PrestaShopWebservice::get &amp;lt;?</description>
+    </item>
+    
+    <item>
+      <title>Retrieve a resource</title>
+      <link>https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/retrieve-resource/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/retrieve-resource/</guid>
+      <description>Retrieve a resource Now that we have retrieved a list of resources let&amp;rsquo;s see how to access the details of one resource in particular. In the XML list you can see that each individual resource as a unique ID that you can use to get its details:
+&amp;lt;?xml version=&amp;#34;1.0&amp;#34; encoding=&amp;#34;UTF-8&amp;#34;?&amp;gt; &amp;lt;prestashop xmlns:xlink=&amp;#34;http://www.w3.org/1999/xlink&amp;#34;&amp;gt; &amp;lt;customers&amp;gt; &amp;lt;customer id=&amp;#34;1&amp;#34; xlink:href=&amp;#34;http://example.com/api/customers/1&amp;#34;/&amp;gt; &amp;lt;customer id=&amp;#34;2&amp;#34; xlink:href=&amp;#34;http://example.com/api/customers/2&amp;#34;/&amp;gt; &amp;lt;/customers&amp;gt; &amp;lt;/prestashop&amp;gt; We are going to use the same get() method but provide an additional id parameter</description>
+    </item>
+    
+    <item>
+      <title>Create a resource</title>
+      <link>https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/create-resource/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/create-resource/</guid>
+      <description>Create a resource Creation workflow The creation workflow is a bit more complex than reading some data from the API, mainly because we rarely manage data via XML format. In most use cases the user is presented with a human understandable component, like a form, and the data entered is then processed. Besides we need to make sure that the XML sent to the webservice is understandable and complete.
+As we explained in a previous tutorial the webservice provides two resource schemas.</description>
+    </item>
+    
+    <item>
+      <title>Update a resource</title>
+      <link>https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/update-resource/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/update-resource/</guid>
+      <description>Update a resource Update workflow The update workflow is quite similar to the creation workflow, the main difference is that the initial input is not a blank XML but an existing one, so we use the get() method to get a prefilled XML, and then we can update its fields.
+  Update Resource via Webservice   You can update this schema using the source XML file importable in services like draw.</description>
+    </item>
+    
+    <item>
+      <title>Delete a resource</title>
+      <link>https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/delete-resource/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/1.7/webservice/tutorials/prestashop-webservice-lib/delete-resource/</guid>
+      <description>Delete a resource To delete a resource you only need its ID, then you can use the delete() method.
+   Key Value     resource customers   id resource_id (int)    Using PrestaShopWebservice::delete &amp;lt;?php try { $webService = new PrestaShopWebservice(&amp;#39;http://example.com/&amp;#39;, &amp;#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&amp;#39;, false); $id = 2; $webService-&amp;gt;delete([ &amp;#39;resource&amp;#39; =&amp;gt; &amp;#39;customers&amp;#39;, &amp;#39;id&amp;#39; =&amp;gt; $id, // Here we use hard coded value but of course you could get this ID from a request parameter or anywhere else  ]); echo &amp;#39;Customer with ID &amp;#39; .</description>
+    </item>
+    
+  </channel>
+</rss>

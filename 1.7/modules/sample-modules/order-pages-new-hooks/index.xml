@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Order view page new hooks demo tutorial on PrestaShop Developer Documentation</title>
+    <link>https://devdocs.prestashop.com/1.7/modules/sample-modules/order-pages-new-hooks/</link>
+    <description>Recent content in Order view page new hooks demo tutorial on PrestaShop Developer Documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://devdocs.prestashop.com/1.7/modules/sample-modules/order-pages-new-hooks/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Module base creation</title>
+      <link>https://devdocs.prestashop.com/1.7/modules/sample-modules/order-pages-new-hooks/module-base/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/1.7/modules/sample-modules/order-pages-new-hooks/module-base/</guid>
+      <description>Module base creation Composer autoloading Let&amp;rsquo;s create module folder demovieworderhooks inside modules directory (located in the root of PrestaShop project). Then create composer.json in the root of the module to autoload classes with the namespaces (PrestaShop\Module\DemoViewOrderHooks\) we define from the src folder (https://getcomposer.org/doc/01-basic-usage.md#autoloading). Using composer PSR-4 autoload helps us autoload classes without the need to use require_once __DIR__.&#39;/vendor/autoload.php&#39;; .
+Even though using autoload block in composer.json helps us to autoload classes from the specified folder src with the namespace PrestaShop\\Module\\DemoViewOrderHooks\\ we might have some autoloading issues if we use our classes in our module main file demovieworderhooks.</description>
+    </item>
+    
+    <item>
+      <title>Signature card</title>
+      <link>https://devdocs.prestashop.com/1.7/modules/sample-modules/order-pages-new-hooks/signature-widget/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/1.7/modules/sample-modules/order-pages-new-hooks/signature-widget/</guid>
+      <description>Signature card displayAdminOrderSide hook We use this hook to display scanned customer signature.
+Lets create custom repository OrderSignatureRepository class inside demovieworderhooks/src/Repository folder. Symfony Repository classes (https://symfony.com/doc/3.3/doctrine/repository.html) help to interact with the database by providing frequently used functions like findOneBy to get the data (for example filtered data by a certain criteria - orderId field from OrderSignature entity).
+&amp;lt;?php /** * Copyright since 2007 PrestaShop SA and Contributors * PrestaShop is an International Registered Trademark &amp;amp; Property of PrestaShop SA * * NOTICE OF LICENSE * * This source file is subject to the Academic Free License version 3.</description>
+    </item>
+    
+    <item>
+      <title>Additional action buttons</title>
+      <link>https://devdocs.prestashop.com/1.7/modules/sample-modules/order-pages-new-hooks/additional-action-buttons/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/1.7/modules/sample-modules/order-pages-new-hooks/additional-action-buttons/</guid>
+      <description>Additional buttons in the main buttons bar actionGetAdminOrderButtons hook demo We use this hook to display additional action buttons into the main buttons bar.
+Let&amp;rsquo;s add hook related code to main module class demovieworderhooks:
+&amp;lt;?php /** * Add buttons to main buttons bar */ public function hookActionGetAdminOrderButtons(array $params) { $order = new Order($params[&amp;#39;id_order&amp;#39;]); /** @var \Symfony\Bundle\FrameworkBundle\Routing\Router $router */ $router = $this-&amp;gt;get(&amp;#39;router&amp;#39;); /** @var \PrestaShopBundle\Controller\Admin\Sell\Order\ActionsBarButtonsCollection $bar */ $bar = $params[&amp;#39;actions_bar_buttons_collection&amp;#39;]; $viewCustomerUrl = $router-&amp;gt;generate(&amp;#39;admin_customers_view&amp;#39;, [&amp;#39;customerId&amp;#39;=&amp;gt; (int)$order-&amp;gt;id_customer]); $bar-&amp;gt;add( new \PrestaShopBundle\Controller\Admin\Sell\Order\ActionsBarButton( &amp;#39;btn-secondary&amp;#39;, [&amp;#39;href&amp;#39; =&amp;gt; $viewCustomerUrl], &amp;#39;View customer&amp;#39; ) ); $bar-&amp;gt;add( new \PrestaShopBundle\Controller\Admin\Sell\Order\ActionsBarButton( &amp;#39;btn-info&amp;#39;, [&amp;#39;href&amp;#39; =&amp;gt; &amp;#39;https://www.</description>
+    </item>
+    
+  </channel>
+</rss>
