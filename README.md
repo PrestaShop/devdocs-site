@@ -75,6 +75,20 @@ We use Sass for styling, bundled by Hugo itself.
 
 The source files for the main css & js are in [the `assets` directory of the theme's repository](https://github.com/PrestaShop/ps-docs-theme/tree/main/assets).
 
+## Deployment
+
+- The **sources** of this site are hosted on devdocs-site, the [Sources repository](https://github.com/PrestaShop/devdocs-site/).
+- The **Hugo theme** of this site is hosted on ps-docs-theme, the [Theme repository](https://github.com/PrestaShop/ps-docs-theme/).
+- The **content** of this site is hosted on docs, the [Content Repository](https://github.com/PrestaShop/docs).
+
+Every time a contribution is merged inside one of the docs branches, a first GitHub workflow will notify the Sources repository.
+
+Upon being notified, a second GitHub workflow is triggered in devdocs-site, which updates its submodules and commits them.
+
+This commit triggers a third GitHub workflow that will deploy the latest version to devdocs.prestashop.com .
+
+_Theme updates do not trigger a deployment, consequently following a theme update, the docs website must be deployed manually._
+
 ## License
 
 Content from this documentation is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
