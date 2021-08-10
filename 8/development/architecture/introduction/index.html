@@ -23,15 +23,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/development/architecture/introduction/">
 
     
-    <link href="/css/font-awesome.min.css?1628601630" rel="stylesheet">
-    <link href="/css/syntax-github.css?1628601630" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1628601630" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1628601630" rel="stylesheet">
-    <link href="/css/auto-complete.css?1628601630" rel="stylesheet">
-    <link href="/style.css?1628601630" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1628605445" rel="stylesheet">
+    <link href="/css/syntax-github.css?1628605445" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1628605445" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1628605445" rel="stylesheet">
+    <link href="/css/auto-complete.css?1628605445" rel="stylesheet">
+    <link href="/style.css?1628605445" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1628601630"></script>
+    <script src="/js/jquery-3.3.1.min.js?1628605445"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -27329,7 +27329,7 @@
 
 <h2 id="overview">Overview</h2>
 <figure><img src="../img/architecture-overview.png"/><figcaption>
-            <h4>Basic overview of PrestaShop 1.7&#39;s architecture</h4>
+            <h4>Basic overview of PrestaShop 8&#39;s architecture</h4>
         </figcaption>
 </figure>
 
@@ -27357,7 +27357,7 @@
 
 <p>The purple cloud depicted above the Database is what we call the <strong>Core Business</strong>. It&rsquo;s the big ensemble of code that manages what makes PrestaShop PrestaShop, also referred as &ldquo;business logic&rdquo;. It includes models, controllers, helper classes, and the like.</p>
 <p>PrestaShop controllers will generally output HTML pages, but on some cases they can output JSON or even XML. The structure of those pages is defined by <strong>Themes</strong> (depicted as pink blocks overlapping both the front-end and the back-end), which transform controller-provided data into HTML. This is true both for the FO and BO.</p>
-<p>Although PrestaShop 1.7 is bundled with default themes for FO and BO, only the FO supports third-party themes.</p>
+<p>Although PrestaShop 8 is bundled with default themes for FO and BO, only the FO supports third-party themes.</p>
 <p>PrestaShop provides two API interfaces:</p>
 <ul>
 <li><strong>BO API</strong> – used to serve information to <a href="https://vuejs.org/">VueJS</a>-based pages (currently Translations and Stock management),</li>
@@ -27390,7 +27390,7 @@
 
 <h3 id="interaction-between-subsystems">Interaction between subsystems</h3>
 <p>While this separation may seem excessively complex, it belongs to a transition phase that is necessary to allow the project to move forward progressively. Here&rsquo;s how.</p>
-<p>Notice the dotted yellow zone labeled <em>temporary code</em>. It means that code within that zone will sooner or later be moved to the Core or PrestaShop Bundle stack. Once the zone it&rsquo;s empty, it will be deleted. Of course, such a change won&rsquo;t be done in a minor version, so you can expect these four stacks to be present for the whole lifetime of 1.7.</p>
+<p>Notice the dotted yellow zone labeled <em>temporary code</em>. It means that code within that zone will sooner or later be moved to the Core or PrestaShop Bundle stack. Once the zone it&rsquo;s empty, it will be deleted. Of course, such a change won&rsquo;t be done in a minor version, so you can expect these four stacks to be present for the whole lifetime of PrestaShop 8.</p>
 <p>If you look closely at the relationships between each stack, you&rsquo;ll see that code outside the <em>temporary code zone</em> does not interact directly with legacy classes. As explained before, the Adapter layer sits between the Legacy and the &ldquo;new&rdquo; code to ease up the transition of code from the Legacy stack to the Core stack.</p>
 <h5 id="how-does-that-work">How does that work?</h5>
 <p>Whenever a Core (or PrestaShopBundle) class needs something provided by a Legacy class, instead of using the Legacy class directly, it delegates that task to an Adapter, which itself uses the Legacy class (see <a href="https://sourcemaking.com/design_patterns/adapter">Adapter pattern</a>).</p>
@@ -27471,12 +27471,7 @@
 <h3 id="fo-themes">FO themes</h3>
 <p>FO themes define the appearance of the Front Office.</p>
 <p>PrestaShop comes bundled with a default FO theme, called &ldquo;Classic&rdquo;, but merchant can choose to use a different theme. Hundreds of them are <a href="https://addons.prestashop.com/en/3-templates-prestashop">available for download on the Addons Marketplace</a>.</p>
-<p>Since FO themes work on top of legacy controllers, they are based on the <a href="https://www.smarty.net/">Smarty templating engine</a>. They all integrate a shared core javascript library which is called <code>core.js</code>, which has jQuery 3 bundled in (or jQuery 2 before 
-<span class="version-pill" title="New in PrestaShop 1.7.7">
-  1.7.7
-</span>
-
-).</p>
+<p>Since FO themes work on top of legacy controllers, they are based on the <a href="https://www.smarty.net/">Smarty templating engine</a>. They all integrate a shared core javascript library which is called <code>core.js</code>, which has jQuery 3 bundled in.</p>
 <p><em>Classic</em> is based on <a href="https://getbootstrap.com/">Bootstrap</a> 4 alpha 5. A great number of themes are based on it using the <a href="https://devdocs.prestashop.com/8/themes/reference/template-inheritance/parent-child-feature/">Child theme feature</a>.</p>
 
 <div class="notices note" >Unfortunately, <em>Classic</em> <a href="https://github.com/PrestaShop/PrestaShop/issues/14533#issuecomment-511464778">cannot be updated to recent Bootstrap versions</a> due to big breaking changes introduced by Bootstrap since the original release of PrestaShop 1.7.0.</div>
@@ -27486,15 +27481,7 @@
 <p>BO themes define the appearance of the Back Office.</p>
 <p>Even though BO themes are not interchangeable, PrestaShop comes bundled with two of them: <strong>default</strong> and <strong>new theme</strong>.</p>
 <p>So why are there two? Legacy controllers are based on Smarty, like FO controller. Symfony controllers, conversely, are based on the <a href="https://twig.symfony.com/">Twig templating engine</a>. As a result, there&rsquo;s a theme for each one: legacy controllers use the <strong>default</strong> theme, while Symfony ones use the <strong>new theme</strong>. As controllers are progressively being migrated to Symfony, templates are moved from the <strong>default</strong> to the <strong>new theme</strong> and converted from Smarty to Twig.</p>
-<p>In addition, the <strong>default</strong> theme is based on Bootstrap 3, while the <strong>new theme</strong> is based on <a href="https://build.prestashop.com/news/PrestaShop-UI-Kit/">PrestaShop&rsquo;s UI kit</a> (available on <a href="https://github.com/PrestaShop/prestashop-ui-kit/">GitHub</a>), which itself is based on Bootstrap 4. They both integrate jQuery 3 since 
-<span class="version-pill" title="New in PrestaShop 1.7.7">
-  1.7.7
-</span>
-
-.</p>
-
-<div class="notices tip" >On previous 1.7 versions, the default theme was based on jQuery 1.</div>
-
+<p>In addition, the <strong>default</strong> theme is based on Bootstrap 3, while the <strong>new theme</strong> is based on <a href="https://build.prestashop.com/news/PrestaShop-UI-Kit/">PrestaShop&rsquo;s UI kit</a> (available on <a href="https://github.com/PrestaShop/prestashop-ui-kit/">GitHub</a>), which itself is based on Bootstrap 4. They both integrate jQuery 3.</p>
 
 <div class="callout">
 <h5 id="mixed-smarty-and-twig">Mixed Smarty and Twig</h5>
@@ -27508,7 +27495,7 @@
 </div>
 
 <p>Finally, there&rsquo;s <a href="https://build.prestashop.com/news/introducing-vuejs-symfony-api/">Vue pages</a>. Vue pages are hybrid: half-Symfony, half-API based BO pages. In those pages, the page&rsquo;s skeleton is first rendered by a Symfony controller (therefore, based on the <strong>new theme</strong>), and then a VueJS application takes over in the browser and draws its content based on data sent by the BO API.</p>
-<p>As stated before, currently only the Stock management and Translation pages are built on this technology. Even though we think that this is <a href="https://build.prestashop.com/news/prestashop-in-2019-and-beyond-part-3-the-future-architecture/">the way of the future</a>, we find that going down this path in minor version releases would produce too many major extensibility and backwards incompatibility issues. Therefore, there will probably be no new Vue/BO API pages in 1.7.</p>
+<p>As stated before, currently only the Stock management and Translation pages are built on this technology. Even though we think that this is <a href="https://build.prestashop.com/news/prestashop-in-2019-and-beyond-part-3-the-future-architecture/">the way of the future</a>, we find that going down this path in minor version releases would produce too many major extensibility and backwards incompatibility issues. Therefore, there will probably be no new Vue/BO API pages in PrestaShop 8.</p>
 <h2 id="modules">Modules</h2>
 <p>The <strong>Modules</strong> system provides a plug-in approach to added functionality. As explained before, it mainly relies on specific extension points called &ldquo;Hooks,&rdquo; but their influence and deeply rooted relationships can go much further than that.</p>
 <p>If you look at the Modules block at the center of the figure at the top of the page, you&rsquo;ll notice that there are lots of arrows coming and going from it. Let&rsquo;s explore these relationships.</p>
@@ -27522,13 +27509,13 @@
 <ul>
 <li>Module controllers – Modules can add new routes and custom pages in the FO or BO.</li>
 <li>Payment options – Payment modules can add payment options in the checkout process.</li>
-<li>Declaring and sharing services – Since 1.7.4, modules can use and declare Symfony services.</li>
+<li>Declaring and sharing services – Modules can use and declare Symfony services.</li>
 </ul>
 <p>Modules can also be used to customize PrestaShop:</p>
 <ul>
 <li>Class override system – This system allows a module to replace any class in the Legacy stack.</li>
 <li>BO template overrides – Allows to replace templates from the <strong>new theme</strong> in the BO.</li>
-<li>Service overrides – Since 1.7.4, modules can replace Core services with their own.</li>
+<li>Service overrides – Modules can replace Core services with their own.</li>
 <li>CSS and JS injection – Modules can also inject style and javascript code into a page.</li>
 </ul>
 <p>In addition, modules can be customized by Themes. Themes supporting a given module can override the module&rsquo;s own FO templates in order to improve their integration.</p>
@@ -27562,19 +27549,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1628601630"></script>
-    <script src="/js/perfect-scrollbar.min.js?1628601630"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1628601630"></script>
-    <script src="/js/jquery.sticky.js?1628601630"></script>
-    <script src="/js/featherlight.min.js?1628601630"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1628601630"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1628601630"></script>
-    <script src="/js/learn.js?1628601630"></script>
-    <script src="/js/hugo-learn.js?1628601630"></script>
+    <script src="/js/clipboard.min.js?1628605445"></script>
+    <script src="/js/perfect-scrollbar.min.js?1628605445"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1628605445"></script>
+    <script src="/js/jquery.sticky.js?1628605445"></script>
+    <script src="/js/featherlight.min.js?1628605445"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1628605445"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1628605445"></script>
+    <script src="/js/learn.js?1628605445"></script>
+    <script src="/js/hugo-learn.js?1628605445"></script>
     
-    <script src="/main.js?1628601630"></script>
-    <link href="/mermaid/mermaid.css?1628601630" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1628601630"></script>
+    <script src="/main.js?1628605445"></script>
+    <link href="/mermaid/mermaid.css?1628605445" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1628605445"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
