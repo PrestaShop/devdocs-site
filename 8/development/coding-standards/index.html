@@ -23,15 +23,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/development/coding-standards/">
 
     
-    <link href="/css/font-awesome.min.css?1628601439" rel="stylesheet">
-    <link href="/css/syntax-github.css?1628601439" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1628601439" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1628601439" rel="stylesheet">
-    <link href="/css/auto-complete.css?1628601439" rel="stylesheet">
-    <link href="/style.css?1628601439" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1628601654" rel="stylesheet">
+    <link href="/css/syntax-github.css?1628601654" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1628601654" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1628601654" rel="stylesheet">
+    <link href="/css/auto-complete.css?1628601654" rel="stylesheet">
+    <link href="/style.css?1628601654" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1628601439"></script>
+    <script src="/js/jquery-3.3.1.min.js?1628601654"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -206,7 +206,7 @@
  
   
     
-      <li data-nav-id="/8/basics/installation/system-requirements/" title="System requirements for PrestaShop 1.7" class="dd-item ">
+      <li data-nav-id="/8/basics/installation/system-requirements/" title="System requirements for PrestaShop 8" class="dd-item ">
         <a href="/8/basics/installation/system-requirements/">
         System requirements
         
@@ -27347,11 +27347,7 @@
 <li>If the array is actually a struct (i.e. an associative array whose schema is known), then it MUST be described it using the <a href="https://phpstan.org/writing-php-code/phpdoc-types#array-shapes">array shape annotation</a>, like <code>array{'foo': int, &quot;bar&quot;: string}</code>.</li>
 </ul>
 <h3 id="strict-typing">Strict typing</h3>
-
-<div class="magic-version-pill" data-version="1.7.7" data-title="New in PrestaShop 1.7.7"></div>
-
-
-<p>Starting on 1.7.7, all new PHP code should be strictly typed.</p>
+<p>All new PHP code should be strictly typed.</p>
 <p>This means that all new methods <strong>must</strong> specify a type for all parameters as well as the return type. Similarly, all new classes except interfaces must enforce type strictness via <code>declare</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="sd">/** 2007-2020 PrestaShop SA and Contributors... */</span>
@@ -27377,25 +27373,25 @@
 
 <span class="o">@</span><span class="nx">trigger_error</span><span class="p">(</span>
     <span class="nx">sprintf</span><span class="p">(</span>
-        <span class="s1">&#39;%s is deprecated since version 1.7.8.0 and will be removed in the next major version.&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;%s is deprecated since version 8.0 and will be removed in the next major version.&#39;</span><span class="p">,</span>
         <span class="nx">MyClass</span><span class="o">::</span><span class="na">class</span>
     <span class="p">),</span>
     <span class="nx">E_USER_DEPRECATED</span>
 <span class="p">);</span>
 
 <span class="sd">/**
-</span><span class="sd"> * @deprecated Since 1.7.8.0 and will be removed in the next major.
+</span><span class="sd"> * @deprecated Since 8.0 and will be removed in the next major.
 </span><span class="sd"> */</span>
 <span class="k">class</span> <span class="nc">MyClass</span>
 <span class="p">{</span>
     <span class="sd">/**
-</span><span class="sd">     * @deprecated Since 1.7.6.0, use AnotherClass::someNewMethod() instead.
+</span><span class="sd">     * @deprecated Since 8.0, use AnotherClass::someNewMethod() instead.
 </span><span class="sd">     */</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">someOldMethod</span><span class="p">()</span>
     <span class="p">{</span>
         <span class="o">@</span><span class="nx">trigger_error</span><span class="p">(</span>
             <span class="nx">sprintf</span><span class="p">(</span>
-                <span class="s1">&#39;%s is deprecated since version 1.7.6.0. Use %s instead.&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;%s is deprecated since version 8.0. Use %s instead.&#39;</span><span class="p">,</span>
                 <span class="no">__METHOD__</span><span class="p">,</span>
                 <span class="nx">AnotherClass</span><span class="o">::</span><span class="na">class</span> <span class="o">.</span> <span class="s1">&#39;::someNewMethod()&#39;</span>
             <span class="p">),</span>
@@ -27406,28 +27402,18 @@
 </code></pre></div><p>If you need to deprecate services, you can use the <code>deprecated</code> key for the service:</p>
 <div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">    </span><span class="nt">awesome.path.myclass</span><span class="p">:</span><span class="w">
 </span><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\Awesome\Path\MyClass&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">deprecated</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;The &#34;%service_id%&#34; service is deprecated since 1.7.8.0 and will be removed in next major.&#39;</span><span class="w">
+</span><span class="w">        </span><span class="nt">deprecated</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;The &#34;%service_id%&#34; service is deprecated since 8.0 and will be removed in next major.&#39;</span><span class="w">
 </span><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></code></pre></div><h2 id="javascript-code-conventions">Javascript code conventions</h2>
 <p>Javascript files MUST follow the <a href="https://github.com/airbnb/javascript">Airbnb Javascript style guide</a>.</p>
-<p>Starting on 
-<span class="version-pill" title="New in PrestaShop 1.7.8">
-  1.7.8
-</span>
-
-, you can run the linter to help you comply with these coding standards:</p>
+<p>You can run the linter to help you comply with these coding standards:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">npm run lint-fix
 </code></pre></div><h2 id="html-css-sass-twig--smarty-code-conventions">HTML, CSS (Sass), Twig &amp; Smarty code conventions</h2>
 <p>HTML, CSS (Sass), Twig and Smarty files MUST follow the <a href="https://codeguide.co/">Mark Otto&rsquo;s coding standards</a>.
 Mark is the creator of the <a href="https://getbootstrap.com/">Bootstrap framework</a>.</p>
 <p>To help developers to comply with these conventions, <a href="https://stylelint.io/">Stylelint</a>, a stylesheet linter, has been configured in the PrestaShop project. You can find the configuration file <a href="https://github.com/PrestaShop/stylelint-config">on this repository</a>.</p>
-<p>Same as if you want to <a href="https://devdocs.prestashop.com/1.7/development/compile-assets/">compile assets</a>, you need NodeJS and NPM to run Stylelint.</p>
-<p>Starting on 
-<span class="version-pill" title="New in PrestaShop 1.7.8">
-  1.7.8
-</span>
-
-, you can run the linter like this:</p>
+<p>Same as if you want to <a href="/8/development/compile-assets/">compile assets</a>, you need NodeJS and NPM to run Stylelint.</p>
+<p>You can run the linter like this:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">npm run scss-lint
 </code></pre></div><p>You can fix auto-fixable errors using this command:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">npm run scss-fix
@@ -27500,19 +27486,19 @@ Mark is the creator of the <a href="https://getbootstrap.com/">Bootstrap framewo
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1628601439"></script>
-    <script src="/js/perfect-scrollbar.min.js?1628601439"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1628601439"></script>
-    <script src="/js/jquery.sticky.js?1628601439"></script>
-    <script src="/js/featherlight.min.js?1628601439"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1628601439"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1628601439"></script>
-    <script src="/js/learn.js?1628601439"></script>
-    <script src="/js/hugo-learn.js?1628601439"></script>
+    <script src="/js/clipboard.min.js?1628601655"></script>
+    <script src="/js/perfect-scrollbar.min.js?1628601655"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1628601655"></script>
+    <script src="/js/jquery.sticky.js?1628601655"></script>
+    <script src="/js/featherlight.min.js?1628601655"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1628601655"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1628601655"></script>
+    <script src="/js/learn.js?1628601655"></script>
+    <script src="/js/hugo-learn.js?1628601655"></script>
     
-    <script src="/main.js?1628601439"></script>
-    <link href="/mermaid/mermaid.css?1628601439" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1628601439"></script>
+    <script src="/main.js?1628601655"></script>
+    <link href="/mermaid/mermaid.css?1628601655" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1628601655"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

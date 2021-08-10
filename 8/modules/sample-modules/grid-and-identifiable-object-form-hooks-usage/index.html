@@ -23,15 +23,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/modules/sample-modules/grid-and-identifiable-object-form-hooks-usage/">
 
     
-    <link href="/css/font-awesome.min.css?1628601427" rel="stylesheet">
-    <link href="/css/syntax-github.css?1628601427" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1628601427" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1628601427" rel="stylesheet">
-    <link href="/css/auto-complete.css?1628601427" rel="stylesheet">
-    <link href="/style.css?1628601427" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1628601642" rel="stylesheet">
+    <link href="/css/syntax-github.css?1628601642" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1628601642" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1628601642" rel="stylesheet">
+    <link href="/css/auto-complete.css?1628601642" rel="stylesheet">
+    <link href="/style.css?1628601642" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1628601427"></script>
+    <script src="/js/jquery-3.3.1.min.js?1628601642"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -206,7 +206,7 @@
  
   
     
-      <li data-nav-id="/8/basics/installation/system-requirements/" title="System requirements for PrestaShop 1.7" class="dd-item ">
+      <li data-nav-id="/8/basics/installation/system-requirements/" title="System requirements for PrestaShop 8" class="dd-item ">
         <a href="/8/basics/installation/system-requirements/">
         System requirements
         
@@ -27321,8 +27321,8 @@ which can be toggled. It can have two states - turned on or off. In customer cre
 form we will add switch which will also manage the same state. By following this tutorial you will learn
 how to:</p>
 <ul>
-<li>extend modern grids. <a href="/1.7/development/components/grid/">Grid component</a></li>
-<li>extend identifiable object form. <a href="/1.7/development/architecture/migration-guide/forms/crud-forms/">identifiable object form</a></li>
+<li>extend modern grids. <a href="/8/development/components/grid/">Grid component</a></li>
+<li>extend identifiable object form. <a href="/8/development/architecture/migration-guide/forms/crud-forms/">identifiable object form</a></li>
 </ul>
 <p>The module created within this tutorial can be found <a href="https://github.com/PrestaShop/demo-cqrs-hooks-usage-module">here</a></p>
 <h2 id="prerequisites">Prerequisites</h2>
@@ -27408,12 +27408,12 @@ function <code>getBlockPrefix</code> to retrieve the unique id</div>
     
     <span class="c1">// ...
 </span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>This hook, through <code>$params</code> array, received <code>GridDefinition</code> that defines how the grid is rendered. See <a href="/1.7/development/components/grid/#grid-definition">Grid definition</a> for more information.<br>
+</code></pre></div><p>This hook, through <code>$params</code> array, received <code>GridDefinition</code> that defines how the grid is rendered. See <a href="/8/development/components/grid/#grid-definition">Grid definition</a> for more information.<br>
 In this sample a new toggable column which determines if the customer is eligible to review products is added just after another column which has id <code>optin</code>. The sample code also demonstrates how add new filter.</p>
 <h3 id="creating-route-for-toggle-column">Creating route for toggle column</h3>
-<p><code>ToggleColumn</code> - used to display booleans, it will display an icon instead of the value. If user clicks on it, this triggers a toggle of the boolean value. More information about this column and all available parameters can be found <a href="/1.7/development/components/grid/columns-reference/toggle/">here</a>.<br>
+<p><code>ToggleColumn</code> - used to display booleans, it will display an icon instead of the value. If user clicks on it, this triggers a toggle of the boolean value. More information about this column and all available parameters can be found <a href="/8/development/components/grid/columns-reference/toggle/">here</a>.<br>
 As in this sample module we are creating <code>ToggleColumn</code> we need to configure the route in which the toggling action will be performed. Indeed when the end-user clicks on this column, an ajax request is performed and must reach one new controller to handle the action (here: toggle a value on and off).<br>
-If you only want to display data then this step can be skipped. E.g you are creating <code>DataColumn</code>. See <a href="/1.7/development/components/grid/columns-reference/">Column references</a> for full list of grid columns available.</p>
+If you only want to display data then this step can be skipped. E.g you are creating <code>DataColumn</code>. See <a href="/8/development/components/grid/columns-reference/">Column references</a> for full list of grid columns available.</p>
 <ul>
 <li>Create controller <code>DemoCQRSHooksUsage\Controller\Admin\CustomerReviewController</code>:</li>
 </ul>
@@ -27430,7 +27430,7 @@ If you only want to display data then this step can be skipped. E.g you are crea
 </ul>
 
 <div class="notices note" ><p><strong>This example has been simplified for practical reasons.</strong></p>
-<p>You can find full implementation <a href="https://github.com/PrestaShop/demo-cqrs-hooks-usage-module">here</a> which uses CQRS pattern to toggle the reviewer state. <a href="/1.7/development/architecture/domain/cqrs/">More about it here</a>.</p>
+<p>You can find full implementation <a href="https://github.com/PrestaShop/demo-cqrs-hooks-usage-module">here</a> which uses CQRS pattern to toggle the reviewer state. <a href="/8/development/architecture/domain/cqrs/">More about it here</a>.</p>
 </div>
 
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -27525,10 +27525,10 @@ for filters to work <code>where</code> conditions are added if the filter exists
 <h2 id="adding-new-form-field-to-customer-form">Adding new form field to customer form</h2>
 <h3 id="modifying-customers-form-builder">Modifying customers form builder</h3>
 <p>In this step we are appending to the customers form a new <code>SwitchType</code> form field - its one of many form types which already exist in PrestaShop. More information
-about it can be found <a href="/1.7/development/components/form/types-reference/">here</a>.</p>
+about it can be found <a href="/8/development/components/form/types-reference/">here</a>.</p>
 
 <div class="notices note" ><p><strong>This example has been simplified for practical reasons.</strong></p>
-<p>You can find full implementation <a href="https://github.com/PrestaShop/demo-cqrs-hooks-usage-module">here</a> which uses CQRS pattern to get reviewer state. <a href="/1.7/development/architecture/domain/cqrs/">More about it here</a>.</p>
+<p>You can find full implementation <a href="https://github.com/PrestaShop/demo-cqrs-hooks-usage-module">here</a> which uses CQRS pattern to get reviewer state. <a href="/8/development/architecture/domain/cqrs/">More about it here</a>.</p>
 </div>
 
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -27581,7 +27581,7 @@ on or off we also need to reset its form data by assigning <code>is_allowed_for_
 dedicated to handle this topic - lets do that!</p>
 
 <div class="notices note" ><p><strong>This example has been simplified for practical reasons.</strong></p>
-<p>You can find full implementation <a href="https://github.com/PrestaShop/demo-cqrs-hooks-usage-module">here</a> which uses CQRS pattern to create or update reviewer state. <a href="/1.7/development/architecture/domain/cqrs/">More about it here</a>.</p>
+<p>You can find full implementation <a href="https://github.com/PrestaShop/demo-cqrs-hooks-usage-module">here</a> which uses CQRS pattern to create or update reviewer state. <a href="/8/development/architecture/domain/cqrs/">More about it here</a>.</p>
 </div>
 
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -27632,19 +27632,19 @@ All the form data is available here, including <code>is_allowed_for_review</code
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1628601427"></script>
-    <script src="/js/perfect-scrollbar.min.js?1628601427"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1628601427"></script>
-    <script src="/js/jquery.sticky.js?1628601427"></script>
-    <script src="/js/featherlight.min.js?1628601427"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1628601427"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1628601427"></script>
-    <script src="/js/learn.js?1628601427"></script>
-    <script src="/js/hugo-learn.js?1628601427"></script>
+    <script src="/js/clipboard.min.js?1628601642"></script>
+    <script src="/js/perfect-scrollbar.min.js?1628601642"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1628601642"></script>
+    <script src="/js/jquery.sticky.js?1628601642"></script>
+    <script src="/js/featherlight.min.js?1628601642"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1628601642"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1628601642"></script>
+    <script src="/js/learn.js?1628601642"></script>
+    <script src="/js/hugo-learn.js?1628601642"></script>
     
-    <script src="/main.js?1628601427"></script>
-    <link href="/mermaid/mermaid.css?1628601427" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1628601427"></script>
+    <script src="/main.js?1628601642"></script>
+    <link href="/mermaid/mermaid.css?1628601642" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1628601642"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

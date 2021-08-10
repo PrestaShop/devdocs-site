@@ -23,15 +23,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/modules/concepts/controllers/admin-controllers/override-decorate-controller/">
 
     
-    <link href="/css/font-awesome.min.css?1628601425" rel="stylesheet">
-    <link href="/css/syntax-github.css?1628601425" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1628601425" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1628601425" rel="stylesheet">
-    <link href="/css/auto-complete.css?1628601425" rel="stylesheet">
-    <link href="/style.css?1628601425" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1628601640" rel="stylesheet">
+    <link href="/css/syntax-github.css?1628601640" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1628601640" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1628601640" rel="stylesheet">
+    <link href="/css/auto-complete.css?1628601640" rel="stylesheet">
+    <link href="/style.css?1628601640" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1628601425"></script>
+    <script src="/js/jquery-3.3.1.min.js?1628601640"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -206,7 +206,7 @@
  
   
     
-      <li data-nav-id="/8/basics/installation/system-requirements/" title="System requirements for PrestaShop 1.7" class="dd-item ">
+      <li data-nav-id="/8/basics/installation/system-requirements/" title="System requirements for PrestaShop 8" class="dd-item ">
         <a href="/8/basics/installation/system-requirements/">
         System requirements
         
@@ -27324,8 +27324,8 @@
 
 
 <p>If you want to extend the behavior of a Back Office page in PrestaShop, you have multiple options.</p>
-<p>Most of standard extension needs can be fulfilled using one <a href="https://devdocs.prestashop.com/1.7/modules/concepts/hooks/">hook</a>.</p>
-<p>If there is no hook available for your need, and you only need to modify the visual appearance of the page, you might want to <a href="https://devdocs.prestashop.com/1.7/modules/concepts/templating/admin-views/">override a template</a>.</p>
+<p>Most of standard extension needs can be fulfilled using one <a href="https://devdocs.prestashop.com/8/modules/concepts/hooks/">hook</a>.</p>
+<p>If there is no hook available for your need, and you only need to modify the visual appearance of the page, you might want to <a href="https://devdocs.prestashop.com/8/modules/concepts/templating/admin-views/">override a template</a>.</p>
 <p>But sometimes you want to modify the page in a deeper way. In this case, you need to modify the controller&rsquo;s behavior.</p>
 <p>If the Back Office page you want to modify is powered by Symfony, you have 3 options:</p>
 <ul>
@@ -27356,7 +27356,7 @@
 <div class="notices tip" >In the above example, the <code>path</code> has not been changed, but you can change it to whatever you want (eg. <code>/demo/orders</code>). However, keep in mind that while this will re-route internal links, external or hardcoded links will keep targeting the old path.</div>
 
 
-<div class="notices warning" ><p>Keep the item <code>_legacy_controller</code> if your controller relies on it to configure a <a href="/1.7/development/architecture/migration-guide/controller-routing/#access-rules-convention">AdminSecurity annotation</a> such as <code>@AdminSecurity(&quot;is_granted('read', request.get('_legacy_controller'))&quot;)</code></p>
+<div class="notices warning" ><p>Keep the item <code>_legacy_controller</code> if your controller relies on it to configure a [AdminSecurity annotation]({{ relref &ldquo;/8/development/architecture/migration-guide/controller-routing/#access-rules-convention&rdquo; }}) such as <code>@AdminSecurity(&quot;is_granted('read', request.get('_legacy_controller'))&quot;)</code></p>
 <p>Keep the items <code>_legacy_controller</code> and <code>_legacy_link</code> if you want to reroute internal links and legacy URLs like <code>index.php?controller=AdminOrders</code> as well.</p>
 </div>
 
@@ -27369,7 +27369,7 @@ You can do it by using <code>php bin/console cache:clear</code>.</p>
 </div>
 
 <h2 id="override-the-controller">Override the controller</h2>
-<p>Since 1.7.7, PrestaShop Back Office controllers are registered as services, and like all public services, they can be <a href="https://devdocs.prestashop.com/1.7/modules/concepts/services/">overridden</a> by modules.</p>
+<p>Since 1.7.7, PrestaShop Back Office controllers are registered as services, and like all public services, they can be <a href="https://devdocs.prestashop.com/8/modules/concepts/services/">overridden</a> by modules.</p>
 <p>For example, the controller responsible for the page &ldquo;Improve &gt; Design &gt; CMS Pages&rdquo; is registered with service ID <code>PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</code>.</p>
 <p>With the following configuration item, we can override this configuration to make it target our custom module:</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># modules/your-module/config/services.yml</span><span class="w">
@@ -27459,19 +27459,19 @@ However we could modify the input request or the output given by decorated contr
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1628601425"></script>
-    <script src="/js/perfect-scrollbar.min.js?1628601425"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1628601425"></script>
-    <script src="/js/jquery.sticky.js?1628601425"></script>
-    <script src="/js/featherlight.min.js?1628601425"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1628601425"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1628601425"></script>
-    <script src="/js/learn.js?1628601425"></script>
-    <script src="/js/hugo-learn.js?1628601425"></script>
+    <script src="/js/clipboard.min.js?1628601640"></script>
+    <script src="/js/perfect-scrollbar.min.js?1628601640"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1628601640"></script>
+    <script src="/js/jquery.sticky.js?1628601640"></script>
+    <script src="/js/featherlight.min.js?1628601640"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1628601640"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1628601640"></script>
+    <script src="/js/learn.js?1628601640"></script>
+    <script src="/js/hugo-learn.js?1628601640"></script>
     
-    <script src="/main.js?1628601425"></script>
-    <link href="/mermaid/mermaid.css?1628601425" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1628601425"></script>
+    <script src="/main.js?1628601640"></script>
+    <link href="/mermaid/mermaid.css?1628601640" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1628601640"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

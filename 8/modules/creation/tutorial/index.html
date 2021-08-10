@@ -23,15 +23,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/modules/creation/tutorial/">
 
     
-    <link href="/css/font-awesome.min.css?1628601427" rel="stylesheet">
-    <link href="/css/syntax-github.css?1628601427" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1628601427" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1628601427" rel="stylesheet">
-    <link href="/css/auto-complete.css?1628601427" rel="stylesheet">
-    <link href="/style.css?1628601427" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1628601641" rel="stylesheet">
+    <link href="/css/syntax-github.css?1628601641" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1628601641" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1628601641" rel="stylesheet">
+    <link href="/css/auto-complete.css?1628601641" rel="stylesheet">
+    <link href="/style.css?1628601641" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1628601427"></script>
+    <script src="/js/jquery-3.3.1.min.js?1628601641"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -206,7 +206,7 @@
  
   
     
-      <li data-nav-id="/8/basics/installation/system-requirements/" title="System requirements for PrestaShop 1.7" class="dd-item ">
+      <li data-nav-id="/8/basics/installation/system-requirements/" title="System requirements for PrestaShop 8" class="dd-item ">
         <a href="/8/basics/installation/system-requirements/">
         System requirements
         
@@ -27314,7 +27314,7 @@
 
 <h1 id="tutorial-creating-your-first-module">Tutorial: Creating your first module</h1>
 
-<div class="notices note" >Before you start writing code for your PrestaShop module, we recommend reading PrestaShop&rsquo;s <a href="https://devdocs.prestashop.com/1.7/development/coding-standards/">Coding standards</a>. Configuring your IDE hints or using <a href="https://github.com/PrestaShop/php-dev-tools">automated tools</a> can help you make sure you follow the project&rsquo;s standards properly.</div>
+<div class="notices note" >Before you start writing code for your PrestaShop module, we recommend reading PrestaShop&rsquo;s <a href="https://devdocs.prestashop.com/8/development/coding-standards/">Coding standards</a>. Configuring your IDE hints or using <a href="https://github.com/PrestaShop/php-dev-tools">automated tools</a> can help you make sure you follow the project&rsquo;s standards properly.</div>
 
 <p>Let&rsquo;s create a simple first module; this will enable us to better describe its structure. We will name it <strong>&ldquo;My module&rdquo;</strong>.</p>
 <p>First, create the module&rsquo;s folder, in PrestaShop&rsquo;s <code>/modules</code> folder. Let&rsquo;s call it <code>mymodule</code>. This will be the module&rsquo;s &ldquo;technical&rdquo; name.</p>
@@ -27389,7 +27389,7 @@
 </code></pre></div><p>This section assigns a handful of attributes to the class instance (<code>$this</code>):</p>
 <ul>
 <li>The <code>name</code> attribute serves as an internal identifier (technical name). The value MUST be the same as the module&rsquo;s folder and main class file. Only lower case letters and numbers are accepted.</li>
-<li>The <code>tab</code> attribute contains the section that shall contain this module in the Module Manager section in the Back office (see <a href="https://devdocs.prestashop.com/1.7/modules/concepts/module-class/#tab">list of available sections</a>). We choose <code>front_office_features</code> because our module will mostly have an impact on the front-end.</li>
+<li>The <code>tab</code> attribute contains the section that shall contain this module in the Module Manager section in the Back office (see <a href="https://devdocs.prestashop.com/8/modules/concepts/module-class/#tab">list of available sections</a>). We choose <code>front_office_features</code> because our module will mostly have an impact on the front-end.</li>
 <li>The <code>version</code> attribute contains the version number for the module, displayed in the modules list. We recommend following the <a href="https://semver.org/">Semantic Versioning specification</a>.</li>
 <li>The <code>author</code> attribute, as you can imagine contains the author&rsquo;s name. It is displayed as-is in the PrestaShop modules list.</li>
 </ul>
@@ -27441,7 +27441,7 @@
 </code></pre></div><p>In this first and extremely simplistic incarnation, this method does the minimum needed: return what&rsquo;s returned by the Module class' <code>install()</code> method, which returns either <code>true</code> if the module is correctly installed, or <code>false</code> otherwise. As it is, if we had not created that method, the superclass' method would have been called instead anyway, making the end result identical. Nevertheless, we must mention this method, because it will be very useful once we have to perform checks and actions during the module&rsquo;s installation process: creating SQL tables, copying files, creating configuration variables, etc.</p>
 <p>There are many things you can do to expand the <code>install()</code> method to perform installation checks. In the following example, we perform the following tasks during installation:</p>
 <ul>
-<li>Check that the <a href="https://devdocs.prestashop.com/1.7/development/multistore/">Multistore feature</a> is enabled, and if so, set the current context to all shops on this installation of PrestaShop.</li>
+<li>Check that the <a href="https://devdocs.prestashop.com/8/development/multistore/">Multistore feature</a> is enabled, and if so, set the current context to all shops on this installation of PrestaShop.</li>
 <li>Ensure that the base install process is successful.</li>
 <li>Ensure that the module can be attached to the <code>leftColumn</code> hook.</li>
 <li>Ensure that the module can be attached to the <code>header</code> hook.</li>
@@ -27497,7 +27497,7 @@
 </span><span class="c1"></span><span class="nv">$mySettings</span> <span class="o">=</span> <span class="nx">unserialize</span><span class="p">(</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_SETTINGS&#39;</span><span class="p">));</span>
 </code></pre></div><p>As you can see, this in a very useful and easy-to-use object, and you will certainly use it in many situations. Most native modules use it too for their own settings.</p>
 
-<div class="notices note" >You can read more about this component in <a href="https://devdocs.prestashop.com/1.7/development/components/configuration/">Configuration storage</a>.</div>
+<div class="notices note" >You can read more about this component in <a href="https://devdocs.prestashop.com/8/development/components/configuration/">Configuration storage</a>.</div>
 
 <h3 id="retrieving-external-values-from-the-ps_configuration-data-table">Retrieving external values from the ps_configuration data table</h3>
 <p>You are not limited to your own variables: PrestaShop stores all its own configuration settings in the <code>ps_configuration</code> database table. There are literally hundreds of settings, and you can access them just as easily as you would access your own. For instance:</p>
@@ -27520,7 +27520,7 @@
 <li><code>Shop::isFeatureActive()</code>: This simply checks whether the multistore feature is active or not, and if at least two stores are presently activated.</li>
 <li><code>Shop::setContext(Shop::CONTEXT_ALL)</code>: This changes the context in order to apply coming changes to all existing stores instead of only the current store.</li>
 </ul>
-<p>The Shop Context is explained in more details in the <a href="https://devdocs.prestashop.com/1.7/development/multistore/">Multistore documentation</a>.</p>
+<p>The Shop Context is explained in more details in the <a href="https://devdocs.prestashop.com/8/development/multistore/">Multistore documentation</a>.</p>
 <h2 id="the-icon-file">The icon file</h2>
 <p>To put the finishing touch to this basic module, you should add an icon, which will be displayed next to the module&rsquo;s name in the back office modules list. In case your module has been built for a prominent service, having that service&rsquo;s logo visible brings trust. Make sure you do not use an icon already in use by one of the native modules, or without authorization from the owner of the logo/service.</p>
 <p>The icon file must respect these requirements:</p>
@@ -27601,19 +27601,19 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1628601427"></script>
-    <script src="/js/perfect-scrollbar.min.js?1628601427"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1628601427"></script>
-    <script src="/js/jquery.sticky.js?1628601427"></script>
-    <script src="/js/featherlight.min.js?1628601427"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1628601427"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1628601427"></script>
-    <script src="/js/learn.js?1628601427"></script>
-    <script src="/js/hugo-learn.js?1628601427"></script>
+    <script src="/js/clipboard.min.js?1628601641"></script>
+    <script src="/js/perfect-scrollbar.min.js?1628601641"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1628601641"></script>
+    <script src="/js/jquery.sticky.js?1628601641"></script>
+    <script src="/js/featherlight.min.js?1628601641"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1628601641"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1628601641"></script>
+    <script src="/js/learn.js?1628601641"></script>
+    <script src="/js/hugo-learn.js?1628601641"></script>
     
-    <script src="/main.js?1628601427"></script>
-    <link href="/mermaid/mermaid.css?1628601427" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1628601427"></script>
+    <script src="/main.js?1628601641"></script>
+    <link href="/mermaid/mermaid.css?1628601641" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1628601641"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
