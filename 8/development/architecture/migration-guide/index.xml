@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>How to migrate Back Office pages to Symfony on PrestaShop Developer Documentation</title>
+    <link>https://devdocs.prestashop.com/8/development/architecture/migration-guide/</link>
+    <description>Recent content in How to migrate Back Office pages to Symfony on PrestaShop Developer Documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://devdocs.prestashop.com/8/development/architecture/migration-guide/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Migration project and strategy</title>
+      <link>https://devdocs.prestashop.com/8/development/architecture/migration-guide/strategy/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/development/architecture/migration-guide/strategy/</guid>
+      <description>This is a summary of the current Migration Strategy. It provides an overview of our current vision, in the end of this year 2020, of the Symfony Migration project.
+Different kind of pages Back-Office pages can be classified in four categories:
+ Configuration / Settings Form pages  These pages allow the user to modify configuration settings in PrestaShop.
+Listing pages  These pages allow the user to browse PrestaShop content using listings.</description>
+    </item>
+    
+    <item>
+      <title>Templating with Twig</title>
+      <link>https://devdocs.prestashop.com/8/development/architecture/migration-guide/templating-with-twig/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/development/architecture/migration-guide/templating-with-twig/</guid>
+      <description>Templating with Twig This is mostly the easy part. Legacy pages use Smarty while modern pages use Twig. These templating engines are actually similar in many ways.
+For instance, this is a legacy template:
+&amp;lt;span class=&amp;#34;employee_avatar_small&amp;#34;&amp;gt; &amp;lt;img class=&amp;#34;img&amp;#34; alt=&amp;#34;&amp;#34; src=&amp;#34;{$employee_image}&amp;#34; /&amp;gt; &amp;lt;/span&amp;gt; {$employee_name}  All of the legacy templates are located in the admin-dev/themes/default/template/controller folder &amp;hellip; and here is a possible migration of it to Twig:
+&amp;lt;span class=&amp;#34;employee_avatar_small&amp;#34;&amp;gt; &amp;lt;img class=&amp;#34;img&amp;#34; alt=&amp;#34;{{ employee.</description>
+    </item>
+    
+    <item>
+      <title>Controller and Routing</title>
+      <link>https://devdocs.prestashop.com/8/development/architecture/migration-guide/controller-routing/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/development/architecture/migration-guide/controller-routing/</guid>
+      <description>Controller and Routing Before creating a new symfony controller please read and follow principles described in Symfony controllers &amp;amp; routing. Controllers are responsible for performing &amp;ldquo;Actions&amp;rdquo;. Actions are methods of Controllers which mapped to a route, and that return a Response. Migration tips  If you consider that a legacy Controller needs to be split into multiple controllers (for example: different URLs), it&amp;rsquo;s the right time to do it. Controllers are not available for override and can be regarded as internal classes, therefore we don&amp;rsquo;t consider changing Controller&amp;rsquo;s namespace as a backward-compatibility break.</description>
+    </item>
+    
+    <item>
+      <title>Hooks</title>
+      <link>https://devdocs.prestashop.com/8/development/architecture/migration-guide/hooks/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/development/architecture/migration-guide/hooks/</guid>
+      <description>How to migrate hooks Hooks are the most important feature for the PrestaShop developers because they allow them to improve PrestaShop by adding code or content in multiple points of the application. For Symfony developers, you can see that as Events on steroids. To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) modules, we need to ensure that hooks are still available, invoked and/or rendered at the right place.</description>
+    </item>
+    
+    <item>
+      <title>Grid / CRUD</title>
+      <link>https://devdocs.prestashop.com/8/development/architecture/migration-guide/grid-crud-page/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/development/architecture/migration-guide/grid-crud-page/</guid>
+      <description>How to migrate a Grid/CRUD page In PrestaShop&amp;rsquo;s Back Office, most of the pages are organized the same way.
+We can already see 2 categories of pages that represent almost 90% of back office:
+ Configuration pages: forms that alter the configuration; CRUD pages: pages with a filterable/searchable table of data and some options to access a form of creation/edition;  CRUD pages provide a lot of features.
+Access to a lot of data, ordered by column: this data can be simple (text) or more complex (display a thumbnail).</description>
+    </item>
+    
+    <item>
+      <title>Cleaning up</title>
+      <link>https://devdocs.prestashop.com/8/development/architecture/migration-guide/clean-up/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/development/architecture/migration-guide/clean-up/</guid>
+      <description>Cleaning up Once everything is migrated, refactored, extracted to specific classes and working like a charm, it&amp;rsquo;s time to remove the old, migrated parts:
+ Delete the old controller. Delete the old templates (delete the admin-dev/themes/default/template/controller/{name} folder. Delete the related &amp;ldquo;legacy tests&amp;rdquo;.  </description>
+    </item>
+    
+    <item>
+      <title>Validation</title>
+      <link>https://devdocs.prestashop.com/8/development/architecture/migration-guide/validation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/development/architecture/migration-guide/validation/</guid>
+      <description>Validation The purpose of validation is to protect the application from failures, state inconsistency, security related issues etc. PrestaShop has few different levels of validation:
+ Forms (the CRUD or Settings) - are using Symfony validation constraints to prevent the user from providing invalid information while also enriching the user experience. For example if a form input expects Yes or No, but user submitted value XYZ we want to reject the data and inform the user what was wrong.</description>
+    </item>
+    
+  </channel>
+</rss>

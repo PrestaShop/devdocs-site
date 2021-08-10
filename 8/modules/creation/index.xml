@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Getting Started on PrestaShop Developer Documentation</title>
+    <link>https://devdocs.prestashop.com/8/modules/creation/</link>
+    <description>Recent content in Getting Started on PrestaShop Developer Documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://devdocs.prestashop.com/8/modules/creation/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tutorial: Creating your first module</title>
+      <link>https://devdocs.prestashop.com/8/modules/creation/tutorial/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/modules/creation/tutorial/</guid>
+      <description>Tutorial: Creating your first module Before you start writing code for your PrestaShop module, we recommend reading PrestaShop&amp;rsquo;s Coding standards. Configuring your IDE hints or using automated tools can help you make sure you follow the project&amp;rsquo;s standards properly. Let&amp;rsquo;s create a simple first module; this will enable us to better describe its structure. We will name it &amp;ldquo;My module&amp;rdquo;.
+First, create the module&amp;rsquo;s folder, in PrestaShop&amp;rsquo;s /modules folder. Let&amp;rsquo;s call it mymodule.</description>
+    </item>
+    
+    <item>
+      <title>Folder structure</title>
+      <link>https://devdocs.prestashop.com/8/modules/creation/module-file-structure/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/modules/creation/module-file-structure/</guid>
+      <description>Module file structure A module is made of a lot of files, all stored in a folder that bears the same name as the module, that folder being in turn stored in the /modules folder at the root of the main PrestaShop folder: /modules/&amp;lt;modulename&amp;gt;/.
+Your module can be called anything, as long as it only contains lowercase letters and numbers (/[a-z0-9]/). Although accepted, we strongly discourage using underscores (_) because they don&amp;rsquo;t work with translation domains.</description>
+    </item>
+    
+    <item>
+      <title>Adding a configuration page</title>
+      <link>https://devdocs.prestashop.com/8/modules/creation/adding-configuration-page/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/modules/creation/adding-configuration-page/</guid>
+      <description>Adding a configuration page Modules usually provide a dedicated configuration page, accessible through a &amp;ldquo;Configure&amp;rdquo; button in the Module Manager list, that allows the shop&amp;rsquo;s administrator to set up any options provided by the module.
+In difference with other controllers, the content of configuration page is handled directly in the module&amp;rsquo;s main class by the getContent() public method. PrestaShop will check if this method exists and will only display the &amp;ldquo;Configure&amp;rdquo; button if this method is declared.</description>
+    </item>
+    
+    <item>
+      <title>Displaying content on the front office</title>
+      <link>https://devdocs.prestashop.com/8/modules/creation/displaying-content-in-front-office/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/modules/creation/displaying-content-in-front-office/</guid>
+      <description>Displaying content on the front office As it is, the module does not do much. In order to display something on the front office, we have to add support for a few hooks. This is done by implementing the hooks&#39; methods, and that was actually done in the install() method we wrote earlier, using the registerHook() method:
+&amp;lt;?php public function install() { if (Shop::isFeatureActive()) { Shop::setContext(Shop::CONTEXT_ALL); } return parent::install() &amp;amp;&amp;amp; $this-&amp;gt;registerHook(&amp;#39;leftColumn&amp;#39;) &amp;amp;&amp;amp; $this-&amp;gt;registerHook(&amp;#39;actionFrontControllerSetMedia&amp;#39;) &amp;amp;&amp;amp; Configuration::updateValue(&amp;#39;MYMODULE_NAME&amp;#39;, &amp;#39;my friend&amp;#39;); } As you can see, we make it so that the module is hooked to the &amp;ldquo;leftColumn&amp;rdquo; and &amp;ldquo;actionFrontControllerSetMedia&amp;rdquo; hooks.</description>
+    </item>
+    
+    <item>
+      <title>Enabling the Auto-Update</title>
+      <link>https://devdocs.prestashop.com/8/modules/creation/enabling-auto-update/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/modules/creation/enabling-auto-update/</guid>
+      <description>Enabling the Auto-Update Since PrestaShop 1.5, it is possible to have your module auto-update: once a new version is available, PrestaShop suggests an &amp;ldquo;Update&amp;rdquo; button to the user. Clicking this button will trigger a series of methods, each leading closer to the latest version of your module.
+In order to bring auto-update support to your module, you need three main things:
+ Clearly indicate the module&amp;rsquo;s version number in its constructor method: $this-&amp;gt;version = &#39;1.</description>
+    </item>
+    
+    <item>
+      <title>Good practices for developing modules</title>
+      <link>https://devdocs.prestashop.com/8/modules/creation/good-practices/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/modules/creation/good-practices/</guid>
+      <description>Good practices for developing modules DOs and DON&amp;rsquo;Ts Do  Add a link to your documentation included in your ZIP File and to your support page on Addons in the module interface. Follow our Coding Standards Create your own database tables, do not alter PrestaShop&amp;rsquo;s. Develop your module in English, then use PrestaShop translation system to translate your module. Go through directories using PrestaShop constants like: _PS_CONFIG_DIR_ . &#39;/config.inc.php&#39; CREATE TABLE SQL statements must be followed by IF NOT EXISTS to avoid SQL errors DROP TABLE SQL statements must be followed by IF EXISTS to avoid SQL errors  Don&amp;rsquo;t  Don&amp;rsquo;t insert external links into your module code or module documentation.</description>
+    </item>
+    
+    <item>
+      <title>Interacting with APIs</title>
+      <link>https://devdocs.prestashop.com/8/modules/creation/external-services/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/modules/creation/external-services/</guid>
+      <description>Interacting with APIs There are different options to transfer data between your shop and any external service. The method you choose will depend on the usecase:
+ if data must be pulled or pushed to the shop, if one specific application (the shop or an external service) must initiate the calls, if there are constraints on the implementation (i.e a cron job scheduler is required).  Requests to a shop You may retrieve and update data from a shop using different methods:</description>
+    </item>
+    
+  </channel>
+</rss>
