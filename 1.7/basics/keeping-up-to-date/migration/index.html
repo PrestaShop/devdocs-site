@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="generator" content="Hugo 0.85.0" />
     <meta name="description" content="Learn how to migrate your current shop (1.6 or previous version) to PrestaShop 1.7">
 <meta name="twitter:image" content="https://devdocs.prestashop.com/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -23,15 +23,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1628586785" rel="stylesheet">
-    <link href="/css/syntax-github.css?1628586785" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1628586785" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1628586785" rel="stylesheet">
-    <link href="/css/auto-complete.css?1628586785" rel="stylesheet">
-    <link href="/style.css?1628586785" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1628587162" rel="stylesheet">
+    <link href="/css/syntax-github.css?1628587162" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1628587162" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1628587162" rel="stylesheet">
+    <link href="/css/auto-complete.css?1628587162" rel="stylesheet">
+    <link href="/style.css?1628587162" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1628586785"></script>
+    <script src="/js/jquery-3.3.1.min.js?1628587162"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -74,7 +74,7 @@
     <div class="version-selector-container">
       <div class="version-selector" aria-label="Documentation version">
         <div class="version-selector-current">
-          
+          PrestaShop 1.7
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 255 255">
             <g>
               <g id="arrow-drop-down">
@@ -27351,15 +27351,13 @@
 <p>Depending on the way you export your data, you won’t get the same amount of data in your exports.</p>
 <h4 id="light---via-the-administration-panel">Light - Via the administration panel</h4>
 <p>Exporting data is quite straightforward. On each controller dedicated to the data you want to export, you will find action buttons at the top right of the page:</p>
-<figure>
-    <img src="../img/migration-export-bo-zoom.png"/> <figcaption>
+<figure><img src="../img/migration-export-bo-zoom.png"/><figcaption>
             <h4>Export button in action bar</h4>
         </figcaption>
 </figure>
 
 <p>For instance for your products on PrestaShop 1.7:
-<figure>
-    <img src="../img/migration-export-bo.png"/> <figcaption>
+<figure><img src="../img/migration-export-bo.png"/><figcaption>
             <h4>Action bar localization</h4>
         </figcaption>
 </figure>
@@ -27390,19 +27388,16 @@
 <p>On phpMyAdmin, exporting in CSV can be done on the same page as the classic SQL dump.</p>
 <h6 id="quick-and-complete-export-recommended">Quick and complete export (recommended)</h6>
 <p>This step can be completed straightforwardly by exporting all tables in a single call. Click on your database, then the “Export” button to start:</p>
-<figure>
-    <img src="../img/migration-phpmyadmin-export-database-header.png"/> 
+<figure><img src="../img/migration-phpmyadmin-export-database-header.png"/>
 </figure>
 
 <p>Note the breadcrumb in the header will tell you if you are in a database or a table context. If you clicked on this button by mistake while being on a table, you will end on the export of a specific table as titled on this screenshot:</p>
-<figure>
-    <img src="../img/migration-phpmyadmin-export-table-csv.png"/> 
+<figure><img src="../img/migration-phpmyadmin-export-table-csv.png"/>
 </figure>
 
 <p>Whatever you choose between exporting the whole database in a single call or exporting your tables one by one, you must choose to export in “CSV” or “CSV for MS Excel”.</p>
 <p>The available options will be updated:</p>
-<figure>
-    <img src="../img/migration-phpmyadmin-export-database-header.png"/> 
+<figure><img src="../img/migration-phpmyadmin-export-database-header.png"/>
 </figure>
 
 <p>If you want to export several tables at the same time, this can be done by selecting them from the list. The tables running with your shop start with the prefix given in your shop configuration (by default <code>ps_</code>). If one of them does not start with this prefix, it is unlikely concerned by the migration and can be ignored.</p>
@@ -27423,10 +27418,9 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 <p>We explained how to export all your tables to make sure you keep as much data as possible.</p>
 <p>If you get your data from another CMS or prefer to proceed with your own method, you can run a custom SQL query to get all the information you need. This option is useful if you plan to import your data with the import feature of PrestaShop.</p>
 <p>As an example here is a SQL request to get the main product details, along with the texts corresponding to the first language of the first shop:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span> <span class="n">p</span><span class="p">.</span><span class="o">*</span><span class="p">,</span> <span class="n">pl</span><span class="p">.</span><span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">ps_product</span><span class="o">`</span> <span class="n">p</span> <span class="k">JOIN</span> <span class="o">`</span><span class="n">ps_product_lang</span><span class="o">`</span> <span class="n">pl</span> <span class="k">ON</span> <span class="n">p</span><span class="p">.</span><span class="n">id_product</span> <span class="o">=</span> <span class="n">pl</span><span class="p">.</span><span class="n">id_product</span> <span class="k">AND</span> <span class="n">pl</span><span class="p">.</span><span class="n">id_lang</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">AND</span> <span class="n">pl</span><span class="p">.</span><span class="n">id_shop</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="n">pl</span><span class="p">.</span><span class="n">id_product</span>
-</code></pre></div><p>If the result fits your needs, you can export it with the “export” button available at the bottom of the page.</p>
-<figure>
-    <img src="../img/migration-phpmyadmin-export-custom-sql.png"/> 
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">ps_product</span><span class="o">`</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="o">`</span><span class="n">ps_product_lang</span><span class="o">`</span><span class="w"> </span><span class="n">pl</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_product</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_shop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_product</span><span class="w">
+</span></code></pre></div><p>If the result fits your needs, you can export it with the “export” button available at the bottom of the page.</p>
+<figure><img src="../img/migration-phpmyadmin-export-custom-sql.png"/>
 </figure>
 
 <h5 id="mysqldump">mysqldump</h5>
@@ -27439,17 +27433,15 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 <li>The header containing column names is missing from the .txt file and have to be manually inserted</li>
 </ul>
 <p>Here is an extract of the product table, with demonstration data. Only the data is present and we need to add the column names.</p>
-<figure>
-    <img src="../img/migration-mysqldump-export-raw-csv.png"/> <figcaption>
+<figure><img src="../img/migration-mysqldump-export-raw-csv.png"/><figcaption>
             <h4>CSV from mysqldump without header</h4>
         </figcaption>
 </figure>
 
 <p>Look at the SQL file provided with the TXT file, or run a DESCRIBE of the table.</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">DESCRIBE</span> <span class="n">prestashop16</span><span class="p">.</span><span class="n">ps_product</span><span class="p">;</span>
-</code></pre></div><p>You should expect the following result before proceeding to the next table:</p>
-<figure>
-    <img src="../img/migration-mysqldump-export-with-header-csv.png"/> <figcaption>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">prestashop16</span><span class="p">.</span><span class="n">ps_product</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>You should expect the following result before proceeding to the next table:</p>
+<figure><img src="../img/migration-mysqldump-export-with-header-csv.png"/><figcaption>
             <h4>CSV from mysqldump with header</h4>
         </figcaption>
 </figure>
@@ -27460,8 +27452,8 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 </ul>
 <div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">mysqldump: Got error: 1290: The MySQL server is running with the --secure-file-priv option so it cannot execute this statement when executing &#39;SELECT INTO OUTFILE&#39;
 </code></pre></div><p>If you want to know in which folder you can export the files, run the SQL request:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">SHOW</span> <span class="n">VARIABLES</span> <span class="k">LIKE</span> <span class="s2">&#34;secure_file_priv&#34;</span><span class="p">;</span>
-</code></pre></div><h3 id="updating-the-data">Updating the data</h3>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;secure_file_priv&#34;</span><span class="p">;</span><span class="w">
+</span></code></pre></div><h3 id="updating-the-data">Updating the data</h3>
 <h4 id="get-changes-between-source-and-destination-databases">Get changes between source and destination databases</h4>
 <p>Now you have retrieved your data from the production shop, you have to adapt it to the new structure before inserting it on your new database.</p>
 <p>An efficient way to get the changes is getting a database structure diff between the 2 running shops. MySQL provides another tool for this called <a href="https://docs.oracle.com/cd/E17952_01/mysql-utilities-1.5-en/mysqldiff.html">mysqldiff</a>.</p>
@@ -27505,15 +27497,13 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 <span class="gi">+  `checkout_session_data` mediumtext,
 </span><span class="gi"></span>[...]
 </code></pre></div><p><strong>Before:</strong>
-<figure>
-    <img src="../img/migration-update-new-header-before.png"/> <figcaption>
+<figure><img src="../img/migration-update-new-header-before.png"/><figcaption>
             <h4>CSV before column addition</h4>
         </figcaption>
 </figure>
 </p>
 <p><strong>After:</strong>
-<figure>
-    <img src="../img/migration-update-new-header-then.png"/> <figcaption>
+<figure><img src="../img/migration-update-new-header-then.png"/><figcaption>
             <h4>CSV with new column</h4>
         </figcaption>
 </figure>
@@ -27580,26 +27570,22 @@ On PrestaShop 1.7 the number of options has increased, and a redirection to a ca
 <p>If you exported your data in CSV, doing this change will be easy with a spreadsheet editor, like Microsoft Excel or LibreOffice Calc. Just make sure to keep the same file extension while saving.</p>
 <p>Here is an example before and after the requested update (changes appear in green).</p>
 <p><strong>Before (Original state):</strong>
-<figure>
-    <img src="../img/migration-update-product-table-before.png"/> 
+<figure><img src="../img/migration-update-product-table-before.png"/>
 </figure>
 </p>
 <p><strong>After:</strong>
-<figure>
-    <img src="../img/migration-update-product-table-then.png"/> 
+<figure><img src="../img/migration-update-product-table-then.png"/>
 </figure>
 </p>
 <h5 id="shop-details">Shop details</h5>
 <p>You will notice that in the shop table the column <code>id_theme</code> has been replaced by <code>theme_name</code>. PrestaShop does not store data about theme in dedicated tables anymore. The only information remaining is the theme name used by each shop.</p>
 <p>As migrating to PrestaShop 1.7 implies losing the theme used on the shop in production, just write “classic” in this column for each shop.</p>
 <p><strong>Before:</strong>
-<figure>
-    <img src="../img/migration-update-shop-table-before.png"/> 
+<figure><img src="../img/migration-update-shop-table-before.png"/>
 </figure>
 </p>
 <p><strong>After:</strong>
-<figure>
-    <img src="../img/migration-update-shop-table-then.png"/> 
+<figure><img src="../img/migration-update-shop-table-then.png"/>
 </figure>
 </p>
 <h4 id="ids-in-csv-files">IDs in CSV files</h4>
@@ -27607,8 +27593,7 @@ On PrestaShop 1.7 the number of options has increased, and a redirection to a ca
 <p>If you want to add the extracted data without overriding the existing records on the new shop, you should take care of removing the IDs from your CSV files, or ignore them during the import.</p>
 <h3 id="preparing-the-destination-shop">Preparing the destination shop</h3>
 <p>Make sure to select <code>dont install demo data</code> when installing the shop</p>
-<figure>
-    <img src="../img/install-without-data-min.png"/> <figcaption>
+<figure><img src="../img/install-without-data-min.png"/><figcaption>
             <h4>Dont install demo data</h4>
         </figcaption>
 </figure>
@@ -27616,8 +27601,7 @@ On PrestaShop 1.7 the number of options has increased, and a redirection to a ca
 <h4 id="install-languages">Install languages</h4>
 <p>If you are selling in several countries, additional languages have to be reinstalled on the new shop. This can be done in International &gt; Localization &gt; Import a localization pack.</p>
 <p>Also, make sure the IDs of your langs match on the source shop.</p>
-<figure>
-    <img src="../img/migration-update-langs.png"/> <figcaption>
+<figure><img src="../img/migration-update-langs.png"/><figcaption>
             <h4>Checking IDs of installed languages on a shop</h4>
         </figcaption>
 </figure>
@@ -27636,15 +27620,13 @@ In a migration, the data imported must fit the new structure and not the old one
 </ul>
 <p>First, clean the table from its content with a TRUNCATE action. As PHPMyAdmin does not allow this step before importing your data, you have to execute it manually.
 Go to the operations panel of your table.</p>
-<figure>
-    <img src="../img/image25.png"/> 
+<figure><img src="../img/image25.png"/>
 </figure>
 
 <p>At the bottom of the page, you will find the critical operations
 available. As they are destructive for the existing data, they can’t be
 easily found and are written in red.</p>
-<figure>
-    <img src="../img/image51.png"/> 
+<figure><img src="../img/image51.png"/>
 </figure>
 
 <p>If PHPMyAdmin suggests to check the foreign keys, you can disable it. As
@@ -27655,15 +27637,13 @@ ensure that your relations will be fine during the process.</p>
 </ul>
 <p>Now the table has been cleaned from demonstration content, you can
 import the data from the old shop. Go to the Import tab from your table.</p>
-<figure>
-    <img src="../img/image71.png"/> 
+<figure><img src="../img/image71.png"/>
 </figure>
 
 <p>A form will appear to let you customize your import. The default
 configuration expects a SQL file to run, so we will have several options
 to change as shown on the screenshot.</p>
-<figure>
-    <img src="../img/image80.png"/> 
+<figure><img src="../img/image80.png"/>
 </figure>
 
 <ul>
@@ -27675,8 +27655,7 @@ to change as shown on the screenshot.</p>
 </ul>
 <p>Finally, click on “Go”. If everything goes well, you will get a
 confirmation page like this:</p>
-<figure>
-    <img src="../img/image52.png"/> 
+<figure><img src="../img/image52.png"/>
 </figure>
 
 <p>If not, check the error message. An error about the CSV content could be
@@ -27693,8 +27672,7 @@ unprovided columns. Unlike imports with a MySQL client, the PrestaShop
 import feature will always be able to apply the default values for a
 missing information.</p>
 <p>On the new shop, reach the controller Advanced parameters &gt; Import.</p>
-<figure>
-    <img src="../img/image39.png"/> 
+<figure><img src="../img/image39.png"/>
 </figure>
 
 <p>This controller will allow you to import the following data:</p>
@@ -27724,15 +27702,13 @@ localized data with the original one.</p>
 <p>To import data, start by uploading your CSV file. It will be done
 automatically when you select your file from the filesystem.</p>
 <p>Before CSV selection or upload:</p>
-<figure>
-    <img src="../img/image65.png"/> 
+<figure><img src="../img/image65.png"/>
 </figure>
 
 <p>Some warnings may be displayed depending on the type of data to import.
 They can provide useful advice about forbidden or allowed rules.</p>
 <p>Once a CSV is selected:</p>
-<figure>
-    <img src="../img/image81.png"/> 
+<figure><img src="../img/image81.png"/>
 </figure>
 
 <p>Double check the field &amp; multiple-value options for your CSV structure.
@@ -27745,8 +27721,7 @@ the same type of data, make sure to disable it before proceeding with
 the second and following files.</p>
 <h5 id="column-assignment">Column assignment</h5>
 <p>The second step allows you to link the old columns with the new ones.</p>
-<figure>
-    <img src="../img/image77.png"/> 
+<figure><img src="../img/image77.png"/>
 </figure>
 
 <p>In case a column from the CSV should not be taken in account, you can
@@ -27757,8 +27732,7 @@ ask PrestaShop to bypass it by choosing the first option of the list:
 <p>From that moment, you can just wait for the process to complete. The
 time it will take depends on the number of lines to import, and the
 chosen options.</p>
-<figure>
-    <img src="../img/image32.png"/> 
+<figure><img src="../img/image32.png"/>
 </figure>
 
 <p>To avoid reaching the maximum execution time of a request, the process
@@ -27916,19 +27890,19 @@ them are certainly in your area.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1628586785"></script>
-    <script src="/js/perfect-scrollbar.min.js?1628586785"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1628586785"></script>
-    <script src="/js/jquery.sticky.js?1628586785"></script>
-    <script src="/js/featherlight.min.js?1628586785"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1628586785"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1628586785"></script>
-    <script src="/js/learn.js?1628586785"></script>
-    <script src="/js/hugo-learn.js?1628586785"></script>
+    <script src="/js/clipboard.min.js?1628587162"></script>
+    <script src="/js/perfect-scrollbar.min.js?1628587162"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1628587162"></script>
+    <script src="/js/jquery.sticky.js?1628587162"></script>
+    <script src="/js/featherlight.min.js?1628587162"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1628587162"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1628587162"></script>
+    <script src="/js/learn.js?1628587162"></script>
+    <script src="/js/hugo-learn.js?1628587162"></script>
     
-    <script src="/main.js?1628586785"></script>
-    <link href="/mermaid/mermaid.css?1628586785" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1628586785"></script>
+    <script src="/main.js?1628587162"></script>
+    <link href="/mermaid/mermaid.css?1628587162" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1628587162"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

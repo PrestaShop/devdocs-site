@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="generator" content="Hugo 0.85.0" />
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop.com/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -23,15 +23,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/development/database/structure/">
 
     
-    <link href="/css/font-awesome.min.css?1628586808" rel="stylesheet">
-    <link href="/css/syntax-github.css?1628586808" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1628586808" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1628586808" rel="stylesheet">
-    <link href="/css/auto-complete.css?1628586808" rel="stylesheet">
-    <link href="/style.css?1628586808" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1628587186" rel="stylesheet">
+    <link href="/css/syntax-github.css?1628587186" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1628587186" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1628587186" rel="stylesheet">
+    <link href="/css/auto-complete.css?1628587186" rel="stylesheet">
+    <link href="/style.css?1628587186" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1628586808"></script>
+    <script src="/js/jquery-3.3.1.min.js?1628587186"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -74,7 +74,7 @@
     <div class="version-selector-container">
       <div class="version-selector" aria-label="Documentation version">
         <div class="version-selector-current">
-          
+          PrestaShop 8
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 255 255">
             <g>
               <g id="arrow-drop-down">
@@ -27333,16 +27333,16 @@ file will be stored in the folder <code>/install/upgrade/sql/</code>.</p>
 <p>Its name is the PS version on which the change will be applied.</p>
 <p>For instance, here is the file <em><a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.3.0/install-dev/upgrade/sql/1.7.3.0.sql">1.7.3.0.sql</a></em>,
 used by shops upgrading to 1.7.3.0 or later:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="p">[...]</span>
-<span class="k">UPDATE</span> <span class="o">`</span><span class="n">PREFIX_tab</span><span class="o">`</span> <span class="k">SET</span> <span class="o">`</span><span class="k">position</span><span class="o">`</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">WHERE</span> <span class="o">`</span><span class="n">class_name</span><span class="o">`</span> <span class="o">=</span> <span class="s1">&#39;AdminZones&#39;</span> <span class="k">AND</span> <span class="o">`</span><span class="k">position</span><span class="o">`</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span><span class="p">;</span>
-<span class="k">UPDATE</span> <span class="o">`</span><span class="n">PREFIX_tab</span><span class="o">`</span> <span class="k">SET</span> <span class="o">`</span><span class="k">position</span><span class="o">`</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">WHERE</span> <span class="o">`</span><span class="n">class_name</span><span class="o">`</span> <span class="o">=</span> <span class="s1">&#39;AdminCountries&#39;</span> <span class="k">AND</span> <span class="o">`</span><span class="k">position</span><span class="o">`</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span><span class="p">;</span>
-
-<span class="cm">/* PHP:ps_1730_add_quick_access_evaluation_catalog(); */</span><span class="p">;</span>
-<span class="cm">/* PHP:ps_1730_move_some_aeuc_configuration_to_core(); */</span><span class="p">;</span>
-
-<span class="k">ALTER</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">PREFIX_product</span><span class="o">`</span> <span class="k">ADD</span> <span class="o">`</span><span class="n">low_stock_threshold</span><span class="o">`</span> <span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="k">NULL</span> <span class="k">AFTER</span> <span class="o">`</span><span class="n">minimal_quantity</span><span class="o">`</span><span class="p">;</span>
-<span class="p">[...]</span>
-</code></pre></div><p>In there we can read the SQL queries to execute when upgrading to 1.7.3.0.
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="p">[...]</span><span class="w">
+</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_tab</span><span class="o">`</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">`</span><span class="k">position</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">class_name</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;AdminZones&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="o">`</span><span class="k">position</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_tab</span><span class="o">`</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">`</span><span class="k">position</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">class_name</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;AdminCountries&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="o">`</span><span class="k">position</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="cm">/* PHP:ps_1730_add_quick_access_evaluation_catalog(); */</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="cm">/* PHP:ps_1730_move_some_aeuc_configuration_to_core(); */</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_product</span><span class="o">`</span><span class="w"> </span><span class="k">ADD</span><span class="w"> </span><span class="o">`</span><span class="n">low_stock_threshold</span><span class="o">`</span><span class="w"> </span><span class="nb">INT</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">AFTER</span><span class="w"> </span><span class="o">`</span><span class="n">minimal_quantity</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="p">[...]</span><span class="w">
+</span></code></pre></div><p>In there we can read the SQL queries to execute when upgrading to 1.7.3.0.
 Each of them alters the structure and/or modify the existing data.
 In case you have complex algorithms to run, you can call PHP code with the
 <code>PHP:</code> keyword.</p>
@@ -27398,19 +27398,19 @@ Doctrine. Applying the changes on the database is done with the following comman
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1628586808"></script>
-    <script src="/js/perfect-scrollbar.min.js?1628586808"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1628586808"></script>
-    <script src="/js/jquery.sticky.js?1628586808"></script>
-    <script src="/js/featherlight.min.js?1628586808"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1628586808"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1628586808"></script>
-    <script src="/js/learn.js?1628586808"></script>
-    <script src="/js/hugo-learn.js?1628586808"></script>
+    <script src="/js/clipboard.min.js?1628587186"></script>
+    <script src="/js/perfect-scrollbar.min.js?1628587186"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1628587186"></script>
+    <script src="/js/jquery.sticky.js?1628587186"></script>
+    <script src="/js/featherlight.min.js?1628587186"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1628587186"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1628587186"></script>
+    <script src="/js/learn.js?1628587186"></script>
+    <script src="/js/hugo-learn.js?1628587186"></script>
     
-    <script src="/main.js?1628586808"></script>
-    <link href="/mermaid/mermaid.css?1628586808" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1628586808"></script>
+    <script src="/main.js?1628587186"></script>
+    <link href="/mermaid/mermaid.css?1628587186" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1628587186"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>
