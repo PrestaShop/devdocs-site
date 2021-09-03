@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/basics/introduction/">
 
     
-    <link href="/css/font-awesome.min.css?1630501236" rel="stylesheet">
-    <link href="/css/syntax-github.css?1630501236" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1630501236" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1630501236" rel="stylesheet">
-    <link href="/css/auto-complete.css?1630501236" rel="stylesheet">
-    <link href="/style.css?1630501236" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1630660659" rel="stylesheet">
+    <link href="/css/syntax-github.css?1630660659" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1630660659" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1630660659" rel="stylesheet">
+    <link href="/css/auto-complete.css?1630660659" rel="stylesheet">
+    <link href="/style.css?1630660659" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1630501236"></script>
+    <script src="/js/jquery-3.3.1.min.js?1630660659"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12567,6 +12567,18 @@
           </ul>
         </li>
         <li><a href="#moving-forward-with-symfony">Moving forward with Symfony</a></li>
+        <li><a href="#how-it-is-built-inside">How it is built inside</a>
+          <ul>
+            <li><a href="#front-office-mvc">Front office MVC</a></li>
+            <li><a href="#visit-a-front-controller">Visit a Front controller</a></li>
+          </ul>
+        </li>
+        <li><a href="#back-office-mvc">Back office MVC</a>
+          <ul>
+            <li><a href="#visit-a-legacy-back-office-controller">Visit a legacy Back Office controller</a></li>
+            <li><a href="#visit-a-symfony-back-office-controller">Visit a Symfony Back Office controller</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -27362,6 +27374,35 @@
 <p>The driving idea is that we want our code to be more robust, more modular, and fully testable. The 1.6 architecture, inherited from version 1.5 and years of PrestaShop development, is not getting any younger, and its age is really starting to show.</p>
 <p>Using a proven and popular open-source framework will allow us to focus on our core business code (managing a cart, handling orders, calculating prices and taxes, generating invoices, etc.) with greater efficiency, while enjoying the stability of a globally recognized framework.</p>
 <p>In the documentation, we will refer to the 1.6 framework as the &ldquo;legacy&rdquo; framework, as this is a popular <a href="https://en.wikipedia.org/wiki/Legacy_system">designation</a> used in the software world.</p>
+<h2 id="how-it-is-built-inside">How it is built inside</h2>
+<p>Here is a small guide to help you navigate the software.</p>
+<h3 id="front-office-mvc">Front office MVC</h3>
+<p>The Front Office is an application being powered by PHP and Smarty.</p>
+<p>The backend relies on controllers you can find in the directory <code>controllers/front</code>
+and PrestaShop classes that contain the business logic, mainly from the <code>classes</code> folder.</p>
+<p>The views and the Javascript come from the installed theme that you will find in <code>themes/</code>. You can have multiple themes available on a shop but only one is enabled and in use.</p>
+<p>If the Multistore feature is enabled, each shop can use a different theme.</p>
+<h3 id="visit-a-front-controller">Visit a Front controller</h3>
+<p>When you visit <code>/</code> on your shop, you are being returned to the Homepage.</p>
+<p>The HTTP request you sent was received by the <em>Dispatcher</em> which found the right Front controller (the <code>IndexController</code> for Homepage).</p>
+<p>This <code>IndexController</code> returned an HTTP response containing an HTML document rendered by Smarty.</p>
+<h2 id="back-office-mvc">Back office MVC</h2>
+<p>The Back Office is a large application powered by PHP and Smarty for the legacy part and by PHP, Symfony, and Twig for the migrated part.</p>
+<p>The legacy backend relies on controllers which you can find in the directory <code>controllers/admin</code>. It also relies on PrestaShop classes that contain the business logic, mainly from the <code>classes</code> folder.</p>
+<p>For legacy pages, the views and the Javascript can be found in <code>admin-dev/themes/default</code>.</p>
+<p>The Symfony backend relies on the controllers you can find in <code>templates/bundles/PrestaShopBundle/Controller/Admin</code> and PrestaShop logic that mostly comes from the <code>src</code> folder, and also some <code>classes</code> files.</p>
+<p>For migrated pages, you can find the views in <code>templates/bundles/PrestaShopBundle/Resources/views</code>.
+The Javascript can be found in <code>admin-dev/themes/new-theme/js</code>.</p>
+<h3 id="visit-a-legacy-back-office-controller">Visit a legacy Back Office controller</h3>
+<p>When you visit <code>/admin{x}/index.php?controller=AdminCarriers&amp;token={y}</code> on your shop, you are being returned to the Carriers Back Office page.</p>
+<p>The HTTP request you sent was received by the Back Office <em>Dispatcher</em> which found the right Admin controller (the <code>AdminCarriersController</code>).</p>
+<p>This <code>AdminCarriersController</code> returned an HTTP response containing an HTML document rendered by Smarty.</p>
+<p>The Admin controllers use a generic system to choose what Smarty template to use. Generic templates to display forms and listings are available and the controller provides the structure configuration (for example it controls what columns and rows are displayed).</p>
+<h3 id="visit-a-symfony-back-office-controller">Visit a Symfony Back Office controller</h3>
+<p>When you visit <code>/admin-{xxx}/index.php/configure/shop/preferences/preferences?_token={yyy}</code> on your shop, you are being returned to the Preferences Back Office page.</p>
+<p>The HTTP request you sent was received by Symfony and the kernel that handled your request.</p>
+<p>Symfony found the right Back Office controller, matching your URL, the <code>PreferencesController</code>.</p>
+<p>The <code>PreferencesController</code> returned an HTTP response containing an HTML document rendered by Twig.</p>
 
 
 <footer class="article-footer">
@@ -27383,17 +27424,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1630501236"></script>
-    <script src="/js/perfect-scrollbar.min.js?1630501236"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1630501236"></script>
-    <script src="/js/jquery.sticky.js?1630501236"></script>
-    <script src="/js/featherlight.min.js?1630501236"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1630501236"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1630501236"></script>
-    <script src="/js/learn.js?1630501236"></script>
-    <script src="/js/hugo-learn.js?1630501236"></script>
+    <script src="/js/clipboard.min.js?1630660659"></script>
+    <script src="/js/perfect-scrollbar.min.js?1630660659"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1630660659"></script>
+    <script src="/js/jquery.sticky.js?1630660659"></script>
+    <script src="/js/featherlight.min.js?1630660659"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1630660659"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1630660659"></script>
+    <script src="/js/learn.js?1630660659"></script>
+    <script src="/js/hugo-learn.js?1630660659"></script>
     
-    <script src="/main.js?1630501236"></script>
+    <script src="/main.js?1630660659"></script>
     
     
 
