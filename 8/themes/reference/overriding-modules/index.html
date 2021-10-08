@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/themes/reference/overriding-modules/">
 
     
-    <link href="/css/font-awesome.min.css?1633678977" rel="stylesheet">
-    <link href="/css/syntax-github.css?1633678977" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1633678977" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1633678977" rel="stylesheet">
-    <link href="/css/auto-complete.css?1633678977" rel="stylesheet">
-    <link href="/style.css?1633678977" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1633679088" rel="stylesheet">
+    <link href="/css/syntax-github.css?1633679088" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1633679088" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1633679088" rel="stylesheet">
+    <link href="/css/auto-complete.css?1633679088" rel="stylesheet">
+    <link href="/style.css?1633679088" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1633678977"></script>
+    <script src="/js/jquery-3.3.1.min.js?1633679088"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -27218,8 +27218,7 @@
 <h1 id="overriding-modules">Overriding modules</h1>
 <p>When you write a theme, you often need to override the templates and assets coming from a module so that they match your theme&rsquo;s specific markup needs.
 Themes can override modules' assets (CSS and JavaScript only) by placing the corresponding file at a specific location.</p>
-<p>With PrestaShop 1.7, all module overriding code goes to the <code>modules</code> directory (in your module&rsquo;s own directory).
-Every PS 1.7 module developer should be aware of this change (introduced with PR 5020: <a href="https://github.com/PrestaShop/PrestaShop/pull/5020)">https://github.com/PrestaShop/PrestaShop/pull/5020)</a>.</p>
+<p>All module overriding code goes to the <code>modules</code> directory (in your module&rsquo;s own directory).</p>
 
 <div class="notices note" >If your asset override is empty, PrestaShop will load nothing (neither the module one nor your override). This is useful
 if you want to fully remove this module style and add your own to your compiled <code>theme.css</code>.</div>
@@ -27240,7 +27239,7 @@ if you want to fully remove this module style and add your own to your compiled 
 
 5 directories, 6 files
 </code></pre></div><h2 id="overriding-templates-and-assets">Overriding templates and assets</h2>
-<p>With PrestaShop 1.7, here are the folder paths to create in order to override templates and assets:</p>
+<p>Here are the folder paths to create in order to override templates and assets:</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">.
 └── modules
     ├── css
@@ -27284,10 +27283,10 @@ When loading a template file (for instance &lsquo;moduledemo.tpl&rsquo;), Presta
 <p>But if your <code>moduledemo.tpl</code> file includes the <code>included-template.tpl</code> file, you will have to override &lsquo;included-template.tpl&rsquo; as well, even if you don&rsquo;t want to modify it (nor to edit the path). This means that every file that an overridden file includes needs to be copy-pasted as-is in order for your override to work properly.</p>
 <p>The issue goes both ways: if you want to modify the <code>included-template.tpl</code> file, you will have to override the <code>moduledemo.tpl</code> file that includes it.</p>
 <div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;./included-template.tpl&#39;</span><span class="cp">}</span><span class="x">
-</span></code></pre></div><p>PrestaShop 1.7 introduces a new cool way to include files in module templates. By using this method, all the expected rules will be followed:</p>
+</span></code></pre></div><p>PrestaShop 1.7 introduced a way to include files in module templates. By using this method, all the expected rules will be followed:</p>
 <div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;module:MODULE_NAME/views/templates/front/included-template.tpl&#39;</span><span class="cp">}</span><span class="x">
 </span></code></pre></div><h2 id="smartydev-helps-you-debug">SmartyDev helps you debug!</h2>
-<p>PrestaShop 1.7 also introduces our own SmartyDev tool, an Smarty extension which allows you to see the template&rsquo;s name within your generated HTML markup. This will help debugging a lot, especially because of template override.</p>
+<p>PrestaShop 1.7 also introduced our own SmartyDev tool, a Smarty extension which allows you to see the template&rsquo;s name within your generated HTML markup. This will help debugging a lot, especially because of template override.</p>
 <p>Here an example of generated markup with SmartyDev activated:</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html">[...]
       <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://prestashop.ps/en/&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;dropdown-item&#34;</span><span class="p">&gt;</span>English<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
@@ -27332,17 +27331,17 @@ When loading a template file (for instance &lsquo;moduledemo.tpl&rsquo;), Presta
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1633678977"></script>
-    <script src="/js/perfect-scrollbar.min.js?1633678977"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1633678977"></script>
-    <script src="/js/jquery.sticky.js?1633678977"></script>
-    <script src="/js/featherlight.min.js?1633678977"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1633678977"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1633678977"></script>
-    <script src="/js/learn.js?1633678977"></script>
-    <script src="/js/hugo-learn.js?1633678977"></script>
+    <script src="/js/clipboard.min.js?1633679088"></script>
+    <script src="/js/perfect-scrollbar.min.js?1633679088"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1633679088"></script>
+    <script src="/js/jquery.sticky.js?1633679088"></script>
+    <script src="/js/featherlight.min.js?1633679088"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1633679088"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1633679088"></script>
+    <script src="/js/learn.js?1633679088"></script>
+    <script src="/js/hugo-learn.js?1633679088"></script>
     
-    <script src="/main.js?1633678977"></script>
+    <script src="/main.js?1633679088"></script>
     
     
 
