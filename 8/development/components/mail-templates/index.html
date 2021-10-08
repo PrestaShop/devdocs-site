@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/development/components/mail-templates/">
 
     
-    <link href="/css/font-awesome.min.css?1633678737" rel="stylesheet">
-    <link href="/css/syntax-github.css?1633678737" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1633678737" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1633678737" rel="stylesheet">
-    <link href="/css/auto-complete.css?1633678737" rel="stylesheet">
-    <link href="/style.css?1633678737" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1633678988" rel="stylesheet">
+    <link href="/css/syntax-github.css?1633678988" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1633678988" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1633678988" rel="stylesheet">
+    <link href="/css/auto-complete.css?1633678988" rel="stylesheet">
+    <link href="/style.css?1633678988" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1633678737"></script>
+    <script src="/js/jquery-3.3.1.min.js?1633678988"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -2672,7 +2672,7 @@
         
         
         
-        isParent
+        
         ">
       <a href="/8/development/page-reference/back-office/product/form/">
           <span>
@@ -2682,40 +2682,7 @@
           
 
           
-            <i class="fa fa-angle-down"></i>
-          
       </a>
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/8/development/page-reference/back-office/product/form/product-form-before-1-7-8/" title="The Product Form before 1.7.8" class="dd-item ">
-        <a href="/8/development/page-reference/back-office/product/form/product-form-before-1-7-8/">
-        Before 1.7.8
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
       
     </li>
   
@@ -4648,27 +4615,6 @@
       <li data-nav-id="/8/development/components/grid/tutorials/work-with-search-form/custom-form-factory/" title="Create your custom form factory" class="dd-item ">
         <a href="/8/development/components/grid/tutorials/work-with-search-form/custom-form-factory/">
         Custom form factory
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/8/development/components/grid/tutorials/work-with-search-form/in-1-7-5/" title="How to work with the Search Form in 1.7.5" class="dd-item ">
-        <a href="/8/development/components/grid/tutorials/work-with-search-form/in-1-7-5/">
-        In 1.7.5
         
         </a>
     </li>
@@ -21481,21 +21427,6 @@
       
 
       
-        
-    
-    
-      
-        
-      
-      
-      
-      
-      
-
-      
-    
-  
-      
     
   
       
@@ -22662,21 +22593,6 @@
       
       
 
-      
-        
-    
-    
-      
-        
-      
-      
-      
-      
-      
-
-      
-    
-  
       
         
     
@@ -27333,15 +27249,11 @@
 
 
 <h1 id="the-mail-template-component">The Mail Template component</h1>
-
-<div class="magic-version-pill" data-version="1.7.6" data-title="New in PrestaShop 1.7.6"></div>
-
-
 <h2 id="introduction">Introduction</h2>
 <p>PrestaShop&rsquo;s email notification system is based on static template files, one for each kind of message (like account creation, order confirmation, etc), which are stored in the <code>mails</code> folder. In order to localize these messages, PrestaShop needs a copy of each template, translated to every supported language. Shops download these translated versions when installing a new language pack.</p>
 <p>This system has a few drawbacks. Shops need to download email packs every time a new language is installed,
 and if a template had not been translated to that language, you ended up with emails in English. This gets even more complicated when you use an email theme (from Addons or a freelance designer) which is therefore limited to the languages the authors translated by themselves. Also, any customization performed in a template has to be replicated for every installed language.</p>
-<p>Starting on 1.7.6, this feature has been significantly revamped. To avoid introducing breaking changes, the system still relies on static email templates, which are used by the <code>Mail::send</code> method. However, instead of downloading translated copies of each template, these files are now dynamically generated whenever you install a new language, using base templates, or <em>layouts</em>.</p>
+<p>This feature was significantly revamped in PrestaShop 1.7. To avoid introducing breaking changes, the system still relies on static email templates, which are used by the <code>Mail::send</code> method. However, instead of downloading translated copies of each template, these files are now dynamically generated whenever you install a new language, using base templates, or <em>layouts</em>.</p>
 <p>This is the first step to improving the email system in PrestaShop. As the feature gets further improved we will add more advanced customization for email templates.</p>
 <h3 id="vocabulary">Vocabulary</h3>
 <p>Terms like &ldquo;layouts&rdquo;, &ldquo;templates&rdquo; and &ldquo;themes&rdquo; can be confusing, so let&rsquo;s clarify them:</p>
@@ -27361,7 +27273,7 @@ and if a template had not been translated to that language, you ended up with em
 </ul>
 <h2 id="architecture">Architecture</h2>
 <h3 id="folder-structure">Folder structure</h3>
-<p>The new email themes layout files are stored in the <code>mails/themes/</code> folder. PrestaShop 1.7.6 is bundled with two email themes:</p>
+<p>The new email themes layout files are stored in the <code>mails/themes/</code> folder. PrestaShop is bundled with two email themes:</p>
 <ul>
 <li><strong>classic</strong> – The default email theme that was bundled with PrestaShop up until the 1.7.5 version.</li>
 <li><strong>modern</strong> – A new email theme with a modern, responsive design.</li>
@@ -27528,7 +27440,7 @@ logic to adapt the templates for a specific user or order.</div>
 <h2 id="choosing-the-default-theme">Choosing the default theme</h2>
 <p>Your shop can only use one theme at a time, so if you go to the &ldquo;Design &gt; Email Theme&rdquo; page you will be able to choose your default email theme.
 This default theme will be used each time the generation process is launched automatically (language installation, upgrade, &hellip;).</p>
-<p>The default theme starting from <code>1.7.6</code> will be the <strong>modern</strong> theme, the <em>classic</em> theme was provided for backward compatibility and as an example.</p>
+<p>The <strong>modern</strong> theme is active by default. The <em>classic</em> theme was provided for backward compatibility and as an example.</p>
 <h3 id="troubleshooting">Troubleshooting</h3>
 <h5 id="i-changed-my-default-theme-but-my-emails-didnt-change">I changed my default theme but my emails didn&rsquo;t change.</h5>
 <p>Indeed when you select your default theme you simply update your configuration, so any <strong>future</strong> generation will use the theme you selected.</p>
@@ -27559,11 +27471,11 @@ If you want to replace the former templates you need to enable the <code>overwri
 </ul>
 <h3 id="module-tutorials">Module Tutorials</h3>
 <ul>
-<li><a href="https://devdocs.prestashop.com/1.7/modules/concepts/mail-templates/extend-a-layout-from-module/">How to extend a layout in a theme from a module</a></li>
-<li><a href="https://devdocs.prestashop.com/1.7/modules/concepts/mail-templates/add-a-layout-from-module/">How to add a layout in a theme from a module</a></li>
-<li><a href="https://devdocs.prestashop.com/1.7/modules/concepts/mail-templates/add-a-theme-from-module/">How to add an email theme from a module</a></li>
-<li><a href="https://devdocs.prestashop.com/1.7/modules/concepts/mail-templates/add-layout-variables-from-module/">How to add layout variables from a module</a></li>
-<li><a href="https://devdocs.prestashop.com/1.7/modules/concepts/mail-templates/apply-transformation-from-module/">How to apply a transformation from a module</a></li>
+<li><a href="/8/modules/concepts/mail-templates/extend-a-layout-from-module/">How to extend a layout in a theme from a module</a></li>
+<li><a href="/8/modules/concepts/mail-templates/add-a-layout-from-module/">How to add a layout in a theme from a module</a></li>
+<li><a href="/8/modules/concepts/mail-templates/add-a-theme-from-module/">How to add an email theme from a module</a></li>
+<li><a href="/8/modules/concepts/mail-templates/add-layout-variables-from-module/">How to add layout variables from a module</a></li>
+<li><a href="/8/modules/concepts/mail-templates/apply-transformation-from-module/">How to apply a transformation from a module</a></li>
 </ul>
 
 
@@ -27588,17 +27500,17 @@ If you want to replace the former templates you need to enable the <code>overwri
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1633678737"></script>
-    <script src="/js/perfect-scrollbar.min.js?1633678737"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1633678737"></script>
-    <script src="/js/jquery.sticky.js?1633678737"></script>
-    <script src="/js/featherlight.min.js?1633678737"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1633678737"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1633678737"></script>
-    <script src="/js/learn.js?1633678737"></script>
-    <script src="/js/hugo-learn.js?1633678737"></script>
+    <script src="/js/clipboard.min.js?1633678988"></script>
+    <script src="/js/perfect-scrollbar.min.js?1633678988"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1633678988"></script>
+    <script src="/js/jquery.sticky.js?1633678988"></script>
+    <script src="/js/featherlight.min.js?1633678988"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1633678988"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1633678988"></script>
+    <script src="/js/learn.js?1633678988"></script>
+    <script src="/js/hugo-learn.js?1633678988"></script>
     
-    <script src="/main.js?1633678737"></script>
+    <script src="/main.js?1633678988"></script>
     
     
 
