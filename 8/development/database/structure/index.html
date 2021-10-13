@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/development/database/structure/">
 
     
-    <link href="/css/font-awesome.min.css?1634134385" rel="stylesheet">
-    <link href="/css/syntax-github.css?1634134385" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1634134385" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1634134385" rel="stylesheet">
-    <link href="/css/auto-complete.css?1634134385" rel="stylesheet">
-    <link href="/style.css?1634134385" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1634138247" rel="stylesheet">
+    <link href="/css/syntax-github.css?1634138247" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1634138247" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1634138247" rel="stylesheet">
+    <link href="/css/auto-complete.css?1634138247" rel="stylesheet">
+    <link href="/style.css?1634138247" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1634134385"></script>
+    <script src="/js/jquery-3.3.1.min.js?1634138247"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -27290,10 +27290,10 @@ There is one file per entity (= table). XML files are structured following Objec
 <p>Once PrestaShop is installed, the default structure and content files we saw
 are not used anymore.</p>
 <p>If a new release of PrestaShop must bring changes to the existing database, an
-upgrade file must be created along the <code>db_structure.sql</code> update. This SQL
-file will be stored in the folder <code>/install/upgrade/sql/</code>.</p>
-<p>Its name is the PS version on which the change will be applied.</p>
-<p>For instance, here is the file <em><a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.3.0/install-dev/upgrade/sql/1.7.3.0.sql">1.7.3.0.sql</a></em>,
+upgrade file must be created along the <code>db_structure.sql</code> update.
+This SQL file will be stored in the <a href="https://github.com/PrestaShop/autoupgrade/tree/dev/upgrade/sql">auto upgrade</a> module in the folder <code>/upgrade/sql/</code>.</p>
+<p>Its name is the PrestaShop version on which the change will be applied.</p>
+<p>For instance, here is the file <em><a href="https://github.com/PrestaShop/autoupgrade/tree/dev/upgrade/sql/1.7.3.0.sql">1.7.3.0.sql</a></em>,
 used by shops upgrading to 1.7.3.0 or later:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="p">[...]</span><span class="w">
 </span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_tab</span><span class="o">`</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">`</span><span class="k">position</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">class_name</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;AdminZones&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="o">`</span><span class="k">position</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">;</span><span class="w">
@@ -27309,9 +27309,9 @@ Each of them alters the structure and/or modify the existing data.
 In case you have complex algorithms to run, you can call PHP code with the
 <code>PHP:</code> keyword.</p>
 <p>To make the code callable, a dedicated file has to be created in
-<code>/install/upgrade/php/</code> with a function in it. This file and function must have
+<code>/upgrade/php/</code> with a function in it. This file and function must have
 the same name as we saw in the SQL upgrade file.</p>
-<p>If we reuse the previous example, we will find the corresponding file <em><a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.3.x/install-dev/upgrade/php/ps_1730_add_quick_access_evaluation_catalog.php">/install/upgrade/php/ps_1730_add_quick_access_evaluation_catalog.php</a></em>:</p>
+<p>If we reuse the previous example, we will find the corresponding file <em><a href="https://github.com/PrestaShop/autoupgrade/blob/dev/upgrade/php/ps_1730_add_quick_access_evaluation_catalog.php">/upgrade/php/ps_1730_add_quick_access_evaluation_catalog.php</a></em>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">function</span> <span class="nf">ps_1730_add_quick_access_evaluation_catalog</span><span class="p">()</span>
 <span class="p">{</span>
@@ -27325,7 +27325,7 @@ consider it was run without failure.</p>
 <ul>
 <li>by reinstalling the shop</li>
 <li>from a previous version of PrestaShop, by copying the new files and calling
-the PHP script <code>install/upgrade/upgrade.php</code></li>
+the PHP script <a href="https://github.com/PrestaShop/autoupgrade/blob/dev/upgrade/upgrade.php">/upgrade/upgrade.php</a></li>
 </ul>
 <p>PrestaShop lists the upgrade files waiting to be applied, by selecting the names
 fitting between the configuration property <code>PS_VERSION_DB</code> and the constant
@@ -27354,17 +27354,17 @@ Doctrine. Applying the changes on the database is done with the following comman
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1634134385"></script>
-    <script src="/js/perfect-scrollbar.min.js?1634134385"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1634134385"></script>
-    <script src="/js/jquery.sticky.js?1634134385"></script>
-    <script src="/js/featherlight.min.js?1634134385"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1634134385"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1634134385"></script>
-    <script src="/js/learn.js?1634134385"></script>
-    <script src="/js/hugo-learn.js?1634134385"></script>
+    <script src="/js/clipboard.min.js?1634138247"></script>
+    <script src="/js/perfect-scrollbar.min.js?1634138247"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1634138247"></script>
+    <script src="/js/jquery.sticky.js?1634138247"></script>
+    <script src="/js/featherlight.min.js?1634138247"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1634138247"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1634138247"></script>
+    <script src="/js/learn.js?1634138247"></script>
+    <script src="/js/hugo-learn.js?1634138247"></script>
     
-    <script src="/main.js?1634134385"></script>
+    <script src="/main.js?1634138247"></script>
     
     
 
