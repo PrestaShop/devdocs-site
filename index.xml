@@ -2829,7 +2829,8 @@ server { # IPv4.  listen 80; listen 443 ssl http2; # IPv6.  # listen [::]:80;  #
       
       <guid>https://devdocs.prestashop.com/8/basics/installation/nginx/</guid>
       <description>Configure Nginx The following file is provided as an example configuration for your Nginx server. It may be incomplete, and remember you must adapt it for your own server&amp;rsquo;s needs!
-server { # Ipv4  listen 80; # IPv6  # listen [::]:80;  # SSL Ipv4 &amp;amp; v6  # listen 443 ssl http2;  # listen [::]:443 ssl;  # Your SSL Certificates, don&amp;#39;t forget to take a look at Certbot (https://certbot.</description>
+Once you are comfortable with your setup make sure to review our guide on how to optimize your Nginx configuration to better suit your requirements.
+server { # IPv4.  listen 80; listen 443 ssl http2; # IPv6.  # listen [::]:80;  # listen [::]:443 ssl http2;  # [EDIT] Your domain name(s) go here.</description>
     </item>
     
     <item>
@@ -5786,10 +5787,9 @@ Important: beware of the associated risk of enabling gzip compression if you are
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://devdocs.prestashop.com/8/scale/webservers/nginx/</guid>
-      <description>Enabling compression As you may be aware of, most of the file transiting from the webserver (with the notable exception of pictures) are text based.
+      <description>Enabling compression As you may be aware of, most of the file transiting from the web server (with the notable exception of pictures) are text based.
 And text files are the most efficient to compress. Though disabled by default, enabling compression is a really quick way to reduce transit and speed up your website up to 80%!
-Here is the way to enable gzip compression to your nginx configuration:
-gzip on; gzip_disable msie6; gzip_vary on; gzip_proxied any; gzip_static on; gzip_buffers 16 8k; gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/javascript image/svg+xml text/js; gzip_http_version 1.</description>
+Important: beware of the associated risk of enabling gzip compression if you are using SSL as noticed in the ngx_http_gzip_module page.</description>
     </item>
     
     <item>
