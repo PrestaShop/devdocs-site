@@ -8,31 +8,31 @@
 <meta name="twitter:image" content="https://devdocs.prestashop.com/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Register a new hook" />
+<meta name="twitter:title" content="Adding a new Core hook" />
 <meta name="twitter:description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta property="og:image" content="https://devdocs.prestashop.com/images/social-cover.jpg" />
 <meta property="og:site_name" content="PrestaShop" />
-<meta property="og:title" content="Register a new hook" />
+<meta property="og:title" content="Adding a new Core hook" />
 <meta property="og:description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="author" content="PrestaShop">
 <meta name="docsearch:version" content="8" />
 
     <link rel="icon" href="/images/preston-logo@2x.png" type="image/png">
 
-    <title>Register a new hook :: PrestaShop Developer Documentation</title>
+    <title>Adding a new Core hook :: PrestaShop Developer Documentation</title>
 
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/development/components/hook/register-new-hook/">
 
     
-    <link href="/css/font-awesome.min.css?1635081463" rel="stylesheet">
-    <link href="/css/syntax-github.css?1635081463" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1635081463" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1635081463" rel="stylesheet">
-    <link href="/css/auto-complete.css?1635081463" rel="stylesheet">
-    <link href="/style.css?1635081463" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1635166373" rel="stylesheet">
+    <link href="/css/syntax-github.css?1635166373" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1635166373" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1635166373" rel="stylesheet">
+    <link href="/css/auto-complete.css?1635166373" rel="stylesheet">
+    <link href="/style.css?1635166373" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1635081463"></script>
+    <script src="/js/jquery-3.3.1.min.js?1635166373"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -4907,9 +4907,51 @@
  
   
     
-      <li data-nav-id="/8/development/components/hook/register-new-hook/" title="Register a new hook" class="dd-item active currentPage">
+      <li data-nav-id="/8/development/components/hook/subscribing-to-hook/" title="Subscribing to a Hook" class="dd-item ">
+        <a href="/8/development/components/hook/subscribing-to-hook/">
+        Subscribing to a Hook
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/8/development/components/hook/dispatching-hook/" title="Dispatching a Hook" class="dd-item ">
+        <a href="/8/development/components/hook/dispatching-hook/">
+        Dispatching a Hook
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/8/development/components/hook/register-new-hook/" title="Adding a new Core hook" class="dd-item active currentPage">
         <a href="/8/development/components/hook/register-new-hook/">
-        Register a new hook
+        Adding a new Core hook
         
         </a>
     </li>
@@ -12564,7 +12606,7 @@
               
             
             
-              <a href='/'>Home</a> > <a href='/8/'>PrestaShop 8</a> > <a href='/8/development/'>Core Reference</a> > <a href='/8/development/components/'>Components</a> > <a href='/8/development/components/hook/'>Hook</a> > Register a new hook
+              <a href='/'>Home</a> > <a href='/8/'>PrestaShop 8</a> > <a href='/8/development/'>Core Reference</a> > <a href='/8/development/components/'>Components</a> > <a href='/8/development/components/hook/'>Hook</a> > Adding a new Core hook
             
           
             
@@ -12595,11 +12637,11 @@
     <div id="toc-title">Table of Contents</div>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#how-to-register-a-new-hook-in-prestashop">How to register a new Hook in PrestaShop</a>
+    <li><a href="#how-to-add-a-new-core-hook">How to add a new Core Hook</a>
       <ul>
-        <li><a href="#dispatching-hooks">Dispatching hooks</a></li>
-        <li><a href="#hooks-definition-file">Hooks definition file</a></li>
-        <li><a href="#prepare-database-update-for-auto-upgrades">Prepare database update for auto upgrades</a></li>
+        <li><a href="#1-dispatch-the-new-hook">1. Dispatch the new hook</a></li>
+        <li><a href="#2-update-the-hooks-definition-file">2. Update the Hooks definition file</a></li>
+        <li><a href="#3-prepare-database-update-for-shop-upgrades">3. Prepare database update for shop upgrades</a></li>
       </ul>
     </li>
   </ul>
@@ -22890,6 +22932,39 @@
     
       
         
+          
+          
+        
+      
+      
+      
+      
+      
+
+      
+    
+  
+      
+        
+    
+    
+      
+        
+      
+      
+      
+      
+      
+
+      
+    
+  
+      
+        
+    
+    
+      
+        
         
       
       
@@ -27413,37 +27488,14 @@
 
 
 
-<h1 id="how-to-register-a-new-hook-in-prestashop">How to register a new Hook in PrestaShop</h1>
-<p>This is basically three steps:</p>
-<ul>
-<li>dispatch the hook in the code (in templates or PHP classes/files);</li>
-<li>update the hooks xml definition of Installer;</li>
-<li>update the hooks table for &ldquo;Auto Upgrade&rdquo; system;</li>
-</ul>
-<h2 id="dispatching-hooks">Dispatching hooks</h2>
-<p>Most of the time, you will dispatch the hook using an instance of <code>HookDispatcher</code>. It can be retrieved from the service container and/or injected, as it&rsquo;s done for example in Form Handlers:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">final</span> <span class="k">class</span> <span class="nc">FormHandler</span> <span class="k">extends</span> <span class="nx">AbstractFormHandler</span>
-<span class="p">{</span>
-    <span class="cm">/* [...] */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getForm</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$formBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formFactory</span><span class="o">-&gt;</span><span class="na">createBuilder</span><span class="p">()</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="nx">GeneralType</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;upload_quota&#39;</span><span class="p">,</span> <span class="nx">UploadQuotaType</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;notifications&#39;</span><span class="p">,</span> <span class="nx">NotificationsType</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">setData</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formDataProvider</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">())</span>
-        <span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hookDispatcher</span><span class="o">-&gt;</span><span class="na">dispatchWithParameters</span><span class="p">(</span>
-            <span class="s1">&#39;displayAdministrationPageForm&#39;</span><span class="p">,</span>
-            <span class="p">[</span><span class="s1">&#39;form_builder&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$formBuilder</span><span class="p">]</span>
-        <span class="p">);</span>
-        <span class="k">return</span> <span class="nv">$formBuilder</span><span class="o">-&gt;</span><span class="na">setData</span><span class="p">(</span><span class="nv">$formBuilder</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="cm">/* [...] */</span>
-<span class="p">}</span>
-</code></pre></div><h2 id="hooks-definition-file">Hooks definition file</h2>
-<p>During the installation, hooks listed in the <code>install-dev/data/xml/hook.xml</code> file are stored on database and made available in PrestaShop. Even if this step is not a requirement – hooks can be declared from templates or generated dynamically – it&rsquo;s a good practice to do it. Also, every hook registered in Database will be displayed in the Hook debugger, so it will help the developer figure out which hooks are available.</p>
+<h1 id="how-to-add-a-new-core-hook">How to add a new Core Hook</h1>
+<p>Although hooks are automatically created the first time they are subscribed to, new hooks is added to the Core itself need to be properly registered and documented.</p>
+<p>Here are the steps you need to follow.</p>
+<h2 id="1-dispatch-the-new-hook">1. Dispatch the new hook</h2>
+<p>The very fisrt step is just to dispatch the new hook wherever you need it, as explained in <a href="/8/development/components/hook/dispatching-hook/">Dispatching a Hook</a>.</p>
+<h2 id="2-update-the-hooks-definition-file">2. Update the Hooks definition file</h2>
+<p>All known hooks are registered in the <code>ps_hook</code> database table. This table is populated with Core hooks during the installation, by reading the <code>install-dev/data/xml/hook.xml</code> file, then during runtime every time a new hook is used.</p>
+<p>Having Core hooks registered is important for two main reasons. First, every hook registered in database will be displayed in the Hook debugger, so it will help developers figure out which hooks are available on a given page. Second, known hooks are displayed in the Positions page, allowing to transplant modules from one hook into another (this is especially useful for display hooks).</p>
 <p>Each hook has a name, a title and a definition. They are identified by an additional id attribute in XML, which is the same as its name.</p>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
 <span class="nt">&lt;entity_hook&gt;</span>
@@ -27453,32 +27505,28 @@
     <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&#34;description&#34;</span><span class="nt">/&gt;</span>
   <span class="nt">&lt;/fields&gt;</span>
   <span class="nt">&lt;entities&gt;</span>
-    <span class="nt">&lt;hook</span> <span class="na">id=</span><span class="s">&#34;...&#34;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name&gt;</span>...<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;title&gt;</span>...<span class="nt">&lt;/title&gt;</span>
-      <span class="nt">&lt;description&gt;</span>...<span class="nt">&lt;/description&gt;</span>
-    <span class="nt">&lt;/hook&gt;</span>
     <span class="nt">&lt;hook</span> <span class="na">id=</span><span class="s">&#34;actionMaintenancePageFormSave&#34;</span><span class="nt">&gt;</span>
       <span class="nt">&lt;name&gt;</span>actionMaintenancePageFormSave<span class="nt">&lt;/name&gt;</span>
       <span class="nt">&lt;title&gt;</span>Processing Maintenance page form<span class="nt">&lt;/title&gt;</span>
       <span class="nt">&lt;description&gt;</span>This hook is called when the Maintenance Page form is processed<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/hook&gt;</span>
+    <span class="nt">&lt;hook</span> <span class="na">id=</span><span class="s">&#34;...&#34;</span><span class="nt">&gt;</span>
+      ...
+    <span class="nt">&lt;/hook&gt;</span>
   <span class="nt">&lt;/entities&gt;</span>
 <span class="nt">&lt;/entity_hook&gt;</span>
 <span class="nt">&lt;/xml&gt;</span>
-</code></pre></div>
-<div class="notices tip" >Always add new hooks at the bottom of the list, as hooks are registered sequentially.</div>
-
-<h2 id="prepare-database-update-for-auto-upgrades">Prepare database update for auto upgrades</h2>
-<p>The last step is to describe the update process for the auto upgrade module – essentially, the insertion of new hooks in <em>hooks</em> table.
-Locate the X.Y.Z.sql file that refers to the PrestaShop version that will include your change: for instance, if the release expected to include this change is <code>1.7.5.0</code>, locate that file in <code>upgrade/sql</code> folder in the <a href="https://github.com/PrestaShop/autoupgrade">autoupgrade</a> module.</p>
+</code></pre></div><p>Add new hooks at the bottom of the list, as hooks are registered sequentially.</p>
+<h2 id="3-prepare-database-update-for-shop-upgrades">3. Prepare database update for shop upgrades</h2>
+<p>The previous step only adds the hook to <em>new</em> shops. We also need to register the hook to shops that upgrade from a previous version.</p>
+<p>The last step is to insert the new hooks in the <code>ps_hooks</code> table using the upgrade system. Locate the X.Y.Z.sql file that refers to the PrestaShop version that will include your change: for instance, if the release expected to include this change is <code>1.7.5.0</code>, locate that file in the <code>upgrade/sql</code> folder from the <a href="https://github.com/PrestaShop/autoupgrade">autoupgrade</a> module.</p>
 
 <div class="notices tip" >This process is explained here: <a href="https://devdocs.prestashop.com/8/development/database/structure/#structure-and-content-upgrades">Structure and content upgrades</a></div>
 
-<p>Then add the corresponding SQL commands to add new hooks:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">INSERT</span><span class="w"> </span><span class="k">IGNORE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_hook</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id_hook</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">title</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">description</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="k">position</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w">
-</span><span class="w">  </span><span class="p">(</span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;displayAdministrationPageForm&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Manage Administration Page form fields&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook adds, update or remove fields of the Administration Page form&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">),</span><span class="w">
-</span><span class="w">  </span><span class="p">(</span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;actionMaintenancePageFormSave&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Processing Maintenance page form&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook is called when the Maintenance Page form is processed&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">);</span><span class="w">
+<p>Once you have located the file, add the corresponding SQL commands to add new hooks:</p>
+<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">INSERT</span><span class="w"> </span><span class="k">IGNORE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_hook</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">title</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">description</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w">
+</span><span class="w">  </span><span class="p">(</span><span class="s1">&#39;displayAdministrationPageForm&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Manage Administration Page form fields&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook adds, update or remove fields of the Administration Page form&#39;</span><span class="p">),</span><span class="w">
+</span><span class="w">  </span><span class="p">(</span><span class="s1">&#39;actionMaintenancePageFormSave&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Processing Maintenance page form&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook is called when the Maintenance Page form is processed&#39;</span><span class="p">);</span><span class="w">
 </span></code></pre></div>
 
 <footer class="article-footer">
@@ -27500,17 +27548,17 @@ Locate the X.Y.Z.sql file that refers to the PrestaShop version that will includ
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1635081463"></script>
-    <script src="/js/perfect-scrollbar.min.js?1635081463"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1635081463"></script>
-    <script src="/js/jquery.sticky.js?1635081463"></script>
-    <script src="/js/featherlight.min.js?1635081463"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1635081463"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1635081463"></script>
-    <script src="/js/learn.js?1635081463"></script>
-    <script src="/js/hugo-learn.js?1635081463"></script>
+    <script src="/js/clipboard.min.js?1635166373"></script>
+    <script src="/js/perfect-scrollbar.min.js?1635166373"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1635166373"></script>
+    <script src="/js/jquery.sticky.js?1635166373"></script>
+    <script src="/js/featherlight.min.js?1635166373"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1635166373"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1635166373"></script>
+    <script src="/js/learn.js?1635166373"></script>
+    <script src="/js/hugo-learn.js?1635166373"></script>
     
-    <script src="/main.js?1635081463"></script>
+    <script src="/main.js?1635166373"></script>
     
     
 

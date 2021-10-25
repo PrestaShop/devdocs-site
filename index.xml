@@ -2056,16 +2056,6 @@ Ask a maintainer from the PrestaShop Company with administrative rights on the A
     </item>
     
     <item>
-      <title>Register a new hook</title>
-      <link>https://devdocs.prestashop.com/8/development/components/hook/register-new-hook/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://devdocs.prestashop.com/8/development/components/hook/register-new-hook/</guid>
-      <description>How to register a new Hook in PrestaShop This is basically three steps:
- dispatch the hook in the code (in templates or PHP classes/files); update the hooks xml definition of Installer; update the hooks table for &amp;ldquo;Auto Upgrade&amp;rdquo; system;  Dispatching hooks Most of the time, you will dispatch the hook using an instance of HookDispatcher. It can be retrieved from the service container and/or injected, as it&amp;rsquo;s done for example in Form Handlers:</description>
-    </item>
-    
-    <item>
       <title>Setting up your local environment</title>
       <link>https://devdocs.prestashop.com/1.7/themes/getting-started/setting-up-your-local-environment/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -2081,6 +2071,18 @@ Ask a maintainer from the PrestaShop Company with administrative rights on the A
       
       <guid>https://devdocs.prestashop.com/8/themes/getting-started/setting-up-your-local-environment/</guid>
       <description>Setting up your local environment Now that you intend to building a theme for PrestaShop, you are better off keeping all your development work on your machine. The main advantage is that it makes it possible for you to entirely bypass the process of uploading your files on your online server in order to test your changes. Another advantage is that a local test environment enables you to test code without the risk of breaking your production store.</description>
+    </item>
+    
+    <item>
+      <title>Subscribing to a Hook</title>
+      <link>https://devdocs.prestashop.com/8/development/components/hook/subscribing-to-hook/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/development/components/hook/subscribing-to-hook/</guid>
+      <description>Subscribing to a Hook The Hook component acts as a registry for hook subscriptions, storing which modules have subscribed to which hook. Multiple modules can subscribe to the same hook, and a single module can subscribe to multiple hooks.
+Modules subscribe to hooks through the registerHook() static function:
+Hook::registerHook(Module $moduleInstance, string|string[] $subscribedHooks, ?int[] $shopIds = null): bool This method returns true if the operation is successful, false otherwise.
+Parameters $moduleInstance : Instance of the module subscribing to the hook</description>
     </item>
     
     <item>
@@ -2492,6 +2494,17 @@ Please respect the following rules:</description>
     </item>
     
     <item>
+      <title>Dispatching a Hook</title>
+      <link>https://devdocs.prestashop.com/8/development/components/hook/dispatching-hook/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/development/components/hook/dispatching-hook/</guid>
+      <description>Dispatching a Hook Hooks are placed everywhere throughout the software. Whenever a given hook is dispatched, the Hook component will check which modules subscribed to that hook and notify them by successively calling each subscriber&amp;rsquo;s callback.
+Hooks are dispatched using the Hook::exec() function.
+Hook::exec( string $hookName, array $arguments, ?int $moduleId = null, bool $returnArray = false, bool $checkExceptions = true, bool $usePush = false, int $shopId = null, bool $chain = false ): mixed This method returns the result of all hook notification callbacks.</description>
+    </item>
+    
+    <item>
       <title>Head</title>
       <link>https://devdocs.prestashop.com/1.7/themes/reference/templates/head/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -2721,17 +2734,6 @@ In legacy code, hooks are dispatched using Hook::exec().</description>
     </item>
     
     <item>
-      <title>Symfony bridge for hooks</title>
-      <link>https://devdocs.prestashop.com/8/development/components/hook/symfony-bridge/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://devdocs.prestashop.com/8/development/components/hook/symfony-bridge/</guid>
-      <description>Symfony bridge for hooks In Back-Office, migrated pages are powered by Symfony. The powerful Symfony Event Dispatcher has been chosen to replace, in the long term, hooks. However, in order to preserve backward compatibility, both systems coexist.
-It is important that modules which subscribe to a hook are correctly notified no matter where the hook is dispatched from, be it in legacy code or modern code.
-In legacy code, hooks are dispatched using Hook::exec().</description>
-    </item>
-    
-    <item>
       <title>Tooling prerequisites for theme designers</title>
       <link>https://devdocs.prestashop.com/1.7/themes/getting-started/tools-for-theme-designers/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -2831,6 +2833,18 @@ server { # IPv4.  listen 80; listen 443 ssl http2; # IPv6.  # listen [::]:80;  #
       <description>Configure Nginx The following file is provided as an example configuration for your Nginx server. It may be incomplete, and remember you must adapt it for your own server&amp;rsquo;s needs!
 Once you are comfortable with your setup make sure to review our guide on how to optimize your Nginx configuration to better suit your requirements.
 server { # IPv4.  listen 80; listen 443 ssl http2; # IPv6.  # listen [::]:80;  # listen [::]:443 ssl http2;  # [EDIT] Your domain name(s) go here.</description>
+    </item>
+    
+    <item>
+      <title>Adding a new Core hook</title>
+      <link>https://devdocs.prestashop.com/8/development/components/hook/register-new-hook/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/development/components/hook/register-new-hook/</guid>
+      <description>How to add a new Core Hook Although hooks are automatically created the first time they are subscribed to, new hooks is added to the Core itself need to be properly registered and documented.
+Here are the steps you need to follow.
+1. Dispatch the new hook The very fisrt step is just to dispatch the new hook wherever you need it, as explained in Dispatching a Hook.
+2. Update the Hooks definition file All known hooks are registered in the ps_hook database table.</description>
     </item>
     
     <item>
@@ -3367,6 +3381,17 @@ In difference with 3rd party modules, native modules&#39; translation catalogues
       <guid>https://devdocs.prestashop.com/8/development/internationalization/translation/native-module-translation/</guid>
       <description>Native module translation To find out the basics of module translation, read Module Translation. In PrestaShop lingo, &amp;ldquo;native modules&amp;rdquo; refers to all the modules that are bundled and distributed with the Core.
 In difference with 3rd party modules, native modules&#39; translation catalogues are distributed with the Core itself. Thanks to this, Native modules are translated using the New translation system introduced in PrestaShop 1.7.</description>
+    </item>
+    
+    <item>
+      <title>Symfony bridge for hooks</title>
+      <link>https://devdocs.prestashop.com/8/development/components/hook/symfony-bridge/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop.com/8/development/components/hook/symfony-bridge/</guid>
+      <description>Symfony bridge for hooks In Back-Office, migrated pages are powered by Symfony. The powerful Symfony Event Dispatcher has been chosen to replace, in the long term, hooks. However, in order to preserve backward compatibility, both systems coexist.
+It is important that modules which subscribe to a hook are correctly notified no matter where the hook is dispatched from, be it in legacy code or modern code.
+In legacy code, hooks are dispatched using Hook::exec().</description>
     </item>
     
     <item>
