@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/development/architecture/migration-guide/strategy/">
 
     
-    <link href="/css/font-awesome.min.css?1635179116" rel="stylesheet">
-    <link href="/css/syntax-github.css?1635179116" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1635179116" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1635179116" rel="stylesheet">
-    <link href="/css/auto-complete.css?1635179116" rel="stylesheet">
-    <link href="/style.css?1635179116" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1635235535" rel="stylesheet">
+    <link href="/css/syntax-github.css?1635235535" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1635235535" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1635235535" rel="stylesheet">
+    <link href="/css/auto-complete.css?1635235535" rel="stylesheet">
+    <link href="/style.css?1635235535" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1635179116"></script>
+    <script src="/js/jquery-3.3.1.min.js?1635235535"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12637,24 +12637,24 @@
     <div id="toc-title">Table of Contents</div>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#different-kind-of-pages">Different kind of pages</a></li>
-    <li><a href="#where-we-started-from">Where we started from</a></li>
-    <li><a href="#the-beginning-of-the-migration-project-configuration-form">The beginning of the Migration project: Configuration Form</a></li>
-    <li><a href="#phase-2-listings">Phase 2: listings</a>
+    <li><a href="#migration-project-and-strategy">Migration project and strategy</a>
       <ul>
-        <li>
+        <li><a href="#different-kind-of-pages">Different kind of pages</a></li>
+        <li><a href="#where-we-started-from">Where we started from</a></li>
+        <li><a href="#the-beginning-of-the-migration-project-configuration-form">The beginning of the Migration project: Configuration Form</a></li>
+        <li><a href="#phase-2-listings">Phase 2: listings</a>
           <ul>
             <li><a href="#how-grid-interacts-with-the-legacy-model">How Grid interacts with the legacy Model</a></li>
           </ul>
         </li>
-      </ul>
-    </li>
-    <li><a href="#phase-3-cqrscqrs">Phase 3: <a href="HAHAHUGOSHORTCODE-s6-HBHB">CQRS</a></a></li>
-    <li><a href="#phase-4--addedit-form-pages">Phase 4 : Add/Edit Form pages</a></li>
-    <li><a href="#form-theme">Form Theme</a></li>
-    <li><a href="#towards-a-core-domain">Towards a Core domain</a>
-      <ul>
-        <li><a href="#migration-as-an-introduction-to-the-core">Migration as an introduction to the Core</a></li>
+        <li><a href="#phase-3-cqrscqrs">Phase 3: <a href="HAHAHUGOSHORTCODE-s6-HBHB">CQRS</a></a></li>
+        <li><a href="#phase-4--addedit-form-pages">Phase 4 : Add/Edit Form pages</a></li>
+        <li><a href="#form-theme">Form Theme</a></li>
+        <li><a href="#towards-a-core-domain">Towards a Core domain</a>
+          <ul>
+            <li><a href="#migration-as-an-introduction-to-the-core">Migration as an introduction to the Core</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -27498,8 +27498,9 @@
 
 
 
+<h1 id="migration-project-and-strategy">Migration project and strategy</h1>
 <p>This is a summary of the current Migration Strategy. It provides an overview of our current vision, in the end of this year 2020, of the Symfony Migration project.</p>
-<h1 id="different-kind-of-pages">Different kind of pages</h1>
+<h2 id="different-kind-of-pages">Different kind of pages</h2>
 <p>Back-Office pages can be classified in four categories:</p>
 <ol>
 <li><a href="https://devdocs.prestashop.com/8/development/architecture/migration-guide/forms/settings-forms/">Configuration / Settings Form pages</a></li>
@@ -27518,7 +27519,7 @@
 </ol>
 <p>There are some pages that are unique: Carriers Edit page, Dashboard, Customer Service page &hellip;</p>
 <p>Sometimes a page will have mixed content. For example there are pages that provide two listings or one listing and one configuration form.</p>
-<h1 id="where-we-started-from">Where we started from</h1>
+<h2 id="where-we-started-from">Where we started from</h2>
 <p>In legacy pages, most of the time, these Back-office pages were structured following standard <a href="https://devdocs.prestashop.com/8/basics/introduction/">MVC PrestaShop model</a>:</p>
 <ul>
 <li>smarty templates (View)</li>
@@ -27527,7 +27528,7 @@
 <li>ObjectModel classes with lot of logic in it (Model)</li>
 </ul>
 <p>We believe PrestaShop project has grown too big to follow this 3-layers model, rather fitted for small applications. We have chosen to introduce more architecture layers.</p>
-<h1 id="the-beginning-of-the-migration-project-configuration-form">The beginning of the Migration project: Configuration Form</h1>
+<h2 id="the-beginning-of-the-migration-project-configuration-form">The beginning of the Migration project: Configuration Form</h2>
 <p>The Migration project started by migrating <a href="https://devdocs.prestashop.com/8/development/architecture/migration-guide/forms/settings-forms/">Configuration Form pages</a>.</p>
 <p>The chosen structure to handle such pages was the following:</p>
 <ol>
@@ -27537,7 +27538,7 @@
 <li>Also part of the Model layer, DataProvider is in charge of data retrieval and saving the data</li>
 </ol>
 <p>Since the DataProvider interacts with ObjectModel, it belongs to <a href="https://devdocs.prestashop.com/8/development/architecture/file-structure/understanding-src-folder/">Adapter namespace</a>.</p>
-<h1 id="phase-2-listings">Phase 2: listings</h1>
+<h2 id="phase-2-listings">Phase 2: listings</h2>
 <p>For migrating Listing pages, the <a href="https://devdocs.prestashop.com/8/development/components/grid/">Grid component</a> was built.</p>
 <p>The chosen layer structure to handle such pages was the following:</p>
 <ol>
@@ -27551,7 +27552,7 @@
 <p>The QueryBuilder ignores ObjectModel and use a Doctrine Connection to query directly the database. So there is no interaction with legacy code.</p>
 <p>However the Grid Actions use ObjectModel, for example to enable/disable a Category status. In the beginning we used Adapter classes to handle these, but we could see that once again we were coupling legacy code with migrated code.</p>
 <p>This is when we decided to introduce <a href="https://devdocs.prestashop.com/8/development/architecture/domain/cqrs/">CQRS</a>.</p>
-<h1 id="phase-3-cqrscqrs">Phase 3: <a href="https://devdocs.prestashop.com/8/development/architecture/domain/cqrs/">CQRS</a></h1>
+<h2 id="phase-3-cqrscqrs">Phase 3: <a href="https://devdocs.prestashop.com/8/development/architecture/domain/cqrs/">CQRS</a></h2>
 <p>We wanted to build a strong frontier between migrated code and legacy code. Since re-writing all the code would be too long, we needed to continue relying on the business logic legacy code to power PrestaShop.</p>
 <p>We however wanted to interact with it in a way that would allow us, in the future, to easily unplug it and replace it with a new implementation.</p>
 <p>So we decided to introduce <a href="https://devdocs.prestashop.com/8/development/architecture/domain/cqrs/">CQRS</a> and <a href="https://en.wikipedia.org/wiki/Domain-driven_design">a Domain</a>.</p>
@@ -27568,7 +27569,7 @@
 <li>Handler, in Domain (= Model layer) performs the business logic needed</li>
 </ol>
 <p>So &ldquo;migrating a Grid action&rdquo; means to &ldquo;move the legacy logic into a Handler and building a Symfony layer on top of it&rdquo;</p>
-<h1 id="phase-4--addedit-form-pages">Phase 4 : Add/Edit Form pages</h1>
+<h2 id="phase-4--addedit-form-pages">Phase 4 : Add/Edit Form pages</h2>
 <p>These pages are form leveraging the concepts of CQRS.</p>
 <p><a href="https://devdocs.prestashop.com/8/development/architecture/migration-guide/forms/crud-forms/">You can read more about it by clicking on this link</a>.</p>
 <ol>
@@ -27589,10 +27590,10 @@
 <li>Handler performs the business logic needed</li>
 </ul>
 <p>So &ldquo;migrating a legacy Add/Edit page&rdquo; means to &ldquo;move the legacy logic into a Handler and building a Symfony Form on top of it with its management logic&rdquo;.</p>
-<h1 id="form-theme">Form Theme</h1>
-<p>We dont want to render manually Form inputs, so we now aim to build a Twig Form Theme allowing us to render all of our Symfony forms with a single block</p>
+<h2 id="form-theme">Form Theme</h2>
+<p>We don&rsquo;t want to render Form inputs manually, so we now rely on a <a href="https://devdocs.prestashop.com/8/development/components/form/form-theme/">Twig Form Theme</a> allowing us to render all of our Symfony forms with a single block</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">{{ form_widget(form) }}
-</code></pre></div><h1 id="towards-a-core-domain">Towards a Core domain</h1>
+</code></pre></div><h2 id="towards-a-core-domain">Towards a Core domain</h2>
 <p>Between phase 1 and phase 4, two years passed. Two years where we experimented, explored, struggled and we got the hang of what was needed for PrestaShop to move forward.</p>
 <p>We now have a better understanding of what the direction we are aiming for. We now know we want to build a full Core Domain for the future of PrestaShop.</p>
 <p>The <a href="https://build.prestashop.com/news/prestashop-in-2019-and-beyond-part-3-the-future-architecture/#our-proposal-for-a-future-architecture">future PrestaShop architecture</a> is based on 5 key elements:</p>
@@ -27613,7 +27614,7 @@
 <p>The Core and FO/BO applications communicate through <strong>two separate APIs</strong>, namely the FO API and the BO API. These APIs serve two distinct purposes: while the FO API is public and designed to serve customer-facing applications (e.g. the FO application, but also other custom clients, like mobile apps or Point of Sales in physical stores), the BO API is protected by access rights (much like the current Web services) and is meant to power the BO application, as well as third party integrations like ERPs. In order to maximize forward compatibility, APIs and SDKs are versioned.</p>
 <p>Of course, the future architecture supports <strong>Extensions</strong>, which can be placed all over the system. Modules can hook on to existing features or add new ones, either on the front-end applications as well as in the back-end (for data processing). On the front-end, Modules are based on the FO/BO SDKs, whereas server-side they are built on top of the Back-end SDK. While Front-end SDKs allow Modules to interact with front-end applications and retrieve data through PrestaShop&rsquo;s APIs, the Back-end SDK provides access to the Core API, which allows Modules to query data directly from the Core, perform state transitions, extend existing API endpoints and even create new ones. In order to ensure system stability, Extensions can <em>only</em> interact with PrestaShop through APIs and SDKs.</p>
 <p>Finally, Themes are a particular kind of extension that sits on top of the front-end application and that defines the <em>layout</em> and <em>style</em> for components provided by the application, FO SDK, and any installed Modules.</p>
-<h2 id="migration-as-an-introduction-to-the-core">Migration as an introduction to the Core</h2>
+<h3 id="migration-as-an-introduction-to-the-core">Migration as an introduction to the Core</h3>
 <p>Our Handlers started as &ldquo;place where we put the legacy code we dont have the time to migrate now&rdquo;. They must now become interfaces for the Core domain, defining the future API endpoints. You could think of them as Controllers for the Domain, and consequently they will become empty of business logic, only focused on validating incoming Commands and Queries and formatting the data in both directions.</p>
 
 
@@ -27636,17 +27637,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1635179116"></script>
-    <script src="/js/perfect-scrollbar.min.js?1635179116"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1635179116"></script>
-    <script src="/js/jquery.sticky.js?1635179116"></script>
-    <script src="/js/featherlight.min.js?1635179116"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1635179116"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1635179116"></script>
-    <script src="/js/learn.js?1635179116"></script>
-    <script src="/js/hugo-learn.js?1635179116"></script>
+    <script src="/js/clipboard.min.js?1635235535"></script>
+    <script src="/js/perfect-scrollbar.min.js?1635235535"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1635235535"></script>
+    <script src="/js/jquery.sticky.js?1635235535"></script>
+    <script src="/js/featherlight.min.js?1635235535"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1635235535"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1635235535"></script>
+    <script src="/js/learn.js?1635235535"></script>
+    <script src="/js/hugo-learn.js?1635235535"></script>
     
-    <script src="/main.js?1635179116"></script>
+    <script src="/main.js?1635235535"></script>
     
     
 
