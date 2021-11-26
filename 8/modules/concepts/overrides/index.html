@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/modules/concepts/overrides/">
 
     
-    <link href="/css/font-awesome.min.css?1637920452" rel="stylesheet">
-    <link href="/css/syntax-github.css?1637920452" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1637920452" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1637920452" rel="stylesheet">
-    <link href="/css/auto-complete.css?1637920452" rel="stylesheet">
-    <link href="/style.css?1637920452" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1637924769" rel="stylesheet">
+    <link href="/css/syntax-github.css?1637924769" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1637924769" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1637924769" rel="stylesheet">
+    <link href="/css/auto-complete.css?1637924769" rel="stylesheet">
+    <link href="/style.css?1637924769" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1637920452"></script>
+    <script src="/js/jquery-3.3.1.min.js?1637924769"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12466,6 +12466,11 @@
             <li><a href="#overriding-a-class">Overriding a class</a></li>
             <li><a href="#overriding-a-controller">Overriding a controller</a></li>
             <li><a href="#example">Example</a></li>
+          </ul>
+        </li>
+        <li><a href="#override-a-module">Override a module</a>
+          <ul>
+            <li><a href="#override-modules-main-class-by-extending-it">Override module&rsquo;s main class by extending it</a></li>
           </ul>
         </li>
         <li><a href="#theme-template-override">Theme template override</a></li>
@@ -27107,7 +27112,25 @@ As long as you extend the core equivalent class, you are free to override only o
         <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">initHeader</span><span class="p">();</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="theme-template-override">Theme template override</h2>
+</code></pre></div><h2 id="override-a-module">Override a module</h2>
+<p>Since version 1.6.0.11 of PrestaShop, a new feature is available that allows developers to override some parts of the modules.
+Despite a module having different files, the main one, additional classes, etc., you can override the main file, and ModuleFrontController (note: this is available since 1.7.2.0) based files.</p>
+<h3 id="override-modules-main-class-by-extending-it">Override module&rsquo;s main class by extending it</h3>
+<p>To override a module&rsquo;s instance class, you have to extend it, giving the extended class the same name and adding the <code>Override</code> suffix:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">
+<span class="k">class</span> <span class="nc">BlockUserInfoOverride</span> <span class="k">extends</span> <span class="nx">BlockUserInfo</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayNav</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+	<span class="p">{</span>
+                 <span class="c1">// This is only an example, please do not use HTML here :-)
+</span><span class="c1"></span>		<span class="k">return</span> <span class="s1">&#39;&lt;div class=&#34;header_user_info&#34;&gt;&lt;a&gt;Test&lt;/a&gt;&lt;/div&gt;&#39;</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>You must put the file in <code>/override/modules/blockuserinfo/blockuserinfo.php</code></p>
+<p>After adding an override, don&rsquo;t forget to clean the cache. You can do it from the back office or by CLI using the Symfony console.</p>
+<p>You may even create a module that overrides other modules! For instance:
+<code>/modules/mymodule/override/modules/blockuserinfo/blockuserinfo.php</code> will be copied to <code>/override/modules/blockuserinfo/blockuserinfo.php</code> during the installation of the <code>mymodule</code> module. However, this is not recommended, since the exact usage of a module to be overridden is unknown and may be different in a particular shop.</p>
+<h2 id="theme-template-override">Theme template override</h2>
 <p>Overriding a theme from a module is <strong>NOT</strong> possible, and never will.
 If you need this, you have to look instead at the parent/child theme feature.</p>
 <p>However, a module template or asset can be overriden by a theme,
@@ -27133,17 +27156,17 @@ but this is not covered by this chapter specific to modules development.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1637920452"></script>
-    <script src="/js/perfect-scrollbar.min.js?1637920452"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1637920452"></script>
-    <script src="/js/jquery.sticky.js?1637920452"></script>
-    <script src="/js/featherlight.min.js?1637920452"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1637920452"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1637920452"></script>
-    <script src="/js/learn.js?1637920452"></script>
-    <script src="/js/hugo-learn.js?1637920452"></script>
+    <script src="/js/clipboard.min.js?1637924769"></script>
+    <script src="/js/perfect-scrollbar.min.js?1637924769"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1637924769"></script>
+    <script src="/js/jquery.sticky.js?1637924769"></script>
+    <script src="/js/featherlight.min.js?1637924769"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1637924769"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1637924769"></script>
+    <script src="/js/learn.js?1637924769"></script>
+    <script src="/js/hugo-learn.js?1637924769"></script>
     
-    <script src="/main.js?1637920452"></script>
+    <script src="/main.js?1637924769"></script>
     
     
 
