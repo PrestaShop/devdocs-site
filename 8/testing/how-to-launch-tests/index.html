@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/testing/how-to-launch-tests/">
 
     
-    <link href="/css/font-awesome.min.css?1637924772" rel="stylesheet">
-    <link href="/css/syntax-github.css?1637924772" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1637924772" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1637924772" rel="stylesheet">
-    <link href="/css/auto-complete.css?1637924772" rel="stylesheet">
-    <link href="/style.css?1637924772" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1638181568" rel="stylesheet">
+    <link href="/css/syntax-github.css?1638181568" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1638181568" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1638181568" rel="stylesheet">
+    <link href="/css/auto-complete.css?1638181568" rel="stylesheet">
+    <link href="/style.css?1638181568" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1637924772"></script>
+    <script src="/js/jquery-3.3.1.min.js?1638181568"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12447,6 +12447,7 @@
       <ul>
         <li><a href="#executing-unitintegration-test-suites">Executing Unit/integration test suites</a></li>
         <li><a href="#executing-the-functional-test-suites">Executing the Functional test suites</a></li>
+        <li><a href="#executing-only-part-of-phpunit-tests">Executing only part of phpunit tests</a></li>
       </ul>
     </li>
   </ul>
@@ -27017,6 +27018,14 @@
 
 <h2 id="executing-the-functional-test-suites">Executing the Functional test suites</h2>
 <p>This is thoroughly explained in the <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/tests/UI/README.md">Puppeteer tests Readme file</a>.</p>
+<h2 id="executing-only-part-of-phpunit-tests">Executing only part of phpunit tests</h2>
+<p>When implementing a new feature it is much faster to run only your specific tests. You can run only one test class with phpunit. But you must provide the phpunit.xml configuration to get the test environment bootstrapped correctly.</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">vendor/bin/phpunit -c tests/Unit/phpunit.xml tests/Unit/PrestaShopBundle/Command/ConfigCommandTest.php
+</code></pre></div><p>Or even just few test methods</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">vendor/bin/phpunit --debug -c tests/Unit/phpunit.xml tests/Unit/PrestaShopBundle/Command/ConfigCommandTest.php --filter testSet
+</code></pre></div>
+<div class="notices tip" >Hint: <code>--debug</code> without <code>--filter</code> gives a nice list to filter with.</div>
+
 
 
 <footer class="article-footer">
@@ -27038,17 +27047,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1637924772"></script>
-    <script src="/js/perfect-scrollbar.min.js?1637924772"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1637924772"></script>
-    <script src="/js/jquery.sticky.js?1637924772"></script>
-    <script src="/js/featherlight.min.js?1637924772"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1637924772"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1637924772"></script>
-    <script src="/js/learn.js?1637924772"></script>
-    <script src="/js/hugo-learn.js?1637924772"></script>
+    <script src="/js/clipboard.min.js?1638181569"></script>
+    <script src="/js/perfect-scrollbar.min.js?1638181569"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1638181569"></script>
+    <script src="/js/jquery.sticky.js?1638181569"></script>
+    <script src="/js/featherlight.min.js?1638181569"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1638181569"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1638181569"></script>
+    <script src="/js/learn.js?1638181569"></script>
+    <script src="/js/hugo-learn.js?1638181569"></script>
     
-    <script src="/main.js?1637924772"></script>
+    <script src="/main.js?1638181569"></script>
     
     
 
