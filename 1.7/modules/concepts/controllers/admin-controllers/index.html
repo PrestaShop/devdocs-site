@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1639129335" rel="stylesheet">
-    <link href="/css/syntax-github.css?1639129335" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1639129335" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1639129335" rel="stylesheet">
-    <link href="/css/auto-complete.css?1639129335" rel="stylesheet">
-    <link href="/style.css?1639129335" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1639133208" rel="stylesheet">
+    <link href="/css/syntax-github.css?1639133208" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1639133208" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1639133208" rel="stylesheet">
+    <link href="/css/auto-complete.css?1639133208" rel="stylesheet">
+    <link href="/style.css?1639133208" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1639129335"></script>
+    <script src="/js/jquery-3.3.1.min.js?1639133208"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12416,6 +12416,7 @@
         <li><a href="#how-to-map-an-action-of-your-controller-to-a-uri">How to map an action of your controller to a URI</a>
           <ul>
             <li><a href="#disabling-the-prefix">Disabling the prefix</a></li>
+            <li><a href="#generating-the-uri-of-a-back-office-controller-inside-a-module">Generating the URI of a back-office controller inside a module</a></li>
           </ul>
         </li>
         <li><a href="#secure-your-controller">Secure your controller</a></li>
@@ -27046,7 +27047,24 @@ Since Symfony 4.1 the bundle notation is going to be deprecated: <a href="https:
 </span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModule\Controller\DemoController::demoAction&#39;</span><span class="w">
 </span><span class="w">      </span><span class="nt">_disable_module_prefix</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></div><h2 id="secure-your-controller">Secure your controller</h2>
+</span></code></pre></div><h3 id="generating-the-uri-of-a-back-office-controller-inside-a-module">Generating the URI of a back-office controller inside a module</h3>
+<p>Valid URIs required a security token.</p>
+<p>In order to generate the valid URI of a controller you created from inside the main module class, you need to get the Symfony router. The router will build the URI using <code>generate</code> with the route name, as in the below example.</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">    <span class="o">&lt;?</span><span class="nx">php</span>
+    <span class="c1"># modules/my-module/my-module.php
+</span><span class="c1"></span>
+    <span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Adapter\SymfonyContainer</span><span class="p">;</span>
+
+    <span class="k">class</span> <span class="nc">MyModule</span> <span class="k">extends</span> <span class="nx">Module</span>
+    <span class="p">{</span>
+        <span class="k">protected</span> <span class="k">function</span> <span class="nf">generateControllerURI</span><span class="p">()</span>
+        <span class="p">{</span>
+               <span class="nv">$router</span> <span class="o">=</span> <span class="nx">SymfonyContainer</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;router&#39;</span><span class="p">);</span>
+
+               <span class="k">return</span> <span class="nv">$router</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">(</span><span class="s1">&#39;my_route_name&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div><h2 id="secure-your-controller">Secure your controller</h2>
 
 <div class="magic-version-pill" data-version="1.7.5" data-title="New in PrestaShop 1.7.5"></div>
 
@@ -27075,17 +27093,17 @@ Since Symfony 4.1 the bundle notation is going to be deprecated: <a href="https:
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1639129335"></script>
-    <script src="/js/perfect-scrollbar.min.js?1639129335"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1639129335"></script>
-    <script src="/js/jquery.sticky.js?1639129335"></script>
-    <script src="/js/featherlight.min.js?1639129335"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1639129335"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1639129335"></script>
-    <script src="/js/learn.js?1639129335"></script>
-    <script src="/js/hugo-learn.js?1639129335"></script>
+    <script src="/js/clipboard.min.js?1639133208"></script>
+    <script src="/js/perfect-scrollbar.min.js?1639133208"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1639133208"></script>
+    <script src="/js/jquery.sticky.js?1639133208"></script>
+    <script src="/js/featherlight.min.js?1639133208"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1639133208"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1639133208"></script>
+    <script src="/js/learn.js?1639133208"></script>
+    <script src="/js/hugo-learn.js?1639133208"></script>
     
-    <script src="/main.js?1639129335"></script>
+    <script src="/main.js?1639133208"></script>
     
     
 
