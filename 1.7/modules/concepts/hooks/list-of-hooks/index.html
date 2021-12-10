@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1639133454" rel="stylesheet">
-    <link href="/css/syntax-github.css?1639133454" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1639133454" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1639133454" rel="stylesheet">
-    <link href="/css/auto-complete.css?1639133454" rel="stylesheet">
-    <link href="/style.css?1639133454" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1639133855" rel="stylesheet">
+    <link href="/css/syntax-github.css?1639133855" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1639133855" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1639133855" rel="stylesheet">
+    <link href="/css/auto-complete.css?1639133855" rel="stylesheet">
+    <link href="/style.css?1639133855" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1639133454"></script>
+    <script src="/js/jquery-3.3.1.min.js?1639133855"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -27689,6 +27689,136 @@ Doesn&rsquo;t necessarily have to be paid.
    <span class="s1">&#39;actions_bar_buttons_collection&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">ActionsBarButtonsCollection</span><span class="p">)</span> <span class="nx">Collection</span> <span class="nx">of</span> <span class="nx">ActionsBarButtonInterface</span>
 <span class="p">);</span>
 </code></pre></div></dd>
+<dt>actionPresentCart</dt>
+<dd>Available since:
+<span class="version-pill" title="New in PrestaShop 1.7.8">
+1.7.8
+</span>
+<p>This hook is called before a cart is presented</p>
+<p>Located in: /src/Adapter/Presenter/Cart/CartPresenter.php</p>
+<p>Parameters:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
+   <span class="s1">&#39;presentedCart&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;products&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">ProductLazyArray</span><span class="o">|</span><span class="nx">ProductListingLazyArray</span><span class="p">)</span> <span class="nv">$products</span><span class="p">,</span>
+        <span class="s1">&#39;totals&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;total&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;total&#39;</span>
+                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">label</span>
+                <span class="s1">&#39;amount&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">amount</span>
+                <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">formatted</span>
+	<span class="p">),</span>
+	<span class="s1">&#39;total_including_tax&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;total_including_tax&#39;</span>
+                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">label</span>
+                <span class="s1">&#39;amount&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">amount</span>
+                <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">formatted</span>
+	<span class="p">),</span>
+	<span class="s1">&#39;total_excluding_tax&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;total_excluding_tax&#39;</span>
+                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">label</span>
+                <span class="s1">&#39;amount&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">amount</span>
+                <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">formatted</span>
+	<span class="p">),</span>
+    <span class="p">),</span>
+        <span class="s1">&#39;subtotals&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;products&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;products&#39;</span>
+                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">label</span>
+                <span class="s1">&#39;amount&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">amount</span>
+                <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">formatted</span>
+	<span class="p">),</span>
+	<span class="s1">&#39;discounts&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;discounts&#39;</span>
+                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">label</span>
+                <span class="s1">&#39;amount&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">amount</span>
+                <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">formatted</span>
+	<span class="p">),</span>
+	<span class="s1">&#39;gift_wrapping&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;gift_wrapping&#39;</span>
+                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">label</span>
+                <span class="s1">&#39;amount&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">amount</span>
+                <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">formatted</span>
+	<span class="p">),</span>
+	<span class="s1">&#39;shipping&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shipping&#39;</span>
+                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">label</span>
+                <span class="s1">&#39;amount&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">amount</span>
+                <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">formatted</span>
+	<span class="p">),</span>
+	<span class="s1">&#39;tax&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;tax&#39;</span>
+                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">label</span>
+                <span class="s1">&#39;amount&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">amount</span>
+                <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="nx">Price</span> <span class="nx">formatted</span>
+	<span class="p">),</span>
+    <span class="p">),</span>
+        <span class="s1">&#39;products_count&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Number</span> <span class="nx">of</span> <span class="nx">products</span> <span class="nx">in</span> <span class="nx">cart</span><span class="p">,</span>
+        <span class="s1">&#39;summary_string&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="nx">Descriptive</span> <span class="nx">number</span> <span class="nx">of</span> <span class="nx">products</span><span class="p">,</span>
+        <span class="s1">&#39;labels&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+            <span class="s1">&#39;tax_short&#39;</span> <span class="o">=&gt;</span> <span class="nx">Tax</span> <span class="nx">short</span> <span class="nx">label</span> <span class="p">(</span><span class="nx">incl</span><span class="o">.</span> <span class="k">or</span> <span class="nx">excl</span><span class="o">.</span><span class="p">),</span>
+            <span class="s1">&#39;tax_long&#39;</span> <span class="o">=&gt;</span> <span class="nx">Tax</span> <span class="nx">long</span> <span class="nx">label</span> <span class="p">(</span><span class="nx">included</span> <span class="k">or</span> <span class="nx">excluded</span><span class="p">),</span>
+        <span class="p">),</span>
+        <span class="s1">&#39;id_address_delivery&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Delivery</span> <span class="nx">address</span> <span class="nx">ID</span><span class="p">,</span>
+        <span class="s1">&#39;id_address_invoice&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Invoice</span> <span class="nx">address</span> <span class="nx">ID</span><span class="p">,</span>
+        <span class="s1">&#39;is_virtual&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">bool</span><span class="p">)</span> <span class="k">true</span> <span class="k">if</span> <span class="nx">cart</span> <span class="nx">contains</span> <span class="nx">at</span> <span class="nx">least</span> <span class="nx">one</span> <span class="k">virtual</span> <span class="nx">product</span><span class="p">,</span>
+        <span class="s1">&#39;vouchers&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+            <span class="s1">&#39;allowed&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">are</span> <span class="nx">CartRule</span><span class="s1">&#39;s allowed?
+</span><span class="s1">            &#39;</span><span class="nx">added</span><span class="s1">&#39; =&gt; (array) List of vouchers,
+</span><span class="s1">        ),
+</span><span class="s1">        &#39;</span><span class="nx">discounts</span><span class="s1">&#39; =&gt; (array) List of highlighted discounts,
+</span><span class="s1">        &#39;</span><span class="nx">minimalPurchase</span><span class="s1">&#39; =&gt; (string) Formatted price of configuration PS_PURCHASE_MINIMUM (and filter by hook overrideMinimalPurchasePrice),
+</span><span class="s1">        &#39;</span><span class="nx">minimalPurchaseRequired</span><span class="err">&#39;</span> <span class="o">=&gt;</span> <span class="nx">Text</span> <span class="nx">minimal</span> <span class="nx">purchase</span> <span class="k">if</span> <span class="nx">PS_PURCHASE_MINIMUM</span> <span class="o">&gt;</span> <span class="nx">Total</span> <span class="nx">products</span> <span class="nx">price</span> <span class="nx">without</span> <span class="nx">taxes</span>
+    <span class="p">)</span>
+<span class="p">);</span>
+</code></pre></div></dd>
+<dt>actionPresentOrder</dt>
+<dd>Available since:
+<span class="version-pill" title="New in PrestaShop 1.7.8">
+1.7.8
+</span>
+<p>This hook is called before an order is presented</p>
+<p>Located in: /src/Adapter/Presenter/Order/OrderPresenter.php</p>
+<p>Parameters:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
+   <span class="s1">&#39;presentedOrder&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="k">array</span><span class="p">)</span> <span class="o">&amp;</span><span class="nv">$orderLazyArray</span>
+<span class="p">);</span>
+</code></pre></div></dd>
+<dt>actionPresentOrderReturn</dt>
+<dd>Available since:
+<span class="version-pill" title="New in PrestaShop 1.7.8">
+1.7.8
+</span>
+<p>This hook is called before an order return is presented</p>
+<p>Located in: /src/Adapter/Presenter/Order/OrderReturnPresenter.php</p>
+<p>Parameters:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
+   <span class="s1">&#39;presentedOrderReturn&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="k">array</span><span class="p">)</span> <span class="o">&amp;</span><span class="nv">$orderReturnLazyArray</span>
+<span class="p">);</span>
+</code></pre></div></dd>
+<dt>actionPresentProduct</dt>
+<dd>Available since:
+<span class="version-pill" title="New in PrestaShop 1.7.8">
+1.7.8
+</span>
+<p>This hook is called before a product is presented</p>
+<p>Located in: /src/Adapter/Presenter/Product/ProductPresenter.php</p>
+<p>Parameters:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
+   <span class="s1">&#39;presentedProduct&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="k">array</span><span class="p">)</span> <span class="o">&amp;</span><span class="nv">$productLazyArray</span>
+<span class="p">);</span>
+</code></pre></div></dd>
+<dt>actionPresentProductListing</dt>
+<dd>Available since:
+<span class="version-pill" title="New in PrestaShop 1.7.8">
+1.7.8
+</span>
+<p>This hook is called before a product listing is presented</p>
+<p>Located in: /src/Adapter/Presenter/Product/ProductListingPresenter.php</p>
+<p>Parameters:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
+   <span class="s1">&#39;presentedProduct&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="k">array</span><span class="p">)</span> <span class="o">&amp;</span><span class="nv">$productListingLazyArray</span>
+<span class="p">);</span>
+</code></pre></div></dd>
 <dt>actionAdminAdminPreferencesControllerPostProcessBefore</dt>
 <dd>Available since:
 <span class="version-pill" title="New in PrestaShop 1.7.7">
@@ -28831,17 +28961,17 @@ This hook is called just before the validation and the  building of the KpiRow.<
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1639133454"></script>
-    <script src="/js/perfect-scrollbar.min.js?1639133454"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1639133454"></script>
-    <script src="/js/jquery.sticky.js?1639133454"></script>
-    <script src="/js/featherlight.min.js?1639133454"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1639133454"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1639133454"></script>
-    <script src="/js/learn.js?1639133454"></script>
-    <script src="/js/hugo-learn.js?1639133454"></script>
+    <script src="/js/clipboard.min.js?1639133856"></script>
+    <script src="/js/perfect-scrollbar.min.js?1639133856"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1639133856"></script>
+    <script src="/js/jquery.sticky.js?1639133856"></script>
+    <script src="/js/featherlight.min.js?1639133856"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1639133856"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1639133856"></script>
+    <script src="/js/learn.js?1639133856"></script>
+    <script src="/js/hugo-learn.js?1639133856"></script>
     
-    <script src="/main.js?1639133454"></script>
+    <script src="/main.js?1639133856"></script>
     
     
 
