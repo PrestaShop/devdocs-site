@@ -1798,7 +1798,8 @@ For unit tests, we strongly encourage you to base your test on the PHPUnit&amp;r
       
       <guid>https://devdocs.prestashop.com/8/testing/how-to-launch-tests/</guid>
       <description>How to execute the PrestaShop automatic test suite Executing Unit/integration test suites At least four test suites are available, testing different parts of PrestaShop:
- Legacy tests: heritage from PrestaShop 1.6: mix of unit, integration and functional tests; Legacy controllers: added to help with the Symfony migration, ensures that old Back Office controllers are still runnable; Admin tests: tests src/Core and src/Adapter classes; Symfony specific tests: test classes from src/PrestaShopBundle  Each suite needs a specific PHPUnit configuration.</description>
+ Unit tests Integrations tests Functional tests Legacy endpoints  Each suite needs a specific PHPUnit configuration. This is why each test suite has a specific composer command:
+ composer unit-tests composer integration-tests composer integration-behaviour-tests composer phpunit-endpoints  You can execute the entire PHPUnit test suites using the composer test-all command.</description>
     </item>
     
     <item>
@@ -2179,8 +2180,8 @@ To add a new test, you need to add a new entry in the Data Provider of SurvivalT
       
       <guid>https://devdocs.prestashop.com/8/development/architecture/migration-guide/testing/unit/</guid>
       <description>Unit testing Smoke testing A smoke test is a really simple and basic test that ensure the page will load with the right HTTP code. This won&amp;rsquo;t ensure the page will works as expected but if the test fails, this ensure the page is not functional.
-To add a new test, you need to add a new entry in the Data Provider of SurvivalTest class:
-&amp;lt;?php namespace LegacyTests\Integration\PrestaShopBundle\Controller\Admin; // ... /** * @group demo * * To execute these tests: use &amp;#34;.</description>
+To add a new test, you need to add a new entry in the Data Provider of FrameworkBundleAdminControllerTest class:
+&amp;lt;?php namespace Tests\Integration\PrestaShopBundle\Controller\Admin; // ... /** * @group demo * * To execute these tests: use &amp;#34;.</description>
     </item>
     
     <item>
