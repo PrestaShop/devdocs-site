@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/development/architecture/migration-guide/testing/behat/">
 
     
-    <link href="/css/font-awesome.min.css?1639731636" rel="stylesheet">
-    <link href="/css/syntax-github.css?1639731636" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1639731636" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1639731636" rel="stylesheet">
-    <link href="/css/auto-complete.css?1639731636" rel="stylesheet">
-    <link href="/style.css?1639731636" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1640102444" rel="stylesheet">
+    <link href="/css/syntax-github.css?1640102444" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1640102444" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1640102444" rel="stylesheet">
+    <link href="/css/auto-complete.css?1640102444" rel="stylesheet">
+    <link href="/style.css?1640102444" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1639731636"></script>
+    <script src="/js/jquery-3.3.1.min.js?1640102444"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12356,12 +12356,28 @@
   <ul>
     <li><a href="#behat-testing">Behat testing</a>
       <ul>
-        <li><a href="#database">Database</a></li>
+        <li><a href="#database">Database</a>
+          <ul>
+            <li><a href="#global-dump">Global dump</a></li>
+            <li><a href="#tables-dump">Tables dump</a></li>
+            <li><a href="#restore-commands">Restore commands</a></li>
+          </ul>
+        </li>
         <li><a href="#behats-structure-in-prestashop">Behats structure in PrestaShop</a></li>
         <li><a href="#features">Features</a></li>
         <li><a href="#context">Context</a></li>
         <li><a href="#shared-storage">Shared storage</a></li>
         <li><a href="#hooks">Hooks</a></li>
+        <li><a href="#restore-and-clear">Restore and clear</a>
+          <ul>
+            <li><a href="#restore-step-by-step">Restore step by step</a></li>
+            <li><a href="#restore-all-tables-with-generic-tag">Restore all tables with generic tag</a></li>
+            <li><a href="#restore-a-domain-with-specific-tag">Restore a domain with specific tag</a></li>
+            <li><a href="#restore-a-whole-suite">Restore a whole suite</a></li>
+            <li><a href="#clear-cache">Clear cache</a></li>
+            <li><a href="#reboot-kernel">Reboot kernel</a></li>
+          </ul>
+        </li>
         <li><a href="#behatyml">behat.yml</a></li>
       </ul>
     </li>
@@ -26868,50 +26884,74 @@
 
 <div class="notices tip" >It is important that you get familiar with the <code>Behats</code> principles before reading further. You can find the official behat documentation <a href="https://docs.behat.org/en/latest/guides.html">here</a>.</div>
 
-<p>A behaviour (<code>behat</code>) tests are a part of integration tests. They allow testing how multiple components are working together. In PrestaShop, behats are used to test the <code>Application</code> and <code>Domain</code> layer integration - basically all the [CQRS]({{ relref &ldquo;/8/development/architecture/domain/cqrs&rdquo; }}) commands and queries.</p>
+<p>A behaviour (<code>behat</code>) tests are a part of integration tests. They allow testing how multiple components are working together. In PrestaShop, behats are used to test the <code>Application</code> and <code>Domain</code> layer integration - basically all the <a href="/8/development/architecture/domain/cqrs/">CQRS</a> commands and queries.</p>
 <h2 id="database">Database</h2>
+<h3 id="global-dump">Global dump</h3>
 <p>During behat tests the actual database queries are executed, therefore before testing you need to run a command <code>composer create-test-db</code> to create a test database.</p>
 
-<div class="notices " >The <code>create-test-db</code> script installs a fresh prestashop with fixtures in a new database called <code>test_{your database name}</code> and dumps the database in your machine <code>/tmp</code> directory named <code>ps_dump.sql</code>. That <code>ps_dump.sql</code> is later used to reset the database. You can check the actual script for more information - <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/tests/bin/create-test-db.php">/tests/bin/create-test-db.php</a>.</div>
+<div class="notices " >The <code>create-test-db</code> script installs a fresh prestashop with fixtures in a new database called <code>test_{your database name}</code> and dumps the database in your machine <code>/tmp</code> directory named <code>ps_dump_database_name_8.0.0.sql</code>. That <code>ps_dump_database_name_8.0.0.sql</code> is later used to reset the database. You can check the actual script for more information - <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/tests/bin/create-test-db.php">/tests/bin/create-test-db.php</a>.</div>
+
+<h3 id="tables-dump">Tables dump</h3>
+<p>During the test database creation a global dump is created, but some dumps for each table are also created, and a checksum of each table is also performed for each table. So for <code>product</code> table, for example, you will get two files in your <code>/tmp</code> folder:</p>
+<ul>
+<li><code>ps_dump_database_name_8.0.0_ps_product.sql</code>: contains the dump that allows to clean and restore all the data in <code>product</code> table</li>
+<li><code>ps_dump_database_name_8.0.0_ps_product.md5</code>: the Checksum value (returned by MySQL function) after the test database has been installed with fixtures data</li>
+</ul>
+<p>With those two files it is possible to:</p>
+<ul>
+<li>restore a specific table independently instead of restoring the whole database</li>
+<li>compare the current checksum with the saved one to pre-check if a restore is needed</li>
+</ul>
+<p>This allows restoring the DB fixtures more efficiently and more quickly.</p>
+<h3 id="restore-commands">Restore commands</h3>
+<p>When testing behat scenarios it might be useful to sometimes restore the initial database content (because some scenarios messed with the current content or any other reason).
+In those case two composer commands are available:</p>
+<ul>
+<li><code>composer restore-test-db</code>: drop the whole database and restore its whole content with a single dump (safer but longer)</li>
+<li><code>composer restore-test-tables</code>: check for each table if it was modified, when necessary drop the table and restore the table content (faster, recommended)</li>
+</ul>
+
+<div class="notices " >These composer methods are useful when testing a feature only during development. But in the end each scenario is responsible for setting the database correctly and, most of all, cleaning it after it is over. <strong>ALWAYS leave the database in the state it was previously</strong>.
+So each feature must handle database restoration dedicated steps or custom hooks (see below).</div>
 
 <h2 id="behats-structure-in-prestashop">Behats structure in PrestaShop</h2>
-<p>Behat related files are located in <a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.x/tests/Integration/Behaviour">tests/Integration/Behaviour/</a>. This directory contains following files:</p>
+<p>Behat related files are located in <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/tests/Integration/Behaviour">tests/Integration/Behaviour/</a>. This directory contains following files:</p>
 <ul>
 <li><a href="#behatyml">behat.yml</a> - this is the test suites configuration file which describes feature paths and contexts for every test suite. It can be passed as an argument when running the tests like this <code>./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml</code>.</li>
 <li>bootstrap.php - this file loads the <code>Kernel</code> for a behat tests environment.</li>
-<li>Features - this directory contains all the <a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.x/tests/Integration/Behaviour/Features/Scenario">Scenarios</a> and <a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.x/tests/Integration/Behaviour/Features/Context">Contexts</a>. More about it <a href="#features">below</a>.</li>
+<li>Features - this directory contains all the <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/tests/Integration/Behaviour/Features/Scenario">Scenarios</a> and <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/tests/Integration/Behaviour/Features/Context">Contexts</a>. More about it <a href="#features">below</a>.</li>
 </ul>
 <h2 id="features">Features</h2>
 
 <div class="notices tip" >Before continuing, <strong>please read the official <code>behat</code> documentation</strong> about the <a href="https://docs.behat.org/en/latest/user_guide/features_scenarios.html">features and scenarios</a>.</div>
 
-<p>In PrestaShop all <code>*.feature</code> files are placed in <a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.x/tests/Integration/Behaviour/Features/Scenario">.tests/Integration/Behaviour/Features/Scenario</a>. Each feature is placed in a dedicated directory organized by <code>domain</code> (or even a <code>subdomain</code> if necessary). These feature files contains text that describes the testing scenarios in a user-friendly manner, each of them must start with a keyword <code>Feature</code> and have a one or multiple scenarios starting with a keyword <code>Scenario</code>. For example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Feature: Update product status from BO (Back Office)
-  As an employee I must be able to update product status (enable/disable)
-
-  Scenario: I update standard product status
-    Given I add product &#34;product1&#34; with following information:
-      | name[en-US] | Values list poster nr. 1 (paper) |
-      | type        | standard                         |
-    And product product1 type should be standard
-    And product &#34;product1&#34; should be disabled
-    When I enable product &#34;product1&#34;
-    Then product &#34;product1&#34; should be enabled
-    When I disable product &#34;product1&#34;
-    Then product &#34;product1&#34; should be disabled
-</code></pre></div><p>As you can see, we state the <code>given</code> information, then we describe the action and finally the assertion. These scenarios should be easy to understand even for non-technical people. So when writing one, try to avoid the technical keywords and make it as user-friendly as possible.</p>
+<p>In PrestaShop all <code>*.feature</code> files are placed in <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/tests/Integration/Behaviour/Features/Scenario">.tests/Integration/Behaviour/Features/Scenario</a>. Each feature is placed in a dedicated directory organized by <code>domain</code> (or even a <code>subdomain</code> if necessary). These feature files contains text that describes the testing scenarios in a user-friendly manner, each of them must start with a keyword <code>Feature</code> and have a one or multiple scenarios starting with a keyword <code>Scenario</code>. For example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="k">Feature:</span><span class="nf"> Update product status from BO (Back Office)
+</span><span class="nf">  As an employee I must be able to update product status (enable/disable)
+</span><span class="nf">
+</span><span class="nf">  </span><span class="k">Scenario:</span><span class="nf"> I update standard product status
+</span><span class="nf"></span><span class="k">    Given </span><span class="nf">I add product &#34;</span><span class="s">product1</span><span class="nf">&#34; with following information:
+</span><span class="nf"></span><span class="k">      |</span><span class="s"> name[en-US]</span><span class="k"> |</span><span class="s"> Values list poster nr. 1 (paper)</span><span class="k"> |</span><span class="nf">
+</span><span class="nf"></span><span class="k">      |</span><span class="s"> type</span><span class="k">        |</span><span class="s"> standard</span><span class="k">                         |</span><span class="nf">
+</span><span class="nf">    </span><span class="k">And </span><span class="nf">product product</span><span class="s">1</span><span class="nf"> type should be standard
+</span><span class="nf">    </span><span class="k">And </span><span class="nf">product &#34;</span><span class="s">product1</span><span class="nf">&#34; should be disabled
+</span><span class="nf">    </span><span class="k">When </span><span class="nf">I enable product &#34;</span><span class="s">product1</span><span class="nf">&#34;
+</span><span class="nf">    </span><span class="k">Then </span><span class="nf">product &#34;</span><span class="s">product1</span><span class="nf">&#34; should be enabled
+</span><span class="nf">    </span><span class="k">When </span><span class="nf">I disable product &#34;</span><span class="s">product1</span><span class="nf">&#34;
+</span><span class="nf">    </span><span class="k">Then </span><span class="nf">product &#34;</span><span class="s">product1</span><span class="nf">&#34; should be disabled
+</span></code></pre></div><p>As you can see, we state the <code>given</code> information, then we describe the action and finally the assertion. These scenarios should be easy to understand even for non-technical people. So when writing one, try to avoid the technical keywords and make it as user-friendly as possible.</p>
 
 <div class="notices tip" >There is also a keyword <code>Background</code>, which allows running certain code before each scenario. See more <a href="https://docs.behat.org/en/latest/user_guide/writing_scenarios.html#user-guide-writing-scenarios-backgrounds">here</a>.</div>
 
 <p>Every line in scenario has a related method defined in a <a href="#context">Context</a>.</p>
 <h2 id="context">Context</h2>
-<p>The behat <code>Context</code> files are classes that contains the implementations of the features. In PrestaShop all <code>Context</code> files are placed in <a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.x/tests/Integration/Behaviour/Features/Context">tests/Integration/Behaviour/Features/Scenario</a>.</p>
+<p>The behat <code>Context</code> files are classes that contains the implementations of the features. In PrestaShop all <code>Context</code> files are placed in <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/tests/Integration/Behaviour/Features/Context">tests/Integration/Behaviour/Features/Scenario</a>.</p>
 
-<div class="notices tip" >The most recent <code>Context</code> files are located in <a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.x/tests/Integration/Behaviour/Features/Context/Domain"><code>Tests/Integration/Behaviour/Features/Context/Domain</code></a> namespace, so try to use these and avoid the ones from the <code>Tests/Integration/Behaviour/Features/Context/*</code> namespace (those are old and might not be implemented well).</div>
+<div class="notices tip" >The most recent <code>Context</code> files are located in <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/tests/Integration/Behaviour/Features/Context/Domain"><code>Tests/Integration/Behaviour/Features/Context/Domain</code></a> namespace, so try to use these and avoid the ones from the <code>Tests/Integration/Behaviour/Features/Context/*</code> namespace (those are old and might not be implemented well).</div>
 
-<p>When creating a new Context class, it should extend the <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.x/tests/Integration/Behaviour/Features/Context/Domain/AbstractDomainFeatureContext.php"><code>AbstractDomainFeatureContext</code></a>.</p>
+<p>When creating a new Context class, it should extend the <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/tests/Integration/Behaviour/Features/Context/Domain/AbstractDomainFeatureContext.php"><code>AbstractDomainFeatureContext</code></a>.</p>
 
-<div class="notices " >The <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.x/tests/Integration/Behaviour/Features/Context/Domain/AbstractDomainFeatureContext.php"><code>AbstractDomainFeatureContext</code></a> contains some commonly used helper methods, and it implements the <code>Behat\Behat\Context</code> which is necessary for these tests to work.</div>
+<div class="notices " >The <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/tests/Integration/Behaviour/Features/Context/Domain/AbstractDomainFeatureContext.php"><code>AbstractDomainFeatureContext</code></a> contains some commonly used helper methods, and it implements the <code>Behat\Behat\Context</code> which is necessary for these tests to work.</div>
 
 <p>This is how the context looks like:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">OrderFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractDomainFeatureContext</span>
@@ -26947,7 +26987,7 @@
 </span><span class="c1"></span>
 </code></pre></div><p>As you can see in example, the string <code>@Given I add order :orderReference with the following details:</code> maps this method to related line in <code>*.feature</code> file. The <code>:orderReference</code> acts as a variable which actually is the <code>id</code> of the order, that is saved into the <a href="#shared-storage"><code>SharedStorage</code></a>. The <code>TableNode $table</code> is a specific argument, you can read about it <a href="https://behat.org/en/latest/user_guide/writing_scenarios.html#tables">here</a>.</p>
 <h2 id="shared-storage">Shared storage</h2>
-<p>The <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.x/tests/Integration/Behaviour/Features/Context/SharedStorage.php">SharedStorage</a> is responsible for holding certain values in memory which are shared across the feature. The most common usage example is the <code>id</code> reference - we specify a certain keyword e.g. <code>product1</code> before creating it, and once the command returns the auto-incremented value, we set it in shared storage like this <code>SharedStorage::getStorage()-&gt;set($orderReference, $orderId-&gt;getValue());</code>. In upcoming scenarios we can reuse this reference to get the record, something like this:</p>
+<p>The <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/tests/Integration/Behaviour/Features/Context/SharedStorage.php">SharedStorage</a> is responsible for holding certain values in memory which are shared across the feature. The most common usage example is the <code>id</code> reference - we specify a certain keyword e.g. <code>product1</code> before creating it, and once the command returns the auto-incremented value, we set it in shared storage like this <code>SharedStorage::getStorage()-&gt;set($orderReference, $orderId-&gt;getValue());</code>. In upcoming scenarios we can reuse this reference to get the record, something like this:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getProductForEditing</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$reference</span><span class="p">)</span><span class="o">:</span> <span class="nx">ProductForEditing</span>
     <span class="p">{</span>
         <span class="nv">$productId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getSharedStorage</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$reference</span><span class="p">);</span>
@@ -26957,25 +26997,197 @@
         <span class="p">));</span>
     <span class="p">}</span>
 </code></pre></div><h2 id="hooks">Hooks</h2>
-<p>Behats allow you to use <a href="https://docs.behat.org/en/v2.5/guides/3.hooks.html#hooks">hooks</a>. You can find some usages in <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.x/tests/Integration/Behaviour/Features/Context/CommonFeatureContext.php">CommonFeatureContext</a>. You can use these hooked methods by tagging them before the <code>Feature</code> (or before <code>Scenario</code> depending on the hook type), like this (<a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.x/tests/Integration/Behaviour/Features/Context/Domain/Product/AddProductFeatureContext.php">add_product.feature</a>
+<p>Behats allow you to use <a href="https://docs.behat.org/en/v2.5/guides/3.hooks.html#hooks">hooks</a>. You can find some usages in <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/tests/Integration/Behaviour/Features/Context/CommonFeatureContext.php">CommonFeatureContext</a>. You can use these hooked methods by tagging them before the <code>Feature</code> (or before <code>Scenario</code> depending on the hook type), like this (<a href="https://github.com/PrestaShop/PrestaShop/blob/develop/tests/Integration/Behaviour/Features/Context/Domain/Product/AddProductFeatureContext.php">add_product.feature</a>
 ):</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@clear-cache-before-feature
-@clear-cache-after-feature
-Feature: Add basic product from Back Office (BO)
-  As a BO user
-  I need to be able to add new product with basic information from the BO
-
-</code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@clear-cache-before-feature</span><span class="nf">
+</span><span class="nf"></span><span class="nt">@clear-cache-after-feature</span><span class="nf">
+</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span><span class="nf">  As a BO user
+</span><span class="nf">  I need to be able to add new product with basic information from the BO
+</span><span class="nf">
+</span></code></pre></div>
 <div class="notices tip" ><p>You can also tag specific <code>features</code> if you want to run only them with a <code>--tags</code> filter. For example, if you add following tag in your Feature:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@add
-Feature: Add basic product from Back Office (BO)
-  As a BO user
-  I need to be able to add new product with basic information from the BO
-    ...
-</code></pre></div><p>Then you can run only this feature by following command <code>./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml -s product --tags add</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@add</span><span class="nf">
+</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span><span class="nf">  As a BO user
+</span><span class="nf">  I need to be able to add new product with basic information from the BO
+</span><span class="nf">    ...
+</span></code></pre></div><p>Then you can run only this feature by following command <code>./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml -s product --tags add</code></p>
 </div>
 
-<h2 id="behatyml">behat.yml</h2>
+<h2 id="restore-and-clear">Restore and clear</h2>
+<p>Each feature is responsible for handling its own data and the database state, on startup you should assume that the database is in the same state as when it was created with fixtures.
+To assume that you need to take responsibility for cleaning it after the feature or the suite is over. There are several ways of restoring/cleaning the database.
+Sometimes clearing the cache of the software is also needed since all the behat suites are run in a single process.</p>
+<h3 id="restore-step-by-step">Restore step by step</h3>
+<div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@add</span><span class="nf">
+</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span><span class="nf">  As a BO user
+</span><span class="nf">  I need to be able to add new product with basic information from the BO
+</span><span class="nf">
+</span><span class="nf">  </span><span class="k">Scenario:</span><span class="nf"> I modify stuff in product tables I clean them afterwards
+</span><span class="nf">     ...</span><span class="c">
+</span><span class="c">     # You don&#39;t need to specify the database prefix, tables are separated by a comma</span><span class="nf">
+</span><span class="nf"></span><span class="k">     Then </span><span class="nf">I restore tables &#34;</span><span class="s">product,product_attributes</span><span class="nf">&#34;
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\CommonFeatureContext
+</span><span class="c1"></span><span class="k">class</span> <span class="nc">CommonFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
+    <span class="sd">/**
+</span><span class="sd">     * @Given I restore tables :tableNames
+</span><span class="sd">     *
+</span><span class="sd">     * @param string $tableNames
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">restoreTables</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$tableNames</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="p">{</span>
+        <span class="nv">$tables</span> <span class="o">=</span> <span class="nx">explode</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="nv">$tableNames</span><span class="p">);</span>
+        <span class="nx">DatabaseDump</span><span class="o">::</span><span class="na">restoreTables</span><span class="p">(</span><span class="nv">$tables</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="restore-all-tables-with-generic-tag">Restore all tables with generic tag</h3>
+<div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@restore-all-tables-before-feature</span><span class="nf">
+</span><span class="nf"></span><span class="nt">@add</span><span class="nf">
+</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span><span class="nf">  As a BO user
+</span><span class="nf">  I need to be able to add new product with basic information from the BO
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\CommonFeatureContext
+</span><span class="c1"></span><span class="k">class</span> <span class="nc">CommonFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
+    <span class="sd">/**
+</span><span class="sd">     * This hook can be used to flag a feature for database hard reset
+</span><span class="sd">     *
+</span><span class="sd">     * @BeforeFeature @restore-all-tables-before-feature
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreAllTablesBeforeFeature</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">DatabaseDump</span><span class="o">::</span><span class="na">restoreAllTables</span><span class="p">();</span>
+        <span class="k">require_once</span> <span class="nx">_PS_ROOT_DIR_</span> <span class="o">.</span> <span class="s1">&#39;/config/config.inc.php&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="restore-a-domain-with-specific-tag">Restore a domain with specific tag</h3>
+<div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@restore-products-before-feature</span><span class="nf">
+</span><span class="nf"></span><span class="nt">@add</span><span class="nf">
+</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span><span class="nf">  As a BO user
+</span><span class="nf">  I need to be able to add new product with basic information from the BO
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\Domain\Product\CommonProductFeatureContext
+</span><span class="c1"></span><span class="k">class</span> <span class="nc">CommonProductFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
+    <span class="sd">/**
+</span><span class="sd">     * @BeforeFeature @restore-products-before-feature
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreProductTablesBeforeFeature</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="p">{</span>
+        <span class="k">static</span><span class="o">::</span><span class="na">restoreProductTables</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">private</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreProductTables</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="p">{</span>
+        <span class="nx">DatabaseDump</span><span class="o">::</span><span class="na">restoreTables</span><span class="p">([</span>
+            <span class="s1">&#39;product&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;product_attachment&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;product_attribute&#39;</span><span class="p">,</span>
+            <span class="c1">// And many more but it&#39;s not the point here
+</span><span class="c1"></span>        <span class="p">]);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="restore-a-whole-suite">Restore a whole suite</h3>
+<p>This hook is triggered just by associating the context class to your suite (see behat configuration below).</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\Domain\Product\CommonProductFeatureContext
+</span><span class="c1"></span><span class="k">class</span> <span class="nc">CommonProductFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
+    <span class="sd">/**
+</span><span class="sd">     * @BeforeSuite
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreAllTablesBeforeSuite</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="p">{</span>
+        <span class="nx">DatabaseDump</span><span class="o">::</span><span class="na">restoreAllTables</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**
+</span><span class="sd">     * @AfterSuite
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreProductTablesAfterSuite</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="p">{</span>
+        <span class="k">static</span><span class="o">::</span><span class="na">restoreProductTables</span><span class="p">();</span>
+        <span class="nx">LanguageFeatureContext</span><span class="o">::</span><span class="na">restoreLanguagesTablesAfterFeature</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="clear-cache">Clear cache</h3>
+<div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@clear-cache-before-feature</span><span class="nf">
+</span><span class="nf"></span><span class="nt">@clear-cache-after-feature</span><span class="nf">
+</span><span class="nf"></span><span class="nt">@add</span><span class="nf">
+</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span><span class="nf">  As a BO user
+</span><span class="nf">  I need to be able to add new product with basic information from the BO
+</span><span class="nf">
+</span><span class="nf">  @clear-cache-before-scenario
+</span><span class="nf">  </span><span class="k">Scenario:</span><span class="nf"> I test something but I make sure cache is cleared before startying this scenario
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\CommonFeatureContext
+</span><span class="c1"></span><span class="k">class</span> <span class="nc">CommonFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
+    <span class="sd">/**
+</span><span class="sd">     * @AfterFeature @clear-cache-after-feature
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">clearCacheAfterFeature</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">self</span><span class="o">::</span><span class="na">clearCache</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**
+</span><span class="sd">     * @BeforeFeature @clear-cache-before-feature
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">clearCacheBeforeFeature</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">self</span><span class="o">::</span><span class="na">clearCache</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**
+</span><span class="sd">     * @BeforeScenario @clear-cache-before-scenario
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">clearCacheBeforeScenario</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">self</span><span class="o">::</span><span class="na">clearCache</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**
+</span><span class="sd">     * Clears cache
+</span><span class="sd">     */</span>
+    <span class="k">private</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">clearCache</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="p">{</span>
+        <span class="nx">Address</span><span class="o">::</span><span class="na">resetStaticCache</span><span class="p">();</span>
+        <span class="nx">Cache</span><span class="o">::</span><span class="na">clear</span><span class="p">();</span>
+        <span class="nx">Carrier</span><span class="o">::</span><span class="na">resetStaticCache</span><span class="p">();</span>
+        <span class="nx">Cart</span><span class="o">::</span><span class="na">resetStaticCache</span><span class="p">();</span>
+        <span class="c1">// And many more but it&#39;s not the point here
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h3 id="reboot-kernel">Reboot kernel</h3>
+<div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@reboot-kernel-after-feature</span><span class="nf">
+</span><span class="nf"></span><span class="nt">@add</span><span class="nf">
+</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span><span class="nf">  As a BO user
+</span><span class="nf">  I perform many modification is Symfony services so I reboot the kernel to reset everything for the following features
+</span><span class="nf">
+</span><span class="nf">  </span><span class="k">Scenario:</span><span class="nf"> I test something that impacts CLDR, make a modification and test again I need to reset the service by resetting the whole kernel
+</span><span class="nf">    ...
+</span><span class="nf"></span><span class="k">    When </span><span class="nf">I reboot kernel
+</span><span class="nf">    ...
+</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\CommonFeatureContext
+</span><span class="c1"></span><span class="k">class</span> <span class="nc">CommonFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
+    <span class="sd">/**
+</span><span class="sd">     * This hook can be used to flag a feature for kernel reboot
+</span><span class="sd">     *
+</span><span class="sd">     * @AfterFeature @reboot-kernel-after-feature
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">rebootKernelAfterFeature</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">self</span><span class="o">::</span><span class="na">rebootKernel</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="sd">/**
+</span><span class="sd">     * @Given I reboot kernel
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">rebootKernelOnDemand</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nx">self</span><span class="o">::</span><span class="na">rebootKernel</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="behatyml">behat.yml</h2>
 <p>When you have already created features and contexts it is time to map them with the test suite. The mapping is done in the behat.yml configuration file. It looks like this:</p>
 <div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">default</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span><span class="nt">suites</span><span class="p">:</span><span class="w">
@@ -27018,17 +27230,17 @@ Feature: Add basic product from Back Office (BO)
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1639731636"></script>
-    <script src="/js/perfect-scrollbar.min.js?1639731636"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1639731636"></script>
-    <script src="/js/jquery.sticky.js?1639731636"></script>
-    <script src="/js/featherlight.min.js?1639731636"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1639731636"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1639731636"></script>
-    <script src="/js/learn.js?1639731636"></script>
-    <script src="/js/hugo-learn.js?1639731636"></script>
+    <script src="/js/clipboard.min.js?1640102444"></script>
+    <script src="/js/perfect-scrollbar.min.js?1640102444"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1640102444"></script>
+    <script src="/js/jquery.sticky.js?1640102444"></script>
+    <script src="/js/featherlight.min.js?1640102444"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1640102444"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1640102444"></script>
+    <script src="/js/learn.js?1640102444"></script>
+    <script src="/js/hugo-learn.js?1640102444"></script>
     
-    <script src="/main.js?1639731636"></script>
+    <script src="/main.js?1640102444"></script>
     
     
 
