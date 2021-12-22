@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/modules/concepts/overrides/">
 
     
-    <link href="/css/font-awesome.min.css?1640103665" rel="stylesheet">
-    <link href="/css/syntax-github.css?1640103665" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1640103665" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1640103665" rel="stylesheet">
-    <link href="/css/auto-complete.css?1640103665" rel="stylesheet">
-    <link href="/style.css?1640103665" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1640206645" rel="stylesheet">
+    <link href="/css/syntax-github.css?1640206645" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1640206645" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1640206645" rel="stylesheet">
+    <link href="/css/auto-complete.css?1640206645" rel="stylesheet">
+    <link href="/style.css?1640206645" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1640103665"></script>
+    <script src="/js/jquery-3.3.1.min.js?1640206645"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12364,6 +12364,7 @@
         <li><a href="#override-a-module">Override a module</a>
           <ul>
             <li><a href="#override-modules-main-class-by-extending-it">Override module&rsquo;s main class by extending it</a></li>
+            <li><a href="#override-module-frontadmin-controllers-classes-by-extending-them">Override module front/admin controllers classes by extending them</a></li>
           </ul>
         </li>
         <li><a href="#theme-template-override">Theme template override</a></li>
@@ -26963,6 +26964,32 @@ Despite a module having different files, the main one, additional classes, etc.,
 <p>After adding an override, don&rsquo;t forget to clean the cache. You can do it from the back office or by CLI using the Symfony console.</p>
 <p>You may even create a module that overrides other modules! For instance:
 <code>/modules/mymodule/override/modules/blockuserinfo/blockuserinfo.php</code> will be copied to <code>/override/modules/blockuserinfo/blockuserinfo.php</code> during the installation of the <code>mymodule</code> module. However, this is not recommended, since the exact usage of a module to be overridden is unknown and may be different in a particular shop.</p>
+<h3 id="override-module-frontadmin-controllers-classes-by-extending-them">Override module front/admin controllers classes by extending them</h3>
+<p>To override a module&rsquo;s front/admin controller class, you have to extend it, giving the extended class the same name and adding the <code>Override</code> suffix:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">
+<span class="k">class</span> <span class="nc">AdminBlockListingControllerOverride</span> <span class="k">extends</span> <span class="nx">AdminBlockListingController</span>
+<span class="p">{</span>
+	<span class="k">public</span> <span class="k">function</span> <span class="nf">displayAjaxSaveColor</span><span class="p">()</span>
+	<span class="p">{</span>
+		<span class="c1">//This is just an example
+</span><span class="c1"></span>                <span class="nv">$color1</span> <span class="o">=</span> <span class="s2">&#34;red&#34;</span><span class="p">;</span>
+        	<span class="nv">$color2</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;color2&#39;</span><span class="p">);</span>
+        	<span class="nv">$result</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+
+        	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$color1</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$color2</span><span class="p">))</span> <span class="p">{</span>
+           	 <span class="nv">$result</span> <span class="o">=</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;PSR_ICON_COLOR&#39;</span><span class="p">,</span> <span class="nv">$color1</span><span class="p">)</span>
+                	<span class="o">&amp;&amp;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;PSR_TEXT_COLOR&#39;</span><span class="p">,</span> <span class="nv">$color2</span><span class="p">);</span>
+        	<span class="p">}</span>
+
+        	<span class="c1">// Response
+</span><span class="c1"></span>        	<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ajaxRenderJson</span><span class="p">(</span><span class="nv">$result</span> <span class="o">?</span> <span class="s1">&#39;success&#39;</span> <span class="o">:</span> <span class="s1">&#39;error&#39;</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>You must put the file in <code>/override/modules/blockreassurance/controllers/admin/AdminBlockListingController.php</code></p>
+<p>After adding an override, don&rsquo;t forget to clean the cache. You can do it from the back office or by CLI using the Symfony console.</p>
+<p>The previous example is applied to an admin controller, but the same process can be used for front controllers too.</p>
+<p>You may even create a module that overrides other modules! For instance:
+<code>/modules/mymodule/override/modules/blockreassurance/controllers/admin/AdminBlockListingController.php</code> will be copied to <code>/override/modules/blockreassurance/controllers/admin/AdminBlockListingController.php</code> during the installation of the <code>mymodule</code> module. However, this is not recommended, since the exact usage of a module to be overridden is unknown and may be different in a particular shop.</p>
 <h2 id="theme-template-override">Theme template override</h2>
 <p>Overriding a theme from a module is <strong>NOT</strong> possible, and never will.
 If you need this, you have to look instead at the parent/child theme feature.</p>
@@ -26989,17 +27016,17 @@ but this is not covered by this chapter specific to modules development.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1640103665"></script>
-    <script src="/js/perfect-scrollbar.min.js?1640103665"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1640103665"></script>
-    <script src="/js/jquery.sticky.js?1640103665"></script>
-    <script src="/js/featherlight.min.js?1640103665"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1640103665"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1640103665"></script>
-    <script src="/js/learn.js?1640103665"></script>
-    <script src="/js/hugo-learn.js?1640103665"></script>
+    <script src="/js/clipboard.min.js?1640206645"></script>
+    <script src="/js/perfect-scrollbar.min.js?1640206645"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1640206645"></script>
+    <script src="/js/jquery.sticky.js?1640206645"></script>
+    <script src="/js/featherlight.min.js?1640206645"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1640206645"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1640206645"></script>
+    <script src="/js/learn.js?1640206645"></script>
+    <script src="/js/hugo-learn.js?1640206645"></script>
     
-    <script src="/main.js?1640103665"></script>
+    <script src="/main.js?1640206645"></script>
     
     
 
