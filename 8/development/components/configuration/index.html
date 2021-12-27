@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/development/components/configuration/">
 
     
-    <link href="/css/font-awesome.min.css?1640351298" rel="stylesheet">
-    <link href="/css/syntax-github.css?1640351298" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1640351298" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1640351298" rel="stylesheet">
-    <link href="/css/auto-complete.css?1640351298" rel="stylesheet">
-    <link href="/style.css?1640351298" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1640611622" rel="stylesheet">
+    <link href="/css/syntax-github.css?1640611622" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1640611622" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1640611622" rel="stylesheet">
+    <link href="/css/auto-complete.css?1640611622" rel="stylesheet">
+    <link href="/style.css?1640611622" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1640351298"></script>
+    <script src="/js/jquery-3.3.1.min.js?1640611622"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -3261,6 +3261,27 @@
       <li data-nav-id="/8/development/components/console/context-helper/" title="Context helper" class="dd-item ">
         <a href="/8/development/components/console/context-helper/">
         Context helper
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/8/development/components/console/prestashop-config/" title="prestashop:config" class="dd-item ">
+        <a href="/8/development/components/console/prestashop-config/">
+        prestashop:config
         
         </a>
     </li>
@@ -21682,6 +21703,21 @@
     
   
       
+        
+    
+    
+      
+        
+      
+      
+      
+      
+      
+
+      
+    
+  
+      
     
   
       
@@ -26877,11 +26913,12 @@
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">,</span> <span class="nx">mixed</span> <span class="nv">$value</span><span class="p">,</span> <span class="nx">ShopConstraint</span> <span class="nv">$shopConstraint</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
 </code></pre></div><p>This method returns <code>true</code> if the operation is successful, <code>false</code> otherwise.</p>
 <h5 id="parameters">Parameters</h5>
-<dl>
-<dt><code>$key</code></dt>
-<dd>Identifier to your data to reuse later. You can use any valid string, but by convention, identifiers are usually in <code>ALL_CAPS_WITH_UNDERSCORES</code>.</dd>
-<dt><code>$value</code></dt>
-<dd>Value to store. It can be any scalar type (int, float, string, bool).
+<p><code>$key</code>
+:
+Identifier to your data to reuse later. You can use any valid string, but by convention, identifiers are usually in <code>ALL_CAPS_WITH_UNDERSCORES</code>.</p>
+<p><code>$value</code>
+:
+Value to store. It can be any scalar type (int, float, string, bool).</p>
 <p>Note: All values are stored as strings in database, so you might encounter type conversion issues if you save anything other than a string.</p>
 
 <div class="notices note" ><p><strong>Use of arrays to store multi language values.</strong></p>
@@ -26893,43 +26930,39 @@
 </code></pre></div><p>Note that this is the <strong>only supported use of arrays</strong>.</p>
 </div>
 
-</dd>
-<dt><code>$shopConstraint</code></dt>
-<dd>This optional parameter lets you specify the shop context for the operation (read the &ldquo;Multistore&rdquo; section below for more).
+<p><code>$shopConstraint</code>
+:
+This optional parameter lets you specify the shop context for the operation (read the &ldquo;Multistore&rdquo; section below for more).</p>
 <p>If not provided, the behavior will depend on the global shop context. To avoid unpredictable behavior in Multistore contexts, we recommend setting this parameter.</p>
-</dd>
-</dl>
 <h3 id="check-if-a-configuration-data-set-exists">Check if a configuration data set exists</h3>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">has</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">,</span> <span class="nx">ShopConstraint</span> <span class="nv">$shopConstraint</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
 </code></pre></div><p>This method returns <code>true</code> if the data exists, <code>false</code> otherwise.</p>
 <h5 id="parameters-1">Parameters</h5>
-<dl>
-<dt><code>$key</code></dt>
-<dd>Identifier to check.</dd>
-<dt><code>$shopConstraint</code></dt>
-<dd>This optional parameter lets you specify the shop context for the operation (read the &ldquo;Multistore&rdquo; section below for more).
+<p><code>$key</code>
+:
+Identifier to check.</p>
+<p><code>$shopConstraint</code>
+:
+This optional parameter lets you specify the shop context for the operation (read the &ldquo;Multistore&rdquo; section below for more).</p>
 <p>If not provided or set to &ldquo;all shops&rdquo;, this method to checks if the identifier exists for <em>any</em> shop.</p>
-</dd>
-</dl>
 <h3 id="retrieve-configuration-data">Retrieve configuration data</h3>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">,</span> <span class="nx">mixed</span> <span class="nv">$default</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">mixed</span>
 </code></pre></div><p>This method returns the data for <code>$key</code> if it data exists, or <code>NULL</code> otherwise.</p>
 <p>If the data is stored as multi language, this will return an array of values indexed by language id.</p>
 <p><strong>Parameters:</strong></p>
-<dl>
-<dt><code>$key</code></dt>
-<dd>Identifier to retrieve.</dd>
-<dt><code>$default</code></dt>
-<dd>This optional parameter lets you define the value to return if the identifier is not found.</dd>
-</dl>
+<p><code>$key</code>
+:
+Identifier to retrieve.</p>
+<p><code>$default</code>
+:
+This optional parameter lets you define the value to return if the identifier is not found.</p>
 <h3 id="delete-configuration">Delete configuration</h3>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
 </code></pre></div><p>This method returns nothing, and throws an Exception on error.</p>
 <p><strong>Parameters:</strong></p>
-<dl>
-<dt><code>$key</code></dt>
-<dd>Identifier to delete. Note that this method deletes the value for <strong>all shops</strong>.</dd>
-</dl>
+<p><code>$key</code>
+:
+Identifier to delete. Note that this method deletes the value for <strong>all shops</strong>.</p>
 <h2 id="multistore">Multistore</h2>
 <p>By default, and unless otherwise specified, the methods described above work within the confines of the current store context, whether PrestaShop is using the multistore feature or not.</p>
 <p>However, it is possible to work outside of the current context and impact configurations for all shops, a shop group or a single, specific shop. This is done using the <code>ShopConstraint</code> parameter:</p>
@@ -26946,6 +26979,9 @@
     <span class="nx">ShopConstraint</span><span class="o">::</span><span class="na">shopId</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
 <span class="p">);</span>
 </code></pre></div>
+<div class="notices note" >Check the <a href="/8/development/components/console/prestashop-config/">config console command</a> for setting values from CLI</div>
+
+
 
 
 
@@ -26968,17 +27004,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1640351298"></script>
-    <script src="/js/perfect-scrollbar.min.js?1640351298"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1640351298"></script>
-    <script src="/js/jquery.sticky.js?1640351298"></script>
-    <script src="/js/featherlight.min.js?1640351298"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1640351298"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1640351298"></script>
-    <script src="/js/learn.js?1640351298"></script>
-    <script src="/js/hugo-learn.js?1640351298"></script>
+    <script src="/js/clipboard.min.js?1640611622"></script>
+    <script src="/js/perfect-scrollbar.min.js?1640611622"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1640611622"></script>
+    <script src="/js/jquery.sticky.js?1640611622"></script>
+    <script src="/js/featherlight.min.js?1640611622"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1640611622"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1640611622"></script>
+    <script src="/js/learn.js?1640611622"></script>
+    <script src="/js/hugo-learn.js?1640611622"></script>
     
-    <script src="/main.js?1640351298"></script>
+    <script src="/main.js?1640611622"></script>
     
     
 
