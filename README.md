@@ -19,9 +19,9 @@ This repository contains the sources to build [DevDocs - PrestaShop's technical 
     git clone --recurse-submodules https://github.com/PrestaShop/devdocs-site.git
     ```
 
-2. Switch to the `docs` directory:
+2. Switch to the `devdocs-site` directory:
     ```
-    cd docs
+    cd devdocs-site
     ```
 
 3. Create `.env` file by `.env.example`:
@@ -54,7 +54,7 @@ This repository contains the sources to build [DevDocs - PrestaShop's technical 
 
 1. Switch to the `src` directory:
     ```
-    cd /path/to/docs/src
+    cd /path/to/devdocs-site/src
     ```
 
 2. Launch Hugo:
