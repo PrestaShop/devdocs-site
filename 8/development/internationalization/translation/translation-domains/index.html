@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/development/internationalization/translation/translation-domains/">
 
     
-    <link href="/css/font-awesome.min.css?1647030335" rel="stylesheet">
-    <link href="/css/syntax-github.css?1647030335" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1647030335" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1647030335" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1647251852" rel="stylesheet">
+    <link href="/css/syntax-github.css?1647251852" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1647251852" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1647251852" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1647030335" rel="stylesheet">
+    <link href="/style.css?1647251852" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1647030335"></script>
+    <script src="/js/jquery-3.3.1.min.js?1647251852"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12367,20 +12367,14 @@
     <div id="toc-title">Table of Contents</div>
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#translation-domains">Translation Domains</a>
+    <li><a href="#why-organize-strings-into-domains">Why organize strings into domains?</a></li>
+    <li><a href="#understanding-the-structure-of-domains">Understanding the structure of domains</a>
       <ul>
-        <li><a href="#understanding-the-domains-structure">Understanding the Domains' structure</a>
-          <ul>
-            <li><a href="#install">Install</a></li>
-            <li><a href="#modules">Modules</a></li>
-            <li><a href="#shop">Shop</a>
-              <ul>
-                <li></li>
-              </ul>
-            </li>
-            <li><a href="#admin">Admin</a></li>
-          </ul>
-        </li>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#shop">Shop</a></li>
+        <li><a href="#admin">Admin</a></li>
+        <li><a href="#modules">Modules</a></li>
+        <li><a href="#emails">Emails</a></li>
       </ul>
     </li>
   </ul>
@@ -26890,15 +26884,16 @@
 
 
 
-<h1 id="translation-domains">Translation Domains</h1>
-<p>Sometimes wordings may seem vague when seen out of context. For example, &ldquo;Delete&rdquo;. Just like that, we can imagine what is it used for, but we don&rsquo;t really have much information about it. What are we deleting? From a translator standpoint, this is very hard, because not only do we not know where it&rsquo;s supposed to be used, but it could be used in several places, with different meanings.</p>
-<p>Depending on the language, it will be more or less easy to translate it just vaguely enough so that the phrase makes sense in every one of those different contexts.</p>
-<p>Translation Domains bring an answer to this problem. By allowing to separate wordings in contextual groups, if the same wording appears in more than one domain, then it can be have a different translation in each one of them. This way, translators are better able to adapt the meaning of each wording to the specific context in which they appear.</p>
-
-<div class="notices note" >This feature was originally described in this <a href="https://build.prestashop.com/news/new-translation-system-prestashop-17/">blog post</a> and has been updated here.</div>
-
-<h2 id="understanding-the-domains-structure">Understanding the Domains' structure</h2>
-<p>Domains have been organized in 5 major sections: <strong>Shop</strong>, <strong>Admin</strong>, <strong>Modules</strong>, <strong>Email</strong> and <strong>Install</strong>. All the PrestaShop translatable strings are spread across these 5 domains, according to the following definition:</p>
+<p>Each string created for the PrestaShop project must be associated with a translation domain, to be later translated on Crowdin by the community of translators.</p>
+<p>When a minor or major version of PrestaShop is released, all the new strings associated with this version are added to Crowdin to be translated.</p>
+<p><a href="https://crowdin.com/project/prestashop-official">Crowdin</a> is a localization management platform on which a community of volunteer translators works on no less than 80 translation projects.</p>
+<h1 id="why-organize-strings-into-domains">Why organize strings into domains?</h1>
+<p>Sometimes, a string may appear a bit unclear to translators because of the lack of context.</p>
+<p><strong>Translation domains aim to give more context to translators, by indicating where the string appears on PrestaShop software.</strong></p>
+<p>And it happens that a word has several translations depending on the context. So, by allowing strings to be separated into contextual groups, if the same string appears in more than one domain, it can have a different translation in each. This way, translators can adapt the meaning of each string to the specific context in which it appears.</p>
+<h1 id="understanding-the-structure-of-domains">Understanding the structure of domains</h1>
+<p>Strings are easily recognizable in PrestaShop&rsquo;s code because it is always introduced by <code>trans(</code> and followed by a translation domain.</p>
+<p>Strings have been organized into <strong>5 main domains</strong> depending on where they appear on PrestaShop software.</p>
 <table>
 <thead>
 <tr>
@@ -26908,229 +26903,65 @@
 </thead>
 <tbody>
 <tr>
-<td>Admin</td>
-<td>Back office and content aimed at merchants</td>
-</tr>
-<tr>
-<td>Email</td>
-<td>Emails sent from the shop</td>
-</tr>
-<tr>
 <td>Install</td>
-<td>Content from the installation wizard</td>
-</tr>
-<tr>
-<td>Modules</td>
-<td>Native modules</td>
+<td>The strings that appear in the installation wizard.</td>
 </tr>
 <tr>
 <td>Shop</td>
-<td>Default theme, front office and content aimed at customers</td>
-</tr>
-</tbody>
-</table>
-<p>These are called &ldquo;first-level&rdquo; domains. Domains are further broken down in <strong>at least two</strong> and <strong>up to three</strong> levels or &ldquo;subdomains&rdquo;, for example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">Shop.Theme.Checkout
-</code></pre></div><p><strong>There are two exceptions to this rule:</strong> <code>Installer</code> and <code>messages</code> have only one level. The latter contains all wordings that did not have any domain assigned at the time of release of 1.7.0 and thus have been kept for backwards compatibility.</p>
-<p>In the end a domain like <code>Shop.Theme.Checkout</code> corresponds to a specific folder in <a href="https://crowdin.com/project/prestashop-official">Crowdin</a>, where you&rsquo;ll find all the strings from the default theme, related to the checkout process (funnel, shopping cart, etc.).</p>
-
-<div class="notices tip" >Domains are stored as XLIFF files in PrestaShop, with one file per subdomain. <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/app/Resources/translations/default">See the full list here</a>.</div>
-
-<p>Read below for more details on how we organized domains and what they contain.</p>
-<h3 id="install">Install</h3>
-<p>This is the easiest one, there&rsquo;s only one domain: <code>Install</code>. It&rsquo;s the content from the installation wizard.</p>
-<h3 id="modules">Modules</h3>
-<p>For modules, it&rsquo;s rather simple. We still have a &ldquo;Modules&rdquo; folder (first-level), which contains either a file or folder for each module: this the second level.
-The third level is here to say whether the string appears in the front office (<code>Shop</code>) or the back office (<code>Admin</code>).</p>
-<p><img src="../img/domains-modules.png" alt="Modules Translation Domain"></p>
-<h3 id="shop">Shop</h3>
-<p>For the front office, it&rsquo;s a little bit more complex. Any string related to the front office goes into the <code>Shop</code> domain. That&rsquo;s the first level. Then it&rsquo;s split in various sections, mostly functional. Here&rsquo;s how it works for the second level:</p>
-<table>
-<thead>
-<tr>
-<th>Domain</th>
-<th>Strings</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Emails</td>
-<td>The emails sent from the shop to a customer (order confirmation, account creation, etc.)</td>
+<td>The strings that appear in the front office (default theme) and the content aimed at customers.</td>
 </tr>
 <tr>
-<td>PDF</td>
-<td>The PDFs sent to a customer (invoice, delivery slip, credit slip, etc.)</td>
-</tr>
-<tr>
-<td>Theme</td>
-<td>The strings attached to the default theme &ldquo;Classic&rdquo;.</td>
-</tr>
-<tr>
-<td>Demo</td>
-<td>The content from the demo products and demo pages (&ldquo;About us&rdquo;, &ldquo;Terms and conditions of use&rdquo;, etc.). If you remove the de content, you shouldn&rsquo;t need any of these strings.</td>
-</tr>
-<tr>
-<td>Navigation</td>
-<td>Most of the meta titles and page names from the default theme.</td>
-</tr>
-<tr>
-<td>Notifications</td>
-<td>The warning, error or success messages that can appear in the shop.</td>
-</tr>
-<tr>
-<td>Forms</td>
-<td>The forms available in the shop (&ldquo;Contact us&rdquo; page, addresses, etc.)</td>
-</tr>
-</tbody>
-</table>
-<p>Each of this domain can be further divided to provide even more context.</p>
-<h5 id="shoptheme">Shop.Theme</h5>
-<table>
-<thead>
-<tr>
-<th>Domain</th>
-<th>Strings</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Catalog</td>
-<td>All the strings needed to display your catalog (product page, categories, etc.).</td>
-</tr>
-<tr>
-<td>Customer Account</td>
-<td>Anything related to the management of a customer account and the orders.</td>
-</tr>
-<tr>
-<td>Checkout</td>
-<td>Everything related to the act of buying - i.e. if you&rsquo;re in catalog mode, you shouldn&rsquo;t need these strings.</td>
-</tr>
-<tr>
-<td>Actions</td>
-<td>All the call-to-actions, buttons or links that you find on the shop and that aren&rsquo;t specific to a page or context.</td>
-</tr>
-</tbody>
-</table>
-<h5 id="shopdemo">Shop.Demo</h5>
-<table>
-<thead>
-<tr>
-<th>Domain</th>
-<th>Strings</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Catalog</td>
-<td>Content for demo product and categories (descriptions).</td>
-</tr>
-<tr>
-<td>Pages</td>
-<td>Content inside the demo pages (formerly known as CMS pages).</td>
-</tr>
-</tbody>
-</table>
-<h5 id="shopnotifications">Shop.Notifications</h5>
-<p>Notifications are split according to their level of alert: <code>Info</code>, <code>Error</code>, <code>Warning</code> or <code>Success</code>. They are the messages showing up on your shop.</p>
-<h5 id="shopforms">Shop.Forms</h5>
-<table>
-<thead>
-<tr>
-<th>Domain</th>
-<th>Strings</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Labels</td>
-<td>The form labels</td>
-</tr>
-<tr>
-<td>Errors</td>
-<td>Its corresponding errors (distinct from the theme errors, these one are specific to the form and will display inline)</td>
-</tr>
-<tr>
-<td>Help</td>
-<td>Hints to help users fill in the form (special characters, etc.).</td>
-</tr>
-</tbody>
-</table>
-<h3 id="admin">Admin</h3>
-<p>Now, let&rsquo;s see how things are organized for the strings from the back office.</p>
-<table>
-<thead>
-<tr>
-<th>Domain</th>
-<th>Strings</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Actions</td>
-<td>All the call-to-actions, buttons or links that you find on the back office, and that are quite generic (&ldquo;Save&rdquo;, &ldquo;Add &ldquo;Delete&rdquo;, etc.). Again, if it applies to one page and one functional domain only, then this is not the domain to use.</td>
-</tr>
-<tr>
-<td>Advanced Parameters</td>
-<td>Content from the &ldquo;Advanced Settings&rdquo; section. Note the lower case &ldquo;p&rdquo; in <code>Admin.Advparameters</code></td>
-</tr>
-<tr>
-<td>Catalog</td>
-<td>Strings from the &ldquo;Catalog&rdquo; section.</td>
-</tr>
-<tr>
-<td>Dashboard</td>
-<td>Strings from the Dashboard page.</td>
-</tr>
-<tr>
-<td>Design</td>
-<td>Strings from the &ldquo;Design&rdquo; section.</td>
-</tr>
-<tr>
-<td>Global</td>
-<td>Anything which doesn&rsquo;t fall in the below categories, but is still related to the back office, that can be found in a lot  occurrences (&ldquo;Max&rdquo;, &ldquo;Settings&rdquo;, &ldquo;Enabled&rdquo;, etc.) AND in different parts of the software too. <br/>If a string is specific to a given page, then it shouldn&rsquo;t be in the global domain.</td>
-</tr>
-<tr>
-<td>International</td>
-<td>Strings form the &ldquo;International&rdquo; section.</td>
-</tr>
-<tr>
-<td>Login</td>
-<td>Strings from the Login screen.</td>
+<td>Admin</td>
+<td>The strings that appear in the back office and the content aimed at merchants.</td>
 </tr>
 <tr>
 <td>Modules</td>
-<td>Strings from the Modules page.</td>
+<td>The strings that appear in built-in modules.</td>
 </tr>
 <tr>
-<td>Navigation</td>
-<td>The structure shared by all pages of the back office.</td>
-</tr>
-<tr>
-<td>Notifications</td>
-<td>All the warning, error or success messages that can appear in the back office.They must be general notification applying to any part of the software (e.g. &ldquo;Settings updated&rdquo;).<br/> In case you have a specific notification (&ldquo;Friendly URLs are currently disabled&rdquo;), then it should fall under the notification subdomain for its functional domain (here <code>Admin.Catalog.Notification</code>).</td>
-</tr>
-<tr>
-<td>Orders &amp; Customers</td>
-<td>Strings for the &ldquo;Orders&rdquo;, &ldquo;Customers&rdquo; and &ldquo;Customer Service&rdquo; sections from the back office. Note the lower case &ldquo;c&rdquo; in <code>Admin.Orderscustomers</code>.</td>
-</tr>
-<tr>
-<td>Payment</td>
-<td>Strings from the &ldquo;Payment&rdquo; section.</td>
-</tr>
-<tr>
-<td>Shipping</td>
-<td>Strings from the &ldquo;Shipping&rdquo; section.</td>
-</tr>
-<tr>
-<td>Shop Parameters</td>
-<td>Content from the &ldquo;Shop Parameters&rdquo; section. Note the lower case &ldquo;p&rdquo; in <code>Admin.Shopparameters</code>.</td>
-</tr>
-<tr>
-<td>Stats</td>
-<td>Content from the &ldquo;Stats&rdquo; section.</td>
+<td>Emails</td>
+<td>The strings that appear in emails sent from the store to customers.</td>
 </tr>
 </tbody>
 </table>
+<p>These domains are then broken down into <strong>subdomains</strong>, more or less according to the complexity of their content.</p>
+<p>👀 If a domain has subdomains, you must necessarily put the string in the <strong>deepest</strong> subdomain.</p>
+<p>For example, the domain <code>Admin.Actions</code> doesn&rsquo;t have subdomains, so all the strings of this category would go to the first-level domain. However, <code>Admin.Notifications</code> has 3 levels, so you would have to choose a third-level domain depending on whether your string is an error, information, warning, or success message.</p>
+<h2 id="install">Install</h2>
+<p>That’s the easiest one, there’s only one domain: if the wording is present in the installation wizard, then it goes to the <code>Install</code> domain.</p>
+<h2 id="shop">Shop</h2>
+<p>The strings that appear in the front office (default theme) and the content aimed at customers go to the <code>Shop</code> domain.</p>
+<p>This domain is then broken down into <strong>sub-categories</strong>. You can also check <a href="../pdf/Shop_legend.pdf">the legend</a> to see what type of string each domain and subdomain contains.</p>
+<figure><img src="../img/Shop_mindmap.png"/><figcaption>
+            <h4>Shop domain mindmap</h4>
+        </figcaption>
+</figure>
+
+<h2 id="admin">Admin</h2>
+<p>The strings that appear in the back office and the content aimed at merchants go to the <code>Admin</code> domain.</p>
+<p>This domain is then broken down into <strong>sub-categories</strong>. You can also check <a href="../pdf/Admin_legend.pdf">the legend</a> to see what type of string each domain and subdomain contains.</p>
+<figure><img src="../img/Admin_mindmap.png"/><figcaption>
+            <h4>Admin domain mindmap</h4>
+        </figcaption>
+</figure>
+
+<h2 id="modules">Modules</h2>
+<p>The strings that appear in a built-in module go the Modules domain.</p>
+<p>This domain is then broken down into <strong>sub-categories</strong>. The second level indicates the module&rsquo;s name, and the third level indicates whether the string appears in the front office or the back office.</p>
+<p>👀 Some strings might be rather generic (like “Search” or “Settings updated”) and can be shared with other modules or pages. In that case, it&rsquo;s better to use the <em>Admin.</em> or <em>Shop.</em> domains to avoid unnecessary duplicates.</p>
+<figure><img src="../img/Modules_mindmap.png"/><figcaption>
+            <h4>Emails domain mindmap</h4>
+        </figcaption>
+</figure>
+
+<h2 id="emails">Emails</h2>
+<p>The strings that appear in the emails sent from the store to customers go to the <code>Emails</code> domain. This domain has only one sub-domain, to indicate whether the string appears in the email&rsquo;s subject or body.</p>
+<p>That&rsquo;s it! Now you know what type of string each domain contains.</p>
+<figure><img src="../img/Emails_mindmap.png"/><figcaption>
+            <h4>Modules domain mindmap</h4>
+        </figcaption>
+</figure>
+
 
 
 <footer class="article-footer">
@@ -27152,17 +26983,17 @@ The third level is here to say whether the string appears in the front office (<
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1647030335"></script>
-    <script src="/js/perfect-scrollbar.min.js?1647030335"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1647030335"></script>
-    <script src="/js/jquery.sticky.js?1647030335"></script>
-    <script src="/js/featherlight.min.js?1647030335"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1647030335"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1647030335"></script>
-    <script src="/js/learn.js?1647030335"></script>
-    <script src="/js/hugo-learn.js?1647030335"></script>
+    <script src="/js/clipboard.min.js?1647251852"></script>
+    <script src="/js/perfect-scrollbar.min.js?1647251852"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1647251852"></script>
+    <script src="/js/jquery.sticky.js?1647251852"></script>
+    <script src="/js/featherlight.min.js?1647251852"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1647251852"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1647251852"></script>
+    <script src="/js/learn.js?1647251852"></script>
+    <script src="/js/hugo-learn.js?1647251852"></script>
     
-    <script src="/main.js?1647030335"></script>
+    <script src="/main.js?1647251852"></script>
     
     
     
