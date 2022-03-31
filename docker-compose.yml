@@ -3,11 +3,9 @@ version: "3.8"
 services:
   hugo:
     build:
-      # To build from github, you need to install docker-compose version=1.27.1 (Does not work with the last versions)
-      context: https://github.com/gohugoio/hugo.git
+      context: infra/hugo
       args:
         - HUGO_BUILD_TAGS=extended
-
     volumes:
       - ./:/site
     working_dir: /site/src
