@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1660057053" rel="stylesheet">
-    <link href="/css/syntax-github.css?1660057053" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1660057053" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1660057053" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1660639762" rel="stylesheet">
+    <link href="/css/syntax-github.css?1660639762" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1660639762" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1660639762" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1660057053" rel="stylesheet">
+    <link href="/style.css?1660639762" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1660057053"></script>
+    <script src="/js/jquery-3.3.1.min.js?1660639762"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12392,6 +12392,7 @@
                 <li><a href="#removed-routes">Removed routes</a></li>
                 <li><a href="#removed-services">Removed services</a></li>
                 <li><a href="#removed-endpoints">Removed endpoints</a></li>
+                <li><a href="#removed-files">Removed files</a></li>
               </ul>
             </li>
           </ul>
@@ -26923,15 +26924,24 @@
 </style>
 <h1 id="notable-changes-in-prestashop-80">Notable changes in PrestaShop 8.0</h1>
 <h2 id="php-support">PHP support</h2>
-<p>PrestaShop 8.0 adds supports for PHP 8.0 and requires at least PHP 7.2.5.</p>
+<p>PrestaShop 8.0 adds supports for PHP 8.0 and PHP 8.1 and requires at least PHP 7.2.5.</p>
 <h2 id="notable-changes">Notable changes</h2>
 <ul>
 <li>Javascript files for migrated pages in the Back Office <a href="https://github.com/PrestaShop/PrestaShop/pull/23221">now are written in TypeScript</a> (related change: <a href="https://github.com/PrestaShop/PrestaShop/pull/24791">#24791</a>).</li>
 <li>Support for <a href="/8/modules/creation/module-translation/classic-system/">legacy translation dictionaries</a> (eg: <code>en.php</code>, <code>fr.php</code>&hellip;, deprecated in 1.7), <a href="https://github.com/PrestaShop/PrestaShop/pull/24401">has been removed</a> from Core controllers. Only modules can still use this system now.</li>
-<li>All modules present in the <code>modules</code> directory during the installation process will be installed by default. Modules can use <code>Module::postInstall()</code> to execute code after the shop installation is done (<a href="https://github.com/PrestaShop/PrestaShop/pull/24676">Read more</a>).</li>
+<li>All modules present in the <code>modules</code> directory during the web-based installation process will be installed by default <a href="https://github.com/PrestaShop/PrestaShop/pull/27099">unless the user chooses otherwise</a>. Modules can use <code>Module::postInstall()</code> to execute code after the shop installation is done (<a href="https://github.com/PrestaShop/PrestaShop/pull/24676">Read more</a>).</li>
 <li>Twig has been updated to version 3. Deprecated features from <a href="https://twig.symfony.com/doc/1.x/deprecated.html">v1</a> &amp; <a href="https://twig.symfony.com/doc/2.x/deprecated.html">v2</a> are no longer available.</li>
 <li>All upgrade scripts have been <a href="https://github.com/PrestaShop/PrestaShop/pull/25794">removed from the Core</a> and moved to the <a href="https://github.com/PrestaShop/autoupgrade">Upgrade module</a>.</li>
 <li>Using a hook alias will trigger a deprecation notice.</li>
+<li>Historically, the default Carrier&rsquo;s name was &ldquo;0&rdquo;, <a href="https://github.com/PrestaShop/PrestaShop/pull/27439">now</a> it is called &ldquo;Click and collect&rdquo;.</li>
+<li>The live exchange rate feature <a href="https://github.com/PrestaShop/PrestaShop/pull/28177">has been removed</a>.</li>
+<li>In Back office, the .rtlfix file <a href="https://github.com/PrestaShop/PrestaShop/pull/28277">has been removed</a>, although support for such files remains. It is recommended to port your changes (if any) inside the <code>rtl.scss</code> stylesheets.</li>
+<li>The <a href="https://github.com/PrestaShop/PrestaShop/pull/27632">new Distribution API</a> allows modules to provide Module Manager with information about new and updated modules pulled from remote services. PrestaShop 8 leverages this new feature to handle downloads and updates for the project&rsquo;s modules.</li>
+<li>Because of the <a href="https://github.com/PrestaShop/PrestaShop/pull/28402">support for PHP 8.1</a> many methods have declare a return types now.</li>
+<li>The logic for customers' login and registration <a href="https://github.com/PrestaShop/PrestaShop/pull/27755/">is now</a> split between two controllers (<code>RegistrationController</code>, <code>AuthController</code>). This might impact third-party themes and modules as the URL to the registration has changed.</li>
+<li>Before PrestaShop places an order <a href="https://github.com/PrestaShop/PrestaShop/pull/26048/">there is an additional request now</a>, to see if the number of products in the cart is still valid. This might require third-party payment modules to implement the checks in their solutions accordingly.</li>
+<li>Due to the new <a href="https://github.com/PrestaShop/PrestaShop/pull/28127">password policy management features</a>, third-party solutions that generate customer data might require to implement changes accordingly.</li>
+<li>In some countries, loading fonts through Google Fonts' CDN service has been judged incompatible with <a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation">GDPR</a>, so <a href="https://github.com/PrestaShop/PrestaShop/issues/27541">these fonts are now built into the project</a>. This should not affect your work, but spreading awareness around this topic is important.</li>
 </ul>
 <h3 id="symfony-update">Symfony update</h3>
 <p>Symfony has been <a href="https://github.com/PrestaShop/PrestaShop/pull/24609">upgraded to 4.4</a>, which includes a number of changes:</p>
@@ -26957,430 +26967,1130 @@
 <ul>
 <li>In <code>checkout/_partials/steps/payment.tpl</code>, the ID <code>payment-form</code> has <a href="https://github.com/PrestaShop/PrestaShop/pull/25069">been changed</a> to <code>payment-{$option.id}-form</code>.</li>
 <li>Empty state messages are now shown inside the block (as opposed to the top of the page) in pages like order history, addresses, etc (<a href="https://github.com/PrestaShop/PrestaShop/pull/26806">read more</a>).</li>
+<li>The Classic theme <a href="https://github.com/PrestaShop/classic-theme/pull/21">now supports</a> the new password policy introduced <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">here</a>.</li>
 </ul>
 <h3 id="back-office-interface">Back office interface</h3>
 <p>The Bootstrap version used in Symfony-based Back office pages has been updated from 4.0 to 4.4.</p>
 <h2 id="api-changes">API Changes</h2>
 <h3 id="changes">Changes</h3>
+<hr>
 <ul>
-<li>
-<p><code>_PS_USE_SQL_SLAVE_</code> is now a boolean (<code>false</code> by default).</p>
+<li><code>_PS_USE_SQL_SLAVE_</code> is now a boolean (<code>false</code> by default).</li>
+</ul>
+<hr>
+<ul>
+<li><code>Access:</code>
+<ul>
+<li><code>updateLgcAccess()</code> - optional value for parameter <code>$addFromParent</code> is now <code>true</code> instead of <code>1</code>.</li>
+</ul>
 </li>
-<li>
-<p><code>AdminStatsTabController</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>AddressFormat</code>
+<ul>
+<li><code>_checkLiableAssociation()</code> - the parameter <code>$fieldsValidate</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/26913">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>AdminStatsTabController</code>
 <ul>
 <li><code>checkModulesNames()</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27091">now returns</a> <code>int</code> instead of <code>bool</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>Alias</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>Alias</code>
 <ul>
 <li><code>__construct()</code> - The 4th parameter, <code>$idLang</code>, has been removed <em>(deprecated in 1.7.0)</em>.</li>
 </ul>
 </li>
-<li>
-<p><code>Attribute</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>Attribute</code>
 <ul>
 <li>Renamed to <code>ProductAttribute</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>Module</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>CartRule</code>
+<ul>
+<li><code>checkProductRestrictionsFromCart()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/26913">now</a> expects <code>CartCore</code> instead of <code>Cart</code> for <code>$cart</code> parameter.</li>
+<li><code>getCustomerCartRules()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/26913">now</a> expects <code>CartCore</code> instead of <code>Cart</code> for <code>$cart</code> parameter.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>Combination</code>
+<ul>
+<li><code>__construct()</code> - the parameter <code>$translator</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/26913">now</a> takes <code>PrestaShopBundle\Translation\TranslatorComponent|null</code> instead of <code>PrestaShopBundle\Translation\Translator|null</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>Customer</code>
+<ul>
+<li>object fields definition <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">now</a> require <code>Customer::$passwd</code> to be <code>Validate::isHashedPassword()</code> instead of <code>Validate::isPlaintextPassword()</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>Employee</code>
+<ul>
+<li>object fields <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">now</a> require <code>Employee::$passwd</code> to be <code>Validate::isHashedPassword()</code> instead of <code>Validate::isPlaintextPassword()</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>OrderDetail</code>
+<ul>
+<li><code>checkProductStock()</code> - Renamed to <code>updateProductQuantityInStock</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>Pack</code>
+<ul>
+<li><code>getQuantity()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/26913">now</a> expects <code>CartCore</code> instead of <code>Cart</code> for <code>$cart</code> parameter.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>Product</code>
+<ul>
+<li><code>getQuantity()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/26913">now</a> expects <code>CartCore</code> instead of <code>Cart</code> for <code>$cart</code> parameter.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>Module</code>
 <ul>
 <li><code>getModulesOnDisk()</code> - The second parameter, <code>$logged_on_addons</code>, has been removed.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopAutoload</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopAutoload</code>
 <ul>
 <li><code>getClassesFromDir()</code> - The second parameter, <code>$hostMode</code>, has been removed <em>(deprecated in 1.7.0)</em>.</li>
 </ul>
 </li>
-<li>
-<p><code>Product</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>Product</code>
 <ul>
 <li><code>$advanced_stock_management</code> is now <code>bool</code> instead if <code>int</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>Tools</code></p>
+</ul>
+<hr>
 <ul>
-<li><code>addonsRequest()</code> - The values <code>partner</code>, <code>service</code>, <code>hosted_module</code>, <code>must-have-themes</code>, <code>customer_themes</code> and <code>native_all</code> are no longer supported.</li>
+<li><code>Validate</code>
+<ul>
+<li><code>isOrderWay()</code> now returns <code>bool</code> instead if <code>int</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>WebserviceOutputInterface</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>WebserviceOutputInterface</code>
 <ul>
 <li>3 public methods have been added to this interface (<a href="https://github.com/PrestaShop/PrestaShop/pull/26164">read more</a>).</li>
 </ul>
 </li>
-<li>
-<p><code>WebserviceSpecificManagementInterface</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>WebserviceSpecificManagementInterface</code>
 <ul>
 <li><code>setObjectOutput()</code> now takes a <code>WebserviceOutputBuilder</code> instead of a <code>WebserviceOutputBuilderCore</code>.</li>
 <li><code>setWsObject()</code> now takes a <code>WebserviceRequest</code> instead of a <code>WebserviceRequestCore</code>.</li>
 <li><code>getContent()</code> must return an array instead of a string.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\Attachment\AttachmentRepository</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Attachment\AttachmentRepository</code>
 <ul>
 <li><code>__construct()</code> now takes two parameters.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\Carrier\HandlingConfiguration</code></p>
+</ul>
+<hr>
 <ul>
-<li>This class now extends <code>PrestaShop\PrestaShop\Core\Configuration\AbstractMultistoreConfiguration</code></li>
-<li><code>__construct</code> now takes two additional parameters, <code>Context $shopContext</code> and <code>FeatureInterface $multistoreFeature</code>.</li>
+<li><code>PrestaShop\PrestaShop\Adapter\Category\Repository</code>
+<ul>
+<li><code>__construct()</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/24878/">has been added</a> for the class with two required parameters.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Tax\TaxOptionsConfiguration</code></p>
+</ul>
+<hr>
 <ul>
-<li>This class now extends <code>PrestaShop\PrestaShop\Core\Configuration\AbstractMultistoreConfiguration</code></li>
-<li><code>__construct</code> now takes 4 parameters (<a href="https://github.com/PrestaShop/PrestaShop/pull/27525">read more</a>).</li>
+<li><code>PrestaShop\PrestaShop\Adapter\Carrier\HandlingConfiguration</code>
+<ul>
+<li>This class now extends <code>PrestaShop\PrestaShop\Core\Configuration\AbstractMultistoreConfiguration</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\Customer\QueryHandler\SearchCustomersHandler</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Carrier\CarrierOptionsConfiguration</code>
+<ul>
+<li>This class now extends <code>PrestaShop\PrestaShop\Core\Configuration\AbstractMultistoreConfiguration</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Customer\QueryHandler\SearchCustomersHandler</code>
 <ul>
 <li><code>__construct()</code> - This method <a href="https://github.com/PrestaShop/PrestaShop/pull/23889">now takes one parameter</a>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\Debug</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Currency\QueryHandler\GetReferenceCurrencyHandler</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>CommandBusInterface $queryBus</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Debug\DebugModeConfiguration</code>
 <ul>
 <li><code>__construct()</code> now takes an additional parameter <code>ClassIndexCacheClearer $classIndexCacheClearer</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\Employee\EmployeeFormAccessChecker</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Employee\EmployeeFormAccessChecker</code>
 <ul>
 <li><code>__construct()</code> - The 3rd parameter <code>$tabRepository</code> has been removed.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\GeneralConfiguration</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\GeneralConfiguration</code>
 <ul>
 <li><code>__construct()</code> - The 3rd parameter, <code>$idDebug</code>, has been removed.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\MailTemplate\MailTemplateTwigRenderer</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Localization\LocalizationConfiguration</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>AdminModuleDataProvider $adminModuleDataProvider</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\MailTemplate\MailTemplateTwigRenderer</code>
 <ul>
 <li><code>__construct()</code> now takes <code>Twig\Environment</code> instead of <code>Symfony\Component\Templating\EngineInterface</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\Module\AdminModuleDataProvider</code></p>
+</ul>
+<hr>
 <ul>
-<li><code>__construct()</code> - Four parameters have been removed (<a href="https://github.com/PrestaShop/PrestaShop/pull/27354">read more</a>).</li>
+<li><code>PrestaShop\PrestaShop\Adapter\Meta\SEOOptionsDataConfiguration</code>
+<ul>
+<li>This class now extends <code>PrestaShop\PrestaShop\Core\Configuration\AbstractMultistoreConfiguration</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\Module\ModuleDataUpdater</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Meta\SetUpUrlsDataConfiguration</code>
+<ul>
+<li>This class now extends <code>PrestaShop\PrestaShop\Core\Configuration\AbstractMultistoreConfiguration</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Meta\UrlSchemaDataConfiguration</code>
+<ul>
+<li>This class now extends <code>PrestaShop\PrestaShop\Core\Configuration\AbstractMultistoreConfiguration</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Module\AdminModuleDataProvider</code>
+<ul>
+<li><code>__construct()</code> - Four parameters have been removed (<a href="https://github.com/PrestaShop/PrestaShop/pull/27354">read more</a>).</li>
+<li><code>generateAddonsUrls()</code> - has been replaced by <code>setActionUrls()</code> (<a href="https://github.com/PrestaShop/PrestaShop/pull/27632">read more</a>).</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Module\ModuleDataUpdater</code>
 <ul>
 <li><code>__construct()</code> now takes no parameters (<a href="https://github.com/PrestaShop/PrestaShop/pull/27354">read more</a>).</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\Module\Configuration\ModuleComplexConfigurationInterface</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Module\Configuration\ModuleComplexConfigurationInterface</code>
 <ul>
 <li><code>run()</code> now takes a <code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleInterface</code> instead of a <code>PrestaShop\PrestaShop\Adapter\Module\Module</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\Module\Tab\ModuleTabRegister</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Module\Tab\ModuleTabRegister</code>
 <ul>
 <li><code>enableTabs()</code> now takes a <code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleInterface</code> instead of a <code>PrestaShop\PrestaShop\Adapter\Module\Module</code>.</li>
 <li><code>registerTabs()</code> now takes a <code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleInterface</code> instead of a <code>PrestaShop\PrestaShop\Adapter\Module\Module</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\Module\Tab\ModuleTabUnregister</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Module\Tab\ModuleTabUnregister</code>
 <ul>
 <li><code>disableTabs()</code> now takes a <code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleInterface</code> instead of a <code>PrestaShop\PrestaShop\Adapter\Module\Module</code>.</li>
 <li><code>unregisterTabs()</code> now takes a <code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleInterface</code> instead of a <code>PrestaShop\PrestaShop\Adapter\Module\Module</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\Presenter\Module\ModulePresenter</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Presenter\Module\ModulePresenter</code>
 <ul>
 <li><code>present()</code> now takes a <code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleInterface</code> instead of a <code>PrestaShop\PrestaShop\Adapter\Module\Module</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Adapter\Webservice\WebserviceConfiguration</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Product\Options\RedirectTargetProvider</code>
+<ul>
+<li><code>__construct()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/24878/">now takes</a> one additional parameter, <code>RedirectTargetProvider $targetProvider</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Product\VirtualProduct\Update\VirtualProductUpdater</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>Filesystem $filesystem</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+<li><code>__construct()</code> - The parameter <code>string $virtualProductFileDir</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\OptionalFeatures\OptionalFeaturesConfiguration</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>Configuration $configuration</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Adapter\Order\GeneralConfiguration</code>
 <ul>
 <li>This class is now a subtype of <code>PrestaShop\PrestaShop\Core\Configuration\AbstractMultistoreConfiguration</code>.</li>
-<li><code>__construct()</code> - This method [now takes two additional parameters], <code>Context $shopContext</code> and <code>FeatureInterface $multistoreFeature</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleInterface</code></p>
+</ul>
+<hr>
 <ul>
-<li>This interface is now strictly typed.</li>
-<li>3 public methods have been added to this interface (<a href="https://github.com/PrestaShop/PrestaShop/pull/26571">read more</a>).</li>
-</ul>
-</li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleRepository</code></p>
+<li><code>PrestaShop\PrestaShop\Adapter\Order\Refund\OrderProductRemover</code>
 <ul>
-<li><code>__construct()</code> - Two parameters have been removed (<a href="https://github.com/PrestaShop/PrestaShop/pull/27354">read more</a>).</li>
+<li><code>__construct()</code> - The parameter <code>LoggerInterface $logger</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+<li><code>__construct()</code> - The parameter <code>TranslatorInterface $translator</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleRepositoryInterface</code></p>
+</ul>
+<hr>
 <ul>
-<li><code>getModule()</code> now returns a <code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleInterface</code> instead of a <code>PrestaShop\PrestaShop\Adapter\Module\Module</code>.</li>
-</ul>
-</li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Addon\Module\Exception\UnconfirmedModuleActionException</code></p>
+<li><code>PrestaShop\PrestaShop\Adapter\Webservice\WebserviceConfiguration</code>
 <ul>
-<li><code>setModule()</code> now takes a <code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleInterface</code> instead of a <code>PrestaShop\PrestaShop\Adapter\Module\Module</code>.</li>
+<li>This class is now a subtype of <code>PrestaShop\PrestaShop\Core\Configuration\AbstractMultistoreConfiguration</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Domain\Attachment\QueryResult\AttachmentInformation</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Cart\Calculator</code>
+<ul>
+<li><code>_construct()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/26913">now</a> expects <code>CartCore</code> instead of <code>Cart</code> for <code>$cart</code> parameter.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Cart\CartRow</code>
+<ul>
+<li><code>getProductPrice()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/26913">now</a> expects <code>CartCore</code> instead of <code>Cart</code> for <code>$cart</code> parameter.</li>
+<li><code>processCalculation()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/26913">now</a> expects <code>CartCore</code> instead of <code>Cart</code> for <code>$cart</code> parameter.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Cart\Fees</code>
+<ul>
+<li><code>processCalculation()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/26913">now</a> expects <code>CartCore</code> instead of <code>Cart</code> for <code>$cart</code> parameter.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Configuration\AbstractMultistoreConfiguration</code>
+<ul>
+<li>Classes extending <code>AbstractMultistoreConfiguration</code> are now forced to use Symfony&rsquo;s <code>OptionsResolver</code>. <code>buildResolver</code> method is mandatory and returns an <code>OptionsResolver</code>.</li>
+<li><code>updateConfigurationValue()</code> is now <code>protected</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\ConstraintValidator\CustomerNameValidator</code>
+<ul>
+<li>This class <a href="https://github.com/PrestaShop/PrestaShop/pull/27657">now</a> does not require any parameters in the <code>__construct</code> method.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\ConstraintValidator\Factory\CustomerNameValidatorFactory</code>
+<ul>
+<li>This class <a href="https://github.com/PrestaShop/PrestaShop/pull/27657">now</a> does not require any parameters in the <code>__construct</code> method.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\ConstraintValidator\TypedRegexValidator</code>
+<ul>
+<li>This class <a href="https://github.com/PrestaShop/PrestaShop/pull/27657">now</a> does not require any parameters in the <code>__construct</code> method.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Address\Command\AbstractEditAddressCommand</code>
+<ul>
+<li><code>getStateId()</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27575/">now</a> returns <code>?PrestaShop\PrestaShop\Core\Domain\State\ValueObject\StateIdInterface</code> instead of <code>?PrestaShop\PrestaShop\Core\Domain\State\ValueObject\StateId</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Address\Command\AddCustomerAddressCommand</code>
+<ul>
+<li><code>__construct()</code> - The type of parameter <code>$stateId</code> is <a href="https://github.com/PrestaShop/PrestaShop/pull/27575/">now</a> <code>PrestaShop\PrestaShop\Core\Domain\State\ValueObject\StateIdInterface</code> instead of <code>PrestaShop\PrestaShop\Core\Domain\State\ValueObject\StateId</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Address\QueryResult\EditableCustomerAddress</code>
+<ul>
+<li><code>__construct()</code> - The type of parameter <code>$stateId</code> is <a href="https://github.com/PrestaShop/PrestaShop/pull/27575/">now</a> <code>PrestaShop\PrestaShop\Core\Domain\State\ValueObject\StateIdInterface</code> instead of <code>PrestaShop\PrestaShop\Core\Domain\State\ValueObject\StateId</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Attachment\QueryResult\AttachmentInformation</code>
 <ul>
 <li>This class now expects (and contains) localized values for names. It also contains localized description and size.</li>
 <li><code>getType()</code> has been renamed to <code>getMimeType()</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Domain\Customer\QueryResult\PersonalInformation</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\CartRule\QueryResult\EditableCartRuleConditions</code></li>
+</ul>
+<ul>
+<li><code>__construct()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/27575">now</a> takes <code>CustomerIdInterface $customerId</code> instead of <code>?CustomerId $customerId</code>.</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Country\ValueObject\CountryId</code>
+<ul>
+<li>This class <a href="https://github.com/PrestaShop/PrestaShop/pull/27575">now</a> implements <code>PrestaShop\PrestaShop\Core\Domain\Country\ValueObject\CountryIdInterface</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Customer\QueryResult\PersonalInformation</code>
 <ul>
 <li><code>__construct()</code> -  The type of parameter <code>$rankBySales</code> is now <code>int</code> instead of <code>string</code>.</li>
 <li><code>getRankBySales()</code> now returns <code>int</code> instead of <code>string</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Domain\Customer\QueryResult\ViewableCustomer</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Customer\QueryResult\ViewableCustomer</code>
 <ul>
 <li><code>__construct()</code> - The parameter <code>$referrersInformation</code> has been removed.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Domain\Order\QueryResult\OrderPreviewProductDetail</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Employee\Command\AddEmployeeCommand</code>
+<ul>
+<li><code>__construct()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">now</a> takes 3 additional parameters (<code>int $minLength</code>, <code>int $maxLength</code>, <code>int $minScore</code>) and <code>bool $hasEnabledGravatar</code> is no longer optional.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Employee\Command\EditEmployeeCommand</code>
+<ul>
+<li><code>setPlainPassword()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">now</a> takes 3 additional parameters (<code>int $minLength</code>, <code>int $maxLength</code>, <code>int $minScore</code>).</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Employee\ValueObject\Password</code>
+<ul>
+<li><code>__construct()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">now</a> takes 3 additional parameters (<code>int $minLength</code>, <code>int $maxLength</code>, <code>int $minScore</code>).</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Order\QueryResult\OrderPreviewProductDetail</code>
 <ul>
 <li><code>__construct()</code> - An 8th parameter, <code>int $id</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27268">has been added</a>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Domain\Order\QueryResult\OrderReturnForViewing</code></p>
+</ul>
+<hr>
 <ul>
-<li><code>__construct()</code> - The parameters <code>$carrierId</code>, <code>$trackingUrl</code> and <code>$trackingNumber</code> have been removed and replaced by <code>string $orderReturnNumber</code>.</li>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Order\QueryResult\OrderReturnForViewing</code>
+<ul>
+<li><code>__construct()</code> - The parameters <code>$carrierId</code>, <code>$trackingUrl</code> and <code>$trackingNumber</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/26056">have been removed</a> and replaced by <code>string $orderReturnNumber</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Domain\Product\Command\RemoveAllAssociatedProductAttachmentsCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\MailTemplate\CommandHandler\GenerateThemeMailTemplatesCommandHandler</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>TranslatorInterface $translator</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Product\SpecificPrice\Command\AddProductSpecificPriceCommand</code>
+<ul>
+<li><code>getCountryId()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/27575">now</a> returns <code>PrestaShop\PrestaShop\Core\Domain\Country\ValueObject\CountryIdInterface</code> instead of <code>int</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Product\Command\RemoveAllAssociatedProductAttachmentsCommand</code>
 <ul>
 <li>Renamed to <code>PrestaShop\PrestaShop\Core\Domain\Product\Attachment\Command\RemoveAllAssociatedProductAttachmentsCommand</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Domain\Product\Command\SetAssociatedProductAttachmentsCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Product\Command\SetAssociatedProductAttachmentsCommand</code>
 <ul>
 <li>Renamed to <code>PrestaShop\PrestaShop\Core\Domain\Product\Attachment\Command\SetAssociatedProductAttachmentsCommand</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Domain\Product\QueryResult\ProductForEditing</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Product\Combination\QueryResult\EditableCombinationForListing</code>
+<ul>
+<li><code>__construct</code> - parameter <code>string $imageUrl</code> is not optional anymore, it is always prefilled with a value even if it is the fallback URL (no content).</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Product\QueryResult\ProductForEditing</code>
 <ul>
 <li><code>__construct()</code> expects an array of <code>AttachmentInformation</code> instead of an array of attachment IDs.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Email\SwiftMailerValidation</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Product\QueryResult\ProductSeoOptions</code>
+<ul>
+<li><code>__construct()</code> now takes a <code>?ProductRedirectTarget</code> instead of <code>int $redirectTargetId</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\State\Command\DeleteStateCommand</code>
+<ul>
+<li><code>getStateId()</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27575/">now</a> returns <code>PrestaShop\PrestaShop\Core\Domain\State\ValueObject\StateIdInterface</code> instead of <code>PrestaShop\PrestaShop\Core\Domain\State\ValueObject\StateId</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Domain\State\Command\Exception\DeleteStateException</code>
+<ul>
+<li><code>createDeleteFailure()</code> - The <code>$stateId</code> parameter <a href="https://github.com/PrestaShop/PrestaShop/pull/27575/">now</a> expects <code>PrestaShop\PrestaShop\Core\Domain\State\ValueObject\StateIdInterface</code> instead of <code>PrestaShop\PrestaShop\Core\Domain\State\ValueObject\StateId</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Email\SwiftMailerValidation</code>
 <ul>
 <li><code>isValid()</code> is now strictly typed.</li>
 <li><code>getError()</code> is now strictly typed.</li>
 <li><code>getWarnings()</code> is now strictly typed.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Exception\NonASCIIInLocalPartException</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Exception\NonASCIIInLocalPartException</code>
 <ul>
 <li>This class is now a subtype of <code>CoreException</code> instead of <code>Egulias\EmailValidator\Exception\InvalidEmail</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\ManufacturerFormDataHandler</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\FeatureFlag\FeatureFlagsModifier</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>TranslatorInterface $translator</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Form\ChoiceProvider\CurrencyByIdChoiceProvider</code>
+<ul>
+<li>This class <a href="https://github.com/PrestaShop/PrestaShop/pull/28068/">now</a> implements the additional interface <code>FormChoiceAttributeProviderInterface</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\ManufacturerFormDataHandler</code>
 <ul>
 <li><code>__construct()</code> - The second parameter <a href="https://github.com/PrestaShop/PrestaShop/pull/24823">is now</a> <code>ManufacturerImageUploader</code> instead of <code>ImageUploaderInterface</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\CategoryFormDataProvider</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\EmployeeFormDataHandler</code>
+<ul>
+<li><code>__construct()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">now</a> takes 3 additional parameters (<code>int $minLength</code>, <code>int $maxLength</code>, <code>int $minScore</code>).</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\CategoryFormDataProvider</code>
 <ul>
 <li><code>__construct()</code> now takes a <code>GroupDataProvider</code> instead of a <code>DefaultGroupsProviderInterface</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShop\PrestaShop\Core\Grid\Definition\Factory\LogGridDefinitionFactory</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Grid\Definition\Factory\LogGridDefinitionFactory</code>
 <ul>
 <li><code>__construct()</code> now takes a second constructor parameter: <code>string $contextDateFormat</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Controller\Admin\Sell\Customer\CustomerController</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Image\ImageTypeRepository</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>Shop $shop</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Module\ModuleRepository</code>
+<ul>
+<li><code>clearCache()</code> - now takes additional parameter <code>bool $allShops = false</code> (<a href="https://github.com/PrestaShop/PrestaShop/pull/28445/">read more</a>).</li>
+<li><code>getCacheKey()</code> - is now protected, not public, and takes additional parameter <code>?int $shopId = null</code> (<a href="https://github.com/PrestaShop/PrestaShop/pull/28445/">read more</a>).</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Tax\TaxOptionsConfiguration</code>
+<ul>
+<li>This class now extends <code>PrestaShop\PrestaShop\Core\Configuration\AbstractMultistoreConfiguration</code>.</li>
+<li><code>__construct</code> now takes 4 parameters (<a href="https://github.com/PrestaShop/PrestaShop/pull/27525">read more</a>).</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Controller\Admin\Sell\Customer\CustomerController</code>
 <ul>
 <li><code>toggleStatusAction()</code> now returns <code>JsonResponse</code> instead of <code>RedirectResponse</code>.</li>
 <li><code>toggleNewsletterSubscriptionAction()</code> now returns <code>JsonResponse</code> instead of <code>RedirectResponse</code>.</li>
 <li><code>togglePartnerOfferSubscriptionAction()</code> now returns <code>JsonResponse</code> instead of <code>RedirectResponse</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Controller\Admin\TranslationsController</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Controller\Admin\TranslationsController</code>
 <ul>
 <li>Renamed to <code>PrestaShopBundle\Controller\Admin\Improve\International\TranslationsController</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Controller\Admin\StockController</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Controller\Admin\StockController</code>
 <ul>
 <li>Renamed to <code>PrestaShopBundle\Controller\Admin\Sell\Catalog\StockController</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Event\ModuleManagementEvent</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Event\ModuleManagementEvent</code>
 <ul>
 <li><code>__construct()</code> now takes a <code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleInterface</code> instead of a <code>PrestaShop\PrestaShop\Adapter\Module\Module</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Form\Admin\Configure\AdvancedParameters\Administration\GeneralType</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Configure\AdvancedParameters\Administration\GeneralType</code>
 <ul>
 <li><code>__construct()</code> - The parameter <code>$isDebug</code> has been removed.</li>
+<li>This class now extends <code>PrestaShopBundle\Form\Admin\Type\TranslatorAwareType</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Form\Admin\Configure\AdvancedParameters\Administration\GeneralType</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Configure\AdvancedParameters\Employee\EmployeeType</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>ConfigurationInterface $configuration</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">has been added</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Configure\ShopParameters\OrderPreferences\OrderPreferencesGiftOptionsFormDataProvider</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>CMSDataProvider $cmsDataProvider</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Configure\ShopParameters\ProductPreferences\PageType</code>
 <ul>
 <li>This class now extends <code>PrestaShopBundle\Form\Admin\Type\TranslatorAwareType</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Form\Admin\Configure\ShopParameters\TrafficSeo\Meta\SetUpUrlType</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Configure\ShopParameters\ProductPreferences\PaginationType</code>
+<ul>
+<li>This class now extends <code>PrestaShopBundle\Form\Admin\Type\TranslatorAwareType</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Configure\ShopParameters\ProductPreferencesPageFormDataProvider</code></li>
+</ul>
+<ul>
+<li><code>__construct()</code> - The parameter <code>$translator</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/28163/">has been removed</a>.</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Configure\ShopParameters\TrafficSeo\Meta\SetUpUrlType</code>
 <ul>
 <li><code>__construct()</code> - The parameter <code>$isHostMode</code> has been removed.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Form\Admin\Configure\ShopParameters\TrafficSeo\Meta\ShopUrlType</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Configure\ShopParameters\TrafficSeo\Meta\ShopUrlType</code>
 <ul>
 <li><code>__construct()</code> - The parameter <code>$isHostMode</code> has been removed.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Install\Install</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Improve\International\Currencies\CurrencyExchangeRateType</code></li>
+</ul>
+<ul>
+<li>This class <a href="https://github.com/PrestaShop/PrestaShop/pull/28177/">now</a> extends <code>PrestaShopBundle\Form\Admin\Type\CommonAbstractType</code>.</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Improve\International\Currencies\CurrencyFormDataProvider</code></li>
+</ul>
+<ul>
+<li><code>__construct()</code> with two parameters (<code>$cronExchangeRate</code>, <code>$commandBus</code>) has been removed.</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Product\ProductAttachement</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>$legacyContext</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Product\ProductOptions</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>$productDataProvider</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+<li><code>__construct()</code> - The parameter <code>$currencyDataprovider</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Product\ProductPrice</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>$customerDataprovider</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Product\ProductShipping</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>$dimensionUnit</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/29054">has been added</a>.</li>
+<li><code>__construct()</code> - The parameter <code>$weightUnit</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/29054">has been added</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Product\ProductSupplierCombination</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>$translator</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+<li><code>__construct()</code> - The parameter <code>$legacyContext</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Product\ProductWarehouseCombination</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>$legacyContext</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Improve\Shipping\Preferences\PreferencesHandlingFormDataProvider</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>TranslatorInterface $translator</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Sell\Address\ManufacturerAddressType</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>array $countryChoices</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+<li><code>__construct()</code> - The parameter <code>array $countryChoicesAttributes</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Sell\CatalogPriceRule\CatalogPriceRuleType</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>$currencyByIdChoicesAttributes</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/28068">has been added</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Sell\Customer\CustomerType</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>ConfigurationInterface $configuration</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">has been added</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Sell\Order\Delivery\SlipPdfType</code>
+<ul>
+<li>This class <a href="https://github.com/PrestaShop/PrestaShop/pull/27851/">now</a> extends <code>PrestaShopBundle\Form\Admin\Type\TranslatorAwareType</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Sell\Product\Combination\CombinationStockType</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>RouterInterface $router</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+<li><code>__construct()</code> - The parameter <code>bool $stockManagementEnabled</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Sell\Product\SEO\RedirectOptionType</code>
+<ul>
+<li><code>__construct()</code> - <a href="https://github.com/PrestaShop/PrestaShop/pull/24878/">now takes</a> one additional parameter, <code>EventSubscriberInterface $eventSubscriber</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Sell\Product\Pricing\SpecificPriceType</code>
+<ul>
+<li><code>__construct()</code> - <code>$currencyByIdChoiceProvider</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/28068/">now</a> takes <code>FormChoiceAttributeProviderInterface</code> instead of <code>FormChoiceProviderInterface</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Type\ChangePasswordType</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>ConfigurationInterface $configuration</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">has been added</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Type\TypeaheadProductPackCollectionType</code>
+<ul>
+<li>This class <a href="https://github.com/PrestaShop/PrestaShop/pull/28619">has been renamed</a> to <code>PrestaShopBundle\Form\Admin\Extension\UnitTypeExtension</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Form\Admin\Type\TypeaheadProductPackCollectionType</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>$productAdapter</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Install\Install</code>
 <ul>
 <li><code>getModulesList()</code> has been renamed to <code>getModulesOnDisk()</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\AppendConfigurationFileHooksListCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\AppendConfigurationFileHooksListCommand</code>
 <ul>
 <li><code>__construct()</code> now takes 9 parameters.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\AppendHooksListForSqlUpgradeFileCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\AppendHooksListForSqlUpgradeFileCommand</code>
 <ul>
 <li><code>__construct()</code> now takes 10 parameters.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\CheckTranslationDuplicatesCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\CheckTranslationDuplicatesCommand</code>
 <ul>
 <li><code>__construct()</code> now takes a <code>TranslatorBagInterface</code>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\ConfigCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\ConfigCommand</code>
 <ul>
 <li><code>__construct()</code> - The first parameter, <code>$legacyContextLoader</code>, has been removed.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\DebugCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\DebugCommand</code>
 <ul>
 <li><code>__construct()</code> - The 3rd parameter, <code>$legacyContextLoader</code>, has been removed.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\ExportThemeCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\ExportThemeCommand</code>
 <ul>
 <li><code>__construct()</code> now takes 3 parameters.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\GenerateMailTemplatesCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\GenerateMailTemplatesCommand</code>
 <ul>
 <li><code>__construct()</code> now takes 2 parameters.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\LegacyLinkLinterCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\LegacyLinkLinterCommand</code>
 <ul>
 <li><code>__construct()</code> now takes 2 parameters.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\ListCommandsAndQueriesCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\ListCommandsAndQueriesCommand</code>
 <ul>
 <li><code>__construct()</code> now takes 2 parameters.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\ModuleCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\ModuleCommand</code>
 <ul>
 <li><code>__construct()</code> now takes 4 parameters.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\NamingConventionLinterCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\NamingConventionLinterCommand</code>
 <ul>
 <li><code>__construct()</code> now takes 2 parameters.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\SecurityAnnotationLinterCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\SecurityAnnotationLinterCommand</code>
 <ul>
 <li><code>__construct()</code> now takes 2 parameters.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\ThemeEnablerCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\ThemeEnablerCommand</code>
 <ul>
 <li><code>__construct()</code> now takes a <code>ThemeManager</code> parameter.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\UpdateEUTaxruleGroupsCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\UpdateEUTaxruleGroupsCommand</code>
 <ul>
 <li><code>__construct()</code> now takes a <code>string $localizationPath</code> parameter.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Command\UpdateSchemaCommand</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Command\UpdateSchemaCommand</code>
 <ul>
 <li><code>__construct()</code> now takes 3 parameters.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Service\Grid\ResponseBuilder</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Controller\Admin\Sell\Order\ActionsBarButtonInterface</code>
+<ul>
+<li>Renamed to <code>PrestaShopBundle\Component\ActionBar\ActionsBarButtonInterface</code>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Kernel\ModuleRepositoryFactory</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>$environment</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/27723">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Service\Grid\ResponseBuilder</code>
 <ul>
 <li><code>__construct()</code> - This method <a href="https://github.com/PrestaShop/PrestaShop/pull/21420">now has 3 additional parameters</a>.</li>
 </ul>
 </li>
-<li>
-<p><code>PrestaShopBundle\Service\DataProvider\Admin\AddonsInterface</code></p>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Service\DataProvider\Admin\AddonsInterface</code>
 <ul>
 <li><code>downloadModule()</code> - This method has been removed from the interface.</li>
 <li><code>isAddonsAuthenticated()</code> - This method has been removed from the interface.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>PrestaShopBundle\Translation\Provider\SearchProvider</code>
+<ul>
+<li><code>__construct()</code> - The parameter <code>$modulesDirectory</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/28197/">has been removed</a>.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul>
+<li><code>Tools::displayDate()</code>
+<ul>
+<li>Two deprecated parameters (<code>$id_lang</code>, <code>$separator</code>) <a href="https://github.com/PrestaShop/PrestaShop/pull/27956/">have been removed</a>.</li>
 </ul>
 </li>
 </ul>
@@ -27393,12 +28103,27 @@
 <li><code>process::processInstallAddonsModules()</code> (from <code>install-dev/controllers/console/process.php</code>)</li>
 <li><code>process::processInstallAddonsModules()</code> (from <code>install-dev/controllers/http/process.php</code>)</li>
 <li><code>AddressFormat::_getFormatDB()</code></li>
-<li><code>AdminController::renderModulesList()</code></li>
+<li><code>AdminCarriersController::getList()</code></li>
+<li><code>AdminCartsController::replaceZeroByShopName()</code></li>
+<li><code>AdminController::addPageHeaderToolBarModulesListButton()</code>  <depre>deprecated in 1.7.7</depre></li>
+<li><code>AdminController::addToolBarModulesListButton()</code>  <depre>deprecated in 1.7.7</depre></li>
+<li><code>AdminController::filterTabModuleList()</code>  <depre>deprecated in 1.7.7</depre></li>
+<li><code>AdminController::initTabModuleList()</code>  <depre>deprecated in 1.7.7</depre></li>
+<li><code>AdminController::renderModulesList()</code> <depre>deprecated in 1.7.4</depre></li>
+<li><code>AdminController::setDeprecatedMedia()</code>  <depre>deprecated in 1.6.0</depre></li>
 <li><code>AdminDashboardController::displayAjaxGetBlogRss()</code></li>
 <li><code>AdminModulesController::ajaxProcessRefreshModuleList()</code></li>
 <li><code>AdminModulesController::ajaxProcessLogOnAddonsWebservices()</code></li>
 <li><code>AdminModulesController::ajaxProcessLogOutAddonsWebservices()</code></li>
+<li><code>AdminModulesPositionsControllerCore::initMain()</code></li>
 <li><code>AdminProductsController::recurseCategoryForInclude()</code> <depre>deprecated in 1.7.0</depre></li>
+<li><code>Carrier::getCarrierNameFromShopName()</code></li>
+<li><code>Cart::addExtraCarriers()</code> <depre>deprecated in 1.7.6</depre></li>
+<li><code>Cart::replaceZeroByShopName()</code></li>
+<li><code>Cart::checkDiscountValidity()</code> <depre>deprecated in 1.5.0</depre></li>
+<li><code>Cart::deletePictureToProduct()</code> <depre>deprecated in 1.5.5</depre></li>
+<li><code>Cart::getOrderShippingCost()</code> <depre>deprecated in 1.5.0</depre></li>
+<li><code>Cart::getTaxesAverageUsed()</code> <depre>deprecated in 1.7.6</depre></li>
 <li><code>CartRule::checkProductRestrictions()</code> <depre>deprecated in 1.7.4</depre></li>
 <li><code>Category::_subTree()</code> <depre>deprecated in 1.7.0</depre></li>
 <li><code>Category::getShopID()</code> <depre>deprecated in 1.7.0</depre></li>
@@ -27430,25 +28155,41 @@
 <li><code>Module::deleteTrustedXmlCache()</code></li>
 <li><code>Module::generateTrustedXml()</code></li>
 <li><code>Module::isModuleTrusted()</code></li>
+<li><code>OrderHistory::getLastOrderState()</code> <depre>deprecated in 1.5.0</depre></li>
+<li><code>OrderPayment::getByOrderId()</code> <depre>deprecated in 1.5.3</depre></li>
+<li><code>OrderSlip::createOrderSlip()</code> <depre>deprecated in 1.6.0</depre></li>
 <li><code>PaymentModule::formatProductAndVoucherForEmail()</code> <depre>deprecated in 1.6.0</depre></li>
 <li><code>PrestaShopException::getExentedMessage()</code> <depre>deprecated in 1.5.5</depre></li>
 <li><code>PrestaShopLogger::_isPresent()</code> <depre>deprecated in 1.7.0</depre></li>
+<li><code>Product::addProductAttributeMultiple()</code> <depre>deprecated in 1.5.5</depre></li>
+<li><code>Product::addAttributeCombinaison()</code> <depre>deprecated in 1.5.0</depre></li>
+<li><code>Product::addAttributeCombinationMultiple()</code> <depre>deprecated in 1.5.5</depre></li>
+<li><code>Product::updateQuantity()</code> <depre>deprecated in 1.5.0</depre></li>
+<li><code>Product::reinjectQuantities()</code> <depre>deprecated in 1.5.3</depre></li>
+<li><code>Product::getIdProductAttributesByIdAttributes()</code> <depre>deprecated in 1.7.3</depre></li>
+<li><code>Product::getAttributeCombinaisons()</code> <depre>deprecated in 1.5.0</depre></li>
+<li><code>Product::deleteAttributeCombinaison()</code> <depre>deprecated in 1.5.5</depre></li>
 <li><code>Product::deleteAttributesImpacts()</code></li>
 <li><code>Product::getAttributesImpacts()</code></li>
+<li><code>ProductSupplier::delete()</code></li>
 <li><code>Shop::getTheme()</code></li>
 <li><code>Stock::addMissingMvt()</code> <depre>deprecated in 1.5.0</depre></li>
 <li><code>Tax::getProductTaxRateViaRules()</code> <depre>deprecated in 1.5.0</depre></li>
 <li><code>TaxRule::deleteTaxRuleByIdCounty()</code> <depre>deprecated in 1.5.0</depre></li>
 <li><code>TaxRulesGroup::getTaxesRate()</code> <depre>deprecated in 1.5.0</depre></li>
 <li><code>TaxRulesGroup::getTaxes()</code> <depre>deprecated in 1.5.0</depre></li>
-<li><code>Uploader::_getFileSize()</code> <depre>deprecated in 1.7.0</depre></li>
-<li><code>Uploader::_getServerVars()</code> <depre>deprecated in 1.7.0</depre></li>
-<li><code>Uploader::_normalizeDirectory()</code> <depre>deprecated in 1.7.0</depre></li>
-<li><code>Validate::isPasswd()</code> <depre>deprecated in 1.7.0</depre></li>
+<li><code>Tools::array_replace()</code> <depre>deprecated in 1.7.4</depre></li>
+<li><code>Tools::display404Error()</code> <depre>deprecated in 1.5.0</depre></li>
+<li><code>Tools::getCldr()</code> <depre>deprecated in 1.7.6</depre></li>
+<li><code>Tools::getSafeModeStatus()</code> <depre>deprecated in 1.7.0</depre></li>
 <li><code>Tools::jsonEncode()</code> <depre>deprecated in 1.7.0</depre></li>
 <li><code>Tools::jsonDecode()</code> <depre>deprecated in 1.7.0</depre></li>
 <li><code>Tools::addonsRequest()</code></li>
 <li><code>Translate::getGenericAdminTranslation()</code></li>
+<li><code>Uploader::_getFileSize()</code> <depre>deprecated in 1.7.0</depre></li>
+<li><code>Uploader::_getServerVars()</code> <depre>deprecated in 1.7.0</depre></li>
+<li><code>Uploader::_normalizeDirectory()</code> <depre>deprecated in 1.7.0</depre></li>
+<li><code>Validate::isPasswd()</code> <depre>deprecated in 1.7.0</depre></li>
 <li><code>PrestaShop\PrestaShop\Adapter\Employee\EmployeeFormAccessChecker::canAccessAddonsConnect()</code></li>
 <li><code>PrestaShop\PrestaShop\Adapter\Hosting\HostingInformation::isHostMode()</code></li>
 <li><code>PrestaShop\PrestaShop\Adapter\Module\AdminModuleDataProvider::clearCatalogCache()</code></li>
@@ -27457,6 +28198,8 @@
 <li><code>PrestaShop\PrestaShop\Adapter\Module\AdminModuleDataProvider::getCatalogModulesNames()</code></li>
 <li><code>PrestaShop\PrestaShop\Adapter\Module\AdminModuleDataProvider::getModuleAttributesById()</code></li>
 <li><code>PrestaShop\PrestaShop\Adapter\Module\ModuleDataUpdater::setModuleOnDiskFromAddons()</code></li>
+<li><code>PrestaShop\PrestaShop\Adapter\Tools::bcadd()</code> <depre>deprecated in 1.7.2</depre></li>
+<li><code>PrestaShop\PrestaShop\Adapter\Tools::link_rewrite()</code></li>
 <li><code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleManager::disable_mobile()</code> <depre>deprecated in 1.7.3</depre></li>
 <li><code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleManager::enable_mobile()</code> <depre>deprecated in 1.7.3</depre></li>
 <li><code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleRepository::getModuleById()</code></li>
@@ -27464,7 +28207,12 @@
 <li><code>PrestaShop\PrestaShop\Core\Domain\Order\QueryResult\OrderReturnForViewing::getCarrierId()</code></li>
 <li><code>PrestaShop\PrestaShop\Core\Domain\Order\QueryResult\OrderReturnForViewing::getTrackingUrl()</code></li>
 <li><code>PrestaShop\PrestaShop\Core\Domain\Order\QueryResult\OrderReturnForViewing::getTrackingNumber()</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Product\QueryResult\ProductStockInformation::useAdvancedStockManagement()</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Product\QueryResult\ProductStockInformation::dependsOnStock()</code></li>
 <li><code>PrestaShop\PrestaShop\Core\Employee\Access\EmployeeFormAccessCheckerInterface::canAccessAddonsConnect()</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Foundation\Version::getReleaseVersion()</code> <depre>deprecated in 1.7.6</depre></li>
+<li><code>PrestaShop\PrestaShop\Core\Localization\RTL\Processor::setIsInstall()</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Localization\RTL\Processor::setRegenerate()</code></li>
 <li><code>PrestaShopBundle\Controller\Admin\CommonController::recommendedModulesAction()</code></li>
 <li><code>PrestaShopBundle\Controller\Admin\Improve\ModuleController::catalogAction()</code></li>
 <li><code>PrestaShopBundle\Controller\Admin\Improve\ModuleController::getModuleCartAction()</code></li>
@@ -27472,6 +28220,11 @@
 <li><code>PrestaShopBundle\Controller\Admin\Improve\ModuleController::refreshCatalogAction()</code></li>
 <li><code>PrestaShopBundle\Entity\Tab::getHideHostMode()</code></li>
 <li><code>PrestaShopBundle\Install\Install::getAddonsModulesList()</code></li>
+<li><code>PrestaShopBundle\Translation\Provider\AbstractProvider::getPrestaShopLocale()</code> <depre>deprecated in 1.7.6</depre></li>
+<li><code>PrestaShopBundle\Translation\Provider\SearchProvider::getDomain()</code> <depre>deprecated in 1.7.6</depre></li>
+<li><code>PrestaShopBundle\Translation\Provider\SearchProvider::getModuleDirectory()</code> <depre>deprecated in 1.7.6</depre></li>
+<li><code>PrestaShopBundle\Translation\Provider\ThemeProvider::getDomain()</code> <depre>deprecated in 1.7.6</depre></li>
+<li><code>PrestaShopBundle\Twig\HookExtension::hookCount()</code> <depre>deprecated in 1.7.7</depre></li>
 </ul>
 <h4 id="removed-variables-or-properties">Removed variables or properties</h4>
 <ul>
@@ -27482,15 +28235,27 @@
 <li><code>AdminModulesController::$_modules_ad</code></li>
 <li><code>Combination::$location</code> <depre>deprecated in 1.7.8</depre></li>
 <li><code>Combination::$quantity</code> <depre>deprecated in 1.7.8</depre></li>
+<li><code>CustomerNameValidator::$characterCleaner</code></li>
+<li><code>CustomerNameValidatorFactory::$characterCleaner</code></li>
+<li><code>Employee::$bo_show_screencast</code> <depre>deprecated in 1.6.0</depre></li>
+<li><code>FrontController::$smarty</code> <depre>deprecated in 1.5.0.1</depre></li>
+<li><code>FrontController::$cookie</code> <depre>deprecated in 1.5.0.1</depre></li>
+<li><code>FrontController::$link</code> <depre>deprecated in 1.5.0.1</depre></li>
+<li><code>FrontController::$cart</code> <depre>deprecated in 1.5.0.1</depre></li>
 <li><code>Module::$trusted</code></li>
 <li><code>Order::$shipping_number</code> <depre>deprecated in 1.5.0</depre></li>
 <li><code>Stock::$date_upd</code> <depre>deprecated in 1.5.0</depre></li>
 <li><code>Stock::$quantity</code> <depre>deprecated in 1.5.0</depre></li>
 <li><code>Tab::$hide_host_mode</code></li>
+<li><code>PrestaShopBundle\Entity\Repository\StockManagementRepository::$languageId</code></li>
+<li><code>PrestaShopBundle\Entity\Repository\StockManagementRepository::$shopId</code></li>
+<li><code>PrestaShopBundle\Entity\Repository\StockManagementRepository::$context</code></li>
+<li><code>TypedRegexValidator::$characterCleaner</code></li>
 </ul>
 <h4 id="removed-constants">Removed constants</h4>
 <ul>
-<li><code>_PS_HOST_MODE_</code></li>
+<li><code>_CUSTOMIZE_FILE_</code></li>
+<li><code>_CUSTOMIZE_TEXTFIELD_</code></li>
 <li><code>_PS_PEAR_XML_PARSER_PATH_</code></li>
 <li><code>_PS_SMARTY_DIR_</code></li>
 <li><code>_PS_SWIFT_DIR_</code></li>
@@ -27504,6 +28269,8 @@
 <li><code>Module::CACHE_FILE_TRUSTED_MODULES_LIST</code></li>
 <li><code>Module::CACHE_FILE_UNTRUSTED_MODULES_LIST</code></li>
 <li><code>PrestaShop\PrestaShop\Adapter\Module\AdminModuleDataProvider::_CACHEKEY_MODULES_</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Employee\ValueObject\Password::MIN_LENGTH</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Employee\ValueObject\Password::MAX_LENGTH</code></li>
 </ul>
 <h4 id="removed-configuration-keys">Removed configuration keys</h4>
 <ul>
@@ -27517,24 +28284,45 @@
 <li><code>Referrer</code></li>
 <li><code>PhpEncryptionLegacyEngine</code></li>
 <li><code>Windows</code> <depre>deprecated in 1.7.0</depre></li>
+<li><code>OrderDiscount</code> <depre>deprecated in 1.5.0</depre></li>
 <li><code>PrestaShop\PrestaShop\Adapter\Addons\AddonsDataProvider</code></li>
+<li><code>PrestaShop\PrestaShop\Adapter\Cache\CacheClearer</code> <depre>deprecated in 1.7.6</depre></li>
+<li><code>PrestaShop\PrestaShop\Adapter\Currency\CommandHandler\ToggleExchangeRateAutomatizationHandler</code></li>
 <li><code>PrestaShop\PrestaShop\Adapter\Module\PrestaTrust</code> (whole namespace)</li>
+<li><code>PrestaShop\PrestaShop\Adapter\Module\ModuleZip</code></li>
+<li><code>PrestaShop\PrestaShop\Adapter\Module\ModuleZipManager</code></li>
+<li><code>PrestaShop\PrestaShop\Adapter\Module\Presenter\PaymentModulesPresenter</code> <depre>deprecated in 1.7.8</depre></li>
 <li><code>PrestaShop\PrestaShop\Adapter\News\NewsDataProvider</code></li>
 <li><code>PrestaShop\PrestaShop\Core\Addon\Login\Exception\LoginErrorException</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Addon\AddonsCollection</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Addon\Module\Exception\UnconfirmedModuleActionException</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleInterface</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleManager</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleRepository</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Addon\Module\ModuleRepositoryInterface</code></li>
 <li><code>PrestaShop\PrestaShop\Core\Domain\Attachment\Query\GetAttachmentInformationList</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Currency\Command\ToggleExchangeRateAutomatizationCommand</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Currency\CommandHandler\ToggleExchangeRateAutomatizationHandlerInterface</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Domain\Currency\Exception\AutomateExchangeRatesUpdateException</code></li>
 <li><code>PrestaShop\PrestaShop\Core\Domain\Customer\QueryResult\ReferrerInformation</code></li>
 <li><code>PrestaShop\PrestaShop\Core\Domain\Product\Command\AssociateProductAttachmentCommand</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Domain\SpecificPrice\Exception\CannotAddSpecificPriceException</code> <depre>deprecated in 1.7.8</depre></li>
+<li><code>PrestaShop\PrestaShop\Core\Email\SmtpDataConfigurator</code> <depre>deprecated in 1.7.8</depre></li>
+<li><code>PrestaShop\PrestaShop\Core\Kpi\Row\KpiRowFactory</code> <depre>deprecated in 1.7.8</depre></li>
 <li><code>PrestaShopBundle\Cache\Factory\CacheSubscriberFactory</code></li>
 <li><code>PrestaShopBundle\Cache\ModuleTemplateCacheWarmer</code></li>
 <li><code>PrestaShopBundle\Controller\Admin\Improve\Design\ThemeCatalogController</code></li>
 <li><code>PrestaShopBundle\Controller\Admin\Improve\Modules\AddonsStoreController</code></li>
 <li><code>PrestaShopBundle\DependencyInjection\Compiler\OverrideTwigServiceCompilerPass</code></li>
+<li><code>PrestaShopBundle\Event\ModuleZipManagementEvent</code></li>
 <li><code>PrestaShopBundle\Form\Admin\Configure\AdvancedParameters\RequestSql\SqlRequestFormDataProvider</code></li>
 <li><code>PrestaShopBundle\Form\Admin\Configure\AdvancedParameters\RequestSql\SqlRequestFormHandler</code></li>
 <li><code>PrestaShopBundle\Form\Admin\Type\AddonsConnectType</code></li>
+<li><code>PrestaShopBundle\Form\Admin\Type\TextWithUnitType</code></li>
 <li><code>PrestaShopBundle\Install\Upgrade</code></li>
 <li><code>PrestaShopBundle\Service\DataProvider\Admin\AddonsInterface</code></li>
 <li><code>PrestaShopBundle\Service\DataProvider\Marketplace\ApiClient</code></li>
+<li><code>PrestaShopBundle\Service\Hook\HookDispatcher</code> <depre>deprecated in 1.7.5</depre></li>
 <li><code>PrestaShopBundle\Twig\AdminExtension</code></li>
 <li><code>PrestaShopBundle\Twig\Locator\ModuleTemplateIterator</code></li>
 </ul>
@@ -27551,12 +28339,16 @@
 <ul>
 <li><code>guzzle.cache</code></li>
 <li><code>prestashop.adapter.admin.data_provider.addons</code></li>
+<li><code>prestashop.adapter.cache_clearer</code></li>
+<li><code>prestashop.adapter.currency.command_handler.update_live_exchange_rates</code></li>
 <li><code>prestashop.adapter.news.circuit_breaker.settings</code></li>
 <li><code>prestashop.adapter.news.circuit_breaker</code></li>
 <li><code>prestashop.adapter.news.provider</code></li>
 <li><code>prestashop.addons.client_api</code></li>
 <li><code>prestashop.core.admin.data_provider.addons_interface</code></li>
+<li><code>prestashop.core.email.smtp_configurator</code></li>
 <li><code>prestashop.data_provider.modules.recommended</code></li>
+<li><code>prestashop.module.zip.manager</code></li>
 </ul>
 <h4 id="removed-endpoints">Removed endpoints</h4>
 <ul>
@@ -27569,9 +28361,16 @@
 <li><code>admin-dev/pdf.php</code> <depre>deprecated in 1.7.6</depre></li>
 <li><code>admin-dev/searchcron.php</code> <depre>deprecated in 1.7.6</depre></li>
 </ul>
+<h4 id="removed-files">Removed files</h4>
+<ul>
+<li><code>images.inc.php</code> <depre>deprecated in 1.5.0</depre></li>
+<li><code>admin-dev/themes/default/public/theme.rtlfix</code></li>
+</ul>
 <h2 id="behavior-changes">Behavior changes</h2>
 <ul>
 <li><code>AdminController::l()</code> no longer falls back to admin / legacy module translations (this is done in <code>ModuleAdminController</code> now)</li>
+<li><code>Carrier::checkDeliveryPriceByWeight()</code> returns boolean <a href="https://github.com/PrestaShop/PrestaShop/pull/27159">now</a> if a given carrier is available for a provided weight</li>
+<li><code>Carrier::checkDeliveryPriceByPrice()</code> returns boolean <a href="https://github.com/PrestaShop/PrestaShop/pull/27159">now</a> if a given carrier is available for a provided price</li>
 <li><code>Module::getModuleNameFromClass()</code> no longer produces side effects (i.e. it no longer loads the module&rsquo;s translations)</li>
 <li><code>Translate::getAdminTranslation()</code> is now a wrapper to <code>Context::getContext()-&gt;getTranslator()-&gt;trans()</code> and it no longer attempts to translate using module translations.</li>
 <li><code>Translate::getModuleTranslation()</code> no longer falls back to admin translations</li>
@@ -27580,8 +28379,17 @@
 <h3 id="php">PHP</h3>
 <ul>
 <li><code>ApiClient::setSslVerification()</code> → Configure the client passed in the constructor directly.</li>
+<li><code>CharacterCleaner::cleanNonUnicodeSupport()</code> → There is no need to use it.</li>
+<li><code>Configuration::clearConfigurationCacheForTesting()</code> → Use <code>Configuration::resetStaticCache()</code> instead.</li>
+<li><code>Tools::cleanNonUnicodeSupport()</code> → There is no need to use it.</li>
 <li><code>Tools::safePostVars()</code> → Avoid using this method.</li>
+<li><code>Tools::redirectLink()</code> → Avoid using this method. Use <code>Tools::redirect()</code> instead.</li>
 <li><code>Translate::getAdminTranslation()</code> → Use <code>Context::getContext()-&gt;getTranslator()-&gt;trans()</code>.</li>
+<li><code>ProductImageFolderProvider</code> → Will be removed in the next major version. Use <code>ImageFolderProvider</code> instead.</li>
+<li><code>TypeaheadRedirectionTargetTransformer</code> → Will be removed in the next major version. This transformer was useful when the form used a <code>TypeAhead</code> form type, with the new <code>EntitySearchInputType</code> it became useless because the format is more adapted by default and not complex enough to justify a transformer.</li>
+<li><code>Validate::isPlaintextPassword()</code> → Avoid using this method. There are <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">new methods</a> to check password correctness.</li>
+<li><code>Validate::isPasswdAdmin()</code> → Avoid using this method. There are <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">new methods</a> to check password correctness.</li>
+<li><code>admin-dev/filemanager/dialog.php</code> → code related to Aviary <a href="https://github.com/PrestaShop/PrestaShop/pull/27751/">has been removed</a> from the File Manager.</li>
 </ul>
 <h3 id="database">Database</h3>
 <ul>
@@ -27636,7 +28444,7 @@
 <tr>
 <td>guzzlehttp/guzzle</td>
 <td>5.3</td>
-<td>7.3</td>
+<td>7.4</td>
 </tr>
 <tr>
 <td>mrclay/minify</td>
@@ -27657,6 +28465,11 @@
 <td>prestashop/circuit-breaker</td>
 <td>3.0</td>
 <td>4.0</td>
+</tr>
+<tr>
+<td>prestashop/decimal</td>
+<td>1.4</td>
+<td>1.5</td>
 </tr>
 <tr>
 <td>prestashop/translationtools-bundle</td>
@@ -27696,6 +28509,9 @@
 <p>The file <code>js/rtl.js</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/26616">has been removed</a>.</p>
 </li>
 <li>
+<p>The file <code>admin-dev/themes/default/js/vendor/jquery-passy.js</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">has been removed</a>.</p>
+</li>
+<li>
 <p>The following dependencies, not required by the Back office directly, <a href="https://github.com/PrestaShop/PrestaShop/pull/25917">have been removed</a> from Symfony-based pages:</p>
 <ul>
 <li>bootstrap-slider</li>
@@ -27727,17 +28543,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1660057053"></script>
-    <script src="/js/perfect-scrollbar.min.js?1660057053"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1660057053"></script>
-    <script src="/js/jquery.sticky.js?1660057053"></script>
-    <script src="/js/featherlight.min.js?1660057053"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1660057053"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1660057053"></script>
-    <script src="/js/learn.js?1660057053"></script>
-    <script src="/js/hugo-learn.js?1660057053"></script>
+    <script src="/js/clipboard.min.js?1660639762"></script>
+    <script src="/js/perfect-scrollbar.min.js?1660639762"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1660639762"></script>
+    <script src="/js/jquery.sticky.js?1660639762"></script>
+    <script src="/js/featherlight.min.js?1660639762"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1660639762"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1660639762"></script>
+    <script src="/js/learn.js?1660639762"></script>
+    <script src="/js/hugo-learn.js?1660639762"></script>
     
-    <script src="/main.js?1660057053"></script>
+    <script src="/main.js?1660639762"></script>
     
     
     

@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/modules/concepts/hooks/list-of-hooks/">
 
     
-    <link href="/css/font-awesome.min.css?1660057052" rel="stylesheet">
-    <link href="/css/syntax-github.css?1660057052" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1660057052" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1660057052" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1660639761" rel="stylesheet">
+    <link href="/css/syntax-github.css?1660639761" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1660639761" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1660639761" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1660057052" rel="stylesheet">
+    <link href="/style.css?1660639761" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1660057052"></script>
+    <script src="/js/jquery-3.3.1.min.js?1660639761"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -27294,6 +27294,15 @@ This hook is used to filter the content or the metadata of an email before sendi
 </code></pre></div><p>with smarty</p>
 <div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="nv">$modules.your_module_name.your_variable_name</span><span class="cp">}</span><span class="x">
 </span></code></pre></div></dd>
+<dt>actionGetAlternativeSearchPanels</dt>
+<dd>This hook allows to add an additional search panel for external providers in PrestaShop back office
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">  <span class="o">&lt;?</span><span class="nx">php</span>
+  <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;previous_search_panels&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="k">array</span><span class="p">)</span> <span class="nx">Existing</span> <span class="nx">search</span> <span class="nx">panels</span><span class="p">,</span>
+    <span class="s1">&#39;bo_query&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="k">array</span><span class="p">)</span> <span class="nx">Searched</span> <span class="nx">expression</span><span class="p">,</span>
+  <span class="p">);</span>
+</code></pre></div><p>Located in: /controllers/admin/AdminSearchController.php</p>
+</dd>
 <dt>actionGetExtraMailTemplateVars</dt>
 <dd>Located in: /classes/Mail.php</dd>
 <dt>actionGetIDZoneByAddressID</dt>
@@ -28006,6 +28015,14 @@ This hook launches modules when the back office product page is displayed
 </dd>
 <dt>displayAdminStatsModules</dt>
 <dd>Located in: /controllers/admin/AdminStatsTabController.php</dd>
+<dt>displayAdminThemesListAfter</dt>
+<dd>Located in: /src/PrestaShopBundle/Resources/views/Admin/Improve/Design/Theme/index.html.twig
+<p>Parameters:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">array</span><span class="p">(</span>
+<span class="s1">&#39;current_theme_name&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="nx">Name</span> <span class="nx">of</span> <span class="nx">the</span> <span class="nx">currently</span> <span class="nx">used</span> <span class="nx">theme</span>
+<span class="p">);</span>
+</code></pre></div></dd>
 <dt>displayAdminView</dt>
 <dd>Located in: admin-dev/themes/default/template/helpers/view/view.tpl</dd>
 <dt>displayAfterTitleTag</dt>
@@ -28060,6 +28077,15 @@ This hook adds fields to the form &lsquo;attribute group&rsquo;
 This hook launches modules when the AdminCategories tab is displayed in the Back Office
 <p>Located in: /controllers/admin/AdminCategoriesController.php</p>
 </dd>
+<dt>displayBackOfficeEmployeeMenu</dt>
+<dd>Displays new elements in the Back Office employee menu
+<p>Located in: /classes/controller/AdminController.php</p>
+<p>Parameters:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">array</span><span class="p">(</span>
+<span class="s1">&#39;links&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">ActionsBarButtonsCollection</span><span class="p">)</span> <span class="nx">Collection</span> <span class="nx">of</span> <span class="nx">ActionsBarButtonInterface</span>
+<span class="p">);</span>
+</code></pre></div></dd>
 <dt>displayBackOfficeFooter</dt>
 <dd><strong>(deprecated since 1.7.0.0)</strong>
 <p>Displayed within the admin panel&rsquo;s footer</p>
@@ -28848,17 +28874,17 @@ This hook is called just before the validation and the  building of the KpiRow.<
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1660057052"></script>
-    <script src="/js/perfect-scrollbar.min.js?1660057052"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1660057052"></script>
-    <script src="/js/jquery.sticky.js?1660057052"></script>
-    <script src="/js/featherlight.min.js?1660057052"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1660057052"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1660057052"></script>
-    <script src="/js/learn.js?1660057052"></script>
-    <script src="/js/hugo-learn.js?1660057052"></script>
+    <script src="/js/clipboard.min.js?1660639761"></script>
+    <script src="/js/perfect-scrollbar.min.js?1660639761"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1660639761"></script>
+    <script src="/js/jquery.sticky.js?1660639761"></script>
+    <script src="/js/featherlight.min.js?1660639761"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1660639761"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1660639761"></script>
+    <script src="/js/learn.js?1660639761"></script>
+    <script src="/js/hugo-learn.js?1660639761"></script>
     
-    <script src="/main.js?1660057052"></script>
+    <script src="/main.js?1660639761"></script>
     
     
     
