@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/development/components/grid/tutorials/extend-grid-with-javascript/">
 
     
-    <link href="/css/font-awesome.min.css?1660723952" rel="stylesheet">
-    <link href="/css/syntax-github.css?1660723952" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1660723952" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1660723952" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1660724045" rel="stylesheet">
+    <link href="/css/syntax-github.css?1660724045" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1660724045" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1660724045" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1660723952" rel="stylesheet">
+    <link href="/style.css?1660724045" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1660723952"></script>
+    <script src="/js/jquery-3.3.1.min.js?1660724045"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -26942,7 +26942,7 @@ Although the grid looks complete, none of the actions are working yet because th
 <ol>
 <li>
 <p>Create javascript file for your page.
-In our example we create index.js in <code>admin-dev/themes/new-theme/js/pages/tax/index.js</code>.</p>
+In our example we create index.js in <code>admin-dev/themes/new-theme/js/pages/tax/index.ts</code>.</p>
 </li>
 <li>
 <p>Add an entry point in webpack.config.js. In our example we add an entry point in <code>admin-dev/themes/new-theme/.webpack/common.js</code>.</p>
@@ -26976,12 +26976,12 @@ module.exports = {
 <ul>
 <li>
 <p>Import and initialize Grid component</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">### admin-dev/themes/new-theme/js/pages/tax/index.js
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">### admin-dev/themes/new-theme/js/pages/tax/index.ts
 
 ### 1. import the grid component
-import Grid from &#39;../../components/grid/grid&#39;;
+import Grid from &#39;@components/grid/grid&#39;;
 
-const $ = window.$;
+const {$} = window;
 
 $(() =&gt; {
 ### 2. initialize the grid component by providing grid id
@@ -26989,20 +26989,20 @@ $(() =&gt; {
 });
 </code></pre></div></li>
 </ul>
-<p>As you can see in example above we are importing Grid component from <code>admin-dev/themes/new-theme/js/components/grid/grid.js</code>
+<p>As you can see in example above we are importing Grid component from <code>admin-dev/themes/new-theme/js/components/grid/grid.ts</code>
 (note that the <code>admin-dev</code> part might differ, as it depends on PrestaShop installation).
 Next - initiating the grid component by declaring <code>const taxGrid = new Grid('tax');</code>. In this case the argument <code>'tax'</code> represents the id of our grid.</p>
 <p><strong>The <code>id</code> provided to Grid component must be the same as in <code>TaxGridDefinitionFactory.php</code></strong></p>
 <p>Now when you need specific extension, just import it from <code>admin-dev/themes/new-theme/js/components/grid/extension</code> and
 add it to your grid - <code>taxGrid.addExtension(new SortingExtension());</code>.
 In case you need more than one list per page, you can just declare another variable of another list and add extensions the same way.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">### admin-dev/themes/new-theme/js/pages/tax/index.js
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">### admin-dev/themes/new-theme/js/pages/tax/index.ts
 
-import Grid from &#39;../../components/grid/grid&#39;;
+import Grid from &#39;@components/grid/grid&#39;;
 ### import extension
-import SortingExtension from &#39;../../components/grid/extension/sorting-extension&#39;;
+import SortingExtension from &#39;@components/grid/extension/sorting-extension&#39;;
 
-const $ = window.$;
+const {$} = window;
 
 $(() =&gt; {
   const taxGrid = new Grid(&#39;tax&#39;);
@@ -27010,19 +27010,19 @@ $(() =&gt; {
   taxGrid.addExtension(new SortingExtension());
 });
 </code></pre></div><p>After adding all needed extensions, our index.js should look like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">### admin-dev/themes/new-theme/js/pages/tax/index.js
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">### admin-dev/themes/new-theme/js/pages/tax/index.ts
 
-import Grid from &#39;../../components/grid/grid&#39;;
-import SortingExtension from &#39;../../components/grid/extension/sorting-extension&#39;;
-import FiltersResetExtension from &#39;../../components/grid/extension/filters-reset-extension&#39;;
-import ReloadListActionExtension from &#39;../../components/grid/extension/reload-list-extension&#39;;
-import ColumnTogglingExtension from &#39;../../components/grid/extension/column-toggling-extension&#39;;
-import SubmitRowActionExtension from &#39;../../components/grid/extension/action/row/submit-row-action-extension&#39;;
-import SubmitBulkExtension from &#39;../../components/grid/extension/submit-bulk-action-extension&#39;;
-import BulkActionCheckboxExtension from &#39;../../components/grid/extension/bulk-action-checkbox-extension&#39;;
-import ExportToSqlManagerExtension from &#39;../../components/grid/extension/export-to-sql-manager-extension&#39;;
+import Grid from &#39;@components/grid/grid&#39;;
+import SortingExtension from &#39;@components/grid/extension/sorting-extension&#39;;
+import FiltersResetExtension from &#39;@components/grid/extension/filters-reset-extension&#39;;
+import ReloadListActionExtension from &#39;@components/grid/extension/reload-list-extension&#39;;
+import ColumnTogglingExtension from &#39;@components/grid/extension/column-toggling-extension&#39;;
+import SubmitRowActionExtension from &#39;@components/grid/extension/action/row/submit-row-action-extension&#39;;
+import SubmitBulkExtension from &#39;@components/grid/extension/submit-bulk-action-extension&#39;;
+import BulkActionCheckboxExtension from &#39;@components/grid/extension/bulk-action-checkbox-extension&#39;;
+import ExportToSqlManagerExtension from &#39;@components/grid/extension/export-to-sql-manager-extension&#39;;
 
-const $ = window.$;
+const {$} = window;
 
 $(() =&gt; {
   const taxGrid = new Grid(&#39;tax&#39;);
@@ -27036,7 +27036,7 @@ $(() =&gt; {
   taxGrid.addExtension(new SubmitBulkExtension());
   taxGrid.addExtension(new BulkActionCheckboxExtension());
 });
-</code></pre></div><p>The last thing to do is to run the compiler. [More about compiler and npm commands here]({{ relref &ldquo;/8/development/compile-assets&rdquo; }}).</p>
+</code></pre></div><p>The last thing to do is to run the compiler. <a href="/8/development/compile-assets/">More about compiler and npm commands here</a>.</p>
 <p>In our example we open command line, cd to <code>{{Our prestashop root directory}}/admin-dev/themes/new-theme</code> and type the following command:</p>
 <ul>
 <li><code>npm run build</code> (for production)</li>
@@ -27067,17 +27067,17 @@ $(() =&gt; {
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1660723952"></script>
-    <script src="/js/perfect-scrollbar.min.js?1660723952"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1660723952"></script>
-    <script src="/js/jquery.sticky.js?1660723952"></script>
-    <script src="/js/featherlight.min.js?1660723952"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1660723952"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1660723952"></script>
-    <script src="/js/learn.js?1660723952"></script>
-    <script src="/js/hugo-learn.js?1660723952"></script>
+    <script src="/js/clipboard.min.js?1660724046"></script>
+    <script src="/js/perfect-scrollbar.min.js?1660724046"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1660724046"></script>
+    <script src="/js/jquery.sticky.js?1660724046"></script>
+    <script src="/js/featherlight.min.js?1660724046"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1660724046"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1660724046"></script>
+    <script src="/js/learn.js?1660724046"></script>
+    <script src="/js/hugo-learn.js?1660724046"></script>
     
-    <script src="/main.js?1660723952"></script>
+    <script src="/main.js?1660724046"></script>
     
     
     
