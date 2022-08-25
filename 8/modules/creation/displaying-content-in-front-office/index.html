@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/modules/creation/displaying-content-in-front-office/">
 
     
-    <link href="/css/font-awesome.min.css?1661343794" rel="stylesheet">
-    <link href="/css/syntax-github.css?1661343794" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1661343794" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1661343794" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1661416099" rel="stylesheet">
+    <link href="/css/syntax-github.css?1661416099" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1661416099" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1661416099" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1661343794" rel="stylesheet">
+    <link href="/style.css?1661416099" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1661343794"></script>
+    <script src="/js/jquery-3.3.1.min.js?1661416099"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -26893,13 +26893,13 @@ by implementing the hooks' methods, and that was actually done in the
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;leftColumn&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;displayLeftColumn&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;actionFrontControllerSetMedia&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
         <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;my friend&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div><p>As you can see, we make it so that the module is hooked to the
-&ldquo;<code>leftColumn</code>&rdquo; and &ldquo;<code>actionFrontControllerSetMedia</code>&rdquo; hooks. In addition to this, we will add
-code for the &ldquo;<code>rightColumn</code>&rdquo; hook.</p>
+&ldquo;<code>displayLeftColumn</code>&rdquo; and &ldquo;<code>actionFrontControllerSetMedia</code>&rdquo; hooks. In addition to this, we will add
+code for the &ldquo;<code>displayRightColumn</code>&rdquo; hook.</p>
 <p>Attaching code to a hook requires a specific method for each:</p>
 <ul>
 <li><code>hookDisplayLeftColumn()</code>: will hook code into the left column – in
@@ -26967,19 +26967,18 @@ module&rdquo; button (top right of the page).</p>
 <p>In the transplantation form:</p>
 <ul>
 <li>Find &ldquo;My module&rdquo; in the &ldquo;Module&rdquo; drop-down list.</li>
-<li>Choose &ldquo;(displayLeftColumn) Left column blocks&rdquo; in the &ldquo;Hook into&rdquo;
-drop-down list.</li>
+<li>Choose &ldquo;displayLeftColumn (This hook displays new elements in the left-hand column)&rdquo; in the &ldquo;Transplant into&rdquo; drop-down list.</li>
 <li>Click &ldquo;Save&rdquo;.</li>
 </ul>
 <p>It is useless to try to attach a module to a hook for which it has no
 implemented method.</p>
 <p>The &ldquo;Positions&rdquo; page should reload, with the following message: &ldquo;Module
-transplanted successfully to hook&rdquo; (or maybe &ldquo;This module has already
+transplanted successfully to the hook&rdquo; (or maybe &ldquo;This module has already
 been transplanted to this hook. &ldquo;). Congratulations! Scroll down the
 &ldquo;Positions&rdquo; page, and you should indeed see your module among the other
-modules in the &ldquo;Left column blocks&rdquo; list. Move it to the top of the list
+modules in the &ldquo;displayLeftColumn&rdquo; block. Move it to the top of the list
 by drag&rsquo;n&rsquo;dropping the module&rsquo;s row.</p>
-<p>The module is now attached to the left column&hellip; but without any
+<p>The module is now attached to the left column, but without any
 template to display, it falls short of doing anything useful: if you
 reload the homepage, the left column simply displays a message where the
 module should be, saying &ldquo;No template found for module mymodule&rdquo;.</p>
@@ -27389,17 +27388,17 @@ the final output file.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1661343794"></script>
-    <script src="/js/perfect-scrollbar.min.js?1661343794"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1661343794"></script>
-    <script src="/js/jquery.sticky.js?1661343794"></script>
-    <script src="/js/featherlight.min.js?1661343794"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1661343794"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1661343794"></script>
-    <script src="/js/learn.js?1661343794"></script>
-    <script src="/js/hugo-learn.js?1661343794"></script>
+    <script src="/js/clipboard.min.js?1661416099"></script>
+    <script src="/js/perfect-scrollbar.min.js?1661416099"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1661416099"></script>
+    <script src="/js/jquery.sticky.js?1661416099"></script>
+    <script src="/js/featherlight.min.js?1661416099"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1661416099"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1661416099"></script>
+    <script src="/js/learn.js?1661416099"></script>
+    <script src="/js/hugo-learn.js?1661416099"></script>
     
-    <script src="/main.js?1661343794"></script>
+    <script src="/main.js?1661416099"></script>
     
     
     

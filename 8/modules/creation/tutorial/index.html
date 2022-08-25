@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop.com/1.7/modules/creation/tutorial/">
 
     
-    <link href="/css/font-awesome.min.css?1661343794" rel="stylesheet">
-    <link href="/css/syntax-github.css?1661343794" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1661343794" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1661343794" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1661416099" rel="stylesheet">
+    <link href="/css/syntax-github.css?1661416099" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1661416099" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1661416099" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1661343794" rel="stylesheet">
+    <link href="/style.css?1661416099" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1661343794"></script>
+    <script src="/js/jquery-3.3.1.min.js?1661416099"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -26942,8 +26942,8 @@
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="s1">&#39;Firstname Lastname&#39;</span><span class="p">;</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">need_instance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ps_versions_compliancy</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.6&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7.99&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7.0.0&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;8.99.99&#39;</span><span class="p">,</span>
         <span class="p">];</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bootstrap</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
 
@@ -26974,15 +26974,15 @@
 <p>Let&rsquo;s continue with the next line in this block of code:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">need_instance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ps_versions_compliancy</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.6&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7.99&#39;</span>
+    <span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7.0.0&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;8.99.99&#39;</span>
 <span class="p">];</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bootstrap</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
 </code></pre></div><p>This section handles the relationship with the module and its environment (namely, PrestaShop):</p>
 <ul>
 <li>The <code>need_instance</code> attribute Indicates whether to load the module&rsquo;s class when displaying the &ldquo;Modules&rdquo; page in the back office. If set at 0, the module will not be loaded, and therefore will spend less resources to generate the &ldquo;Modules&rdquo; page. If your module needs to display a warning message in the &ldquo;Modules&rdquo; page, then you must set this attribute to <code>1</code>.</li>
-<li>The <code>ps_versions_compliancy</code> attribute indicates which version of PrestaShop this module is compatible with. In the example above, we are defining the compatibility range between <code>1.6.0.0</code> and <code>1.7.99.0</code>.</li>
-<li>The <code>bootstrap</code> attribute indicates that the module&rsquo;s template files have been built with PrestaShop 1.6&rsquo;s bootstrap tools in mind.</li>
+<li>The <code>ps_versions_compliancy</code> attribute indicates which version of PrestaShop this module is compatible with. In the example above, we are defining the compatibility range between <code>1.7.0.0</code> and <code>8.99.99</code>.</li>
+<li>The <code>bootstrap</code> attribute indicates that the module&rsquo;s template files have been built with PrestaShop&rsquo;s bootstrap tools in mind.</li>
 </ul>
 <p>Next, we call the constructor method from the parent PHP class:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
@@ -27021,8 +27021,8 @@
 <ul>
 <li>Check that the <a href="https://devdocs.prestashop.com/8/development/multistore/">Multistore feature</a> is enabled, and if so, set the current context to all shops on this installation of PrestaShop.</li>
 <li>Ensure that the base install process is successful.</li>
-<li>Ensure that the module can be attached to the <code>leftColumn</code> hook.</li>
-<li>Ensure that the module can be attached to the <code>header</code> hook.</li>
+<li>Ensure that the module can be attached to the <code>displayLeftColumn</code> hook.</li>
+<li>Ensure that the module can be attached to the <code>displayHeader</code> hook.</li>
 <li>Ensure the value of the <code>MYMODULE_NAME</code> configuration setting can be set to &ldquo;my friend&rdquo;.</li>
 </ul>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
@@ -27033,8 +27033,8 @@
 
    <span class="k">return</span> <span class="p">(</span>
         <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> 
-        <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;leftColumn&#39;</span><span class="p">)</span>
-        <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;header&#39;</span><span class="p">)</span>
+        <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;displayLeftColumn&#39;</span><span class="p">)</span>
+        <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;displayHeader&#39;</span><span class="p">)</span>
         <span class="o">&amp;&amp;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;my friend&#39;</span><span class="p">)</span>
     <span class="p">);</span> 
 <span class="p">}</span>
@@ -27179,17 +27179,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1661343794"></script>
-    <script src="/js/perfect-scrollbar.min.js?1661343794"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1661343794"></script>
-    <script src="/js/jquery.sticky.js?1661343794"></script>
-    <script src="/js/featherlight.min.js?1661343794"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1661343794"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1661343794"></script>
-    <script src="/js/learn.js?1661343794"></script>
-    <script src="/js/hugo-learn.js?1661343794"></script>
+    <script src="/js/clipboard.min.js?1661416099"></script>
+    <script src="/js/perfect-scrollbar.min.js?1661416099"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1661416099"></script>
+    <script src="/js/jquery.sticky.js?1661416099"></script>
+    <script src="/js/featherlight.min.js?1661416099"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1661416099"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1661416099"></script>
+    <script src="/js/learn.js?1661416099"></script>
+    <script src="/js/hugo-learn.js?1661416099"></script>
     
-    <script src="/main.js?1661343794"></script>
+    <script src="/main.js?1661416099"></script>
     
     
     
