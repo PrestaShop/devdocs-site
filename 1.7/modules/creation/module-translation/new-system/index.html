@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.85.0" />
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
-<meta name="twitter:image" content="https://devdocs.prestashop.com/images/social-cover.jpg" />
+<meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="New translation system" />
 <meta name="twitter:description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
-<meta property="og:image" content="https://devdocs.prestashop.com/images/social-cover.jpg" />
+<meta property="og:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta property="og:site_name" content="PrestaShop" />
 <meta property="og:title" content="New translation system" />
 <meta property="og:description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1663021557" rel="stylesheet">
-    <link href="/css/syntax-github.css?1663021557" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1663021557" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1663021557" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1663168642" rel="stylesheet">
+    <link href="/css/syntax-github.css?1663168642" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1663168642" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1663168642" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1663021557" rel="stylesheet">
+    <link href="/style.css?1663168642" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1663021557"></script>
+    <script src="/js/jquery-3.3.1.min.js?1663168642"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -26967,7 +26967,7 @@
 <div class="magic-version-pill" data-version="1.7.6" data-title="New in PrestaShop 1.7.6"></div>
 <p>The new module translation system is based on the new system introduced in PrestaShop 1.7 for the Core and Native modules. It aims to harmonize translation systems throughout PrestaShop while providing backwards compatibility.</p>
 
-<div class="notices info" >This feature is only available for PrestaShop 1.7.6 and later. If you need to support older versions, see the <a href="https://devdocs.prestashop.com/1.7/modules/creation/module-translation/classic-system/">Classic translation system</a>.</div>
+<div class="notices info" >This feature is only available for PrestaShop 1.7.6 and later. If you need to support older versions, see the <a href="https://devdocs.prestashop-project.org/1.7/modules/creation/module-translation/classic-system/">Classic translation system</a>.</div>
 
 <h2 id="vocabulary">Vocabulary</h2>
 <ul>
@@ -26991,7 +26991,7 @@
 </figure>
 
 
-<div class="notices note" >If your module has already been translated using the <a href="https://devdocs.prestashop.com/1.7/modules/creation/module-translation/classic-system/">classic translation system</a>, the new translation interface can also source translations from your existing classic translation dictionary files. This means that you can keep your old controllers for compatibility with older PrestaShop versions, and add Symfony controllers for 1.7.6+, without losing your previous translations.</div>
+<div class="notices note" >If your module has already been translated using the <a href="https://devdocs.prestashop-project.org/1.7/modules/creation/module-translation/classic-system/">classic translation system</a>, the new translation interface can also source translations from your existing classic translation dictionary files. This means that you can keep your old controllers for compatibility with older PrestaShop versions, and add Symfony controllers for 1.7.6+, without losing your previous translations.</div>
 
 <h2 id="using-translation">Using translation</h2>
 <p>To make your module translatable, you need to adapt your module&rsquo;s source code. Find any wording you want to make translatable, then wrap it using the appropriate method as explained below. Once wrapped, your wordings will be ready to be translated through the translation interface.</p>
@@ -27001,8 +27001,8 @@
 </div>
 
 <h3 id="translation-domain">Translation domain</h3>
-<p>An important part of the new translation system is <strong>Translation Domains</strong>, which replaces the classic system&rsquo;s <a href="https://devdocs.prestashop.com/1.7/modules/creation/module-translation/new-system/#contextualization">contextualization</a>. In the new translation system, all wordings must be linked to at least one translation domain.</p>
-<p>While the Core and Native modules have clearly defined <a href="https://devdocs.prestashop.com/1.7/development/internationalization/translation/translation-domains/#understanding-the-domains-structure">translation domain naming scheme</a>, non-native modules must respect a specific naming convention:</p>
+<p>An important part of the new translation system is <strong>Translation Domains</strong>, which replaces the classic system&rsquo;s <a href="https://devdocs.prestashop-project.org/1.7/modules/creation/module-translation/new-system/#contextualization">contextualization</a>. In the new translation system, all wordings must be linked to at least one translation domain.</p>
+<p>While the Core and Native modules have clearly defined <a href="https://devdocs.prestashop-project.org/1.7/development/internationalization/translation/translation-domains/#understanding-the-domains-structure">translation domain naming scheme</a>, non-native modules must respect a specific naming convention:</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Modules.Nameofthemodule.Specificpart
 </code></pre></div><p>Translation Domain names are always made of three parts, separated by dots:</p>
 <ol>
@@ -27023,7 +27023,7 @@ Make sure that the technical name of your module does not contain contains under
 <ul>
 <li>The first letter must be in upper case, and the rest in lower case.</li>
 <li>Symbols like dots, dashes and underscores are allowed (but discouraged).</li>
-<li>If you target 1.7.8 and over, consider using the <a href="https://devdocs.prestashop.com/1.7/development/internationalization/translation/translation-domains/#modules">Native module conventions</a> (<em>&ldquo;Admin&rdquo;</em> or <em>&ldquo;Shop&rdquo;</em>).</li>
+<li>If you target 1.7.8 and over, consider using the <a href="https://devdocs.prestashop-project.org/1.7/development/internationalization/translation/translation-domains/#modules">Native module conventions</a> (<em>&ldquo;Admin&rdquo;</em> or <em>&ldquo;Shop&rdquo;</em>).</li>
 <li>If you want to use previously-generated classic translation dictionary files for backward compatibility, you need to follow a specific naming convention (explained below).</li>
 </ul>
 </li>
@@ -27031,7 +27031,7 @@ Make sure that the technical name of your module does not contain contains under
 
 <div class="callout">
 <h4 id="backward-compatibility">Backward compatibility</h4>
-<p>If you want your module to be compatible with previously-generated <a href="https://devdocs.prestashop.com/1.7/modules/creation/module-translation/classic-system/">classic translation dictionary files</a>, then the third component of the Translation domain <strong>must</strong> be set to the name of the file where the wording is used, respecting the following rules:</p>
+<p>If you want your module to be compatible with previously-generated <a href="https://devdocs.prestashop-project.org/1.7/modules/creation/module-translation/classic-system/">classic translation dictionary files</a>, then the third component of the Translation domain <strong>must</strong> be set to the name of the file where the wording is used, respecting the following rules:</p>
 <ul>
 <li>The first letter must be in upper case, and the rest in lower case</li>
 <li>If the file extension is <code>.tpl</code>, the extension must be removed</li>
@@ -27249,7 +27249,7 @@ Make sure that the technical name of your module does not contain contains under
 <div class="notices warning" >Note that these files will only work with PrestaShop 1.7.8 and over. If you need to ensure compatibility with previous versions, read below.</div>
 
 <h3 id="before-178">Before 1.7.8</h3>
-<p>If you need to distribute backward-compatible translations, you can either <a href="https://devdocs.prestashop.com/1.7/modules/creation/module-translation/classic-system/#editing-a-dictionary-file-manually">write classic dictionary files manually</a>, or export your module&rsquo;s wordings from the database into a file, then import it during the module&rsquo;s install process.</p>
+<p>If you need to distribute backward-compatible translations, you can either <a href="https://devdocs.prestashop-project.org/1.7/modules/creation/module-translation/classic-system/#editing-a-dictionary-file-manually">write classic dictionary files manually</a>, or export your module&rsquo;s wordings from the database into a file, then import it during the module&rsquo;s install process.</p>
 <p>If you choose to export wordings from the database, you can easily extract your module&rsquo;s wordings from the <code>ps_translation</code> table by filtering domains that start with <code>ModulesYourmodulename*</code>. When inserting the translations in the destination shop, remember to set the appropriate value for <code>id_lang</code> according to the destination shop&rsquo;s language configuration (see table <code>ps_lang</code>) .</p>
 
 
@@ -27272,17 +27272,17 @@ Make sure that the technical name of your module does not contain contains under
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1663021557"></script>
-    <script src="/js/perfect-scrollbar.min.js?1663021557"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1663021557"></script>
-    <script src="/js/jquery.sticky.js?1663021557"></script>
-    <script src="/js/featherlight.min.js?1663021557"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1663021557"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1663021557"></script>
-    <script src="/js/learn.js?1663021557"></script>
-    <script src="/js/hugo-learn.js?1663021557"></script>
+    <script src="/js/clipboard.min.js?1663168642"></script>
+    <script src="/js/perfect-scrollbar.min.js?1663168642"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1663168642"></script>
+    <script src="/js/jquery.sticky.js?1663168642"></script>
+    <script src="/js/featherlight.min.js?1663168642"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1663168642"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1663168642"></script>
+    <script src="/js/learn.js?1663168642"></script>
+    <script src="/js/hugo-learn.js?1663168642"></script>
     
-    <script src="/main.js?1663021557"></script>
+    <script src="/main.js?1663168642"></script>
     
     
     
