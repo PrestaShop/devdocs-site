@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/1.7/modules/concepts/controllers/admin-controllers/override-decorate-controller/">
 
     
-    <link href="/css/font-awesome.min.css?1663168656" rel="stylesheet">
-    <link href="/css/syntax-github.css?1663168656" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1663168656" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1663168656" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1663258120" rel="stylesheet">
+    <link href="/css/syntax-github.css?1663258120" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1663258120" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1663258120" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1663168656" rel="stylesheet">
+    <link href="/style.css?1663258120" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1663168656"></script>
+    <script src="/js/jquery-3.3.1.min.js?1663258120"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -26973,7 +26973,17 @@ You can do it by using <code>php bin/console cache:clear</code>.</p>
 </span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">MyModule\Controller\DemoController</span><span class="w">
 </span><span class="w">    </span><span class="nt">decorates</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</span><span class="w">
 </span><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;@custom_controller.inner&#39;</span><span class="p">]</span><span class="w">
-</span></code></pre></div><p>Thanks to this, whenever Symfony forwards a request to the Core controller <code>PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</code> it will be forwarded to <code>DemoController</code> instead. But what is different with overriding is that the decorated CmsPageController is injected into the constructor of DemoController, and we can use it:</p>
+</span></code></pre></div><p>or if you are using <a href="https://symfony.com/doc/4.4/service_container/autowiring.html">autowiring</a>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># modules/your-module/config/services.yml</span><span class="w">
+</span><span class="w">  </span><span class="nt">custom_controller</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">autowire</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">MyModule\Controller\DemoController</span><span class="w">
+</span><span class="w">    </span><span class="nt">decorates</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</span><span class="w">
+</span></code></pre></div>
+<div class="notices warning" >You don&rsquo;t need to define custom routing for your decorated controller. Symfony will take care of it and use your controller instead of the original one,
+just make sure you clear symfony cache after these changes (using command <code>bin/console cache:clear</code>). If (for some reason) you still need to modify the routing of your decorated controller, then you will need to add <code>public: true</code> to your decorated controller definition in module services.yml, or else you will get error complaining about your controller being private.</div>
+
+<p>Thanks to this, whenever Symfony forwards a request to the Core controller <code>PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</code> it will be forwarded to <code>DemoController</code> instead. But what is different with overriding is that the decorated CmsPageController is injected into the constructor of DemoController, and we can use it:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">MyModule\Controller</span><span class="p">;</span>
@@ -27037,17 +27047,17 @@ However we could modify the input request or the output given by decorated contr
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1663168656"></script>
-    <script src="/js/perfect-scrollbar.min.js?1663168656"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1663168656"></script>
-    <script src="/js/jquery.sticky.js?1663168656"></script>
-    <script src="/js/featherlight.min.js?1663168656"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1663168656"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1663168656"></script>
-    <script src="/js/learn.js?1663168656"></script>
-    <script src="/js/hugo-learn.js?1663168656"></script>
+    <script src="/js/clipboard.min.js?1663258120"></script>
+    <script src="/js/perfect-scrollbar.min.js?1663258120"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1663258120"></script>
+    <script src="/js/jquery.sticky.js?1663258120"></script>
+    <script src="/js/featherlight.min.js?1663258120"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1663258120"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1663258120"></script>
+    <script src="/js/learn.js?1663258120"></script>
+    <script src="/js/hugo-learn.js?1663258120"></script>
     
-    <script src="/main.js?1663168656"></script>
+    <script src="/main.js?1663258120"></script>
     
     
     
