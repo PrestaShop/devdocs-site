@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1663748045" rel="stylesheet">
-    <link href="/css/syntax-github.css?1663748045" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1663748045" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1663748045" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1663748537" rel="stylesheet">
+    <link href="/css/syntax-github.css?1663748537" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1663748537" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1663748537" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1663748045" rel="stylesheet">
+    <link href="/style.css?1663748537" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1663748045"></script>
+    <script src="/js/jquery-3.3.1.min.js?1663748537"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -27039,27 +27039,32 @@ the <code>actionListMailThemes</code> hook.</p>
 <span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeCollectionInterface</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeInterface</span><span class="p">;</span>
 
-<span class="k">class</span> <span class="nc">My_email_theme_module</span> <span class="k">extends</span> <span class="nx">Module</span> <span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">class</span> <span class="nc">MyEmailThemeModule</span> <span class="k">extends</span> <span class="nx">Module</span> 
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span> 
+    <span class="p">{</span>
         <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span>
             <span class="c1">// This class constant contains &#39;actionListMailThemes&#39;
 </span><span class="c1"></span>            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
         <span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span> 
+    <span class="p">{</span>
         <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">()</span>
             <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">unregisterHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
         <span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">enable</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">enable</span><span class="p">()</span> 
+    <span class="p">{</span>
         <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">enable</span><span class="p">()</span>
             <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
         <span class="p">;</span>
     <span class="p">}</span>
 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">disable</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">disable</span><span class="p">()</span> 
+    <span class="p">{</span>
         <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">disable</span><span class="p">()</span>
             <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">unregisterHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
         <span class="p">;</span>
@@ -27120,17 +27125,17 @@ the <code>actionListMailThemes</code> hook.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1663748045"></script>
-    <script src="/js/perfect-scrollbar.min.js?1663748045"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1663748045"></script>
-    <script src="/js/jquery.sticky.js?1663748045"></script>
-    <script src="/js/featherlight.min.js?1663748045"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1663748045"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1663748045"></script>
-    <script src="/js/learn.js?1663748045"></script>
-    <script src="/js/hugo-learn.js?1663748045"></script>
+    <script src="/js/clipboard.min.js?1663748537"></script>
+    <script src="/js/perfect-scrollbar.min.js?1663748537"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1663748537"></script>
+    <script src="/js/jquery.sticky.js?1663748537"></script>
+    <script src="/js/featherlight.min.js?1663748537"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1663748537"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1663748537"></script>
+    <script src="/js/learn.js?1663748537"></script>
+    <script src="/js/hugo-learn.js?1663748537"></script>
     
-    <script src="/main.js?1663748045"></script>
+    <script src="/main.js?1663748537"></script>
     
     
     
