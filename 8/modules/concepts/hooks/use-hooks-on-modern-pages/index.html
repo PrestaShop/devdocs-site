@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/1.7/modules/concepts/hooks/use-hooks-on-modern-pages/">
 
     
-    <link href="/css/font-awesome.min.css?1663920445" rel="stylesheet">
-    <link href="/css/syntax-github.css?1663920445" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1663920445" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1663920445" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1663920550" rel="stylesheet">
+    <link href="/css/syntax-github.css?1663920550" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1663920550" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1663920550" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1663920445" rel="stylesheet">
+    <link href="/style.css?1663920550" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1663920445"></script>
+    <script src="/js/jquery-3.3.1.min.js?1663920550"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -26915,13 +26915,13 @@
 <li><a href="https://twig.symfony.com/">Twig</a>, the most popular templating engine;</li>
 <li><a href="https://swiftmailer.symfony.com/">Swiftmailer</a>, a feature-rich mailer;</li>
 <li><a href="https://www.doctrine-project.org/projects/orm.html">Doctrine ORM</a> and <a href="https://www.doctrine-project.org/projects/dbal.html">Doctrine DBAL</a> to manage your database;</li>
-<li><a href="https://symfony.com/doc/3.3/components/filesystem.html">Filesystem</a> and <a href="https://symfony.com/doc/3.3/components/finder.html">Finder</a> libraries to manage all filesystem operations;</li>
+<li><a href="https://symfony.com/doc/4.4/components/filesystem.html">Filesystem</a> and <a href="https://symfony.com/doc/4.4/components/finder.html">Finder</a> libraries to manage all filesystem operations;</li>
 <li><a href="https://seldaek.github.io/monolog/">Monolog</a> for every logging operations;</li>
-<li><a href="https://symfony.com/doc/3.3/components/serializer.html">Serializer</a> library for whom who need to manipulate Json and Xml formats&hellip;</li>
+<li><a href="https://symfony.com/doc/4.4/components/serializer.html">Serializer</a> library for whom who need to manipulate Json and Xml formats&hellip;</li>
 </ul>
 <p>Of course, you also have access to every service used by the Core of PrestaShop. This means that you can rely on all services defined in <code>PrestaShopBundle/config/</code> folder, except from the ones declared in <code>adapter</code> folder: they will be removed at some point.</p>
 
-<div class="notices tip" >If you don&rsquo;t know what a service is, have a look at the Symfony documentation about the <a href="https://symfony.com/doc/3.3/service_container.html">service container</a>.</div>
+<div class="notices tip" >If you don&rsquo;t know what a service is, have a look at the Symfony documentation about the <a href="https://symfony.com/doc/4.4/service_container.html">service container</a>.</div>
 
 <h2 id="better-modules-on-modern-pages">Better modules on modern pages</h2>
 <p>Let&rsquo;s say your customer want an xml export button directly available from list of products on Product Catalog page: such a common need regarding the number of related modules in the Store.</p>
@@ -26944,7 +26944,7 @@
 </ul>
 <p>As we need to act on Dashboard but after the header, in the icons toolbar (with others export options) <code>hookdisplayDashboardToolbarIcons</code> sounds like the hook we are looking for.</p>
 <h3 id="second-step-create-and-register-the-hook">Second step: create and register the Hook</h3>
-<p>Create a <a href="https://doc.prestashop.com/display/PS17/Creating+a+first+module">new module</a> called <code>foo</code> and register the hook. You should end up with this kind of code in your module:</p>
+<p>Create a <a href="https://devdocs.prestashop.com/8/modules/creation/tutorial">new module</a> called <code>foo</code> and register the hook. You should end up with this kind of code in your module:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="c1">// foo.php
 </span><span class="c1"></span>
@@ -27027,7 +27027,11 @@
 </span><span class="w">    </span><span class="nt">product_repository</span><span class="p">:</span><span class="w">
 </span><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">Foo\Repository\ProductRepository</span><span class="w">
 </span><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;@doctrine.dbal.default_connection&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;%database_prefix%&#39;</span><span class="p">]</span><span class="w">
-</span></code></pre></div><p>Prestashop automatically checks if modules have a <code>config/services.yml</code> file and will autoload it for you. In order to force Prestashop to parse the file, you need to clear the cache:</p>
+</span><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></div>
+<div class="notices info" >Note: Since Symfony 4.4, services that are not dependency injected and that are not declared as “public” are removed from the container.</div>
+
+<p>Prestashop automatically checks if modules have a <code>config/services.yml</code> file and will autoload it for you. In order to force Prestashop to parse the file, you need to clear the cache:</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">./bin/console cache:clear --no-warmup
 </code></pre></div><p>If PrestaShop fails to load files automatically, <a href="https://devdocs.prestashop-project.org/8/modules/concepts/composer/">you can generate the autoloader</a> with Composer. This will create a <code>vendor</code> directory with a Composer-based autoloader inside.</p>
 <p>You can now use it in your module (and everywhere in PrestaShop modern pages!):</p>
@@ -27046,7 +27050,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div><p>In Product Catalog Page you should see the list of Products in debug toolbar in &ldquo;Dump&rdquo; section:</p>
-<p><img src="https://i.imgur.com/un7NcIL.png" alt="Get products in Dump section"></p>
+<p><img src="./Catalog_Products_dump.png" alt="Get products in Dump section"></p>
 <h4 id="using-the-symfony-components-to-create-an-xml-export-file">Using the Symfony components to create an XML export file</h4>
 <p>Now we retrieve the product list from our module and that we are able to display the information into the back office,
 we could already create our XML file with raw PHP. Let&rsquo;s see how we can do it using the components provided by Symfony &ldquo;out of box&rdquo;.</p>
@@ -27072,7 +27076,7 @@ we could already create our XML file with raw PHP. Let&rsquo;s see how we can do
                 <span class="s1">&#39;xml_format_output&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
             <span class="p">]</span>
         <span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;filesystem&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">dumpFile</span><span class="p">(</span><span class="nx">_PS_UPLOAD_DIR_</span><span class="o">.</span><span class="s1">&#39;products.xml&#39;</span><span class="p">,</span> <span class="nv">$productsXml</span><span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;filesystem&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">dumpFile</span><span class="p">(</span><span class="nx">_PS_UPLOAD_DIR_</span> <span class="o">.</span> <span class="s1">&#39;products.xml&#39;</span><span class="p">,</span> <span class="nv">$productsXml</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -27097,14 +27101,20 @@ we could already create our XML file with raw PHP. Let&rsquo;s see how we can do
 <span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayDashboardToolbarIcons</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isSymfonyContext</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;admin_product_catalog&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$products</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getProducts</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-        <span class="nv">$productsXml</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">serializeProducts</span><span class="p">(</span><span class="nv">$products</span><span class="p">);</span>
-        <span class="nv">$filepath</span> <span class="o">=</span> <span class="nx">_PS_ROOT_DIR_</span><span class="o">.</span><span class="s1">&#39;/products.xml&#39;</span><span class="p">;</span>
+        <span class="nv">$products</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;product_repository&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">findAllByLangId</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">writeFile</span><span class="p">(</span><span class="nv">$productsXml</span><span class="p">,</span> <span class="nv">$filepath</span><span class="p">);</span>
+        <span class="nv">$productsXml</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;serializer&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">serialize</span><span class="p">(</span>
+            <span class="nv">$products</span><span class="p">,</span>
+            <span class="s1">&#39;xml&#39;</span><span class="p">,</span>
+            <span class="p">[</span>
+                <span class="s1">&#39;xml_root_node_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;products&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;xml_format_output&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;filesystem&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">dumpFile</span><span class="p">(</span><span class="nx">_PS_UPLOAD_DIR_</span> <span class="o">.</span> <span class="s1">&#39;products.xml&#39;</span><span class="p">,</span> <span class="nv">$productsXml</span><span class="p">);</span>
 
         <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;twig&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/Foo/views/download_link.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
-            <span class="s1">&#39;filepath&#39;</span> <span class="o">=&gt;</span> <span class="nx">_PS_BASE_URL_</span><span class="o">.</span><span class="s1">&#39;/products.xml&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filepath&#39;</span> <span class="o">=&gt;</span> <span class="nx">_PS_BASE_URL_</span> <span class="o">.</span> <span class="s1">&#39;/upload/&#39;</span> <span class="o">.</span> <span class="s1">&#39;products.xml&#39;</span><span class="p">,</span>
         <span class="p">]);</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -27113,15 +27123,13 @@ we could already create our XML file with raw PHP. Let&rsquo;s see how we can do
 
 <p>And now, the template:</p>
 <div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="c">{# in Foo/views/download_link.twig #}</span><span class="x">
-</span><span class="x">&lt;a id=&#34;desc-product-export&#34; class=&#34;list-toolbar-btn&#34; href=&#34;</span><span class="cp">{{</span> <span class="nv">filepath</span> <span class="cp">}}</span><span class="x">&#34; download&gt;
-</span><span class="x">  &lt;b data-toggle=&#34;pstooltip&#34; class=&#34;label-tooltip&#34; data-original-title=&#34;</span><span class="cp">{{</span> <span class="s2">&#34;Export XML&#34;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;Module.Foo&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&#34; data-html=&#34;true&#34; data-placement=&#34;top&#34;&gt;
-</span><span class="x">    &lt;i class=&#34;material-icons&#34;&gt;cloud_upload&lt;/i&gt;
-</span><span class="x">  &lt;/b&gt;
+</span><span class="x">&lt;a id=&#34;desc-product-export&#34; class=&#34;dropdown-item&#34; href=&#34;</span><span class="cp">{{</span> <span class="nv">filepath</span> <span class="cp">}}</span><span class="x">&#34; target=&#34;_blank&#34;&gt;
+</span><span class="x">    &lt;i class=&#34;material-icons&#34;&gt;cloud&lt;/i&gt;</span><span class="cp">{{</span> <span class="s2">&#34;Export XML&#34;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;Module.Foo&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
 </span><span class="x">&lt;/a&gt;
 </span></code></pre></div>
 <div class="notices info" >We have used a key for translation, making our own translations available in back office when using Twig.</div>
 
-<p><img src="https://i.imgur.com/5HExjcC.png" alt="Export XML action button"></p>
+<p><img src="./Catalog_Products_2xml.png" alt="Export XML action button"></p>
 <p>And &ldquo;voila!&rdquo;, the module could be of course improved with so many features, adding filters on export for instance, using the <code>request</code> hook parameter and updating the Product repository.</p>
 
 
@@ -27144,17 +27152,17 @@ we could already create our XML file with raw PHP. Let&rsquo;s see how we can do
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1663920445"></script>
-    <script src="/js/perfect-scrollbar.min.js?1663920445"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1663920445"></script>
-    <script src="/js/jquery.sticky.js?1663920445"></script>
-    <script src="/js/featherlight.min.js?1663920445"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1663920445"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1663920445"></script>
-    <script src="/js/learn.js?1663920445"></script>
-    <script src="/js/hugo-learn.js?1663920445"></script>
+    <script src="/js/clipboard.min.js?1663920550"></script>
+    <script src="/js/perfect-scrollbar.min.js?1663920550"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1663920550"></script>
+    <script src="/js/jquery.sticky.js?1663920550"></script>
+    <script src="/js/featherlight.min.js?1663920550"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1663920550"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1663920550"></script>
+    <script src="/js/learn.js?1663920550"></script>
+    <script src="/js/hugo-learn.js?1663920550"></script>
     
-    <script src="/main.js?1663920445"></script>
+    <script src="/main.js?1663920550"></script>
     
     
     
