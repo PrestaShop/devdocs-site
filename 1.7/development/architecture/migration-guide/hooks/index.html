@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1664399416" rel="stylesheet">
-    <link href="/css/syntax-github.css?1664399416" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1664399416" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1664399416" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1664399622" rel="stylesheet">
+    <link href="/css/syntax-github.css?1664399622" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1664399622" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1664399622" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1664399416" rel="stylesheet">
+    <link href="/style.css?1664399622" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1664399416"></script>
+    <script src="/js/jquery-3.3.1.min.js?1664399622"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -27088,7 +27088,7 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
 <p>Getting the list of available Hooks in modern pages is really easy. Thanks to the hook profiler introduced in <code>1.7.3</code>, the Symfony debug bar displays the list of available hooks (alongside some useful information) on a given page. Sadly, this is only available on Symfony pages, since the legacy system doesn&rsquo;t have any way to get the list of hooks dispatched for a page.</p>
 <h2 id="getting-the-list-of-hooks-on-a-legacy-page">Getting the list of hooks on a legacy page</h2>
 <p>Use this trick to find out which hooks are called on a legacy page.</p>
-<p>In <code>classes/Hook</code>, find the <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/classes/Hook.php#L733">exec() function</a> and add the following code:</p>
+<p>In <code>classes/Hook</code>, find the <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/classes/Hook.php#L766">exec() function</a> and add the following code:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="nx">file_put_contents</span><span class="p">(</span><span class="s1">&#39;hooks.txt&#39;</span><span class="p">,</span> <span class="nx">PHP_EOL</span><span class="o">.</span> <span class="nv">$hook_name</span><span class="p">,</span> <span class="nx">FILE_APPEND</span> <span class="o">|</span> <span class="nx">LOCK_EX</span><span class="p">);</span>
 </code></pre></div><p>After applying this change, access the url of the page you want to migrate. In <code>admin-dev/hooks.txt</code>, you&rsquo;ll see the list of available hooks in the legacy page.</p>
@@ -27112,7 +27112,7 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dispatchHook</span><span class="p">(</span><span class="s1">&#39;actionAdminPerformanceControllerPostProcessBefore&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="p">));</span>
 </code></pre></div><h2 id="dispatching-hooks-using-the-hook-dispatcher">Dispatching hooks using the Hook dispatcher</h2>
-<p>If you need to dispatch a hook from a non-controller class, you&rsquo;ll need to inject the <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/src/Core/Hook/HookDispatcher.php">HookDispatcher</a> class.</p>
+<p>If you need to dispatch a hook from a non-controller class, you&rsquo;ll need to inject the <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/Core/Hook/HookDispatcher.php">HookDispatcher</a> class.</p>
 <p>If your class is defined as a Symfony service, the HookDispatcher is available as a service called <code>prestashop.core.hook.dispatcher</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">use</span> <span class="nx">PrestaShopBundle\Service\Hook\HookEvent</span><span class="p">;</span>
@@ -27153,17 +27153,17 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1664399416"></script>
-    <script src="/js/perfect-scrollbar.min.js?1664399416"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1664399416"></script>
-    <script src="/js/jquery.sticky.js?1664399416"></script>
-    <script src="/js/featherlight.min.js?1664399416"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1664399416"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1664399416"></script>
-    <script src="/js/learn.js?1664399416"></script>
-    <script src="/js/hugo-learn.js?1664399416"></script>
+    <script src="/js/clipboard.min.js?1664399622"></script>
+    <script src="/js/perfect-scrollbar.min.js?1664399622"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1664399622"></script>
+    <script src="/js/jquery.sticky.js?1664399622"></script>
+    <script src="/js/featherlight.min.js?1664399622"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1664399622"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1664399622"></script>
+    <script src="/js/learn.js?1664399622"></script>
+    <script src="/js/hugo-learn.js?1664399622"></script>
     
-    <script src="/main.js?1664399416"></script>
+    <script src="/main.js?1664399622"></script>
     
     
     

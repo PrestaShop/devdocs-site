@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1664399424" rel="stylesheet">
-    <link href="/css/syntax-github.css?1664399424" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1664399424" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1664399424" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1664399632" rel="stylesheet">
+    <link href="/css/syntax-github.css?1664399632" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1664399632" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1664399632" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1664399424" rel="stylesheet">
+    <link href="/style.css?1664399632" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1664399424"></script>
+    <script src="/js/jquery-3.3.1.min.js?1664399632"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -27156,10 +27156,10 @@ To validate a behavior in your test logic, your methods can return booleans, int
 </ul>
 <h2 id="tests">Tests</h2>
 <h3 id="campaigns">Campaigns</h3>
-<p>We currently have 2 <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/tests/UI/campaigns">campaigns</a> implemented:</p>
+<p>We currently have 2 <a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.0/tests/UI/campaigns">campaigns</a> implemented:</p>
 <ul>
-<li><strong>Sanity</strong>: its purpose is to validate a Pull Request. Executed on <a href="https://travis-ci.com/">Travis CI</a>, <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/tests/UI/campaigns/sanity">this campaign</a> must fully pass before merging the PR (one failed test blocks the merge). It consists of a few tests of the core features of PrestaShop: shop installation, orders/products pages in BO, and catalog/cart/checkout process in FO.</li>
-<li><strong>Functional</strong>: it is the biggest and most important <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/tests/UI/campaigns/functional">campaign</a>. Its purpose is to validate that every feature of PrestaShop works, by testing them one by one. It goes on every page and tests whatever it can: table (filtering, ordering, quick edits, etc), <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete">CRUD</a> items (orders, customers, products…), setting changes, etc.</li>
+<li><strong>Sanity</strong>: its purpose is to validate a Pull Request. Executed on <a href="https://travis-ci.com/">Travis CI</a>, <a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.0/tests/UI/campaigns/sanity">this campaign</a> must fully pass before merging the PR (one failed test blocks the merge). It consists of a few tests of the core features of PrestaShop: shop installation, orders/products pages in BO, and catalog/cart/checkout process in FO.</li>
+<li><strong>Functional</strong>: it is the biggest and most important <a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.0/tests/UI/campaigns/functional">campaign</a>. Its purpose is to validate that every feature of PrestaShop works, by testing them one by one. It goes on every page and tests whatever it can: table (filtering, ordering, quick edits, etc), <a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete">CRUD</a> items (orders, customers, products…), setting changes, etc.</li>
 </ul>
 <p>We plan on implementing 2 more campaigns:</p>
 <ul>
@@ -27174,10 +27174,10 @@ To validate a behavior in your test logic, your methods can return booleans, int
 <p>The utils directory contain files that are necessary to run tests.</p>
 <h4 id="globals">Globals</h4>
 <p>This file contains all global variables that can be used in test files, pages and common tests.</p>
-<p>The description of each variable in this file can be found in <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/tests/UI/README.md">README.md</a>.</p>
+<p>The description of each variable in this file can be found in <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/tests/UI/README.md">README.md</a>.</p>
 <h4 id="setup">Setup</h4>
 <p><a href="https://mochajs.org/">Mocha</a> gives us the possibility to load and run files before test files (with <a href="https://mochajs.org/#-file-filedirectoryglob">--file option</a>).
-We use that option to run our <code>setup.js</code> file. This file opens only one browser for the whole campaign (and not one browser per test), since we&rsquo;re then running each test file in its <a href="https://github.com/microsoft/playwright/blob/master/docs/api.md#class-browsercontext">own context</a>.</p>
+We use that option to run our <code>setup.js</code> file. This file opens only one browser for the whole campaign (and not one browser per test), since we&rsquo;re then running each test file in its <a href="https://github.com/microsoft/playwright/blob/main/docs/src/api/class-browsercontext.md">own context</a>.</p>
 <h4 id="browser-helper">Browser helper</h4>
 <p>This helper file is used to centralize the browser and tab functions called in all tests.
 This approach has one goal : to have the same browser’s configuration everywhere and of course to facilitate maintenance.</p>
@@ -27232,7 +27232,7 @@ This approach has one goal : to have the same browser’s configuration everywhe
 <p>The only assumption we have to make is the presence of certain items like Orders or Products in the catalog after a vanilla installation.</p>
 <p>If you need to rely on the fixtures too, make sure to use the description of the objects you’re looking for in the <code>data</code> folder. If it’s not complete, you can expand it and make a Pull Request, we’ll be happy to improve our datasets !</p>
 <h3 id="faker">Faker</h3>
-<p>When we need to create new items, we rely on <a href="https://github.com/marak/Faker.js/">Faker</a> to create random data.<br>
+<p>When we need to create new items, we rely on <a href="https://github.com/faker-js/faker">Faker</a> to create random data.<br>
 This helps us make sure we’re testing with randomized sets of data and covering a lot of cases. It’s very important to check the specifications before to make sure you’re properly setting up your faker : input length, authorized characters, range of dates/values, etc.</p>
 
 
@@ -27255,17 +27255,17 @@ This helps us make sure we’re testing with randomized sets of data and coverin
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1664399424"></script>
-    <script src="/js/perfect-scrollbar.min.js?1664399424"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1664399424"></script>
-    <script src="/js/jquery.sticky.js?1664399424"></script>
-    <script src="/js/featherlight.min.js?1664399424"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1664399424"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1664399424"></script>
-    <script src="/js/learn.js?1664399424"></script>
-    <script src="/js/hugo-learn.js?1664399424"></script>
+    <script src="/js/clipboard.min.js?1664399632"></script>
+    <script src="/js/perfect-scrollbar.min.js?1664399632"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1664399632"></script>
+    <script src="/js/jquery.sticky.js?1664399632"></script>
+    <script src="/js/featherlight.min.js?1664399632"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1664399632"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1664399632"></script>
+    <script src="/js/learn.js?1664399632"></script>
+    <script src="/js/hugo-learn.js?1664399632"></script>
     
-    <script src="/main.js?1664399424"></script>
+    <script src="/main.js?1664399632"></script>
     
     
     
