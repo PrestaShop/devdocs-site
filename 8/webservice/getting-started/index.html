@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/1.7/webservice/getting-started/">
 
     
-    <link href="/css/font-awesome.min.css?1664376617" rel="stylesheet">
-    <link href="/css/syntax-github.css?1664376617" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1664376617" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1664376617" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1664376949" rel="stylesheet">
+    <link href="/css/syntax-github.css?1664376949" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1664376949" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1664376949" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1664376617" rel="stylesheet">
+    <link href="/style.css?1664376949" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1664376617"></script>
+    <script src="/js/jquery-3.3.1.min.js?1664376949"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12372,6 +12372,7 @@
             </li>
             <li><a href="#create-a-resource">Create a resource</a></li>
             <li><a href="#update-a-resource">Update a resource</a></li>
+            <li><a href="#partially-update-a-resource">Partially update a resource</a></li>
             <li><a href="#using-json-instead-of-xml">Using JSON instead of XML</a>
               <ul>
                 <li></li>
@@ -26904,7 +26905,7 @@ is an acronym that stands for &ldquo;Create, Read, Update, and Delete&rdquo;. Th
 <p><a href="https://en.wikipedia.org/wiki/REST">REST</a> defines roughly a style of software architecture, which promotes the use of HTTP methods when building web application, instead of custom methods or protocols such as SOAP or WSDL. It defines several rules, including one that is similar to CRUD, which is described below.</p>
 </div>
 
-<p>HTTP has several methods that can perform processing on data as defined in the REST architecture, among which are <a href="https://en.wikipedia.org/wiki/HTTP#Request_methods">4 main methods</a>:</p>
+<p>HTTP has several methods that can perform processing on data as defined in the REST architecture, among which are <a href="https://en.wikipedia.org/wiki/HTTP#Request_methods">5 main methods</a>:</p>
 <table>
 <thead>
 <tr>
@@ -26926,6 +26927,11 @@ is an acronym that stands for &ldquo;Create, Read, Update, and Delete&rdquo;. Th
 </tr>
 <tr>
 <td>PUT</td>
+<td>Update</td>
+<td>UPDATE</td>
+</tr>
+<tr>
+<td>PATCH</td>
 <td>Update</td>
 <td>UPDATE</td>
 </tr>
@@ -26967,8 +26973,8 @@ This is also the recommended way to call the API from a javascript client, or an
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
 <span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;api</span> <span class="na">shopName=</span><span class="s">&#34;Prestashop&#34;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;addresses</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;description</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;addresses</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">patch=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;description</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">patch=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
             The Customer, Brand and Customer addresses<span class="nt">&lt;/description&gt;</span>
             <span class="nt">&lt;schema</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses?schema=blank&#34;</span> <span class="na">type=</span><span class="s">&#34;blank&#34;</span><span class="nt">/&gt;</span>
             <span class="nt">&lt;schema</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses?schema=synopsis&#34;</span> <span class="na">type=</span><span class="s">&#34;synopsis&#34;</span><span class="nt">/&gt;</span>
@@ -27072,7 +27078,7 @@ From our root API example we can see that we have access to <code>http://example
 
 
 <div class="notices note" ><p>A response obtained with &ldquo;display&rdquo; other than &ldquo;full&rdquo; can&rsquo;t be used in a <strong>PUT</strong> (update) request, because the <code>WebserviceRequest</code> class validation for fields is the same for <strong>POST</strong> (create) and <strong>PUT</strong> (update).</p>
-<p>This should be fixed in a near future with a <em>yet-to-come-pull-request</em> introducing the PATCH method!</p>
+<p>The <strong>PATCH</strong> method allows using a partial display.</p>
 </div>
 
 <h5 id="control-returned-items-with-filter">Control returned items with &ldquo;filter&rdquo;</h5>
@@ -27110,6 +27116,8 @@ From our root API example we can see that we have access to <code>http://example
 <p>PrestaShop will take care of adding everything in the database, and will return an XML file indicating that the operation has been successful, along with the <strong>ID</strong> of the newly created customer.</p>
 <h3 id="update-a-resource">Update a resource</h3>
 <p>To edit an existing resource: <strong>GET</strong> the full XML file for the resource you want to change (example <code>/api/addresses/1</code>), edit its content as needed, then send a <strong>PUT HTTP request</strong> with the whole XML file as a body content to the same URL again.</p>
+<h3 id="partially-update-a-resource">Partially update a resource</h3>
+<p>To partially edit an existing resource: <strong>GET</strong> a part of the XML file for the resource you want to change (example <code>/api/addresses/1</code>), edit its content as needed, then send a <strong>PATCH HTTP request</strong> with the partial XML file as the body content to the same URL again.</p>
 <h3 id="using-json-instead-of-xml">Using JSON instead of XML</h3>
 <p>The Web services can also output JSON instead of XML. To enable JSON output you have two choices:</p>
 <h5 id="query-parameter">Query parameter</h5>
@@ -27155,17 +27163,17 @@ From our root API example we can see that we have access to <code>http://example
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1664376617"></script>
-    <script src="/js/perfect-scrollbar.min.js?1664376617"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1664376617"></script>
-    <script src="/js/jquery.sticky.js?1664376617"></script>
-    <script src="/js/featherlight.min.js?1664376617"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1664376617"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1664376617"></script>
-    <script src="/js/learn.js?1664376617"></script>
-    <script src="/js/hugo-learn.js?1664376617"></script>
+    <script src="/js/clipboard.min.js?1664376949"></script>
+    <script src="/js/perfect-scrollbar.min.js?1664376949"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1664376949"></script>
+    <script src="/js/jquery.sticky.js?1664376949"></script>
+    <script src="/js/featherlight.min.js?1664376949"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1664376949"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1664376949"></script>
+    <script src="/js/learn.js?1664376949"></script>
+    <script src="/js/hugo-learn.js?1664376949"></script>
     
-    <script src="/main.js?1664376617"></script>
+    <script src="/main.js?1664376949"></script>
     
     
     
