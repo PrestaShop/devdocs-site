@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/1.7/development/database/structure/">
 
     
-    <link href="/css/font-awesome.min.css?1664457625" rel="stylesheet">
-    <link href="/css/syntax-github.css?1664457625" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1664457625" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1664457625" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1664462842" rel="stylesheet">
+    <link href="/css/syntax-github.css?1664462842" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1664462842" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1664462842" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1664457625" rel="stylesheet">
+    <link href="/style.css?1664462842" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1664457625"></script>
+    <script src="/js/jquery-3.3.1.min.js?1664462842"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -1143,13 +1143,24 @@
  
   
     
-      <li data-nav-id="/8/development/architecture/migration-guide/validation/" title="Validation" class="dd-item ">
-        <a href="/8/development/architecture/migration-guide/validation/">
-        Validation
+    
+    <li data-nav-id="/8/development/architecture/migration-guide/validation/" title="Validation" class="dd-item
         
-        </a>
+        
+        
+        
+        ">
+      <a href="/8/development/architecture/migration-guide/validation/">
+          <span>
+            Validation
+          </span>
+
+          
+
+          
+      </a>
+      
     </li>
-     
   
  
 
@@ -27087,35 +27098,34 @@ There is one file per entity (= table). XML files are structured following Objec
 <p>Another file is being used to load data during the install process: <code>install/data/db_data.sql</code>. Some versions of PrestaShop do not use it so you might not always find it in the ZIP archive.</p>
 <h2 id="structure-and-content-upgrades">Structure and content upgrades</h2>
 <h3 id="defining-changes">Defining changes</h3>
-<p>Once PrestaShop is installed, the default structure and content files we saw
-are not used anymore.</p>
-<p>If a new release of PrestaShop must bring changes to the existing database, an
-upgrade file must be created along the <code>db_structure.sql</code> update.
+<p>Once PrestaShop is installed, the default structure and content files we saw are not used anymore.</p>
+<p>If a new release of PrestaShop must bring changes to the existing database, an upgrade file must be created along the <code>db_structure.sql</code> update.
 This SQL file will be stored in the <a href="https://github.com/PrestaShop/autoupgrade/tree/dev/upgrade/sql">auto upgrade</a> module in the folder <code>/upgrade/sql/</code>.</p>
 <p>Its name is the PrestaShop version on which the change will be applied.</p>
-<p>For instance, here is the file <em><a href="https://github.com/PrestaShop/autoupgrade/tree/dev/upgrade/sql/1.7.8.0.sql">1.7.8.0.sql</a></em>,
-used by shops upgrading to 1.7.8.0 or later:</p>
+<p>For instance, here is the file <em><a href="https://github.com/PrestaShop/autoupgrade/blob/dev/upgrade/sql/8.0.0.sql">8.0.0.sql</a></em>,
+used by shops upgrading to 8.0.0 or later:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="p">[...]</span><span class="w">
-</span><span class="w"></span><span class="cm">/* First set all products to standard type, then update them based on cached columns that identify the type */</span><span class="w">
-</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_product</span><span class="o">`</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">`</span><span class="n">product_type</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;standard&#34;</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_product</span><span class="o">`</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">`</span><span class="n">product_type</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;combinations&#34;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">cache_default_attribute</span><span class="o">`</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_product</span><span class="o">`</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">`</span><span class="n">product_type</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;pack&#34;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">cache_is_pack</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_product</span><span class="o">`</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">`</span><span class="n">product_type</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;virtual&#34;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">is_virtual</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="k">SESSION</span><span class="w"> </span><span class="n">sql_mode</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">SET</span><span class="w"> </span><span class="k">NAMES</span><span class="w"> </span><span class="s1">&#39;utf8mb4&#39;</span><span class="p">;</span><span class="w">
 </span><span class="w">
-</span><span class="w"></span><span class="cm">/* PHP:ps_1780_add_feature_flag_tab(); */</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_referrer</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_referrer_cache</span><span class="o">`</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">DROP</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_referrer_shop</span><span class="o">`</span><span class="p">;</span><span class="w">
 </span><span class="w"></span><span class="p">[...]</span><span class="w">
-</span></code></pre></div><p>In there we can read the SQL queries to execute when upgrading to 1.7.8.0.
+</span><span class="w"></span><span class="cm">/* PHP:ps_800_add_security_tab(); */</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="p">[...]</span><span class="w">
+</span></code></pre></div><p>In there we can read the SQL queries to execute when upgrading to 8.0.0.
 Each of them alters the structure and/or modify the existing data.
 In case you have complex algorithms to run, you can call PHP code with the
 <code>PHP:</code> keyword.</p>
 <p>To make the code callable, a dedicated file has to be created in
 <code>/upgrade/php/</code> with a function in it. This file and function must have
 the same name as we saw in the SQL upgrade file.</p>
-<p>If we reuse the previous example, we will find the corresponding file <em><a href="https://github.com/PrestaShop/autoupgrade/blob/dev/upgrade/php/ps_1780_add_feature_flag_tab.php">/upgrade/php/ps_1780_add_feature_flag_tab.php</a></em>:</p>
+<p>If we reuse the previous example, we will find the corresponding file <em><a href="https://github.com/PrestaShop/autoupgrade/blob/dev/upgrade/php/ps_800_add_security_tab.php">/upgrade/php/ps_800_add_security_tab.php</a></em>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">function</span> <span class="nf">ps_1780_add_feature_flag_tab</span><span class="p">()</span>
+<span class="k">function</span> <span class="nf">ps_800_add_security_tab</span><span class="p">()</span>
 <span class="p">{</span>
-  <span class="c1">// Code inserting values in database
+  <span class="c1">// Code inserting or updating values in database
 </span><span class="c1"></span>  <span class="p">[</span><span class="o">...</span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div><p>PrestaShop does not expect these functions to return anything. It will always
@@ -27154,17 +27164,17 @@ Doctrine. Applying the changes on the database is done with the following comman
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1664457625"></script>
-    <script src="/js/perfect-scrollbar.min.js?1664457625"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1664457625"></script>
-    <script src="/js/jquery.sticky.js?1664457625"></script>
-    <script src="/js/featherlight.min.js?1664457625"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1664457625"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1664457625"></script>
-    <script src="/js/learn.js?1664457625"></script>
-    <script src="/js/hugo-learn.js?1664457625"></script>
+    <script src="/js/clipboard.min.js?1664462842"></script>
+    <script src="/js/perfect-scrollbar.min.js?1664462842"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1664462842"></script>
+    <script src="/js/jquery.sticky.js?1664462842"></script>
+    <script src="/js/featherlight.min.js?1664462842"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1664462842"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1664462842"></script>
+    <script src="/js/learn.js?1664462842"></script>
+    <script src="/js/hugo-learn.js?1664462842"></script>
     
-    <script src="/main.js?1664457625"></script>
+    <script src="/main.js?1664462842"></script>
     
     
     

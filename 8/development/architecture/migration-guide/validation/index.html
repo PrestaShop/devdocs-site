@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/1.7/development/architecture/migration-guide/validation/">
 
     
-    <link href="/css/font-awesome.min.css?1664457621" rel="stylesheet">
-    <link href="/css/syntax-github.css?1664457621" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1664457621" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1664457621" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1664462855" rel="stylesheet">
+    <link href="/css/syntax-github.css?1664462855" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1664462855" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1664462855" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@alpha" />
-    <link href="/style.css?1664457621" rel="stylesheet">
+    <link href="/style.css?1664462855" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1664457621"></script>
+    <script src="/js/jquery-3.3.1.min.js?1664462855"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -1143,13 +1143,24 @@
  
   
     
-      <li data-nav-id="/8/development/architecture/migration-guide/validation/" title="Validation" class="dd-item active currentPage">
-        <a href="/8/development/architecture/migration-guide/validation/">
-        Validation
+    
+    <li data-nav-id="/8/development/architecture/migration-guide/validation/" title="Validation" class="dd-item
+        parent
+        active currentPage
         
-        </a>
+        
+        ">
+      <a href="/8/development/architecture/migration-guide/validation/">
+          <span>
+            Validation
+          </span>
+
+          
+
+          
+      </a>
+      
     </li>
-     
   
  
 
@@ -12407,7 +12418,7 @@
       
       
       <div id="top-github-link">
-        <a class="github-link" title='Improve this page' href="https://github.com/PrestaShop/docs/edit/8.x/development/architecture/migration-guide/validation.md" target="blank">
+        <a class="github-link" title='Improve this page' href="https://github.com/PrestaShop/docs/edit/8.x/development/architecture/migration-guide/validation/_index.md" target="blank">
           <i class="fa fa-pencil"></i>
           <span id="top-github-link-text">Improve this page</span>
         </a>
@@ -27067,24 +27078,26 @@
 <h1 id="validation">Validation</h1>
 <p>The purpose of validation is to protect the application from failures, state inconsistency, security related issues etc. PrestaShop has few different levels of validation:</p>
 <ul>
-<li><strong>Forms</strong> (the <a href="/8/development/architecture/migration-guide/forms/crud-forms/">CRUD</a> or <a href="/8/development/architecture/migration-guide/forms/settings-forms/">Settings</a>) - are using <a href="https://symfony.com/doc/4.4/validation.html#constraints">Symfony validation constraints</a> to prevent the user from providing invalid information while also enriching the user experience. For example if a form input expects <code>Yes</code> or <code>No</code>, but user submitted value <code>XYZ</code> we want to reject the data and inform the user what was wrong. The best approach (if possible) is to prevent user providing the wrong value in the first place, so in this example we could simply use a checkbox or select input with only 2 possible selections. There are some custom constraints implemented in PrestaShop <a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.x/src/Core/ConstraintValidator">here</a>.</li>
-<li><a href="/8/development/architecture/domain/value_objects/">Value objects</a> - after the form is submitted and validated, controller is usually dispatching some <code>Command</code>. We must ensure that commands are valid too, because in theory, commands should not be aware whether they were dispatched from a controller or from a command line, therefore it is possible that inputs are not yet validated by the form. The <code>command</code> itself should not handle the validation (although there are some older commands that does that, but that might only be some early migration mistakes), but <strong>use the value objects in the constructor instead</strong>. Value objects have their own validation rules and can be reused in any other command. For example, take a look at <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.x/src/Core/Domain/Product/ValueObject/ProductCondition.php">ProductCondition</a> - this is a value object of <code>Product</code> domain. It allows constructing specific values and throws <code>ProductConstraintException</code> if invalid one is provided. It is currently used in <a href="https://github.com/PrestaShop/PrestaShop/1.7.8.x/develop/src/Core/Domain/Product/Command/UpdateProductOptionsCommand.php">UpdateProductOptionsCommand</a> and helps to maintain the command validity.</li>
+<li><strong>Forms</strong> (the <a href="/8/development/architecture/migration-guide/forms/crud-forms/">CRUD</a> or <a href="/8/development/architecture/migration-guide/forms/settings-forms/">Settings</a>) - are using <a href="https://symfony.com/doc/4.4/validation.html#constraints">Symfony validation constraints</a> to prevent the user from providing invalid information while also enriching the user experience. For example if a form input expects <code>Yes</code> or <code>No</code>, but user submitted value <code>XYZ</code> we want to reject the data and inform the user what was wrong. The best approach (if possible) is to prevent user providing the wrong value in the first place, so in this example we could simply use a checkbox or select input with only 2 possible selections. There are some custom constraints implemented in PrestaShop <a href="https://github.com/PrestaShop/PrestaShop/tree/8.0.x/src/Core/ConstraintValidator">here</a>.</li>
+<li><a href="/8/development/architecture/domain/value_objects/">Value objects</a> - after the form is submitted and validated, controller is usually dispatching some <code>Command</code>. We must ensure that commands are valid too, because in theory, commands should not be aware whether they were dispatched from a controller or from a command line, therefore it is possible that inputs are not yet validated by the form. The <code>command</code> itself should not handle the validation (although there are some older commands that does that, but that might only be some early migration mistakes), but <strong>use the value objects in the constructor instead</strong>. Value objects have their own validation rules and can be reused in any other command. For example, take a look at <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Core/Domain/Product/ValueObject/ProductCondition.php">ProductCondition</a> - this is a value object of <code>Product</code> domain. It allows constructing specific values and throws <code>ProductConstraintException</code> if invalid one is provided. It is currently used in <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Core/Domain/Product/Command/UpdateProductOptionsCommand.php">UpdateProductOptionsCommand</a> and helps to maintain the command validity.</li>
 <li><a href="/8/development/architecture/domain/domain-services/">Domain services</a> - after the command is constructed and dispatched, it reaches the <code>CommandHandler</code>, which calls all the needed <code>Domain services</code> (there are also lots of <code>CommandHandlers</code> that handles all the logic including the validation by themselves, but it is not recommended anymore and should be perceived as migration mistakes). Domain services can perform final checks (e.g. heavy sql queries to check certain records existence) before performing the <code>write</code> operations.</li>
 <li><strong>Entities</strong> (or the <code>ObjectModels</code> in Prestashop) - This is the last level. It is there to prevent data integrity issues (like attempting to store a string into an integer column). This is something that, if all data validations before were done correctly, should rarely happen. This is the last step before data is being persisted: if invalid data has slipped through validation levels and passes this step, then it is persisted in database and might introduce inconsistency in the application. If these errors still occur, you might get a legacy <code>PrestaShopException</code>, but in recent migration process we try to catch it early and replace it by related <code>CoreException</code> or <code>DomainException</code>. See more in <a href="/8/development/architecture/domain/domain-services/">Domain services</a>.</li>
 </ul>
 
-<div class="notices tip" ><p>Sometimes it is worth introducing <code>{SomeDomain}Settings</code> class, which holds some simple validation constants like <code>length</code> or <code>regex</code> pattern. This is advised when field has only one validation rule, and it is not worth adding a dedicated Value object just for that. For example, see <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.x/src/Core/Domain/Address/AddressSettings.php">AddressSettings</a>.</p>
+<div class="notices tip" ><p>Sometimes it is worth introducing <code>{SomeDomain}Settings</code> class, which holds some simple validation constants like <code>length</code> or <code>regex</code> pattern. This is advised when field has only one validation rule, and it is not worth adding a dedicated Value object just for that. For example, see <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Core/Domain/Address/AddressSettings.php">AddressSettings</a>.</p>
 <p>It is advised to replace the hardcoded values in related <code>ObjectModel</code> validation fields with such constants (same for <code>value object</code> constants - once we have a constant, we reuse it everywhere as a <strong>single source of truth</strong>).</p>
 </div>
 
 
 
-<footer class="article-footer">
-	
 
-	<div class="license">
-		This article is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-	</div>
+
+<footer class="article-footer">
+  
+
+  <div class="license">
+    This article is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+  </div>
 </footer>
 
         
@@ -27098,17 +27111,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1664457621"></script>
-    <script src="/js/perfect-scrollbar.min.js?1664457621"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1664457621"></script>
-    <script src="/js/jquery.sticky.js?1664457621"></script>
-    <script src="/js/featherlight.min.js?1664457621"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1664457621"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1664457621"></script>
-    <script src="/js/learn.js?1664457621"></script>
-    <script src="/js/hugo-learn.js?1664457621"></script>
+    <script src="/js/clipboard.min.js?1664462855"></script>
+    <script src="/js/perfect-scrollbar.min.js?1664462855"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1664462855"></script>
+    <script src="/js/jquery.sticky.js?1664462855"></script>
+    <script src="/js/featherlight.min.js?1664462855"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1664462855"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1664462855"></script>
+    <script src="/js/learn.js?1664462855"></script>
+    <script src="/js/hugo-learn.js?1664462855"></script>
     
-    <script src="/main.js?1664457621"></script>
+    <script src="/main.js?1664462855"></script>
     
     
     
