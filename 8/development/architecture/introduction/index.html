@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/1.7/development/architecture/introduction/">
 
     
-    <link href="/css/font-awesome.min.css?1665397609" rel="stylesheet">
-    <link href="/css/syntax-github.css?1665397609" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1665397609" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1665397609" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1665407727" rel="stylesheet">
+    <link href="/css/syntax-github.css?1665407727" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1665407727" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1665407727" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1665397609" rel="stylesheet">
+    <link href="/style.css?1665407727" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1665397609"></script>
+    <script src="/js/jquery-3.3.1.min.js?1665407727"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -27098,7 +27098,7 @@
 <h1 id="introduction-to-prestashops-architecture">Introduction to PrestaShop&rsquo;s Architecture</h1>
 <p>PrestaShop is a big project, with several moving parts. In this article you will learn how they are structured and how they work together.</p>
 
-<div class="notices note" >Part of this article was originally published in 2019 as a <a href="https://build.prestashop.com/news/prestashop-in-2019-and-beyond-part-1-current-architecture/">blog post</a>. It has been updated and adapted for documentation purposes here.</div>
+<div class="notices note" >Part of this article was originally published in 2019 as a <a href="https://build.prestashop-project.org/news/prestashop-in-2019-and-beyond-part-1-current-architecture/">blog post</a>. It has been updated and adapted for documentation purposes here.</div>
 
 <h2 id="overview">Overview</h2>
 <figure><img src="../img/architecture-overview.png"/><figcaption>
@@ -27152,7 +27152,7 @@
 <li><strong>Adapter code</strong> – located in <code>/src/Adapter</code></li>
 <li><strong>Symfony code</strong> (or &ldquo;PrestaShop Bundle&rdquo;) – located in <code>/src/PrestaShopBundle</code></li>
 </ul>
-<p>The <strong>Legacy subsystem</strong> contains the historical, non-namespaced code inherited from previous versions. It&rsquo;s <a href="https://build.prestashop.com/news/new-architecture-1-6-1-0/">progressively being replaced since 1.6.1</a> by the <strong>Core subsystem</strong>, which uses namespaces and is based on <a href="https://en.wikipedia.org/wiki/SOLID">SOLID principles</a>.</p>
+<p>The <strong>Legacy subsystem</strong> contains the historical, non-namespaced code inherited from previous versions. It&rsquo;s <a href="https://build.prestashop-project.org/news/new-architecture-1-6-1-0/">progressively being replaced since 1.6.1</a> by the <strong>Core subsystem</strong>, which uses namespaces and is based on <a href="https://en.wikipedia.org/wiki/SOLID">SOLID principles</a>.</p>
 <p>The <strong>Adapter subsystem</strong> acts as a bridge to legacy classes, which are often static, in order to <a href="https://en.wikipedia.org/wiki/Dependency_inversion_principle">allow them to be injected</a> in Core classes.</p>
 <p>Finally, the Symfony-based subsystem called <strong>PrestaShop Bundle</strong> is a Symfony bundle that contains Symfony-specific functionality like controllers, forms, views, etc.</p>
 <p>In the following figure, we can appreciate the four subsystems described above:</p>
@@ -27254,11 +27254,11 @@
 <p>BO themes define the appearance of the Back Office.</p>
 <p>Even though BO themes are not interchangeable, PrestaShop comes bundled with two of them: <strong>default</strong> and <strong>new theme</strong>.</p>
 <p>So why are there two? Legacy controllers are based on Smarty, like FO controller. Symfony controllers, conversely, are based on the <a href="https://twig.symfony.com/">Twig templating engine</a>. As a result, there&rsquo;s a theme for each one: legacy controllers use the <strong>default</strong> theme, while Symfony ones use the <strong>new theme</strong>. As controllers are progressively being migrated to Symfony, templates are moved from the <strong>default</strong> to the <strong>new theme</strong> and converted from Smarty to Twig.</p>
-<p>In addition, the <strong>default</strong> theme is based on Bootstrap 3, while the <strong>new theme</strong> is based on <a href="https://build.prestashop.com/news/PrestaShop-UI-Kit/">PrestaShop&rsquo;s UI kit</a> (available on <a href="https://github.com/PrestaShop/prestashop-ui-kit/">GitHub</a>), which itself is based on Bootstrap 4. They both integrate jQuery 3.</p>
+<p>In addition, the <strong>default</strong> theme is based on Bootstrap 3, while the <strong>new theme</strong> is based on <a href="https://build.prestashop-project.org/news/PrestaShop-UI-Kit/">PrestaShop&rsquo;s UI kit</a> (available on <a href="https://github.com/PrestaShop/prestashop-ui-kit/">GitHub</a>), which itself is based on Bootstrap 4. They both integrate jQuery 3.</p>
 
 <div class="callout">
 <h5 id="mixed-smarty-and-twig">Mixed Smarty and Twig</h5>
-<p>Here&rsquo;s what was said when <a href="http://build.prestashop.com/news/prestashop-1-7-and-symfony/">announcing the architecture of 1.7</a>:</p>
+<p>Here&rsquo;s what was said when <a href="http://build.prestashop-project.org/news/prestashop-1-7-and-symfony/">announcing the architecture of 1.7</a>:</p>
 <blockquote>
 <p>Twig is Symfony&rsquo;s templating language. In version 1.7, it will be used for all pages that are rewritten to use Symfony [&hellip;], but NOT for the global interface (menu, header, etc.) nor the non-rewritten pages, which will still use Smarty. The two templating engines will be available, side by side, during the transition phase.</p>
 </blockquote>
@@ -27267,8 +27267,8 @@
 
 </div>
 
-<p>Finally, there&rsquo;s <a href="https://build.prestashop.com/news/introducing-vuejs-symfony-api/">Vue pages</a>. Vue pages are hybrid: half-Symfony, half-API based BO pages. In those pages, the page&rsquo;s skeleton is first rendered by a Symfony controller (therefore, based on the <strong>new theme</strong>), and then a VueJS application takes over in the browser and draws its content based on data sent by the BO API.</p>
-<p>As stated before, currently only the Stock management and Translation pages are built on this technology. Even though we think that this is <a href="https://build.prestashop.com/news/prestashop-in-2019-and-beyond-part-3-the-future-architecture/">the way of the future</a>, we find that going down this path in minor version releases would produce too many major extensibility and backwards incompatibility issues. Therefore, there will probably be no new Vue/BO API pages in PrestaShop 8.</p>
+<p>Finally, there&rsquo;s <a href="https://build.prestashop-project.org/news/introducing-vuejs-symfony-api/">Vue pages</a>. Vue pages are hybrid: half-Symfony, half-API based BO pages. In those pages, the page&rsquo;s skeleton is first rendered by a Symfony controller (therefore, based on the <strong>new theme</strong>), and then a VueJS application takes over in the browser and draws its content based on data sent by the BO API.</p>
+<p>As stated before, currently only the Stock management and Translation pages are built on this technology. Even though we think that this is <a href="https://build.prestashop-project.org/news/prestashop-in-2019-and-beyond-part-3-the-future-architecture/">the way of the future</a>, we find that going down this path in minor version releases would produce too many major extensibility and backwards incompatibility issues. Therefore, there will probably be no new Vue/BO API pages in PrestaShop 8.</p>
 <h2 id="modules">Modules</h2>
 <p>The <strong>Modules</strong> system provides a plug-in approach to added functionality. As explained before, it mainly relies on specific extension points called &ldquo;Hooks,&rdquo; but their influence and deeply rooted relationships can go much further than that.</p>
 <p>If you look at the Modules block at the center of the figure at the top of the page, you&rsquo;ll notice that there are lots of arrows coming and going from it. Let&rsquo;s explore these relationships.</p>
@@ -27322,17 +27322,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1665397609"></script>
-    <script src="/js/perfect-scrollbar.min.js?1665397609"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1665397609"></script>
-    <script src="/js/jquery.sticky.js?1665397609"></script>
-    <script src="/js/featherlight.min.js?1665397609"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1665397609"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1665397609"></script>
-    <script src="/js/learn.js?1665397609"></script>
-    <script src="/js/hugo-learn.js?1665397609"></script>
+    <script src="/js/clipboard.min.js?1665407727"></script>
+    <script src="/js/perfect-scrollbar.min.js?1665407727"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1665407727"></script>
+    <script src="/js/jquery.sticky.js?1665407727"></script>
+    <script src="/js/featherlight.min.js?1665407727"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1665407727"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1665407727"></script>
+    <script src="/js/learn.js?1665407727"></script>
+    <script src="/js/hugo-learn.js?1665407727"></script>
     
-    <script src="/main.js?1665397609"></script>
+    <script src="/main.js?1665407727"></script>
     
     
     
