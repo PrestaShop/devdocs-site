@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1665495860" rel="stylesheet">
-    <link href="/css/syntax-github.css?1665495860" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1665495860" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1665495860" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1665647410" rel="stylesheet">
+    <link href="/css/syntax-github.css?1665647410" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1665647410" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1665647410" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1665495860" rel="stylesheet">
+    <link href="/style.css?1665647410" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1665495860"></script>
+    <script src="/js/jquery-3.3.1.min.js?1665647410"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -227,6 +227,27 @@
       <li data-nav-id="/1.7/basics/installation/localhost/" title="Installing a local environment" class="dd-item ">
         <a href="/1.7/basics/installation/localhost/">
         Development environment
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/1.7/basics/installation/install-from-cli/" title="Installing PrestaShop from CLI" class="dd-item ">
+        <a href="/1.7/basics/installation/install-from-cli/">
+        Installation from CLI
         
         </a>
     </li>
@@ -12502,17 +12523,17 @@
             <li><a href="#the-uninstall-method">The uninstall() method</a></li>
           </ul>
         </li>
-        <li><a href="#the-configuration-object">The Configuration object</a>
-          <ul>
-            <li><a href="#the-main-methods">The main methods</a></li>
-            <li><a href="#retrieving-external-values-from-the-ps_configuration-data-table">Retrieving external values from the ps_configuration data table</a></li>
-          </ul>
-        </li>
+        <li><a href="#the-configuration-object">The Configuration object</a></li>
         <li><a href="#the-shop-object">The Shop object</a></li>
         <li><a href="#the-icon-file">The icon file</a></li>
-        <li><a href="#installing-the-module">Installing the module</a></li>
+        <li><a href="#installing-the-module">Installing the module</a>
+          <ul>
+            <li><a href="#install-module-from-the-back-office-interface">Install module from the back office interface</a></li>
+            <li><a href="#install-module-from-cli-using-the-symfony-console-component">Install module from CLI using the Symfony Console component</a></li>
+            <li><a href="#the-configxml-file">The config.xml file</a></li>
+          </ul>
+        </li>
         <li><a href="#keeping-things-secure">Keeping things secure</a></li>
-        <li><a href="#further-reading">Further reading</a></li>
       </ul>
     </li>
   </ul>
@@ -12597,6 +12618,21 @@
       
       
 
+      
+        
+    
+    
+      
+        
+      
+      
+      
+      
+      
+
+      
+    
+  
       
         
     
@@ -27104,7 +27140,7 @@
 
 <div class="notices note" >Before you start writing code for your PrestaShop module, we recommend reading PrestaShop&rsquo;s <a href="https://devdocs.prestashop-project.org/1.7/development/coding-standards/">Coding standards</a>. Configuring your IDE hints or using <a href="https://github.com/PrestaShop/php-dev-tools">automated tools</a> can help you make sure you follow the project&rsquo;s standards properly.</div>
 
-<p>Let&rsquo;s create a simple first module; this will enable us to better describe its structure. We will name it <strong>&ldquo;My module&rdquo;</strong>.</p>
+<p>Let&rsquo;s create a first simple module, this will allow us to better describe its structure. We will name it <strong>&ldquo;My module&rdquo;</strong>.</p>
 <p>First, create the module&rsquo;s folder, in PrestaShop&rsquo;s <code>/modules</code> folder. Let&rsquo;s call it <code>mymodule</code>. This will be the module&rsquo;s &ldquo;technical&rdquo; name.</p>
 
 <div class="notices tip" >Technical names can only accept lower case alphanumeric characters (<code>[a-z0-9]</code>). Although accepted, we strongly discourage using underscores because they don&rsquo;t work with translation domains.</div>
@@ -27136,7 +27172,7 @@
 </code></pre></div><p>It can just as well extend any class derived from Module, for specific needs: <code>PaymentModule</code>, <code>ModuleGridEngine</code>, <code>ModuleGraph</code>, etc.</p>
 <p>At this stage, if you place the module&rsquo;s folder on the <code>/modules</code> folder, the module can already be seen in the &ldquo;Module Catalog&rdquo; page in the back office, in the &ldquo;Other modules&rdquo; section – albeit with no real name nor thumbnail.</p>
 <h2 id="the-constructor-method">The constructor method</h2>
-<p>Now, let&rsquo;s fill the class' code block with the essential constructor lines. Since the constructor is the first method to be called when the module is loaded by PrestaShop, this is the best place to set its details.</p>
+<p>Now, let&rsquo;s create the constructor method of the module. Since the constructor is the first method to be called when the module is loaded by PrestaShop, this is the best place to set its details.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
     <span class="k">exit</span><span class="p">;</span>
@@ -27169,7 +27205,7 @@
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s examine each line&hellip;</p>
+</code></pre></div><p>Let&rsquo;s examine each line:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;mymodule&#39;</span><span class="p">;</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tab</span> <span class="o">=</span> <span class="s1">&#39;front_office_features&#39;</span><span class="p">;</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0&#39;</span><span class="p">;</span>
@@ -27266,37 +27302,10 @@
 </code></pre></div><h2 id="the-configuration-object">The Configuration object</h2>
 <p>As you can see, our three blocks of code (<code>__construct()</code>, <code>install()</code> and <code>uninstall()</code>) all make use of a new object, <code>Configuration</code>.</p>
 <p>This is a PrestaShop-specific object that allows to easily manage all the shop&rsquo;s settings. It stores its data on the <code>ps_configuration</code> database table.</p>
-<h3 id="the-main-methods">The main methods</h3>
-<p>This component has three main methods, allowing you to perform basic CRUD operations:</p>
-<dl>
-<dt><code>Configuration::get('myVariable')</code></dt>
-<dd>Retrieves a specific value from the database.</dd>
-<dt><code>Configuration::updateValue('myVariable', $value)</code></dt>
-<dd>Updates an existing setting with a new value. If the setting does not yet exist, it creates it with that value.</dd>
-<dt><code>Configuration::deleteByName('myVariable')</code></dt>
-<dd>Deletes the setting.</dd>
-</dl>
-<p>Note that when using <code>updateValue()</code>, the content of <code>$value</code> can be anything, be it a string, a number, a serialized PHP array or a JSON object. As long as you properly code the data handling function, anything goes. For instance, here is how to handle a PHP array using the <code>Configuration</code> object:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// Storing a serialized array.
-</span><span class="c1"></span><span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_SETTINGS&#39;</span><span class="p">,</span> <span class="nx">serialize</span><span class="p">([</span><span class="k">true</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">]));</span>
+<p>This is a very useful and easy-to-use object, and you will certainly use it in many situations. Most native modules use it too for their own settings.</p>
 
-<span class="c1">// Retrieving the array.
-</span><span class="c1"></span><span class="nv">$mySettings</span> <span class="o">=</span> <span class="nx">unserialize</span><span class="p">(</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_SETTINGS&#39;</span><span class="p">));</span>
-</code></pre></div><p>As you can see, this is a very useful and easy-to-use object, and you will certainly use it in many situations. Most native modules use it too for their own settings.</p>
+<div class="notices note" >You can read more about this component in <a href="https://devdocs.prestashop-project.org/1.7/development/components/configuration/backward-compatibility/">Legacy Configuration object</a> and <a href="https://devdocs.prestashop-project.org/1.7/development/components/configuration/">Configuration storage</a>.</div>
 
-<div class="notices note" >You can read more about this component in <a href="https://devdocs.prestashop-project.org/1.7/development/components/configuration/">Configuration storage</a>.</div>
-
-<h3 id="retrieving-external-values-from-the-ps_configuration-data-table">Retrieving external values from the ps_configuration data table</h3>
-<p>You are not limited to your own variables: PrestaShop stores all its own configuration settings in the <code>ps_configuration</code> database table. There are literally hundreds of settings, and you can access them just as easily as you would access your own. For instance:</p>
-<ul>
-<li><code>Configuration::get('PS_LANG_DEFAULT')</code>: retrieves the ID for the default language.</li>
-<li><code>Configuration::get('PS_TIMEZONE')</code>: retrieves the name of the current timezone, in standard TZ format (see: <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">List of tz database time zones</a>).</li>
-<li><code>Configuration::get('PS_DISTANCE_UNIT')</code>: retrieves the default distance unit (&ldquo;km&rdquo; for kilometers, etc.).</li>
-<li><code>Configuration::get('PS_SHOP_EMAIL')</code>: retrieves the main contact e-mail address.</li>
-<li><code>Configuration::get('PS_NB_DAYS_NEW_PRODUCT')</code>: retrieves the number of days during which a newly-added product is considered &ldquo;New&rdquo; by PrestaShop.</li>
-</ul>
-<p>Dive into the <code>ps_configuration</code> table to discover many other settings!</p>
 <h2 id="the-shop-object">The Shop object</h2>
 <p>The <code>install()</code> method also references this:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">isFeatureActive</span><span class="p">())</span> <span class="p">{</span>
@@ -27326,7 +27335,17 @@
 </div>
 
 <h2 id="installing-the-module">Installing the module</h2>
+<p>You have two options to install a module: from the back office interface or using the Symfony Console component (CLI-base installation)</p>
+<h3 id="install-module-from-the-back-office-interface">Install module from the back office interface</h3>
 <p>Now that all basics are in place, reload the back office&rsquo;s &ldquo;Module Catalog&rdquo; page, in the &ldquo;Front office features&rdquo; section, you should find your module. Install it (or reset it if it is already installed).</p>
+<h3 id="install-module-from-cli-using-the-symfony-console-component">Install module from CLI using the Symfony Console component</h3>
+<p>Access your project&rsquo;s directory with a CLI, and run:</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">php bin/console prestashop:module install mymodule
+</code></pre></div><p>Where <code>mymodule</code> is your module&rsquo;s name.</p>
+<p>To uninstall the module, run the following:</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">php bin/console prestashop:module uninstall mymodule
+</code></pre></div><p>For more informations, please read <a href="https://devdocs.prestashop-project.org/1.7/development/components/console/prestashop-module/">the reference of the ModuleCommand</a></p>
+<h3 id="the-configxml-file">The config.xml file</h3>
 <p>During the module&rsquo;s installation, PrestaShop automatically creates a small <code>config.xml</code> file in the module&rsquo;s folder, which stores the module&rsquo;s information. You should be very careful when editing this file by hand.</p>
 <h2 id="keeping-things-secure">Keeping things secure</h2>
 <p>Once your module is online, its files could be accessed by anyone from the Internet. Even if they cannot trigger anything but PHP errors, you might want to prevent this from happening.</p>
@@ -27339,36 +27358,7 @@
 <span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Pragma: no-cache&#39;</span><span class="p">);</span>
 <span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Location: ../&#39;</span><span class="p">);</span>
 <span class="k">exit</span><span class="p">;</span>
-</code></pre></div><h2 id="further-reading">Further reading</h2>
-
-
-
-
-
-
-
-
-<ul class='children children-li'>
-	
-
-  
-		
-	
-
-	
-
-	
-		
-	
-
-	
-</ul>
-
-
-
-
-
-
+</code></pre></div>
 
 <footer class="article-footer">
 	
@@ -27389,17 +27379,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1665495860"></script>
-    <script src="/js/perfect-scrollbar.min.js?1665495860"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1665495860"></script>
-    <script src="/js/jquery.sticky.js?1665495860"></script>
-    <script src="/js/featherlight.min.js?1665495860"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1665495860"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1665495860"></script>
-    <script src="/js/learn.js?1665495860"></script>
-    <script src="/js/hugo-learn.js?1665495860"></script>
+    <script src="/js/clipboard.min.js?1665647410"></script>
+    <script src="/js/perfect-scrollbar.min.js?1665647410"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1665647410"></script>
+    <script src="/js/jquery.sticky.js?1665647410"></script>
+    <script src="/js/featherlight.min.js?1665647410"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1665647410"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1665647410"></script>
+    <script src="/js/learn.js?1665647410"></script>
+    <script src="/js/hugo-learn.js?1665647410"></script>
     
-    <script src="/main.js?1665495860"></script>
+    <script src="/main.js?1665647410"></script>
     
     
     
