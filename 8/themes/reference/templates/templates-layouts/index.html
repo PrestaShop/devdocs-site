@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/1.7/themes/reference/templates/templates-layouts/">
 
     
-    <link href="/css/font-awesome.min.css?1665769756" rel="stylesheet">
-    <link href="/css/syntax-github.css?1665769756" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1665769756" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1665769756" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1666007202" rel="stylesheet">
+    <link href="/css/syntax-github.css?1666007202" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1666007202" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1666007202" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1665769756" rel="stylesheet">
+    <link href="/style.css?1666007202" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1665769756"></script>
+    <script src="/js/jquery-3.3.1.min.js?1666007202"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12547,7 +12547,12 @@
         <li><a href="#directory-structure">Directory structure</a></li>
         <li><a href="#templates">Templates</a>
           <ul>
-            <li><a href="#specific-templates">Specific templates</a></li>
+            <li><a href="#specific-templates">Specific templates</a>
+              <ul>
+                <li><a href="#product-page-example">Product page example</a></li>
+                <li><a href="#category-page-example">Category page example</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li><a href="#layouts">Layouts</a>
@@ -27185,7 +27190,10 @@
 
 
 <h1 id="templates--layouts">Templates &amp; layouts</h1>
-<p>PrestaShop template file are based on the <a href="https://www.smarty.net/v3_overview">Smarty 3 template engine</a>.</p>
+<p>PrestaShop template files are based on the <a href="https://smarty-php.github.io/smarty/">Smarty 4 template engine</a>.</p>
+
+<div class="notices note" >On PrestaShop <code>1.7.x</code>, template files were based on <a href="https://www.smarty.net/v3_overview">Smarty 3 template engine</a>.</div>
+
 <p>All template files must be stored in the theme&rsquo;s <code>templates/</code> subfolder. For instance, the default theme
 has its template files in the following folder: <code>/themes/classic/templates</code>.</p>
 <h2 id="directory-structure">Directory structure</h2>
@@ -27214,7 +27222,7 @@ of this documentation).</p>
 <ul>
 <li>A template extends a layout</li>
 <li>The layout holds the global organization of the page</li>
-<li>A template a specify to a feature: the product page for example</li>
+<li>A template is specific to a feature: the product page for example</li>
 </ul>
 <p>There are many templates in a PrestaShop theme, the main ones includes:</p>
 <ul>
@@ -27233,16 +27241,35 @@ the right folder.</p>
 <p>When searching for a template, PrestaShop will check many location to determine
 which file should be used. It make it very easy to have different template for a
 given locale or a specific entity id.</p>
+<p>More details in <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/classes/Smarty/TemplateFinder.php#L71-L117">TemplateFinder.php</a>.</p>
+<h4 id="product-page-example">Product page example</h4>
 <p>With the product page, the core will check the following locations (in order) and
 return the first template found:</p>
-<p>Example with a product with ID = 3 and locale = en-US</p>
+<div class="mermaid">
+graph TD;
+    A(Lookup for template catalog/product with : locale + entity id)
+    A-->B(Lookup for template catalog/product with : entity id);
+    B-->C(Lookup for template catalog/product with : locale);
+    C-->D(Lookup for template catalog/product);
+</div>
+<p>Example for the product with ID = 3 and locale = en-US:</p>
 <ol>
 <li><code>en-US/catalog/product-3.tpl</code></li>
 <li><code>catalog/product-3.tpl</code></li>
 <li><code>en-US/catalog/product.tpl</code></li>
 <li><code>catalog/product.tpl</code></li>
 </ol>
-<p>Another example with category template for the category with ID = 9 and locale = en-US.</p>
+<h4 id="category-page-example">Category page example</h4>
+<div class="mermaid">
+graph TD;
+    A(Lookup for template catalog/listing/category with : locale + entity id)
+    A-->B(Lookup for template catalog/listing/category with : entity id);
+    B-->C(Lookup for template catalog/listing/category with : locale);
+    C-->D(Lookup for template catalog/listing/category);
+    D-->E(Lookup for template catalog/listing/product-list with locale);
+    E-->F(Lookup for template catalog/listing/product-list);
+</div>
+<p>Example for the category with ID = 9 and locale = en-US:</p>
 <ol>
 <li><code>en-US/catalog/listing/category-9.tpl</code></li>
 <li><code>catalog/listing/category-9.tpl</code></li>
@@ -27253,17 +27280,15 @@ return the first template found:</p>
 </ol>
 <p>This feature is mostly made for developer working on a custom template for a customer.</p>
 <h2 id="layouts">Layouts</h2>
-<p>The layout is the organisation of the page, the way in which the parts of your design are arranged.
-The typical example is the sidebar: is there a sidebar on your category page or is your product listing
-is taking the whole space.</p>
-<p>In PrestaShop, users are given the ability to change the layout of each page
-independently. As a template developer, it&rsquo;s your role to ensure your theme is
-compatible.</p>
+<p>The layout is the organisation of the page: how the parts of your design are arranged.</p>
+<p>The typical example is the sidebar: is there a sidebar on your category page or is your product listing taking the whole space?</p>
+<p>In PrestaShop, users are given the ability to change the layout of each page independently.
+As a template developer, it&rsquo;s your role to ensure your theme is compatible.</p>
 <p><img src="../img/configure-layout.png" alt="Configure layout"></p>
 <h3 id="whats-in-a-layout-file">What&rsquo;s in a layout file</h3>
 <p>The layout is the very top level of the <a href="/8/themes/reference/template-inheritance/">template inheritance</a>
 tree. Basically it hold the opening and closing <code>&lt;html&gt;</code> tags.</p>
-<p>Typical layout files look like the following snippet. This one is a full one</p>
+<p>Typical layout files look like the following snippet. This one is a full one:</p>
 
 <div class="notices note" >Remember to define as many blocks as possible.</div>
 
@@ -27356,18 +27381,22 @@ bricks, keeping the same organization.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1665769756"></script>
-    <script src="/js/perfect-scrollbar.min.js?1665769756"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1665769756"></script>
-    <script src="/js/jquery.sticky.js?1665769756"></script>
-    <script src="/js/featherlight.min.js?1665769756"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1665769756"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1665769756"></script>
-    <script src="/js/learn.js?1665769756"></script>
-    <script src="/js/hugo-learn.js?1665769756"></script>
+    <script src="/js/clipboard.min.js?1666007202"></script>
+    <script src="/js/perfect-scrollbar.min.js?1666007202"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1666007202"></script>
+    <script src="/js/jquery.sticky.js?1666007202"></script>
+    <script src="/js/featherlight.min.js?1666007202"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1666007202"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1666007202"></script>
+    <script src="/js/learn.js?1666007202"></script>
+    <script src="/js/hugo-learn.js?1666007202"></script>
     
-    <script src="/main.js?1665769756"></script>
+    <script src="/main.js?1666007202"></script>
     
+    <script src="/mermaid/mermaid.min.js?1666007202"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
     
     
 
