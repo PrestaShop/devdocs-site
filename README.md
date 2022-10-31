@@ -3,11 +3,11 @@
 [![Build](https://github.com/PrestaShop/devdocs-site/actions/workflows/build.yml/badge.svg)](https://github.com/PrestaShop/devdocs-site/actions/workflows/build.yml)
 [![Submodules Sync](https://github.com/PrestaShop/devdocs-site/actions/workflows/sync.yml/badge.svg)](https://github.com/PrestaShop/devdocs-site/actions/workflows/sync.yml)
 
-This repository contains the sources to build [DevDocs - PrestaShop's technical documentation site](https://devdocs.prestashop.com/).
+This repository contains the sources to build [DevDocs - PrestaShop's technical documentation site](https://devdocs.prestashop-project.org/).
 
 ## Contributing
 
-- To contribute content, [read this guide](https://devdocs.prestashop.com/1.7/contribute/documentation/how/). Documentation content is tracked in the [Docs Repository](https://github.com/PrestaShop/docs).
+- To contribute content, [read this guide](https://devdocs.prestashop-project.org/1.7/contribute/documentation/how/). Documentation content is tracked in the [Docs Repository](https://github.com/PrestaShop/docs).
 - To update the theme: Submit your Pull Request to the [Theme repository](https://github.com/PrestaShop/ps-docs-theme/).
 
 ## Rendering the site locally
@@ -86,7 +86,7 @@ Every time a contribution is merged inside one of the docs branches, a first Git
 
 Upon being notified, a second GitHub workflow is triggered in devdocs-site, which updates its submodules and commits them.
 
-This commit triggers a third GitHub workflow that will deploy the latest version to devdocs.prestashop.com .
+This commit triggers a third GitHub workflow that will deploy the latest version to [devdocs.prestashop-project.org](https://devdocs.prestashop-project.org/) .
 
 _Theme updates do not trigger a deployment, consequently following a theme update, the docs website must be deployed manually._
 
