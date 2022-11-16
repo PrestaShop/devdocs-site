@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1668103456" rel="stylesheet">
-    <link href="/css/syntax-github.css?1668103456" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1668103456" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1668103456" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1668599309" rel="stylesheet">
+    <link href="/css/syntax-github.css?1668599309" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1668599309" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1668599309" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1668103456" rel="stylesheet">
+    <link href="/style.css?1668599309" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1668103456"></script>
+    <script src="/js/jquery-3.3.1.min.js?1668599309"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12695,10 +12695,60 @@
   <ul>
     <li><a href="#the-objectmodel-class">The ObjectModel class</a>
       <ul>
-        <li><a href="#defining-the-model">Defining the model</a></li>
-        <li><a href="#multiple-stores-andor-languages">Multiple stores and/or languages</a></li>
-        <li><a href="#main-methods">Main methods</a></li>
-        <li><a href="#objectmodel-lifecycle">ObjectModel lifecycle</a></li>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#create-a-new-entity-managed-by-objectmodel">Create a new entity managed by ObjectModel</a></li>
+        <li><a href="#defining-model">Defining the model</a>
+          <ul>
+            <li><a href="#fields-description">Fields description</a>
+              <ul>
+                <li><a href="#field-types-reference">Field types reference</a></li>
+                <li><a href="#validation-rules-reference">Validation rules reference</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#basic-usage-of-an-objectmodel-managed-entity">Basic usage of an ObjectModel managed entity</a>
+          <ul>
+            <li><a href="#create-and-save-a-new-object">Create and save a new object</a></li>
+            <li><a href="#load-and-save-an-object">Load and save an object</a></li>
+            <li><a href="#hard-or-soft-delete-an-object">Hard or soft delete an object</a></li>
+          </ul>
+        </li>
+        <li><a href="#advanced-usage">Advanced usage</a>
+          <ul>
+            <li><a href="#multiple-languages">Multiple languages objects</a>
+              <ul>
+                <li><a href="#under-the-hood-how-does-it-work">Under the hood: how does it work?</a></li>
+                <li><a href="#translate-your-objectmodel-entity">Translate your ObjectModel entity</a></li>
+                <li><a href="#multiple-language-accessors">Accessors for translatable ObjectModels</a></li>
+              </ul>
+            </li>
+            <li><a href="#multiple-stores">Multiple stores/shops objects</a>
+              <ul>
+                <li><a href="#under-the-hood-how-does-it-work-1">Under the hood: how does it work?</a></li>
+                <li><a href="#enable-multi-shop-for-your-entity">Enable multi-shop for your entity</a></li>
+                <li><a href="#associate-an-object-to-a-store">Associate an object to a store</a></li>
+              </ul>
+            </li>
+            <li><a href="#multiple-stores-languages">Multiple stores/shops and languages objects</a>
+              <ul>
+                <li><a href="#under-the-hood-how-does-it-work-2">Under the hood: how does it work?</a></li>
+                <li><a href="#enable-multi-language--multi-shop-for-your-entity">Enable multi language + multi shop for your entity</a></li>
+                <li><a href="#loading-or-saving-a-multishop_lang-object">Loading or saving a multishop_lang object</a></li>
+              </ul>
+            </li>
+            <li><a href="#duplicate-an-object">Duplicate an object</a></li>
+            <li><a href="#partial-update-of-an-object">Partial update of an object</a>
+              <ul>
+                <li><a href="#partial-update-of-a-multi-language-field">Partial update of a multi language field</a></li>
+              </ul>
+            </li>
+            <li><a href="#toggle-status">Toggle status</a></li>
+            <li><a href="#delete-multiple-entities">Delete multiple entities</a></li>
+          </ul>
+        </li>
+        <li><a href="#lifecycle-hooks">ObjectModel lifecycle and hooks</a></li>
+        <li><a href="#class-reference">Class reference</a></li>
       </ul>
     </li>
   </ul>
@@ -27402,10 +27452,41 @@
 
 
 <h1 id="the-objectmodel-class">The ObjectModel class</h1>
-<p>When needing to dive deep, you have to use the ObjectModel class. This is the main object of PrestaShop’s object model. It can be overridden… with precaution.</p>
-<p>It is an Active Record kind of class (see: <a href="https://en.wikipedia.org/wiki/Active_record_pattern">Active record pattern</a>). The table attributes or view attributes of PrestaShop’s database are encapsulated in this class. Therefore, the class is tied to a database record. After the object has been instantiated, a new record is added to the database. Each object retrieves its data from the database; when an object is updated, the record to which it is tied is updated as well. The class implements accessors for each attribute.</p>
-<h2 id="defining-the-model">Defining the model</h2>
-<p>You must use the <code>$definition</code> static variable in order to define the model.</p>
+<h2 id="introduction">Introduction</h2>
+<p>ObjectModel class is one of the main pillars of PrestaShop&rsquo;s legacy core. While a complete migration to Symfony/Doctrine entities is planned in the roadmap, ObjectModel will remain present and available in our software for a while.</p>
+<p>ObjectModel is the Data Access Layer for PrestaShop, implemented following the Active Record pattern. The Data Access Layer (DAL) is a part (with the Database Abstraction Layer - DBAL) of the Object Relational Mapping (ORM) legacy system for PrestaShop.</p>
+<p>Read more about Object relation mapping (ORM), Database abstraction layer (DBAL), Data access layer (DAL), and Active Record:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping">Object relational mapping (ORM)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Database_abstraction_layer">Database abstraction layer (DBAL)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Data_access_layer">Data access layer (DAL)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Active_record_pattern">Active record pattern</a></li>
+</ul>
+<p>A class extending the ObjectModel class is tied to a database table. Its static attribute (<code>$definition</code>) represents the model.</p>
+<p>Its instances are tied to database records.</p>
+<p>When instantiated with an <code>$id</code> in the class constructor, the attributes are retrieved from the related database record (using the <code>$id</code> as the primary key to find the table record).</p>
+
+<div class="notices info" >You can override classes that extend ObjectModel, but with extreme precaution, e.g., defining a wrong <code>$definition</code> model can break the entire system or lead to data loss.</div>
+
+<h2 id="create-a-new-entity-managed-by-objectmodel">Create a new entity managed by ObjectModel</h2>
+<p>You can create a new entity (in a module for example), with its own database table, managed by ObjectModel.</p>
+<p>To do this, create class extending the ObjectModel:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">Cms</span> <span class="k">extends</span> <span class="nx">ObjectModel</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+</code></pre></div><p>Next, define the properties of your entity :</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">Cms</span> <span class="k">extends</span> <span class="nx">ObjectModel</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$id_cms</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$id_cms_category</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$position</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$active</span><span class="p">;</span>
+    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div><p>The next step is <a href="#defining-model">defining the model</a>.</p>
+<h2 id="defining-model">Defining the model</h2>
+<p>To define your model (reflection of the database table structure, fields, type, &hellip;), you must use the <code>$definition</code> static variable.</p>
 <p>For instance:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
 </span><span class="sd"> * Example from the CMS model (CMSCore)
@@ -27454,49 +27535,345 @@
         <span class="p">],</span>
     <span class="p">)</span>
 <span class="p">];</span>
-</code></pre></div><h2 id="multiple-stores-andor-languages">Multiple stores and/or languages</h2>
-<p>In order to retrieve an object in many languages:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;multilang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span>
-</code></pre></div><p>In order to retrieve an object depending on the current store:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;multishop&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span>
-</code></pre></div><p>In order to retrieve an object which depends on the current store, and in many languages:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;multilang_shop&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span>
-</code></pre></div><h2 id="main-methods">Main methods</h2>
-<div class="function-definition">
-<dl>
-<dt>__construct($id = NULL, $id_lang = NULL)</dt>
-<dd>Build object.</dd>
-<dt>add($autodate = true, $nullValues = false)</dt>
-<dd>Adds current object to the database.</dd>
-<dt>associateTo(integer|array $id_shops)</dt>
-<dd>Associate an item to its context.</dd>
-<dt>delete()</dt>
-<dd>Delete current object from database.</dd>
-<dt>deleteImage(mixed $force_delete = false)</dt>
-<dd>Delete images associated with the object.</dd>
-<dt>deleteSelection($selection)</dt>
-<dd>Delete several objects from database.</dd>
-<dt>getFields()</dt>
-<dd>Prepare fields for ObjectModel class (add, update).</dd>
-<dt>getValidationRules($className = _CLASS_)</dt>
-<dd>Return object validation rules (field validity).</dd>
-<dt>save($nullValues = false, $autodate = true)</dt>
-<dd>Save current object to database (add or update).</dd>
-<dt>toggleStatus()</dt>
-<dd>Toggle object&rsquo;s status in database.</dd>
-<dt>update($nullValues = false)</dt>
-<dd>Update current object to database.</dd>
-<dt>validateFields($die = true, $errorReturn = false)</dt>
-<dd>Check for field validity before database interaction.</dd>
-</dl>
-</div>
-<h2 id="objectmodel-lifecycle">ObjectModel lifecycle</h2>
-<p>Thanks to the hooks, you can alter the Object Model or execute functions during the lifecycle of your models. Every hook receive an instance of the manipulated object model:</p>
-<figure><img src="../../../img/object-model-lifecycle.png"/><figcaption>
-            <h4>ObjectModel lifecycle</h4>
-        </figcaption>
-</figure>
+</code></pre></div><p>Let&rsquo;s analyse this definition:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">static</span> <span class="nv">$definition</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;table&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;cms&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;primary&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_cms&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;multilang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="s1">&#39;fields&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</code></pre></div><ul>
+<li><code>table</code> is the related database table name (without the database table <code>PREFIX</code>),</li>
+<li><code>primary</code> is the name of the <code>PRIMARY KEY</code> field in the database table, which will be used as <code>$id</code> in the ObjectModel</li>
+<li><code>multilang</code> is a boolean value indicating that the entity is available in multiple langages, see <a href="#multiple-languages">Multiple languages</a></li>
+<li><code>fields</code> is an array containing all other of the fields from the database table.</li>
+</ul>
+<h3 id="fields-description">Fields description</h3>
+<p>A field is defined by a key (its name in the database table) and an array of its settings.</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;meta_description&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span>
+    <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isGenericName&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">255</span>
+<span class="p">],</span>
+</code></pre></div><p>In this example:</p>
+<ul>
+<li><code>meta_description</code> is the field&rsquo;s name</li>
+<li><code>self::TYPE_STRING</code> is its type</li>
+<li><code>lang</code> is a boolean related to multilang features (<a href="#multiple-languages">Multiple languages</a>)</li>
+<li><code>validate</code> is a validation rule (optional)</li>
+<li><code>size</code> is the max size of the field. It should match the database definition to avoid data cropping or overflow when inserting/updating objects.</li>
+</ul>
+<h4 id="field-types-reference">Field types reference</h4>
+<p>Field type is an important setting, it determines how ObjectModel will format your data.</p>
+<table>
+<thead>
+<tr>
+<th>Type in ObjectModel</th>
+<th>Related type in MySQL</th>
+<th>Formating</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TYPE_INT</td>
+<td>INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT, &hellip;</td>
+<td>Cast to int</td>
+</tr>
+<tr>
+<td>TYPE_BOOL</td>
+<td>SMALLINT</td>
+<td>Cast to int</td>
+</tr>
+<tr>
+<td>TYPE_STRING</td>
+<td>VARCHAR</td>
+<td>Return string, escape value, remove php and html tags</td>
+</tr>
+<tr>
+<td>TYPE_FLOAT</td>
+<td>FLOAT, DOUBLE</td>
+<td>Cast to float</td>
+</tr>
+<tr>
+<td>TYPE_DATE</td>
+<td>DATE</td>
+<td>Return string, escape value, remove php and html tags</td>
+</tr>
+<tr>
+<td>TYPE_HTML</td>
+<td>BLOB, TEXT</td>
+<td>Return string, escape value, keep safe html tags</td>
+</tr>
+<tr>
+<td>TYPE_NOTHING</td>
+<td></td>
+<td>Use with caution, not secure, does no formating</td>
+</tr>
+<tr>
+<td>TYPE_SQL</td>
+<td>BLOB, TEXT</td>
+<td>Return string, escape value, keep safe html tag</td>
+</tr>
+</tbody>
+</table>
+<h4 id="validation-rules-reference">Validation rules reference</h4>
+<p>Several validation rules are available for your ObjectModel fields.
+<a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/classes/Validate.php">Please refer to the Validate class of PrestaShop</a> for a complete list.</p>
+<h2 id="basic-usage-of-an-objectmodel-managed-entity">Basic usage of an ObjectModel managed entity</h2>
+<h3 id="create-and-save-a-new-object">Create and save a new object</h3>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$cms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cms</span><span class="p">();</span>
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">position</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="o">...</span>
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</code></pre></div><p>In this example, we create an entity from scratch. Then, we set its <code>position</code> attribute, and we call the <code>save()</code> method. The <code>save()</code> method will trigger the <code>add()</code> method since its <code>id</code> attribute is not yet known (because the entity is not created in database).</p>
+<p>If the insert is successful, the ObjectModel class will set the entity&rsquo;s id (retrieved from the database). <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/classes/ObjectModel.php#L572-L658">Complete reference here</a>.</p>
+<h3 id="load-and-save-an-object">Load and save an object</h3>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$id</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// id of the object in database
+</span><span class="c1"></span><span class="nv">$cms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cms</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> 
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">position</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+<span class="o">...</span>
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</code></pre></div><p>In this example, we retrieve an entity from the database with its id. Then, we change its <code>position</code> attribute and call the same <code>save()</code> method. The <code>save()</code> method will trigger the <code>update()</code> method and not the <code>add()</code> method since its <code>id</code> attribute is known. <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/classes/ObjectModel.php#L750-L868">Complete reference here</a>.</p>
+<h3 id="hard-or-soft-delete-an-object">Hard or soft delete an object</h3>
+<p>Two delete mechanisms are available with ObjectModel: hard delete and soft delete.
+Hard-delete deletes the record from the database, while soft-delete sets a flag in the table&rsquo;s field indicating that this record is deleted.</p>
 
+<div class="notices info" ><p><strong>Soft delete is not always available.</strong></p>
+<p>If the model object doesn&rsquo;t have a <code>deleted</code> property or there is no <code>deleted</code> field available in the class definition, a <code>PrestaShopException</code> will be thrown</p>
+</div>
+
+
+<div class="notices info" ><p><strong>Soft delete does not trigger DeleteHooks.</strong></p>
+<p>Soft deleting an object does not trigger <strong>Delete</strong> related hooks, but will trigger <strong>Update</strong> related hooks. <a href="#lifecycle-hooks">ObjectModel lifecycle hooks</a></p>
+</div>
+
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$id</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// id of the object in database
+</span><span class="c1"></span><span class="nv">$cms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cms</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> 
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">softDelete</span><span class="p">();</span> <span class="c1">// sets the deleted property to true, and triggers an update() call
+</span><span class="c1"></span><span class="o">...</span>
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span> <span class="c1">// triggers a DELETE statement to the DBAL
+</span></code></pre></div><h2 id="advanced-usage">Advanced usage</h2>
+<h3 id="multiple-languages">Multiple languages objects</h3>
+<p>PrestaShop&rsquo;s ObjectModel can handle translations (also called internationalization, or i18n) of your objects.</p>
+<h4 id="under-the-hood-how-does-it-work">Under the hood: how does it work?</h4>
+<p>When declaring a multi-language ObjectModel, PrestaShop will fetch another database table named like your base database table, but with a suffix <code>_lang</code>
+This table references the id of the base Object (<code>id_cms</code>), the id of the language (<code>id_lang</code>), and each translatable field.</p>
+<p>In our previous example, for <code>Cms</code> ObjectModel:</p>
+<div class='mermaid'>
+classDiagram
+    ps_cms <|-- ps_cms_lang
+    ps_cms : id_cms
+    ps_cms : id_cms_category
+    ps_cms : position
+    ps_cms : active
+    ps_cms : ...
+    class ps_cms_lang {
+        id_cms
+        id_lang
+        meta_title
+        meta_description
+        meta_keywords
+        link_rewrite
+        content
+        ...
+    }
+</div>
+<h4 id="translate-your-objectmodel-entity">Translate your ObjectModel entity</h4>
+<p>To do so, you must declare the <code>multilang</code> setting of your model definition to <code>true</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">static</span> <span class="nv">$definition</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="o">...</span>
+    <span class="s1">&#39;multilang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="o">...</span>
+</code></pre></div><p>And then, you must declare which fields are available for translations:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;fields&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="s1">&#39;meta_description&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="o">...</span>
+        <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+        <span class="o">...</span>
+    <span class="p">],</span>
+    <span class="o">...</span>
+<span class="p">)</span>
+</code></pre></div><h4 id="multiple-language-accessors">Accessors for translatable ObjectModels</h4>
+<p>Translatable fields are available in your ObjectModel as <code>array</code>.
+In our example, to update the attributes <code>meta_title</code> for languages EN (<code>$lang_id=1</code>) and FR (<code>$lang_id=2</code>), use the following method :</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">meta_title</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;My awesome title&#34;</span><span class="p">;</span>
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">meta_title</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Mon fabuleux titre&#34;</span><span class="p">;</span>
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</code></pre></div><p>But&hellip; what if i want to retrieve my object only for a specific language, and update its <code>meta_title</code> ?
+In this case, you can load your object with the <code>$id_lang</code> parameter in constructor, and you will have a non-array accessor :</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$cms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cms</span><span class="p">(</span><span class="nv">$cms_id</span><span class="p">,</span> <span class="nv">$lang_id</span><span class="p">);</span>
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">meta_title</span> <span class="o">=</span> <span class="s2">&#34;Mon fabuleux titre&#34;</span><span class="p">;</span>
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</code></pre></div><h3 id="multiple-stores">Multiple stores/shops objects</h3>
+<p>PrestaShop&rsquo;s ObjectModel can handle multiple stores (or multi shop) ObjectModels.</p>
+<h4 id="under-the-hood-how-does-it-work-1">Under the hood: how does it work?</h4>
+<p>When declaring a multi-store ObjectModel, PrestaShop will fetch another database table named like your base database table, with a suffix <code>_shop</code>
+This table is a pivot table referencing at least the id of the base Object (<code>id_cms</code>) and the id of the shop (<code>id_shop</code>).</p>
+<p>In our previous example, for <code>Cms</code> ObjectModel:</p>
+<div class='mermaid'>
+classDiagram
+    ps_cms <|-- ps_cms_shop
+    ps_cms : id_cms
+    ps_cms : id_cms_category
+    ps_cms : position
+    ps_cms : active
+    ps_cms : ...
+    class ps_cms_shop {
+        id_cms
+        id_shop
+    }
+</div>
+<h4 id="enable-multi-shop-for-your-entity">Enable multi-shop for your entity</h4>
+<p>To do so, you must declare the <code>multishop</code> setting of your model definition to <code>true</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">static</span> <span class="nv">$definition</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="o">...</span>
+    <span class="s1">&#39;multishop&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="o">...</span>
+</code></pre></div><h4 id="associate-an-object-to-a-store">Associate an object to a store</h4>
+<p>You can associate an object to one or several stores with the <code>associateTo</code> method:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">associateTo</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// associates the object to the store #1
+</span><span class="c1"></span><span class="o">...</span>
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">associateTo</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]);</span> <span class="c1">// associates the object to the stores #1, #2 and #4
+</span></code></pre></div><h3 id="multiple-stores-languages">Multiple stores/shops and languages objects</h3>
+<p>PrestaShop&rsquo;s ObjectModel can handle both multiple languages and multiple shop entities. The entity <code>Category</code> is a good example of this case:</p>
+<ul>
+<li>we need to translate a Category name for each language</li>
+<li>we may need to change the name of a Category for different shops</li>
+</ul>
+<h4 id="under-the-hood-how-does-it-work-2">Under the hood: how does it work?</h4>
+<p>When declaring a multi-store ObjectModel, PrestaShop will fetch another database table named like your base database table, with a suffix <code>_shop</code>
+This table is a pivot table referencing at least the id of the base Object (<code>id_cms</code>) and the id of the shop (<code>id_shop</code>).</p>
+<p>In our previous example, for <code>Category</code> ObjectModel :</p>
+<div class='mermaid'>
+classDiagram
+    ps_category <|-- ps_category_lang
+    ps_category <|-- ps_category_shop
+    ps_category : id_category
+    ps_category : position
+    ps_category : active
+    ps_category : ...
+    class ps_category_lang {
+        id_category
+        id_shop
+        id_lang
+        additional_description
+        ...
+    }
+    class ps_category_shop {
+        id_category
+        id_shop
+    }
+</div>
+<h4 id="enable-multi-language--multi-shop-for-your-entity">Enable multi language + multi shop for your entity</h4>
+<p>To do so, you must declare the <code>multishop_lang</code> setting of your model definition to <code>true</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">static</span> <span class="nv">$definition</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="o">...</span>
+    <span class="s1">&#39;multishop_lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="o">...</span>
+</code></pre></div><p>And then, you must declare which fields are available for translations:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;fields&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="o">...</span>
+    <span class="s1">&#39;additional_description&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+        <span class="o">...</span>
+        <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+        <span class="o">...</span>
+    <span class="p">],</span>
+    <span class="o">...</span>
+<span class="p">)</span>
+</code></pre></div><h4 id="loading-or-saving-a-multishop_lang-object">Loading or saving a multishop_lang object</h4>
+<p>While languages are <a href="#multiple-language-accessors">accessible with accessors</a>, if you need to programmatically retrieve an ObjectModel related to a particular shop (not the selected / current shop from Context), you need to change the method used to load an object:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$targetShopId</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="nv">$category</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Category</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$targetShopId</span><span class="p">);</span> <span class="c1">// 1 is the id of the object
+</span></code></pre></div><p>If you need to update a translatable field on your entity, you need to add a <code>Shop::setContext()</code> call before you save your object :</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$targetShopId</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="nx">Shop</span><span class="o">::</span><span class="na">setContext</span><span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_SHOP</span><span class="p">,</span> <span class="nv">$targetShopId</span><span class="p">);</span>
+
+<span class="nv">$category</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Category</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$targetShopId</span><span class="p">);</span>
+<span class="nv">$category</span><span class="o">-&gt;</span><span class="na">additional_description</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Additional description for shop #2&#34;</span><span class="p">;</span> <span class="c1">// language id #1, english
+</span><span class="c1"></span><span class="nv">$category</span><span class="o">-&gt;</span><span class="na">additional_description</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Description additionelle pour le shop #2&#34;</span><span class="p">;</span> <span class="c1">// language id #2, french
+</span><span class="c1"></span><span class="nv">$category</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</code></pre></div><h3 id="duplicate-an-object">Duplicate an object</h3>
+<p>To duplicate an object, use the following method : <code>duplicateObject()</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$cms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cms</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> 
+<span class="nv">$duplicatedCms</span> <span class="o">=</span> <span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">duplicateObject</span><span class="p">();</span>
+</code></pre></div>
+<div class="notices info" ><p><strong>duplicateObject will save the object to database.</strong></p>
+<p>Please note that the <code>duplicateObject()</code> method will instantly save the duplicated object to the database.</p>
+</div>
+
+<h3 id="partial-update-of-an-object">Partial update of an object</h3>
+<p>Since 
+<span class="version-pill" title="New in PrestaShop 8.x">
+  8.x
+</span>
+
+, a partial update mechanism is available in ObjectModel. This mechanism allows you to choose which attributes you want to update during the <code>update()</code> method call.</p>
+<p>On previous versions (
+<span class="version-pill" title="New in PrestaShop 1.7.x">
+  1.7.x
+</span>
+
+, 
+<span class="version-pill" title="New in PrestaShop 1.6.x">
+  1.6.x
+</span>
+
+, &hellip;), this method was already available but was not working properly.</p>
+<p>Example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$cms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cms</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> 
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">position</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">active</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">setFieldsToUpdate</span><span class="p">([</span><span class="s2">&#34;position&#34;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">]);</span>
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</code></pre></div><p>In this example, only the <code>position</code> is updated, <code>active</code> (and all other fields) will not be updated in the database.</p>
+<h4 id="partial-update-of-a-multi-language-field">Partial update of a multi language field</h4>
+<p>You need to specify the language Ids you want to update, as an array :</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$cms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cms</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> 
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">meta_title</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;My awesome title&#34;</span><span class="p">;</span> <span class="c1">// language id #1
+</span><span class="c1"></span><span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">meta_title</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;Mon fabuleux titre&#34;</span><span class="p">;</span> <span class="c1">// language id #2
+</span><span class="c1"></span><span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">setFieldsToUpdate</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="s2">&#34;meta_title&#34;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="mi">1</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+            <span class="mi">2</span> <span class="o">=&gt;</span> <span class="k">false</span>
+        <span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">);</span>
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span> <span class="c1">// only meta_title for language id #1 will be updated
+</span></code></pre></div><h3 id="toggle-status">Toggle status</h3>
+<p>A mecanism of state is available with ObjectModel : active / inactive state.
+When triggered, this mecanism allows your entities to be enabled / disabled.</p>
+
+<div class="notices info" ><p><strong>Status is not always available.</strong></p>
+<p>If the model object has no <code>active</code> property or no <code>active</code> definition field, a <code>PrestaShopException</code> will be thrown</p>
+</div>
+
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$id</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// id of the entity in database
+</span><span class="c1"></span><span class="nv">$cms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Cms</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span> 
+<span class="nv">$cms</span><span class="o">-&gt;</span><span class="na">toggleStatus</span><span class="p">();</span> <span class="c1">// sets the active property to true or false (depending on its current value), and triggers an update() call
+</span></code></pre></div><h3 id="delete-multiple-entities">Delete multiple entities</h3>
+<p>You can delete multiple object at once with the <code>deleteSelection</code> method. Pass an array of IDs to delete to this method, and they will be deleted.</p>
+<p>Usage :</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$cmsIdsToDelete</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">];</span>
+<span class="p">(</span><span class="k">new</span> <span class="nx">Cms</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">deleteSelection</span><span class="p">(</span><span class="nv">$cmsIdsToDelete</span><span class="p">);</span>
+</code></pre></div>
+<div class="notices info" ><strong>This method only does Hard deletes</strong></div>
+
+<h2 id="lifecycle-hooks">ObjectModel lifecycle and hooks</h2>
+<p>Thanks to the hooks, you can alter the Object Model or execute functions during the lifecycle of your models. Every hook receive an instance of the manipulated object model:</p>
+<div class="mermaid">
+graph TD
+   subgraph "DELETE"
+        deleteA(actionObject<strong>DeleteBefore</strong>) --> deleteB(actionObject<i>Classname</i><strong>DeleteBefore</strong>) --> deleteC(actionObject<strong>DeleteAfter</strong>) --> deleteD(actionObject<i>Classname</i><strong>DeleteAfter</strong>)
+    end
+    subgraph "UPDATE"
+        updateA(actionObject<strong>UpdateBefore</strong>) --> updateB(actionObject<i>Classname</i><strong>UpdateBefore</strong>) --> updateC(actionObject<strong>UpdateAfter</strong>) --> updateD(actionObject<i>Classname</i><strong>UpdateAfter</strong>)
+    end
+    subgraph "CREATE"
+        createA(actionObject<strong>AddBefore</strong>) --> createB(actionObject<i>Classname</i><strong>AddBefore</strong>) --> createC(actionObject<strong>AddAfter</strong>) --> createD(actionObject<i>Classname</i><strong>AddAfter</strong>)
+    end
+</div>
 <p>As an example, this is how you can retrieve information about a product when we delete it from the database:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">use</span> <span class="nx">Product</span><span class="p">;</span>
 <span class="c1">// In a module
@@ -27506,6 +27883,106 @@
     <span class="nx">PrestaShopLogger</span><span class="o">::</span><span class="na">addLog</span><span class="p">(</span>
         <span class="nx">sprintf</span><span class="p">(</span><span class="s1">&#39;Product with id %s was deleted with success&#39;</span><span class="p">,</span> <span class="nv">$product</span><span class="o">-&gt;</span><span class="na">id_product</span><span class="p">)</span>
     <span class="p">);</span>    
+<span class="p">}</span>
+</code></pre></div><h2 id="class-reference">Class reference</h2>
+<p>Here is the reference of the methods described on this page. Many other methods that we don&rsquo;t described here are available.</p>
+<p>See complete implementation here : <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/classes/ObjectModel.php">ObjectModel.php</a></p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
+</span><span class="sd"> * Builds the object.
+</span><span class="sd"> *
+</span><span class="sd"> * @param int|null $id if specified, loads and existing object from DB (optional)
+</span><span class="sd"> * @param int|null $id_lang required if object is multilingual (optional)
+</span><span class="sd"> * @param int|null $id_shop ID shop for objects with multishop tables
+</span><span class="sd"> * @param TranslatorComponent|null $translator
+</span><span class="sd"> *
+</span><span class="sd"> * @throws PrestaShopDatabaseException
+</span><span class="sd"> * @throws PrestaShopException
+</span><span class="sd"> */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$id</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$id_lang</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$id_shop</span> <span class="o">=</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$translator</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span>
+
+<span class="sd">/**
+</span><span class="sd"> * Saves current object to database (add or update).
+</span><span class="sd"> *
+</span><span class="sd"> * @param bool $null_values
+</span><span class="sd"> * @param bool $auto_date
+</span><span class="sd"> *
+</span><span class="sd"> * @return bool Insertion result
+</span><span class="sd"> *
+</span><span class="sd"> * @throws PrestaShopException
+</span><span class="sd"> */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">save</span><span class="p">(</span><span class="nv">$null_values</span> <span class="o">=</span> <span class="k">false</span><span class="p">,</span> <span class="nv">$auto_date</span> <span class="o">=</span> <span class="k">true</span><span class="p">)</span>
+
+<span class="sd">/**
+</span><span class="sd"> * Takes current object ID, gets its values from database,
+</span><span class="sd"> * saves them in a new row and loads newly saved values as a new object.
+</span><span class="sd"> *
+</span><span class="sd"> * @return ObjectModel|false
+</span><span class="sd"> *
+</span><span class="sd"> * @throws PrestaShopDatabaseException
+</span><span class="sd"> */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">duplicateObject</span><span class="p">()</span>
+
+<span class="sd">/**
+</span><span class="sd"> * Deletes current object from database.
+</span><span class="sd"> *
+</span><span class="sd"> * @return bool True if delete was successful
+</span><span class="sd"> *
+</span><span class="sd"> * @throws PrestaShopException
+</span><span class="sd"> */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">delete</span><span class="p">()</span>
+
+<span class="sd">/**
+</span><span class="sd"> * Deletes multiple objects from the database at once.
+</span><span class="sd"> *
+</span><span class="sd"> * @param array $ids array of objects IDs
+</span><span class="sd"> *
+</span><span class="sd"> * @return bool
+</span><span class="sd"> */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">deleteSelection</span><span class="p">(</span><span class="nv">$ids</span><span class="p">)</span>
+
+<span class="sd">/**
+</span><span class="sd"> * Does a soft delete on current object, using the &#34;deleted&#34; field in DB
+</span><span class="sd"> * If the model object has no &#34;deleted&#34; property or no &#34;deleted&#34; definition field it will throw an exception
+</span><span class="sd"> *
+</span><span class="sd"> * @return bool
+</span><span class="sd"> *
+</span><span class="sd"> * @throws PrestaShopDatabaseException
+</span><span class="sd"> * @throws PrestaShopException
+</span><span class="sd"> */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">softDelete</span><span class="p">()</span>
+
+<span class="sd">/**
+</span><span class="sd"> * Toggles object status in database.
+</span><span class="sd"> *
+</span><span class="sd"> * @return bool Update result
+</span><span class="sd"> *
+</span><span class="sd"> * @throws PrestaShopException
+</span><span class="sd"> */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">toggleStatus</span><span class="p">()</span>
+
+<span class="sd">/**
+</span><span class="sd"> * This function associate an item to its context.
+</span><span class="sd"> *
+</span><span class="sd"> * @param int|array $id_shops
+</span><span class="sd"> *
+</span><span class="sd"> * @return bool|void
+</span><span class="sd"> *
+</span><span class="sd"> * @throws PrestaShopDatabaseException
+</span><span class="sd"> */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">associateTo</span><span class="p">(</span><span class="nv">$id_shops</span><span class="p">)</span>
+
+<span class="sd">/**
+</span><span class="sd"> * Set a list of specific fields to update
+</span><span class="sd"> * array(field1 =&gt; true, field2 =&gt; false,
+</span><span class="sd"> * langfield1 =&gt; array(1 =&gt; true, 2 =&gt; false)).
+</span><span class="sd"> *
+</span><span class="sd"> * @since 1.5.0.1
+</span><span class="sd"> *
+</span><span class="sd"> * @param array&lt;string, bool|array&lt;int, bool&gt;&gt;|null $fields
+</span><span class="sd"> */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">setFieldsToUpdate</span><span class="p">(</span><span class="o">?</span><span class="k">array</span> <span class="nv">$fields</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">update_fields</span> <span class="o">=</span> <span class="nv">$fields</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
 
@@ -27528,18 +28005,22 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1668103456"></script>
-    <script src="/js/perfect-scrollbar.min.js?1668103456"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1668103456"></script>
-    <script src="/js/jquery.sticky.js?1668103456"></script>
-    <script src="/js/featherlight.min.js?1668103456"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1668103456"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1668103456"></script>
-    <script src="/js/learn.js?1668103456"></script>
-    <script src="/js/hugo-learn.js?1668103456"></script>
+    <script src="/js/clipboard.min.js?1668599309"></script>
+    <script src="/js/perfect-scrollbar.min.js?1668599309"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1668599309"></script>
+    <script src="/js/jquery.sticky.js?1668599309"></script>
+    <script src="/js/featherlight.min.js?1668599309"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1668599309"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1668599309"></script>
+    <script src="/js/learn.js?1668599309"></script>
+    <script src="/js/hugo-learn.js?1668599309"></script>
     
-    <script src="/main.js?1668103456"></script>
+    <script src="/main.js?1668599309"></script>
     
+    <script src="/mermaid/mermaid.min.js?1668599309"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
     
     
 
