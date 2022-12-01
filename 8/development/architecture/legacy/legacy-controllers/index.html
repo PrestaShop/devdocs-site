@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1669895875" rel="stylesheet">
-    <link href="/css/syntax-github.css?1669895875" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1669895875" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1669895875" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1669898397" rel="stylesheet">
+    <link href="/css/syntax-github.css?1669898397" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1669898397" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1669898397" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1669895875" rel="stylesheet">
+    <link href="/style.css?1669898397" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1669895875"></script>
+    <script src="/js/jquery-3.3.1.min.js?1669898397"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -27291,12 +27291,43 @@
 <p>Legacy controllers are based on PrestaShop&rsquo;s custom framework and go a long way back. All front controllers and all Admin controllers that haven&rsquo;t been migrated to Symfony yet are based on this.</p>
 <h2 id="execution-flow">Execution flow</h2>
 <p>Legacy controllers work best when a Controller performs a single action, for example, render a page. The process has been divided in several methods, which simplifies customization via method override.</p>
-<figure><img src="../img/legacy-controller-flow.png"/><figcaption>
-            <h4>Execution flow of legacy controllers</h4>
-        </figcaption>
-</figure>
-
-
+<div class='mermaid'>
+%%{ init: { 'flowchart': { 'curve': 'stepAfter' } } }%%
+graph TB
+    A(("Controller::run()")) --> B("init()<br><i><small>Initializes the controller</small></i>")    
+    B:::importantStep --> C{"checkAccess()<br><i><small>Check if the controller<br>is available for the<br> current user/visitor</small></i>"}
+    C:::decision -- false --> D("initCursedPage()<br><i><small>Assigns Smarty variables when access is forbidden</small></i>")
+    D --> E("smartyOutputContent()<br><i><small>Displays the page content</small></i>")
+    E:::importantStep
+    C -- true --> G("setMedia()<br><i><small>Sets controller's CSS and JS files</small></i>")
+    G:::notAlwaysRun --> H("postProcess()<br><i><small>Used to process user input</small></i>")
+    H:::importantStep --> I{"has redirect_after"}
+    I:::decision -- true --> J("redirect()<br><i><small>If there is no error, redirects after the process to the #quot;redirect_after#quot;</small></i>")
+    I -- false --> K("initHeader()<br><i><small>Assigns Smarty variables<br>for the page header</small></i>")
+    J --> K
+    K:::notAlwaysRun --> L{"viewAccess()<br><i><small>Checks if the current user/visitor<br>has valid view permissions</small></i>"}
+    L:::decision -- false --> M("Add access denied error message<br><i><small>Added to errors property</small></i>")
+    L -- true --> N("initContent()<br><i><small>Assigns Smarty variables<br>for the main content of the page</small></i>")
+    M --> O("initFooter()<br><i><small>Assigns Smarty variables for the page footer</small></i>")
+    N:::importantStep --> O
+    O:::notAlwaysRun --> P{"is ajax"}
+    P:::decision -- false --> Q("display()<br><i><small>Displays page content</small></i>")
+    P -- true --> R("displayAjax{action}()<br><i><small>Displays page content<br>for ajax requests</small></i>")
+    Q:::importantStep
+    R:::importantStep
+    subgraph Legend
+        direction LR
+        S:::notAlwaysRun
+        S("Not always Run")
+        T:::importantStep
+        T("Important step")
+    end
+    classDef notAlwaysRun fill:#fff0c4;
+    classDef importantStep fill:#c7e6ce;
+    classDef decision fill:#e2d0e5;
+    classDef default fill:#FFFFFF;
+    style Legend fill:#FFFFFF,stroke:#CCCCCC,stroke-width:1px;
+</div>
 
 <footer class="article-footer">
 	
@@ -27317,18 +27348,22 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1669895875"></script>
-    <script src="/js/perfect-scrollbar.min.js?1669895875"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1669895875"></script>
-    <script src="/js/jquery.sticky.js?1669895875"></script>
-    <script src="/js/featherlight.min.js?1669895875"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1669895875"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1669895875"></script>
-    <script src="/js/learn.js?1669895875"></script>
-    <script src="/js/hugo-learn.js?1669895875"></script>
+    <script src="/js/clipboard.min.js?1669898397"></script>
+    <script src="/js/perfect-scrollbar.min.js?1669898397"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1669898397"></script>
+    <script src="/js/jquery.sticky.js?1669898397"></script>
+    <script src="/js/featherlight.min.js?1669898397"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1669898397"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1669898397"></script>
+    <script src="/js/learn.js?1669898397"></script>
+    <script src="/js/hugo-learn.js?1669898397"></script>
     
-    <script src="/main.js?1669895875"></script>
+    <script src="/main.js?1669898397"></script>
     
+    <script src="/mermaid/mermaid.min.js?1669898397"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
     
     
 
