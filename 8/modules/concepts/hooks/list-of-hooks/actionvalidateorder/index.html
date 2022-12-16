@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1671105347" rel="stylesheet">
-    <link href="/css/syntax-github.css?1671105347" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1671105347" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1671105347" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1671182615" rel="stylesheet">
+    <link href="/css/syntax-github.css?1671182615" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1671182615" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1671182615" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1671105347" rel="stylesheet">
+    <link href="/style.css?1671182615" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1671105347"></script>
+    <script src="/js/jquery-3.3.1.min.js?1671182615"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -9105,71 +9105,6 @@
   
     
     
-    <li data-nav-id="/8/modules/sample-modules/example-hooks/" title="Hook examples" class="dd-item
-        
-        
-        
-        isParent
-        ">
-      <a href="/8/modules/sample-modules/example-hooks/">
-          <span>
-            Hook examples
-          </span>
-
-          
-
-          
-            <i class="fa fa-angle-down"></i>
-          
-      </a>
-      
-        <ul>
-          
-          
-          
-
-        
-          
-            
-            
-
-
-
-
- 
-  
-    
-      <li data-nav-id="/8/modules/sample-modules/example-hooks/actionvalidateorder/" title="actionValidateOrder" class="dd-item ">
-        <a href="/8/modules/sample-modules/example-hooks/actionvalidateorder/">
-        actionValidateOrder
-        
-        </a>
-    </li>
-     
-  
- 
-
-            
-          
-        
-        </ul>
-      
-    </li>
-  
- 
-
-            
-          
-            
-            
-
-
-
-
- 
-  
-    
-    
     <li data-nav-id="/8/modules/sample-modules/order-pages-new-hooks/" title="Order view page new hooks demo tutorial" class="dd-item
         
         
@@ -13692,6 +13627,7 @@
         <li><a href="#information">Information</a></li>
         <li><a href="#parameters-details">Parameters details</a></li>
         <li><a href="#call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file</a></li>
+        <li><a href="#example-implementation">Example implementation</a></li>
       </ul>
     </li>
   </ul>
@@ -27344,36 +27280,6 @@
     
   
       
-    
-  
-      
-        
-    
-    
-      
-        
-      
-      
-      
-      
-      
-
-      
-        
-    
-    
-      
-        
-      
-      
-      
-      
-      
-
-      
-    
-  
-      
         
     
     
@@ -30108,10 +30014,79 @@
                 <span class="s1">&#39;currency&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">currency</span><span class="p">,</span>
                 <span class="s1">&#39;orderStatus&#39;</span> <span class="o">=&gt;</span> <span class="nv">$order_status</span><span class="p">,</span>
             <span class="p">])</span>
+</code></pre></div><h2 id="example-implementation">Example implementation</h2>
+<p>A classic use case for this hook could be:</p>
+<p><em>I want to reward my customers on their n-th order</em></p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">class</span> <span class="nc">MyModuleRewardCustomerWhenOrder</span> <span class="k">extends</span> <span class="nx">Module</span> 
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;actionValidateOrder&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionValidateOrder</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$orderObject</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">];</span>
+        <span class="nv">$customerObject</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;customer&#39;</span><span class="p">];</span>
+        <span class="nv">$hasValidParams</span> <span class="o">=</span> <span class="nx">Validate</span><span class="o">::</span><span class="na">isLoadedObject</span><span class="p">(</span><span class="nv">$orderObject</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Validate</span><span class="o">::</span><span class="na">isLoadedObject</span><span class="p">(</span><span class="nv">$orderObject</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$hasValidParams</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">customerAlreadyRewarded</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$customerObject</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nv">$hasConfiguredState</span> <span class="o">=</span> <span class="nx">in_array</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$orderObject</span><span class="o">-&gt;</span><span class="na">getCurrentState</span><span class="p">(),</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getConfuredOrdersStatesIds</span><span class="p">());</span>
+            <span class="nv">$hasCustomerRequiredNbrOfTheOrderToReward</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getCustomerValidOrdersNbr</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$customerObject</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">)</span> <span class="o">==</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getRequiredNbrOfTheOrderToReward</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$hasConfiguredState</span> <span class="o">&amp;&amp;</span> <span class="nv">$hasCustomerRequiredNbrOfTheOrderToReward</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$customerReward</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">createCustomerReward</span><span class="p">(</span><span class="nv">$customerObject</span><span class="p">,</span> <span class="nv">$orderObject</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">Validate</span><span class="o">::</span><span class="na">isLoadedObject</span><span class="p">(</span><span class="nv">$customerReward</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setAlreadyRewarded</span><span class="p">(</span><span class="nv">$customerObject</span><span class="p">);</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">notifyCustomer</span><span class="p">(</span><span class="nv">$customerObject</span><span class="p">,</span> <span class="nv">$customerReward</span><span class="p">);</span>
+            
+                    <span class="c1">// of course don&#39;t forget to log if something fails here :)
+</span><span class="c1"></span>                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">customerAlreadyRewarded</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$idCustomer</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
+    <span class="p">{</span>
+        <span class="c1">// check if customer already rewarded
+</span><span class="c1"></span>    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="nx">setAlreadyRewarded</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+    <span class="p">{</span>
+        <span class="c1">// set customer was rewarded
+</span><span class="c1"></span>    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getConfuredOrdersStatesIds</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+    <span class="p">{</span>
+        <span class="c1">// return array with configured states ids in your module
+</span><span class="c1"></span>    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getCustomerValidOrdersNbr</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$idCustomer</span><span class="p">)</span><span class="o">:</span> <span class="nx">int</span>
+    <span class="p">{</span>
+        <span class="c1">// return number of total order valid by customer
+</span><span class="c1"></span>    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getRequiredNbrOfTheOrderToReward</span><span class="p">()</span><span class="o">:</span> <span class="nx">int</span>
+    <span class="p">{</span>
+        <span class="c1">// return configured number of orders required to reward the customer
+</span><span class="c1"></span>    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">createCustomerReward</span><span class="p">(</span><span class="nx">Customer</span> <span class="nv">$customer</span><span class="p">,</span> <span class="nx">Order</span> <span class="nv">$order</span><span class="p">)</span><span class="o">:</span> <span class="o">?</span><span class="nx">CartRule</span>
+    <span class="p">{</span>
+        <span class="c1">// generate customer cart rule (according to the order amount for example)
+</span><span class="c1"></span>    <span class="p">}</span>
+
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">notifyCustomer</span><span class="p">(</span><span class="nx">Customer</span> <span class="nv">$customer</span><span class="p">,</span> <span class="nx">CartRule</span> <span class="nv">$cartRule</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
+    <span class="p">{</span>
+        <span class="c1">// notify the customer 
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <footer class="article-footer">
 	
+    
+        
+    
 
 	<div class="license">
 		This article is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
@@ -30129,17 +30104,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1671105347"></script>
-    <script src="/js/perfect-scrollbar.min.js?1671105347"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1671105347"></script>
-    <script src="/js/jquery.sticky.js?1671105347"></script>
-    <script src="/js/featherlight.min.js?1671105347"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1671105347"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1671105347"></script>
-    <script src="/js/learn.js?1671105347"></script>
-    <script src="/js/hugo-learn.js?1671105347"></script>
+    <script src="/js/clipboard.min.js?1671182615"></script>
+    <script src="/js/perfect-scrollbar.min.js?1671182615"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1671182615"></script>
+    <script src="/js/jquery.sticky.js?1671182615"></script>
+    <script src="/js/featherlight.min.js?1671182615"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1671182615"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1671182615"></script>
+    <script src="/js/learn.js?1671182615"></script>
+    <script src="/js/hugo-learn.js?1671182615"></script>
     
-    <script src="/main.js?1671105347"></script>
+    <script src="/main.js?1671182615"></script>
     
     
     
