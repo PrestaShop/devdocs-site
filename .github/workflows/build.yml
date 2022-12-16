@@ -25,6 +25,8 @@ jobs:
         run: rm -rf ./src/public
 
       - name: Build
+        env:
+          DEVDOCS_GITHUB_READ_TOKEN: ${{ secrets.DEVDOCS_GITHUB_READ_TOKEN }}
         run: cd src/ && hugo
 
       - name: Create a CNAME file which mapping to our custom domain
