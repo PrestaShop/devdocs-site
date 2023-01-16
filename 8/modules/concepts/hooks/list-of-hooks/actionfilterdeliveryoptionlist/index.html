@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1673456616" rel="stylesheet">
-    <link href="/css/syntax-github.css?1673456616" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1673456616" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1673456616" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1673875620" rel="stylesheet">
+    <link href="/css/syntax-github.css?1673875620" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1673875620" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1673875620" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1673456616" rel="stylesheet">
+    <link href="/style.css?1673875620" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1673456616"></script>
+    <script src="/js/jquery-3.3.1.min.js?1673875620"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -7886,6 +7886,24 @@
             
             
           
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
         
         </ul>
       
@@ -13630,6 +13648,7 @@
         <li><a href="#information">Information</a></li>
         <li><a href="#parameters-details">Parameters details</a></li>
         <li><a href="#call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file</a></li>
+        <li><a href="#example-implementation">Example implementation</a></li>
       </ul>
     </li>
   </ul>
@@ -26600,6 +26619,36 @@
     
   
       
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
     
   
       
@@ -30009,11 +30058,37 @@
     <span class="p">]</span>
 </code></pre></div><h2 id="call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file</h2>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span>
-            <span class="s1">&#39;actionFilterDeliveryOptionList&#39;</span><span class="p">,</span>
-            <span class="p">[</span>
-                <span class="s1">&#39;delivery_option_list&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$delivery_option_list</span><span class="p">,</span>
-            <span class="p">]</span>
-        <span class="p">)</span>
+    <span class="s1">&#39;actionFilterDeliveryOptionList&#39;</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="s1">&#39;delivery_option_list&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$delivery_option_list</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div><h2 id="example-implementation">Example implementation</h2>
+<p>For example :</p>
+<ul>
+<li>a module can decide to display or not a certain carrier depending on the customer group</li>
+<li>a module can decide to block a means of delivery for a specific customer or group of customers</li>
+<li>a module can decide to display or not a carrier according to the date?</li>
+</ul>
+<p>In this example, we disable the express delivery carrier on saturdays and sundays because our delivery promise of 24 hours cannot be satisfied:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">class</span> <span class="nc">MyCarrierConditionDisablerModule</span> <span class="k">extends</span> <span class="nx">Module</span> 
+<span class="p">{</span>
+        
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;actionFilterDeliveryOptionList&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCustomFilterDeliveryOptionList</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$deliveryOptionList</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;delivery_option_list&#39;</span><span class="p">];</span>
+        
+        <span class="k">if</span><span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="nx">date</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="mi">6</span> <span class="o">==</span> <span class="nx">date</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)){</span> <span class="c1">// sundays or saturdays
+</span><span class="c1"></span>            <span class="c1">// find carrier in $deliveryOptionList, and remove it
+</span><span class="c1"></span>        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 
 <footer class="article-footer">
@@ -30038,17 +30113,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1673456616"></script>
-    <script src="/js/perfect-scrollbar.min.js?1673456616"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1673456616"></script>
-    <script src="/js/jquery.sticky.js?1673456616"></script>
-    <script src="/js/featherlight.min.js?1673456616"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1673456616"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1673456616"></script>
-    <script src="/js/learn.js?1673456616"></script>
-    <script src="/js/hugo-learn.js?1673456616"></script>
+    <script src="/js/clipboard.min.js?1673875620"></script>
+    <script src="/js/perfect-scrollbar.min.js?1673875620"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1673875620"></script>
+    <script src="/js/jquery.sticky.js?1673875620"></script>
+    <script src="/js/featherlight.min.js?1673875620"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1673875620"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1673875620"></script>
+    <script src="/js/learn.js?1673875620"></script>
+    <script src="/js/hugo-learn.js?1673875620"></script>
     
-    <script src="/main.js?1673456616"></script>
+    <script src="/main.js?1673875620"></script>
     
     
     
