@@ -85,7 +85,10 @@ For instance, let&amp;rsquo;s take a look at the Logs page of the PrestaShop Bac
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://devdocs.prestashop-project.org/8/development/components/grid/tutorials/create-custom-column-type/</guid>
-      <description>How to create a custom Column Type Do you know how to do it? Please feel free to contribute to the docs! </description>
+      <description>How to create a custom Column Type You may need to display some kind of data in a specific format. This is how to do it:
+Step 1. Define the new column type Let&amp;rsquo;s assume that we need to make an html column to display an object&amp;rsquo;s ID within a &amp;amp;lta&amp;gt; html tag: Create the following file:
+/modules/your_cool_module/src/Core/Grid/Column/Type/HtmlColumn.php
+&amp;lt;?php namespace PrestaShop\Module\Yourcoolmodule\Core\Grid\Column\Type; use PrestaShop\PrestaShop\Core\Grid\Column\AbstractColumn; use Symfony\Component\OptionsResolver\OptionsResolver; final class HtmlColumn extends AbstractColumn { /** * {@inheritdoc} */ public function getType() { return &amp;#39;html&amp;#39;; } /** * {@inheritdoc} */ protected function configureOptions(OptionsResolver $resolver) { parent::configureOptions($resolver); $resolver -&amp;gt;setRequired([ &amp;#39;field&amp;#39;, ]) -&amp;gt;setDefaults([ &amp;#39;clickable&amp;#39; =&amp;gt; false, ]) -&amp;gt;setAllowedTypes(&amp;#39;field&amp;#39;, &amp;#39;string&amp;#39;) -&amp;gt;setAllowedTypes(&amp;#39;clickable&amp;#39;, &amp;#39;bool&amp;#39;); } } Step 2.</description>
     </item>
     
     <item>
