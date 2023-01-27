@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1674811224" rel="stylesheet">
-    <link href="/css/syntax-github.css?1674811224" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1674811224" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1674811224" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1674812322" rel="stylesheet">
+    <link href="/css/syntax-github.css?1674812322" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1674812322" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1674812322" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1674811224" rel="stylesheet">
+    <link href="/style.css?1674812322" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1674811224"></script>
+    <script src="/js/jquery-3.3.1.min.js?1674812322"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30146,13 +30146,13 @@
 <p>Read <a href="/8/basics/installation/system-requirements/">System Requirements</a>.</p>
 <h2 id="installing-a-local-environment">Installing a local environment</h2>
 <p>Installing any web-application locally requires that you first install the adequate environment, namely the Apache web server, the PHP language interpreter, the MySQL database server, and ideally a MySQL admin tool such as phpMyAdmin tool.</p>
-<p>This is called an *AMP package: Apache+MySQL+PHP and the operating system, giving WAMP (Windows+Apache+MySQL+PHP), MAMP (Mac OS X+…) and LAMP (Linux+…). Since all of the items packaged are open-source, these installers are most of the time free.</p>
+<p>This is called an *AMP package: Apache+MySQL+PHP and the operating system, giving WAMP (Windows+Apache+MySQL+PHP), MAMP (macOS…) and LAMP (Linux+…). Since all of the items packaged are open-source, these installers are most of the time free.</p>
 <p>Here is a selection of free AMP installers:</p>
 <ul>
-<li><a href="https://www.apachefriends.org/download.html">XAMPP</a> (Windows, Mac OS X, Linux, Solaris)</li>
+<li><a href="https://www.apachefriends.org/download.html">XAMPP</a> (Windows, macOS, Linux, Solaris)</li>
 <li><a href="http://www.wampserver.com/">WampServer</a> (Windows)</li>
 <li><a href="https://www.easyphp.org/">EasyPHP</a> (Windows)</li>
-<li><a href="https://www.mamp.info/en/mamp/">MAMP</a> (Windows, Mac OS X)</li>
+<li><a href="https://www.mamp.info/en/mamp/">MAMP</a> (Windows, macOS)</li>
 <li><a href="https://laragon.org/">Laragon</a> (Windows)</li>
 </ul>
 <p>To install LAMP on your computer follow these steps (tested on Debian Buster).</p>
@@ -30229,7 +30229,7 @@ Connect as root to your MySql server. In this example our root user is called <c
 <li>The maintenance branches (<em>8.0.x, &hellip;</em>) contains all patches made for each minor version.
 <ul>
 <li>For example, the <em>8.0.x</em> branch contains all patches from 8.0.0 to 8.0.99.</li>
-<li>Whenever a new minor or major version is ready for release, a new maintenance branch is created. For example, <em>8.0.x</em> for version 8.0.0, <em>8.1.x</em> for 8.1.0, 8.2.x_ for 8.2.0, and so forth.</li>
+<li>Whenever a new minor or major version is ready for release, a new maintenance branch is created. For example, <em>8.0.x</em> for version 8.0.0, <em>8.1.x</em> for 8.1.0, and so forth.</li>
 <li><strong>Only the most recent maintenance branch accepts new contributions</strong></li>
 </ul>
 </li>
@@ -30259,13 +30259,21 @@ make composer
 You only need NodeJS 8.x (14.x recommended <a href="https://nodejs.org/">get it here</a>), NPM will take care of it all.</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /path/to/prestashop
 make assets
-</code></pre></div><p>Alternatively, you can <a href="/8/development/compile-assets/">compile assets</a> manually.</p>
+</code></pre></div><p>You can also compile assets for the particular element of the system:</p>
+<ul>
+<li><code>make admin-default</code> - for the legacy back office theme</li>
+<li><code>make admin-new-theme</code> - for the new back office theme</li>
+<li><code>make front-core</code> - front office theme core assets</li>
+<li><code>make front-classic</code> - front office default theme assets</li>
+<li><code>make front</code> - all assets for the the front office</li>
+<li><code>make admin</code> - all assets for the the back office</li>
+</ul>
+<p>Alternatively, you can <a href="/8/development/compile-assets/">compile assets</a> manually.</p>
 <h2 id="setting-up-file-rights">Setting up file rights</h2>
 <p>PrestaShop needs recursive write permissions on several directories:</p>
 <ul>
 <li>./admin-dev/autoupgrade</li>
 <li>./app/config</li>
-<li>./app/logs</li>
 <li>./cache</li>
 <li>./config</li>
 <li>./download</li>
@@ -30280,9 +30288,9 @@ make assets
 <li>./var</li>
 </ul>
 <p>You can set up the appropriate permissions using this command:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ chmod -R +w admin-dev/autoupgrade app/config app/logs cache config download img log mails modules override themes translations upload var
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ chmod -R +w admin-dev/autoupgrade app/config var/logs cache config download img log mails modules override themes translations upload var
 </code></pre></div><p>If you do not have some of the folders above, please create them before changing permissions. For example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir log app/logs
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir log var/logs
 </code></pre></div><p>To ease up your life on a development environment, we suggest to make Apache run with your own user and group.</p>
 
 <div class="notices warning" ><b>Never do that in production!</b> Carefully change permissions folder by folder instead.</div>
@@ -30294,7 +30302,7 @@ make assets
 <li>Release package: http://127.0.0.1/prestashop/install</li>
 <li>Development version: http://127.0.0.1/prestashop/install-dev</li>
 </ul>
-<p>You can read the <a href="https://docs.prestashop-project.org/1.7-documentation/getting-started">Getting Started guide</a> for more details.</p>
+<p>You can read the <a href="https://docs.prestashop-project.org/v.8-documentation/v/english/getting-started">Getting Started guide</a> for more details.</p>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <h5 id="compile-error-cannot-declare-class-appkernel-because-the-name-is-already-in-use">Compile Error: Cannot declare class AppKernel, because the name is already in use</h5>
 <p>You may find this error message the first time you open up the Back Office.</p>
@@ -30323,17 +30331,17 @@ make assets
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1674811224"></script>
-    <script src="/js/perfect-scrollbar.min.js?1674811224"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1674811224"></script>
-    <script src="/js/jquery.sticky.js?1674811224"></script>
-    <script src="/js/featherlight.min.js?1674811224"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1674811224"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1674811224"></script>
-    <script src="/js/learn.js?1674811224"></script>
-    <script src="/js/hugo-learn.js?1674811224"></script>
+    <script src="/js/clipboard.min.js?1674812322"></script>
+    <script src="/js/perfect-scrollbar.min.js?1674812322"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1674812322"></script>
+    <script src="/js/jquery.sticky.js?1674812322"></script>
+    <script src="/js/featherlight.min.js?1674812322"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1674812322"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1674812322"></script>
+    <script src="/js/learn.js?1674812322"></script>
+    <script src="/js/hugo-learn.js?1674812322"></script>
     
-    <script src="/main.js?1674811224"></script>
+    <script src="/main.js?1674812322"></script>
     
     
     

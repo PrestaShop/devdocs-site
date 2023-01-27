@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1674811231" rel="stylesheet">
-    <link href="/css/syntax-github.css?1674811231" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1674811231" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1674811231" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1674812331" rel="stylesheet">
+    <link href="/css/syntax-github.css?1674812331" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1674812331" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1674812331" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1674811231" rel="stylesheet">
+    <link href="/style.css?1674812331" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1674811231"></script>
+    <script src="/js/jquery-3.3.1.min.js?1674812331"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30142,54 +30142,52 @@
 <p>Let&rsquo;s assume that we need to make an html column to display an object&rsquo;s ID within a <code>&amp;lta&gt;</code> html tag:
 Create the following file:</p>
 <p><code>/modules/your_cool_module/src/Core/Grid/Column/Type/HtmlColumn.php</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;?php
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\Yourcoolmodule\Core\Grid\Column\Type</span><span class="p">;</span>
 
-namespace PrestaShop\Module\Yourcoolmodule\Core\Grid\Column\Type;
+<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\AbstractColumn</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Symfony\Component\OptionsResolver\OptionsResolver</span><span class="p">;</span>
 
-use PrestaShop\PrestaShop\Core\Grid\Column\AbstractColumn;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+<span class="k">final</span> <span class="k">class</span> <span class="nc">HtmlColumn</span> <span class="k">extends</span> <span class="nx">AbstractColumn</span>
+<span class="p">{</span>
+    <span class="sd">/**
+</span><span class="sd">     * {@inheritdoc}
+</span><span class="sd">     */</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">getType</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;html&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
 
-final class HtmlColumn extends AbstractColumn
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function getType()
-    {
-        return &#39;html&#39;;
-    }
+    <span class="sd">/**
+</span><span class="sd">     * {@inheritdoc}
+</span><span class="sd">     */</span>
+    <span class="k">protected</span> <span class="k">function</span> <span class="nf">configureOptions</span><span class="p">(</span><span class="nx">OptionsResolver</span> <span class="nv">$resolver</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">parent</span><span class="o">::</span><span class="na">configureOptions</span><span class="p">(</span><span class="nv">$resolver</span><span class="p">);</span>
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function configureOptions(OptionsResolver $resolver)
-    {
-        parent::configureOptions($resolver);
-
-        $resolver
-            -&gt;setRequired([
-                &#39;field&#39;,
-            ])
-            -&gt;setDefaults([
-                &#39;clickable&#39; =&gt; false,
-            ])
-            -&gt;setAllowedTypes(&#39;field&#39;, &#39;string&#39;)
-            -&gt;setAllowedTypes(&#39;clickable&#39;, &#39;bool&#39;);
-    }
-}
+        <span class="nv">$resolver</span>
+            <span class="o">-&gt;</span><span class="na">setRequired</span><span class="p">([</span>
+                <span class="s1">&#39;field&#39;</span><span class="p">,</span>
+            <span class="p">])</span>
+            <span class="o">-&gt;</span><span class="na">setDefaults</span><span class="p">([</span>
+                <span class="s1">&#39;clickable&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+            <span class="p">])</span>
+            <span class="o">-&gt;</span><span class="na">setAllowedTypes</span><span class="p">(</span><span class="s1">&#39;field&#39;</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span>
+            <span class="o">-&gt;</span><span class="na">setAllowedTypes</span><span class="p">(</span><span class="s1">&#39;clickable&#39;</span><span class="p">,</span> <span class="s1">&#39;bool&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div><h2 id="step-2-use--call-the-new-type">Step 2. Use &amp; call the new type</h2>
 <p>Go to
 <code>/modules/your_cool_module/src/Core/Grid/Definition/Factory/YourCoolGridDefinitionFactory.php</code>.</p>
 <p>In the space above &ldquo;final class&rdquo; add the line below:</p>
 <p><code>use PrestaShop\Module\Yourcoolmodule\Core\Grid\Column\Type\HtmlColumn;</code></p>
 <p>Then inside the getColumns function among other columns, you are welcome to use the following code snippet:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">-&gt;add(
-    (new HtmlColumn(&#39;some_column&#39;))
-        -&gt;setName($this-&gt;trans(&#39;Print voucher&#39;, [], &#39;Modules.Yourcoolmodule.Admin&#39;))
-        -&gt;setOptions([
-            &#39;field&#39; =&gt; &#39;identifier_column&#39;
-        ])
-)
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+    <span class="p">(</span><span class="k">new</span> <span class="nx">HtmlColumn</span><span class="p">(</span><span class="s1">&#39;some_column&#39;</span><span class="p">))</span>
+        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Print voucher&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Yourcoolmodule.Admin&#39;</span><span class="p">))</span>
+        <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+            <span class="s1">&#39;field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;identifier_column&#39;</span>
+        <span class="p">])</span>
+<span class="p">)</span>
 </code></pre></div><h2 id="step-3-define-the-respective-htmltwig">Step 3. Define the respective .html.twig</h2>
 <p>Let&rsquo;s assume that we need to make an html column to fire some js script. Create the following file:</p>
 <p><code>/modules/your_cool_module/views/PrestaShop/Admin/Common/Grid/Columns/Content/html.html.twig</code></p>
@@ -30219,17 +30217,17 @@ final class HtmlColumn extends AbstractColumn
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1674811231"></script>
-    <script src="/js/perfect-scrollbar.min.js?1674811231"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1674811231"></script>
-    <script src="/js/jquery.sticky.js?1674811231"></script>
-    <script src="/js/featherlight.min.js?1674811231"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1674811231"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1674811231"></script>
-    <script src="/js/learn.js?1674811231"></script>
-    <script src="/js/hugo-learn.js?1674811231"></script>
+    <script src="/js/clipboard.min.js?1674812331"></script>
+    <script src="/js/perfect-scrollbar.min.js?1674812331"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1674812331"></script>
+    <script src="/js/jquery.sticky.js?1674812331"></script>
+    <script src="/js/featherlight.min.js?1674812331"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1674812331"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1674812331"></script>
+    <script src="/js/learn.js?1674812331"></script>
+    <script src="/js/hugo-learn.js?1674812331"></script>
     
-    <script src="/main.js?1674811231"></script>
+    <script src="/main.js?1674812331"></script>
     
     
     

@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1674811251" rel="stylesheet">
-    <link href="/css/syntax-github.css?1674811251" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1674811251" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1674811251" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1674812358" rel="stylesheet">
+    <link href="/css/syntax-github.css?1674812358" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1674812358" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1674812358" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1674811251" rel="stylesheet">
+    <link href="/style.css?1674812358" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1674811251"></script>
+    <script src="/js/jquery-3.3.1.min.js?1674812358"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30146,94 +30146,14 @@ The documentation explains Webpack since it&rsquo;s the tool we chose for the Cl
 <li>To rebuild your assets every time you change a file in the _dev folder, type <code>npm run watch</code>.</li>
 </ul>
 <h2 id="webpack-configuration">Webpack configuration</h2>
-<p>The <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.6.0/themes/classic/_dev/webpack.config.js">Webpack configuration file for Classic Theme</a> is thus:</p>
+<p>The <a href="https://github.com/PrestaShop/classic-theme/blob/develop/_dev/webpack.config.js">Webpack configuration file for Classic Theme</a> is thus:</p>
 <ol>
 <li>All CSS rules go to the <code>assets/css/theme.css</code> file.</li>
 <li>All JavaScript code go to the <code>assets/js/theme.js</code> file.</li>
 </ol>
-<p>It provides proper configuration for compile your Sass, Less, Stylus or CSS files into a single CSS file.</p>
-<p>JavaScript code is written in ES6, and compiled to ES5 with Babel.</p>
-<p>If you want to use Stylus or Less, simply edit the command line under the &ldquo;scripts&rdquo; section.</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">webpack</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack&#39;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">ExtractTextPlugin</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;extract-text-webpack-plugin&#34;</span><span class="p">);</span>
+<p>It provides proper configuration for compile your Sass or CSS files into a single CSS file.</p>
+<p>JavaScript code is written in ES6, and compiled to ES5 with <a href="https://github.com/privatenumber/esbuild-loader">esbuild</a>.</p>
 
-<span class="kd">var</span> <span class="nx">plugins</span> <span class="o">=</span> <span class="p">[];</span>
-
-<span class="nx">plugins</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span>
-  <span class="k">new</span> <span class="nx">ExtractTextPlugin</span><span class="p">(</span><span class="s1">&#39;../css/theme.css&#39;</span><span class="p">)</span>
-<span class="p">);</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">[{</span>
-  <span class="c1">// JavaScript
-</span><span class="c1"></span>  <span class="nx">entry</span><span class="o">:</span> <span class="p">[</span>
-    <span class="s1">&#39;./js/theme.js&#39;</span>
-  <span class="p">],</span>
-  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;../assets/js&#39;</span><span class="p">,</span>
-    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;theme.js&#39;</span>
-  <span class="p">},</span>
-  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">loaders</span><span class="o">:</span> <span class="p">[{</span>
-      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.js$/</span><span class="p">,</span>
-      <span class="nx">exclude</span><span class="o">:</span> <span class="sr">/node_modules/</span><span class="p">,</span>
-      <span class="nx">loaders</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;babel-loader&#39;</span><span class="p">]</span>
-    <span class="p">}]</span>
-  <span class="p">},</span>
-  <span class="nx">externals</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">prestashop</span><span class="o">:</span> <span class="s1">&#39;prestashop&#39;</span>
-  <span class="p">},</span>
-  <span class="nx">plugins</span><span class="o">:</span> <span class="nx">plugins</span><span class="p">,</span>
-  <span class="nx">resolve</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">extensions</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;.js&#39;</span><span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">},</span> <span class="p">{</span>
-  <span class="c1">// CSS
-</span><span class="c1"></span>  <span class="nx">entry</span><span class="o">:</span> <span class="p">[</span>
-    <span class="s1">&#39;./css/normalize.css&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;./css/example.less&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;./css/st/dev.styl&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;./css/theme.scss&#39;</span>
-  <span class="p">],</span>
-  <span class="nx">output</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;../assets/css&#39;</span><span class="p">,</span>
-    <span class="nx">filename</span><span class="o">:</span> <span class="s1">&#39;theme.css&#39;</span>
-  <span class="p">},</span>
-  <span class="nx">module</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">loaders</span><span class="o">:</span> <span class="p">[{</span>
-      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.scss$/</span><span class="p">,</span>
-      <span class="nx">loader</span><span class="o">:</span> <span class="nx">ExtractTextPlugin</span><span class="p">.</span><span class="nx">extract</span><span class="p">(</span>
-        <span class="s2">&#34;style&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;css-loader?sourceMap!postcss!sass-loader?sourceMap&#34;</span>
-      <span class="p">)</span>
-    <span class="p">},</span> <span class="p">{</span>
-      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.styl$/</span><span class="p">,</span>
-      <span class="nx">loader</span><span class="o">:</span> <span class="nx">ExtractTextPlugin</span><span class="p">.</span><span class="nx">extract</span><span class="p">(</span>
-        <span class="s2">&#34;style&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;css-loader?sourceMap!postcss!stylus-loader?sourceMap&#34;</span>
-      <span class="p">)</span>
-    <span class="p">},</span> <span class="p">{</span>
-      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.less$/</span><span class="p">,</span>
-      <span class="nx">loader</span><span class="o">:</span> <span class="nx">ExtractTextPlugin</span><span class="p">.</span><span class="nx">extract</span><span class="p">(</span>
-        <span class="s2">&#34;style&#34;</span><span class="p">,</span>
-        <span class="s2">&#34;css-loader?sourceMap!postcss!less-loader?sourceMap&#34;</span>
-      <span class="p">)</span>
-    <span class="p">},</span> <span class="p">{</span>
-      <span class="nx">test</span><span class="o">:</span> <span class="sr">/\.css$/</span><span class="p">,</span>
-      <span class="nx">loader</span><span class="o">:</span> <span class="nx">ExtractTextPlugin</span><span class="p">.</span><span class="nx">extract</span><span class="p">(</span>
-        <span class="s1">&#39;style&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;css-loader?sourceMap!postcss-loader&#39;</span>
-      <span class="p">)</span>
-    <span class="p">},</span> <span class="p">{</span>
-      <span class="nx">test</span><span class="o">:</span> <span class="sr">/.(png|woff(2)?|eot|ttf|svg)(\?[a-z0-9=\.]+)?$/</span><span class="p">,</span>
-      <span class="nx">loader</span><span class="o">:</span> <span class="s1">&#39;file-loader?name=../css/[hash].[ext]&#39;</span>
-    <span class="p">}]</span>
-  <span class="p">},</span>
-  <span class="nx">plugins</span><span class="o">:</span> <span class="nx">plugins</span><span class="p">,</span>
-  <span class="nx">resolve</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">extensions</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;.scss&#39;</span><span class="p">,</span> <span class="s1">&#39;.styl&#39;</span><span class="p">,</span> <span class="s1">&#39;.less&#39;</span><span class="p">,</span> <span class="s1">&#39;.css&#39;</span><span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}];</span>
-</code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30257,17 +30177,17 @@ The documentation explains Webpack since it&rsquo;s the tool we chose for the Cl
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1674811251"></script>
-    <script src="/js/perfect-scrollbar.min.js?1674811251"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1674811251"></script>
-    <script src="/js/jquery.sticky.js?1674811251"></script>
-    <script src="/js/featherlight.min.js?1674811251"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1674811251"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1674811251"></script>
-    <script src="/js/learn.js?1674811251"></script>
-    <script src="/js/hugo-learn.js?1674811251"></script>
+    <script src="/js/clipboard.min.js?1674812358"></script>
+    <script src="/js/perfect-scrollbar.min.js?1674812358"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1674812358"></script>
+    <script src="/js/jquery.sticky.js?1674812358"></script>
+    <script src="/js/featherlight.min.js?1674812358"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1674812358"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1674812358"></script>
+    <script src="/js/learn.js?1674812358"></script>
+    <script src="/js/hugo-learn.js?1674812358"></script>
     
-    <script src="/main.js?1674811251"></script>
+    <script src="/main.js?1674812358"></script>
     
     
     
