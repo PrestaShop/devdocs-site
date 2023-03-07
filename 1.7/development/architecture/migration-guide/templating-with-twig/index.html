@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/architecture/migration-guide/templating-with-twig/">
 
     
-    <link href="/css/font-awesome.min.css?1677239908" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239908" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239908" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239908" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194990" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194990" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194990" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194990" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239908" rel="stylesheet">
+    <link href="/style.css?1678194990" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239908"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194990"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12537,6 +12537,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#templating-with-twig">Templating with Twig</a>
@@ -29049,8 +29051,8 @@
 
 
 
-<h1 id="templating-with-twig">Templating with Twig</h1>
-<p>This is mostly the easy part. Legacy pages use Smarty while modern pages use Twig. These templating engines are actually similar in many ways.</p>
+
+<h1 id="templating-with-twig">Templating with Twig<a href="#templating-with-twig"></a></h1><p>This is mostly the easy part. Legacy pages use Smarty while modern pages use Twig. These templating engines are actually similar in many ways.</p>
 <p>For instance, this is a legacy template:</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;employee_avatar_small&#34;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">img</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;img&#34;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;{$employee_image}&#34;</span> <span class="p">/&gt;</span>
@@ -29065,8 +29067,8 @@
 </span><span class="x">&lt;/span&gt;
 </span><span class="x"></span><span class="cp">{{</span> <span class="nv">employee.name</span> <span class="cp">}}</span><span class="x">
 </span></code></pre></div><p>The syntax of both engines is really similar. Find out more about Twig by reading the <a href="https://twig.symfony.com/doc/1.x/">Twig documentation</a>.</p>
-<h2 id="helpers">Helpers</h2>
-<p>All our custom helpers have been ported from Smarty to Twig:</p>
+
+<h2 id="helpers">Helpers<a href="#helpers"></a></h2><p>All our custom helpers have been ported from Smarty to Twig:</p>
 <table>
 <thead>
 <tr>
@@ -29090,8 +29092,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="macros">Macros</h2>
-<p>Macros/functions are specific to the modern pages to help with recurrent blocks:</p>
+
+<h2 id="macros">Macros<a href="#macros"></a></h2><p>Macros/functions are specific to the modern pages to help with recurrent blocks:</p>
 <div class="function-definition">
 <dl>
 <dt>form_label_tooltip(name, tooltip, placement)</dt>
@@ -29107,16 +29109,16 @@
 <dd>Renders a label with a help box beside it.</dd>
 </dl>
 </div>
-<h2 id="bootstrap">Bootstrap</h2>
-<p>Legacy templates use <a href="https://getbootstrap.com/docs/3.3/">Bootstrap 3</a> while modern pages use the <a href="https://build.prestashop-project.org/prestashop-ui-kit/">PrestaShop UI Kit</a> that is based on <a href="https://getbootstrap.com/docs/4.0/getting-started/introduction/">Bootstrap 4</a>. This means that you&rsquo;ll need to update some markup (especially CSS classes).</p>
+
+<h2 id="bootstrap">Bootstrap<a href="#bootstrap"></a></h2><p>Legacy templates use <a href="https://getbootstrap.com/docs/3.3/">Bootstrap 3</a> while modern pages use the <a href="https://build.prestashop-project.org/prestashop-ui-kit/">PrestaShop UI Kit</a> that is based on <a href="https://getbootstrap.com/docs/4.0/getting-started/introduction/">Bootstrap 4</a>. This means that you&rsquo;ll need to update some markup (especially CSS classes).</p>
 
 <div class="notices tip" >If you aren&rsquo;t familiar with Bootstrap 4, check out their <a href="https://getbootstrap.com/docs/4.0/migration/">article on migrating to v4</a>, which explains the major changes from v3 to v4.</div>
 
-<h2 id="jquery">jQuery</h2>
-<p>Since we use the jQuery version that is bundled with Bootstrap, old pages use jQuery 1.11 and new ones jQuery 3.3. In addition to this, javascript from old pages was included as separate files without any compilation, while new pages we use modules which are compiled and bundled using Webpack.</p>
-<p>Depending on the page you are migrating, this task may be straightforward or more complex.</p>
-<h2 id="translations">Translations</h2>
 
+<h2 id="jquery">jQuery<a href="#jquery"></a></h2><p>Since we use the jQuery version that is bundled with Bootstrap, old pages use jQuery 1.11 and new ones jQuery 3.3. In addition to this, javascript from old pages was included as separate files without any compilation, while new pages we use modules which are compiled and bundled using Webpack.</p>
+<p>Depending on the page you are migrating, this task may be straightforward or more complex.</p>
+
+<h2 id="translations">Translations<a href="#translations"></a></h2>
 <div class="notices warning" >Be careful when copying translatable wordings, you must use the exact same strings in order to keep the translation working.</div>
 
 <p>Example:</p>
@@ -29125,8 +29127,8 @@
 </span><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Before activating the webservice, you must be sure to: &#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(),</span> <span class="s1">&#39;Admin.Advparameters.Help&#39;</span><span class="p">);</span>
 </code></pre></div><p>&hellip; must become:</p>
 <div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="cp">{{</span> <span class="s1">&#39;Before activating the webservice, you must be sure to: &#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;Admin.Advparameters.Help&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
-</span></code></pre></div><h2 id="manage-modern-assets-with-webpack">Manage modern assets with Webpack</h2>
-<p>PrestaShop uses Webpack to build and bundle static assets in PrestaShop, like Javascript and stylesheets.</p>
+</span></code></pre></div>
+<h2 id="manage-modern-assets-with-webpack">Manage modern assets with Webpack<a href="#manage-modern-assets-with-webpack"></a></h2><p>PrestaShop uses Webpack to build and bundle static assets in PrestaShop, like Javascript and stylesheets.</p>
 
 <div class="notices note" >The root folder for the modern theme is <code>/admin-dev/themes/new-theme</code>.</div>
 
@@ -29155,17 +29157,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239908"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239908"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239908"></script>
-    <script src="/js/jquery.sticky.js?1677239908"></script>
-    <script src="/js/featherlight.min.js?1677239908"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239908"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239908"></script>
-    <script src="/js/learn.js?1677239908"></script>
-    <script src="/js/hugo-learn.js?1677239908"></script>
+    <script src="/js/clipboard.min.js?1678194990"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194990"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194990"></script>
+    <script src="/js/jquery.sticky.js?1678194990"></script>
+    <script src="/js/featherlight.min.js?1678194990"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194990"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194990"></script>
+    <script src="/js/learn.js?1678194990"></script>
+    <script src="/js/hugo-learn.js?1678194990"></script>
     
-    <script src="/main.js?1677239908"></script>
+    <script src="/main.js?1678194990"></script>
     
     
     

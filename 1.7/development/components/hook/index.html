@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/hook/">
 
     
-    <link href="/css/font-awesome.min.css?1677239959" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239959" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239959" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239959" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195036" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195036" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195036" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195036" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239959" rel="stylesheet">
+    <link href="/style.css?1678195036" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239959"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195036"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#the-hook-component">The Hook component</a>
@@ -29036,16 +29038,16 @@
 
 
 
-<h1 id="the-hook-component">The Hook component</h1>
-<p>The preferred way to customize PrestaShop is using Modules. Modules allow to customize PrestaShop in many ways.</p>
+
+<h1 id="the-hook-component">The Hook component<a href="#the-hook-component"></a></h1><p>The preferred way to customize PrestaShop is using Modules. Modules allow to customize PrestaShop in many ways.</p>
 <p>The main path for Module integration are extension points called &ldquo;Hooks&rdquo;, which are placed throughout the system. Modules can subscribe to hooks in order to provide or alter features.</p>
 <p>There are two types of hooks:</p>
 <ul>
 <li><strong>Display hooks</strong> – Integrated mainly (but not exclusively) in templates, they allow modules to provide content that will be injected somewhere in a page.</li>
 <li><strong>Action hooks</strong> – Allow modules to be informed of something happening in the system, and optionally alter the system’s behavior by modifying provided data.</li>
 </ul>
-<h2 id="subscription-registry">Subscription registry</h2>
-<p>PrestaShop&rsquo;s <code>Hook</code> component acts as a registry for hook subscriptions. It stores which modules have subscribed to which hook. Multiple modules can subscribe to the same hook, and a single module can subscribe to multiple hooks.</p>
+
+<h2 id="subscription-registry">Subscription registry<a href="#subscription-registry"></a></h2><p>PrestaShop&rsquo;s <code>Hook</code> component acts as a registry for hook subscriptions. It stores which modules have subscribed to which hook. Multiple modules can subscribe to the same hook, and a single module can subscribe to multiple hooks.</p>
 <p>Here is how a Module subscribes to hook <code>registerGDPRConsent</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">Somemodule</span> <span class="k">extends</span> <span class="nx">Module</span>
@@ -29069,12 +29071,12 @@
         <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">AVAILABLE_HOOKS</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="hook-dispatcher">Hook dispatcher</h2>
-<p>Throughout the software, multiple hooks are dispatched: this means at some point the system will look at all modules which subscribe to a given hook and trigger them, waiting for a result.</p>
+</code></pre></div>
+<h2 id="hook-dispatcher">Hook dispatcher<a href="#hook-dispatcher"></a></h2><p>Throughout the software, multiple hooks are dispatched: this means at some point the system will look at all modules which subscribe to a given hook and trigger them, waiting for a result.</p>
 <p>This is how a hook can be dispatched using <code>Hook</code> class:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$id</span> <span class="o">=</span> <span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;actionModifyZoning&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;address_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$addressID</span><span class="p">]);</span>
-</code></pre></div><h2 id="module-callback">Module callback</h2>
-<p>Modules which have previously subscribed to this hook will be notified and will be able to act on this hook. Depending on the hook&rsquo;s nature, they can alter the data being passed, trigger an event or even return a result (a data structure or raw HTML) to be used within PrestaShop.</p>
+</code></pre></div>
+<h2 id="module-callback">Module callback<a href="#module-callback"></a></h2><p>Modules which have previously subscribed to this hook will be notified and will be able to act on this hook. Depending on the hook&rsquo;s nature, they can alter the data being passed, trigger an event or even return a result (a data structure or raw HTML) to be used within PrestaShop.</p>
 <p>In order to be notified when the subscribed hooks are dispatched, in addition to subscribing to them, modules must also declare one public callback function per subscribed hook, following this naming schema: <code>hook&lt;SubscribedHookName&gt;</code>. That way, when a hook is dispatched, the dispatcher will be able to identify and call the appropriate callback on each subscriber.</p>
 <p>This means that in order to fully subscribe to a hook, a module must call <code>registerHook()</code> <strong>and</strong> declare a callback. For example:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -29120,17 +29122,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239959"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239959"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239959"></script>
-    <script src="/js/jquery.sticky.js?1677239959"></script>
-    <script src="/js/featherlight.min.js?1677239959"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239959"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239959"></script>
-    <script src="/js/learn.js?1677239959"></script>
-    <script src="/js/hugo-learn.js?1677239959"></script>
+    <script src="/js/clipboard.min.js?1678195036"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195036"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195036"></script>
+    <script src="/js/jquery.sticky.js?1678195036"></script>
+    <script src="/js/featherlight.min.js?1678195036"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195036"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195036"></script>
+    <script src="/js/learn.js?1678195036"></script>
+    <script src="/js/hugo-learn.js?1678195036"></script>
     
-    <script src="/main.js?1677239959"></script>
+    <script src="/main.js?1678195036"></script>
     
     
     

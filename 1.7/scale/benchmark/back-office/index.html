@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/scale/benchmark/back-office/">
 
     
-    <link href="/css/font-awesome.min.css?1677239917" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239917" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239917" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239917" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194998" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194998" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194998" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194998" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239917" rel="stylesheet">
+    <link href="/style.css?1678194998" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239917"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194998"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-to-benchmark-your-prestashop-shop-back-office">How to benchmark your PrestaShop Shop (Back-office)</a>
@@ -29069,9 +29071,9 @@
 
 
 
-<h1 id="how-to-benchmark-your-prestashop-shop-back-office">How to benchmark your PrestaShop Shop (Back-office)</h1>
-<h2 id="benchmark-methodology">Benchmark methodology</h2>
-<p>In order to benchmark the performances of the backoffice of your shop, you will use the <strong><a href="https://gatling.io/">Gatling</a></strong> testing tool.</p>
+
+<h1 id="how-to-benchmark-your-prestashop-shop-back-office">How to benchmark your PrestaShop Shop (Back-office)<a href="#how-to-benchmark-your-prestashop-shop-back-office"></a></h1>
+<h2 id="benchmark-methodology">Benchmark methodology<a href="#benchmark-methodology"></a></h2><p>In order to benchmark the performances of the backoffice of your shop, you will use the <strong><a href="https://gatling.io/">Gatling</a></strong> testing tool.</p>
 <blockquote>
 <p><b>Note:
 Backoffice benchmark is only possible starting with PrestaShop 1.7.4.0!</b></p>
@@ -29079,22 +29081,22 @@ Backoffice benchmark is only possible starting with PrestaShop 1.7.4.0!</b></p>
 <blockquote>
 <p>If you want still want to run the test for version &lt; 1.7.4.0, take a look at this PR: <a href="https://github.com/PrestaShop/PrestaShop/pull/8876">https://github.com/PrestaShop/PrestaShop/pull/8876</a></p>
 </blockquote>
-<h2 id="what-is-gatling">What is Gatling?</h2>
-<p><strong><a href="https://gatling.io/">Gatling</a></strong> is a stress tool. Development is currently focusing on HTTP support. We won’t explain here the fundamentals of Gatling, but for more details I suggest you to have a look at <strong><a href="https://github.com/gatling/gatling">the Gatling project</a></strong>.</p>
-<h2 id="automatic-run-of-gatling-on-dockerized-installation-recommended">Automatic run of Gatling on dockerized installation (recommended)</h2>
-<h3 id="prerequisite">Prerequisite</h3>
-<ul>
+
+<h2 id="what-is-gatling">What is Gatling?<a href="#what-is-gatling"></a></h2><p><strong><a href="https://gatling.io/">Gatling</a></strong> is a stress tool. Development is currently focusing on HTTP support. We won’t explain here the fundamentals of Gatling, but for more details I suggest you to have a look at <strong><a href="https://github.com/gatling/gatling">the Gatling project</a></strong>.</p>
+
+<h2 id="automatic-run-of-gatling-on-dockerized-installation-recommended">Automatic run of Gatling on dockerized installation (recommended)<a href="#automatic-run-of-gatling-on-dockerized-installation-recommended"></a></h2>
+<h3 id="prerequisite">Prerequisite<a href="#prerequisite"></a></h3><ul>
 <li>git</li>
 <li>docker</li>
 </ul>
-<h3 id="clone-the-repository">Clone the repository</h3>
-<p>To follow these instructions, you will use the following github repository:
+
+<h3 id="clone-the-repository">Clone the repository<a href="#clone-the-repository"></a></h3><p>To follow these instructions, you will use the following github repository:
 <strong><a href="https://github.com/PrestaShop/performance-project">PrestaShop performance project</a></strong></p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">git clone git@github.com:PrestaShop/performance-project.git
-</code></pre></div><h3 id="shop-filled-with-fixtures">Shop filled with fixtures</h3>
-<p>Benchmarks require a pre-populated shop. But this shop content has to be the same at each new bench in order to get reproducible results. PrestaShop ShopCreator project will help to generate fixtures, used during shop installation to populate the benched shop.</p>
-<h4 id="generate-fixtures">Generate fixtures</h4>
-<pre><code>cd performance-project
+</code></pre></div>
+<h3 id="shop-filled-with-fixtures">Shop filled with fixtures<a href="#shop-filled-with-fixtures"></a></h3><p>Benchmarks require a pre-populated shop. But this shop content has to be the same at each new bench in order to get reproducible results. PrestaShop ShopCreator project will help to generate fixtures, used during shop installation to populate the benched shop.</p>
+
+<h4 id="generate-fixtures">Generate fixtures<a href="#generate-fixtures"></a></h4><pre><code>cd performance-project
 cd shop
 </code></pre>
 <p><code>README.md</code> contains instructions to get a working shop filled with fixtures, using “PrestaShop ShopCreator” project</p>
@@ -29110,20 +29112,20 @@ cd shop
 <pre><code>php app/console.php
 </code></pre>
 <p>Fixtures are created in /generated_data/ directory. It contains xml files with data for each PrestaShop entity, and images for products, categories…</p>
-<h4 id="install-a-shop-with-generated-fixtures">Install a shop with generated fixtures</h4>
-<p>To use these generated fixtures, you need to copy the directory content into the installation directory of PrestaShop before installing the shop</p>
+
+<h4 id="install-a-shop-with-generated-fixtures">Install a shop with generated fixtures<a href="#install-a-shop-with-generated-fixtures"></a></h4><p>To use these generated fixtures, you need to copy the directory content into the installation directory of PrestaShop before installing the shop</p>
 <pre><code>cp -R generated_data/* [prestashop]/install/fixtures/fashion/
 </code></pre>
 <p>Make sure you’re not in debug mode! In config/defines.inc.php you should have:</p>
 <pre><code>define('_PS_MODE_DEV_', false);
 </code></pre>
 <p>Once this is done, simply install and run your shop. If you want to use our pre-configured Dockerfile to do this, just keep reading.</p>
-<h4 id="install-and-run-the-shop-with-docker">Install and run the shop with docker</h4>
-<p>The directory /prestashop-performance/ contains required Dockerfile and scripts to install and run a shop with generated fixtures</p>
+
+<h4 id="install-and-run-the-shop-with-docker">Install and run the shop with docker<a href="#install-and-run-the-shop-with-docker"></a></h4><p>The directory /prestashop-performance/ contains required Dockerfile and scripts to install and run a shop with generated fixtures</p>
 <pre><code>cd ..
 </code></pre>
-<h5 id="build-the-docker-image">Build the docker image</h5>
-<p>Copy the previously generated fixtures in the corresponding directory.</p>
+
+<h5 id="build-the-docker-image">Build the docker image<a href="#build-the-docker-image"></a></h5><p>Copy the previously generated fixtures in the corresponding directory.</p>
 <pre><code>cp -R prestashop-shop-creator/generated_data/* prestashop-performance/fixtures/
 </code></pre>
 <p>Then you can build the docker image. This one will embed generated fixtures since the Dockerfile copy them in the image.</p>
@@ -29131,8 +29133,8 @@ cd shop
 docker build -t prestashop-bench .
 </code></pre>
 <p>Your image is ready to use.</p>
-<h5 id="run-the-shop">Run the shop</h5>
-<p>Run the shop with the following command:</p>
+
+<h5 id="run-the-shop">Run the shop<a href="#run-the-shop"></a></h5><p>Run the shop with the following command:</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">docker run \
 -e FIXTURE_FOLDER=fixtures\
 	-e PS_DOMAIN=localhost:8080\
@@ -29148,22 +29150,22 @@ docker build -t prestashop-bench .
 	prestashop-bench
 </code></pre></div><p>Installation can take several minutes, depending on the size of fixtures you set, and of course depending on the machine you run it on.</p>
 <p>Once it is done, you should access this shop from http://localhost:8080 on your browser.</p>
-<h5 id="hosting-customizations">Hosting customizations</h5>
-<p>The docker image above is used for this study purposes. It is deployed on several stacks detailed in Results.
+
+<h5 id="hosting-customizations">Hosting customizations<a href="#hosting-customizations"></a></h5><p>The docker image above is used for this study purposes. It is deployed on several stacks detailed in Results.
 Docker usage makes it easy to customize prestashop installation, or hosting configuration like php tuning, or mysql tuning.</p>
-<h3 id="run-gatling-scenarios">Run Gatling scenarios</h3>
-<pre><code>cd performance-project
+
+<h3 id="run-gatling-scenarios">Run Gatling scenarios<a href="#run-gatling-scenarios"></a></h3><pre><code>cd performance-project
 cd benchmark/gatling
 </code></pre>
 
 <div class="notices note" ><em>NOTICE</em> : Gatling scenarios will create orders on the tested shop. You should not use it on production environment</div>
 
-<h4 id="build-gatling-image">Build Gatling image</h4>
-<p>Official gatling image needs to be lightly customized. More precisely we need to pass some java arguments to the scenarios.</p>
+
+<h4 id="build-gatling-image">Build Gatling image<a href="#build-gatling-image"></a></h4><p>Official gatling image needs to be lightly customized. More precisely we need to pass some java arguments to the scenarios.</p>
 <pre><code>docker build -t prestashop-bench-gatling .
 </code></pre>
-<h4 id="run-gatling">Run Gatling</h4>
-<p>Provided Gatling run command accepts arguments such as user count, customer count, test duration.</p>
+
+<h4 id="run-gatling">Run Gatling<a href="#run-gatling"></a></h4><p>Provided Gatling run command accepts arguments such as user count, customer count, test duration.</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">docker run -it --rm \
 		-v $dir/results:/opt/gatling/results \
 		-e JAVA_OPTS=&#34;-DusersCount=500
@@ -29192,25 +29194,25 @@ User count to run BackOfficeCrawl scenario</li>
 <li>-s LoadSimulation
 The name of the gatling simulation in the code (in the directory user-files/simulations/)</li>
 </ul>
-<h4 id="gatling-run-script">Gatling run script</h4>
-<p>A more scriptable approach could be using the provided <code>run.sh</code> script. This script aims to properly rename result directory to a more readable one, and process these results to extract some useful data such as the needed “order-per-hour” KPI.
+
+<h4 id="gatling-run-script">Gatling run script<a href="#gatling-run-script"></a></h4><p>A more scriptable approach could be using the provided <code>run.sh</code> script. This script aims to properly rename result directory to a more readable one, and process these results to extract some useful data such as the needed “order-per-hour” KPI.
 You could then write your own <code>batch.sh</code> to run multiple gatling benchmarks.</p>
-<h2 id="manual-run-of-gatling">Manual run of Gatling</h2>
-<h3 id="gatling-installation">Gatling installation</h3>
-<p>Download Gatling from <strong><a href="https://gatling.io/download/">here</a></strong>, and in the same way have a look at <strong><a href="https://gatling.io/docs/current/quickstart/">the Gatling quickstart page</a></strong>.</p>
+
+<h2 id="manual-run-of-gatling">Manual run of Gatling<a href="#manual-run-of-gatling"></a></h2>
+<h3 id="gatling-installation">Gatling installation<a href="#gatling-installation"></a></h3><p>Download Gatling from <strong><a href="https://gatling.io/download/">here</a></strong>, and in the same way have a look at <strong><a href="https://gatling.io/docs/current/quickstart/">the Gatling quickstart page</a></strong>.</p>
 <p>Once unzipping the folder it will look like as shown below:</p>
 <p><img src="https://i.imgur.com/devRwHF.png" alt="Gatling"></p>
-<h3 id="your-gatling-is-ready-to-be-run">Your Gatling is ready to be run</h3>
-<p>Now let&rsquo;s test if our Gatling works well, so you can launch a sample test included natively in the project with the CLI:</p>
+
+<h3 id="your-gatling-is-ready-to-be-run">Your Gatling is ready to be run<a href="#your-gatling-is-ready-to-be-run"></a></h3><p>Now let&rsquo;s test if our Gatling works well, so you can launch a sample test included natively in the project with the CLI:</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">➜  ./bin/gatling.sh 
 </code></pre></div><p>And choose the simulation you want to run</p>
 <p><img src="https://i.imgur.com/HQ5eCfZ.png" alt="Gatling"></p>
 <p>In my example I run &ldquo;[1] basic.BasicExempleSimulation&rdquo;
 <img src="https://i.imgur.com/nJdOPsB.png" alt="Gatling"></p>
-<h5 id="well-done-our-gatling-installation-is-ready">Well done! Our Gatling installation is ready!</h5>
-<p>After few minutes you can consult the detailed report generated automatically into &ldquo;results&rdquo; folder.</p>
-<h3 id="insert-and-setup-your-script">Insert and setup your script</h3>
-<p>Download the script &ldquo;<a href="../parcoursbackoffice.scala">parcoursbackoffice.scala</a>&rdquo; and put it under &ldquo;/gatling/user-files/simulations&rdquo;.</p>
+
+<h5 id="well-done-our-gatling-installation-is-ready">Well done! Our Gatling installation is ready!<a href="#well-done-our-gatling-installation-is-ready"></a></h5><p>After few minutes you can consult the detailed report generated automatically into &ldquo;results&rdquo; folder.</p>
+
+<h3 id="insert-and-setup-your-script">Insert and setup your script<a href="#insert-and-setup-your-script"></a></h3><p>Download the script &ldquo;<a href="../parcoursbackoffice.scala">parcoursbackoffice.scala</a>&rdquo; and put it under &ldquo;/gatling/user-files/simulations&rdquo;.</p>
 <p>Open with your editor the parcoursbackoffice.scala file and setup your script:</p>
 <ul>
 <li><strong>URL:</strong>
@@ -29220,8 +29222,8 @@ You could then write your own <code>batch.sh</code> to run multiple gatling benc
 <li><strong>PASSWORD:</strong>
 <img src="https://i.imgur.com/zRMVSiW.png" alt="Gatling"></li>
 </ul>
-<h3 id="disable-the-token">Disable the token</h3>
-<p>To avoid handling the multiple generated token on each back-office page, you can just disable it by following the steps below:</p>
+
+<h3 id="disable-the-token">Disable the token<a href="#disable-the-token"></a></h3><p>To avoid handling the multiple generated token on each back-office page, you can just disable it by following the steps below:</p>
 <p>Setup environnement <strong><em>TOKEN</em></strong> variable to &ldquo;disabled&rdquo; allows you to disable token in urls for Symfony pages and in legacy pages.
 If you want to test it you need to setup environment variable (SetEnv <em>TOKEN</em> disabled in Apache vhost configuration file) and check that Symfony pages (Product, Module, &hellip;) urls doesn&rsquo;t contains _token anymore and legacy pages shouldn&rsquo;t contains token parameter.</p>
 <p>For example if you site is setup in
@@ -29237,9 +29239,9 @@ Now the token are disabled on your PrestaShop site Back-office, this mean that e
 That why we recommend you to run the benchmark on a website only dedicated to test.
 If this is not the case, don&rsquo;t forget to restore it when you finish your performance test.</p>
 </blockquote>
-<h5 id="congratulations-your-performance-testing-script-is-ready-to-be-run">Congratulations your performance testing script is ready to be run!</h5>
-<h4 id="dont-forget-to-improve-and-share-this-gatling-script">Don&rsquo;t forget to improve and share this Gatling script</h4>
 
+<h5 id="congratulations-your-performance-testing-script-is-ready-to-be-run">Congratulations your performance testing script is ready to be run!<a href="#congratulations-your-performance-testing-script-is-ready-to-be-run"></a></h5>
+<h4 id="dont-forget-to-improve-and-share-this-gatling-script">Don&rsquo;t forget to improve and share this Gatling script<a href="#dont-forget-to-improve-and-share-this-gatling-script"></a></h4>
 
 <footer class="article-footer">
 	
@@ -29263,17 +29265,17 @@ If this is not the case, don&rsquo;t forget to restore it when you finish your p
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239917"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239917"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239917"></script>
-    <script src="/js/jquery.sticky.js?1677239917"></script>
-    <script src="/js/featherlight.min.js?1677239917"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239917"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239917"></script>
-    <script src="/js/learn.js?1677239917"></script>
-    <script src="/js/hugo-learn.js?1677239917"></script>
+    <script src="/js/clipboard.min.js?1678194998"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194998"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194998"></script>
+    <script src="/js/jquery.sticky.js?1678194998"></script>
+    <script src="/js/featherlight.min.js?1678194998"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194998"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194998"></script>
+    <script src="/js/learn.js?1678194998"></script>
+    <script src="/js/hugo-learn.js?1678194998"></script>
     
-    <script src="/main.js?1677239917"></script>
+    <script src="/main.js?1678194998"></script>
     
     
     

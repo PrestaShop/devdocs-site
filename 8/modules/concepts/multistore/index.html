@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239932" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239932" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239932" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239932" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195012" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195012" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195012" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195012" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239932" rel="stylesheet">
+    <link href="/style.css?1678195012" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239932"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195012"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13766,6 +13766,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#specifics-of-multistore-module-development">Specifics of multistore module development</a>
@@ -30274,13 +30276,13 @@
 
 
 
-<h1 id="specifics-of-multistore-module-development">Specifics of multistore module development</h1>
-<h2 id="usage-of-configuration-variables">Usage of configuration variables</h2>
-<p>As indicated in the <a href="https://devdocs.prestashop-project.org/8/development/components/configuration/">Configuration</a> section, some of the methods from the Configuration object have three optional parameters, which make it possible to target any other existing store on the current PrestaShop installation: <code>id_shop</code>, <code>id_shop_group</code> and <code>id_lang</code>.</p>
+
+<h1 id="specifics-of-multistore-module-development">Specifics of multistore module development<a href="#specifics-of-multistore-module-development"></a></h1>
+<h2 id="usage-of-configuration-variables">Usage of configuration variables<a href="#usage-of-configuration-variables"></a></h2><p>As indicated in the <a href="https://devdocs.prestashop-project.org/8/development/components/configuration/">Configuration</a> section, some of the methods from the Configuration object have three optional parameters, which make it possible to target any other existing store on the current PrestaShop installation: <code>id_shop</code>, <code>id_shop_group</code> and <code>id_lang</code>.</p>
 <p>While these parameters can prove useful when having to handle multiple specific and known stores from one of the presented Configuration method, they are not recommended for general usage. Your configuration code should only target the current store using the current Context, which every <code>Configuration</code> method does automatically.</p>
 <p>In the few occasions where you need to apply a new value to the same Configuration variable for all existing stores, using the <code>Configuration::updateGlobalValue('myVariable', 'myValue')</code> method. You can then retrieve that value for the current store by using the <code>Configuration::get('myVariable')</code> method.</p>
-<h2 id="handling-images-and-other-types-of-files">Handling images and other types of files</h2>
-<p>Images can be defined on a per-store or a per-store-group basis: an item can have a default image on most stores on the PrestaShop installation, and another image for a specific store.</p>
+
+<h2 id="handling-images-and-other-types-of-files">Handling images and other types of files<a href="#handling-images-and-other-types-of-files"></a></h2><p>Images can be defined on a per-store or a per-store-group basis: an item can have a default image on most stores on the PrestaShop installation, and another image for a specific store.</p>
 <p>In order to achieve that, the name of the image must be stored in a configuration variable. The default image is then replaced on the fly with the store-specific image.</p>
 <p>Let&rsquo;s explore how the Blockadvertising module does it. Using this module, you can upload an image to be displayed on the front office of the store, serving as an advertisement to any link you might want. The module was built to make use of the multistore feature: depending on the selected store or store group in the multistore menu, the user can assign the uploaded image to a given store context or store group context.</p>
 <p>Here is how it saves a submitted file depending on the store:</p>
@@ -30338,15 +30340,15 @@
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_img</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getMediaServer</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">)</span>
     <span class="o">.</span> <span class="nx">_MODULE_DIR_</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">.</span> <span class="s1">&#39;/&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">.</span> <span class="s1">&#39;.&#39;</span> 
     <span class="o">.</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">);</span>
-</code></pre></div><h2 id="building-database-tables-that-support-multistore">Building database tables that support multistore</h2>
-<p>There can be several scenarios:</p>
+</code></pre></div>
+<h2 id="building-database-tables-that-support-multistore">Building database tables that support multistore<a href="#building-database-tables-that-support-multistore"></a></h2><p>There can be several scenarios:</p>
 <ul>
 <li>The object/entity exists in some stores, but not in all of them: you should use an associative table, and handle it using <code>id_group_shop</code>.</li>
 <li>The object/entity exists in all stores: use the regular tables, with a custom field. Handle it using <code>id_entity</code>, <code>id_group_shop</code> and the attributes.</li>
 <li>The language must be different for every store: handle it using <code>id_shop</code> in the <code>_lang</code> table.</li>
 </ul>
-<h3 id="object-in-some-stores-only">Object in some stores only</h3>
-<p>When building SQL queries that manage module data, the method to use is <code>Shop::addSqlRestriction($share = false, $alias = null)</code>.</p>
+
+<h3 id="object-in-some-stores-only">Object in some stores only<a href="#object-in-some-stores-only"></a></h3><p>When building SQL queries that manage module data, the method to use is <code>Shop::addSqlRestriction($share = false, $alias = null)</code>.</p>
 <p>It makes it possible to add restrictions to a SQL query, in order to retrieve information on a shop or a shop group.</p>
 <p>The parameters are optional:</p>
 <ul>
@@ -30357,8 +30359,8 @@
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;SELECT date_add, COUNT(`date_add`) as total
 </span><span class="s1"> FROM `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;connections`
 </span><span class="s1"> WHERE 1 &#39;</span> <span class="o">.</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">addSqlRestriction</span><span class="p">();</span>
-</code></pre></div><h3 id="object-in-all-stores">Object in all stores</h3>
-<p>The method to use is <code>Shop::addSqlAssociation($table, $alias, $inner_join = true, $on = null, $force_not_default = false)</code>.</p>
+</code></pre></div>
+<h3 id="object-in-all-stores">Object in all stores<a href="#object-in-all-stores"></a></h3><p>The method to use is <code>Shop::addSqlAssociation($table, $alias, $inner_join = true, $on = null, $force_not_default = false)</code>.</p>
 <p>It makes it possible to add a <code>JOIN</code> clause to the SQL query, joining a table and its associated table in multistore mode.</p>
 <p>For instance, this query automatically associates the<code> _DB_PREFIX_ . 'product_shop'</code> table to the <code>_DB_PREFIX_ . 'product'</code> table using the <code>p</code> alias:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;SELECT wp.`id_product`
@@ -30366,8 +30368,8 @@
 </span><span class="s1"> LEFT JOIN `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;product` p ON p.`id_product` = wp.`id_product`
 </span><span class="s1"> &#39;</span> <span class="o">.</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">addSqlAssociation</span><span class="p">(</span><span class="s1">&#39;product&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">);</span>
 </code></pre></div><p>This way, the joint between the information from the product and the current store&rsquo;s context is applied.</p>
-<h3 id="different-language-in-every-store">Different language in every store</h3>
-<p>The method to use is <code>Shop::addSqlRestrictionOnLang($alias = null, $id_shop = null)</code>.</p>
+
+<h3 id="different-language-in-every-store">Different language in every store<a href="#different-language-in-every-store"></a></h3><p>The method to use is <code>Shop::addSqlRestrictionOnLang($alias = null, $id_shop = null)</code>.</p>
 <p>It makes it possible to add a restriction on id_shop for a multishop language table.</p>
 <p>For instance, this query automatically associates the<code> _DB_PREFIX_ . 'product_lang'</code> table to the <code>_DB_PREFIX_ . 'wishlist_product'</code> table using the <code>pl</code> alias:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;SELECT wp.`id_product`
@@ -30401,17 +30403,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239932"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239932"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239932"></script>
-    <script src="/js/jquery.sticky.js?1677239932"></script>
-    <script src="/js/featherlight.min.js?1677239932"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239932"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239932"></script>
-    <script src="/js/learn.js?1677239932"></script>
-    <script src="/js/hugo-learn.js?1677239932"></script>
+    <script src="/js/clipboard.min.js?1678195012"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195012"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195012"></script>
+    <script src="/js/jquery.sticky.js?1678195012"></script>
+    <script src="/js/featherlight.min.js?1678195012"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195012"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195012"></script>
+    <script src="/js/learn.js?1678195012"></script>
+    <script src="/js/hugo-learn.js?1678195012"></script>
     
-    <script src="/main.js?1677239932"></script>
+    <script src="/main.js?1678195012"></script>
     
     
     

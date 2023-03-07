@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/concepts/templating/admin-views/">
 
     
-    <link href="/css/font-awesome.min.css?1677239915" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239915" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239915" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239915" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194996" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194996" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194996" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194996" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239915" rel="stylesheet">
+    <link href="/style.css?1678194996" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239915"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194996"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12537,6 +12537,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-to-override-back-office-views">How to override Back Office views</a>
@@ -29049,21 +29051,21 @@
 
 
 
-<h1 id="how-to-override-back-office-views">How to override Back Office views</h1>
 
+<h1 id="how-to-override-back-office-views">How to override Back Office views<a href="#how-to-override-back-office-views"></a></h1>
 <div class="magic-version-pill" data-version="1.7.3" data-title="New in PrestaShop 1.7.3"></div>
 
 
 <p>Since PrestaShop 1.7, the back office is being progressively migrated to the Symfony framework. Even though modules are no longer allowed to override a complete controller like before (it was highly discouraged anyway), we have introduced new powerful and more efficient ways to customize the Back Office.</p>
 <p>As part of this migration, PrestaShop is switching its templating engine from Smarty to <a href="https://twig.symfony.com/">Twig</a>. Twig is very popular in the PHP/Symfony world, it&rsquo;s well-documented and it&rsquo;s also one of the most efficient engines out there.</p>
 <p>This means that once all the pages have been migrated, the whole Back Office will be Twig-based. This engine has allowed us to enable some powerful new features for module developers on modern pages.</p>
-<h2 id="override-templates">Override templates</h2>
-<p>Let&rsquo;s say we want to improve the Product Listing page of the back office.</p>
+
+<h2 id="override-templates">Override templates<a href="#override-templates"></a></h2><p>Let&rsquo;s say we want to improve the Product Listing page of the back office.</p>
 <p>Our Customer want a better Listing view: the &ldquo;Price&rdquo; column should be at position 2 and the &ldquo;Reference&rdquo; column to be removed. How can we do that? It&rsquo;s quite simple.</p>
-<h3 id="identify-the-template-to-override">Identify the template to override</h3>
-<p>First we need to identify which Twig template(s) is (are) rendered. Using the <em>Debug mode</em>, select the &ldquo;Twig metrics&rdquo; block in the Symfony Debug toolbar. You&rsquo;ll see the list of Twig templates used to render the page. In our case, we are interested in the template &ldquo;<strong>@PrestaShop/Admin/Product/CatalogPage/catalog.html.twig</strong>&rdquo;.</p>
-<h3 id="override-the-template-in-the-module-a-simple-hello-world">Override the template in the module: a simple &ldquo;Hello world!&rdquo;</h3>
-<p>Now we have found the right template, let&rsquo;s override it inside a module.
+
+<h3 id="identify-the-template-to-override">Identify the template to override<a href="#identify-the-template-to-override"></a></h3><p>First we need to identify which Twig template(s) is (are) rendered. Using the <em>Debug mode</em>, select the &ldquo;Twig metrics&rdquo; block in the Symfony Debug toolbar. You&rsquo;ll see the list of Twig templates used to render the page. In our case, we are interested in the template &ldquo;<strong>@PrestaShop/Admin/Product/CatalogPage/catalog.html.twig</strong>&rdquo;.</p>
+
+<h3 id="override-the-template-in-the-module-a-simple-hello-world">Override the template in the module: a simple &ldquo;Hello world!&rdquo;<a href="#override-the-template-in-the-module-a-simple-hello-world"></a></h3><p>Now we have found the right template, let&rsquo;s override it inside a module.
 In a module called <code>foo</code> let&rsquo;s create the related template. As the template is located inside the <code>PrestaShop/Admin/Product/CatalogPage</code> folder, we need to create the same path.</p>
 <p>So Let&rsquo;s create a file named <code>catalog.html.twig</code> in the <code>modules/foo/views/PrestaShop/Admin/Product/CatalogPage/catalog.html.twig</code> folder: we could re-use the one in the <code>src/PrestaShopBundle/Resources/views/Admin/Product/CatalogPage</code> folder, but let&rsquo;s start with a very simple override.</p>
 <p>Note that we use <code>PrestaShopBundle</code> instead of <code>@PrestaShop</code> to be sure we extend the original file.</p>
@@ -29103,17 +29105,17 @@ In a module called <code>foo</code> let&rsquo;s create the related template. As 
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239915"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239915"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239915"></script>
-    <script src="/js/jquery.sticky.js?1677239915"></script>
-    <script src="/js/featherlight.min.js?1677239915"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239915"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239915"></script>
-    <script src="/js/learn.js?1677239915"></script>
-    <script src="/js/hugo-learn.js?1677239915"></script>
+    <script src="/js/clipboard.min.js?1678194996"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194996"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194996"></script>
+    <script src="/js/jquery.sticky.js?1678194996"></script>
+    <script src="/js/featherlight.min.js?1678194996"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194996"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194996"></script>
+    <script src="/js/learn.js?1678194996"></script>
+    <script src="/js/hugo-learn.js?1678194996"></script>
     
-    <script src="/main.js?1677239915"></script>
+    <script src="/main.js?1678194996"></script>
     
     
     

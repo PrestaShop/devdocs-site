@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239926" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239926" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239926" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239926" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195006" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195006" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195006" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195006" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239926" rel="stylesheet">
+    <link href="/style.css?1678195006" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239926"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195006"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13772,6 +13772,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#understanding-the-src-folder">Understanding the &ldquo;src&rdquo; folder</a>
@@ -30276,15 +30278,15 @@
 
 
 
-<h1 id="understanding-the-src-folder">Understanding the &ldquo;src&rdquo; folder</h1>
-<p>In the <code>/src</code> folder you&rsquo;ll find 3 main folders with different purposes:</p>
+
+<h1 id="understanding-the-src-folder">Understanding the &ldquo;src&rdquo; folder<a href="#understanding-the-src-folder"></a></h1><p>In the <code>/src</code> folder you&rsquo;ll find 3 main folders with different purposes:</p>
 <ul>
 <li><strong>Core</strong>: contains business logic classes</li>
 <li><strong>Adapter</strong>: business logic classes that still depend on legacy framework (for instance: <code>Context</code>, <code>Dispatcher</code> or constants);</li>
 <li><strong>PrestaShopBundle</strong>: classes that acts as a glue between PrestaShop classes and Symfony</li>
 </ul>
-<h2 id="core">Core</h2>
-<p>Core classes belong to the <code>PrestaShop\PrestaShop\Core</code> namespace.</p>
+
+<h2 id="core">Core<a href="#core"></a></h2><p>Core classes belong to the <code>PrestaShop\PrestaShop\Core</code> namespace.</p>
 <p>This is the default destination for any new code, as long as it follows these rules:</p>
 <ol>
 <li>It MUST NOT depend on any legacy classes like <code>Context</code>, <code>Dispatcher</code>, etc.</li>
@@ -30295,8 +30297,8 @@
 <li>It SHOULD NOT depend directly on Adapter classes (it SHOULD depend on interfaces instead).</li>
 <li>New interfaces MUST be added in Core, unless they depend on legacy code.</li>
 </ol>
-<h2 id="adapter">Adapter</h2>
-<p>Adapter classes belong to the <code>PrestaShop\PrestaShop\Adapter</code> namespace.</p>
+
+<h2 id="adapter">Adapter<a href="#adapter"></a></h2><p>Adapter classes belong to the <code>PrestaShop\PrestaShop\Adapter</code> namespace.</p>
 <p>Since Core code cannot depend directly on legacy classes, classes in the Adapter namespace provide Core classes with &ldquo;bridge&rdquo; to legacy classes by following the <a href="https://en.wikipedia.org/wiki/Adapter_pattern">Adapter pattern strategy</a>. Through this pattern, Adapter classes wrap legacy code in a way that implements the interface required by Core.</p>
 <p>In time, these interfaces will be reimplemented in &ldquo;pure&rdquo; Core code, rendering Adapters unnecessary.</p>
 <p>Code in this namespace should follow these rules:</p>
@@ -30310,8 +30312,8 @@
 <p>You should create a new file here whenever you have a hard bound with legacy files, and
 you can&rsquo;t refactor it easily. For instance, take a look at <code>PhpParameters</code> class in &ldquo;Configuration&rdquo;: this class doesn&rsquo;t rely on
 Context or specific constants but on the configuration files of PrestaShop legacy framework. As these files are shared by both front and back, we couldn&rsquo;t manage to refactor it and remove it now.</p>
-<h2 id="prestashopbundle">PrestaShopBundle</h2>
-<p>Bundle classes belong to the <code>PrestaShopBundle</code> namespace. This folder contains the code composing the application layer, meaning:</p>
+
+<h2 id="prestashopbundle">PrestaShopBundle<a href="#prestashopbundle"></a></h2><p>Bundle classes belong to the <code>PrestaShopBundle</code> namespace. This folder contains the code composing the application layer, meaning:</p>
 <ul>
 <li>Classes wrapping PrestaShop business logic into a Symfony application</li>
 <li>Classes relying heavily on Symfony such as Controllers, Form Types, etc.</li>
@@ -30332,8 +30334,8 @@ Context or specific constants but on the configuration files of PrestaShop legac
 <li>Security: Glue between Security Bundle and PrestaShop authorization/authentication</li>
 <li>Twig: Contains PrestaShop-specific Twig extensions</li>
 </ul>
-<h2 id="dependency-rules">Dependency rules</h2>
-<p>Here&rsquo;s a recap for the dependency rules.</p>
+
+<h2 id="dependency-rules">Dependency rules<a href="#dependency-rules"></a></h2><p>Here&rsquo;s a recap for the dependency rules.</p>
 <table>
 <thead>
 <tr>
@@ -30407,17 +30409,17 @@ Context or specific constants but on the configuration files of PrestaShop legac
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239926"></script>
-    <script src="/js/jquery.sticky.js?1677239926"></script>
-    <script src="/js/featherlight.min.js?1677239926"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239926"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239926"></script>
-    <script src="/js/learn.js?1677239926"></script>
-    <script src="/js/hugo-learn.js?1677239926"></script>
+    <script src="/js/clipboard.min.js?1678195006"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195006"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195006"></script>
+    <script src="/js/jquery.sticky.js?1678195006"></script>
+    <script src="/js/featherlight.min.js?1678195006"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195006"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195006"></script>
+    <script src="/js/learn.js?1678195006"></script>
+    <script src="/js/hugo-learn.js?1678195006"></script>
     
-    <script src="/main.js?1677239926"></script>
+    <script src="/main.js?1678195006"></script>
     
     
     

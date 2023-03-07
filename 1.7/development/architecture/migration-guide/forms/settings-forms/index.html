@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/architecture/migration-guide/forms/settings-forms/">
 
     
-    <link href="/css/font-awesome.min.css?1677239909" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239909" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239909" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239909" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194990" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194990" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194990" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194990" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239909" rel="stylesheet">
+    <link href="/style.css?1678194990" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239909"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194990"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12543,6 +12543,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#settings-forms">Settings Forms</a>
@@ -29058,15 +29060,15 @@
 
 
 
-<h1 id="settings-forms">Settings Forms</h1>
-<h2 id="introduction">Introduction</h2>
-<p>In PrestaShop, there are a lots of settings forms that require a unified way to handle of them. To move the settings creation and update out of controllers the following components are being used:</p>
+
+<h1 id="settings-forms">Settings Forms<a href="#settings-forms"></a></h1>
+<h2 id="introduction">Introduction<a href="#introduction"></a></h2><p>In PrestaShop, there are a lots of settings forms that require a unified way to handle of them. To move the settings creation and update out of controllers the following components are being used:</p>
 <ul>
 <li><strong>Form Data Provider</strong> - responsible for options data retrieval and saving the data.</li>
 <li><strong>Form Handler</strong> - responsible for building the form.</li>
 </ul>
-<h2 id="form-data-providers">Form Data Providers</h2>
-<p>In order to load existing data into the form (when editing, for instance) and save the form data (when the form is submitted), you need to create and register a <strong>Form Data Provider</strong>.</p>
+
+<h2 id="form-data-providers">Form Data Providers<a href="#form-data-providers"></a></h2><p>In order to load existing data into the form (when editing, for instance) and save the form data (when the form is submitted), you need to create and register a <strong>Form Data Provider</strong>.</p>
 <p>You can create your own based on one of the existing implementations, or on the interface:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form</span><span class="p">;</span>
@@ -29088,8 +29090,8 @@
     <span class="k">public</span> <span class="k">function</span> <span class="nf">setData</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div><p>The idea is to uncouple data management from Controllers, so populating the form and saving form data will be done in these classes. Be aware though, you shouldn&rsquo;t manipulate the database here – that task need to be delegated to dedicated classes.</p>
-<h2 id="form-handlers">Form Handlers</h2>
-<p>Once you are able to manage data loaded to or sent by your forms, you need a way to build those forms (which can be themselves composed of multiple forms).</p>
+
+<h2 id="form-handlers">Form Handlers<a href="#form-handlers"></a></h2><p>Once you are able to manage data loaded to or sent by your forms, you need a way to build those forms (which can be themselves composed of multiple forms).</p>
 <p>For this, you need a Form Handler. You can either implement it yourself as a class (based on the interface <code>PrestaShop\PrestaShop\Core\Form\FormHandlerInterface</code>), or use PrestaShop&rsquo;s core <code>FormHandler</code> to create a service in a declarative way – no need for a new class!</p>
 <p>As an example, here&rsquo;s how the Administration page&rsquo;s Form Handler service is declared:</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># /src/PrestaShopBundle/Resources/config/services/form/form_handler.yml</span><span class="w">
@@ -29132,8 +29134,8 @@
 <p>The last argument is the name of the form.</p>
 </li>
 </ul>
-<h2 id="form-request-handling-in-controllers">Form request handling in Controllers</h2>
-<p>In modern pages, Controllers have or should have only one responsibility: handle the User request and return a response. This is why in modern pages, controllers should be as thin as possible and rely on specific classes (services) to manage the data. As always, check out the existing implementations, like in the <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/PrestaShopBundle/Controller/Admin/Configure/AdvancedParameters/PerformanceController.php">PerformanceController</a>.</p>
+
+<h2 id="form-request-handling-in-controllers">Form request handling in Controllers<a href="#form-request-handling-in-controllers"></a></h2><p>In modern pages, Controllers have or should have only one responsibility: handle the User request and return a response. This is why in modern pages, controllers should be as thin as possible and rely on specific classes (services) to manage the data. As always, check out the existing implementations, like in the <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/PrestaShopBundle/Controller/Admin/Configure/AdvancedParameters/PerformanceController.php">PerformanceController</a>.</p>
 <p>This is how we manage a form submit inside a Controller:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="nv">$form</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.adapter.performance.form_handler&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
@@ -29163,16 +29165,16 @@
 
 
 <div class="callout">
-<h5 id="summary-with-a-schema">Summary with a schema</h5>
-<p>The following schemas sums up how Form Handlers, Form Builders, Controllers and Data Providers are wired together.</p>
-<h6 id="display-form-schema">Display Form schema</h6>
-<figure><img src="../img/form-display.svg"/><figcaption>
+
+<h5 id="summary-with-a-schema">Summary with a schema<a href="#summary-with-a-schema"></a></h5><p>The following schemas sums up how Form Handlers, Form Builders, Controllers and Data Providers are wired together.</p>
+
+<h6 id="display-form-schema">Display Form schema<a href="#display-form-schema"></a></h6><figure><img src="../img/form-display.svg"/><figcaption>
             <h4>Display Form schema</h4>
         </figcaption>
 </figure>
 <div class="notices note" >You can update this schema using the <a href="/1.7/schemas/form-display.xml">source XML file</a> importable in services like <a href="https://draw.io">draw.io</a>.</div>
-<h6 id="submit-form-schema">Submit Form schema</h6>
-<figure><img src="../img/form-submit.svg"/><figcaption>
+
+<h6 id="submit-form-schema">Submit Form schema<a href="#submit-form-schema"></a></h6><figure><img src="../img/form-submit.svg"/><figcaption>
             <h4>Submit Form schema</h4>
         </figcaption>
 </figure>
@@ -29180,8 +29182,8 @@
 
 </div>
 
-<h2 id="render-the-form-using-twig">Render the form using Twig</h2>
-<p>The rendering of forms in Twig is already described by the <a href="https://symfony.com/doc/3.4/form/rendering.html">Symfony documentation</a>. PrestaShop uses its own <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/PrestaShopBundle/Resources/views/Admin/TwigTemplateForm/prestashop_ui_kit.html.twig">Form theme</a> that contains specific markup for the PrestaShop UI Kit. You can see it as a customized version of Symfony&rsquo;s Bootstrap 4 form theme, even though it&rsquo;s not directly based on it.</p>
+
+<h2 id="render-the-form-using-twig">Render the form using Twig<a href="#render-the-form-using-twig"></a></h2><p>The rendering of forms in Twig is already described by the <a href="https://symfony.com/doc/3.4/form/rendering.html">Symfony documentation</a>. PrestaShop uses its own <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/PrestaShopBundle/Resources/views/Admin/TwigTemplateForm/prestashop_ui_kit.html.twig">Form theme</a> that contains specific markup for the PrestaShop UI Kit. You can see it as a customized version of Symfony&rsquo;s Bootstrap 4 form theme, even though it&rsquo;s not directly based on it.</p>
 <p>To sum up how it works, the controller sends an instance of <code>FormView</code> to Twig and Twig uses form helpers to render the right markup for every field type (the Form theme defines a specific markup for each Form Type).</p>
 <div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="cp">{{</span> <span class="nv">form_start</span><span class="o">(</span><span class="nv">logsByEmailForm</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
 </span><span class="x">&lt;div class=&#34;col-md-12&#34;&gt;
@@ -29235,17 +29237,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239909"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239909"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239909"></script>
-    <script src="/js/jquery.sticky.js?1677239909"></script>
-    <script src="/js/featherlight.min.js?1677239909"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239909"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239909"></script>
-    <script src="/js/learn.js?1677239909"></script>
-    <script src="/js/hugo-learn.js?1677239909"></script>
+    <script src="/js/clipboard.min.js?1678194990"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194990"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194990"></script>
+    <script src="/js/jquery.sticky.js?1678194990"></script>
+    <script src="/js/featherlight.min.js?1678194990"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194990"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194990"></script>
+    <script src="/js/learn.js?1678194990"></script>
+    <script src="/js/hugo-learn.js?1678194990"></script>
     
-    <script src="/main.js?1677239909"></script>
+    <script src="/main.js?1678194990"></script>
     
     
     

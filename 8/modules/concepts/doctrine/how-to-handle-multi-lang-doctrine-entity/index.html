@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239933" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239933" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239933" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239933" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195012" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195012" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195012" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195012" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239933" rel="stylesheet">
+    <link href="/style.css?1678195012" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239933"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195012"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13772,6 +13772,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-to-handle-multi-lang-doctrine-entity">How to handle multi lang Doctrine entity</a>
@@ -30286,13 +30288,13 @@
 
 
 
-<h1 id="how-to-handle-multi-lang-doctrine-entity">How to handle multi lang Doctrine entity</h1>
 
+<h1 id="how-to-handle-multi-lang-doctrine-entity">How to handle multi lang Doctrine entity<a href="#how-to-handle-multi-lang-doctrine-entity"></a></h1>
 <div class="magic-version-pill" data-version="1.7.7" data-title="New in PrestaShop 1.7.7"></div>
 
 
-<h2 id="multi-lang-fields-in-prestashop">Multi lang fields in PrestaShop</h2>
-<p>A common use case in a CMS (Content Management System) is to handle translatable fields (or multi lang fields). In the legacy model of PrestaShop this is managed via an automatic mechanism and some configuration
+
+<h2 id="multi-lang-fields-in-prestashop">Multi lang fields in PrestaShop<a href="#multi-lang-fields-in-prestashop"></a></h2><p>A common use case in a CMS (Content Management System) is to handle translatable fields (or multi lang fields). In the legacy model of PrestaShop this is managed via an automatic mechanism and some configuration
 in the ObjectModel, thus all translatable fields are stored in a dedicated table. Let&rsquo;s say you have a <code>quote</code> table then its translatable fields will be stored in a <code>quote_lang</code> each
 row being an association between a <code>quote</code> row and a <code>lang</code> row (containing the languages installed on a PrestaShop shop).</p>
 <p>We are going to use the same strategy here so that developers used to legacy objects will be able to understand the database structure easily as it follows the same architecture. It could
@@ -30319,10 +30321,10 @@ All the content of this documentation can be found in this <a href="https://gith
 </ul>
 </div>
 
-<h2 id="define-your-entities">Define your entities</h2>
-<p>This example will be based on an example of quotes from various authors that need to be translated (so that it matches the user&rsquo;s language), these quotes can then be randomly be displayed on the Frontend.</p>
-<h3 id="quote-entity">Quote entity</h3>
-<p>This is the base entity, it contains:</p>
+
+<h2 id="define-your-entities">Define your entities<a href="#define-your-entities"></a></h2><p>This example will be based on an example of quotes from various authors that need to be translated (so that it matches the user&rsquo;s language), these quotes can then be randomly be displayed on the Frontend.</p>
+
+<h3 id="quote-entity">Quote entity<a href="#quote-entity"></a></h3><p>This is the base entity, it contains:</p>
 <ul>
 <li>the author name (no need to translate it)</li>
 <li>a collection of <code>QuoteLang</code> which contains all the translatable fields using a <a href="https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/association-mapping.html#one-to-many-bidirectional">OneToMany Bidirectional relation</a></li>
@@ -30542,8 +30544,8 @@ All the content of this documentation can be found in this <a href="https://gith
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><h3 id="quotelang-entity">QuoteLang Entity</h3>
-<p>This entity contains:</p>
+</code></pre></div>
+<h3 id="quotelang-entity">QuoteLang Entity<a href="#quotelang-entity"></a></h3><p>This entity contains:</p>
 <ul>
 <li>the translatable fields (in this example only the <code>content</code> of the Quote)</li>
 <li>the relationship with the parent quote (since it&rsquo;s bidirectional)</li>
@@ -30670,8 +30672,8 @@ Focus on the <code>Annotation</code> sections since PrestaShop only handles this
 </ul>
 </div>
 
-<h2 id="create-a-translated-entity">Create a translated entity</h2>
-<p>We will here display a more basic usage of Doctrine entity manager to create a translated entity:</p>
+
+<h2 id="create-a-translated-entity">Create a translated entity<a href="#create-a-translated-entity"></a></h2><p>We will here display a more basic usage of Doctrine entity manager to create a translated entity:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">use</span> <span class="nx">PrestaShop\Module\DemoDoctrine\Entity\Quote</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">PrestaShop\Module\DemoDoctrine\Entity\QuoteLang</span><span class="p">;</span>
@@ -30728,9 +30730,9 @@ Focus on the <code>Annotation</code> sections since PrestaShop only handles this
 
 <span class="c1">// Finally the entity manager applies ALL the creation in one go
 </span><span class="c1"></span><span class="nv">$entityManager</span><span class="o">-&gt;</span><span class="na">flush</span><span class="p">();</span>
-</code></pre></div><h2 id="fetching-your-multi-lang-entity">Fetching your multi lang entity</h2>
-<h3 id="creating-your-repository-service">Creating your repository service</h3>
-<p>It is more efficient to have a dedicated repository service to handle your entity, as mentioned when creating the <code>Quote</code> entity a repository <code>PrestaShop\Module\DemoDoctrine\Repository\QuoteRepository</code> has been configured and assigned to this entity, this allows the Doctrine entity manager to map them, but we can also define our own service so that we can get it via a service name.</p>
+</code></pre></div>
+<h2 id="fetching-your-multi-lang-entity">Fetching your multi lang entity<a href="#fetching-your-multi-lang-entity"></a></h2>
+<h3 id="creating-your-repository-service">Creating your repository service<a href="#creating-your-repository-service"></a></h3><p>It is more efficient to have a dedicated repository service to handle your entity, as mentioned when creating the <code>Quote</code> entity a repository <code>PrestaShop\Module\DemoDoctrine\Repository\QuoteRepository</code> has been configured and assigned to this entity, this allows the Doctrine entity manager to map them, but we can also define our own service so that we can get it via a service name.</p>
 <div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">services</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span><span class="nt">prestashop.module.demodoctrine.repository.quote_repository</span><span class="p">:</span><span class="w">
 </span><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShop\Module\DemoDoctrine\Repository\QuoteRepository</span><span class="w">
@@ -30739,8 +30741,8 @@ Focus on the <code>Annotation</code> sections since PrestaShop only handles this
 </span><span class="w">            </span>- <span class="l">PrestaShop\Module\DemoDoctrine\Entity\Quote</span><span class="w">
 </span></code></pre></div><p>This will allow to get the Quote repository easily:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$quoteRepository</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getContainer</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.module.demodoctrine.repository.quote_repository&#39;</span><span class="p">);</span>
-</code></pre></div><h3 id="using-the-repository-to-get-entities-relying-on-doctrine-query-builder">Using the repository to get entities relying on Doctrine query builder</h3>
-<p>Here we get the list of all <code>Quote</code> entities and their associated <code>QuoteLang</code>, it returns all the language by default but we also have a <code>$langId</code> parameter available if only one language is wanted.</p>
+</code></pre></div>
+<h3 id="using-the-repository-to-get-entities-relying-on-doctrine-query-builder">Using the repository to get entities relying on Doctrine query builder<a href="#using-the-repository-to-get-entities-relying-on-doctrine-query-builder"></a></h3><p>Here we get the list of all <code>Quote</code> entities and their associated <code>QuoteLang</code>, it returns all the language by default but we also have a <code>$langId</code> parameter available if only one language is wanted.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="sd">/**
 </span><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
@@ -30817,17 +30819,17 @@ Focus on the <code>Annotation</code> sections since PrestaShop only handles this
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239933"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239933"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239933"></script>
-    <script src="/js/jquery.sticky.js?1677239933"></script>
-    <script src="/js/featherlight.min.js?1677239933"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239933"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239933"></script>
-    <script src="/js/learn.js?1677239933"></script>
-    <script src="/js/hugo-learn.js?1677239933"></script>
+    <script src="/js/clipboard.min.js?1678195012"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195012"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195012"></script>
+    <script src="/js/jquery.sticky.js?1678195012"></script>
+    <script src="/js/featherlight.min.js?1678195012"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195012"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195012"></script>
+    <script src="/js/learn.js?1678195012"></script>
+    <script src="/js/hugo-learn.js?1678195012"></script>
     
-    <script src="/main.js?1677239933"></script>
+    <script src="/main.js?1678195012"></script>
     
     
     

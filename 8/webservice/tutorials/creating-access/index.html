@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239956" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239956" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239956" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239956" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195034" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195034" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195034" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195034" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239956" rel="stylesheet">
+    <link href="/style.css?1678195034" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239956"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195034"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13766,6 +13766,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#creating-access-to-the-webservice">Creating access to the Webservice</a>
@@ -30274,27 +30276,27 @@
 
 
 
-<h1 id="creating-access-to-the-webservice">Creating access to the Webservice</h1>
-<h2 id="enable-the-webservice">Enable the webservice</h2>
-<p>By default, the webservice feature is disabled on PrestaShop and needs to be switched on before the first use.</p>
-<h3 id="via-the-user-interface">Via the user interface</h3>
-<p>Go in the PrestaShop back office, open the &ldquo;Web service&rdquo; page under the &ldquo;Advanced Parameters&rdquo; menu, and then choose &ldquo;Yes&rdquo; for the &ldquo;Enable PrestaShop Webservice&rdquo; option.</p>
+
+<h1 id="creating-access-to-the-webservice">Creating access to the Webservice<a href="#creating-access-to-the-webservice"></a></h1>
+<h2 id="enable-the-webservice">Enable the webservice<a href="#enable-the-webservice"></a></h2><p>By default, the webservice feature is disabled on PrestaShop and needs to be switched on before the first use.</p>
+
+<h3 id="via-the-user-interface">Via the user interface<a href="#via-the-user-interface"></a></h3><p>Go in the PrestaShop back office, open the &ldquo;Web service&rdquo; page under the &ldquo;Advanced Parameters&rdquo; menu, and then choose &ldquo;Yes&rdquo; for the &ldquo;Enable PrestaShop Webservice&rdquo; option.</p>
 <figure><img src="../../img/enable_webservice.png"/><figcaption>
             <h4>Enabling Webservice</h4>
         </figcaption>
 </figure>
 
-<h3 id="programmatically">Programmatically</h3>
-<p>The Webservice switch is stored in the configuration table of PrestaShop.</p>
+
+<h3 id="programmatically">Programmatically<a href="#programmatically"></a></h3><p>The Webservice switch is stored in the configuration table of PrestaShop.</p>
 <p>In order to enable the webservice API:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;PS_WEBSERVICE&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 </code></pre></div><p>With the equivalent for disabling it:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;PS_WEBSERVICE&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-</code></pre></div><h2 id="create-an-access-key">Create an access key</h2>
-<h3 id="via-the-user-interface-1">Via the user interface</h3>
-<p>In order to have access to the API you need to create an access key, this will allow you to finely tune the permissions you give to the different data of your shop.
+</code></pre></div>
+<h2 id="create-an-access-key">Create an access key<a href="#create-an-access-key"></a></h2>
+<h3 id="via-the-user-interface-1">Via the user interface<a href="#via-the-user-interface-1"></a></h3><p>In order to have access to the API you need to create an access key, this will allow you to finely tune the permissions you give to the different data of your shop.
 You will use this key later in each call to the API. Open the &ldquo;Webservice&rdquo; page under the &ldquo;Advanced Parameters&rdquo; menu, and then click the &ldquo;Add new webservice key&rdquo; button to access the account configuration section.</p>
 <figure><img src="../../img/create_access_key.png"/><figcaption>
             <h4>Creating an access key</h4>
@@ -30312,8 +30314,8 @@ In the list of permissions, the top left checkbox enables you to define all the 
 Make sure to only select the rights needed for the usage of that key. <strong>Do not give all the rights for all resources to any key</strong>, keep that to yours and yours only.</li>
 <li><strong>Shop association</strong> - This only appears in multistore mode. It enables you to choose which of your stores the key owner should have access to.</li>
 </ul>
-<h3 id="programatically">Programatically</h3>
-<p>Creating API keys can be done with the class WebserviceKey.</p>
+
+<h3 id="programatically">Programatically<a href="#programatically"></a></h3><p>Creating API keys can be done with the class WebserviceKey.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="nv">$apiAccess</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebserviceKey</span><span class="p">();</span>
 <span class="nv">$apiAccess</span><span class="o">-&gt;</span><span class="na">key</span> <span class="o">=</span> <span class="s1">&#39;GENERATE_A_COMPLEX_VALUE_WITH_32_CHARACTERS&#39;</span><span class="p">;</span>
@@ -30354,17 +30356,17 @@ The available resources can be found in <a href="https://github.com/PrestaShop/P
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239957"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239957"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239957"></script>
-    <script src="/js/jquery.sticky.js?1677239957"></script>
-    <script src="/js/featherlight.min.js?1677239957"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239957"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239957"></script>
-    <script src="/js/learn.js?1677239957"></script>
-    <script src="/js/hugo-learn.js?1677239957"></script>
+    <script src="/js/clipboard.min.js?1678195034"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195034"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195034"></script>
+    <script src="/js/jquery.sticky.js?1678195034"></script>
+    <script src="/js/featherlight.min.js?1678195034"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195034"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195034"></script>
+    <script src="/js/learn.js?1678195034"></script>
+    <script src="/js/hugo-learn.js?1678195034"></script>
     
-    <script src="/main.js?1677239957"></script>
+    <script src="/main.js?1678195034"></script>
     
     
     

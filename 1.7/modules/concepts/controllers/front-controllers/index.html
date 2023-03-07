@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/concepts/controllers/front-controllers/">
 
     
-    <link href="/css/font-awesome.min.css?1677239915" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239915" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239915" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239915" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194995" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194995" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194995" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194995" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239915" rel="stylesheet">
+    <link href="/style.css?1678194995" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239915"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194995"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12537,6 +12537,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#front-controllers">Front controllers</a>
@@ -29072,19 +29074,19 @@
 
 
 
-<h1 id="front-controllers">Front controllers</h1>
-<p>These class are accessible from the front-office and add features to the
+
+<h1 id="front-controllers">Front controllers<a href="#front-controllers"></a></h1><p>These class are accessible from the front-office and add features to the
 customers.</p>
-<h2 id="creating-a-front-controller">Creating a front controller</h2>
-<p>In order to have a front controller read by PrestaShop, these 3 rules have
+
+<h2 id="creating-a-front-controller">Creating a front controller<a href="#creating-a-front-controller"></a></h2><p>In order to have a front controller read by PrestaShop, these 3 rules have
 to be followed:</p>
 <ul>
 <li>it is stored in the subfolder <code>controllers/front/</code> of the module.</li>
 <li>in CamelCase, the class name follows this format: <code>&lt;ModuleClassName&gt;&lt;FileName&gt;ModuleFrontController</code>.</li>
 <li>it extends the class <code>ModuleFrontController</code>.</li>
 </ul>
-<h3 id="minimum-controller-example">Minimum controller example</h3>
-<p>Let&rsquo;s say we want a controller responsible of payments validation in our
+
+<h3 id="minimum-controller-example">Minimum controller example<a href="#minimum-controller-example"></a></h3><p>Let&rsquo;s say we want a controller responsible of payments validation in our
 module <code>cheque</code>.</p>
 <p>We create a file <code>/modules/cheque/controllers/front/validation.php</code> and its class:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -29098,16 +29100,16 @@ module <code>cheque</code>.</p>
 <span class="p">}</span>
 </code></pre></div><p>That&rsquo;s all, methods added to the class will be taken in account by PrestaShop
 automatically.</p>
-<h2 id="available-properties">Available properties</h2>
-<p>The controllers added in a module extend <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/classes/controller/ModuleFrontController.php"><code>ModuleFrontController</code></a>, itself extending <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/classes/controller/FrontController.php"><code>FrontController</code></a> &amp; <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/classes/controller/Controller.php"><code>Controller</code></a>.
+
+<h2 id="available-properties">Available properties<a href="#available-properties"></a></h2><p>The controllers added in a module extend <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/classes/controller/ModuleFrontController.php"><code>ModuleFrontController</code></a>, itself extending <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/classes/controller/FrontController.php"><code>FrontController</code></a> &amp; <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/classes/controller/Controller.php"><code>Controller</code></a>.
 They provide access to the environment in which they run.</p>
 <ul>
 <li><code>$this-&gt;module</code> is the instance of the module responsible of the controller.</li>
 <li><code>$this-&gt;context</code> delivers the result of <code>Context::getContext()</code>.</li>
 </ul>
 <p>Other existing properties may be useful and can be discovered by looking at the parent classes content (by following links above) or with <code>dump($this)</code>.</p>
-<h2 id="adding-methods-to-the-controller">Adding methods to the controller</h2>
-<p>There are basically two kinds of HTTP calls possible for a controller:</p>
+
+<h2 id="adding-methods-to-the-controller">Adding methods to the controller<a href="#adding-methods-to-the-controller"></a></h2><p>There are basically two kinds of HTTP calls possible for a controller:</p>
 <ul>
 <li>Calls with GET, used to only retrieve data,</li>
 <li>Calls with POST, used as soon as some data is modified on the shop.</li>
@@ -29115,14 +29117,14 @@ They provide access to the environment in which they run.</p>
 <p>For an advanced use, others HTTP methods can also be called ( such as PUT, PATCH, DELETE ).</p>
 <p>Depending of the request made to the controller, a different method will be
 called by the core.</p>
-<h3 id="display-content">Display content</h3>
-<p>Handling requests can be done by implementing the method <code>initContent()</code> in
+
+<h3 id="display-content">Display content<a href="#display-content"></a></h3><p>Handling requests can be done by implementing the method <code>initContent()</code> in
 the front controller. Note the parent class also implements it, do not forget
 to call it as well.</p>
 <p>Its purpose should be assigning the variables to smarty, and setting the
 template to be displayed.</p>
-<h4 id="assign-variables-to-smarty">Assign variables to smarty</h4>
-<p>The smarty engine is available in the <code>context</code> property of the controller.
+
+<h4 id="assign-variables-to-smarty">Assign variables to smarty<a href="#assign-variables-to-smarty"></a></h4><p>The smarty engine is available in the <code>context</code> property of the controller.
 Assigning variables can be done with its method <code>assign(array $vars)</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
@@ -29134,8 +29136,8 @@ Assigning variables can be done with its method <code>assign(array $vars)</code>
 </span><span class="c1"></span>      <span class="s1">&#39;paymentStatus&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
     <span class="p">));</span>
 <span class="p">}</span>
-</code></pre></div><h4 id="display-html-content">Display HTML content</h4>
-<p>This is the second part we expect in the method <code>initContent()</code>.</p>
+</code></pre></div>
+<h4 id="display-html-content">Display HTML content<a href="#display-html-content"></a></h4><p>This is the second part we expect in the method <code>initContent()</code>.</p>
 <p>HTML content should be stored in a smarty template, available in
 the module subfolder <code>views/templates/front/</code>.</p>
 <p>The method <code>setTemplate(...)</code> expect the template file name as parameter. There is no
@@ -29154,15 +29156,15 @@ need to write its complete path, as PrestaShop expects to find it in the folder
   <span class="c1">// Will use the file modules/cheque/views/templates/front/validation.tpl
 </span><span class="c1"></span>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setTemplate</span><span class="p">(</span><span class="s1">&#39;module:cheque/views/templates/front/validation.tpl&#39;</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div><h3 id="handle-actions-post">Handle actions (POST)</h3>
-<p>POST requests will be managed from the method <code>postProcess()</code>.</p>
+</code></pre></div>
+<h3 id="handle-actions-post">Handle actions (POST)<a href="#handle-actions-post"></a></h3><p>POST requests will be managed from the method <code>postProcess()</code>.</p>
 <p>It does not receive parameters and does not expect any value to be returned,
 but user input can be checked with <code>Tools::getIsset(...)</code> and retrieved with
 <code>Tools::getValue(...)</code>.</p>
 <p>When done, controllers generally redirects to another route, by using
 <code>Tools::redirect(&lt;url&gt;)</code>.</p>
-<h2 id="accessing-a-module-front-controller">Accessing a module front controller</h2>
-<p>Addresses to your controller can be generated easily with the class <code>Link</code>:</p>
+
+<h2 id="accessing-a-module-front-controller">Accessing a module front controller<a href="#accessing-a-module-front-controller"></a></h2><p>Addresses to your controller can be generated easily with the class <code>Link</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">Link</span><span class="o">::</span><span class="na">getModuleLink</span><span class="p">(</span><span class="nv">$module</span><span class="p">,</span> <span class="nv">$controller</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">());</span>
 </code></pre></div><p><code>$module</code> is the technical name of the module, <code>$controller</code> is the controller
@@ -29170,38 +29172,38 @@ file name (without &lsquo;.php&rsquo;), and <code>$params</code> is an array of 
 customized route or simply as GET params.</p>
 <p>The generated address handles automatically HTTP or HTTPS environments, with or
 without URL rewriting.</p>
-<h3 id="example-of-method-calls">Example of method calls</h3>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<h3 id="example-of-method-calls">Example of method calls<a href="#example-of-method-calls"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s1">&#39;cheque&#39;</span><span class="p">,</span> <span class="s1">&#39;validation&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;idPayment&#39;</span> <span class="o">=&gt;</span> <span class="mi">1337</span><span class="p">));</span>
 </code></pre></div><ul>
 <li>Without URL rewriting: <code>http://&lt;shop_domain&gt;/index.php?idPayment=1337&amp;fc=module&amp;module=cheque&amp;controller=validation&amp;id_lang=1</code></li>
 <li>With URL rewriting: <code>http://&lt;shop_domain&gt;/en/module/cheque/validation?idPayment=1337</code></li>
 </ul>
-<h3 id="ajax-request">Ajax request</h3>
-<p>When you call controller via AJAX, you need to add <code>ajax</code> parameter in the url.</p>
+
+<h3 id="ajax-request">Ajax request<a href="#ajax-request"></a></h3><p>When you call controller via AJAX, you need to add <code>ajax</code> parameter in the url.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s1">&#39;cheque&#39;</span><span class="p">,</span> <span class="s1">&#39;validation&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;idPayment&#39;</span> <span class="o">=&gt;</span> <span class="mi">1337</span><span class="p">,</span> <span class="s1">&#39;ajax&#39;</span><span class="o">=&gt;</span><span class="k">true</span><span class="p">));</span>
 </code></pre></div><ul>
 <li>Without URL rewriting: <code>http://&lt;shop_domain&gt;/index.php?idPayment=1337&amp;fc=module&amp;module=cheque&amp;controller=validation&amp;id_lang=1&amp;ajax=true</code></li>
 <li>With URL rewriting: <code>http://&lt;shop_domain&gt;/en/module/cheque/validation?idPayment=1337&amp;ajax=true</code></li>
 </ul>
-<h2 id="restricting-access">Restricting access</h2>
-<h3 id="logged-customers-only">Logged customers only</h3>
-<p>Set the property <code>$auth</code> to <code>true</code> if you want guests to be redirected to the
+
+<h2 id="restricting-access">Restricting access<a href="#restricting-access"></a></h2>
+<h3 id="logged-customers-only">Logged customers only<a href="#logged-customers-only"></a></h3><p>Set the property <code>$auth</code> to <code>true</code> if you want guests to be redirected to the
 login page automatically.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">public</span> <span class="nv">$auth</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
 <span class="k">public</span> <span class="nv">$guestAllowed</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
-</code></pre></div><h3 id="to-everybody-temporarily">To everybody, temporarily</h3>
-<p>You can force the maintenance page to be displayed when a customer reaches a controller.</p>
+</code></pre></div>
+<h3 id="to-everybody-temporarily">To everybody, temporarily<a href="#to-everybody-temporarily"></a></h3><p>You can force the maintenance page to be displayed when a customer reaches a controller.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">protected</span> <span class="nv">$maintenance</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
-</code></pre></div><h3 id="non-ssl-calls">Non-SSL calls</h3>
-<p>When SSL is enabled to a shop, you can force a call to a controller to be
+</code></pre></div>
+<h3 id="non-ssl-calls">Non-SSL calls<a href="#non-ssl-calls"></a></h3><p>When SSL is enabled to a shop, you can force a call to a controller to be
 secured by redirecting it to HTTPS.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">public</span> <span class="nv">$ssl</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
-</code></pre></div><h2 id="execution-order-of-the-controllers-functions">Execution order of the controller’s functions</h2>
-<ul>
+</code></pre></div>
+<h2 id="execution-order-of-the-controllers-functions">Execution order of the controller’s functions<a href="#execution-order-of-the-controllers-functions"></a></h2><ul>
 <li><strong>__construct()</strong>: Sets all the controller’s member variables.</li>
 <li><strong>init()</strong>: Initializes the controller.</li>
 <li><strong>setMedia()</strong> or <strong>setMobileMedia()</strong>: Adds all JavaScript and CSS specifics to the page so that they can be combined, compressed and cached (see PrestaShop’s CCC tool, in the back office “Performance” page, under # the “Advanced preferences” menu).</li>
@@ -29211,8 +29213,8 @@ secured by redirecting it to HTTPS.</p>
 <li><strong>initFooter()</strong>: Called after initContent().</li>
 <li><strong>display()</strong> or <strong>displayAjax()</strong>: Displays the content.</li>
 </ul>
-<h2 id="using-a-front-controller-as-a-cron-task">Using a front controller as a cron task</h2>
-<p>Thanks to Symfony, modules may implement <a href="https://symfony.com/doc/current/console.html">Console commands</a> for cron tasks.</p>
+
+<h2 id="using-a-front-controller-as-a-cron-task">Using a front controller as a cron task<a href="#using-a-front-controller-as-a-cron-task"></a></h2><p>Thanks to Symfony, modules may implement <a href="https://symfony.com/doc/current/console.html">Console commands</a> for cron tasks.</p>
 <p>For modules compatible with early versions of PrestaShop 1.7 and previous major versions, there is no dedicated handler for CLI calls. A workaround is available with front controllers containing specific checks for CLI calls.</p>
 <p>Implementing a controller instead of a simple PHP script will allow you to
 avoid some issues such as a non-instanciated Context or Symfony Kernel,
@@ -29282,17 +29284,17 @@ hello
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239915"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239915"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239915"></script>
-    <script src="/js/jquery.sticky.js?1677239915"></script>
-    <script src="/js/featherlight.min.js?1677239915"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239915"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239915"></script>
-    <script src="/js/learn.js?1677239915"></script>
-    <script src="/js/hugo-learn.js?1677239915"></script>
+    <script src="/js/clipboard.min.js?1678194995"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194995"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194995"></script>
+    <script src="/js/jquery.sticky.js?1678194995"></script>
+    <script src="/js/featherlight.min.js?1678194995"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194995"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194995"></script>
+    <script src="/js/learn.js?1678194995"></script>
+    <script src="/js/hugo-learn.js?1678194995"></script>
     
-    <script src="/main.js?1677239915"></script>
+    <script src="/main.js?1678194995"></script>
     
     
     

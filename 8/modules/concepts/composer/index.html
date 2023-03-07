@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239932" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239932" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239932" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239932" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195012" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195012" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195012" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195012" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239932" rel="stylesheet">
+    <link href="/style.css?1678195012" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239932"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195012"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13766,6 +13766,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#composer">Composer</a>
@@ -30278,8 +30280,8 @@
 
 
 
-<h1 id="composer">Composer</h1>
-<p>Composer is a tool known in the PHP ecosystem to manage the dependencies of a project.
+
+<h1 id="composer">Composer<a href="#composer"></a></h1><p>Composer is a tool known in the PHP ecosystem to manage the dependencies of a project.
 It has been originally added in PrestaShop 1.7 to handle the inclusion of the Symfony framework and the native modules.
 As composer is compatible with PHP 5.3, it can be used in a module even compatible with previous major versions of PrestaShop.</p>
 <p>From a single configuration file, a module will benefit of these features:</p>
@@ -30294,11 +30296,11 @@ As composer is compatible with PHP 5.3, it can be used in a module even compatib
 <li><a href="https://getcomposer.org/doc/">Documentation</a></li>
 <li><a href="https://www.php.net/manual/en/language.oop5.autoload.php">Learn more about autoload</a></li>
 </ul>
-<h2 id="install-composer">Install composer</h2>
-<p>If Composer is not installed in you environment, this can be done via their website <a href="https://getcomposer.org/">getcomposer.org</a>.
+
+<h2 id="install-composer">Install composer<a href="#install-composer"></a></h2><p>If Composer is not installed in you environment, this can be done via their website <a href="https://getcomposer.org/">getcomposer.org</a>.
 We recommend to store the binary in a folder available in your system or user path, to avoid looking for it at each command.</p>
-<h2 id="setup-composer-in-a-module">Setup composer in a module</h2>
-<p>You need setup composer in your module before create the services.
+
+<h2 id="setup-composer-in-a-module">Setup composer in a module<a href="#setup-composer-in-a-module"></a></h2><p>You need setup composer in your module before create the services.
 Create the file <code>&lt;module name&gt;/composer.json</code> and paste:</p>
 <div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
     <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;your name&gt;/&lt;module name&gt;&#34;</span><span class="p">,</span>
@@ -30330,23 +30332,23 @@ Create the file <code>&lt;module name&gt;/composer.json</code> and paste:</p>
     <span class="nt">&#34;author&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;???&gt;&#34;</span><span class="p">,</span>
     <span class="nt">&#34;license&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;???&gt;&#34;</span>
 <span class="p">}</span>
-</code></pre></div><h3 id="autoloading">Autoloading</h3>
-<h4 id="classes">Classes</h4>
-<p>To make a class automatically loaded in memory as soon as you reference it in your code,
+</code></pre></div>
+<h3 id="autoloading">Autoloading<a href="#autoloading"></a></h3>
+<h4 id="classes">Classes<a href="#classes"></a></h4><p>To make a class automatically loaded in memory as soon as you reference it in your code,
 you should add in the list <code>autoload.classmap</code> the file it is stored in.</p>
-<h4 id="namespaced-classes">Namespaced classes</h4>
-<p>The classes defined in a namespace can be detected if you ask Composer to scan a folder in <code>autoload.psr-4</code>.</p>
+
+<h4 id="namespaced-classes">Namespaced classes<a href="#namespaced-classes"></a></h4><p>The classes defined in a namespace can be detected if you ask Composer to scan a folder in <code>autoload.psr-4</code>.</p>
 <p>In <strong>YourNamespace</strong> add your namespace. The convention for namespaces used by PrestaShop is
 <code>PrestaShop\\Module\\ModuleName</code> as our base namespace, you can either follow this convention or adapt it to your
 business <code>YourCompany\\YourModuleName</code>.</p>
-<h4 id="generate-the-autoloader">Generate the autoloader</h4>
-<p>Then in console in your module root run command <code>composer dump-autoload</code>.
+
+<h4 id="generate-the-autoloader">Generate the autoloader<a href="#generate-the-autoloader"></a></h4><p>Then in console in your module root run command <code>composer dump-autoload</code>.
 This will generate a <strong>vendor</strong> folder contain an <strong>autoload.php</strong> file which allows the use of your namespace or
 the classes defined in the classmap.</p>
 <p>You can also use composer to include some dependencies in your module, you can find more information about composer
 on <a href="https://getcomposer.org/">Composer page</a>.</p>
-<h3 id="important-notes">Important notes</h3>
 
+<h3 id="important-notes">Important notes<a href="#important-notes"></a></h3>
 <div class="notices warning" ><p><strong>Disable prepend-autoloader</strong></p>
 <p>It is <strong>required</strong> for you to disable the <em>prepend autoloader</em> feature. By default the module dependencies would be
 defined before the core ones, which would result in overriding them. If you want the PrestaShop core system to work
@@ -30390,17 +30392,17 @@ correctly you <strong>must not</strong> override its dependencies. Which is why 
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239932"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239932"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239932"></script>
-    <script src="/js/jquery.sticky.js?1677239932"></script>
-    <script src="/js/featherlight.min.js?1677239932"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239932"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239932"></script>
-    <script src="/js/learn.js?1677239932"></script>
-    <script src="/js/hugo-learn.js?1677239932"></script>
+    <script src="/js/clipboard.min.js?1678195012"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195012"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195012"></script>
+    <script src="/js/jquery.sticky.js?1678195012"></script>
+    <script src="/js/featherlight.min.js?1678195012"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195012"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195012"></script>
+    <script src="/js/learn.js?1678195012"></script>
+    <script src="/js/hugo-learn.js?1678195012"></script>
     
-    <script src="/main.js?1677239932"></script>
+    <script src="/main.js?1678195012"></script>
     
     
     

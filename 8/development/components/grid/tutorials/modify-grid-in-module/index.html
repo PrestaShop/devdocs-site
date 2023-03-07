@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239930" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239930" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239930" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239930" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195010" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195010" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195010" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195010" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239930" rel="stylesheet">
+    <link href="/style.css?1678195010" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239930"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195010"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13778,6 +13778,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-to-modify-an-existing-grid-in-a-module">How to modify an existing Grid in a module</a>
@@ -30297,10 +30299,10 @@
 
 
 
-<h1 id="how-to-modify-an-existing-grid-in-a-module">How to modify an existing Grid in a module</h1>
-<p>If you need to modify an existing Grid, like inverting two columns for instance, this is really easy to do it in a module thanks to the available hooks.</p>
-<h2 id="business-use-case">Business use case</h2>
-<p>In this tutorial, we will try to improve the user experience of the Customers listing Grid.</p>
+
+<h1 id="how-to-modify-an-existing-grid-in-a-module">How to modify an existing Grid in a module<a href="#how-to-modify-an-existing-grid-in-a-module"></a></h1><p>If you need to modify an existing Grid, like inverting two columns for instance, this is really easy to do it in a module thanks to the available hooks.</p>
+
+<h2 id="business-use-case">Business use case<a href="#business-use-case"></a></h2><p>In this tutorial, we will try to improve the user experience of the Customers listing Grid.</p>
 <p>Thinking about it, we could improve the current grid to highlight business-driven information:</p>
 <ul>
 <li>we could remove the &ldquo;Social title&rdquo;, not really interesting if our business is not &ldquo;gender&rdquo; specific,</li>
@@ -30309,8 +30311,8 @@
 </ul>
 <p>We could also add a new column about the number of orders per customer and re-organize a little bit all the columns.</p>
 <p>Let&rsquo;s see together how to do that with PrestaShop.</p>
-<h2 id="removing-columns-and-filters-from-a-grid">Removing columns and filters from a Grid</h2>
-<p>Thanks to the available hooks, it&rsquo;s super easy to remove columns from a grid!</p>
+
+<h2 id="removing-columns-and-filters-from-a-grid">Removing columns and filters from a Grid<a href="#removing-columns-and-filters-from-a-grid"></a></h2><p>Thanks to the available hooks, it&rsquo;s super easy to remove columns from a grid!</p>
 <p>As stated in the documentation, for each grid with the id {id} a list of hooks is available to alter the grid.</p>
 <p>First, we will use the hook able to alter the <strong>Definition</strong> of the grid: the Definition is a specific object where we define:</p>
 <ul>
@@ -30363,8 +30365,8 @@
 <span class="p">;</span>
 </code></pre></div><p>And this time, our grid is awesome!</p>
 <p><img src="https://user-images.githubusercontent.com/1247388/52344105-33516780-2a1a-11e9-9ec8-96427561be15.png" alt="grid-tuto-2"></p>
-<h2 id="re-ordering-grid-columns-and-filters">Re-ordering grid columns and filters</h2>
-<p>When adding a new column, it&rsquo;s super easy to position it in a grid.</p>
+
+<h2 id="re-ordering-grid-columns-and-filters">Re-ordering grid columns and filters<a href="#re-ordering-grid-columns-and-filters"></a></h2><p>When adding a new column, it&rsquo;s super easy to position it in a grid.</p>
 <p>The <code>ColumnCollection</code> class have two functions for that:</p>
 <ul>
 <li><code>addAfter($columnId, ColumnInterface $column)</code></li>
@@ -30380,20 +30382,20 @@
 
 <span class="nv">$columnWeNeedToMove</span> <span class="o">=</span> <span class="k">new</span> <span class="o">...</span> <span class="c1">// we create the column
 </span><span class="c1"></span><span class="nv">$columns</span><span class="o">-&gt;</span><span class="na">addBefore</span><span class="p">(</span><span class="s1">&#39;sales&#39;</span><span class="p">,</span> <span class="nv">$columnWeNeedToMove</span><span class="p">);</span>
-</code></pre></div><h3 id="re-ordering-filters">Re-ordering filters?</h3>
-<p>There is a good news here: filters are linked to the columns thanks to the function <code>setAssociatedColumn</code> of the <code>FilterInterface</code> contract.</p>
+</code></pre></div>
+<h3 id="re-ordering-filters">Re-ordering filters?<a href="#re-ordering-filters"></a></h3><p>There is a good news here: filters are linked to the columns thanks to the function <code>setAssociatedColumn</code> of the <code>FilterInterface</code> contract.</p>
 <p>This means that you don&rsquo;t need to re-order filters when you re-order columns: great!</p>
 <p>If you don&rsquo;t define a new filter when creating a new column, you won&rsquo;t be able to search using this column as a filter.</p>
 <p>But&hellip; what if you want to make this column searchable as most of the existing ones?</p>
 <p>Also, you may wondering at this moment how PrestaShop is able to fill the column data?</p>
-<h2 id="fill-the-column-data-and-configure-the-filter">Fill the column data and configure the filter</h2>
-<p>Each grid is defined by a Definition and a Grid Query Builder.</p>
+
+<h2 id="fill-the-column-data-and-configure-the-filter">Fill the column data and configure the filter<a href="#fill-the-column-data-and-configure-the-filter"></a></h2><p>Each grid is defined by a Definition and a Grid Query Builder.</p>
 <p>The Grid Query Builder have the responsibility of providing two query builders: the <code>Search query builder</code> and the <code>Count query builder</code>.</p>
 <p>With these query builders, the Grid Query Builder is able to retrieve and filter data from the database to fill the columns of the Grid using the filters criterion.</p>
 <p>Thanks to the Count query builder, the pagination system works out of the box so you don&rsquo;t need to implement your own.</p>
 <p>Using a hook, we can alter both of them to - for example - retrieve new information and fill a new column.</p>
-<h3 id="querybuilder-configuration">QueryBuilder configuration</h3>
-<p>We want to retrieve the number of orders for each customer.</p>
+
+<h3 id="querybuilder-configuration">QueryBuilder configuration<a href="#querybuilder-configuration"></a></h3><p>We want to retrieve the number of orders for each customer.</p>
 <p>To alter the QueryBuilder, we have a hook named <code>action{GridId}GridQueryBuilderModifier</code>. This is how you can fill the column data to retrieve the number of orders from a customers:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCustomerGridQueryBuilderModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
@@ -30440,17 +30442,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239930"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239930"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239930"></script>
-    <script src="/js/jquery.sticky.js?1677239930"></script>
-    <script src="/js/featherlight.min.js?1677239930"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239930"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239930"></script>
-    <script src="/js/learn.js?1677239930"></script>
-    <script src="/js/hugo-learn.js?1677239930"></script>
+    <script src="/js/clipboard.min.js?1678195010"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195010"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195010"></script>
+    <script src="/js/jquery.sticky.js?1678195010"></script>
+    <script src="/js/featherlight.min.js?1678195010"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195010"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195010"></script>
+    <script src="/js/learn.js?1678195010"></script>
+    <script src="/js/hugo-learn.js?1678195010"></script>
     
-    <script src="/main.js?1677239930"></script>
+    <script src="/main.js?1678195010"></script>
     
     
     

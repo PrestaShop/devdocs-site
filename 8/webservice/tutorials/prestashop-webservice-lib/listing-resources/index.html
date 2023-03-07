@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239957" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239957" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239957" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239957" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195035" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195035" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195035" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195035" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239957" rel="stylesheet">
+    <link href="/style.css?1678195035" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239957"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195035"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13772,6 +13772,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#listing-resources">Listing resources</a>
@@ -30278,8 +30280,8 @@
 
 
 
-<h1 id="listing-resources">Listing resources</h1>
-<p>Let&rsquo;s now see how to view a full list of customer IDs. We could display more information and customize it, but that&rsquo;s for another part of this tutorial.</p>
+
+<h1 id="listing-resources">Listing resources<a href="#listing-resources"></a></h1><p>Let&rsquo;s now see how to view a full list of customer IDs. We could display more information and customize it, but that&rsquo;s for another part of this tutorial.</p>
 <p>As we saw in the previous code sample, we need the <code>get()</code> method to retrieve an XML file containing all the customers. The parameter has to be a key-value array, where we define the resource we want:</p>
 <table>
 <thead>
@@ -30295,8 +30297,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="using-prestashopwebserviceget">Using PrestaShopWebservice::get</h2>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<h2 id="using-prestashopwebserviceget">Using PrestaShopWebservice::get<a href="#using-prestashopwebserviceget"></a></h2><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">try</span> <span class="p">{</span>
     <span class="c1">// creating webservice access
 </span><span class="c1"></span>    <span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="s1">&#39;http://example.com/&#39;</span><span class="p">,</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
@@ -30307,8 +30309,8 @@
     <span class="c1">// Shows a message related to the error
 </span><span class="c1"></span>    <span class="k">echo</span> <span class="s1">&#39;Other error: &lt;br /&gt;&#39;</span> <span class="o">.</span> <span class="nv">$ex</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="returned-data">Returned data</h2>
-<p>The returned object is a <code>SimpleXMLElement</code> object containing this kind of data:</p>
+</code></pre></div>
+<h2 id="returned-data">Returned data<a href="#returned-data"></a></h2><p>The returned object is a <code>SimpleXMLElement</code> object containing this kind of data:</p>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
 <span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;customers&gt;</span>
@@ -30316,8 +30318,8 @@
         <span class="nt">&lt;customer</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/customers/2&#34;</span><span class="nt">/&gt;</span>
     <span class="nt">&lt;/customers&gt;</span>
 <span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><h2 id="access-children-data">Access children data</h2>
-<p>You can now loop through this XML object to get each customer ID</p>
+</code></pre></div>
+<h2 id="access-children-data">Access children data<a href="#access-children-data"></a></h2><p>You can now loop through this XML object to get each customer ID</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="nv">$resources</span> <span class="o">=</span> <span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">customers</span><span class="o">-&gt;</span><span class="na">children</span><span class="p">();</span>
 <span class="k">foreach</span> <span class="p">(</span><span class="nv">$resources</span> <span class="k">as</span> <span class="nv">$resource</span><span class="p">)</span> <span class="p">{</span>
@@ -30349,17 +30351,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239957"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239957"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239957"></script>
-    <script src="/js/jquery.sticky.js?1677239957"></script>
-    <script src="/js/featherlight.min.js?1677239957"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239957"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239957"></script>
-    <script src="/js/learn.js?1677239957"></script>
-    <script src="/js/hugo-learn.js?1677239957"></script>
+    <script src="/js/clipboard.min.js?1678195035"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195035"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195035"></script>
+    <script src="/js/jquery.sticky.js?1678195035"></script>
+    <script src="/js/featherlight.min.js?1678195035"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195035"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195035"></script>
+    <script src="/js/learn.js?1678195035"></script>
+    <script src="/js/hugo-learn.js?1678195035"></script>
     
-    <script src="/main.js?1677239957"></script>
+    <script src="/main.js?1678195035"></script>
     
     
     

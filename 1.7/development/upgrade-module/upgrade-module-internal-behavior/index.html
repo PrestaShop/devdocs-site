@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/upgrade-module/upgrade-module-internal-behavior/">
 
     
-    <link href="/css/font-awesome.min.css?1677239914" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239914" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239914" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239914" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194994" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194994" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194994" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194994" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239914" rel="stylesheet">
+    <link href="/style.css?1678194994" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239914"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194994"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#upgrade-module-internal-behavior">Upgrade module internal behavior</a>
@@ -29043,11 +29045,11 @@
 
 
 
-<h1 id="upgrade-module-internal-behavior">Upgrade module internal behavior</h1>
-<p>This is how the module is built, for version 4 and higher.</p>
+
+<h1 id="upgrade-module-internal-behavior">Upgrade module internal behavior<a href="#upgrade-module-internal-behavior"></a></h1><p>This is how the module is built, for version 4 and higher.</p>
 <p>Most of the information is however valid with the previous versions too.</p>
-<h2 id="entrypoints">Entrypoints</h2>
-<p>The upgrade module aims to be a PrestaShop module AND be as independent as possible. Which means its content can be reached from several way:</p>
+
+<h2 id="entrypoints">Entrypoints<a href="#entrypoints"></a></h2><p>The upgrade module aims to be a PrestaShop module AND be as independent as possible. Which means its content can be reached from several way:</p>
 <ul>
 <li><strong>autoupgrade.php</strong></li>
 </ul>
@@ -29065,16 +29067,16 @@
 <li><strong>cli-upgrade.php</strong></li>
 </ul>
 <p>This is the equivalent of <code>ajax-upgradetab.php</code> file for CLI calls. It will instantiate some specific features to the CLI, like a logger displaying informations on the fly. This entrypoint is also useful for testing, or for a user who does not want to use the web version.</p>
-<h2 id="what-version-to-use">What version to use</h2>
-<p>The objective is to have a single module version to handle these PrestaShop upgrades:</p>
+
+<h2 id="what-version-to-use">What version to use<a href="#what-version-to-use"></a></h2><p>The objective is to have a single module version to handle these PrestaShop upgrades:</p>
 <ul>
 <li>1.6 &raquo; to &raquo; 1.6 / 1.7</li>
 <li>1.7 &raquo; to &raquo; 1.7</li>
 </ul>
 <p>The other versions are not supported anymore. We recommend to use the previous versions of the module available on the PrestaShop marketplace.</p>
-<h2 id="technical-choices">Technical choices</h2>
-<h3 id="compatibility-with-prestashop-16--17">Compatibility with PrestaShop 1.6 &amp; 1.7</h3>
-<p>Aim is to help as many merchants as possible to upgrade from 1.6 to 1.7. This required to do the following implementation choices:</p>
+
+<h2 id="technical-choices">Technical choices<a href="#technical-choices"></a></h2>
+<h3 id="compatibility-with-prestashop-16--17">Compatibility with PrestaShop 1.6 &amp; 1.7<a href="#compatibility-with-prestashop-16--17"></a></h3><p>Aim is to help as many merchants as possible to upgrade from 1.6 to 1.7. This required to do the following implementation choices:</p>
 <ul>
 <li><strong>Twig as template engine</strong></li>
 </ul>
@@ -29095,8 +29097,8 @@
 <li><strong>Interface still unfriendly</strong></li>
 </ul>
 <p>So far the main objective has been to make the PHP code easier to understand and improve the robustness of the upgrade process where possible. The interface will be improved in future releases to be more user-friendly.</p>
-<h2 id="new-module-structure">New module structure</h2>
-<p>Most of the PHP classes in <code>classes</code> folder are mainly logic extracted from AdminSelfUpgrade, the class that was responsible of everything in previous versions. It has been split in smaller parts.</p>
+
+<h2 id="new-module-structure">New module structure<a href="#new-module-structure"></a></h2><p>Most of the PHP classes in <code>classes</code> folder are mainly logic extracted from AdminSelfUpgrade, the class that was responsible of everything in previous versions. It has been split in smaller parts.</p>
 <p>Classes are gathered by responsibilities:</p>
 <ul>
 <li>All classes responsible of the display (Twig related)</li>
@@ -29104,10 +29106,10 @@
 <li>Classes interacting with PrestaShop core</li>
 <li>Tasks (Can be considered as controllers for upgrade, rollback etc.)</li>
 </ul>
-<h2 id="local-temporary-assets">Local temporary assets</h2>
-<p>In order to work properly, the upgrade module needs to write some files to your filesystem server. These files are stored in the following folders, all available in the <code>&lt;admin folder&gt;/autoupgrade</code> path.</p>
-<h3 id="folders">Folders</h3>
-<ul>
+
+<h2 id="local-temporary-assets">Local temporary assets<a href="#local-temporary-assets"></a></h2><p>In order to work properly, the upgrade module needs to write some files to your filesystem server. These files are stored in the following folders, all available in the <code>&lt;admin folder&gt;/autoupgrade</code> path.</p>
+
+<h3 id="folders">Folders<a href="#folders"></a></h3><ul>
 <li>backup: Folder in which the current state of the shop will be saved before upgrade. It contains files archive, DB structure &amp; data.</li>
 <li>download: Destination folder of the downloaded PrestaShop archive, before unzip.</li>
 <li>latest: Working directory of the autoupgrade. This is where the &ldquo;lastest&rdquo; version of PrestaShop will be unziped, before copy.</li>
@@ -29137,17 +29139,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239914"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239914"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239914"></script>
-    <script src="/js/jquery.sticky.js?1677239914"></script>
-    <script src="/js/featherlight.min.js?1677239914"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239914"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239914"></script>
-    <script src="/js/learn.js?1677239914"></script>
-    <script src="/js/hugo-learn.js?1677239914"></script>
+    <script src="/js/clipboard.min.js?1678194995"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194995"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194995"></script>
+    <script src="/js/jquery.sticky.js?1678194995"></script>
+    <script src="/js/featherlight.min.js?1678194995"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194995"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194995"></script>
+    <script src="/js/learn.js?1678194995"></script>
+    <script src="/js/hugo-learn.js?1678194995"></script>
     
-    <script src="/main.js?1677239914"></script>
+    <script src="/main.js?1678194995"></script>
     
     
     

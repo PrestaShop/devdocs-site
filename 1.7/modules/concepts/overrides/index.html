@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/concepts/overrides/">
 
     
-    <link href="/css/font-awesome.min.css?1677239914" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239914" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239914" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239914" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194995" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194995" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194995" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194995" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239914" rel="stylesheet">
+    <link href="/style.css?1678194995" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239914"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194995"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#overrides">Overrides</a>
@@ -29057,23 +29059,23 @@
 
 
 
-<h1 id="overrides">Overrides</h1>
-<p>Overriding is a way to &ldquo;override&rdquo; class files and controller files. PrestaShop&rsquo;s ingenious class auto-loading function makes the &ldquo;switch&rdquo; to other files fairly simple. Thanks to PrestaShop&rsquo;s fully object-oriented code, you can rely on object inheritance to modify and add new behaviors, using the properties and methods of the various existing classes.</p>
-<h2 id="important-note">Important note</h2>
 
+<h1 id="overrides">Overrides<a href="#overrides"></a></h1><p>Overriding is a way to &ldquo;override&rdquo; class files and controller files. PrestaShop&rsquo;s ingenious class auto-loading function makes the &ldquo;switch&rdquo; to other files fairly simple. Thanks to PrestaShop&rsquo;s fully object-oriented code, you can rely on object inheritance to modify and add new behaviors, using the properties and methods of the various existing classes.</p>
+
+<h2 id="important-note">Important note<a href="#important-note"></a></h2>
 <div class="notices warning" >There are limitations and risks of using overrides. Keep them for your own shop.</div>
 
 <p>Overrides in PrestaShop are exclusive. This means that if your module overrides one of PrestaShop’s behaviors, another module will not be able to use that behavior properly, or override it in an predictable way.</p>
 <p>Therefore, overrides should only be used for your own local modules, when you have a specific need that cannot be applied with it.</p>
 <p>It is not recommended to use an override in a module that you intend to distribute (for instance through the PrestaShop Addons marketplace), and they are forbidden in partner modules.</p>
-<h2 id="alternatives-to-overrides">Alternatives to overrides</h2>
-<p>Before creating an override, check the existing features can help you:</p>
-<h3 id="hooks">Hooks</h3>
-<p>There are many events triggered on each controller of PrestaShop. They can be used
+
+<h2 id="alternatives-to-overrides">Alternatives to overrides<a href="#alternatives-to-overrides"></a></h2><p>Before creating an override, check the existing features can help you:</p>
+
+<h3 id="hooks">Hooks<a href="#hooks"></a></h3><p>There are many events triggered on each controller of PrestaShop. They can be used
 for displaying additional content or executing module actions.</p>
 <p>See <a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/hooks/">the hooks chapter</a> for more details.</p>
-<h3 id="classes">Classes</h3>
-<p>If a class does not make what a module expects, you can extend it in a module for improvement.</p>
+
+<h3 id="classes">Classes<a href="#classes"></a></h3><p>If a class does not make what a module expects, you can extend it in a module for improvement.</p>
 <p>For instance you could have a single Tools class for core and module helper methods:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">MyCustomTools</span> <span class="k">extends</span> <span class="nx">Tools</span>
@@ -29091,21 +29093,21 @@ for displaying additional content or executing module actions.</p>
 <span class="nx">MyCustomTools</span><span class="o">::</span><span class="na">array_pluck</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">);</span>
 <span class="nx">MyCustomTools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;userId&#39;</span><span class="p">);</span> <span class="c1">// Defined in Tools
 </span><span class="c1"></span><span class="nx">MyCustomTools</span><span class="o">::</span><span class="na">getShopDomain</span><span class="p">();</span> <span class="c1">// Defined in Tools
-</span></code></pre></div><h3 id="controllers">Controllers</h3>
-<p>Core controllers can be reused in a module as well, without being erased, thanks to inheritance.</p>
+</span></code></pre></div>
+<h3 id="controllers">Controllers<a href="#controllers"></a></h3><p>Core controllers can be reused in a module as well, without being erased, thanks to inheritance.</p>
 <p>This allows a controller to be maintained easily, with its own identity but with the parent features.</p>
 <p>See <a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/controllers/">the controllers chapter</a> for more details.</p>
-<h3 id="service-overrides">Service overrides</h3>
-<p>PrestaShop is migrating to Symfony, and the parts migrated rely on Symfony container which enables service overrides and decorations. This is similar to overrides but avoids class erasing.</p>
+
+<h3 id="service-overrides">Service overrides<a href="#service-overrides"></a></h3><p>PrestaShop is migrating to Symfony, and the parts migrated rely on Symfony container which enables service overrides and decorations. This is similar to overrides but avoids class erasing.</p>
 <p>See <a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/services/">the Symfony services chapter</a> for more details.</p>
-<h3 id="contributing">Contributing</h3>
-<p>Sometimes, the existing features may not be enough for your needs.
+
+<h3 id="contributing">Contributing<a href="#contributing"></a></h3><p>Sometimes, the existing features may not be enough for your needs.
 An event can be missing, or a controller method should be probably better in a dedicated class to be accessible.</p>
 <p>If you think some changes in the core would be useful for the community, we encourage you to suggest them on the
 <a href="https://github.com/PrestaShop/PrestaShop">PrestaShop source code</a> with a pull request.</p>
 <p>By doing so, you may cover long-term needs the core developers probably don&rsquo;t know about.</p>
-<h2 id="class--controller-override">Class &amp; controller override</h2>
-<p>If you don&rsquo;t have any other choice, classes and controllers are usually built following a certain norm.</p>
+
+<h2 id="class--controller-override">Class &amp; controller override<a href="#class--controller-override"></a></h2><p>If you don&rsquo;t have any other choice, classes and controllers are usually built following a certain norm.</p>
 <p>Here is the core Product class and controller:</p>
 <ul>
 <li><code>/classes/Product.php</code>. The class is called ProductCore.</li>
@@ -29115,21 +29117,21 @@ An event can be missing, or a controller method should be probably better in a d
 Indeed, since PrestaShop 1.5, these files can be stored within a module and their management will follow it.</p>
 <p>Overriding a class does not mean to copy paste the whole file content.
 As long as you extend the core equivalent class, you are free to override only one method or as many as you need.</p>
-<h3 id="overriding-a-class">Overriding a class</h3>
-<p>In order to override the Product class, your file needs to be called Product.php and must feature a Product class that then extends ProductCore class.</p>
+
+<h3 id="overriding-a-class">Overriding a class<a href="#overriding-a-class"></a></h3><p>In order to override the Product class, your file needs to be called Product.php and must feature a Product class that then extends ProductCore class.</p>
 <p>The file should be placed in this module location:</p>
 <p><code>/modules/&lt;module_name&gt;/override/classes/Product.php</code>.</p>
 <p>It will be copied in <code>/override/classes/Product.php</code> during the module installation, and removed automatically on uninstall.</p>
 
 <div class="notices " >There is an example module that overrides <code>Manufacturer</code> and adds a field to database. See <a href="https://github.com/PrestaShop/example-modules/tree/master/demooverrideobjectmodel">DemoOverrideObjectModel</a>. Note that <strong>it is always recommended creating custom table and use custom ObjectModel instead of override</strong>.</div>
 
-<h3 id="overriding-a-controller">Overriding a controller</h3>
-<p>In order to override the ProductController class, your file needs to be called ProductController.php and must feature a ProductController class that then extends ProductControllerCore class.</p>
+
+<h3 id="overriding-a-controller">Overriding a controller<a href="#overriding-a-controller"></a></h3><p>In order to override the ProductController class, your file needs to be called ProductController.php and must feature a ProductController class that then extends ProductControllerCore class.</p>
 <p>The file should be placed in this module location:</p>
 <p><code>/modules/&lt;module_name&gt;/override/controllers/front/ProductController.php</code>.</p>
 <p>It will be copied in <code>/override/controllers/front/ProductController.php</code> during the module installation, and removed automatically on uninstall.</p>
-<h3 id="example">Example</h3>
-<p>Let&rsquo;s consider the file <code>/modules/&lt;module_name&gt;/override/classes/controllers/FrontController.php</code>, overriding only one method of the core file.</p>
+
+<h3 id="example">Example<a href="#example"></a></h3><p>Let&rsquo;s consider the file <code>/modules/&lt;module_name&gt;/override/classes/controllers/FrontController.php</code>, overriding only one method of the core file.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="cm">/*
 </span><span class="cm"> * With this override, you have a new Smarty variable called &#34;currentController&#34; available in header.tpl
@@ -29142,11 +29144,11 @@ As long as you extend the core equivalent class, you are free to override only o
         <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">initHeader</span><span class="p">();</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="override-a-module">Override a module</h2>
-<p>Since version 1.6.0.11 of PrestaShop, a new feature is available that allows developers to override some parts of the modules.
+</code></pre></div>
+<h2 id="override-a-module">Override a module<a href="#override-a-module"></a></h2><p>Since version 1.6.0.11 of PrestaShop, a new feature is available that allows developers to override some parts of the modules.
 Despite a module having different files, the main one, additional classes, etc., you can override the main file, and ModuleFrontController (note: this is available since 1.7.2.0) based files.</p>
-<h3 id="override-modules-main-class-by-extending-it">Override module&rsquo;s main class by extending it</h3>
-<p>To override a module&rsquo;s instance class, you have to extend it, giving the extended class the same name and adding the <code>Override</code> suffix:</p>
+
+<h3 id="override-modules-main-class-by-extending-it">Override module&rsquo;s main class by extending it<a href="#override-modules-main-class-by-extending-it"></a></h3><p>To override a module&rsquo;s instance class, you have to extend it, giving the extended class the same name and adding the <code>Override</code> suffix:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">
 <span class="k">class</span> <span class="nc">BlockUserInfoOverride</span> <span class="k">extends</span> <span class="nx">BlockUserInfo</span>
 <span class="p">{</span>
@@ -29160,8 +29162,8 @@ Despite a module having different files, the main one, additional classes, etc.,
 <p>After adding an override, don&rsquo;t forget to clean the cache. You can do it from the back office or by CLI using the Symfony console.</p>
 <p>You may even create a module that overrides other modules! For instance:
 <code>/modules/mymodule/override/modules/blockuserinfo/blockuserinfo.php</code> will be copied to <code>/override/modules/blockuserinfo/blockuserinfo.php</code> during the installation of the <code>mymodule</code> module. However, this is not recommended, since the exact usage of a module to be overridden is unknown and may be different in a particular shop.</p>
-<h3 id="override-module-frontadmin-controllers-classes-by-extending-them">Override module front/admin controllers classes by extending them</h3>
-<p>To override a module&rsquo;s front/admin controller class, you have to extend it, giving the extended class the same name and adding the <code>Override</code> suffix:</p>
+
+<h3 id="override-module-frontadmin-controllers-classes-by-extending-them">Override module front/admin controllers classes by extending them<a href="#override-module-frontadmin-controllers-classes-by-extending-them"></a></h3><p>To override a module&rsquo;s front/admin controller class, you have to extend it, giving the extended class the same name and adding the <code>Override</code> suffix:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">
 <span class="k">class</span> <span class="nc">AdminBlockListingControllerOverride</span> <span class="k">extends</span> <span class="nx">AdminBlockListingController</span>
 <span class="p">{</span>
@@ -29186,8 +29188,8 @@ Despite a module having different files, the main one, additional classes, etc.,
 <p>The previous example is applied to an admin controller, but the same process can be used for front controllers too.</p>
 <p>You may even create a module that overrides other modules! For instance:
 <code>/modules/mymodule/override/modules/blockreassurance/controllers/admin/AdminBlockListingController.php</code> will be copied to <code>/override/modules/blockreassurance/controllers/admin/AdminBlockListingController.php</code> during the installation of the <code>mymodule</code> module. However, this is not recommended, since the exact usage of a module to be overridden is unknown and may be different in a particular shop.</p>
-<h2 id="theme-template-override">Theme template override</h2>
-<p>Overriding a theme from a module is <strong>NOT</strong> possible, and never will.
+
+<h2 id="theme-template-override">Theme template override<a href="#theme-template-override"></a></h2><p>Overriding a theme from a module is <strong>NOT</strong> possible, and never will.
 If you need this, you have to look instead at the parent/child theme feature.</p>
 <p>However, a module template or asset can be overriden by a theme,
 but this is not covered by this chapter specific to modules development.</p>
@@ -29215,17 +29217,17 @@ but this is not covered by this chapter specific to modules development.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239914"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239914"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239914"></script>
-    <script src="/js/jquery.sticky.js?1677239914"></script>
-    <script src="/js/featherlight.min.js?1677239914"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239914"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239914"></script>
-    <script src="/js/learn.js?1677239914"></script>
-    <script src="/js/hugo-learn.js?1677239914"></script>
+    <script src="/js/clipboard.min.js?1678194995"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194995"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194995"></script>
+    <script src="/js/jquery.sticky.js?1678194995"></script>
+    <script src="/js/featherlight.min.js?1678194995"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194995"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194995"></script>
+    <script src="/js/learn.js?1678194995"></script>
+    <script src="/js/hugo-learn.js?1678194995"></script>
     
-    <script src="/main.js?1677239914"></script>
+    <script src="/main.js?1678194995"></script>
     
     
     

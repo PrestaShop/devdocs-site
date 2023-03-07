@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239927" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239927" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239927" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239927" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195007" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195007" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195007" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195007" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239927" rel="stylesheet">
+    <link href="/style.css?1678195007" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239927"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195007"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13772,6 +13772,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-to-migrate-hooks">How to migrate hooks</a>
@@ -30279,12 +30281,12 @@
 
 
 
-<h1 id="how-to-migrate-hooks">How to migrate hooks</h1>
-<p><a href="https://devdocs.prestashop-project.org/8/development/components/hook/">Hooks</a> are the most important feature for the PrestaShop developers because they allow them to improve PrestaShop by adding code or content in multiple points of the application. For Symfony developers, you can see that as Events on steroids.
+
+<h1 id="how-to-migrate-hooks">How to migrate hooks<a href="#how-to-migrate-hooks"></a></h1><p><a href="https://devdocs.prestashop-project.org/8/development/components/hook/">Hooks</a> are the most important feature for the PrestaShop developers because they allow them to improve PrestaShop by adding code or content in multiple points of the application. For Symfony developers, you can see that as Events on steroids.
 To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) modules, we need to ensure that hooks are still available, invoked and/or rendered at the right place.</p>
 <p>Getting the list of available Hooks in modern pages is really easy. Thanks to the hook profiler, the Symfony debug bar displays the list of available hooks (alongside some useful information) on a given page. Sadly, this is only available on Symfony pages, since the legacy system doesn&rsquo;t have any way to get the list of hooks dispatched for a page.</p>
-<h2 id="getting-the-list-of-hooks-on-a-legacy-page">Getting the list of hooks on a legacy page</h2>
-<p>Use this trick to find out which hooks are called on a legacy page.</p>
+
+<h2 id="getting-the-list-of-hooks-on-a-legacy-page">Getting the list of hooks on a legacy page<a href="#getting-the-list-of-hooks-on-a-legacy-page"></a></h2><p>Use this trick to find out which hooks are called on a legacy page.</p>
 <p>In <code>classes/Hook</code>, find the <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/classes/Hook.php#L735">exec() function</a> and add the following code:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="nx">file_put_contents</span><span class="p">(</span><span class="s1">&#39;hooks.txt&#39;</span><span class="p">,</span> <span class="nx">PHP_EOL</span><span class="o">.</span> <span class="nv">$hook_name</span><span class="p">,</span> <span class="nx">FILE_APPEND</span> <span class="o">|</span> <span class="nx">LOCK_EX</span><span class="p">);</span>
@@ -30304,12 +30306,12 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
         </figcaption>
 </figure>
 
-<h2 id="dispatching-hooks-in-a-modern-controller">Dispatching hooks in a modern Controller</h2>
-<p>You can dispatch a hook using the controller helper <code>dispatchHook($name, array $parameters)</code>:</p>
+
+<h2 id="dispatching-hooks-in-a-modern-controller">Dispatching hooks in a modern Controller<a href="#dispatching-hooks-in-a-modern-controller"></a></h2><p>You can dispatch a hook using the controller helper <code>dispatchHook($name, array $parameters)</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dispatchHook</span><span class="p">(</span><span class="s1">&#39;actionAdminPerformanceControllerPostProcessBefore&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="p">));</span>
-</code></pre></div><h2 id="dispatching-hooks-using-the-hook-dispatcher">Dispatching hooks using the Hook dispatcher</h2>
-<p>If you need to dispatch a hook from a non-controller class, you&rsquo;ll need to inject the <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Core/Hook/HookDispatcher.php">HookDispatcher</a> class.</p>
+</code></pre></div>
+<h2 id="dispatching-hooks-using-the-hook-dispatcher">Dispatching hooks using the Hook dispatcher<a href="#dispatching-hooks-using-the-hook-dispatcher"></a></h2><p>If you need to dispatch a hook from a non-controller class, you&rsquo;ll need to inject the <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Core/Hook/HookDispatcher.php">HookDispatcher</a> class.</p>
 <p>If your class is defined as a Symfony service, the HookDispatcher is available as a service called <code>prestashop.core.hook.dispatcher</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">use</span> <span class="nx">PrestaShopBundle\Service\Hook\HookEvent</span><span class="p">;</span>
@@ -30320,8 +30322,8 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
 </code></pre></div>
 <div class="notices tip" >Under the hood, we use an instance of Symfony <code>EventDispatcher</code>.</div>
 
-<h2 id="dispatchingrendering-hooks-in-twig-templates">Dispatching/rendering hooks in Twig templates</h2>
-<p>Some hooks are directly rendered in templates, because PrestaShop developers want to add/remove information from blocks. Of course you can do it using template override but you may lose compatibility if templates are updated in later versions of PrestaShop.</p>
+
+<h2 id="dispatchingrendering-hooks-in-twig-templates">Dispatching/rendering hooks in Twig templates<a href="#dispatchingrendering-hooks-in-twig-templates"></a></h2><p>Some hooks are directly rendered in templates, because PrestaShop developers want to add/remove information from blocks. Of course you can do it using template override but you may lose compatibility if templates are updated in later versions of PrestaShop.</p>
 <div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="cp">{{</span> <span class="nv">renderhook</span><span class="o">(</span>
     <span class="s1">&#39;hookName&#39;</span><span class="o">,</span>
     <span class="o">{</span>
@@ -30353,17 +30355,17 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239927"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239927"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239927"></script>
-    <script src="/js/jquery.sticky.js?1677239927"></script>
-    <script src="/js/featherlight.min.js?1677239927"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239927"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239927"></script>
-    <script src="/js/learn.js?1677239927"></script>
-    <script src="/js/hugo-learn.js?1677239927"></script>
+    <script src="/js/clipboard.min.js?1678195007"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195007"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195007"></script>
+    <script src="/js/jquery.sticky.js?1678195007"></script>
+    <script src="/js/featherlight.min.js?1678195007"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195007"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195007"></script>
+    <script src="/js/learn.js?1678195007"></script>
+    <script src="/js/hugo-learn.js?1678195007"></script>
     
-    <script src="/main.js?1677239927"></script>
+    <script src="/main.js?1678195007"></script>
     
     
     

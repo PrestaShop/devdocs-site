@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239932" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239932" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239932" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239932" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195011" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195011" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195011" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195011" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239932" rel="stylesheet">
+    <link href="/style.css?1678195011" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239932"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195011"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13760,6 +13760,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#pricing-faq">Pricing FAQ</a>
@@ -30261,19 +30263,19 @@
 
 
 
-<h1 id="pricing-faq">Pricing FAQ</h1>
-<ul>
+
+<h1 id="pricing-faq">Pricing FAQ<a href="#pricing-faq"></a></h1><ul>
 <li><a href="#refresh-exchange-rates">Refresh exchange rates</a></li>
 </ul>
-<h2 id="refresh-exchange-rates">Refresh exchange rates</h2>
-<p><strong>Q:</strong> How can I make sure my currency exchange rates are regularly updated?</p>
+
+<h2 id="refresh-exchange-rates">Refresh exchange rates<a href="#refresh-exchange-rates"></a></h2><p><strong>Q:</strong> How can I make sure my currency exchange rates are regularly updated?</p>
 <p><strong>A:</strong> In PrestaShop, all currencies is associated with the exchange rate for Euro.</p>
 <p>These exchange rates are updated every day (at 2:00AM) by authorities in charge of these currencies. The API used to get those rates is <a href="https://fixer.io/">https://fixer.io/</a></p>
 <p>The PrestaShop company gathers these rates and expose them through API endpoint <a href="https://api.prestashop.com/xml/currencies.xml">https://api.prestashop.com/xml/currencies.xml</a> (URL available in the code through constant <code>_PS_CURRENCY_FEED_URL_</code>).</p>
 <p>Function <code>Currency::refreshCurrencies()</code> is able to fetch these rates and update a shop currency data. In order to update currency exchange rates regularly, you need to setup an automatic task that execute <code>Currency::refreshCurrencies()</code> regularly.</p>
 <p>To help you do so, a script <code>cron_currency_rates.php</code> exists in your <code>admin</code> directory.</p>
-<h3 id="build-the-url-to-call-the-script">Build the URL to call the script</h3>
-<p>This script can be triggered by a webserver if you hit the right URL. The <code>admin</code> directory is different for every shop so you need to use your own <code>admin</code> folder name.</p>
+
+<h3 id="build-the-url-to-call-the-script">Build the URL to call the script<a href="#build-the-url-to-call-the-script"></a></h3><p>This script can be triggered by a webserver if you hit the right URL. The <code>admin</code> directory is different for every shop so you need to use your own <code>admin</code> folder name.</p>
 <p>You also need to provide an authentication <code>secure_key</code>.</p>
 <p>In order to obtain this secure key, you need 2 items:</p>
 <ul>
@@ -30283,8 +30285,8 @@
 <p>The secure key is computed like this:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$secureKey</span> <span class="o">=</span> <span class="nx">md5</span><span class="p">(</span><span class="nx">_COOKIE_KEY_</span> <span class="o">.</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_SHOP_NAME&#39;</span><span class="p">));</span>
 </code></pre></div><p>Assuming your admin directory is, for example, <code>admin_9282</code>, the URL you need to call will then be <code>myshop.com/admin_9282/cron_currency_rates.php?secure_key={my_secure_key}</code></p>
-<h3 id="call-the-url">Call the URL</h3>
-<p>By sending an HTTP request to the URL computed above, if received by a webserver, you will trigger the currency rate exchange. You now need to setup an automatic task that send HTTP requests regularly.</p>
+
+<h3 id="call-the-url">Call the URL<a href="#call-the-url"></a></h3><p>By sending an HTTP request to the URL computed above, if received by a webserver, you will trigger the currency rate exchange. You now need to setup an automatic task that send HTTP requests regularly.</p>
 <p>A popular way to do it is to rely on a <a href="https://en.wikipedia.org/wiki/Cron">crontab</a>. Most hosting providers allow you to configure one.</p>
 <p>Provided your hosting provider allows you to configure cron jobs, you need to add an entry for a cron job to regularly call the needed URL. <a href="https://crontab.guru">This tool</a> can help you to write the statement you want.</p>
 <p>Example of such a cronjob:</p>
@@ -30313,17 +30315,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239932"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239932"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239932"></script>
-    <script src="/js/jquery.sticky.js?1677239932"></script>
-    <script src="/js/featherlight.min.js?1677239932"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239932"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239932"></script>
-    <script src="/js/learn.js?1677239932"></script>
-    <script src="/js/hugo-learn.js?1677239932"></script>
+    <script src="/js/clipboard.min.js?1678195011"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195011"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195011"></script>
+    <script src="/js/jquery.sticky.js?1678195011"></script>
+    <script src="/js/featherlight.min.js?1678195011"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195011"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195011"></script>
+    <script src="/js/learn.js?1678195011"></script>
+    <script src="/js/hugo-learn.js?1678195011"></script>
     
-    <script src="/main.js?1677239932"></script>
+    <script src="/main.js?1678195011"></script>
     
     
     

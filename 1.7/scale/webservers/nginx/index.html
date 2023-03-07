@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/scale/webservers/nginx/">
 
     
-    <link href="/css/font-awesome.min.css?1677239917" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239917" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239917" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239917" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194998" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194998" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194998" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194998" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239917" rel="stylesheet">
+    <link href="/style.css?1678194998" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239917"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194998"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li>
@@ -29042,8 +29044,8 @@
 
 
 
-<h2 id="enabling-compression">Enabling compression</h2>
-<p>As you may be aware of, most of the file transiting from the web server (with the notable exception of pictures) are text based.</p>
+
+<h2 id="enabling-compression">Enabling compression<a href="#enabling-compression"></a></h2><p>As you may be aware of, most of the file transiting from the web server (with the notable exception of pictures) are text based.</p>
 <p>And text files are the most efficient to compress. Though disabled by default, enabling compression is a really quick way to reduce transit and speed up your website up to 80%!</p>
 <p><strong>Important:</strong> beware of the associated risk of enabling gzip compression if you are using SSL as noticed in the <a href="http://nginx.org/en/docs/http/ngx_http_gzip_module.html">ngx_http_gzip_module</a> page.</p>
 <blockquote>
@@ -29083,22 +29085,22 @@
 
     <span class="kn">...</span>
 <span class="err">}</span>
-</code></pre></div><h2 id="enabling-browser-caching">Enabling browser caching</h2>
-<p>By default, browsers locally store website assets in order to avoid fetching them again next time you visit the same page.</p>
+</code></pre></div>
+<h2 id="enabling-browser-caching">Enabling browser caching<a href="#enabling-browser-caching"></a></h2><p>By default, browsers locally store website assets in order to avoid fetching them again next time you visit the same page.</p>
 <p>Each browser has its own mechanics about this but the web server can provide cache control and expiration dates through headers when responding.</p>
 <p>Again, this allows to both speed up the page loads and avoid unnecessary traffic:</p>
 <div class="highlight"><pre class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="p">~</span><span class="sr">*</span> <span class="s">\.(?:css|eot|gif|ico|jpe?g|otf|png|ttf|woff2?)</span>$ <span class="p">{</span>
     <span class="kn">expires</span> <span class="s">1M</span><span class="p">;</span>
     <span class="kn">add_header</span> <span class="s">Cache-Control</span> <span class="s">&#34;public&#34;</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="access-logging">Access logging</h2>
-<p>Logging every request consumes both CPU and I/O cycles, and there are several ways to reduce the impact of access logging.</p>
+</code></pre></div>
+<h2 id="access-logging">Access logging<a href="#access-logging"></a></h2><p>Logging every request consumes both CPU and I/O cycles, and there are several ways to reduce the impact of access logging.</p>
 <p>Make sure to review the documentation of the <a href="http://nginx.org/en/docs/http/ngx_http_log_module.html">ngx_http_log_module</a> when modifying this directive.</p>
-<h3 id="enable-accesslog-buffering">Enable access‑log buffering</h3>
-<p>With buffering, instead of performing a separate write operation for each log entry, Nginx buffers a series of entries and writes them to the file together in a single operation.</p>
+
+<h3 id="enable-accesslog-buffering">Enable access‑log buffering<a href="#enable-accesslog-buffering"></a></h3><p>With buffering, instead of performing a separate write operation for each log entry, Nginx buffers a series of entries and writes them to the file together in a single operation.</p>
 <p>This is comprehensively explained in the <em>Access Logging</em> section of the <a href="https://www.nginx.com/blog/tuning-nginx/">Tuning NGINX for Performance</a> article in the Nginx blog.</p>
-<h3 id="disable-access-logging-for-specific-locations">Disable access logging for specific locations</h3>
-<p>You can also disable access logging for specific locations such as <code>favicon.ico</code> and <code>robots.txt</code>.</p>
+
+<h3 id="disable-access-logging-for-specific-locations">Disable access logging for specific locations<a href="#disable-access-logging-for-specific-locations"></a></h3><p>You can also disable access logging for specific locations such as <code>favicon.ico</code> and <code>robots.txt</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">location</span> <span class="p">=</span> <span class="s">/favicon.ico</span> <span class="p">{</span>
     <span class="kn">access_log</span> <span class="no">off</span><span class="p">;</span>
     <span class="kn">log_not_found</span> <span class="no">off</span><span class="p">;</span>
@@ -29109,8 +29111,8 @@
     <span class="kn">log_not_found</span> <span class="no">off</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div><p>Notice we are using the exact match modifier <code>=</code> to speed up the processing of these requests.</p>
-<h3 id="turn-off-access-logging">Turn off access logging</h3>
-<p>If your PrestaShop installation does not require access logging, you can use the special value <code>off</code> in the <code>access_log</code> directive to completely disable access logging.</p>
+
+<h3 id="turn-off-access-logging">Turn off access logging<a href="#turn-off-access-logging"></a></h3><p>If your PrestaShop installation does not require access logging, you can use the special value <code>off</code> in the <code>access_log</code> directive to completely disable access logging.</p>
 <div class="highlight"><pre class="chroma"><code class="language-nginx" data-lang="nginx"><span class="k">server</span> <span class="p">{</span>
     <span class="kn">...</span>
     <span class="s">access_log</span> <span class="no">off</span>
@@ -29140,17 +29142,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239917"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239917"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239917"></script>
-    <script src="/js/jquery.sticky.js?1677239917"></script>
-    <script src="/js/featherlight.min.js?1677239917"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239917"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239917"></script>
-    <script src="/js/learn.js?1677239917"></script>
-    <script src="/js/hugo-learn.js?1677239917"></script>
+    <script src="/js/clipboard.min.js?1678194998"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194998"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194998"></script>
+    <script src="/js/jquery.sticky.js?1678194998"></script>
+    <script src="/js/featherlight.min.js?1678194998"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194998"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194998"></script>
+    <script src="/js/learn.js?1678194998"></script>
+    <script src="/js/hugo-learn.js?1678194998"></script>
     
-    <script src="/main.js?1677239917"></script>
+    <script src="/main.js?1678194998"></script>
     
     
     

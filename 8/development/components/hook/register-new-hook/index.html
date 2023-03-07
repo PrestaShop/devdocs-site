@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239931" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239931" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239931" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239931" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195010" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195010" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195010" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195010" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239931" rel="stylesheet">
+    <link href="/style.css?1678195010" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239931"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195010"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13772,6 +13772,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-to-add-a-new-core-hook">How to add a new Core Hook</a>
@@ -30278,13 +30280,13 @@
 
 
 
-<h1 id="how-to-add-a-new-core-hook">How to add a new Core Hook</h1>
-<p>Although hooks are automatically created the first time they are subscribed to, new hooks added to the Core itself need to be properly registered and documented.</p>
+
+<h1 id="how-to-add-a-new-core-hook">How to add a new Core Hook<a href="#how-to-add-a-new-core-hook"></a></h1><p>Although hooks are automatically created the first time they are subscribed to, new hooks added to the Core itself need to be properly registered and documented.</p>
 <p>Here are the steps you need to follow.</p>
-<h2 id="1-dispatch-the-new-hook">1. Dispatch the new hook</h2>
-<p>The very first step is just to dispatch the new hook wherever you need it, as explained in <a href="/8/development/components/hook/dispatching-hook/">Dispatching a Hook</a>.</p>
-<h2 id="2-update-the-hooks-definition-file">2. Update the Hooks definition file</h2>
-<p>All known hooks are registered in the <code>ps_hook</code> database table. This table is populated with Core hooks during the installation, by reading the <code>install-dev/data/xml/hook.xml</code> file, then during runtime every time a new hook is used.</p>
+
+<h2 id="1-dispatch-the-new-hook">1. Dispatch the new hook<a href="#1-dispatch-the-new-hook"></a></h2><p>The very first step is just to dispatch the new hook wherever you need it, as explained in <a href="/8/development/components/hook/dispatching-hook/">Dispatching a Hook</a>.</p>
+
+<h2 id="2-update-the-hooks-definition-file">2. Update the Hooks definition file<a href="#2-update-the-hooks-definition-file"></a></h2><p>All known hooks are registered in the <code>ps_hook</code> database table. This table is populated with Core hooks during the installation, by reading the <code>install-dev/data/xml/hook.xml</code> file, then during runtime every time a new hook is used.</p>
 <p>Having Core hooks registered is important for two main reasons. First, every hook registered in database will be displayed in the Hook debugger, so it will help developers figure out which hooks are available on a given page. Second, known hooks are displayed in the Positions page, allowing to transplant modules from one hook into another (this is especially useful for display hooks).</p>
 <p>Each hook has a name, a title and a definition. They are identified by an additional id attribute in XML, which is the same as its name.</p>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
@@ -30307,8 +30309,8 @@
 <span class="nt">&lt;/entity_hook&gt;</span>
 <span class="nt">&lt;/xml&gt;</span>
 </code></pre></div><p>Add new hooks at the bottom of the list, as hooks are registered sequentially.</p>
-<h2 id="3-prepare-database-update-for-shop-upgrades">3. Prepare database update for shop upgrades</h2>
-<p>The previous step only adds the hook to <em>new</em> shops. We also need to register the hook to shops that upgrade from a previous version.</p>
+
+<h2 id="3-prepare-database-update-for-shop-upgrades">3. Prepare database update for shop upgrades<a href="#3-prepare-database-update-for-shop-upgrades"></a></h2><p>The previous step only adds the hook to <em>new</em> shops. We also need to register the hook to shops that upgrade from a previous version.</p>
 <p>The last step is to insert the new hooks in the <code>ps_hooks</code> table using the upgrade system. Locate the X.Y.Z.sql file that refers to the PrestaShop version that will include your change: for instance, if the release expected to include this change is <code>1.7.5.0</code>, locate that file in the <code>upgrade/sql</code> folder from the <a href="https://github.com/PrestaShop/autoupgrade">autoupgrade</a> module.</p>
 
 <div class="notices tip" >This process is explained here: <a href="https://devdocs.prestashop-project.org/8/development/database/structure/#structure-and-content-upgrades">Structure and content upgrades</a></div>
@@ -30341,17 +30343,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239931"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239931"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239931"></script>
-    <script src="/js/jquery.sticky.js?1677239931"></script>
-    <script src="/js/featherlight.min.js?1677239931"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239931"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239931"></script>
-    <script src="/js/learn.js?1677239931"></script>
-    <script src="/js/hugo-learn.js?1677239931"></script>
+    <script src="/js/clipboard.min.js?1678195011"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195011"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195011"></script>
+    <script src="/js/jquery.sticky.js?1678195011"></script>
+    <script src="/js/featherlight.min.js?1678195011"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195011"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195011"></script>
+    <script src="/js/learn.js?1678195011"></script>
+    <script src="/js/hugo-learn.js?1678195011"></script>
     
-    <script src="/main.js?1677239931"></script>
+    <script src="/main.js?1678195011"></script>
     
     
     

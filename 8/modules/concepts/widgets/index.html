@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239932" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239932" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239932" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239932" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195012" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195012" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195012" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195012" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239932" rel="stylesheet">
+    <link href="/style.css?1678195012" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239932"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195012"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13766,6 +13766,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#widgets">Widgets</a>
@@ -30279,11 +30281,11 @@
 
 
 
-<h1 id="widgets">Widgets</h1>
-<p>Widget is an advanced concept introduced on PrestaShop 1.7, extending hooks
+
+<h1 id="widgets">Widgets<a href="#widgets"></a></h1><p>Widget is an advanced concept introduced on PrestaShop 1.7, extending hooks
 feature.</p>
-<h2 id="limitation-of-hooks">Limitation of hooks</h2>
-<p>In their basic use, a display hook will be shown at a specific place in the
+
+<h2 id="limitation-of-hooks">Limitation of hooks<a href="#limitation-of-hooks"></a></h2><p>In their basic use, a display hook will be shown at a specific place in the
 template.
 If a module wants to display the same additional content on several places,
 whatever the merchant chose, it still has to register and implement all
@@ -30296,15 +30298,15 @@ When a module implements widgets in its code, it allows:</p>
 <li>the core to fallback on it if a registered hook is called but its method
 <code>hook&lt;hook_name&gt;()</code> does not exist.</li>
 </ul>
-<h2 id="make-a-module-widgets-compliant">Make a module widgets compliant</h2>
-<p>In order to be widget-compliant, a module needs to follow two steps:</p>
-<h3 id="implement-interface">Implement interface</h3>
-<p>Before calling a module for widgets, the core must be sure your module has
+
+<h2 id="make-a-module-widgets-compliant">Make a module widgets compliant<a href="#make-a-module-widgets-compliant"></a></h2><p>In order to be widget-compliant, a module needs to follow two steps:</p>
+
+<h3 id="implement-interface">Implement interface<a href="#implement-interface"></a></h3><p>Before calling a module for widgets, the core must be sure your module has
 this feature available. This can be done by implementing the interface
 <code>PrestaShop\PrestaShop\Core\Module\WidgetInterface</code>
 (<a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Core/Module/WidgetInterface.php">Source code</a>).</p>
-<h3 id="declare-mandatory-methods">Declare mandatory methods</h3>
-<p>As soon as a module implements the <code>WidgetInterface</code>, two methods must be declared:</p>
+
+<h3 id="declare-mandatory-methods">Declare mandatory methods<a href="#declare-mandatory-methods"></a></h3><p>As soon as a module implements the <code>WidgetInterface</code>, two methods must be declared:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">renderWidget</span><span class="p">(</span><span class="nv">$hookName</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$configuration</span><span class="p">);</span>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">getWidgetVariables</span><span class="p">(</span><span class="nv">$hookName</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$configuration</span><span class="p">);</span>
@@ -30321,10 +30323,10 @@ The method <code>getWidgetVariables()</code> returns the variables you want to a
 <li><code>$configuration</code>: This is the equivalent of the parameter <code>$params</code> when a hook
 is called.</li>
 </ul>
-<h2 id="call-widgets">Call Widgets</h2>
-<p>Once the module has implemented the method <code>renderWidget()</code>, there are two ways to call it.</p>
-<h3 id="the-old-way-with-hooks">The old way, with hooks</h3>
-<p>The first one is by triggering a hook manually registered to the module, but not implemented by it.</p>
+
+<h2 id="call-widgets">Call Widgets<a href="#call-widgets"></a></h2><p>Once the module has implemented the method <code>renderWidget()</code>, there are two ways to call it.</p>
+
+<h3 id="the-old-way-with-hooks">The old way, with hooks<a href="#the-old-way-with-hooks"></a></h3><p>The first one is by triggering a hook manually registered to the module, but not implemented by it.</p>
 <ul>
 <li>From a PHP class</li>
 </ul>
@@ -30340,8 +30342,8 @@ is called.</li>
         </figcaption>
 </figure>
 
-<h2 id="with-widget">With widget</h2>
-<p>The function <code>renderWidget()</code> of a specific module can be called directly:</p>
+
+<h2 id="with-widget">With widget<a href="#with-widget"></a></h2><p>The function <code>renderWidget()</code> of a specific module can be called directly:</p>
 <ul>
 <li>From a Smarty template (recommended)</li>
 </ul>
@@ -30355,8 +30357,8 @@ is called.</li>
 </ul>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="nx">Hook</span><span class="o">::</span><span class="na">coreRenderWidget</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">,</span> <span class="nv">$hook_name</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
-</code></pre></div><h2 id="code-example">Code example</h2>
-<ul>
+</code></pre></div>
+<h2 id="code-example">Code example<a href="#code-example"></a></h2><ul>
 <li>From a PHP class</li>
 </ul>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -30447,17 +30449,17 @@ is called.</li>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239932"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239932"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239932"></script>
-    <script src="/js/jquery.sticky.js?1677239932"></script>
-    <script src="/js/featherlight.min.js?1677239932"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239932"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239932"></script>
-    <script src="/js/learn.js?1677239932"></script>
-    <script src="/js/hugo-learn.js?1677239932"></script>
+    <script src="/js/clipboard.min.js?1678195012"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195012"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195012"></script>
+    <script src="/js/jquery.sticky.js?1678195012"></script>
+    <script src="/js/featherlight.min.js?1678195012"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195012"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195012"></script>
+    <script src="/js/learn.js?1678195012"></script>
+    <script src="/js/hugo-learn.js?1678195012"></script>
     
-    <script src="/main.js?1677239932"></script>
+    <script src="/main.js?1678195012"></script>
     
     
     

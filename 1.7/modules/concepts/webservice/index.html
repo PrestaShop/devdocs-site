@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/concepts/webservice/">
 
     
-    <link href="/css/font-awesome.min.css?1677239960" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239960" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239960" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239960" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195037" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195037" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195037" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195037" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239960" rel="stylesheet">
+    <link href="/style.css?1678195037" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239960"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195037"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#webservice">Webservice</a>
@@ -29042,16 +29044,16 @@
 
 
 
-<h1 id="webservice">Webservice</h1>
 
+<h1 id="webservice">Webservice<a href="#webservice"></a></h1>
 <div class="magic-version-pill" data-version="1.7" data-title="New in PrestaShop 1.7"></div>
 
 
-<h2 id="prestashop-webservice">PrestaShop Webservice</h2>
-<p>PrestaShop enables merchants to give third-party tools access to their shop&rsquo;s database through a CRUD API, otherwise called a web service.</p>
+
+<h2 id="prestashop-webservice">PrestaShop Webservice<a href="#prestashop-webservice"></a></h2><p>PrestaShop enables merchants to give third-party tools access to their shop&rsquo;s database through a CRUD API, otherwise called a web service.</p>
 <p>Since 1.7 version, developers can extend the resources available through the PrestaShop Webservice with a module.</p>
-<h3 id="create-and-declare-your-new-entity">Create and declare your new entity</h3>
-<p>The following example is about an entity that can manage blog articles, the folder where you create your Entity is not relevant.</p>
+
+<h3 id="create-and-declare-your-new-entity">Create and declare your new entity<a href="#create-and-declare-your-new-entity"></a></h3><p>The following example is about an entity that can manage blog articles, the folder where you create your Entity is not relevant.</p>
 <p>PS: Remember to create the respective table(s) in the database, usually created during the module installation.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="c1">// modules/yourmodule/src/Entity/Article.php
@@ -29100,8 +29102,8 @@
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;objectNodeName&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;articles&#39;</span>
 </code></pre></div><p>The parameter to set which fields to expose through the webservice and settings for each of them:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;fields&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">()</span>
-</code></pre></div><h3 id="registration-with-a-hook">Registration with a hook</h3>
-<p>The hook <code>addWebserviceResources</code> must be registered and implemented by your module.</p>
+</code></pre></div>
+<h3 id="registration-with-a-hook">Registration with a hook<a href="#registration-with-a-hook"></a></h3><p>The hook <code>addWebserviceResources</code> must be registered and implemented by your module.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookAddWebserviceResources</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="k">return</span> <span class="p">[</span>
@@ -29112,12 +29114,12 @@
 </span><span class="c1"></span>      <span class="p">]</span>
     <span class="p">];</span>
 <span class="p">}</span>
-</code></pre></div><h3 id="load-your-entity">Load your entity</h3>
-<p>Don&rsquo;t forget to include the class file of your entity (i.e. Article.php) at the top of your main module file.
+</code></pre></div>
+<h3 id="load-your-entity">Load your entity<a href="#load-your-entity"></a></h3><p>Don&rsquo;t forget to include the class file of your entity (i.e. Article.php) at the top of your main module file.
 The following is an example of a correct configuration to load your example entity to your module.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">include_once</span> <span class="nx">_PS_MODULE_DIR_</span> <span class="o">.</span> <span class="s1">&#39;wsarticle/src/Entity/Article.php&#39;</span><span class="p">;</span>
-</code></pre></div><h3 id="complete-example-of-a-main-module-file">Complete example of a main module file</h3>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+</code></pre></div>
+<h3 id="complete-example-of-a-main-module-file">Complete example of a main module file<a href="#complete-example-of-a-main-module-file"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
     <span class="k">exit</span><span class="p">;</span>
@@ -29186,8 +29188,8 @@ The following is an example of a correct configuration to load your example enti
         <span class="p">];</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><h3 id="final-notes">Final notes</h3>
-<p>Following the example above, the new resource will be available in the webservice resources list:</p>
+</code></pre></div>
+<h3 id="final-notes">Final notes<a href="#final-notes"></a></h3><p>Following the example above, the new resource will be available in the webservice resources list:</p>
 <figure><img src="../img/new-ws-resource.png"/><figcaption>
             <h4>New Webservice resource</h4>
         </figcaption>
@@ -29233,17 +29235,17 @@ The following is an example of a correct configuration to load your example enti
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239960"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239960"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239960"></script>
-    <script src="/js/jquery.sticky.js?1677239960"></script>
-    <script src="/js/featherlight.min.js?1677239960"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239960"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239960"></script>
-    <script src="/js/learn.js?1677239960"></script>
-    <script src="/js/hugo-learn.js?1677239960"></script>
+    <script src="/js/clipboard.min.js?1678195038"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195038"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195038"></script>
+    <script src="/js/jquery.sticky.js?1678195038"></script>
+    <script src="/js/featherlight.min.js?1678195038"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195038"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195038"></script>
+    <script src="/js/learn.js?1678195038"></script>
+    <script src="/js/hugo-learn.js?1678195038"></script>
     
-    <script src="/main.js?1677239960"></script>
+    <script src="/main.js?1678195038"></script>
     
     
     

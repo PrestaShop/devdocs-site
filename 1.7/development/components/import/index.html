@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/import/">
 
     
-    <link href="/css/font-awesome.min.css?1677239959" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239959" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239959" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239959" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195036" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195036" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195036" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195036" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239959" rel="stylesheet">
+    <link href="/style.css?1678195036" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239959"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195036"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#the-import-component">The Import component</a>
@@ -29074,12 +29076,12 @@
 
 
 
-<h1 id="the-import-component">The Import component</h1>
 
+<h1 id="the-import-component">The Import component<a href="#the-import-component"></a></h1>
 <div class="notices note" >The legacy import page is not fully migrated to new architecture yet.</div>
 
-<h2 id="introduction">Introduction</h2>
-<p>The import workflow consists of the following steps:</p>
+
+<h2 id="introduction">Introduction<a href="#introduction"></a></h2><p>The import workflow consists of the following steps:</p>
 <ul>
 <li>Configuration in import step 1 (such as data source, separators, other settings).</li>
 <li><em>Entity</em> fields matching to data source columns in import step 2.</li>
@@ -29089,20 +29091,20 @@
 
 <div class="notices tip" >When using word <em><strong>entity</strong></em>, we are referring to a business entity from PrestaShop, such as <em>Product</em>, <em>Category</em>, <em>Address</em>, etc.</div>
 
-<h2 id="import-step-1">Import step 1</h2>
-<p>This page consists of import configuration, where you select the import data source and choose wanted options, such as field separators, import language, whether old data should be truncated or not, etc.
+
+<h2 id="import-step-1">Import step 1<a href="#import-step-1"></a></h2><p>This page consists of import configuration, where you select the import data source and choose wanted options, such as field separators, import language, whether old data should be truncated or not, etc.
 All configuration which is selected in this page, is represented by the <code>PrestaShop\PrestaShop\Core\Import\Configuration\ImportConfigInterface</code>.</p>
 <figure><img src="./img/import_step_1.png"/><figcaption>
             <h4>Import step 1</h4>
         </figcaption>
 </figure>
 
-<h3 id="import-configuration">Import configuration</h3>
-<p>The default implementation of the mentioned configuration interface (<code>PrestaShop\PrestaShop\Core\Import\Configuration\ImportConfigInterface</code>) in PrestaShop can be seen in <code>PrestaShop\PrestaShop\Core\Import\Configuration\ImportConfig</code> class.
+
+<h3 id="import-configuration">Import configuration<a href="#import-configuration"></a></h3><p>The default implementation of the mentioned configuration interface (<code>PrestaShop\PrestaShop\Core\Import\Configuration\ImportConfigInterface</code>) in PrestaShop can be seen in <code>PrestaShop\PrestaShop\Core\Import\Configuration\ImportConfig</code> class.
 This class is a value object, which values are not supposed to change during one import operation.</p>
 <p>The default <code>ImportConfig</code> implementation can be instantiated using the factory <code>PrestaShop\PrestaShop\Core\Import\Configuration\ImportConfigFactory</code>.</p>
-<h2 id="import-step-2">Import step 2</h2>
-<p>In the second import step we can configure only two things that are directly related to the import:</p>
+
+<h2 id="import-step-2">Import step 2<a href="#import-step-2"></a></h2><p>In the second import step we can configure only two things that are directly related to the import:</p>
 <ul>
 <li>Number of rows to skip from the top of import file.</li>
 <li>Entity fields matching to data source columns.</li>
@@ -29112,11 +29114,11 @@ This class is a value object, which values are not supposed to change during one
         </figcaption>
 </figure>
 
-<h3 id="number-of-rows-to-skip">Number of rows to skip</h3>
-<p>The number of rows to skip from the top of import file value is also held in the default <code>ImportConfig</code> implementation and is exposed by the <code>PrestaShop\PrestaShop\Core\Import\Configuration\ImportConfigInterface</code>.
+
+<h3 id="number-of-rows-to-skip">Number of rows to skip<a href="#number-of-rows-to-skip"></a></h3><p>The number of rows to skip from the top of import file value is also held in the default <code>ImportConfig</code> implementation and is exposed by the <code>PrestaShop\PrestaShop\Core\Import\Configuration\ImportConfigInterface</code>.
 The interface fits well for this configuration value, because the value is not supposed to change during the import operation.</p>
-<h3 id="entity-fields-matching">Entity fields matching</h3>
-<p>
+
+<h3 id="entity-fields-matching">Entity fields matching<a href="#entity-fields-matching"></a></h3><p>
 <div class="notices tip" >Entity fields matching can be explained as selecting which of the available entity fields is represented by which column in the import file.</div>
 
 There are a couple of classes implemented in PrestaShop, that ease up the entity fields matching:</p>
@@ -29125,8 +29127,8 @@ There are a couple of classes implemented in PrestaShop, that ease up the entity
 <li><em>Entity field</em> - represented by <code>PrestaShop\PrestaShop\Core\Import\EntityField\EntityField</code>.</li>
 <li><em>Data row</em> - represented by <code>PrestaShop\PrestaShop\Core\Import\File\DataRow\DataRow</code>.</li>
 </ul>
-<h4 id="import-entity">Import entity</h4>
-<p>This class holds all import types, that are available by default in PrestaShop and allows to retrieve them easily:</p>
+
+<h4 id="import-entity">Import entity<a href="#import-entity"></a></h4><p>This class holds all import types, that are available by default in PrestaShop and allows to retrieve them easily:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="c1">// src/Core/Import/Entity.php
 </span><span class="c1"></span>
@@ -29144,8 +29146,8 @@ There are a couple of classes implemented in PrestaShop, that ease up the entity
     
     <span class="o">&lt;...&gt;</span>
 <span class="p">}</span>
-</code></pre></div><h4 id="entity-field">Entity field</h4>
-<p>Entity field is described by an implementation of <code>PrestaShop\PrestaShop\Core\Import\EntityField\EntityFieldInterface</code>.</p>
+</code></pre></div>
+<h4 id="entity-field">Entity field<a href="#entity-field"></a></h4><p>Entity field is described by an implementation of <code>PrestaShop\PrestaShop\Core\Import\EntityField\EntityFieldInterface</code>.</p>
 <p>Entity fields are stored in collections, by implementing <code>PrestaShop\PrestaShop\Core\Import\EntityField\EntityFieldCollectionInterface</code>.
 Entity field collection default implementation is this class: <code>PrestaShop\PrestaShop\Core\Import\EntityField\EntityFieldCollection</code>.</p>
 <p>Entity field collections are provided by providers, which implement <code>PrestaShop\PrestaShop\Core\Import\EntityField\Provider\EntityFieldsProviderInterface</code>.
@@ -29184,8 +29186,8 @@ Every entity, which is available for import in PrestaShop, has it&rsquo;s own fi
     
     <span class="c1">// ...
 </span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><h4 id="data-row">Data row</h4>
-<p><code>DataRow</code> is an object representation of a data row from import source file.</p>
+</code></pre></div>
+<h4 id="data-row">Data row<a href="#data-row"></a></h4><p><code>DataRow</code> is an object representation of a data row from import source file.</p>
 <p><code>DataRow</code> is described by an interface <code>PrestaShop\PrestaShop\Core\Import\File\DataRow\DataRowInterface</code> and can be used in collections to represent multiple rows of data.</p>
 <p><code>DataRow</code> collections can be built using <code>DataRowCollectionFactory</code>, which should implement the <code>PrestaShop\PrestaShop\Core\Import\File\DataRow\Factory\DataRowCollectionFactoryInterface</code>.</p>
 <p>Currently there is one <code>DataRowCollectionFactory</code> implementation available in PrestaShop, which builds the <code>DataRowCollection</code> by reading a data file:</p>
@@ -29213,16 +29215,16 @@ Every entity, which is available for import in PrestaShop, has it&rsquo;s own fi
         <span class="k">return</span> <span class="nv">$dataRowCollection</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="import-operation">Import operation</h2>
-<p>The import operation can be imaged as multiple smaller import processes running one after another, until the data is fully imported or critical errors occur.</p>
+</code></pre></div>
+<h2 id="import-operation">Import operation<a href="#import-operation"></a></h2><p>The import operation can be imaged as multiple smaller import processes running one after another, until the data is fully imported or critical errors occur.</p>
 <p>Import operation can be described by three essential parts:</p>
 <ul>
 <li>Import configuration preparation.</li>
 <li>The import handler.</li>
 <li>The importer.</li>
 </ul>
-<h3 id="import-configuration-preparation">Import configuration preparation</h3>
-<p>To run the import process we have to prepare the configuration for it.
+
+<h3 id="import-configuration-preparation">Import configuration preparation<a href="#import-configuration-preparation"></a></h3><p>To run the import process we have to prepare the configuration for it.
 As mentioned in previous topics, there are two configuration objects (<code>ImportConfig</code> and <code>ImportRuntimeConfig</code>), that have to be prepared for the import process. Both of them can be built using factories, which are described by interfaces <code>PrestaShop\PrestaShop\Core\Import\Configuration\ImportConfigFactoryInterface</code> and <code>PrestaShop\PrestaShop\Core\Import\Configuration\ImportRuntimeConfigFactoryInterface</code>.</p>
 <p>There is one implementation of each of the two configuration interfaces in PrestaShop. Both of them are available to build the relevant import config object out of Symfony <code>Request</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -29275,8 +29277,8 @@ As mentioned in previous topics, there are two configuration objects (<code>Impo
         <span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="import-handler">Import handler</h2>
-<p>To handle the import process we must prepare an <code>ImportHandler</code>, which will have access to our specific logic for import operation. The <code>ImportHandler</code> should implement <code>PrestaShop/PrestaShop/Core/Import/Handler/ImportHandlerInterface</code>.</p>
+</code></pre></div>
+<h2 id="import-handler">Import handler<a href="#import-handler"></a></h2><p>To handle the import process we must prepare an <code>ImportHandler</code>, which will have access to our specific logic for import operation. The <code>ImportHandler</code> should implement <code>PrestaShop/PrestaShop/Core/Import/Handler/ImportHandlerInterface</code>.</p>
 <p>There are three main methods exposed by the interface, which are essential for import logic execution:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="c1">// src/Core/Import/Handler/ImportHandlerInterface.php
@@ -29309,8 +29311,8 @@ As mentioned in previous topics, there are two configuration objects (<code>Impo
 <li><code>importRow()</code> - executed for every row that&rsquo;s being imported. This method should run the logic, that imports the data for one row. In addition to import configuration, this method also has a <code>PrestaShop\PrestaShop\Core\Import\File\DataRow\DataRowInterface</code> as an argument, which is an object representation of the current row from the import data source.</li>
 <li><code>tearDown()</code> - executed when the import process is finished. Useful for actions that have to be done only once after each process.</li>
 </ul>
-<h2 id="importer">Importer</h2>
-<p>The <code>Importer</code> is responsible for running the import logic from <code>ImportHandler</code>, and applying the import configuration properly during the process.
+
+<h2 id="importer">Importer<a href="#importer"></a></h2><p>The <code>Importer</code> is responsible for running the import logic from <code>ImportHandler</code>, and applying the import configuration properly during the process.
 <code>Importer</code> is an object that implements the <code>PrestaShop\PrestaShop\Core\Import\ImporterInterface</code>. PrestaShop comes with one <code>Importer</code> implementation (<code>PrestaShop\PrestaShop\Core\Import\Importer</code>), which can be easily used for your needs.</p>
 <p>The <code>PrestaShop\PrestaShop\Core\Import\ImporterInterface</code> exposes only one method:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -29328,8 +29330,8 @@ As mentioned in previous topics, there are two configuration objects (<code>Impo
     <span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div><p><code>import()</code> method accepts the import configurations and the import handler implementation as arguments and will execute the import logic automatically.</p>
-<h3 id="import-execution-example-in-a-controller">Import execution example in a controller</h3>
-<p>The <code>processImportAction()</code> controller action (from the example below) imports one batch of the import data at a time.
+
+<h3 id="import-execution-example-in-a-controller">Import execution example in a controller<a href="#import-execution-example-in-a-controller"></a></h3><p>The <code>processImportAction()</code> controller action (from the example below) imports one batch of the import data at a time.
 It can be run multiple times, until all data is fully imported.</p>
 <p>The controller action below is being called multiple times (via <em>AJAX</em>) by the <em>JavaScript</em> part of the import component,
 until all data is imported from the source file:</p>
@@ -29356,55 +29358,55 @@ until all data is imported from the source file:</p>
     
     <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">json</span><span class="p">(</span><span class="nv">$runtimeConfig</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">());</span>
 <span class="p">}</span>
-</code></pre></div><h3 id="related-javascript">Related JavaScript</h3>
-<p>Since the import operation can be heavy and take many resources to complete (depending on the amount of data to be imported),
+</code></pre></div>
+<h3 id="related-javascript">Related JavaScript<a href="#related-javascript"></a></h3><p>Since the import operation can be heavy and take many resources to complete (depending on the amount of data to be imported),
 in PrestaShop it is being executed in smaller processes.
 To achieve that, some <em>JavaScript</em> code is being used, which continuously fires <em>AJAX</em> requests that trigger the import processing on the server, until the import finishes.</p>
 <p>All <em>JavaScript</em> code, which is used by the import component, can be found under <code>admin-dev/themes/new-theme/js/pages/import-data/</code> directory.
 We can find different <em>JavaScript</em> components there, which are explained below.</p>
-<h4 id="entityfieldsvalidator"><code>EntityFieldsValidator</code></h4>
-<p>Responsible for validating selected entity fields in import page 2 data table.
+
+<h4 id="entityfieldsvalidator"><code>EntityFieldsValidator</code><a href="#entityfieldsvalidator"></a></h4><p>Responsible for validating selected entity fields in import page 2 data table.
 It makes sure that you don&rsquo;t miss any required fields, prevents you from selecting same field twice and shows error messages if you do.</p>
 <figure><img src="./img/import_step_2_validation.png"/><figcaption>
             <h4>Validation in import step 2 - duplicate fields</h4>
         </figcaption>
 </figure>
 
-<h4 id="importbatchsizecalculator"><code>ImportBatchSizeCalculator</code></h4>
-<p>Calculates the most reasonable batch size for each import process, depending on server&rsquo;s response time.
+
+<h4 id="importbatchsizecalculator"><code>ImportBatchSizeCalculator</code><a href="#importbatchsizecalculator"></a></h4><p>Calculates the most reasonable batch size for each import process, depending on server&rsquo;s response time.
 It adapts the batch size of the next import iteration by measuring how long it took for the server to process the data in previous import iteration.</p>
-<h4 id="importdatatable"><code>ImportDataTable</code></h4>
-<p>Responsible for pagination functionality in the import data preview table.
+
+<h4 id="importdatatable"><code>ImportDataTable</code><a href="#importdatatable"></a></h4><p>Responsible for pagination functionality in the import data preview table.
 The pagination arrows appear below the data table and can be used to peek the source file preview forward or backwards.</p>
 <figure><img src="./img/import_step_2_pagination.png"/><figcaption>
             <h4>Import step 2 data preview table - pagination arrows</h4>
         </figcaption>
 </figure>
 
-<h4 id="importmatchconfiguration"><code>ImportMatchConfiguration</code></h4>
-<p>Responsible for saving, loading or deleting import matches configurations.
+
+<h4 id="importmatchconfiguration"><code>ImportMatchConfiguration</code><a href="#importmatchconfiguration"></a></h4><p>Responsible for saving, loading or deleting import matches configurations.
 Import match configuration allows saving the matched entity fields for later reusability.</p>
 <figure><img src="./img/import_match_configuration.png"/><figcaption>
             <h4>Import match configuration interface</h4>
         </figcaption>
 </figure>
 
-<h4 id="postsizechecker"><code>PostSizeChecker</code></h4>
-<p>Responsible for checking if <em>POST</em> size limit is being reached.
+
+<h4 id="postsizechecker"><code>PostSizeChecker</code><a href="#postsizechecker"></a></h4><p>Responsible for checking if <em>POST</em> size limit is being reached.
 It&rsquo;s used in each import process, to make sure it won&rsquo;t reach the limits.</p>
-<h4 id="importprogressmodal"><code>ImportProgressModal</code></h4>
-<p>Responsible for displaying the import progress for the end user in a modal window.
+
+<h4 id="importprogressmodal"><code>ImportProgressModal</code><a href="#importprogressmodal"></a></h4><p>Responsible for displaying the import progress for the end user in a modal window.
 It updates the progress bar of the modal, displays messages, shows/hides the buttons in modal when asked for.</p>
 <figure><img src="./img/import_modal.png"/><figcaption>
             <h4>Import modal</h4>
         </figcaption>
 </figure>
 
-<h4 id="importer-1"><code>Importer</code></h4>
-<p>Executes import process and fires <em>AJAX</em> import requests continuously.
+
+<h4 id="importer-1"><code>Importer</code><a href="#importer-1"></a></h4><p>Executes import process and fires <em>AJAX</em> import requests continuously.
 It uses the <code>PostSizeChecker</code>, <code>ImportBatchCalculator</code> and <code>ImportProgressModal</code> components internally and connects them to execute the import process.</p>
-<h4 id="importdatapage"><code>ImportDataPage</code></h4>
-<p>Responsible for running the <code>Importer</code> component when the end user clicks <em>Import</em> button.
+
+<h4 id="importdatapage"><code>ImportDataPage</code><a href="#importdatapage"></a></h4><p>Responsible for running the <code>Importer</code> component when the end user clicks <em>Import</em> button.
 Collects data from the import match configuration form and passes it to the <code>Importer</code>.</p>
 
 
@@ -29432,17 +29434,17 @@ Collects data from the import match configuration form and passes it to the <cod
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239959"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239959"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239959"></script>
-    <script src="/js/jquery.sticky.js?1677239959"></script>
-    <script src="/js/featherlight.min.js?1677239959"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239959"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239959"></script>
-    <script src="/js/learn.js?1677239959"></script>
-    <script src="/js/hugo-learn.js?1677239959"></script>
+    <script src="/js/clipboard.min.js?1678195036"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195036"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195036"></script>
+    <script src="/js/jquery.sticky.js?1678195036"></script>
+    <script src="/js/featherlight.min.js?1678195036"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195036"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195036"></script>
+    <script src="/js/learn.js?1678195036"></script>
+    <script src="/js/hugo-learn.js?1678195036"></script>
     
-    <script src="/main.js?1677239959"></script>
+    <script src="/main.js?1678195036"></script>
     
     
     

@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239963" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239963" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239963" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239963" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195040" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195040" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195040" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195040" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239963" rel="stylesheet">
+    <link href="/style.css?1678195040" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239963"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195040"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13778,6 +13778,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-to-work-with-the-search-form">How to work with the Search Form</a>
@@ -30304,8 +30306,8 @@
 
 
 
-<h1 id="how-to-work-with-the-search-form">How to work with the Search Form</h1>
-<p>The grid component allows to filter its content, to manage the filtering you will need to define the following elements:</p>
+
+<h1 id="how-to-work-with-the-search-form">How to work with the Search Form<a href="#how-to-work-with-the-search-form"></a></h1><p>The grid component allows to filter its content, to manage the filtering you will need to define the following elements:</p>
 <ul>
 <li><code>GridDefinition::getFilters</code></li>
 <li><code>Filters</code> class</li>
@@ -30317,8 +30319,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="add-filters-into-griddefinition">Add Filters into GridDefinition</h2>
-<p>You should use <code>AbstractGridDefinitionFactory</code> as a parent class, and define a const <code>GRID_ID</code> which will be used as a key to persist the <code>Filters</code>.</p>
+
+<h2 id="add-filters-into-griddefinition">Add Filters into GridDefinition<a href="#add-filters-into-griddefinition"></a></h2><p>You should use <code>AbstractGridDefinitionFactory</code> as a parent class, and define a const <code>GRID_ID</code> which will be used as a key to persist the <code>Filters</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">final</span> <span class="k">class</span> <span class="nc">ManufacturerGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractGridDefinitionFactory</span>
 <span class="p">{</span>
@@ -30374,11 +30376,11 @@
     <span class="p">}</span>
     <span class="o">...</span>
 <span class="p">}</span>
-</code></pre></div><h3 id="the-filters-types">The filters types</h3>
-<p>The filters collection allows you to define all the available filters (which will match your grid columns). You can define a specific type depending on the column.
+</code></pre></div>
+<h3 id="the-filters-types">The filters types<a href="#the-filters-types"></a></h3><p>The filters collection allows you to define all the available filters (which will match your grid columns). You can define a specific type depending on the column.
 You can basically use any Symfony form type (including your custom ones) and PrestaShop provides a few <a href="https://devdocs.prestashop-project.org/8/development/components/grid/filter-types-reference/">filter types</a> that might be useful to you.</p>
-<h3 id="filterable-grid-definition">Filterable grid definition</h3>
-<p>This can be made even easier by using the <code>AbstractFilterableGridDefinitionFactory</code>. This will allow you use the <a href="#common-search-controller">common search controller</a>.</p>
+
+<h3 id="filterable-grid-definition">Filterable grid definition<a href="#filterable-grid-definition"></a></h3><p>This can be made even easier by using the <code>AbstractFilterableGridDefinitionFactory</code>. This will allow you use the <a href="#common-search-controller">common search controller</a>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">final</span> <span class="k">class</span> <span class="nc">AddressGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractFilterableGridDefinitionFactory</span>
 <span class="p">{</span>
@@ -30393,8 +30395,8 @@ You can basically use any Symfony form type (including your custom ones) and Pre
     <span class="p">}</span>
     <span class="o">...</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="filters-class">Filters class</h2>
-<p>You need to define a <code>Filters</code> class linked to your Grid, it will allow you to define the default filters and sorting values.
+</code></pre></div>
+<h2 id="filters-class">Filters class<a href="#filters-class"></a></h2><p>You need to define a <code>Filters</code> class linked to your Grid, it will allow you to define the default filters and sorting values.
 It will also make your list action simpler as PrestaShop provides a parameter resolver responsible of automatically create and fill a <code>Filters</code> object.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Definition\Factory\ManufacturerGridDefinitionFactory</span><span class="p">;</span>
@@ -30422,8 +30424,8 @@ It will also make your list action simpler as PrestaShop provides a parameter re
         <span class="p">];</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="controller-actions">Controller actions</h2>
-<p>The Grid filtering workflow is divided into three actions:</p>
+</code></pre></div>
+<h2 id="controller-actions">Controller actions<a href="#controller-actions"></a></h2><p>The Grid filtering workflow is divided into three actions:</p>
 <ul>
 <li>search action: it parses the filters from the POST request, then redirects to the list action</li>
 <li>list action: it parses the filters from GET request, persists them into database and finally renders the grid</li>
@@ -30435,9 +30437,9 @@ It will also make your list action simpler as PrestaShop provides a parameter re
 
 <div class="notices note" >Most of the time you will use the default form factory when you <a href="https://devdocs.prestashop-project.org/8/development/components/grid/#configuring-grid-factory">configure your grid factory</a> which is usually enough. However if you need to change the form action route or perform any other advanced management you might need to create your <a href="https://devdocs.prestashop-project.org/8/development/components/grid/tutorials/work-with-search-form/custom-form-factory/">custom form factory</a>.</div>
 
-<h3 id="search-action">Search action</h3>
-<h4 id="custom-search-controller">Custom search controller</h4>
-<p>You can use the <code>ResponseBuilder</code> service to easily create the search response, it only needs four arguments as input:</p>
+
+<h3 id="search-action">Search action<a href="#search-action"></a></h3>
+<h4 id="custom-search-controller">Custom search controller<a href="#custom-search-controller"></a></h4><p>You can use the <code>ResponseBuilder</code> service to easily create the search response, it only needs four arguments as input:</p>
 <ul>
 <li>the definition factory</li>
 <li>the request</li>
@@ -30485,8 +30487,8 @@ It will also make your list action simpler as PrestaShop provides a parameter re
 </span><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle:Admin/Sell/Catalog/Manufacturer:search&#39;</span><span class="w">
 </span><span class="w">    </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminManufacturers</span><span class="w">
 </span><span class="w">    </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminManufacturers:submitFiltermanufacturer</span><span class="w">
-</span></code></pre></div><h4 id="common-search-controller">Common search controller</h4>
-<p>As this controller is almost always the same, we introduced a common controller. So all you need to do is define the routing:</p>
+</span></code></pre></div>
+<h4 id="common-search-controller">Common search controller<a href="#common-search-controller"></a></h4><p>As this controller is almost always the same, we introduced a common controller. So all you need to do is define the routing:</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># your-module/config/routes.yml</span><span class="w">
 </span><span class="w"></span><span class="nt">admin_addresses_search</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
@@ -30497,8 +30499,8 @@ It will also make your list action simpler as PrestaShop provides a parameter re
 </span><span class="w">    </span><span class="nt">redirectRoute</span><span class="p">:</span><span class="w"> </span><span class="l">admin_addresses_index</span><span class="w">
 </span><span class="w">    </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminAddresses</span><span class="w">
 </span><span class="w">    </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminAddresses:submitFilteraddress</span><span class="w">
-</span></code></pre></div><h3 id="list-action">List action</h3>
-<p>Thanks to the internal parameter resolver you can directly use your <code>Filters</code> class as an argument in the controller. It then automatically:</p>
+</span></code></pre></div>
+<h3 id="list-action">List action<a href="#list-action"></a></h3><p>Thanks to the internal parameter resolver you can directly use your <code>Filters</code> class as an argument in the controller. It then automatically:</p>
 <ul>
 <li>parses the potential parameters in the query and fills them into the <code>Filters</code> argument</li>
 <li>matches thanks to the class the filters from the database and fetch them if present</li>
@@ -30533,8 +30535,8 @@ It will also make your list action simpler as PrestaShop provides a parameter re
     <span class="p">}</span>
     <span class="o">...</span>
 <span class="p">}</span>
-</code></pre></div><h3 id="reset-action">Reset action</h3>
-<p>This action resets the persisted filters and your grid filtering/sorting. This action is the same for nearly all grids so PrestaShop provides a common controller to manage it, and you actually already set it via the grid definition.</p>
+</code></pre></div>
+<h3 id="reset-action">Reset action<a href="#reset-action"></a></h3><p>This action resets the persisted filters and your grid filtering/sorting. This action is the same for nearly all grids so PrestaShop provides a common controller to manage it, and you actually already set it via the grid definition.</p>
 <p>It is defined in the <a href="https://devdocs.prestashop-project.org/8/development/components/grid/filter-types-reference/#searchandresettype"><code>SearchAndResetType</code> options</a>, it uses <code>admin_common_reset_search_by_filter_id</code> and only needs the filter id to identify the filters to clear, and a redirection route.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
     <span class="o">...</span>
@@ -30575,17 +30577,17 @@ It will also make your list action simpler as PrestaShop provides a parameter re
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239963"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239963"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239963"></script>
-    <script src="/js/jquery.sticky.js?1677239963"></script>
-    <script src="/js/featherlight.min.js?1677239963"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239963"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239963"></script>
-    <script src="/js/learn.js?1677239963"></script>
-    <script src="/js/hugo-learn.js?1677239963"></script>
+    <script src="/js/clipboard.min.js?1678195040"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195040"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195040"></script>
+    <script src="/js/jquery.sticky.js?1678195040"></script>
+    <script src="/js/featherlight.min.js?1678195040"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195040"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195040"></script>
+    <script src="/js/learn.js?1678195040"></script>
+    <script src="/js/hugo-learn.js?1678195040"></script>
     
-    <script src="/main.js?1677239963"></script>
+    <script src="/main.js?1678195040"></script>
     
     
     

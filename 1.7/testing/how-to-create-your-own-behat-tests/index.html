@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239917" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239917" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239917" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239917" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194998" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194998" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194998" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194998" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239917" rel="stylesheet">
+    <link href="/style.css?1678194998" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239917"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194998"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12525,6 +12525,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-to-create-your-own-behat-tests-or-add-tests-to-prestashop">How to create your own Behat tests or add tests to PrestaShop</a>
@@ -29036,16 +29038,16 @@
 
 
 
-<h1 id="how-to-create-your-own-behat-tests-or-add-tests-to-prestashop">How to create your own Behat tests or add tests to PrestaShop</h1>
 
+<h1 id="how-to-create-your-own-behat-tests-or-add-tests-to-prestashop">How to create your own Behat tests or add tests to PrestaShop<a href="#how-to-create-your-own-behat-tests-or-add-tests-to-prestashop"></a></h1>
 <div class="magic-version-pill" data-version="1.7.6" data-title="New in PrestaShop 1.7.6"></div>
 
 
 <p>Behat tests are great if you want to validate the behavior of a component of the code and/or follow a user-oriented scenario.</p>
 <p>By &ldquo;component&rdquo; we usually mean a group of classes being called together, sometimes using an external dependency (a web API or a database system like MySQL).</p>
 <p>By &ldquo;user-oriented scenario&rdquo; we mean a scenario that is a series of steps, each step is an action, and at the end of the series there is an expected result</p>
-<h2 id="what-is-behat">What is Behat</h2>
-<p><a href="https://behat.org/en/latest/">Behat</a> is a <a href="https://en.wikipedia.org/wiki/Behavior-driven_development">Behavior-Driven Development</a> framework for PHP.</p>
+
+<h2 id="what-is-behat">What is Behat<a href="#what-is-behat"></a></h2><p><a href="https://behat.org/en/latest/">Behat</a> is a <a href="https://en.wikipedia.org/wiki/Behavior-driven_development">Behavior-Driven Development</a> framework for PHP.</p>
 <p>Behat is a testing tool that brings one great asset to your tests: the test scenarios are written so that they are understandable by humans without technical knowledge needed ! This makes them easier to read and maintain.</p>
 <p>Example of a behat scenario:</p>
 <div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">  </span><span class="nt">Scenario</span><span class="p">:</span><span class="w"> </span><span class="l">With free shipping voucher, there is no shipping fees</span><span class="w">
@@ -29063,13 +29065,13 @@
 <li>the regexp indicates a php function to be run by behat</li>
 <li>behat provides hooking capabilities to handle the test lifecycle (application boot, database reset, cache clear&hellip;)</li>
 </ul>
-<h2 id="launch-the-prestashop-behat-test-suite">Launch the PrestaShop behat test suite</h2>
-<p>Run tests using behat binary using the right behat.yml configuration file</p>
+
+<h2 id="launch-the-prestashop-behat-test-suite">Launch the PrestaShop behat test suite<a href="#launch-the-prestashop-behat-test-suite"></a></h2><p>Run tests using behat binary using the right behat.yml configuration file</p>
 <p>This requires that a test database has been generated previously, using Composer command <code>composer create-test-db</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># from the PrestaShop root folder</span>
 php -d date.timezone<span class="o">=</span>UTC ./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml
-</code></pre></div><h2 id="add-new-behat-tests">Add new behat tests</h2>
-<p>You can add a new test in one of the feature files or create a new feature file. It must use the
+</code></pre></div>
+<h2 id="add-new-behat-tests">Add new behat tests<a href="#add-new-behat-tests"></a></h2><p>You can add a new test in one of the feature files or create a new feature file. It must use the
 <a href="https://docs.behat.org/en/v2.5/guides/1.gherkin.html">gherkin</a> syntax.</p>
 <p>If you create new steps, you can add them to one of the available FeatureContext if the step belongs
 to it or create a new FeatureContext if you think it should be a dedicated file. In this case, update the
@@ -29079,8 +29081,8 @@ to it or create a new FeatureContext if you think it should be a dedicated file.
 the <code>AbstractPrestaShopFeatureContext</code> that provide the setup necessary to perform
 tests on PrestaShop.</p>
 <p>Feature files are stored in <code>tests/Integration/Behaviour/Scenario</code> folder.</p>
-<h3 id="step-by-step-tutorial">Step-by-step tutorial</h3>
-<p>We will now add a new Behat test to demonstrate the different steps needed. This tutorial is a shortcut to write tests but the full documentation is available on the <a href="https://behat.org/en/latest/">Behat</a> website.</p>
+
+<h3 id="step-by-step-tutorial">Step-by-step tutorial<a href="#step-by-step-tutorial"></a></h3><p>We will now add a new Behat test to demonstrate the different steps needed. This tutorial is a shortcut to write tests but the full documentation is available on the <a href="https://behat.org/en/latest/">Behat</a> website.</p>
 <p>Let&rsquo;s say we want to check that the computation of a cart price is correctly impacted by a Free Shipping coupon.</p>
 <p>We will:</p>
 <ul>
@@ -29088,8 +29090,8 @@ tests on PrestaShop.</p>
 <li>convert it to gherkin syntax</li>
 <li>run it using Behat</li>
 </ul>
-<h4 id="write-a-new-scenario-and-feature">Write a new scenario and feature</h4>
-<p>We will first write our feature. We can either add it to one of the existing <code>.feature</code> files in folder <code>tests/Integration/Behaviour/Features/Scenario/</code> or create a new feature file. If the new feature file is in a new folder, you need to update the main Behat configuration file <code>tests/Integration/Behaviour/behat.yml</code> to either add this folder to one of the existing test suites or to create a new test suite.</p>
+
+<h4 id="write-a-new-scenario-and-feature">Write a new scenario and feature<a href="#write-a-new-scenario-and-feature"></a></h4><p>We will first write our feature. We can either add it to one of the existing <code>.feature</code> files in folder <code>tests/Integration/Behaviour/Features/Scenario/</code> or create a new feature file. If the new feature file is in a new folder, you need to update the main Behat configuration file <code>tests/Integration/Behaviour/behat.yml</code> to either add this folder to one of the existing test suites or to create a new test suite.</p>
 <p>For this tutorial, we&rsquo;ll add the new scenario to the <code>tests/Integration/Behaviour/Features/Scenario/Cart/Calculation/CartRule/free_shipping.feature</code> file.</p>
 <p>The scenario we want to test is the following:</p>
 <div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
@@ -29118,8 +29120,8 @@ tests on PrestaShop.</p>
 <li>Then steps are used to validate the software state, to check it behaves as expected</li>
 </ul>
 <p>We have now written a valid gherkin scenario !</p>
-<h4 id="run-behat-on-this-new-scenario">Run Behat on this new scenario</h4>
-<p>This scenario is now runnable by Behat. I add it to the <code>free_shipping.feature</code> file. Now this scenario is part of the PrestaShop testing suite for Behat !</p>
+
+<h4 id="run-behat-on-this-new-scenario">Run Behat on this new scenario<a href="#run-behat-on-this-new-scenario"></a></h4><p>This scenario is now runnable by Behat. I add it to the <code>free_shipping.feature</code> file. Now this scenario is part of the PrestaShop testing suite for Behat !</p>
 <p>Let&rsquo;s see what happens if I run the whole feature to see the output:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># from the PrestaShop root folder</span>
 php ./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml --name<span class="o">=</span><span class="s2">&#34;free shipping&#34;</span>
@@ -29155,8 +29157,8 @@ php ./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml --name<span clas
 </span><span class="w">    </span><span class="l">Then my cart total should be 50.0 tax included</span><span class="w">
 </span></code></pre></div><p>This one is valid: Behat is able to match each of the lines with one Context step. And if I run my command, I can see Behat go through the whole scenario successfully. This means that my free shipping voucher behavior is correct: Behat has checked that the cart total, after using the voucher, has no shipping fees.</p>
 <p>My feature is validated by Behat !</p>
-<h4 id="adding-a-new-step">Adding a new step</h4>
-<p>Now we are going to add a new step that is not yet supported by existing Contexts.</p>
+
+<h4 id="adding-a-new-step">Adding a new step<a href="#adding-a-new-step"></a></h4><p>Now we are going to add a new step that is not yet supported by existing Contexts.</p>
 <p>For example, have you noticed that the cart price is, before free shipping, 57€ and not 55€ ? It is because the step <code>Given there is a carrier named &quot;carrier1&quot;</code> generates a standard carrier whose handling cost is 2 by default.
 So when shipping fees are added, the handling cost is added too.</p>
 <p>Let&rsquo;s say we want to remove this handling cost and only keep the shipping fees. This way my cart price will, without free shipping, be 55€ and not 57€.</p>
@@ -29245,17 +29247,17 @@ And when this scenario is run by Behat, everything runs fine, so my calculations
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239917"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239917"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239917"></script>
-    <script src="/js/jquery.sticky.js?1677239917"></script>
-    <script src="/js/featherlight.min.js?1677239917"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239917"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239917"></script>
-    <script src="/js/learn.js?1677239917"></script>
-    <script src="/js/hugo-learn.js?1677239917"></script>
+    <script src="/js/clipboard.min.js?1678194998"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194998"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194998"></script>
+    <script src="/js/jquery.sticky.js?1678194998"></script>
+    <script src="/js/featherlight.min.js?1678194998"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194998"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194998"></script>
+    <script src="/js/learn.js?1678194998"></script>
+    <script src="/js/hugo-learn.js?1678194998"></script>
     
-    <script src="/main.js?1677239917"></script>
+    <script src="/main.js?1678194998"></script>
     
     
     

@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/faceted-search/inside-faceted-search-module/">
 
     
-    <link href="/css/font-awesome.min.css?1677239910" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239910" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239910" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239910" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194992" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194992" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194992" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194992" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239910" rel="stylesheet">
+    <link href="/style.css?1678194992" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239910"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194992"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12537,6 +12537,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#inside-the-module">Inside the module</a>
@@ -29067,24 +29069,24 @@
 
 
 
-<h1 id="inside-the-module">Inside the module</h1>
-<p>This page should be useful for someone willing to contribute to the module. To do so he/she needs to understand the module logic and structure.</p>
-<h2 id="terminology">Terminology</h2>
-<p>The following naming have been inspired by <a href="https://www.nngroup.com/articles/filters-vs-facets/">Facets vs Filters</a>.</p>
-<h3 id="facets-and-filters">Facets and Filters</h3>
-<h4 id="filters">Filters</h4>
-<p>A filter is any assertion that can be used to filter a list of products and <strong>does not contain logical operators</strong> such as &ldquo;and&rdquo; or &ldquo;or&rdquo; when expressed in plain English.</p>
+
+<h1 id="inside-the-module">Inside the module<a href="#inside-the-module"></a></h1><p>This page should be useful for someone willing to contribute to the module. To do so he/she needs to understand the module logic and structure.</p>
+
+<h2 id="terminology">Terminology<a href="#terminology"></a></h2><p>The following naming have been inspired by <a href="https://www.nngroup.com/articles/filters-vs-facets/">Facets vs Filters</a>.</p>
+
+<h3 id="facets-and-filters">Facets and Filters<a href="#facets-and-filters"></a></h3>
+<h4 id="filters">Filters<a href="#filters"></a></h4><p>A filter is any assertion that can be used to filter a list of products and <strong>does not contain logical operators</strong> such as &ldquo;and&rdquo; or &ldquo;or&rdquo; when expressed in plain English.</p>
 <p>For instance &ldquo;Blue products&rdquo; is a filter. &ldquo;Red or blue products&rdquo; is <strong>not</strong> a filter. It&rsquo;s a facet&hellip;</p>
 <p>A Filter is represented by the <code>PrestaShop\PrestaShop\Core\Product\Search\Filter</code> class.</p>
 <p>On front-office, user can see multiple blocks. Blocks are linked to a Filter and a population. The population is the products matching the filter.</p>
-<h4 id="facets">Facets</h4>
-<p>A facet is a set of filters combined with logical operators.</p>
+
+<h4 id="facets">Facets<a href="#facets"></a></h4><p>A facet is a set of filters combined with logical operators.</p>
 <p>For instance &ldquo;Blue products or red products&rdquo; is a facet.</p>
 <p>Filters within a facet may be active or not, and are usually combined with the &ldquo;or&rdquo; operator even though it is defined by the implementation and not necessarily so. Still, there seems to be a strong UX convention that filters inside a facet are combined with &ldquo;or&rdquo;, meaning for instance that if I check the &ldquo;Blue&rdquo; and the &ldquo;Red&rdquo; filter I won&rsquo;t get products that are both blue and red, but a mix of blue products and red products.</p>
 <p>A facet is represented by the <code>PrestaShop\PrestaShop\Core\Product\Search\Facet</code> class. It is basically a collection of <code>Filter</code>s.</p>
 <p>Under the hood, Facets have a complex data structure allowing deep queries OR and AND, under, equals, above&hellip; and at the end of the processing SQL queries are built from them to be run against the database.</p>
-<h2 id="exposed-endpoints">Exposed endpoints</h2>
-<p>The module</p>
+
+<h2 id="exposed-endpoints">Exposed endpoints<a href="#exposed-endpoints"></a></h2><p>The module</p>
 <ul>
 <li>is accessible from the front-office on dedicated pages, using hooks or widgets</li>
 <li>has a back-office configuration page</li>
@@ -29092,8 +29094,8 @@
 </ul>
 <p>The 3 exposed endpoints are in the root folder of the module.</p>
 <p>Indexation results are stored in specific SQL tables. This allows to query flat tables ready for querying, instead of having complex SQL queries being fired at runtime when user is searching on front-office.</p>
-<h2 id="flow-of-the-rendering-process-for-displaying-products-on-a-category-page">Flow of the rendering process for displaying products on a category page</h2>
-<ol>
+
+<h2 id="flow-of-the-rendering-process-for-displaying-products-on-a-category-page">Flow of the rendering process for displaying products on a category page<a href="#flow-of-the-rendering-process-for-displaying-products-on-a-category-page"></a></h2><ol>
 <li>The core <code>CategoryController</code> executes a hook, searching for modules able to answer to a search request like &ldquo;I need to fetch the products for the category with <code>id_category</code> === 4&rdquo;. See &ldquo;How it&rsquo;s plugged on the Core&rdquo; below.</li>
 <li>A module (e.g. <code>ps_facetedsearch</code>) responds by returning an instance of a <code>ProductSearchProviderInterface</code> of its choosing</li>
 <li>The <code>CategoryController</code> retrieves the <code>ProductSearchProviderInterface</code> returned by the module and uses it to get the products.</li>
@@ -29112,8 +29114,8 @@
 <li>run a database query (internal or external database) that returns a list of product identifiers</li>
 <li>optionally (to provide nice URLs), encode and decode the filters in a way that fits inside a URL</li>
 </ul>
-<h3 id="the-productsearchquery-object">The <code>ProductSearchQuery</code> object</h3>
-<p>The <code>PrestaShop\PrestaShop\Core\Product\Search\ProductSearchQuery</code> object holds all search query information.</p>
+
+<h3 id="the-productsearchquery-object">The <code>ProductSearchQuery</code> object<a href="#the-productsearchquery-object"></a></h3><p>The <code>PrestaShop\PrestaShop\Core\Product\Search\ProductSearchQuery</code> object holds all search query information.</p>
 <p>This object contains:</p>
 <ul>
 <li>something that indicate modules where the query came from (<code>id_category</code>, <code>id_supplier</code> for <code>SupplierController</code> etc.). This is the minimal filter that the search module is supposed to implement.</li>
@@ -29121,22 +29123,22 @@
 <li>the <code>page</code> number that is requested</li>
 <li>the <code>resultsPerPage</code>, i.e. the number of products per page that is expected</li>
 </ul>
-<h3 id="post-processing">Post processing</h3>
-<p>After finding the population matching a filter, a post processing can be applied to alter the data in order to control how it is presented to user.</p>
+
+<h3 id="post-processing">Post processing<a href="#post-processing"></a></h3><p>After finding the population matching a filter, a post processing can be applied to alter the data in order to control how it is presented to user.</p>
 <p>For example you might have a collection of prices ranging from 21.88 to 72.82 but this is not nice to display. So you can apply post processing to force the display to be a range from 0 to 100, although the data available goes from 21.88 to 72.82 .</p>
-<h3 id="caching">Caching</h3>
-<p>Filter results are cached inside SQL in order to improve performance. Same query being sent twice can then reuse the result from first fetch.</p>
-<h2 id="highlights-of-the-src-folder">Highlights of the <code>src</code> folder</h2>
-<h3 id="specific-hook-structure">Specific hook structure</h3>
-<p>There were so many hooks used in the module that the hook actions have been moved outside of the main file, unlike many other modules. A hook dispatcher is in charge of linking the main module file and calling the right hooks. Hook actions will be found in <code>src/Hook</code></p>
-<h3 id="mysql-adapter">MySQL adapter</h3>
-<p>Inside <code>src/Adapter</code> is the code responsible for mapping faceted search queries to MySQL queries</p>
-<h3 id="copy-paste-of-the-core">Copy-paste of the Core</h3>
-<p>Some of the code inside the module used to be inside the Core repository. It was extracted as it was useful only for the module and this avoids having different behaviors depending on which shop the module was installed.</p>
-<h2 id="sql-naming">SQL naming</h2>
-<p>SQL tables are based on naming convention <code>layered</code> because this was the previous name of the module.</p>
-<h2 id="how-its-plugged-on-the-core-delegating-search-to-modules">How it&rsquo;s plugged on the Core, delegating search to modules</h2>
-<p>In order for modules to be able to replace the core search mechanism, <code>productSearchProvider</code> hook is used to look for alternative search providers.</p>
+
+<h3 id="caching">Caching<a href="#caching"></a></h3><p>Filter results are cached inside SQL in order to improve performance. Same query being sent twice can then reuse the result from first fetch.</p>
+
+<h2 id="highlights-of-the-src-folder">Highlights of the <code>src</code> folder<a href="#highlights-of-the-src-folder"></a></h2>
+<h3 id="specific-hook-structure">Specific hook structure<a href="#specific-hook-structure"></a></h3><p>There were so many hooks used in the module that the hook actions have been moved outside of the main file, unlike many other modules. A hook dispatcher is in charge of linking the main module file and calling the right hooks. Hook actions will be found in <code>src/Hook</code></p>
+
+<h3 id="mysql-adapter">MySQL adapter<a href="#mysql-adapter"></a></h3><p>Inside <code>src/Adapter</code> is the code responsible for mapping faceted search queries to MySQL queries</p>
+
+<h3 id="copy-paste-of-the-core">Copy-paste of the Core<a href="#copy-paste-of-the-core"></a></h3><p>Some of the code inside the module used to be inside the Core repository. It was extracted as it was useful only for the module and this avoids having different behaviors depending on which shop the module was installed.</p>
+
+<h2 id="sql-naming">SQL naming<a href="#sql-naming"></a></h2><p>SQL tables are based on naming convention <code>layered</code> because this was the previous name of the module.</p>
+
+<h2 id="how-its-plugged-on-the-core-delegating-search-to-modules">How it&rsquo;s plugged on the Core, delegating search to modules<a href="#how-its-plugged-on-the-core-delegating-search-to-modules"></a></h2><p>In order for modules to be able to replace the core search mechanism, <code>productSearchProvider</code> hook is used to look for alternative search providers.</p>
 <p>The hook is executed with a <code>ProductSearchQuery $query</code> param, which allows modules to return an instance of a <code>ProductSearchProviderInterface</code> that is able to handle the query.</p>
 <p>The comments written in <code>classes/controller/ProductListingFrontControllerCore</code> can provide more details.</p>
 
@@ -29163,17 +29165,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239910"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239910"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239910"></script>
-    <script src="/js/jquery.sticky.js?1677239910"></script>
-    <script src="/js/featherlight.min.js?1677239910"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239910"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239910"></script>
-    <script src="/js/learn.js?1677239910"></script>
-    <script src="/js/hugo-learn.js?1677239910"></script>
+    <script src="/js/clipboard.min.js?1678194992"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194992"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194992"></script>
+    <script src="/js/jquery.sticky.js?1678194992"></script>
+    <script src="/js/featherlight.min.js?1678194992"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194992"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194992"></script>
+    <script src="/js/learn.js?1678194992"></script>
+    <script src="/js/hugo-learn.js?1678194992"></script>
     
-    <script src="/main.js?1677239910"></script>
+    <script src="/main.js?1678194992"></script>
     
     
     

@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/webservice/tutorials/testing-access/">
 
     
-    <link href="/css/font-awesome.min.css?1677239922" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239922" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239922" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239922" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195002" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195002" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195002" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195002" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239922" rel="stylesheet">
+    <link href="/style.css?1678195002" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239922"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195002"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#testing-access-to-the-webservice">Testing access to the Webservice</a>
@@ -29053,18 +29055,18 @@
 
 
 
-<h1 id="testing-access-to-the-webservice">Testing access to the Webservice</h1>
-<p>Now that your access key is generated you can test your store&rsquo;s webservice, its endpoint is located in the <code>/api/</code> uri at the root of your installation of Prestashop.</p>
-<h2 id="accessing-api">Accessing /api/</h2>
-<p>The quickest way to test your API is to use your browser:</p>
+
+<h1 id="testing-access-to-the-webservice">Testing access to the Webservice<a href="#testing-access-to-the-webservice"></a></h1><p>Now that your access key is generated you can test your store&rsquo;s webservice, its endpoint is located in the <code>/api/</code> uri at the root of your installation of Prestashop.</p>
+
+<h2 id="accessing-api">Accessing /api/<a href="#accessing-api"></a></h2><p>The quickest way to test your API is to use your browser:</p>
 <ul>
 <li>If PrestaShop is installed at the root of your server, you can access the API here: <a href="http://example.com/api/">http://example.com/api/</a></li>
 <li>If PrestaShop is installed in a subfolder of your server, you can access the API here: <a href="http://example.com/prestashop/api/">http://example.com/prestashop/api/</a></li>
 </ul>
-<h3 id="browser-prompt">Browser prompt</h3>
-<p>The shop should prompt you for a username and a password to enter. The username is the authentication key you created and <strong>there is no password to enter</strong>. If no permission has been set for the key, than the browser will keep asking you to enter the key indefinitely.</p>
-<h3 id="include-key-in-url-risky">Include key in url (risky)</h3>
-<p>The second way to access the API is to include your access key in the url, this will prevent you from entering any user name. Here is an example, assuming your access API key is <code>UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX</code>:</p>
+
+<h3 id="browser-prompt">Browser prompt<a href="#browser-prompt"></a></h3><p>The shop should prompt you for a username and a password to enter. The username is the authentication key you created and <strong>there is no password to enter</strong>. If no permission has been set for the key, than the browser will keep asking you to enter the key indefinitely.</p>
+
+<h3 id="include-key-in-url-risky">Include key in url (risky)<a href="#include-key-in-url-risky"></a></h3><p>The second way to access the API is to include your access key in the url, this will prevent you from entering any user name. Here is an example, assuming your access API key is <code>UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX</code>:</p>
 <ul>
 <li>At the root of the server: <a href="https://UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX@example.com/api/">https://UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX@example.com/api/</a></li>
 <li>In a subfolder of the server: <a href="https://UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX@example.com/prestashop/api/">https://UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX@example.com/prestashop/api/</a></li>
@@ -29072,8 +29074,8 @@
 
 <div class="notices warning" >This method might be convenient for development but <strong>very risky</strong> as you expose your API key directly in the url, so anyone able to see (or hack) your browser history or access logs would be able to get your key. This should <strong>never</strong> be used on a production shop.</div>
 
-<h3 id="using-an-authorization-header-recommended">Using an Authorization header (recommended)</h3>
-<p>The best way to authenticate your API calls is to use an <code>Authorization</code> header, this way you don&rsquo;t expose your API key directly but a <code>base64_encode</code> compute of your <code>user:password</code> couple. Although PrestaShop API only has a user with empty password, so in order to compute your authorization key you can do as follows:</p>
+
+<h3 id="using-an-authorization-header-recommended">Using an Authorization header (recommended)<a href="#using-an-authorization-header-recommended"></a></h3><p>The best way to authenticate your API calls is to use an <code>Authorization</code> header, this way you don&rsquo;t expose your API key directly but a <code>base64_encode</code> compute of your <code>user:password</code> couple. Although PrestaShop API only has a user with empty password, so in order to compute your authorization key you can do as follows:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="nv">$apiKey</span> <span class="o">=</span> <span class="sb">`UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX`</span><span class="p">;</span>
 <span class="nv">$authorizationKey</span> <span class="o">=</span> <span class="nx">base64_encode</span><span class="p">(</span><span class="nv">$apiKey</span> <span class="o">.</span> <span class="s1">&#39;:&#39;</span><span class="p">);</span> <span class="c1">// VUNDTExROU4yQVJTSFdDWExUNzRLVUtTU0szNEJGS1g6
@@ -29096,8 +29098,8 @@
 
 <div class="notices warning" >As you noticed no password nor authentication process is required to access the APIs which is why you need to be <strong>extra careful</strong> with your access key rights and how (and to whom) you disclose them.</div>
 
-<h2 id="available-resources">Available resources</h2>
-<p>The <code>/api/</code> URL gives you the root of all the resources, in the form of an XML file. Here is an example of what you should see if you authorized full access to <code>addresses</code>, <code>images</code> and <code>products</code> resources:</p>
+
+<h2 id="available-resources">Available resources<a href="#available-resources"></a></h2><p>The <code>/api/</code> URL gives you the root of all the resources, in the form of an XML file. Here is an example of what you should see if you authorized full access to <code>addresses</code>, <code>images</code> and <code>products</code> resources:</p>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
 <span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;api</span> <span class="na">shopName=</span><span class="s">&#34;Prestashop&#34;</span><span class="nt">&gt;</span>
@@ -29119,15 +29121,15 @@
         <span class="nt">&lt;/products&gt;</span>
     <span class="nt">&lt;/api&gt;</span>
 <span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><h2 id="resource-schemas">Resource schemas</h2>
-<p>You can also see that each resource provides two links to access its schemas:</p>
+</code></pre></div>
+<h2 id="resource-schemas">Resource schemas<a href="#resource-schemas"></a></h2><p>You can also see that each resource provides two links to access its schemas:</p>
 <ul>
 <li><strong>blank schema</strong> which you can use as a blank content to create a resource</li>
 <li><strong>synopsis schema</strong> which is the same blank schema with additional details on each field</li>
 </ul>
 <p>Let&rsquo;s see what they look like for the <code>address</code> resource.</p>
-<h3 id="blank-schema">Blank schema</h3>
-<p><code>/api/addresses?schema=blank</code></p>
+
+<h3 id="blank-schema">Blank schema<a href="#blank-schema"></a></h3><p><code>/api/addresses?schema=blank</code></p>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
 <span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;address&gt;</span>
@@ -29156,8 +29158,8 @@
         <span class="nt">&lt;date_upd&gt;&lt;/date_upd&gt;</span>
     <span class="nt">&lt;/address&gt;</span>
 <span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><h3 id="synopsis-schema">Synopsis schema</h3>
-<p><code>/api/addresses?schema=synopsis</code></p>
+</code></pre></div>
+<h3 id="synopsis-schema">Synopsis schema<a href="#synopsis-schema"></a></h3><p><code>/api/addresses?schema=synopsis</code></p>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
 <span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;address&gt;</span>
@@ -29185,18 +29187,18 @@
         <span class="nt">&lt;date_upd</span> <span class="na">format=</span><span class="s">&#34;isDate&#34;</span><span class="nt">&gt;&lt;/date_upd&gt;</span>
     <span class="nt">&lt;/address&gt;</span>
 <span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><h2 id="json-format">JSON format</h2>
-<p>The Webservices can also output JSON instead of XML. To enable JSON output you have two choices:</p>
-<h3 id="query-parameter">Query parameter</h3>
-<p>Add one of the following parameters to your query string:</p>
+</code></pre></div>
+<h2 id="json-format">JSON format<a href="#json-format"></a></h2><p>The Webservices can also output JSON instead of XML. To enable JSON output you have two choices:</p>
+
+<h3 id="query-parameter">Query parameter<a href="#query-parameter"></a></h3><p>Add one of the following parameters to your query string:</p>
 <ul>
 <li><code>output_format=JSON</code></li>
 <li><code>io_format=JSON</code></li>
 </ul>
 <p>Example:</p>
 <div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">https://UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX@example.com/api/?output_format=JSON
-</code></pre></div><h3 id="http-header">HTTP header</h3>
-<p>Add the one of the following headers to your HTTP request:</p>
+</code></pre></div>
+<h3 id="http-header">HTTP header<a href="#http-header"></a></h3><p>Add the one of the following headers to your HTTP request:</p>
 <ul>
 <li><code>Io-Format: JSON</code></li>
 <li><code>Output-Format: JSON</code></li>
@@ -29230,17 +29232,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239922"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239922"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239922"></script>
-    <script src="/js/jquery.sticky.js?1677239922"></script>
-    <script src="/js/featherlight.min.js?1677239922"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239922"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239922"></script>
-    <script src="/js/learn.js?1677239922"></script>
-    <script src="/js/hugo-learn.js?1677239922"></script>
+    <script src="/js/clipboard.min.js?1678195002"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195002"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195002"></script>
+    <script src="/js/jquery.sticky.js?1678195002"></script>
+    <script src="/js/featherlight.min.js?1678195002"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195002"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195002"></script>
+    <script src="/js/learn.js?1678195002"></script>
+    <script src="/js/hugo-learn.js?1678195002"></script>
     
-    <script src="/main.js?1677239922"></script>
+    <script src="/main.js?1678195002"></script>
     
     
     

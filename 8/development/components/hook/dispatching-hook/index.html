@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239931" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239931" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239931" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239931" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195010" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195010" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195010" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195010" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239931" rel="stylesheet">
+    <link href="/style.css?1678195010" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239931"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195010"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13772,6 +13772,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#dispatching-a-hook">Dispatching a Hook</a>
@@ -30291,8 +30293,8 @@
 
 
 
-<h1 id="dispatching-a-hook">Dispatching a Hook</h1>
-<p>Hooks are placed everywhere throughout the software. Whenever a given hook is dispatched, the Hook component will check which modules subscribed to that hook and notify them by successively calling each subscriber&rsquo;s callback.</p>
+
+<h1 id="dispatching-a-hook">Dispatching a Hook<a href="#dispatching-a-hook"></a></h1><p>Hooks are placed everywhere throughout the software. Whenever a given hook is dispatched, the Hook component will check which modules subscribed to that hook and notify them by successively calling each subscriber&rsquo;s callback.</p>
 <p>Hooks are dispatched using the <code>Hook::exec()</code> function.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span>
     <span class="nx">string</span> <span class="nv">$hookName</span><span class="p">,</span>
@@ -30305,8 +30307,8 @@
     <span class="nx">bool</span> <span class="nv">$chain</span> <span class="o">=</span> <span class="k">false</span>
 <span class="p">)</span><span class="o">:</span> <span class="nx">mixed</span> 
 </code></pre></div><p>This method returns the result of all hook notification callbacks. The return type will depend on the notification callbacks and the value of <code>$returnArray</code>.</p>
-<h5 id="parameters">Parameters</h5>
-<p><code>$hookName</code>
+
+<h5 id="parameters">Parameters<a href="#parameters"></a></h5><p><code>$hookName</code>
 :
 Name of the hook to dispatch.</p>
 <p><code>$arguments</code>
@@ -30333,17 +30335,17 @@ This parameter is related to multistore. If set, the shop context will be switch
 <p><code>$chain</code>
 :
 If this parameter is set to true, then the result of each subscriber callback will be used as parameters of the next subscriber&rsquo;s callback.</p>
-<h5 id="example">Example</h5>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$id</span> <span class="o">=</span> <span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;actionModifyZoning&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;address_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$addressID</span><span class="p">]);</span>
+
+<h5 id="example">Example<a href="#example"></a></h5><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$id</span> <span class="o">=</span> <span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;actionModifyZoning&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;address_id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$addressID</span><span class="p">]);</span>
 </code></pre></div><p>In the example above, we dispatch the <code>actionModifyZoning</code> hook, along the <code>address_id</code> parameter. <code>$id</code> will contain the concatenation of all the values returned by subscribers' callbacks (if any).</p>
-<h2 id="dispatching-a-hook-from-a-template">Dispatching a hook from a template</h2>
-<p>Hooks can be dispatched from templates as well.</p>
-<h3 id="smarty">Smarty</h3>
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="nf">hook</span> <span class="na">h</span><span class="o">=</span><span class="s1">&#39;displayProductPriceBlock&#39;</span> <span class="na">product</span><span class="o">=</span><span class="nv">$product</span> <span class="na">type</span><span class="o">=</span><span class="s2">&#34;unit_price&#34;</span><span class="cp">}</span><span class="x">
-</span></code></pre></div><h3 id="twig">Twig</h3>
-<div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="cp">{{</span> <span class="nv">renderhook</span><span class="o">(</span><span class="s1">&#39;displayAdminProductsMainStepLeftColumnMiddle&#39;</span><span class="o">,</span> <span class="o">{</span> <span class="s1">&#39;id_product&#39;</span><span class="o">:</span> <span class="nv">productId</span> <span class="o">})</span> <span class="cp">}}</span><span class="x">
-</span></code></pre></div><h2 id="creating-a-new-hook">Creating a new hook</h2>
-<p>Dispatching a new hook doesn&rsquo;t require any special steps, you can simply choose a hook name, and call your new hook from wherever you need – even from within a module!</p>
+
+<h2 id="dispatching-a-hook-from-a-template">Dispatching a hook from a template<a href="#dispatching-a-hook-from-a-template"></a></h2><p>Hooks can be dispatched from templates as well.</p>
+
+<h3 id="smarty">Smarty<a href="#smarty"></a></h3><div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="nf">hook</span> <span class="na">h</span><span class="o">=</span><span class="s1">&#39;displayProductPriceBlock&#39;</span> <span class="na">product</span><span class="o">=</span><span class="nv">$product</span> <span class="na">type</span><span class="o">=</span><span class="s2">&#34;unit_price&#34;</span><span class="cp">}</span><span class="x">
+</span></code></pre></div>
+<h3 id="twig">Twig<a href="#twig"></a></h3><div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="cp">{{</span> <span class="nv">renderhook</span><span class="o">(</span><span class="s1">&#39;displayAdminProductsMainStepLeftColumnMiddle&#39;</span><span class="o">,</span> <span class="o">{</span> <span class="s1">&#39;id_product&#39;</span><span class="o">:</span> <span class="nv">productId</span> <span class="o">})</span> <span class="cp">}}</span><span class="x">
+</span></code></pre></div>
+<h2 id="creating-a-new-hook">Creating a new hook<a href="#creating-a-new-hook"></a></h2><p>Dispatching a new hook doesn&rsquo;t require any special steps, you can simply choose a hook name, and call your new hook from wherever you need – even from within a module!</p>
 
 <div class="notices tip" >Remember that hook names are global – choose your hook names carefully to reduce risks of collision with other modules or future Core hooks.</div>
 
@@ -30371,17 +30373,17 @@ If this parameter is set to true, then the result of each subscriber callback wi
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239931"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239931"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239931"></script>
-    <script src="/js/jquery.sticky.js?1677239931"></script>
-    <script src="/js/featherlight.min.js?1677239931"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239931"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239931"></script>
-    <script src="/js/learn.js?1677239931"></script>
-    <script src="/js/hugo-learn.js?1677239931"></script>
+    <script src="/js/clipboard.min.js?1678195010"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195010"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195010"></script>
+    <script src="/js/jquery.sticky.js?1678195010"></script>
+    <script src="/js/featherlight.min.js?1678195010"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195010"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195010"></script>
+    <script src="/js/learn.js?1678195010"></script>
+    <script src="/js/hugo-learn.js?1678195010"></script>
     
-    <script src="/main.js?1677239931"></script>
+    <script src="/main.js?1678195010"></script>
     
     
     

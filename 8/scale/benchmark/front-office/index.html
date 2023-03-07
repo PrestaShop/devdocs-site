@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239952" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239952" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239952" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239952" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195030" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195030" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195030" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195030" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239952" rel="stylesheet">
+    <link href="/style.css?1678195030" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239952"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195030"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13766,6 +13766,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-to-benchmark-your-prestashop-shop-front-office">How to benchmark your PrestaShop Shop (Front-office)</a>
@@ -30272,16 +30274,16 @@
 
 
 
-<h1 id="how-to-benchmark-your-prestashop-shop-front-office">How to benchmark your PrestaShop Shop (Front-office)</h1>
-<h2 id="automatically-benchmark-with-gatling-recommended">Automatically benchmark with <code>Gatling</code> (recommended)</h2>
-<p>Follow instruction on <strong><a href="/8/scale/benchmark/back-office/">Back-Office benchmark page</a></strong> to get a pre-populated shop and to run Gatling scenarios on it.</p>
+
+<h1 id="how-to-benchmark-your-prestashop-shop-front-office">How to benchmark your PrestaShop Shop (Front-office)<a href="#how-to-benchmark-your-prestashop-shop-front-office"></a></h1>
+<h2 id="automatically-benchmark-with-gatling-recommended">Automatically benchmark with <code>Gatling</code> (recommended)<a href="#automatically-benchmark-with-gatling-recommended"></a></h2><p>Follow instruction on <strong><a href="/8/scale/benchmark/back-office/">Back-Office benchmark page</a></strong> to get a pre-populated shop and to run Gatling scenarios on it.</p>
 <p><strong><a href="https://github.com/PrestaShop/performance-project">PrestaShop performance project</a></strong> on Github includes Front-Office scenarios you can edit to get your own scenarios running.</p>
-<h2 id="benchmark-with-siege-tool">Benchmark with <code>Siege</code> tool</h2>
-<h3 id="benchmark-methodology">Benchmark methodology</h3>
-<p>In order to benchmark the performances of your shop, you will use the siege testing tool.
+
+<h2 id="benchmark-with-siege-tool">Benchmark with <code>Siege</code> tool<a href="#benchmark-with-siege-tool"></a></h2>
+<h3 id="benchmark-methodology">Benchmark methodology<a href="#benchmark-methodology"></a></h3><p>In order to benchmark the performances of your shop, you will use the siege testing tool.
 Try to always use the latest available version <a href="http://download.joedog.org/siege/siege-latest.tar.gz">HERE</a>.</p>
-<h3 id="setup-siege-configuration">Setup siege configuration</h3>
-<p>Create a txt file <code>url.txt</code> with various urls from your shop: (prepend with the domain of your shop)</p>
+
+<h3 id="setup-siege-configuration">Setup siege configuration<a href="#setup-siege-configuration"></a></h3><p>Create a txt file <code>url.txt</code> with various urls from your shop: (prepend with the domain of your shop)</p>
 <div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">http://localhost:8080/
 http://localhost:8080/panier
 http://localhost:8080/meilleures-ventes
@@ -30296,8 +30298,8 @@ http://localhost:8080/magasins
 http://localhost:8080/fournisseur
 http://localhost:8080/recherche?controller=search&amp;s=sweater
 http://localhost:8080/2-accueil
-</code></pre></div><h3 id="run-the-siege-benchmark">Run the siege benchmark</h3>
-<p>Then run a siege benchmark using this file:</p>
+</code></pre></div>
+<h3 id="run-the-siege-benchmark">Run the siege benchmark<a href="#run-the-siege-benchmark"></a></h3><p>Then run a siege benchmark using this file:</p>
 <div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">siege -b -i -c 1 -t 20S --no-parser -f url.txt
 </code></pre></div><p>We will first warmup the cache by testing 1 time with 1 concurrent user, and then progressively
 raise the number of concurrent users until the performances actually decreases.</p>
@@ -30332,21 +30334,21 @@ Successful transactions:        1114
 Failed transactions:	           0
 Longest transaction:	        0.57
 Shortest transaction:	        0.02
-</code></pre></div><h3 id="interpret-the-results">Interpret the results</h3>
-<p>In the siege result output, here is the useful results:</p>
-<h5 id="transactions">Transactions</h5>
-<p>The total number of pages loaded during the benchmark. The higher the better.</p>
-<h5 id="availability">Availability</h5>
-<p>It tells you the amount of pages which have failed to load.</p>
-<h5 id="response-time">Response time</h5>
-<p>The average response time of your pages. The lower the better.</p>
-<h5 id="transaction-rate">Transaction rate</h5>
-<p>The number of pages loaded by second. The higher the better.</p>
-<h5 id="concurrency">Concurrency</h5>
-<p>The number of concurrent transaction the software has been able to run. Should be close to the requested
+</code></pre></div>
+<h3 id="interpret-the-results">Interpret the results<a href="#interpret-the-results"></a></h3><p>In the siege result output, here is the useful results:</p>
+
+<h5 id="transactions">Transactions<a href="#transactions"></a></h5><p>The total number of pages loaded during the benchmark. The higher the better.</p>
+
+<h5 id="availability">Availability<a href="#availability"></a></h5><p>It tells you the amount of pages which have failed to load.</p>
+
+<h5 id="response-time">Response time<a href="#response-time"></a></h5><p>The average response time of your pages. The lower the better.</p>
+
+<h5 id="transaction-rate">Transaction rate<a href="#transaction-rate"></a></h5><p>The number of pages loaded by second. The higher the better.</p>
+
+<h5 id="concurrency">Concurrency<a href="#concurrency"></a></h5><p>The number of concurrent transaction the software has been able to run. Should be close to the requested
 concurrent user setting.</p>
-<h5 id="failed-transactions">Failed transactions</h5>
-<p>Closely related to Availability, the number of pages which have failed to load (404, 503, &hellip;)</p>
+
+<h5 id="failed-transactions">Failed transactions<a href="#failed-transactions"></a></h5><p>Closely related to Availability, the number of pages which have failed to load (404, 503, &hellip;)</p>
 
 
 <footer class="article-footer">
@@ -30371,17 +30373,17 @@ concurrent user setting.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239952"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239952"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239952"></script>
-    <script src="/js/jquery.sticky.js?1677239952"></script>
-    <script src="/js/featherlight.min.js?1677239952"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239952"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239952"></script>
-    <script src="/js/learn.js?1677239952"></script>
-    <script src="/js/hugo-learn.js?1677239952"></script>
+    <script src="/js/clipboard.min.js?1678195030"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195030"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195030"></script>
+    <script src="/js/jquery.sticky.js?1678195030"></script>
+    <script src="/js/featherlight.min.js?1678195030"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195030"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195030"></script>
+    <script src="/js/learn.js?1678195030"></script>
+    <script src="/js/hugo-learn.js?1678195030"></script>
     
-    <script src="/main.js?1677239952"></script>
+    <script src="/main.js?1678195030"></script>
     
     
     

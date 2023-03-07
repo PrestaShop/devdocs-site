@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239924" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239924" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239924" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239924" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195004" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195004" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195004" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195004" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239924" rel="stylesheet">
+    <link href="/style.css?1678195004" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239924"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195004"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13772,6 +13772,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#cqrs---commands-and-queries">CQRS - Commands and Queries</a>
@@ -30286,15 +30288,15 @@
 
 
 
-<h1 id="cqrs---commands-and-queries">CQRS - Commands and Queries</h1>
-<h2 id="what-is-cqrs">What is CQRS?</h2>
-<p>CQRS stands for <em>Command Query Responsibility Segregation</em>. In brief, the CQRS pattern suggests to separate &ldquo;write&rdquo; and &ldquo;read&rdquo; models, which it refers to as Commands and Queries. In a web application like a CMS, we perform either &ldquo;read&rdquo; operations which return information to the user or &ldquo;write&rdquo; operations which modify the data managed by the application.</p>
-<h2 id="why-using-cqrs-in-prestashop">Why using CQRS in PrestaShop?</h2>
-<p>During Back Office migration to Symfony, PrestaShop needs a way to access and alter data on the new Symfony pages without multiplying the sources of truth, and without accessing <code>ObjectModel</code> (e.g. <code>Product</code>, <code>Category</code>) directly.</p>
+
+<h1 id="cqrs---commands-and-queries">CQRS - Commands and Queries<a href="#cqrs---commands-and-queries"></a></h1>
+<h2 id="what-is-cqrs">What is CQRS?<a href="#what-is-cqrs"></a></h2><p>CQRS stands for <em>Command Query Responsibility Segregation</em>. In brief, the CQRS pattern suggests to separate &ldquo;write&rdquo; and &ldquo;read&rdquo; models, which it refers to as Commands and Queries. In a web application like a CMS, we perform either &ldquo;read&rdquo; operations which return information to the user or &ldquo;write&rdquo; operations which modify the data managed by the application.</p>
+
+<h2 id="why-using-cqrs-in-prestashop">Why using CQRS in PrestaShop?<a href="#why-using-cqrs-in-prestashop"></a></h2><p>During Back Office migration to Symfony, PrestaShop needs a way to access and alter data on the new Symfony pages without multiplying the sources of truth, and without accessing <code>ObjectModel</code> (e.g. <code>Product</code>, <code>Category</code>) directly.</p>
 <p>Commands and Queries allow us to isolate the controllers from the data source, which can be later replaced by something else while leaving behind a nice API.</p>
 <p>This implementation proposes a &ldquo;top-down&rdquo; design, which inverses the classic data-driven design. It starts on a page and the actions performed in it, and then trickles down layer by layer, finishing on the data layer.</p>
-<h2 id="difference-between-legacy--new-architectures">Difference between legacy &amp; new architectures</h2>
-<p>In legacy architecture, controller is calling <code>ObjectModel</code> directly, without providing clear API or separation between read and write model, thus highly coupling data layer with controller. See legacy architecture&rsquo;s schema below.</p>
+
+<h2 id="difference-between-legacy--new-architectures">Difference between legacy &amp; new architectures<a href="#difference-between-legacy--new-architectures"></a></h2><p>In legacy architecture, controller is calling <code>ObjectModel</code> directly, without providing clear API or separation between read and write model, thus highly coupling data layer with controller. See legacy architecture&rsquo;s schema below.</p>
 <figure><img src="../img/legacy_architecture.png"/><figcaption>
             <h4>Legacy architecture</h4>
         </figcaption>
@@ -30306,14 +30308,14 @@
         </figcaption>
 </figure>
 
-<h2 id="cqrs-principles-in-prestashop">CQRS Principles in PrestaShop</h2>
-<ol>
+
+<h2 id="cqrs-principles-in-prestashop">CQRS Principles in PrestaShop<a href="#cqrs-principles-in-prestashop"></a></h2><ol>
 <li>All input validation SHOULD be done during the object construction (see <a href="/8/development/architecture/migration-guide/validation/">Validation</a>).</li>
 <li>All objects SHOULD be immutable unless it&rsquo;s impractical to do so.</li>
 <li>The <code>Core\Domain</code> namespace <em>describes</em> business objects, actions and messages. It DOES NOT contain behavior (at least for now).</li>
 </ol>
-<h3 id="command-and-commandhandler-principles">Command and CommandHandler principles</h3>
-<ol>
+
+<h3 id="command-and-commandhandler-principles">Command and CommandHandler principles<a href="#command-and-commandhandler-principles"></a></h3><ol>
 <li>Any alteration on the state of the application MUST be performed through a <code>Command</code>.</li>
 <li>A <code>Command</code> describes a <strong>single</strong> action. It DOES NOT perform it.</li>
 <li>A <code>Command</code> receives only primitive types on input (int, float, string, bool and array).</li>
@@ -30325,8 +30327,8 @@
 </ol>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">NameOfTheCommand</span> <span class="nv">$command</span><span class="p">);</span>
-</code></pre></div><h3 id="query-and-queryhandler-principles">Query and QueryHandler principles</h3>
-<ol>
+</code></pre></div>
+<h3 id="query-and-queryhandler-principles">Query and QueryHandler principles<a href="#query-and-queryhandler-principles"></a></h3><ol>
 <li>Data retrieval SHOULD always go through a <code>Query</code>.</li>
 <li>A <code>Query</code> describes a <strong>single</strong> data query. It DOES NOT perform it.</li>
 <li>A <code>Query</code> receives only primitive types on input (int, float, string, bool and array).</li>
@@ -30344,15 +30346,15 @@
 </span><span class="sd"> * @return TypeOfReturn
 </span><span class="sd"> */</span>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">NameOfTheQuery</span> <span class="nv">$query</span><span class="p">)</span><span class="o">:</span> <span class="nx">TypeOfReturn</span><span class="p">;</span>
-</code></pre></div><h2 id="command-and-query-buses">Command and Query buses</h2>
-<p>Command bus is a pattern used to map <code>Commands</code> and <code>Queries</code> to <code>CommandHandlers</code> and <code>QueryHandlers</code>. PrestaShop defines it&rsquo;s own <code>CommandBusInterface</code> and implements it using <a href="https://tactician.thephpleague.com/">Tactician command bus library</a>.</p>
+</code></pre></div>
+<h2 id="command-and-query-buses">Command and Query buses<a href="#command-and-query-buses"></a></h2><p>Command bus is a pattern used to map <code>Commands</code> and <code>Queries</code> to <code>CommandHandlers</code> and <code>QueryHandlers</code>. PrestaShop defines it&rsquo;s own <code>CommandBusInterface</code> and implements it using <a href="https://tactician.thephpleague.com/">Tactician command bus library</a>.</p>
 <p>PrestaShop uses 2 commands buses:</p>
 <ol>
 <li><code>CommandBus</code> - for dispatching <code>Commands</code> only</li>
 <li><code>QueryBus</code> - for dispatching <code>Queries</code> only</li>
 </ol>
-<h3 id="cqrs-in-debug-toolbar">CQRS in Debug Toolbar</h3>
-<p>To help you understand which command/queries are used on a page and how you can interact with them a profiler has been added in the Symfony debug toolbar.</p>
+
+<h3 id="cqrs-in-debug-toolbar">CQRS in Debug Toolbar<a href="#cqrs-in-debug-toolbar"></a></h3><p>To help you understand which command/queries are used on a page and how you can interact with them a profiler has been added in the Symfony debug toolbar.</p>
 <figure><img src="../img/cqrs-debug-toolbar.png"/><figcaption>
             <h4>CQRS Debug Toolbar</h4>
         </figcaption>
@@ -30388,17 +30390,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239924"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239924"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239924"></script>
-    <script src="/js/jquery.sticky.js?1677239924"></script>
-    <script src="/js/featherlight.min.js?1677239924"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239924"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239924"></script>
-    <script src="/js/learn.js?1677239924"></script>
-    <script src="/js/hugo-learn.js?1677239924"></script>
+    <script src="/js/clipboard.min.js?1678195004"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195004"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195004"></script>
+    <script src="/js/jquery.sticky.js?1678195004"></script>
+    <script src="/js/featherlight.min.js?1678195004"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195004"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195004"></script>
+    <script src="/js/learn.js?1678195004"></script>
+    <script src="/js/hugo-learn.js?1678195004"></script>
     
-    <script src="/main.js?1677239924"></script>
+    <script src="/main.js?1678195004"></script>
     
     
     

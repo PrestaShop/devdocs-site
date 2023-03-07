@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239963" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239963" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239963" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239963" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195040" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195040" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195040" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195040" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239963" rel="stylesheet">
+    <link href="/style.css?1678195040" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239963"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195040"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13766,6 +13766,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#the-mail-template-component">The Mail Template component</a>
@@ -30301,15 +30303,15 @@
 
 
 
-<h1 id="the-mail-template-component">The Mail Template component</h1>
-<h2 id="introduction">Introduction</h2>
-<p>PrestaShop&rsquo;s email notification system is based on static template files, one for each kind of message (like account creation, order confirmation, etc), which are stored in the <code>mails</code> folder. In order to localize these messages, PrestaShop needs a copy of each template, translated to every supported language. Shops download these translated versions when installing a new language pack.</p>
+
+<h1 id="the-mail-template-component">The Mail Template component<a href="#the-mail-template-component"></a></h1>
+<h2 id="introduction">Introduction<a href="#introduction"></a></h2><p>PrestaShop&rsquo;s email notification system is based on static template files, one for each kind of message (like account creation, order confirmation, etc), which are stored in the <code>mails</code> folder. In order to localize these messages, PrestaShop needs a copy of each template, translated to every supported language. Shops download these translated versions when installing a new language pack.</p>
 <p>This system has a few drawbacks. Shops need to download email packs every time a new language is installed,
 and if a template had not been translated to that language, you ended up with emails in English. This gets even more complicated when you use an email theme (from Addons or a freelance designer) which is therefore limited to the languages the authors translated by themselves. Also, any customization performed in a template has to be replicated for every installed language.</p>
 <p>This feature was significantly revamped in PrestaShop 1.7. To avoid introducing breaking changes, the system still relies on static email templates, which are used by the <code>Mail::send</code> method. However, instead of downloading translated copies of each template, these files are now dynamically generated whenever you install a new language, using base templates, or <em>layouts</em>.</p>
 <p>This is the first step to improving the email system in PrestaShop. As the feature gets further improved we will add more advanced customization for email templates.</p>
-<h3 id="vocabulary">Vocabulary</h3>
-<p>Terms like &ldquo;layouts&rdquo;, &ldquo;templates&rdquo; and &ldquo;themes&rdquo; can be confusing, so let&rsquo;s clarify them:</p>
+
+<h3 id="vocabulary">Vocabulary<a href="#vocabulary"></a></h3><p>Terms like &ldquo;layouts&rdquo;, &ldquo;templates&rdquo; and &ldquo;themes&rdquo; can be confusing, so let&rsquo;s clarify them:</p>
 <ul>
 <li>
 <p><strong>Mail themes</strong> are groups of <strong>Layouts</strong> with a given style, stored in the <code>mails/themes/</code> directory.</p>
@@ -30324,9 +30326,9 @@ and if a template had not been translated to that language, you ended up with em
 <p>They contain no logic and are translated for <strong>ONE</strong> language. These are the files used by the <code>Mail</code> class when you send a mail and are located in the <code>mails/</code> directory, grouped by language (<code>mails/en/</code>, <code>mails/fr/</code>, &hellip;).</p>
 </li>
 </ul>
-<h2 id="architecture">Architecture</h2>
-<h3 id="folder-structure">Folder structure</h3>
-<p>The new email themes layout files are stored in the <code>mails/themes/</code> folder. PrestaShop is bundled with two email themes:</p>
+
+<h2 id="architecture">Architecture<a href="#architecture"></a></h2>
+<h3 id="folder-structure">Folder structure<a href="#folder-structure"></a></h3><p>The new email themes layout files are stored in the <code>mails/themes/</code> folder. PrestaShop is bundled with two email themes:</p>
 <ul>
 <li><strong>classic</strong> – The default email theme that was bundled with PrestaShop up until the 1.7.5 version.</li>
 <li><strong>modern</strong> – A new email theme with a modern, responsive design.</li>
@@ -30374,8 +30376,8 @@ This is because you are not forced to define both types as they will be used as 
 
 <div class="notices note" >Thanks to this fallback system, and since we mostly want rich HTML emails, most email themes will only contain html layouts, and txt layouts will be automatically generated from them.</div>
 
-<h3 id="themes-and-layouts">Themes and Layouts</h3>
-<p>PrestaShop uses objects to manipulate email themes and layouts, they implement the following interfaces:</p>
+
+<h3 id="themes-and-layouts">Themes and Layouts<a href="#themes-and-layouts"></a></h3><p>PrestaShop uses objects to manipulate email themes and layouts, they implement the following interfaces:</p>
 <ul>
 <li><code>PrestaShop\PrestaShop\Core\MailTemplate\ThemeInterface</code> – Describes a theme and provides a list of its layouts</li>
 <li><code>PrestaShop\PrestaShop\Core\MailTemplate\Layout\LayoutInterface</code> – Describes a theme layout (name, file paths, related module&hellip;)</li>
@@ -30392,8 +30394,8 @@ This is because you are not forced to define both types as they will be used as 
 <li><code>PrestaShop\PrestaShop\Core\MailTemplate\Layout\Layout</code></li>
 <li><code>PrestaShop\PrestaShop\Core\MailTemplate\Layout\LayoutCollection</code></li>
 </ul>
-<h3 id="generation-workflow">Generation workflow</h3>
-<p>The templates from layouts generation workflow is a bit complex, here are the main components:</p>
+
+<h3 id="generation-workflow">Generation workflow<a href="#generation-workflow"></a></h3><p>The templates from layouts generation workflow is a bit complex, here are the main components:</p>
 <ul>
 <li><strong>GenerateThemeMailTemplatesCommand</strong> describes the generation settings (eg. which theme are we generating and in which language).</li>
 <li><strong>GenerateThemeMailTemplatesCommandHandler</strong> is the command bus handler in charge of executing the generation using the configured <code>MailTemplateGenerator</code>.</li>
@@ -30410,15 +30412,15 @@ This is because you are not forced to define both types as they will be used as 
 
 <div class="notices note" >You can update this schema using the <a href="/8/schemas/email_generation_workflow.xml">source XML file</a> importable in services like <a href="https://draw.io">draw.io</a>.</div>
 
-<h3 id="available-hooks">Available hooks</h3>
-<p>As you can see in the workflow, the email generation process includes a few hooks that allow you to include your own themes, layouts, variables and transformations:</p>
+
+<h3 id="available-hooks">Available hooks<a href="#available-hooks"></a></h3><p>As you can see in the workflow, the email generation process includes a few hooks that allow you to include your own themes, layouts, variables and transformations:</p>
 <ul>
 <li><strong>actionListMailThemes</strong> allows you to modify the <code>ThemeCollection</code> (add, remove, modify a theme or/and its layouts)</li>
 <li><strong>actionBuildMailLayoutVariables</strong> allows you to modify the variables of a specific layout</li>
 <li><strong>actionGetMailLayoutTransformations</strong> allows you to modify the transformations applied to a specific layout</li>
 </ul>
-<h3 id="template-variables">Template variables</h3>
 
+<h3 id="template-variables">Template variables<a href="#template-variables"></a></h3>
 <div class="notices warning" ><p><strong>Layout variables are NOT template variables</strong></p>
 <p>Always keep in mind that the variables provided by the <code>LayoutVariablesBuilder</code> will only be available during template <strong>generation</strong>, meaning that their value will be fixed into the exported static templates, and won&rsquo;t change dynamically when your emails are being sent. They should not be confused with <em>template variables</em> (like firstname,
 lastname, &hellip;) which are replaced at the last moment when the email is sent by the <code>Mail::send</code> function.</p>
@@ -30466,8 +30468,8 @@ lastname, &hellip;) which are replaced at the last moment when the email is sent
 layout variables to deal with customization — but it will only be useful during email generation. So don&rsquo;t use any Twig
 logic to adapt the templates for a specific user or order.</div>
 
-<h2 id="translation">Translation</h2>
-<p>One of the main advantages of email generation is the possibility to use translations in the layouts, here is an example:</p>
+
+<h2 id="translation">Translation<a href="#translation"></a></h2><p>One of the main advantages of email generation is the possibility to use translations in the layouts, here is an example:</p>
 <div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="x">  &lt;table width=&#34;100%&#34;&gt;
 </span><span class="x">    &lt;tr&gt;
 </span><span class="x">      &lt;td align=&#34;center&#34; class=&#34;titleblock&#34;&gt;
@@ -30477,32 +30479,32 @@ logic to adapt the templates for a specific user or order.</div>
 </span><span class="x">      &lt;/td&gt;
 </span><span class="x">    &lt;/tr&gt;
 </span><span class="x">  &lt;/table&gt;
-</span></code></pre></div><h2 id="templates-generation">Templates generation</h2>
-<h3 id="automatic-generation">Automatic generation</h3>
-<p>So now that you know how the generation process works, you might wonder <strong>when</strong> exactly does it happen? There are a few cases when generation is <strong>automatic</strong>:</p>
+</span></code></pre></div>
+<h2 id="templates-generation">Templates generation<a href="#templates-generation"></a></h2>
+<h3 id="automatic-generation">Automatic generation<a href="#automatic-generation"></a></h3><p>So now that you know how the generation process works, you might wonder <strong>when</strong> exactly does it happen? There are a few cases when generation is <strong>automatic</strong>:</p>
 <ul>
 <li>In <code>Language</code> class and more particularly during the calls to <code>Language::downloadAndInstallLanguagePack</code>, <code>Language::installLanguagePack</code> and of course <code>Language::installEmailsLanguagePack</code> which is now <strong>deprecated</strong></li>
 <li>In <code>PrestaShopBundle\Install\Upgrade::run</code> when languages are updated</li>
 </ul>
-<h3 id="manual-generation">Manual generation</h3>
-<p>Of course sometimes you still want to manually generate your emails (new theme installed, changes in some layouts, &hellip;), then you can use:</p>
+
+<h3 id="manual-generation">Manual generation<a href="#manual-generation"></a></h3><p>Of course sometimes you still want to manually generate your emails (new theme installed, changes in some layouts, &hellip;), then you can use:</p>
 <ul>
 <li>In the Symfony command <code>prestashop:mail:generate</code> if you want to launch a CLI generation</li>
 <li>In the &ldquo;Design &gt; Email Theme&rdquo; page when you use the form to launch the generation manually (once per language)</li>
 </ul>
-<h2 id="choosing-the-default-theme">Choosing the default theme</h2>
-<p>Your shop can only use one theme at a time, so if you go to the &ldquo;Design &gt; Email Theme&rdquo; page you will be able to choose your default email theme.
+
+<h2 id="choosing-the-default-theme">Choosing the default theme<a href="#choosing-the-default-theme"></a></h2><p>Your shop can only use one theme at a time, so if you go to the &ldquo;Design &gt; Email Theme&rdquo; page you will be able to choose your default email theme.
 This default theme will be used each time the generation process is launched automatically (language installation, upgrade, &hellip;).</p>
 <p>The <strong>modern</strong> theme is active by default. The <em>classic</em> theme was provided for backward compatibility and as an example.</p>
-<h3 id="troubleshooting">Troubleshooting</h3>
-<h5 id="i-changed-my-default-theme-but-my-emails-didnt-change">I changed my default theme but my emails didn&rsquo;t change.</h5>
-<p>Indeed when you select your default theme you simply update your configuration, so any <strong>future</strong> generation will use the theme you selected.</p>
+
+<h3 id="troubleshooting">Troubleshooting<a href="#troubleshooting"></a></h3>
+<h5 id="i-changed-my-default-theme-but-my-emails-didnt-change">I changed my default theme but my emails didn&rsquo;t change.<a href="#i-changed-my-default-theme-but-my-emails-didnt-change"></a></h5><p>Indeed when you select your default theme you simply update your configuration, so any <strong>future</strong> generation will use the theme you selected.</p>
 <p>However no generation process is launched when you select a theme, so if you want to generate your emails with your newly selected theme you need to do it manually in the &ldquo;Generate emails&rdquo; form.</p>
 
 <div class="notices info" >The form only generates <strong>one</strong> language, so you will have to repeat the action for each Language installed on your shop.</div>
 
-<h5 id="i-tried-to-generate-emails-with-a-new-theme-but-my-templates-are-still-in-the-previous-one">I tried to generate emails with a new theme, but my templates are still in the previous one.</h5>
-<p>There are two possibilities for this issue:</p>
+
+<h5 id="i-tried-to-generate-emails-with-a-new-theme-but-my-templates-are-still-in-the-previous-one">I tried to generate emails with a new theme, but my templates are still in the previous one.<a href="#i-tried-to-generate-emails-with-a-new-theme-but-my-templates-are-still-in-the-previous-one"></a></h5><p>There are two possibilities for this issue:</p>
 <p><strong>1. Overwrite already-generated templates</strong></p>
 <p>As you may have noticed, the <code>GenerateThemeMailTemplatesCommand</code> and the &ldquo;Generate emails&rdquo; form have an <strong>overwrite</strong> option. We need this option because some shops may have installed email themes, or customized their templates manually. For that reason by default the generation process <strong>does not export a template if it already exists</strong>.
 If you want to replace the former templates you need to enable the <code>overwrite</code> option.</p>
@@ -30517,13 +30519,13 @@ If you want to replace the former templates you need to enable the <code>overwri
 
 <div class="notices warning" >Be aware this operation will <strong>permanently modify</strong> your shop theme&rsquo;s files!</div>
 
-<h2 id="learn-more">Learn more</h2>
-<h3 id="reference">Reference</h3>
-<ul>
+
+<h2 id="learn-more">Learn more<a href="#learn-more"></a></h2>
+<h3 id="reference">Reference<a href="#reference"></a></h3><ul>
 <li>Here is an <a href="https://github.com/PrestaShop/example-modules/tree/master/example_module_mailtheme">example module</a> showing how to integrate with the email generation workflow</li>
 </ul>
-<h3 id="module-tutorials">Module Tutorials</h3>
-<ul>
+
+<h3 id="module-tutorials">Module Tutorials<a href="#module-tutorials"></a></h3><ul>
 <li><a href="/8/modules/concepts/mail-templates/extend-a-layout-from-module/">How to extend a layout in a theme from a module</a></li>
 <li><a href="/8/modules/concepts/mail-templates/add-a-layout-from-module/">How to add a layout in a theme from a module</a></li>
 <li><a href="/8/modules/concepts/mail-templates/add-a-theme-from-module/">How to add an email theme from a module</a></li>
@@ -30556,17 +30558,17 @@ If you want to replace the former templates you need to enable the <code>overwri
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239963"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239963"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239963"></script>
-    <script src="/js/jquery.sticky.js?1677239963"></script>
-    <script src="/js/featherlight.min.js?1677239963"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239963"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239963"></script>
-    <script src="/js/learn.js?1677239963"></script>
-    <script src="/js/hugo-learn.js?1677239963"></script>
+    <script src="/js/clipboard.min.js?1678195040"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195040"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195040"></script>
+    <script src="/js/jquery.sticky.js?1678195040"></script>
+    <script src="/js/featherlight.min.js?1678195040"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195040"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195040"></script>
+    <script src="/js/learn.js?1678195040"></script>
+    <script src="/js/hugo-learn.js?1678195040"></script>
     
-    <script src="/main.js?1677239963"></script>
+    <script src="/main.js?1678195040"></script>
     
     
     

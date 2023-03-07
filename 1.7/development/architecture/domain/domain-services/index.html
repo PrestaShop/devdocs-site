@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/architecture/domain/domain-services/">
 
     
-    <link href="/css/font-awesome.min.css?1677239906" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239906" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239906" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239906" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194987" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194987" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194987" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194987" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239906" rel="stylesheet">
+    <link href="/style.css?1678194987" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239906"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194987"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12537,6 +12537,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#domain-services">Domain services</a></li>
@@ -29048,8 +29050,8 @@
 
 
 
-<h1 id="domain-services">Domain services</h1>
-<p>As mentioned in <a href="/1.7/development/architecture/domain/cqrs/">CQRS principles</a>, a <code>Command</code> is a representation of a single domain use case. To prevent <code>Command Handlers</code> from duplicating code and depending on each other, it is usually best to <strong>avoid implementing the actual logic in the <code>Command Handler</code></strong> itself, and delegate it to <code>Domain Services</code> instead. These services are responsible for logic such as:</p>
+
+<h1 id="domain-services">Domain services<a href="#domain-services"></a></h1><p>As mentioned in <a href="/1.7/development/architecture/domain/cqrs/">CQRS principles</a>, a <code>Command</code> is a representation of a single domain use case. To prevent <code>Command Handlers</code> from duplicating code and depending on each other, it is usually best to <strong>avoid implementing the actual logic in the <code>Command Handler</code></strong> itself, and delegate it to <code>Domain Services</code> instead. These services are responsible for logic such as:</p>
 <ol>
 <li>Persisting the entities (a.k.a. ObjectModel in current prestashop architecture) data into database</li>
 <li>Validating the entities</li>
@@ -29068,30 +29070,30 @@
 <div class="notices " >Some reusable methods are present in <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/Adapter/AbstractObjectModelValidator.php">AbstractObjectModelValidator</a>.</div>
 </li>
 </ol>
-<h1 id="code-examples">Code examples</h1>
-<h2 id="objectmodel-repositories"><code>ObjectModel</code> repositories</h2>
-<ol>
+
+<h1 id="code-examples">Code examples<a href="#code-examples"></a></h1>
+<h2 id="objectmodel-repositories"><code>ObjectModel</code> repositories<a href="#objectmodel-repositories"></a></h2><ol>
 <li><a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/Adapter/Product/Repository/ProductRepository.php">ProductRepository</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/Adapter/Product/Repository/ProductSupplierRepository.php">ProductSupplierRepository</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/Adapter/Product/VirtualProduct/Repository/VirtualProductFileRepository.php">VirtualProductFileRepository</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/Adapter/Product/SpecificPrice/Repository/SpecificPriceRepository.php">SpecificPriceRepository</a></li>
 </ol>
-<h2 id="objectmodel-validators"><code>ObjectModel</code> validators</h2>
-<ol>
+
+<h2 id="objectmodel-validators"><code>ObjectModel</code> validators<a href="#objectmodel-validators"></a></h2><ol>
 <li><a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/Adapter/Product/Validate/ProductValidator.php">ProductValidator</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/Adapter/Product/Validate/ProductSupplierValidator.php">ProductSupplierValidator</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/Adapter/Product/VirtualProduct/Validate/VirtualProductFileValidator.php">VirtualProductFileValidator</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/Adapter/Product/SpecificPrice/Validate/SpecificPriceValidator.php">SpecificPriceValidator</a></li>
 </ol>
-<h2 id="product-domain-services">Product domain services</h2>
-<ol>
+
+<h2 id="product-domain-services">Product domain services<a href="#product-domain-services"></a></h2><ol>
 <li><a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.0/src/Adapter/Product/Update">Product update services</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.0/src/Adapter/Product/VirtualProduct/Update">Virtual product update services</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.0/src/Adapter/Product/Combination/Update">Combination update services</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.0/src/Adapter/Product/Combination/Create">Combination create services</a></li>
 </ol>
-<h2 id="service-usage-in-commandhandler-examples">Service usage in <code>CommandHandler</code> examples</h2>
-<ol>
+
+<h2 id="service-usage-in-commandhandler-examples">Service usage in <code>CommandHandler</code> examples<a href="#service-usage-in-commandhandler-examples"></a></h2><ol>
 <li><a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.0/src/Adapter/Product/Combination/CommandHandler">Combination command handlers</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.0/src/Adapter/Product/VirtualProduct/CommandHandler">Virtual product command handlers</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.0/src/Adapter/Product/Stock/CommandHandler">Product stock command handlers</a></li>
@@ -29120,17 +29122,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239906"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239906"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239906"></script>
-    <script src="/js/jquery.sticky.js?1677239906"></script>
-    <script src="/js/featherlight.min.js?1677239906"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239906"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239906"></script>
-    <script src="/js/learn.js?1677239906"></script>
-    <script src="/js/hugo-learn.js?1677239906"></script>
+    <script src="/js/clipboard.min.js?1678194987"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194987"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194987"></script>
+    <script src="/js/jquery.sticky.js?1678194987"></script>
+    <script src="/js/featherlight.min.js?1678194987"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194987"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194987"></script>
+    <script src="/js/learn.js?1678194987"></script>
+    <script src="/js/hugo-learn.js?1678194987"></script>
     
-    <script src="/main.js?1677239906"></script>
+    <script src="/main.js?1678194987"></script>
     
     
     

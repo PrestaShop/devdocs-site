@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/concepts/hooks/use-hooks-on-modern-pages/">
 
     
-    <link href="/css/font-awesome.min.css?1677239915" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239915" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239915" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239915" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194996" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194996" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194996" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194996" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239915" rel="stylesheet">
+    <link href="/style.css?1678194996" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239915"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194996"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12537,6 +12537,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#use-hooks-on-modern-pages">Use hooks on modern pages</a>
@@ -29053,8 +29055,8 @@
 
 
 
-<h1 id="use-hooks-on-modern-pages">Use hooks on modern pages</h1>
-<p>You know you can already customize your PrestaShop store thanks to many hooks: the good news is that you can still use hooks like you did in the earlier versions of PrestaShop in modern pages.</p>
+
+<h1 id="use-hooks-on-modern-pages">Use hooks on modern pages<a href="#use-hooks-on-modern-pages"></a></h1><p>You know you can already customize your PrestaShop store thanks to many hooks: the good news is that you can still use hooks like you did in the earlier versions of PrestaShop in modern pages.</p>
 <p>Starting from PrestaShop 1.7.3, you can access the modern Services Container into your modules and so on access powerful and customizable features available in Symfony:</p>
 <ul>
 <li><a href="https://twig.symfony.com/">Twig</a>, the most popular templating engine;</li>
@@ -29068,11 +29070,11 @@
 
 <div class="notices tip" >If you don&rsquo;t know what a service is, have a look at the Symfony documentation about the <a href="https://symfony.com/doc/3.3/service_container.html">service container</a>.</div>
 
-<h2 id="better-modules-on-modern-pages">Better modules on modern pages</h2>
-<p>Let&rsquo;s say your customer want an xml export button directly available from list of products on Product Catalog page: such a common need regarding the number of related modules in the Store.</p>
+
+<h2 id="better-modules-on-modern-pages">Better modules on modern pages<a href="#better-modules-on-modern-pages"></a></h2><p>Let&rsquo;s say your customer want an xml export button directly available from list of products on Product Catalog page: such a common need regarding the number of related modules in the Store.</p>
 <p>How hard it can be to develop a module that provide this button? Well, it&rsquo;s not! Let&rsquo;s do this feature together.</p>
-<h3 id="first-step-select-the-right-hook">First step: select the right hook</h3>
-<p>Accessing the Product Catalog page in <em>debug mode</em> we can access the list of available hooks in the debug toolbar:</p>
+
+<h3 id="first-step-select-the-right-hook">First step: select the right hook<a href="#first-step-select-the-right-hook"></a></h3><p>Accessing the Product Catalog page in <em>debug mode</em> we can access the list of available hooks in the debug toolbar:</p>
 <ul>
 <li>moduleRoutes</li>
 <li>displayBackOfficeHeader</li>
@@ -29088,8 +29090,8 @@
 <li>actionDispatcherAfter</li>
 </ul>
 <p>As we need to act on Dashboard but after the header, in the icons toolbar (with others export options) <code>hookdisplayDashboardToolbarIcons</code> sounds like the hook we are looking for.</p>
-<h3 id="second-step-create-and-register-the-hook">Second step: create and register the Hook</h3>
-<p>Create a <a href="https://doc.prestashop.com/display/PS17/Creating+a+first+module">new module</a> called <code>foo</code> and register the hook. You should end up with this kind of code in your module:</p>
+
+<h3 id="second-step-create-and-register-the-hook">Second step: create and register the Hook<a href="#second-step-create-and-register-the-hook"></a></h3><p>Create a <a href="https://doc.prestashop.com/display/PS17/Creating+a+first+module">new module</a> called <code>foo</code> and register the hook. You should end up with this kind of code in your module:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="c1">// foo.php
 </span><span class="c1"></span>
@@ -29119,10 +29121,10 @@
 </code></pre></div>
 <div class="notices note" >The <code>route</code> property is only available for modern pages. To find out the route for a given page, look at the Debug toolbar.</div>
 
-<h3 id="third-step-create-your-own-product-serializer">Third step: create your own product serializer</h3>
-<p>At this point, this is basic PHP code we need to produce. We need to retrieve the list of products from database, and serialize them into XML and dump into a file sent to the user.</p>
-<h4 id="using-doctrine-dbal-to-retrieve-data">Using Doctrine (DBAL) to retrieve data</h4>
-<p>Even if using old way to retrieve data is still valid (<code>Product::getProducts</code> or through the webservice), we&rsquo;d like to introduce a best practice here: using a repository and get rid of the Object model. This has a lot of advantages, you rely on database instead of model and you&rsquo;ll have better performances and control on your data.</p>
+
+<h3 id="third-step-create-your-own-product-serializer">Third step: create your own product serializer<a href="#third-step-create-your-own-product-serializer"></a></h3><p>At this point, this is basic PHP code we need to produce. We need to retrieve the list of products from database, and serialize them into XML and dump into a file sent to the user.</p>
+
+<h4 id="using-doctrine-dbal-to-retrieve-data">Using Doctrine (DBAL) to retrieve data<a href="#using-doctrine-dbal-to-retrieve-data"></a></h4><p>Even if using old way to retrieve data is still valid (<code>Product::getProducts</code> or through the webservice), we&rsquo;d like to introduce a best practice here: using a repository and get rid of the Object model. This has a lot of advantages, you rely on database instead of model and you&rsquo;ll have better performances and control on your data.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="c1">// src/Repository/ProductRepository.php
 </span><span class="c1"></span><span class="k">namespace</span> <span class="nx">Foo\Repository</span><span class="p">;</span>
@@ -29193,8 +29195,8 @@
 <span class="p">}</span>
 </code></pre></div><p>In Product Catalog Page you should see the list of Products in debug toolbar in &ldquo;Dump&rdquo; section:</p>
 <p><img src="https://i.imgur.com/un7NcIL.png" alt="Get products in Dump section"></p>
-<h4 id="using-the-symfony-components-to-create-an-xml-export-file">Using the Symfony components to create an XML export file</h4>
-<p>Now we retrieve the product list from our module and that we are able to display the information into the back office,
+
+<h4 id="using-the-symfony-components-to-create-an-xml-export-file">Using the Symfony components to create an XML export file<a href="#using-the-symfony-components-to-create-an-xml-export-file"></a></h4><p>Now we retrieve the product list from our module and that we are able to display the information into the back office,
 we could already create our XML file with raw PHP. Let&rsquo;s see how we can do it using the components provided by Symfony &ldquo;out of box&rdquo;.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="c1">// foo.php
@@ -29231,8 +29233,8 @@ we could already create our XML file with raw PHP. Let&rsquo;s see how we can do
 </span><span class="w">
 </span><span class="w"></span><span class="nt">framework</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span><span class="nt">serializer</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="nt">enable_annotations</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span>}<span class="w">
-</span></code></pre></div><h4 id="render-the-icon-using-twig-templating-engine">Render the icon using Twig templating engine</h4>
-<p>Now we have serialized our products, it&rsquo;s time to render an Icon link with the file to download!</p>
+</span></code></pre></div>
+<h4 id="render-the-icon-using-twig-templating-engine">Render the icon using Twig templating engine<a href="#render-the-icon-using-twig-templating-engine"></a></h4><p>Now we have serialized our products, it&rsquo;s time to render an Icon link with the file to download!</p>
 <p>We could (of course) use Smarty to render a template, but it&rsquo;s a chance to discover Twig which is also available as a service. First, let&rsquo;s refactor and finalize our hook call:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="sd">/**
@@ -29293,17 +29295,17 @@ we could already create our XML file with raw PHP. Let&rsquo;s see how we can do
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239915"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239915"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239915"></script>
-    <script src="/js/jquery.sticky.js?1677239915"></script>
-    <script src="/js/featherlight.min.js?1677239915"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239915"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239915"></script>
-    <script src="/js/learn.js?1677239915"></script>
-    <script src="/js/hugo-learn.js?1677239915"></script>
+    <script src="/js/clipboard.min.js?1678194996"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194996"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194996"></script>
+    <script src="/js/jquery.sticky.js?1678194996"></script>
+    <script src="/js/featherlight.min.js?1678194996"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194996"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194996"></script>
+    <script src="/js/learn.js?1678194996"></script>
+    <script src="/js/hugo-learn.js?1678194996"></script>
     
-    <script src="/main.js?1677239915"></script>
+    <script src="/main.js?1678194996"></script>
     
     
     

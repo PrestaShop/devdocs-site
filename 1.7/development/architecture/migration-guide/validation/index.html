@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239908" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239908" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239908" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239908" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194990" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194990" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194990" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194990" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239908" rel="stylesheet">
+    <link href="/style.css?1678194990" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239908"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194990"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12537,6 +12537,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#validation">Validation</a></li>
@@ -29040,8 +29042,8 @@
 
 
 
-<h1 id="validation">Validation</h1>
-<p>The purpose of validation is to protect the application from failures, state inconsistency, security related issues etc. PrestaShop has few different levels of validation:</p>
+
+<h1 id="validation">Validation<a href="#validation"></a></h1><p>The purpose of validation is to protect the application from failures, state inconsistency, security related issues etc. PrestaShop has few different levels of validation:</p>
 <ul>
 <li><strong>Forms</strong> (the <a href="/1.7/development/architecture/migration-guide/forms/crud-forms/">CRUD</a> or <a href="/1.7/development/architecture/migration-guide/forms/settings-forms/">Settings</a>) - are using <a href="https://symfony.com/doc/3.4/validation.html#constraints">Symfony validation constraints</a> to prevent the user from providing invalid information while also enriching the user experience. For example if a form input expects <code>Yes</code> or <code>No</code>, but user submitted value <code>XYZ</code> we want to reject the data and inform the user what was wrong. The best approach (if possible) is to prevent user providing the wrong value in the first place, so in this example we could simply use a checkbox or select input with only 2 possible selections. There are some custom constraints implemented in PrestaShop <a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.0/src/Core/ConstraintValidator">here</a>.</li>
 <li><a href="/1.7/development/architecture/domain/value_objects/">Value objects</a> - after the form is submitted and validated, controller is usually dispatching some <code>Command</code>. We must ensure that commands are valid too, because in theory, commands should not be aware whether they were dispatched from a controller or from a command line, therefore it is possible that inputs are not yet validated by the form. The <code>command</code> itself should not handle the validation (although there are some older commands that does that, but that might only be some early migration mistakes), but <strong>use the value objects in the constructor instead</strong>. Value objects have their own validation rules and can be reused in any other command. For example, take a look at <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/Core/Domain/Product/ValueObject/ProductCondition.php">ProductCondition</a> - this is a value object of <code>Product</code> domain. It allows constructing specific values and throws <code>ProductConstraintException</code> if invalid one is provided. It is currently used in <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/Core/Domain/Product/Command/UpdateProductOptionsCommand.php">UpdateProductOptionsCommand</a> and helps to maintain the command validity.</li>
@@ -29077,17 +29079,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239908"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239908"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239908"></script>
-    <script src="/js/jquery.sticky.js?1677239908"></script>
-    <script src="/js/featherlight.min.js?1677239908"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239908"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239908"></script>
-    <script src="/js/learn.js?1677239908"></script>
-    <script src="/js/hugo-learn.js?1677239908"></script>
+    <script src="/js/clipboard.min.js?1678194990"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194990"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194990"></script>
+    <script src="/js/jquery.sticky.js?1678194990"></script>
+    <script src="/js/featherlight.min.js?1678194990"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194990"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194990"></script>
+    <script src="/js/learn.js?1678194990"></script>
+    <script src="/js/hugo-learn.js?1678194990"></script>
     
-    <script src="/main.js?1677239908"></script>
+    <script src="/main.js?1678194990"></script>
     
     
     

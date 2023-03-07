@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239963" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239963" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239963" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239963" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195041" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195041" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195041" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195041" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239963" rel="stylesheet">
+    <link href="/style.css?1678195041" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239963"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195041"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13778,6 +13778,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#add-new-order">Add new order</a>
@@ -30294,15 +30296,15 @@
 
 
 
-<h1 id="add-new-order">Add new order</h1>
-<p>Page can be reached by going to <code>Sell -&gt; Orders -&gt; Orders -&gt; Add new order</code>. It allows the Back Office user to create a new order for a
+
+<h1 id="add-new-order">Add new order<a href="#add-new-order"></a></h1><p>Page can be reached by going to <code>Sell -&gt; Orders -&gt; Orders -&gt; Add new order</code>. It allows the Back Office user to create a new order for a
 selected customer.</p>
 
 <div class="notices " >Order creation is still affected by customer addresses, taxes and other settings. So for example, if selected Customer
 country or zone is disabled, you won&rsquo;t see any available carriers.</div>
 
-<h2 id="benefits">Benefits</h2>
-<p>There are some benefits comparing to Front Office (FO) order creation:</p>
+
+<h2 id="benefits">Benefits<a href="#benefits"></a></h2><p>There are some benefits comparing to Front Office (FO) order creation:</p>
 <ul>
 <li>Any cart previously used by the customer, can be used to create a new order</li>
 <li>Any order previously used by the customer, can be used to create a new order</li>
@@ -30310,16 +30312,16 @@ country or zone is disabled, you won&rsquo;t see any available carriers.</div>
 <li>Email with the link to a prefilled cart can be sent to the customer</li>
 <li>Any order status can be selected before creation</li>
 </ul>
-<h2 id="page-specifics">Page specifics</h2>
-<p>This page is very specific compared to other BO pages, it has kind of a flow - each block depends on previous block selections, that&rsquo;s why <strong>most of it depends on javascript</strong>.  Unfortunately it also has limited extension capabilities - there are no common services as form or grid builders, therefore no hooks that could help module developers to modify the display.</p>
+
+<h2 id="page-specifics">Page specifics<a href="#page-specifics"></a></h2><p>This page is very specific compared to other BO pages, it has kind of a flow - each block depends on previous block selections, that&rsquo;s why <strong>most of it depends on javascript</strong>.  Unfortunately it also has limited extension capabilities - there are no common services as form or grid builders, therefore no hooks that could help module developers to modify the display.</p>
 
 <div class="notices " >All the javascript code related to this page can be found at <code>admin-dev/themes/new-theme/js/pages/order/create.ts</code>.
 These <code>.ts</code> files are the <code>develop</code> version prior compiling. See <a href="/8/development/compile-assets/">&ldquo;How to compile assets&rdquo;</a> for
 more information.</div>
 
-<h2 id="the-flow">The flow</h2>
-<h4 id="customer">Customer</h4>
-<p>When you enter the page, first thing you will notice is the <code>Customer</code> block:
+
+<h2 id="the-flow">The flow<a href="#the-flow"></a></h2>
+<h4 id="customer">Customer<a href="#customer"></a></h4><p>When you enter the page, first thing you will notice is the <code>Customer</code> block:
 <figure><img src="./img/customer-search-block.png"/><figcaption>
             <h4>Customer search block</h4>
         </figcaption>
@@ -30337,8 +30339,8 @@ more information.</div>
 <li><a href="#customer-addresses-block">Customer addresses block</a></li>
 <li>Once you fill all the required information, you will finally see the <a href="#summary-block">Summary block</a>.</li>
 </ul>
-<h4 id="customer-carts-list">Customer carts list</h4>
-<figure><img src="./img/customer-carts-block.png"/><figcaption>
+
+<h4 id="customer-carts-list">Customer carts list<a href="#customer-carts-list"></a></h4><figure><img src="./img/customer-carts-block.png"/><figcaption>
             <h4>Customer carts</h4>
         </figcaption>
 </figure>
@@ -30346,8 +30348,8 @@ more information.</div>
 <p>Details of each cart that was used by the customer can be checked by clicking on <code>Details</code> button - The <code>Sell -&gt; Orders -&gt; Shopping Carts -&gt; View cart</code> page will be opened in a modal window.
 Existing <code>Cart</code> can be also used to create a new one - press <code>Use</code> and the selected <code>Cart</code> will be loaded and available for modifications.
 This block is loaded using <code>ajax</code> by calling <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/PrestaShopBundle/Controller/Admin/Sell/Customer/CustomerController.php">CustomerController::getCartsAction</a>. Related <code>javascript</code> code can be found in <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/admin-dev/themes/new-theme/js/pages/order/create/customer-manager.ts">customer-manager.ts</a></p>
-<h4 id="customer-orders-list">Customer orders list</h4>
-<figure><img src="./img/customer-orders-block.png"/><figcaption>
+
+<h4 id="customer-orders-list">Customer orders list<a href="#customer-orders-list"></a></h4><figure><img src="./img/customer-orders-block.png"/><figcaption>
             <h4>Customer orders</h4>
         </figcaption>
 </figure>
@@ -30355,8 +30357,8 @@ This block is loaded using <code>ajax</code> by calling <a href="https://github.
 <p>Details of each order used by the customer can be checked by clicking on <code>Details</code> button - The <code>Sell -&gt; Orders -&gt; Carts -&gt; View order</code> page will be opened in a modal window.
 Existing <code>Order</code> can be also used to create a new one - press <code>Use</code> and a new <code>Cart</code> will be created with all the information duplicated from the selected <code>Order</code>.
 This block is loaded using <code>ajax</code> by calling <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/PrestaShopBundle/Controller/Admin/Sell/Customer/CustomerController.php">CustomerController::getOrdersAction</a>. Related <code>javascript</code> code can be found in <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/admin-dev/themes/new-theme/js/pages/order/create/customer-manager.ts">customer-manager.ts</a></p>
-<h4 id="cart-block">Cart block</h4>
-<figure><img src="./img/cart-block.png"/><figcaption>
+
+<h4 id="cart-block">Cart block<a href="#cart-block"></a></h4><figure><img src="./img/cart-block.png"/><figcaption>
             <h4>Cart</h4>
         </figcaption>
 </figure>
@@ -30370,8 +30372,8 @@ This block is loaded using <code>ajax</code> by calling <a href="https://github.
 
 <div class="notices " >Product price can be modified. This is similar behavior to the one in the <code>Order view page</code>, however behind the scenes it is different. Unlike in the <code>Order view page</code>, we don&rsquo;t have any <code>OrderDetail</code> yet, because at this point we are still modifying the <code>Cart</code>, so it is achieved by creating a new temporary <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/classes/SpecificPrice.php">SpecificPrice</a> and assigning specifically to that certain <code>Cart</code>, <code>Product</code>, <code>Customer</code> and <code>Shop</code>. See <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/PrestaShopBundle/Controller/Admin/Sell/Order/CartController.php">CartController::editProductPriceAction</a>.</div>
 
-<h4 id="cart-rules-block">Cart rules block</h4>
-<figure><img src="./img/cart-rule-block.png"/><figcaption>
+
+<h4 id="cart-rules-block">Cart rules block<a href="#cart-rules-block"></a></h4><figure><img src="./img/cart-rule-block.png"/><figcaption>
             <h4>Vouchers</h4>
         </figcaption>
 </figure>
@@ -30380,8 +30382,8 @@ This block is loaded using <code>ajax</code> by calling <a href="https://github.
 
 <div class="notices " ><code>Add new voucher</code> button opens the same form from <code>Sell -&gt; Catalog -&gt; Discounts -&gt; Add new cart rule</code> loaded in an <code>iframe</code>.</div>
 
-<h4 id="customer-addresses-block">Customer addresses block</h4>
-<figure><img src="./img/customer-addresses-block.png"/><figcaption>
+
+<h4 id="customer-addresses-block">Customer addresses block<a href="#customer-addresses-block"></a></h4><figure><img src="./img/customer-addresses-block.png"/><figcaption>
             <h4>Addresses</h4>
         </figcaption>
 </figure>
@@ -30390,8 +30392,8 @@ This block is loaded using <code>ajax</code> by calling <a href="https://github.
 
 <div class="notices " >The form in the modal is actually the same form from <code>Customers -&gt; Addresses</code> page rendered using an <code>iframe</code>.</div>
 
-<h4 id="shipping-block">Shipping block</h4>
-<p><figure><img src="./img/shipping-block.png"/><figcaption>
+
+<h4 id="shipping-block">Shipping block<a href="#shipping-block"></a></h4><p><figure><img src="./img/shipping-block.png"/><figcaption>
             <h4>Shipping</h4>
         </figcaption>
 </figure>
@@ -30400,8 +30402,8 @@ Shipping block will appear only if at least one carrier is available for selecte
 
 <div class="notices " >When <code>Free shipping</code> is checked, behind the scenes, it is achieved by creating a new temporary <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/classes/CartRule.php">CartRule</a> with <code>$free_shipping = true</code> and assigned to customer. See <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Adapter/Cart/CommandHandler/UpdateCartDeliverySettingsHandler.php">UpdateCartDeliverySettingsHandler::handleFreeShippingOption</a>.</div>
 
-<h4 id="summary-block">Summary block</h4>
-<figure><img src="./img/summary-block.png"/><figcaption>
+
+<h4 id="summary-block">Summary block<a href="#summary-block"></a></h4><figure><img src="./img/summary-block.png"/><figcaption>
             <h4>Order summary block</h4>
         </figcaption>
 </figure>
@@ -30436,17 +30438,17 @@ Shipping block will appear only if at least one carrier is available for selecte
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239964"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239964"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239964"></script>
-    <script src="/js/jquery.sticky.js?1677239964"></script>
-    <script src="/js/featherlight.min.js?1677239964"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239964"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239964"></script>
-    <script src="/js/learn.js?1677239964"></script>
-    <script src="/js/hugo-learn.js?1677239964"></script>
+    <script src="/js/clipboard.min.js?1678195041"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195041"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195041"></script>
+    <script src="/js/jquery.sticky.js?1678195041"></script>
+    <script src="/js/featherlight.min.js?1678195041"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195041"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195041"></script>
+    <script src="/js/learn.js?1678195041"></script>
+    <script src="/js/hugo-learn.js?1678195041"></script>
     
-    <script src="/main.js?1677239964"></script>
+    <script src="/main.js?1678195041"></script>
     
     
     

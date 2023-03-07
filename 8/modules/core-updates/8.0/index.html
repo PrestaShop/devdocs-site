@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239950" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239950" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239950" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239950" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195028" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195028" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195028" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195028" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239950" rel="stylesheet">
+    <link href="/style.css?1678195028" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239950"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195028"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13766,6 +13766,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#notable-changes-in-prestashop-80">Notable changes in PrestaShop 8.0</a>
@@ -30314,11 +30316,11 @@
 #body-inner depre {font-size: 85%; color: #666; font-style: italic; vertical-align: middle }
 #body-inner depre::before {content: ' – '}
 </style>
-<h1 id="notable-changes-in-prestashop-80">Notable changes in PrestaShop 8.0</h1>
-<h2 id="php-support">PHP support</h2>
-<p>PrestaShop 8.0 adds supports for PHP 8.0 and PHP 8.1 and requires at least PHP 7.2.5.</p>
-<h2 id="notable-changes">Notable changes</h2>
-<ul>
+
+<h1 id="notable-changes-in-prestashop-80">Notable changes in PrestaShop 8.0<a href="#notable-changes-in-prestashop-80"></a></h1>
+<h2 id="php-support">PHP support<a href="#php-support"></a></h2><p>PrestaShop 8.0 adds supports for PHP 8.0 and PHP 8.1 and requires at least PHP 7.2.5.</p>
+
+<h2 id="notable-changes">Notable changes<a href="#notable-changes"></a></h2><ul>
 <li>Javascript files for migrated pages in the Back Office <a href="https://github.com/PrestaShop/PrestaShop/pull/23221">now are written in TypeScript</a> (related change: <a href="https://github.com/PrestaShop/PrestaShop/pull/24791">#24791</a>).</li>
 <li>Support for <a href="/8/modules/creation/module-translation/classic-system/">legacy translation dictionaries</a> (eg: <code>en.php</code>, <code>fr.php</code>&hellip;, deprecated in 1.7), <a href="https://github.com/PrestaShop/PrestaShop/pull/24401">has been removed</a> from Core controllers. Only modules can still use this system now.</li>
 <li>All modules present in the <code>modules</code> directory during the installation process will be installed by default (except in the web-based installation where <a href="https://github.com/PrestaShop/PrestaShop/pull/27099">you can unselect some of them</a>). Modules can use <code>Module::postInstall()</code> to execute code after the shop installation is done (<a href="https://github.com/PrestaShop/PrestaShop/pull/24676">Read more</a>).</li>
@@ -30336,8 +30338,8 @@
 <li>Due to the new <a href="new-password-policy">password policy management features</a>, third-party solutions that generate customer data might require to implement changes accordingly.</li>
 <li>In some countries, loading fonts through Google Fonts' CDN service has been judged incompatible with <a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation">GDPR</a>, so <a href="https://github.com/PrestaShop/PrestaShop/issues/27541">these fonts are now built into the project</a>. This should not affect your work, but spreading awareness around this topic is important.</li>
 </ul>
-<h3 id="symfony-update">Symfony update</h3>
-<p>Symfony has been <a href="https://github.com/PrestaShop/PrestaShop/pull/24609">upgraded to 4.4</a>, which includes a number of changes:</p>
+
+<h3 id="symfony-update">Symfony update<a href="#symfony-update"></a></h3><p>Symfony has been <a href="https://github.com/PrestaShop/PrestaShop/pull/24609">upgraded to 4.4</a>, which includes a number of changes:</p>
 <ul>
 <li>Doctrine ORM cache adapters for Memcache &amp; APC are not available anymore. <a href="https://symfony.com/doc/4.4/reference/configuration/doctrine.html#caching-drivers">The way cache is handled changed in Symfony 4.4</a> and <a href="https://symfony.com/doc/4.4/cache.html">memcache &amp; apc are not part of the new available caching methods</a>.</li>
 <li>Services that are not dependency injected and that are not declared as &ldquo;public&rdquo; are removed from the container</li>
@@ -30349,24 +30351,24 @@
 <li>The annotation <code>@AdminSecurity is_granted()</code> should not take an array, use explicit <code>&amp;&amp;</code> or <code>||</code> when checking multiple rights</li>
 <li>Form type extensions should stop implementing <code>public function getExtendedType()</code> and implement <code>public static function getExtendedTypes(): iterable</code> instead (<a href="https://symfony.com/blog/new-in-symfony-4-2-improved-form-type-extensions">read more</a>).</li>
 </ul>
-<h3 id="new-product-page">New product page</h3>
-<p>[To be completed]</p>
-<h3 id="themes">Themes</h3>
-<p>Themes using jQuery UI tooltips might need to be updated to use bootstrap&rsquo;s tooltips (<a href="https://github.com/PrestaShop/PrestaShop/pull/25818">read more</a>);</p>
-<h4 id="child-themes">Child themes</h4>
-<p>The <code>use_parent_assets</code> setting in <code>theme.yml</code>, when set to <code>true</code>, makes the child theme load its parent&rsquo;s assets (css, img and js) instead of its own. This feature, not functional and ignored in 1.7, <a href="https://github.com/PrestaShop/PrestaShop/issues/25667">has been fixed and improved</a> for 8.0. For further fine-tuning, a new set of <code>child_*_url</code> variables is made available when the feature is active, allowing theme developers to access the parent and child&rsquo;s asset urls separately.</p>
+
+<h3 id="new-product-page">New product page<a href="#new-product-page"></a></h3><p>[To be completed]</p>
+
+<h3 id="themes">Themes<a href="#themes"></a></h3><p>Themes using jQuery UI tooltips might need to be updated to use bootstrap&rsquo;s tooltips (<a href="https://github.com/PrestaShop/PrestaShop/pull/25818">read more</a>);</p>
+
+<h4 id="child-themes">Child themes<a href="#child-themes"></a></h4><p>The <code>use_parent_assets</code> setting in <code>theme.yml</code>, when set to <code>true</code>, makes the child theme load its parent&rsquo;s assets (css, img and js) instead of its own. This feature, not functional and ignored in 1.7, <a href="https://github.com/PrestaShop/PrestaShop/issues/25667">has been fixed and improved</a> for 8.0. For further fine-tuning, a new set of <code>child_*_url</code> variables is made available when the feature is active, allowing theme developers to access the parent and child&rsquo;s asset urls separately.</p>
 <p>To maintain the behavior of 1.7 and load the child theme&rsquo;s assets, <code>use_parent_assets</code> must be set to <code>false</code>.</p>
-<h4 id="classic-theme">Classic theme</h4>
-<ul>
+
+<h4 id="classic-theme">Classic theme<a href="#classic-theme"></a></h4><ul>
 <li>In <code>checkout/_partials/steps/payment.tpl</code>, the ID <code>payment-form</code> has <a href="https://github.com/PrestaShop/PrestaShop/pull/25069">been changed</a> to <code>payment-{$option.id}-form</code>.</li>
 <li>Empty state messages are now shown inside the block (as opposed to the top of the page) in pages like order history, addresses, etc (<a href="https://github.com/PrestaShop/PrestaShop/pull/26806">read more</a>).</li>
 <li>The Classic theme <a href="https://github.com/PrestaShop/classic-theme/pull/21">now supports</a> the new password policy introduced <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">here</a>.</li>
 </ul>
-<h3 id="back-office-interface">Back office interface</h3>
-<p>The Bootstrap version used in Symfony-based Back office pages has been updated from 4.0 to 4.4.</p>
-<h2 id="api-changes">API Changes</h2>
-<h3 id="changes">Changes</h3>
-<hr>
+
+<h3 id="back-office-interface">Back office interface<a href="#back-office-interface"></a></h3><p>The Bootstrap version used in Symfony-based Back office pages has been updated from 4.0 to 4.4.</p>
+
+<h2 id="api-changes">API Changes<a href="#api-changes"></a></h2>
+<h3 id="changes">Changes<a href="#changes"></a></h3><hr>
 <ul>
 <li><code>_PS_USE_SQL_SLAVE_</code> is now a boolean (<code>false</code> by default).</li>
 </ul>
@@ -31487,9 +31489,9 @@
 </ul>
 </li>
 </ul>
-<h3 id="removals">Removals</h3>
-<h4 id="removed-methods">Removed methods</h4>
-<ul>
+
+<h3 id="removals">Removals<a href="#removals"></a></h3>
+<h4 id="removed-methods">Removed methods<a href="#removed-methods"></a></h4><ul>
 <li><code>bindDatepicker()</code></li>
 <li><code>includeDatepicker()</code> <depre>deprecated in 1.5.3</depre></li>
 <li><code>translate()</code> <depre>deprecated in 1.5.4</depre></li>
@@ -31619,8 +31621,8 @@
 <li><code>PrestaShopBundle\Translation\Provider\ThemeProvider::getDomain()</code> <depre>deprecated in 1.7.6</depre></li>
 <li><code>PrestaShopBundle\Twig\HookExtension::hookCount()</code> <depre>deprecated in 1.7.7</depre></li>
 </ul>
-<h4 id="removed-variables-or-properties">Removed variables or properties</h4>
-<ul>
+
+<h4 id="removed-variables-or-properties">Removed variables or properties<a href="#removed-variables-or-properties"></a></h4><ul>
 <li><code>$_LANGADM</code></li>
 <li><code>$timer_start</code></li>
 <li><code>AdminController::$timer_start</code></li>
@@ -31645,8 +31647,8 @@
 <li><code>PrestaShopBundle\Entity\Repository\StockManagementRepository::$context</code></li>
 <li><code>TypedRegexValidator::$characterCleaner</code></li>
 </ul>
-<h4 id="removed-constants">Removed constants</h4>
-<ul>
+
+<h4 id="removed-constants">Removed constants<a href="#removed-constants"></a></h4><ul>
 <li><code>_CUSTOMIZE_FILE_</code></li>
 <li><code>_CUSTOMIZE_TEXTFIELD_</code></li>
 <li><code>_PS_PEAR_XML_PARSER_PATH_</code></li>
@@ -31665,12 +31667,12 @@
 <li><code>PrestaShop\PrestaShop\Core\Domain\Employee\ValueObject\Password::MIN_LENGTH</code></li>
 <li><code>PrestaShop\PrestaShop\Core\Domain\Employee\ValueObject\Password::MAX_LENGTH</code></li>
 </ul>
-<h4 id="removed-configuration-keys">Removed configuration keys</h4>
-<ul>
+
+<h4 id="removed-configuration-keys">Removed configuration keys<a href="#removed-configuration-keys"></a></h4><ul>
 <li><code>TRACKING_DIRECT_TRAFFIC</code></li>
 </ul>
-<h4 id="removed-classes">Removed classes</h4>
-<ul>
+
+<h4 id="removed-classes">Removed classes<a href="#removed-classes"></a></h4><ul>
 <li><code>AdminAttributeGeneratorController</code></li>
 <li><code>AdminPatternsController</code></li>
 <li><code>AdminReferrersController</code></li>
@@ -31719,8 +31721,8 @@
 <li><code>PrestaShopBundle\Twig\AdminExtension</code></li>
 <li><code>PrestaShopBundle\Twig\Locator\ModuleTemplateIterator</code></li>
 </ul>
-<h4 id="removed-routes">Removed routes</h4>
-<ul>
+
+<h4 id="removed-routes">Removed routes<a href="#removed-routes"></a></h4><ul>
 <li><code>admin_common_recommended_modules</code></li>
 <li><code>admin_module_addons_store</code></li>
 <li><code>admin_module_cart</code></li>
@@ -31728,8 +31730,8 @@
 <li><code>admin_module_catalog_refresh</code></li>
 <li><code>admin_module_catalog</code></li>
 </ul>
-<h4 id="removed-services">Removed services</h4>
-<ul>
+
+<h4 id="removed-services">Removed services<a href="#removed-services"></a></h4><ul>
 <li><code>guzzle.cache</code></li>
 <li><code>prestashop.adapter.admin.data_provider.addons</code></li>
 <li><code>prestashop.adapter.cache_clearer</code></li>
@@ -31743,8 +31745,8 @@
 <li><code>prestashop.data_provider.modules.recommended</code></li>
 <li><code>prestashop.module.zip.manager</code></li>
 </ul>
-<h4 id="removed-endpoints">Removed endpoints</h4>
-<ul>
+
+<h4 id="removed-endpoints">Removed endpoints<a href="#removed-endpoints"></a></h4><ul>
 <li><code>admin-dev/ajax-tab.php</code> <depre>deprecated in 1.7.6</depre></li>
 <li><code>admin-dev/ajax_products_list.php</code> <depre>deprecated in 1.7.6</depre></li>
 <li><code>admin-dev/backup.php</code> <depre>deprecated in 1.7.6</depre></li>
@@ -31754,13 +31756,13 @@
 <li><code>admin-dev/pdf.php</code> <depre>deprecated in 1.7.6</depre></li>
 <li><code>admin-dev/searchcron.php</code> <depre>deprecated in 1.7.6</depre></li>
 </ul>
-<h4 id="removed-files">Removed files</h4>
-<ul>
+
+<h4 id="removed-files">Removed files<a href="#removed-files"></a></h4><ul>
 <li><code>images.inc.php</code> <depre>deprecated in 1.5.0</depre></li>
 <li><code>admin-dev/themes/default/public/theme.rtlfix</code></li>
 </ul>
-<h2 id="behavior-changes">Behavior changes</h2>
-<ul>
+
+<h2 id="behavior-changes">Behavior changes<a href="#behavior-changes"></a></h2><ul>
 <li><code>AdminController::l()</code> no longer falls back to admin / legacy module translations (this is done in <code>ModuleAdminController</code> now)</li>
 <li><code>Carrier::checkDeliveryPriceByWeight()</code> returns boolean <a href="https://github.com/PrestaShop/PrestaShop/pull/27159">now</a> if a given carrier is available for a provided weight</li>
 <li><code>Carrier::checkDeliveryPriceByPrice()</code> returns boolean <a href="https://github.com/PrestaShop/PrestaShop/pull/27159">now</a> if a given carrier is available for a provided price</li>
@@ -31768,9 +31770,9 @@
 <li><code>Translate::getAdminTranslation()</code> is now a wrapper to <code>Context::getContext()-&gt;getTranslator()-&gt;trans()</code> and it no longer attempts to translate using module translations.</li>
 <li><code>Translate::getModuleTranslation()</code> no longer falls back to admin translations</li>
 </ul>
-<h2 id="deprecations">Deprecations</h2>
-<h3 id="php">PHP</h3>
-<ul>
+
+<h2 id="deprecations">Deprecations<a href="#deprecations"></a></h2>
+<h3 id="php">PHP<a href="#php"></a></h3><ul>
 <li><code>ApiClient::setSslVerification()</code> → Configure the client passed in the constructor directly.</li>
 <li><code>CharacterCleaner::cleanNonUnicodeSupport()</code> → There is no need to use it.</li>
 <li><code>Configuration::clearConfigurationCacheForTesting()</code> → Use <code>Configuration::resetStaticCache()</code> instead.</li>
@@ -31784,13 +31786,13 @@
 <li><code>Validate::isPasswdAdmin()</code> → Avoid using this method. There are <a href="https://github.com/PrestaShop/PrestaShop/pull/28127/">new methods</a> to check password correctness.</li>
 <li><code>admin-dev/filemanager/dialog.php</code> → code related to Aviary <a href="https://github.com/PrestaShop/PrestaShop/pull/27751/">has been removed</a> from the File Manager.</li>
 </ul>
-<h3 id="database">Database</h3>
-<ul>
+
+<h3 id="database">Database<a href="#database"></a></h3><ul>
 <li><code>ps_product.unit_price_ratio</code> → The reference is now <code>ps_product.unit_price</code> (<a href="https://github.com/PrestaShop/PrestaShop/pull/26762">read more</a>).</li>
 </ul>
-<h2 id="updated-dependencies">Updated dependencies</h2>
-<h3 id="php-libraries">PHP libraries</h3>
-<table>
+
+<h2 id="updated-dependencies">Updated dependencies<a href="#updated-dependencies"></a></h2>
+<h3 id="php-libraries">PHP libraries<a href="#php-libraries"></a></h3><table>
 <thead>
 <tr>
 <th>Library name</th>
@@ -31896,8 +31898,8 @@
 </tr>
 </tbody>
 </table>
-<h3 id="js-libraries">JS libraries</h3>
-<ul>
+
+<h3 id="js-libraries">JS libraries<a href="#js-libraries"></a></h3><ul>
 <li>
 <p>The file <code>js/rtl.js</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/26616">has been removed</a>.</p>
 </li>
@@ -31939,17 +31941,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239950"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239950"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239950"></script>
-    <script src="/js/jquery.sticky.js?1677239950"></script>
-    <script src="/js/featherlight.min.js?1677239950"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239950"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239950"></script>
-    <script src="/js/learn.js?1677239950"></script>
-    <script src="/js/hugo-learn.js?1677239950"></script>
+    <script src="/js/clipboard.min.js?1678195029"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195029"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195029"></script>
+    <script src="/js/jquery.sticky.js?1678195029"></script>
+    <script src="/js/featherlight.min.js?1678195029"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195029"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195029"></script>
+    <script src="/js/learn.js?1678195029"></script>
+    <script src="/js/hugo-learn.js?1678195029"></script>
     
-    <script src="/main.js?1677239950"></script>
+    <script src="/main.js?1678195029"></script>
     
     
     

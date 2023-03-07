@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/architecture/migration-guide/forms/crud-forms/">
 
     
-    <link href="/css/font-awesome.min.css?1677239908" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239908" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239908" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239908" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194990" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194990" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194990" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194990" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239908" rel="stylesheet">
+    <link href="/style.css?1678194990" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239908"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194990"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12543,6 +12543,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#crud-forms">CRUD Forms</a>
@@ -29072,9 +29074,9 @@
 
 
 
-<h1 id="crud-forms">CRUD Forms</h1>
-<h2 id="introduction">Introduction</h2>
-<p>In computer programming, <em>CRUD</em> is an acronym for the four basic functions of persistent storage: <strong>create, read, update, and delete</strong>.</p>
+
+<h1 id="crud-forms">CRUD Forms<a href="#crud-forms"></a></h1>
+<h2 id="introduction">Introduction<a href="#introduction"></a></h2><p>In computer programming, <em>CRUD</em> is an acronym for the four basic functions of persistent storage: <strong>create, read, update, and delete</strong>.</p>
 <p>PrestaShop handles several logic objects, like Cart, Product, Order, Customer&hellip; among many others. When such objects are stored using a unique identifier, we refer to them as <strong>identifiable objects</strong>.</p>
 <p>In the Back Office, most identifiable objects are managed using forms and page listings that follow the CRUD pattern. When they do, we refer to those forms as <strong>CRUD Forms</strong>.</p>
 <p>Since CRUD forms share a lot of common behavior, PrestaShop provides a common pattern to handle them all the same way. It is based on four main elements, each responsible for a very specific task:</p>
@@ -29087,8 +29089,8 @@
 
 <div class="notices tip" >PrestaShop already provides default implementations for the first two, so in most cases you&rsquo;ll be able to reuse them instead of creating your own.</div>
 
-<h2 id="form-data-provider">Form Data Provider</h2>
-<p>The <em>Form Data Provider</em> takes care of retrieving data to fill out a form. For that, it needs to implement two methods:</p>
+
+<h2 id="form-data-provider">Form Data Provider<a href="#form-data-provider"></a></h2><p>The <em>Form Data Provider</em> takes care of retrieving data to fill out a form. For that, it needs to implement two methods:</p>
 <div class="function-definition">
 <dl>
 <dt>getData(mixed $id): array</dt>
@@ -29097,8 +29099,8 @@
 <dd>Returns default data for a creation form.</dd>
 </dl>
 </div>
-<h3 id="creating-a-form-data-provider">Creating a Form Data Provider</h3>
-<p>To create a Form data provider you must implement the following interface:</p>
+
+<h3 id="creating-a-form-data-provider">Creating a Form Data Provider<a href="#creating-a-form-data-provider"></a></h3><p>To create a Form data provider you must implement the following interface:</p>
 <pre><code>\PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\FormDataProviderInterface 
 </code></pre>
 <p>In the example below, you can see a <code>ContactFormDataProvider</code> that queries the database (in this case, using <code>ObjectModel</code>) to retrieve data when a specific identifiable object id (in this case, <code>Contact</code>) is given, and that returns static data with defaults to use when creating a new element.</p>
@@ -29155,8 +29157,8 @@
 </span></code></pre></div><p>Note: if you use the above snippet of code outside of the <code>PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider</code> namespace, like in a module, you need to import the classes that come from this namespace.</p>
 <p>Example</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\FormDataProviderInterface</span><span class="p">;</span>
-</code></pre></div><h2 id="form-builder">Form Builder</h2>
-<p>The <em>Form Builder</em> is used by controllers to build the form that will be shown to users.</p>
+</code></pre></div>
+<h2 id="form-builder">Form Builder<a href="#form-builder"></a></h2><p>The <em>Form Builder</em> is used by controllers to build the form that will be shown to users.</p>
 
 <div class="notices tip" ><p><strong>PrestaShop provides a default implementation for this object.</strong></p>
 <p>It should be enough for most use cases, so you don&rsquo;t need to create it yourself! It also allows your form to be extended by modules.</p>
@@ -29171,8 +29173,8 @@
 <dd>Generates and returns the Symfony form for an editable object which already exists and can be identified. Additional <code>$data</code> and <code>$options</code> can be used in your form type.</dd>
 </dl>
 </div>
-<h3 id="using-the-form-builder">Using the Form Builder</h3>
-<p>In most cases, you can simply reuse the default implementation. All you need to do is declare it as a service and configure it for your form&rsquo;s needs, by specifying the appropriate <a href="/1.7/development/architecture/migration-guide/forms/#form-types">Form type</a> and <a href="#form-data-provider">Form data provider</a>.</p>
+
+<h3 id="using-the-form-builder">Using the Form Builder<a href="#using-the-form-builder"></a></h3><p>In most cases, you can simply reuse the default implementation. All you need to do is declare it as a service and configure it for your form&rsquo;s needs, by specifying the appropriate <a href="/1.7/development/architecture/migration-guide/forms/#form-types">Form type</a> and <a href="#form-data-provider">Form data provider</a>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_builder.yml</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="nt">prestashop.core.form.identifiable_object.builder.contact_form_builder</span><span class="p">:</span><span class="w">
@@ -29218,8 +29220,8 @@
         </figcaption>
 </figure>
 
-<h2 id="form-data-handler">Form Data Handler</h2>
-<p>The <em>Form Data Handler</em> is responsible for persisting the data submitted through your form. It implements the following methods:</p>
+
+<h2 id="form-data-handler">Form Data Handler<a href="#form-data-handler"></a></h2><p>The <em>Form Data Handler</em> is responsible for persisting the data submitted through your form. It implements the following methods:</p>
 <div class="function-definition">
 <dl>
 <dt>create(array $data): mixed</dt>
@@ -29228,8 +29230,8 @@
 <dd>Updates the object identified by <code>$id</code> using the provided data</dd>
 </dl>
 </div>
-<h3 id="creating-a-form-data-handler">Creating a Form Data Handler</h3>
-<p>When creating your Form Data Handler you must implement the following interface:</p>
+
+<h3 id="creating-a-form-data-handler">Creating a Form Data Handler<a href="#creating-a-form-data-handler"></a></h3><p>When creating your Form Data Handler you must implement the following interface:</p>
 <pre><code>\PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\FormDataHandlerInterface
 </code></pre>
 <p>In the example below, you can see a <code>ContactFormDataHandler</code> that uses <code>ObjectModel</code> to create and update an instance of <code>Contact</code>:</p>
@@ -29282,8 +29284,8 @@
 </span></code></pre></div><p>Note: if you use the above snippet of code outside of the <code>PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler</code> namespace, like in a module, you need to import the classes that come from this namespace.</p>
 <p>Example</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\FormDataHandlerInterface</span><span class="p">;</span>
-</code></pre></div><h2 id="form-handler">Form Handler</h2>
-<p>The <em>Form Handler</em> is in charge of validating, enriching and saving submitted form data, using the provided <a href="#form-data-handler">Form Data Handler</a>.</p>
+</code></pre></div>
+<h2 id="form-handler">Form Handler<a href="#form-handler"></a></h2><p>The <em>Form Handler</em> is in charge of validating, enriching and saving submitted form data, using the provided <a href="#form-data-handler">Form Data Handler</a>.</p>
 
 <div class="notices tip" ><p><strong>PrestaShop provides a default implementation for this object.</strong></p>
 <p>It should be enough for most use cases, so you don&rsquo;t need to create it yourself! It also allows your form to be extended by modules.</p>
@@ -29309,8 +29311,8 @@
 <dd>Returns the Id of the identifiable object created by the form submit, if applicable</dd>
 </dl>
 </div>
-<h3 id="using-the-form-handler">Using the Form Handler</h3>
-<p>Much like with the <a href="#form-builder">Form Builder</a>, in most cases you can reuse the default implementation by declaring it as a service and configuring it according to your form&rsquo;s needs:</p>
+
+<h3 id="using-the-form-handler">Using the Form Handler<a href="#using-the-form-handler"></a></h3><p>Much like with the <a href="#form-builder">Form Builder</a>, in most cases you can reuse the default implementation by declaring it as a service and configuring it according to your form&rsquo;s needs:</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_handler.yml</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="nt">prestashop.core.form.identifiable_object.handler.contact_form_handler</span><span class="p">:</span><span class="w">
@@ -29404,8 +29406,8 @@
 <p>For more details, check out the <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/PrestaShopBundle/Controller/Admin/Configure/ShopParameters/ContactsController.php">ContactsController source code on GitHub</a>.</p>
 </div>
 
-<h2 id="summary-as-a-schema">Summary as a schema</h2>
-<p>The following schema depicts the complete form flow, including the <code>Domain tier</code> which uses the CQRS pattern. <a href="/1.7/development/architecture/migration-guide/forms/cqrs-usage-in-forms/">Learn more about it here</a>.</p>
+
+<h2 id="summary-as-a-schema">Summary as a schema<a href="#summary-as-a-schema"></a></h2><p>The following schema depicts the complete form flow, including the <code>Domain tier</code> which uses the CQRS pattern. <a href="/1.7/development/architecture/migration-guide/forms/cqrs-usage-in-forms/">Learn more about it here</a>.</p>
 <figure><img src="../img/identifiable-object-schema-with-cqrs-domain-tier.png"/><figcaption>
             <h4>Identifiable object forms schema</h4>
         </figcaption>
@@ -29435,17 +29437,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239909"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239909"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239909"></script>
-    <script src="/js/jquery.sticky.js?1677239909"></script>
-    <script src="/js/featherlight.min.js?1677239909"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239909"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239909"></script>
-    <script src="/js/learn.js?1677239909"></script>
-    <script src="/js/hugo-learn.js?1677239909"></script>
+    <script src="/js/clipboard.min.js?1678194990"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194990"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194990"></script>
+    <script src="/js/jquery.sticky.js?1678194990"></script>
+    <script src="/js/featherlight.min.js?1678194990"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194990"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194990"></script>
+    <script src="/js/learn.js?1678194990"></script>
+    <script src="/js/hugo-learn.js?1678194990"></script>
     
-    <script src="/main.js?1677239909"></script>
+    <script src="/main.js?1678194990"></script>
     
     
     

@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/project/release/minor-release-lifecycle/">
 
     
-    <link href="/css/font-awesome.min.css?1677239917" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239917" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239917" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239917" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194997" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194997" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194997" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194997" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239917" rel="stylesheet">
+    <link href="/style.css?1678194997" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239917"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194997"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#minor-release-lifecycle">Minor release lifecycle</a>
@@ -29042,9 +29044,9 @@
 
 
 
-<h1 id="minor-release-lifecycle">Minor release lifecycle</h1>
-<h2 id="kanban-and-scope">Kanban and scope</h2>
-<p>Each minor version is defined by a feature scope, that is, a number of GitHub issues that we put in a version <a href="https://help.github.com/en/github/managing-your-work-on-github/about-project-boards">Kanban</a>. How these issues are picked or sorted is the responsibility of the Product Team, who spends a lot of time gathering feedback from the PrestaShop community to make sure the next minor version addresses the most important needs.</p>
+
+<h1 id="minor-release-lifecycle">Minor release lifecycle<a href="#minor-release-lifecycle"></a></h1>
+<h2 id="kanban-and-scope">Kanban and scope<a href="#kanban-and-scope"></a></h2><p>Each minor version is defined by a feature scope, that is, a number of GitHub issues that we put in a version <a href="https://help.github.com/en/github/managing-your-work-on-github/about-project-boards">Kanban</a>. How these issues are picked or sorted is the responsibility of the Product Team, who spends a lot of time gathering feedback from the PrestaShop community to make sure the next minor version addresses the most important needs.</p>
 <p>For example PrestaShop 1.7.7.0 scope contained, but not only:</p>
 <ul>
 <li>Compatibility with php 7.3</li>
@@ -29054,15 +29056,15 @@
 <p>Although it is very hard to estimate the size of this scope, we try to size it in order for the development phase to last 4 months.</p>
 <p>Once this scope has been is completed – i.e all issues have reached the &ldquo;Done&rdquo; column of the Kanban – the project reaches the <a href="https://en.wikipedia.org/wiki/Freeze_(software_engineering)">Feature Freeze</a> stage.</p>
 <p>During this phase, no new items can be added to the version&rsquo;s scope, unless they are bugs related to code changes performed during the development of this version – called <em>regressions</em>). However, this is a <em>Feature Freeze</em>, not a <em>Code Freeze</em>, so some older bugs may be added to the scope if it is considered opportune to fix them quickly before the release is out (e.g. security fixes).</p>
-<h2 id="feature-freeze">Feature Freeze</h2>
-<p>Feature freeze means that all features of this version have been done and no new ones may be accepted in its scope. The project enters a phase of <em>stabilization</em> whose aim is to identify and fix all regressions) before it&rsquo;s released.</p>
+
+<h2 id="feature-freeze">Feature Freeze<a href="#feature-freeze"></a></h2><p>Feature freeze means that all features of this version have been done and no new ones may be accepted in its scope. The project enters a phase of <em>stabilization</em> whose aim is to identify and fix all regressions) before it&rsquo;s released.</p>
 <p>Once this phase is started, Core maintainers create a git branch from <code>develop</code> branch which will carry the work to be done until the release (for 1.7.7.0, the branch name was <code>1.7.7.x</code>). From this moment on, only bug fixes can be merged into this branch. Incidentally, this is also the branch where all future patch versions for this minor version will be developed on (hence the <code>.x</code> at the end).</p>
 <p>Also, since stabilization is performed in a separate branch (<code>1.7.7.x</code> in our example), development for the next minor release (1.7.8 in our example) can start on the <code>develop</code> branch. This means that the development of any given minor version development actually starts (albeit slowly) precisely the moment the previous version enters feature freeze.</p>
 <p>The QA team picks up the latest <a href="https://nightly.prestashop.com/">nightly build</a> and starts a huge test campaign. The goal of this campaign is to find and register all regressions of this build.</p>
 <p>As the QA team verifies the build, they will populate the Kanban with all the bugs they find.
 All important regressions must be fixed quickly. Although it depends heavily on the number of regressions found, this phase should last about one month. Once all major bugs have been fixed, the <a href="https://en.wikipedia.org/wiki/Software_release_life_cycle#Beta">Beta phase</a> can be launched.</p>
-<h2 id="public-beta-period">Public Beta period</h2>
-<p>When the branch reaches a point of maturity, which means only minor or trivial issues remain to be fixed, maintainers can create a Beta build using the <code>.x</code> branch codebase.</p>
+
+<h2 id="public-beta-period">Public Beta period<a href="#public-beta-period"></a></h2><p>When the branch reaches a point of maturity, which means only minor or trivial issues remain to be fixed, maintainers can create a Beta build using the <code>.x</code> branch codebase.</p>
 <p>This Beta build is released publicly. During the month following this release, the community is <strong>very strongly encouraged to test it</strong> and give their feedback quickly: the sooner a problem is identified, the sooner it will be fixed. Remember that experts agree that the cost of fixing a bug grows exponentially with time – it is much cheaper to spend time now to ensure everything works well before the final release is out than to discover a bug in production later and lose business while a patch is prepared.</p>
 <p>During this one month, we continue testing and fixing the <code>.x</code> (following the stabilization goal) but we know that we can only test and imagine a limited amount of usecases. The community however knows better than us all the possible ways to use PrestaShop to build a business.</p>
 <p>So <strong>everybody can help</strong> make this release better and more stable by testing it during the Beta phase.</p>
@@ -29080,15 +29082,15 @@ All important regressions must be fixed quickly. Although it depends heavily on 
 <li><a href="https://github.com/PrestaShop/PrestaShop/issues">Report this as a bug on GitHub</a> (read <a href="https://devdocs.prestashop-project.org/1.7/contribute/contribute-reporting-issues/">how to report issues</a>)</li>
 <li>Submit a bug fix by creating a <a href="https://github.com/PrestaShop/PrestaShop/compare">pull request</a> (read the <a href="https://devdocs.prestashop-project.org/1.7/contribute/contribution-guidelines/">contribution guidelines</a>)</li>
 </ul>
-<h2 id="release-candidate">Release Candidate</h2>
-<p>When Beta period ends, we consider that all the remaining regressions for this release are registered in the Kanban. So the aim is clear: fix them all, then ship.</p>
+
+<h2 id="release-candidate">Release Candidate<a href="#release-candidate"></a></h2><p>When Beta period ends, we consider that all the remaining regressions for this release are registered in the Kanban. So the aim is clear: fix them all, then ship.</p>
 <p>Once all regressions have been fixed, maintainers deliver a Release Candidate Build using the <code>.x</code> branch codebase. This will be the Release Candidate 1 (also known as RC1).</p>
 <p>This Build is extensively re-tested by the QA, then provided to everyone. Once released, the timer starts. We wait for one week. During this week we continue testing and exploring the Build, trying to find anything that would not have been detected earlier, and the community should do the same.</p>
 <p>By the end of the week, if no new regression has been reported, the RC1 is rebranded and becomes the final release. <strong>The new minor version of PrestaShop is out.</strong></p>
 <p>Most of the time, a couple final regressions will be reported. In that case, the bugs are fixed, an RC2 build is published, and the timer is reset. This cycle repeats until no new regressions are reported within the defined timeframe.</p>
 <p>Finally the latest built Release Candidate becomes the new latest stable PrestaShop software minor release.</p>
-<h2 id="summary">Summary</h2>
-<ul>
+
+<h2 id="summary">Summary<a href="#summary"></a></h2><ul>
 <li>The cycle begins when development starts within the scope of a minor version release. When the scope of this version is finished, Feature Freeze is triggered.</li>
 </ul>
 <p>Expected duration: 4 months</p>
@@ -29105,8 +29107,8 @@ All important regressions must be fixed quickly. Although it depends heavily on 
 If bugs are reported, they are fixed in an RC2 build, and so on until a build has no issues reported within the following week. The last Release Candidate becomes the stable release.</li>
 </ul>
 <p>Expected duration: from 1 week (if RC1 is flawless) to 1 month, possibly 2 months</p>
-<h3 id="calendar">Calendar</h3>
-<p>The global duration for all the process is about 6 months. This is why we expect to deliver at most 2 minor releases per year.</p>
+
+<h3 id="calendar">Calendar<a href="#calendar"></a></h3><p>The global duration for all the process is about 6 months. This is why we expect to deliver at most 2 minor releases per year.</p>
 <p><em>(This article was originally published on our blog: <a href="https://build.prestashop-project.org/news/ps17-minor-release-lifecycle/">PrestaShop 1.7 Minor Release Lifecycle
 </a>)</em></p>
 
@@ -29133,17 +29135,17 @@ If bugs are reported, they are fixed in an RC2 build, and so on until a build ha
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239917"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239917"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239917"></script>
-    <script src="/js/jquery.sticky.js?1677239917"></script>
-    <script src="/js/featherlight.min.js?1677239917"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239917"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239917"></script>
-    <script src="/js/learn.js?1677239917"></script>
-    <script src="/js/hugo-learn.js?1677239917"></script>
+    <script src="/js/clipboard.min.js?1678194998"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194998"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194998"></script>
+    <script src="/js/jquery.sticky.js?1678194998"></script>
+    <script src="/js/featherlight.min.js?1678194998"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194998"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194998"></script>
+    <script src="/js/learn.js?1678194998"></script>
+    <script src="/js/hugo-learn.js?1678194998"></script>
     
-    <script src="/main.js?1677239917"></script>
+    <script src="/main.js?1678194998"></script>
     
     
     

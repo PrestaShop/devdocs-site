@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/coding-standards/">
 
     
-    <link href="/css/font-awesome.min.css?1677239958" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239958" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239958" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239958" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195035" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195035" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195035" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195035" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239958" rel="stylesheet">
+    <link href="/style.css?1678195035" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239958"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195035"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12525,6 +12525,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#coding-standards">Coding standards</a>
@@ -29041,19 +29043,19 @@
 
 
 
-<h1 id="coding-standards">Coding standards</h1>
-<p>Consistency is important, even more so when writing open-source code, since the code belongs to millions of eyeballs, and bug-fixing relies on these teeming millions to actually locate bugs and understand how to solve them.</p>
+
+<h1 id="coding-standards">Coding standards<a href="#coding-standards"></a></h1><p>Consistency is important, even more so when writing open-source code, since the code belongs to millions of eyeballs, and bug-fixing relies on these teeming millions to actually locate bugs and understand how to solve them.</p>
 <p>This is why, when writing anything for PrestaShop, be it a theme, a module or a core patch, you should strive to follow the following guidelines. They are the ones that PrestaShop&rsquo;s developers adhere to, and following them is the surest way to have your code be elegantly integrated in PrestaShop.</p>
 <p>In short, code consistency helps keeping the code readable and maintainable.</p>
-<h2 id="general-conventions">General conventions</h2>
-<p>All files containing code MUST:</p>
+
+<h2 id="general-conventions">General conventions<a href="#general-conventions"></a></h2><p>All files containing code MUST:</p>
 <ul>
 <li>Use only UTF-8 without BOM.</li>
 <li>Use the Unix LF (linefeed) line ending.</li>
 <li>End with a single blank line.</li>
 </ul>
-<h3 id="code-documentation">Code documentation</h3>
-<p>Make sure that <strong>classes</strong>, <strong>attributes</strong> and <strong>methods</strong> are properly documented using doc blocks, regardless of visibility. As a rule of thumb, consider that a developer should be able to understand a component and use it without even having to read the source code – signatures and doc blocks should suffice for most cases.</p>
+
+<h3 id="code-documentation">Code documentation<a href="#code-documentation"></a></h3><p>Make sure that <strong>classes</strong>, <strong>attributes</strong> and <strong>methods</strong> are properly documented using doc blocks, regardless of visibility. As a rule of thumb, consider that a developer should be able to understand a component and use it without even having to read the source code – signatures and doc blocks should suffice for most cases.</p>
 <p>Pay particular attention to the following:</p>
 <ul>
 <li><strong>Describe the class&rsquo;s purpose.</strong> If you have a hard time describing what the class is meant for, it may be a sign that it has too many responsibilites and needs to be decomposed.</li>
@@ -29061,18 +29063,18 @@
 <li><strong>Document attributes, parameters and return values both in type and semantics.</strong> A variable named <code>$content</code> might be obviously a string, but we need more context to understand what its purpose is.</li>
 <li><strong>It is preferable to waste time describing the obvious than to leave the ambiguous open to interpretation.</strong> This prevents more bugs than you can imagine.</li>
 </ul>
-<h2 id="php-code-conventions">PHP code conventions</h2>
-<p>PHP files MUST follow the <a href="https://www.php-fig.org/psr/psr-2/">PSR-2 standard</a> alongside <a href="https://symfony.com/doc/3.4/contributing/code/standards.html#structure">Symfony standards</a>.</p>
+
+<h2 id="php-code-conventions">PHP code conventions<a href="#php-code-conventions"></a></h2><p>PHP files MUST follow the <a href="https://www.php-fig.org/psr/psr-2/">PSR-2 standard</a> alongside <a href="https://symfony.com/doc/3.4/contributing/code/standards.html#structure">Symfony standards</a>.</p>
 
 <div class="notices note" >Although <a href="https://en.wikipedia.org/wiki/Yoda_conditions">Yoda conditions</a> are suggested, they are not enforced.</div>
 
-<h3 id="making-your-code-follow-our-coding-standards">Making your code follow our coding standards</h3>
-<p><a href="https://cs.symfony.com/">PHP CS Fixer</a> has been configured for the PrestaShop project to help developers to comply with these conventions.</p>
+
+<h3 id="making-your-code-follow-our-coding-standards">Making your code follow our coding standards<a href="#making-your-code-follow-our-coding-standards"></a></h3><p><a href="https://cs.symfony.com/">PHP CS Fixer</a> has been configured for the PrestaShop project to help developers to comply with these conventions.</p>
 <p>You can run it using the following command:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">php ./vendor/bin/php-cs-fixer fix
 </code></pre></div><p>The prestashop specific configuration file <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/.php_cs.dist">can be found here</a>. Also, you can also use the provided <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/.github/contrib/pre-commit">git pre-commit</a> sample in order to make sure you never forget to make your code compliant!</p>
-<h3 id="documenting-types">Documenting types</h3>
-<p>Parameters and return values SHOULD be described using Phpdoc as <a href="https://phpstan.org/writing-php-code/phpdoc-types">documented by Phpstan</a>, especially when the type cannot be strictly defined using PHP types (e.g. collections, structs, mixed types).</p>
+
+<h3 id="documenting-types">Documenting types<a href="#documenting-types"></a></h3><p>Parameters and return values SHOULD be described using Phpdoc as <a href="https://phpstan.org/writing-php-code/phpdoc-types">documented by Phpstan</a>, especially when the type cannot be strictly defined using PHP types (e.g. collections, structs, mixed types).</p>
 <p>Example:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
 </span><span class="sd"> * @var string[] Collection of IETF language tag (eg. &#34;en-US&#34;)
@@ -29084,8 +29086,8 @@
 <li>If the array&rsquo;s index is relevant (e.g., non-sequential), use the generics-style annotation, like <code>array&lt;int, string&gt;</code>.</li>
 <li>If the array is actually a struct (i.e. an associative array whose schema is known), then it MUST be described it using the <a href="https://phpstan.org/writing-php-code/phpdoc-types#array-shapes">array shape annotation</a>, like <code>array{'foo': int, &quot;bar&quot;: string}</code>.</li>
 </ul>
-<h3 id="strict-typing">Strict typing</h3>
 
+<h3 id="strict-typing">Strict typing<a href="#strict-typing"></a></h3>
 <div class="magic-version-pill" data-version="1.7.7" data-title="New in PrestaShop 1.7.7"></div>
 
 
@@ -29107,8 +29109,8 @@
 </code></pre></div>
 <div class="notices note" ><strong>It&rsquo;s important to have all classes declare type strictness.</strong> Since PHP 7 is still inherently weakly typed, it&rsquo;s not enough to have your class declare type strictness to make it <em>enforce</em> type strictness. If the class consuming your code does not enforce type strictness as well, methods called by it will have their parameters silently <em>coerced</em> into the specified type instead of being type checked. <a href="https://dev.to/robdwaller/how-php-type-declarations-actually-work-1mm5">Read this article for more details and examples</a>.</div>
 
-<h3 id="deprecations">Deprecations</h3>
-<p>Following <a href="https://symfony.com/doc/4.4/contributing/code/conventions.html#deprecating-code">Symfony conventions</a>, method and class deprecations in PrestaShop must be noted by adding the appropriate Phpdoc as well as a deprecation error:</p>
+
+<h3 id="deprecations">Deprecations<a href="#deprecations"></a></h3><p>Following <a href="https://symfony.com/doc/4.4/contributing/code/conventions.html#deprecating-code">Symfony conventions</a>, method and class deprecations in PrestaShop must be noted by adding the appropriate Phpdoc as well as a deprecation error:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">namespace</span> <span class="nx">PrestaShop\Awesome\Path</span><span class="p">;</span>
@@ -29146,8 +29148,8 @@
 </span><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\Awesome\Path\MyClass&#39;</span><span class="w">
 </span><span class="w">        </span><span class="nt">deprecated</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;The &#34;%service_id%&#34; service is deprecated since 1.7.8.0 and will be removed in next major.&#39;</span><span class="w">
 </span><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></div><h2 id="javascript-code-conventions">Javascript code conventions</h2>
-<p>Javascript files MUST follow the <a href="https://github.com/airbnb/javascript">Airbnb Javascript style guide</a>.</p>
+</span></code></pre></div>
+<h2 id="javascript-code-conventions">Javascript code conventions<a href="#javascript-code-conventions"></a></h2><p>Javascript files MUST follow the <a href="https://github.com/airbnb/javascript">Airbnb Javascript style guide</a>.</p>
 <p>Starting on 
 <span class="version-pill" title="New in PrestaShop 1.7.8">
   1.7.8
@@ -29155,8 +29157,8 @@
 
 , you can run the linter to help you comply with these coding standards:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">npm run lint-fix
-</code></pre></div><h2 id="html-css-sass-twig--smarty-code-conventions">HTML, CSS (Sass), Twig &amp; Smarty code conventions</h2>
-<p>HTML, CSS (Sass), Twig and Smarty files MUST follow the <a href="https://codeguide.co/">Mark Otto&rsquo;s coding standards</a>.
+</code></pre></div>
+<h2 id="html-css-sass-twig--smarty-code-conventions">HTML, CSS (Sass), Twig &amp; Smarty code conventions<a href="#html-css-sass-twig--smarty-code-conventions"></a></h2><p>HTML, CSS (Sass), Twig and Smarty files MUST follow the <a href="https://codeguide.co/">Mark Otto&rsquo;s coding standards</a>.
 Mark is the creator of the <a href="https://getbootstrap.com/">Bootstrap framework</a>.</p>
 <p>To help developers to comply with these conventions, <a href="https://stylelint.io/">Stylelint</a>, a stylesheet linter, has been configured in the PrestaShop project. You can find the configuration file <a href="https://github.com/PrestaShop/stylelint-config">on this repository</a>.</p>
 <p>Same as if you want to <a href="https://devdocs.prestashop-project.org/1.7/development/compile-assets/">compile assets</a>, you need NodeJS and NPM to run Stylelint.</p>
@@ -29169,10 +29171,10 @@ Mark is the creator of the <a href="https://getbootstrap.com/">Bootstrap framewo
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">npm run scss-lint
 </code></pre></div><p>You can fix auto-fixable errors using this command:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">npm run scss-fix
-</code></pre></div><h2 id="license-information">License information</h2>
-<p>All PrestaShop files MUST start with the PrestaShop license block:</p>
-<h3 id="core-files">Core files</h3>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="cm">/**
+</code></pre></div>
+<h2 id="license-information">License information<a href="#license-information"></a></h2><p>All PrestaShop files MUST start with the PrestaShop license block:</p>
+
+<h3 id="core-files">Core files<a href="#core-files"></a></h3><div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="cm">/**
 </span><span class="cm"> * Copyright since 2007 PrestaShop SA and Contributors
 </span><span class="cm"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
 </span><span class="cm"> *
@@ -29196,8 +29198,8 @@ Mark is the creator of the <a href="https://getbootstrap.com/">Bootstrap framewo
 </span><span class="cm"> * @copyright Since 2007 PrestaShop SA and Contributors
 </span><span class="cm"> * @license   https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
 </span><span class="cm"> */</span>
-</code></pre></div><h3 id="module-files">Module files</h3>
-<div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="cm">/**
+</code></pre></div>
+<h3 id="module-files">Module files<a href="#module-files"></a></h3><div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="cm">/**
 </span><span class="cm"> * Copyright since 2007 PrestaShop SA and Contributors
 </span><span class="cm"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
 </span><span class="cm"> *
@@ -29241,17 +29243,17 @@ Mark is the creator of the <a href="https://getbootstrap.com/">Bootstrap framewo
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239958"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239958"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239958"></script>
-    <script src="/js/jquery.sticky.js?1677239958"></script>
-    <script src="/js/featherlight.min.js?1677239958"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239958"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239958"></script>
-    <script src="/js/learn.js?1677239958"></script>
-    <script src="/js/hugo-learn.js?1677239958"></script>
+    <script src="/js/clipboard.min.js?1678195035"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195035"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195035"></script>
+    <script src="/js/jquery.sticky.js?1678195035"></script>
+    <script src="/js/featherlight.min.js?1678195035"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195035"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195035"></script>
+    <script src="/js/learn.js?1678195035"></script>
+    <script src="/js/hugo-learn.js?1678195035"></script>
     
-    <script src="/main.js?1677239958"></script>
+    <script src="/main.js?1678195035"></script>
     
     
     

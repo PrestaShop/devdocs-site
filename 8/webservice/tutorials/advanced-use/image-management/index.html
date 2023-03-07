@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239957" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239957" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239957" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239957" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195034" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195034" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195034" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195034" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239957" rel="stylesheet">
+    <link href="/style.css?1678195034" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239957"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195034"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13772,6 +13772,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#image-management">Image management</a>
@@ -30299,8 +30301,8 @@
 
 
 
-<h1 id="image-management">Image management</h1>
-<p>PrestaShop manages images via the <code>image</code> resource, and several other resources use it as well to manage their own images. There are several types of images available, which can all be accessed via their respective API:</p>
+
+<h1 id="image-management">Image management<a href="#image-management"></a></h1><p>PrestaShop manages images via the <code>image</code> resource, and several other resources use it as well to manage their own images. There are several types of images available, which can all be accessed via their respective API:</p>
 <table>
 <thead>
 <tr>
@@ -30342,8 +30344,8 @@
 
 <div class="notices note" >If you need to get a list of image types you can also use the <code>/api/images</code> API which lists all of them.</div>
 
-<h2 id="the-image-format">The image format</h2>
-<p>Except for the general shop images, all the images API will return the same kind of format:</p>
+
+<h2 id="the-image-format">The image format<a href="#the-image-format"></a></h2><p>Except for the general shop images, all the images API will return the same kind of format:</p>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
 <span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;image_types&gt;</span>
@@ -30360,8 +30362,8 @@
 <li>a list of <strong>image types</strong> related to the resource; each one defines the expected image size for each resource (in this example we can see that manufacturers have three image sizes: small, medium and large)</li>
 <li>a list of images for this kind of resource</li>
 </ul>
-<h3 id="using-webservice-lib">Using webservice lib</h3>
-<p>You can get the information about a specific resource&rsquo;s images using our Webservice library:</p>
+
+<h3 id="using-webservice-lib">Using webservice lib<a href="#using-webservice-lib"></a></h3><p>You can get the information about a specific resource&rsquo;s images using our Webservice library:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">try</span> <span class="p">{</span>
     <span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="s1">&#39;http://example.com/&#39;</span><span class="p">,</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
@@ -30372,36 +30374,36 @@
 <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">echo</span> <span class="s1">&#39;Error:&#39;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="get-image">GET image</h2>
-<p>The GET image API allows you to request an image associated to a resource. The response is the image itself.</p>
-<h3 id="default-behaviour">Default behaviour</h3>
-<p>For most resources the url format is as follows: <code>/api/images/{resource}/{resource_id}</code>. You can use an additional parameter by appending the image format <code>/api/images/{resource}/{resource_id}/{image_type}</code>. In both cases, placeholders are:</p>
+</code></pre></div>
+<h2 id="get-image">GET image<a href="#get-image"></a></h2><p>The GET image API allows you to request an image associated to a resource. The response is the image itself.</p>
+
+<h3 id="default-behaviour">Default behaviour<a href="#default-behaviour"></a></h3><p>For most resources the url format is as follows: <code>/api/images/{resource}/{resource_id}</code>. You can use an additional parameter by appending the image format <code>/api/images/{resource}/{resource_id}/{image_type}</code>. In both cases, placeholders are:</p>
 <ul>
 <li><strong>resource</strong>: the resource name (ex: categories, manufacturers, &hellip;)</li>
 <li><strong>resource_id</strong>: the integer ID to identify the resource</li>
 <li><strong>image_type</strong>: the <strong>name</strong> of the image type requested (ex: small_default, category_default, &hellip;)</li>
 </ul>
 <p>This will return the target image as a response.</p>
-<h3 id="general-shop">General shop</h3>
-<p>The general image API only returns a list of images related to the shop configuration like the header or icon image. The <code>/api/images/general</code> returns the list of image types which you can then append to the URL (much like the image type in the default use case).</p>
-<p>For example <code>/api/images/general/header</code> returns the header image.</p>
-<h3 id="product-images">Product images</h3>
-<p>The product images API behaves mostly like the default ones, except that products may have multiple images, so the API contains an extra parameter for the image ID <code>/api/images/products/{product_id}/{image_id}</code></p>
-<h2 id="adding-a-new-image-to-a-product">Adding a new image to a product</h2>
 
+<h3 id="general-shop">General shop<a href="#general-shop"></a></h3><p>The general image API only returns a list of images related to the shop configuration like the header or icon image. The <code>/api/images/general</code> returns the list of image types which you can then append to the URL (much like the image type in the default use case).</p>
+<p>For example <code>/api/images/general/header</code> returns the header image.</p>
+
+<h3 id="product-images">Product images<a href="#product-images"></a></h3><p>The product images API behaves mostly like the default ones, except that products may have multiple images, so the API contains an extra parameter for the image ID <code>/api/images/products/{product_id}/{image_id}</code></p>
+
+<h2 id="adding-a-new-image-to-a-product">Adding a new image to a product<a href="#adding-a-new-image-to-a-product"></a></h2>
 <div class="notices note" >We only refer to product here as it&rsquo;s the only resource that has multiple images. For other resources we only update its image.</div>
 
 <p>Only one image is posted to the API, this image will then be resized into all the formats associated to the resource.</p>
-<h3 id="using-an-html-form">Using an HTML form</h3>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&#34;multipart/form-data&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;http://ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT@example.com/api/images/products/1&#34;</span><span class="p">&gt;</span>
+
+<h3 id="using-an-html-form">Using an HTML form<a href="#using-an-html-form"></a></h3><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&#34;multipart/form-data&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;http://ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT@example.com/api/images/products/1&#34;</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">fieldset</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">legend</span><span class="p">&gt;</span>Add image for products No 1<span class="p">&lt;/</span><span class="nt">legend</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;file&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;image&#34;</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;Execute&#34;</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">fieldset</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-</code></pre></div><h3 id="using-curl">Using cURL</h3>
-<p>To create a new image we are going to use the <code>/images/products</code> API. We won&rsquo;t use the <code>PrestaShopWebservice</code> class here, but a cURL request.</p>
+</code></pre></div>
+<h3 id="using-curl">Using cURL<a href="#using-curl"></a></h3><p>To create a new image we are going to use the <code>/images/products</code> API. We won&rsquo;t use the <code>PrestaShopWebservice</code> class here, but a cURL request.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="nv">$urlImage</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/api/images/products/10/&#39;</span><span class="p">;</span>
@@ -30428,12 +30430,12 @@
 <span class="k">if</span> <span class="p">(</span><span class="mi">200</span> <span class="o">==</span> <span class="nv">$httpCode</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">echo</span> <span class="s1">&#39;Product image was successfully created.&#39;</span><span class="p">;</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="update-the-image-of-a-resource">Update the image of a resource</h2>
-
+</code></pre></div>
+<h2 id="update-the-image-of-a-resource">Update the image of a resource<a href="#update-the-image-of-a-resource"></a></h2>
 <div class="notices info" >It&rsquo;s almost the same principle as adding an image except the API expects a PUT method. Since not all clients can handle this HTTP method, we can add a parameter <code>ps_method</code> in the URL to simulate it (recommended workaround).</div>
 
-<h3 id="using-an-html-form-1">Using an HTML form</h3>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;http://ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT@example.com/api/images/categories/2&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&#34;multipart/form-data&#34;</span><span class="p">&gt;</span>
+
+<h3 id="using-an-html-form-1">Using an HTML form<a href="#using-an-html-form-1"></a></h3><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;http://ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT@example.com/api/images/categories/2&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&#34;multipart/form-data&#34;</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">fieldset</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">legend</span><span class="p">&gt;</span>Update category image 2<span class="p">&lt;/</span><span class="nt">legend</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;ps_method&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;PUT&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;hidden&#34;</span><span class="p">&gt;</span>
@@ -30441,8 +30443,8 @@
     <span class="p">&lt;</span><span class="nt">input</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;Execute&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">fieldset</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-</code></pre></div><h3 id="using-curl-1">Using cURL</h3>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+</code></pre></div>
+<h3 id="using-curl-1">Using cURL<a href="#using-curl-1"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="c1">// DON&#39;T FORGET to add the ps_method parameter
 </span><span class="c1"></span><span class="nv">$urlImage</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/api/images/categories/2/?ps_method=PUT&#39;</span><span class="p">;</span>
@@ -30493,17 +30495,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239957"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239957"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239957"></script>
-    <script src="/js/jquery.sticky.js?1677239957"></script>
-    <script src="/js/featherlight.min.js?1677239957"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239957"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239957"></script>
-    <script src="/js/learn.js?1677239957"></script>
-    <script src="/js/hugo-learn.js?1677239957"></script>
+    <script src="/js/clipboard.min.js?1678195034"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195034"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195034"></script>
+    <script src="/js/jquery.sticky.js?1678195034"></script>
+    <script src="/js/featherlight.min.js?1678195034"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195034"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195034"></script>
+    <script src="/js/learn.js?1678195034"></script>
+    <script src="/js/hugo-learn.js?1678195034"></script>
     
-    <script src="/main.js?1677239957"></script>
+    <script src="/main.js?1678195034"></script>
     
     
     

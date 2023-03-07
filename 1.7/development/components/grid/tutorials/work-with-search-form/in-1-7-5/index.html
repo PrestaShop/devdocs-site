@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239913" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239913" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239913" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239913" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194994" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194994" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194994" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194994" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239913" rel="stylesheet">
+    <link href="/style.css?1678194994" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239913"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194994"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12549,6 +12549,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-to-work-with-the-search-form">How to work with the Search Form</a>
@@ -29076,8 +29078,8 @@
 
 
 
-<h1 id="how-to-work-with-the-search-form">How to work with the Search Form</h1>
-<p>The grid component allows to filter its content, to manage the filtering you will need to define the following elements:</p>
+
+<h1 id="how-to-work-with-the-search-form">How to work with the Search Form<a href="#how-to-work-with-the-search-form"></a></h1><p>The grid component allows to filter its content, to manage the filtering you will need to define the following elements:</p>
 <ul>
 <li><code>GridDefinition::getFilters</code></li>
 <li><code>Filters</code> class</li>
@@ -29089,8 +29091,8 @@
 </ul>
 </li>
 </ul>
-<h2 id="add-filters-into-griddefinition">Add Filters into GridDefinition</h2>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<h2 id="add-filters-into-griddefinition">Add Filters into GridDefinition<a href="#add-filters-into-griddefinition"></a></h2><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">final</span> <span class="k">class</span> <span class="nc">EmailLogsDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractGridDefinitionFactory</span>
 <span class="p">{</span>
     <span class="sd">/**
@@ -29163,11 +29165,11 @@
 </span><span class="w">            </span>- <span class="s2">&#34;@=service(&#39;router&#39;).generate(&#39;admin_common_reset_search&#39;, {&#39;controller&#39;: &#39;email&#39;, &#39;action&#39;: &#39;index&#39;})&#34;</span><span class="w">
 </span><span class="w">            </span>- <span class="s2">&#34;@=service(&#39;router&#39;).generate(&#39;admin_emails_index&#39;)&#34;</span><span class="w">
 </span><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></div><h3 id="the-filters-types">The filters types</h3>
-<p>In the filters collection you define all the available filters (which will match your grid columns), you can define a specific type depending on the column.
+</span></code></pre></div>
+<h3 id="the-filters-types">The filters types<a href="#the-filters-types"></a></h3><p>In the filters collection you define all the available filters (which will match your grid columns), you can define a specific type depending on the column.
 You can basically use any Symfony form type (including your custom ones) and PrestaShop provides a few <a href="https://devdocs.prestashop-project.org/1.7/development/components/grid/filter-types-reference/">filter types</a> that might be useful to you.</p>
-<h2 id="filters-class">Filters class</h2>
-<p>You need to define a <code>Filters</code> class linked to your Grid, it will allow you to define the default filters and sorting values.
+
+<h2 id="filters-class">Filters class<a href="#filters-class"></a></h2><p>You need to define a <code>Filters</code> class linked to your Grid, it will allow you to define the default filters and sorting values.
 It will also make your list action simpler as PrestaShop provides a parameter resolver responsible of automatically create and fill a <code>Filters</code> object.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Search\Filters</span><span class="p">;</span>
@@ -29191,15 +29193,15 @@ It will also make your list action simpler as PrestaShop provides a parameter re
         <span class="p">];</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="controller-actions">Controller actions</h2>
-<p>The Grid filtering workflow is divided into three controllers:</p>
+</code></pre></div>
+<h2 id="controller-actions">Controller actions<a href="#controller-actions"></a></h2><p>The Grid filtering workflow is divided into three controllers:</p>
 <ul>
 <li>search action: it parses the filters from the POST request, then redirects to the list action</li>
 <li>list action: it parses the filters from GET request, persists them into database and finally renders the grid</li>
 <li>reset action: to clean the persisted filters and reset to the default ones</li>
 </ul>
-<h3 id="search-action">Search action</h3>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<h3 id="search-action">Search action<a href="#search-action"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">class</span> <span class="nc">EmailController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
 <span class="p">{</span>
     <span class="o">...</span>
@@ -29236,8 +29238,8 @@ It will also make your list action simpler as PrestaShop provides a parameter re
 </span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
 </span><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle:Admin\Configure\AdvancedParameters\Email:search&#39;</span><span class="w">
 </span><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminEmails</span><span class="w">
-</span></code></pre></div><h3 id="list-action">List action</h3>
-<p>Thanks to the internal parameter resolver you can directly use your <code>Filters</code> class as an argument in the controller. It then automatically:</p>
+</span></code></pre></div>
+<h3 id="list-action">List action<a href="#list-action"></a></h3><p>Thanks to the internal parameter resolver you can directly use your <code>Filters</code> class as an argument in the controller. It then automatically:</p>
 <ul>
 <li>parses the potential parameters in the query and fills them into the <code>Filters</code> argument</li>
 <li>matches thanks to the class the filters from the database and fetch them if present</li>
@@ -29271,8 +29273,8 @@ It will also make your list action simpler as PrestaShop provides a parameter re
     <span class="p">}</span>
     <span class="o">...</span>
 <span class="p">}</span>
-</code></pre></div><h3 id="reset-action">Reset action</h3>
-<p>Last action is used to reset the persisted filters and your grid filtering/sorting. This action is the same for nearly all grids so PrestaShop provides a common controller to manage it, and you actually already set it via the grid definition.</p>
+</code></pre></div>
+<h3 id="reset-action">Reset action<a href="#reset-action"></a></h3><p>Last action is used to reset the persisted filters and your grid filtering/sorting. This action is the same for nearly all grids so PrestaShop provides a common controller to manage it, and you actually already set it via the grid definition.</p>
 <p>It is defined in the service definition, it uses the <code>admin_common_reset_search</code> route and use <code>email/index</code> as keys to match the controller/action.</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="w">    </span><span class="nt">prestashop.core.grid.definition.factory.email_logs</span><span class="p">:</span><span class="w">
 </span><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\Definition\Factory\EmailLogsDefinitionFactory&#39;</span><span class="w">
@@ -29305,17 +29307,17 @@ It will also make your list action simpler as PrestaShop provides a parameter re
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239913"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239913"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239913"></script>
-    <script src="/js/jquery.sticky.js?1677239913"></script>
-    <script src="/js/featherlight.min.js?1677239913"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239913"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239913"></script>
-    <script src="/js/learn.js?1677239913"></script>
-    <script src="/js/hugo-learn.js?1677239913"></script>
+    <script src="/js/clipboard.min.js?1678194994"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194994"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194994"></script>
+    <script src="/js/jquery.sticky.js?1678194994"></script>
+    <script src="/js/featherlight.min.js?1678194994"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194994"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194994"></script>
+    <script src="/js/learn.js?1678194994"></script>
+    <script src="/js/hugo-learn.js?1678194994"></script>
     
-    <script src="/main.js?1677239913"></script>
+    <script src="/main.js?1678194994"></script>
     
     
     

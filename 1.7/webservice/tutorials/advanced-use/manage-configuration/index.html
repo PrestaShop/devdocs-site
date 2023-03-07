@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/webservice/tutorials/advanced-use/manage-configuration/">
 
     
-    <link href="/css/font-awesome.min.css?1677239922" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239922" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239922" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239922" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195002" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195002" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195002" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195002" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239922" rel="stylesheet">
+    <link href="/style.css?1678195002" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239922"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195002"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12537,6 +12537,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#manage-configuration">Manage Configuration</a>
@@ -29050,12 +29052,12 @@
 
 
 
-<h1 id="manage-configuration">Manage Configuration</h1>
-<p>You can manage your shop configuration thanks to the API, in this example we will set the <code>PS_MULTISHOP_FEATURE_ACTIVE</code> to true (which enables multishop mode).</p>
-<h2 id="api-call">API call</h2>
-<p>First check if the configuration already exists by using <a href="/1.7/webservice/tutorials/advanced-use/additional-list-parameters/">filters and display parameters</a> <code>/api/configurations/?display=[id,name,value]&amp;filter[name]=[PS_MULTISHOP_FEATURE_ACTIVE]</code></p>
-<h3 id="create-configuration">Create configuration</h3>
-<p>If the configuration doesn&rsquo;t exist yet, you will receive an empty list:</p>
+
+<h1 id="manage-configuration">Manage Configuration<a href="#manage-configuration"></a></h1><p>You can manage your shop configuration thanks to the API, in this example we will set the <code>PS_MULTISHOP_FEATURE_ACTIVE</code> to true (which enables multishop mode).</p>
+
+<h2 id="api-call">API call<a href="#api-call"></a></h2><p>First check if the configuration already exists by using <a href="/1.7/webservice/tutorials/advanced-use/additional-list-parameters/">filters and display parameters</a> <code>/api/configurations/?display=[id,name,value]&amp;filter[name]=[PS_MULTISHOP_FEATURE_ACTIVE]</code></p>
+
+<h3 id="create-configuration">Create configuration<a href="#create-configuration"></a></h3><p>If the configuration doesn&rsquo;t exist yet, you will receive an empty list:</p>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
 <span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;configurations&gt;</span>
@@ -29069,8 +29071,8 @@
         <span class="nt">&lt;name&gt;</span>PS_MULTISHOP_FEATURE_ACTIVE<span class="nt">&lt;/name&gt;</span>
     <span class="nt">&lt;/configuration&gt;</span>
 <span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><h3 id="update-configuration">Update configuration</h3>
-<p>If it is already defined you will receive a list with the searched configuration:</p>
+</code></pre></div>
+<h3 id="update-configuration">Update configuration<a href="#update-configuration"></a></h3><p>If it is already defined you will receive a list with the searched configuration:</p>
 <div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
 <span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;configurations&gt;</span>
@@ -29093,8 +29095,8 @@
 </code></pre></div>
 <div class="notices warning" >The API being a simple CRUD it lacks logic on resources and doesn&rsquo;t check for existing values, so be sure to check the existence of the configuration and use the appropriate action <code>POST|PUT</code> if you want to avoid duplicates.</div>
 
-<h2 id="php-webservice-lib">PHP Webservice lib</h2>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<h2 id="php-webservice-lib">PHP Webservice lib<a href="#php-webservice-lib"></a></h2><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./vendor/autoload.php&#39;</span><span class="p">);</span>
 
@@ -29181,17 +29183,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239922"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239922"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239922"></script>
-    <script src="/js/jquery.sticky.js?1677239922"></script>
-    <script src="/js/featherlight.min.js?1677239922"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239922"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239922"></script>
-    <script src="/js/learn.js?1677239922"></script>
-    <script src="/js/hugo-learn.js?1677239922"></script>
+    <script src="/js/clipboard.min.js?1678195002"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195002"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195002"></script>
+    <script src="/js/jquery.sticky.js?1678195002"></script>
+    <script src="/js/featherlight.min.js?1678195002"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195002"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195002"></script>
+    <script src="/js/learn.js?1678195002"></script>
+    <script src="/js/hugo-learn.js?1678195002"></script>
     
-    <script src="/main.js?1677239922"></script>
+    <script src="/main.js?1678195002"></script>
     
     
     

@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239957" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239957" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239957" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239957" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195035" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195035" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195035" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195035" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239957" rel="stylesheet">
+    <link href="/style.css?1678195035" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239957"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195035"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13772,6 +13772,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#setup-library">Setup library</a>
@@ -30285,16 +30287,16 @@
 
 
 
-<h1 id="setup-library">Setup library</h1>
-<p>Now that your webservice is configured and accessible you might want to use it. To help you perform requests on your webservice, you can use the <a href="https://github.com/PrestaShop/PrestaShop-webservice-lib">PHP library for PrestaShop Webservices</a>.</p>
-<h2 id="install-the-library">Install the library</h2>
-<h3 id="prerequisites">Prerequisites</h3>
-<ul>
+
+<h1 id="setup-library">Setup library<a href="#setup-library"></a></h1><p>Now that your webservice is configured and accessible you might want to use it. To help you perform requests on your webservice, you can use the <a href="https://github.com/PrestaShop/PrestaShop-webservice-lib">PHP library for PrestaShop Webservices</a>.</p>
+
+<h2 id="install-the-library">Install the library<a href="#install-the-library"></a></h2>
+<h3 id="prerequisites">Prerequisites<a href="#prerequisites"></a></h3><ul>
 <li>You need a server with <code>mod_rewrite</code> enabled</li>
 <li>You need the <code>curl</code> extension enabled in PHP</li>
 </ul>
-<h3 id="installing-with-composer">Installing with Composer</h3>
-<p>If you are starting a new project you can init your composer project along with the dependency:</p>
+
+<h3 id="installing-with-composer">Installing with Composer<a href="#installing-with-composer"></a></h3><p>If you are starting a new project you can init your composer project along with the dependency:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">composer init --require<span class="o">=</span><span class="s2">&#34;prestashop/prestashop-webservice-lib:dev-master&#34;</span> -n
 composer install
 </code></pre></div><p>Or if you already have an existing project simply add the dependency:</p>
@@ -30318,16 +30320,16 @@ composer install
 <span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./vendor/autoload.php&#39;</span><span class="p">);</span>
 
 <span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
-</code></pre></div><h3 id="manual-install">Manual install</h3>
-<p>If you don&rsquo;t use composer you can download the <a href="https://github.com/PrestaShop/PrestaShop-webservice-lib/archive/master.zip">library archive</a> and extract it where you need.
+</code></pre></div>
+<h3 id="manual-install">Manual install<a href="#manual-install"></a></h3><p>If you don&rsquo;t use composer you can download the <a href="https://github.com/PrestaShop/PrestaShop-webservice-lib/archive/master.zip">library archive</a> and extract it where you need.
 You will then need to manually load the <code>PSWebServiceLibrary</code> in your PHP script or application:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./PSWebServiceLibrary.php&#39;</span><span class="p">);</span>
 
 <span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
-</code></pre></div><h2 id="accessing-the-webservice">Accessing the webservice</h2>
-<h3 id="create-your-client">Create your client</h3>
-<p>First, you must create an instance of the <code>PrestaShopWebservice</code> object, which takes 3 parameters in its constructor:</p>
+</code></pre></div>
+<h2 id="accessing-the-webservice">Accessing the webservice<a href="#accessing-the-webservice"></a></h2>
+<h3 id="create-your-client">Create your client<a href="#create-your-client"></a></h3><p>First, you must create an instance of the <code>PrestaShopWebservice</code> object, which takes 3 parameters in its constructor:</p>
 <ul>
 <li>The store&rsquo;s root path (ex: <a href="http://example.com/">http://example.com/</a> ).</li>
 <li>The authentication key (ex: ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT).</li>
@@ -30370,8 +30372,8 @@ You will then need to manually load the <code>PSWebServiceLibrary</code> in your
 
 <div class="notices note" ><strong>PATCH</strong> method is not available in this library.</div>
 
-<h3 id="handling-errors">Handling errors</h3>
-<p>It is essential that you understand how to handle errors with the webservice library. By implementing error-catch method early, you will more easily detect issues, and be able to correct them on the go.</p>
+
+<h3 id="handling-errors">Handling errors<a href="#handling-errors"></a></h3><p>It is essential that you understand how to handle errors with the webservice library. By implementing error-catch method early, you will more easily detect issues, and be able to correct them on the go.</p>
 <p>Error handling with the webservice library is done using PHP exceptions. If you do not know about them, you should <a href="http://php.net/manual/en/language.exceptions.php">read about it</a>, as exceptions are an essential part of good coding practices.</p>
 <p>The error handling is done within a <code>try...catch</code> block, with the webservice instantiation and execution being done in the <code>try</code> section, the <code>catch</code> one containing the error handling code. There are many types of exception that exist you can catch specific ones which allows you to deal with each error case accordingly, the webservice library uses <code>PrestaShopWebserviceException</code> so you can catch this one only to deal with errors related to webservice.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -30409,17 +30411,17 @@ You will then need to manually load the <code>PSWebServiceLibrary</code> in your
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239957"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239957"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239957"></script>
-    <script src="/js/jquery.sticky.js?1677239957"></script>
-    <script src="/js/featherlight.min.js?1677239957"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239957"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239957"></script>
-    <script src="/js/learn.js?1677239957"></script>
-    <script src="/js/hugo-learn.js?1677239957"></script>
+    <script src="/js/clipboard.min.js?1678195035"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195035"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195035"></script>
+    <script src="/js/jquery.sticky.js?1678195035"></script>
+    <script src="/js/featherlight.min.js?1678195035"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195035"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195035"></script>
+    <script src="/js/learn.js?1678195035"></script>
+    <script src="/js/hugo-learn.js?1678195035"></script>
     
-    <script src="/main.js?1677239957"></script>
+    <script src="/main.js?1678195035"></script>
     
     
     

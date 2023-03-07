@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239951" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239951" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239951" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239951" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195029" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195029" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195029" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195029" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239951" rel="stylesheet">
+    <link href="/style.css?1678195029" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239951"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195029"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13766,6 +13766,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#advanced-checks">Advanced checks</a>
@@ -30273,9 +30275,9 @@
 
 
 
-<h1 id="advanced-checks">Advanced checks</h1>
-<h2 id="static-analysis">Static Analysis</h2>
-<p>In the previous chapter we dealt with the critical syntax error. Although we made sure it can be read by PHP, errors can exist in it and need to be caught before being sent to production.
+
+<h1 id="advanced-checks">Advanced checks<a href="#advanced-checks"></a></h1>
+<h2 id="static-analysis">Static Analysis<a href="#static-analysis"></a></h2><p>In the previous chapter we dealt with the critical syntax error. Although we made sure it can be read by PHP, errors can exist in it and need to be caught before being sent to production.
 Static code analysers are able to detect some of these issues, such as:</p>
 <ul>
 <li>calling an undefined class or method from PHP or your project,</li>
@@ -30286,8 +30288,8 @@ Static code analysers are able to detect some of these issues, such as:</p>
 </ul>
 <p>There are three major tools able to analyse your code: PHPStan, Psalm and Phan.</p>
 <p>At the time we write this article, only PHPStan is being used on our modules.</p>
-<h3 id="installation">Installation</h3>
-<p><a href="https://phpstan.org/">PHPStan</a> can be installed via composer like other PHP libraries. But, as it can only run by PHP 7.0 and above, you may be unable to add it to your <code>composer.json</code> if your PHP requirements are below the version 7.</p>
+
+<h3 id="installation">Installation<a href="#installation"></a></h3><p><a href="https://phpstan.org/">PHPStan</a> can be installed via composer like other PHP libraries. But, as it can only run by PHP 7.0 and above, you may be unable to add it to your <code>composer.json</code> if your PHP requirements are below the version 7.</p>
 <ul>
 <li><strong>Project requires PHP 7 min</strong></li>
 </ul>
@@ -30300,8 +30302,8 @@ Static code analysers are able to detect some of these issues, such as:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">composer global require phpstan/phpstan
 </code></pre></div><p>Another option is to use the Docker image of PHPStan, following the same versioning of the library on Packagist.</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">docker run --rm <span class="o">[</span>...<span class="o">]</span> phpstan/phpstan analyse 
-</code></pre></div><h3 id="setting-up">Setting up</h3>
-<p>PHPStan can analyse a standalone project without much configuration, where it only needs the files to analyse.
+</code></pre></div>
+<h3 id="setting-up">Setting up<a href="#setting-up"></a></h3><p>PHPStan can analyse a standalone project without much configuration, where it only needs the files to analyse.
 Some features, like autoloading with composer, are enabled by default.</p>
 <p>A module deals with many methods from the core in order to work. To avoid issues like undefined methods and classes, the core needs to be autoloaded in memory each time the module is analysed. PHPStan handles several levels of checks, which are defined in <a href="https://phpstan.org/user-guide/rule-levels">their documentation page &ldquo;Rule levels&rdquo;</a>. The higher the better, but somes inconsistencies in the core PHPDoc may prevent you to reach the highest level.</p>
 <p>The configuration file stores the parameters that would be sent in the command line otherwise. Having a configuration file is a mandatory step for a module, as we have complex rules to write:</p>
@@ -30319,8 +30321,8 @@ composer require --dev prestashop/php-dev-tools
 <span class="c1"># Set up configuration files</span>
 php vendor/bin/prestashop-coding-standards phpstan:init
 </code></pre></div><p>Files will be copied in the folder <code>tests/phpstan/</code> of your module. We provide this library to setup a proper environment for a module, for instance to handle constants that are only defined when PrestaShop is installed. If only the source is downloaded in your test environment, the configuration we provide will use an extension file defining these constants for you. In the next version of this library, we expect more rules to be added to avoid false positive issues and add pertinent errors in a module context.</p>
-<h3 id="usage">Usage</h3>
-<p>Running PHPStan can be done in several ways, and depends on the way you installed it. But in all cases, an environment variable <code>_PS_ROOT_DIR_</code> must be set, targeting the PrestaShop root folder.</p>
+
+<h3 id="usage">Usage<a href="#usage"></a></h3><p>Running PHPStan can be done in several ways, and depends on the way you installed it. But in all cases, an environment variable <code>_PS_ROOT_DIR_</code> must be set, targeting the PrestaShop root folder.</p>
 <ul>
 <li><strong>Project requires PHP 7 min</strong></li>
 </ul>
@@ -30358,8 +30360,8 @@ docker run --rm --volumes-from temp-ps -v <span class="nv">$PWD</span>:/web/modu
 
  [ERROR] Found 1 error      
 </code></pre></div><p>PHPStan allowed us to know that a method disappeared in the first 1.7 versions of PrestaShop, although it was found on PS 1.6 and went back in later versions.</p>
-<h2 id="unit-tests">Unit tests</h2>
-<p>Having unit tests on a module can be challenging because of the relations between your code and PrestaShop&rsquo;s (i.e ObjectModels, context, Database instance). Even though the full coverage of a module cannot be reached, there is some business logic which can be isolated and tested.</p>
+
+<h2 id="unit-tests">Unit tests<a href="#unit-tests"></a></h2><p>Having unit tests on a module can be challenging because of the relations between your code and PrestaShop&rsquo;s (i.e ObjectModels, context, Database instance). Even though the full coverage of a module cannot be reached, there is some business logic which can be isolated and tested.</p>
 <p>The main tools used for unit testing is <a href="https://phpunit.de/">PHPUnit</a>.</p>
 <p>Like other PHP testing tools, it can be installed in your project with composer. Take care to install it in your <strong>development dependencies</strong> to avoid distributing in your production releases.</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">composer require --dev phpunit/phpunit:5.7
@@ -30401,17 +30403,17 @@ OK (19 tests, 28 assertions)
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239951"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239951"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239951"></script>
-    <script src="/js/jquery.sticky.js?1677239951"></script>
-    <script src="/js/featherlight.min.js?1677239951"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239951"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239951"></script>
-    <script src="/js/learn.js?1677239951"></script>
-    <script src="/js/hugo-learn.js?1677239951"></script>
+    <script src="/js/clipboard.min.js?1678195029"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195029"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195029"></script>
+    <script src="/js/jquery.sticky.js?1678195029"></script>
+    <script src="/js/featherlight.min.js?1678195029"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195029"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195029"></script>
+    <script src="/js/learn.js?1678195029"></script>
+    <script src="/js/hugo-learn.js?1678195029"></script>
     
-    <script src="/main.js?1677239951"></script>
+    <script src="/main.js?1678195029"></script>
     
     
     

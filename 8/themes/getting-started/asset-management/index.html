@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239965" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239965" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239965" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239965" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195042" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195042" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195042" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195042" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239965" rel="stylesheet">
+    <link href="/style.css?1678195042" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239965"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195042"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13766,6 +13766,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#asset-management">Asset Management</a>
@@ -30281,13 +30283,13 @@
 
 
 
-<h1 id="asset-management">Asset Management</h1>
-<p>We advise theme developers to compile most of their style and JavaScript code into a single concatenated/minified file (see the Webpack section below).</p>
+
+<h1 id="asset-management">Asset Management<a href="#asset-management"></a></h1><p>We advise theme developers to compile most of their style and JavaScript code into a single concatenated/minified file (see the Webpack section below).</p>
 <p>If you need to add special assets, for example an extra JavaScript library on the home page or the product page, there are a few ways to do so.</p>
 <p>Your theme have to print assets correctly in the smarty template, and it&rsquo;s explained
 in the <a href="/8/themes/reference/templates/head/">template section</a>.</p>
-<h2 id="registering-assets">Registering assets</h2>
-<p>In PrestaShop 1.7+, it&rsquo;s easy to register custom assets on each page. The major improvement is that you can easily manage them from your theme, without any modules.</p>
+
+<h2 id="registering-assets">Registering assets<a href="#registering-assets"></a></h2><p>In PrestaShop 1.7+, it&rsquo;s easy to register custom assets on each page. The major improvement is that you can easily manage them from your theme, without any modules.</p>
 <p>We introduced new methods to register assets, and especially new cool options.</p>
 <p>For instance, you can register your asset specifically in the head or bottom of your HTML code; you can load it with attributes like <code>async</code> or <code>defer</code>; and you can even inline it easily.</p>
 <p>One favorite option is the priority one, which makes it very easy to ensure everything is loaded in the order you need.</p>
@@ -30295,8 +30297,8 @@ in the <a href="/8/themes/reference/templates/head/">template section</a>.</p>
 <div class="notices note" >Backward compatibility is kept for the <code>addJS()</code>, <code>addCSS()</code>, <code>addJqueryUI()</code> and <code>addJqueryPlugin()</code> methods. Incidentally, now is the best time to update your libraries and use the new method.</div>
 
 <p>Here is a list of options, and what they do.</p>
-<h3 id="options">Options</h3>
-<p>PrestaShop&rsquo;s <code>FrontController</code> class provides 2 new methods to easily register new assets: <code>registerStylesheet()</code> and <code>registerJavascript()</code>.</p>
+
+<h3 id="options">Options<a href="#options"></a></h3><p>PrestaShop&rsquo;s <code>FrontController</code> class provides 2 new methods to easily register new assets: <code>registerStylesheet()</code> and <code>registerJavascript()</code>.</p>
 <p>In order to have the most extensible signatures, these 2 methods take 3 arguments. The first one is the unique ID of the asset, the second one is the relative path, and the third one is an array of all other optional parameters, as described below.</p>
 <p><strong>ID</strong></p>
 <p>This unique identifier needed for each asset. Reusing the same ID is useful to either override or unregister something already loaded by the Core or a native module.</p>
@@ -30389,8 +30391,8 @@ in the <a href="/8/themes/reference/templates/head/">template section</a>.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="registered-by-the-core">Registered by the Core</h3>
-<p>Every page of every theme loads the following files:</p>
+
+<h3 id="registered-by-the-core">Registered by the Core<a href="#registered-by-the-core"></a></h3><p>Every page of every theme loads the following files:</p>
 <ul>
 <li>theme.css</li>
 <li>custom.css</li>
@@ -30453,8 +30455,8 @@ in the <a href="/8/themes/reference/templates/head/">template section</a>.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="registering-in-themes">Registering in themes</h3>
-<p>By now you probably understood that this <code>theme.yml</code> file became the heart of PrestaShop themes.</p>
+
+<h3 id="registering-in-themes">Registering in themes<a href="#registering-in-themes"></a></h3><p>By now you probably understood that this <code>theme.yml</code> file became the heart of PrestaShop themes.</p>
 <p>To register assets, create a new <code>assets</code> key at the top level of your <code>theme.yml</code>, and register your files according to your needs. Page identifiers are based on the <code>php_self</code> property of each controller (<a href="https://github.com/PrestaShop/PrestaShop/blob/b2ba1c2ecd627e23993c9356165e0d1e842a2faa/controllers/front/ProductController.php#L35">example</a>)</p>
 <p>For example, if you want to add an external library on each page and a custom library on the Product page:</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">assets</span><span class="p">:</span><span class="w">
@@ -30490,13 +30492,13 @@ in the <a href="/8/themes/reference/templates/head/">template section</a>.</p>
 </span><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">//cdn-url.com/external-lib.js</span><span class="w">
 </span><span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
 </span><span class="w">        </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l">remote</span><span class="w">
-</span></code></pre></div><h3 id="registering-in-modules">Registering in modules</h3>
-<p>When developing a PrestaShop module, you may want to add specific styles for your templates. The best way is to use the <code>registerStylesheet</code> and <code>registerJavascript</code> methods provided by the parent <code>FrontController</code> class.</p>
+</span></code></pre></div>
+<h3 id="registering-in-modules">Registering in modules<a href="#registering-in-modules"></a></h3><p>When developing a PrestaShop module, you may want to add specific styles for your templates. The best way is to use the <code>registerStylesheet</code> and <code>registerJavascript</code> methods provided by the parent <code>FrontController</code> class.</p>
 
 <div class="notices note" >If you&rsquo;re developing a custom module that only works on your themes, don&rsquo;t put any style or JavaScript code inside the module: put it in the theme&rsquo;s files instead (<code>theme.js</code> and <code>theme.css</code>).</div>
 
-<h4 id="with-a-front-controller-module">With a front controller module</h4>
-<p>If you develop a front controller, simply extend the <code>setMedia()</code> method. For instance:</p>
+
+<h4 id="with-a-front-controller-module">With a front controller module<a href="#with-a-front-controller-module"></a></h4><p>If you develop a front controller, simply extend the <code>setMedia()</code> method. For instance:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">setMedia</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="k">parent</span><span class="o">::</span><span class="na">setMedia</span><span class="p">();</span>
@@ -30523,8 +30525,8 @@ in the <a href="/8/themes/reference/templates/head/">template section</a>.</p>
         <span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><h4 id="without-a-front-controller-module">Without a front controller module</h4>
-<p>If you only have your module&rsquo;s class, register your code on the <code>actionFrontControllerSetMedia</code> hook, and add your asset on the go inside the hook:</p>
+</code></pre></div>
+<h4 id="without-a-front-controller-module">Without a front controller module<a href="#without-a-front-controller-module"></a></h4><p>If you only have your module&rsquo;s class, register your code on the <code>actionFrontControllerSetMedia</code> hook, and add your asset on the go inside the hook:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionFrontControllerSetMedia</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="c1">// Only on the product page
@@ -30561,16 +30563,16 @@ in the <a href="/8/themes/reference/templates/head/">template section</a>.</p>
         <span class="p">]</span>
     <span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="unregistering">Unregistering</h2>
-<p>You can unregister assets! That&rsquo;s the whole point of an <code>id</code>. For example if you want to improve your theme/module&rsquo;s compatibility with a module, you can unregister its assets and handle them yourself.</p>
+</code></pre></div>
+<h2 id="unregistering">Unregistering<a href="#unregistering"></a></h2><p>You can unregister assets! That&rsquo;s the whole point of an <code>id</code>. For example if you want to improve your theme/module&rsquo;s compatibility with a module, you can unregister its assets and handle them yourself.</p>
 <p>Let&rsquo;s say you want to be fully compatible with a popular navigation module. You could create a template override of course, but you could also remove the style that comes with it and bundle your specific style in your <code>theme.css</code> (since it&rsquo;s loaded on every page).</p>
 <p>To unregister an assets, you need to know its ID.</p>
-<h3 id="in-themes">In themes</h3>
-<p>As of today, the only way to unregister an asset without any module is to place an empty file where the module override would be.</p>
+
+<h3 id="in-themes">In themes<a href="#in-themes"></a></h3><p>As of today, the only way to unregister an asset without any module is to place an empty file where the module override would be.</p>
 <p>If the module registers a JavaScript file placed in <code>views/js/file.js</code>, you simply need to create an empty file in <code>modules/modulename/views/js/file.js</code>.</p>
 <p>It works for both JavaScript and CSS assets.</p>
-<h3 id="in-modules">In modules</h3>
-<p>Both <code>unregisterJavascript</code> and <code>unregisterStylesheet</code> methods take only one argument: the unique ID of the resource you want to remove.</p>
+
+<h3 id="in-modules">In modules<a href="#in-modules"></a></h3><p>Both <code>unregisterJavascript</code> and <code>unregisterStylesheet</code> methods take only one argument: the unique ID of the resource you want to remove.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="c1">// In a front controller
 </span><span class="c1"></span><span class="k">public</span> <span class="k">function</span> <span class="nf">setMedia</span><span class="p">()</span>
@@ -30611,17 +30613,17 @@ in the <a href="/8/themes/reference/templates/head/">template section</a>.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239965"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239965"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239965"></script>
-    <script src="/js/jquery.sticky.js?1677239965"></script>
-    <script src="/js/featherlight.min.js?1677239965"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239965"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239965"></script>
-    <script src="/js/learn.js?1677239965"></script>
-    <script src="/js/hugo-learn.js?1677239965"></script>
+    <script src="/js/clipboard.min.js?1678195042"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195042"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195042"></script>
+    <script src="/js/jquery.sticky.js?1678195042"></script>
+    <script src="/js/featherlight.min.js?1678195042"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195042"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195042"></script>
+    <script src="/js/learn.js?1678195042"></script>
+    <script src="/js/hugo-learn.js?1678195042"></script>
     
-    <script src="/main.js?1677239965"></script>
+    <script src="/main.js?1678195042"></script>
     
     
     

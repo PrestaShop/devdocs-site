@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239930" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239930" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239930" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239930" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195010" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195010" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195010" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195010" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239930" rel="stylesheet">
+    <link href="/style.css?1678195010" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239930"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195010"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13778,6 +13778,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-to-customize-the-grid-templates">How to customize the Grid templates</a>
@@ -30293,8 +30295,8 @@
 
 
 
-<h1 id="how-to-customize-the-grid-templates">How to customize the Grid templates</h1>
-<p>The Grid component is highly extensible from a structural and data point of view, but sometimes you need
+
+<h1 id="how-to-customize-the-grid-templates">How to customize the Grid templates<a href="#how-to-customize-the-grid-templates"></a></h1><p>The Grid component is highly extensible from a structural and data point of view, but sometimes you need
 to customize how a grid, a row or a specific column is rendered.</p>
 <p>For instance, let&rsquo;s take a look at the Logs page of the PrestaShop Back Office. You can see that the &ldquo;Employee&rdquo; column have a specific rendering:</p>
 <figure><img src="../../img/logs_grid.png"/><figcaption>
@@ -30308,14 +30310,14 @@ to customize how a grid, a row or a specific column is rendered.</p>
 <li>Column &amp; Column headers customization</li>
 <li>Row customization</li>
 </ul>
-<h2 id="templating-architecture-in-twig">Templating architecture in Twig</h2>
-<p>The templating of the Grid component uses Twig. As the component enforces a strict separation between the data and the rendering you never define template names or UI elements when defining a new Grid.</p>
+
+<h2 id="templating-architecture-in-twig">Templating architecture in Twig<a href="#templating-architecture-in-twig"></a></h2><p>The templating of the Grid component uses Twig. As the component enforces a strict separation between the data and the rendering you never define template names or UI elements when defining a new Grid.</p>
 <p>We have created a Twig layer that is able to render Grid using the information from Grid that is formatted in Grid presenter.</p>
 
 <div class="notices tip" >This means that, by implementing your own presenter, you can control the data sent to the user.</div>
 
-<h3 id="how-it-works-under-the-hood">How it works under the hood?</h3>
-<p>Each element of the Grid have its own Twig template:</p>
+
+<h3 id="how-it-works-under-the-hood">How it works under the hood?<a href="#how-it-works-under-the-hood"></a></h3><p>Each element of the Grid have its own Twig template:</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Grid
 ├── Actions
 │   ├── Bulk
@@ -30335,8 +30337,8 @@ to customize how a grid, a row or a specific column is rendered.</p>
 ├── grid.html.twig
 └── grid_panel.html.twig
 </code></pre></div><p>Let&rsquo;s detail every part of this architecture:</p>
-<h3 id="grid-actions-templating">Grid Actions templating</h3>
-<p>Grid actions templates are responsible of the rendering of all the Grid actions:</p>
+
+<h3 id="grid-actions-templating">Grid Actions templating<a href="#grid-actions-templating"></a></h3><p>Grid actions templates are responsible of the rendering of all the Grid actions:</p>
 <ul>
 <li>The <strong>Bulk</strong> actions;</li>
 <li>The <strong>Grid</strong> actions;</li>
@@ -30364,8 +30366,8 @@ to customize how a grid, a row or a specific column is rendered.</p>
     ├── your-module.php
     └── views/PrestaShop/Admin/Common/Grid/Blocks/Table/filters_row.html.twig
     # Override of the filters row template
-</code></pre></div><h2 id="the-grid-blocks">The Grid Blocks</h2>
-<p>In this folder, you will retrieve most of the reusable blocks of the Grid component.</p>
+</code></pre></div>
+<h2 id="the-grid-blocks">The Grid Blocks<a href="#the-grid-blocks"></a></h2><p>In this folder, you will retrieve most of the reusable blocks of the Grid component.</p>
 <p>Structure of grid actions:</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Blocks
 ├── bulk_actions.html.twig
@@ -30392,8 +30394,8 @@ of most of them:</p>
 
 <div class="notices note" >Customize these templates when you want to alter the rendering of the structure of your Grids.</div>
 
-<h2 id="the-columns-contents-and-headers">The Columns Contents and Headers</h2>
-<p>Most of the time, you want to customize the rendering of the columns. While we can re-order add or delete columns using hooks, the Twig layer allows you to alter the rendering of a column at Shop, Grid or even Column level.</p>
+
+<h2 id="the-columns-contents-and-headers">The Columns Contents and Headers<a href="#the-columns-contents-and-headers"></a></h2><p>Most of the time, you want to customize the rendering of the columns. While we can re-order add or delete columns using hooks, the Twig layer allows you to alter the rendering of a column at Shop, Grid or even Column level.</p>
 <p>It&rsquo;s not a surprise that you will retrieve a template named after the available Column Types provided by the Core of PrestaShop! The Twig layer relies on the information sent by the Grid presenter to select the right Twig template to be rendered and to push the right information.</p>
 <p>This is the content of this folder:</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Columns
@@ -30453,17 +30455,17 @@ There is a simple rule to guess which template will be rendered: <code>{grid_id}
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239930"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239930"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239930"></script>
-    <script src="/js/jquery.sticky.js?1677239930"></script>
-    <script src="/js/featherlight.min.js?1677239930"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239930"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239930"></script>
-    <script src="/js/learn.js?1677239930"></script>
-    <script src="/js/hugo-learn.js?1677239930"></script>
+    <script src="/js/clipboard.min.js?1678195010"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195010"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195010"></script>
+    <script src="/js/jquery.sticky.js?1678195010"></script>
+    <script src="/js/featherlight.min.js?1678195010"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195010"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195010"></script>
+    <script src="/js/learn.js?1678195010"></script>
+    <script src="/js/hugo-learn.js?1678195010"></script>
     
-    <script src="/main.js?1677239930"></script>
+    <script src="/main.js?1678195010"></script>
     
     
     

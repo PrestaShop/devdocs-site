@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239931" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239931" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239931" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239931" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195010" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195010" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195010" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195010" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239931" rel="stylesheet">
+    <link href="/style.css?1678195010" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239931"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195010"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13772,6 +13772,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#subscribing-to-a-hook">Subscribing to a Hook</a>
@@ -30282,13 +30284,13 @@
 
 
 
-<h1 id="subscribing-to-a-hook">Subscribing to a Hook</h1>
-<p>The <code>Hook</code> component acts as a registry for hook subscriptions, storing which modules have subscribed to which hook. Multiple modules can subscribe to the same hook, and a single module can subscribe to multiple hooks.</p>
+
+<h1 id="subscribing-to-a-hook">Subscribing to a Hook<a href="#subscribing-to-a-hook"></a></h1><p>The <code>Hook</code> component acts as a registry for hook subscriptions, storing which modules have subscribed to which hook. Multiple modules can subscribe to the same hook, and a single module can subscribe to multiple hooks.</p>
 <p>Modules subscribe to hooks through the <code>registerHook()</code> static function:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nx">Hook</span><span class="o">::</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$moduleInstance</span><span class="p">,</span> <span class="nx">string</span><span class="o">|</span><span class="nx">string</span><span class="p">[]</span> <span class="nv">$subscribedHooks</span><span class="p">,</span> <span class="o">?</span><span class="nx">int</span><span class="p">[]</span> <span class="nv">$shopIds</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
 </code></pre></div><p>This method returns <code>true</code> if the operation is successful, <code>false</code> otherwise.</p>
-<h5 id="parameters">Parameters</h5>
-<p><code>$moduleInstance</code>
+
+<h5 id="parameters">Parameters<a href="#parameters"></a></h5><p><code>$moduleInstance</code>
 :
 Instance of the module subscribing to the hook</p>
 <p><code>$subscribedHooks</code>
@@ -30298,8 +30300,8 @@ This parameter takes a string or an array of strings containing the name of the 
 :
 This parameter is related to multishop and receives an array of shop ids.<br>
 By default, hook registrations are valid for all shops. If this parameter is defined, the hook subscription will only be registered for the specified shops.</p>
-<h5 id="example">Example</h5>
-<p>Here is how a Module subscribes to the <code>registerGDPRConsent</code> during the install process:</p>
+
+<h5 id="example">Example<a href="#example"></a></h5><p>Here is how a Module subscribes to the <code>registerGDPRConsent</code> during the install process:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">Somemodule</span> <span class="k">extends</span> <span class="nx">Module</span>
 <span class="p">{</span>
     <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
@@ -30326,8 +30328,8 @@ By default, hook registrations are valid for all shops. If this parameter is def
         <span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="module-callback">Module callback</h2>
-<p>Modules having subscribed to a hook are notified when the hook is dispatched and are able to react in consequence.</p>
+</code></pre></div>
+<h2 id="module-callback">Module callback<a href="#module-callback"></a></h2><p>Modules having subscribed to a hook are notified when the hook is dispatched and are able to react in consequence.</p>
 <p>In order to receive the notification, modules must declare one public callback function per subscribed hook, following this naming convention: <code>hook&lt;SubscribedHookName&gt;</code>. This way, when a hook is dispatched, the dispatcher will be able to identify and call the appropriate callback on each subscriber.</p>
 <p>This means that in order to fully subscribe to a hook, a module must call <code>registerHook()</code> <strong>and</strong> declare a callback. For example:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">Somemodule</span> <span class="k">extends</span> <span class="nx">Module</span>
@@ -30371,17 +30373,17 @@ By default, hook registrations are valid for all shops. If this parameter is def
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239931"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239931"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239931"></script>
-    <script src="/js/jquery.sticky.js?1677239931"></script>
-    <script src="/js/featherlight.min.js?1677239931"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239931"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239931"></script>
-    <script src="/js/learn.js?1677239931"></script>
-    <script src="/js/hugo-learn.js?1677239931"></script>
+    <script src="/js/clipboard.min.js?1678195011"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195011"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195011"></script>
+    <script src="/js/jquery.sticky.js?1678195011"></script>
+    <script src="/js/featherlight.min.js?1678195011"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195011"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195011"></script>
+    <script src="/js/learn.js?1678195011"></script>
+    <script src="/js/hugo-learn.js?1678195011"></script>
     
-    <script src="/main.js?1677239931"></script>
+    <script src="/main.js?1678195011"></script>
     
     
     

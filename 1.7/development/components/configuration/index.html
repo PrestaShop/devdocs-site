@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/configuration/">
 
     
-    <link href="/css/font-awesome.min.css?1677239958" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239958" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239958" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239958" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195035" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195035" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195035" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195035" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239958" rel="stylesheet">
+    <link href="/style.css?1678195035" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239958"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195035"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#configuration-storage-service">Configuration storage service</a>
@@ -29051,8 +29053,8 @@
 
 
 
-<h1 id="configuration-storage-service">Configuration storage service</h1>
-<p>The Configuration storage of PrestaShop aims to address two needs.</p>
+
+<h1 id="configuration-storage-service">Configuration storage service<a href="#configuration-storage-service"></a></h1><p>The Configuration storage of PrestaShop aims to address two needs.</p>
 <p>First, there are multiple situations where a single value has to be stored and be available easily. It can be a boolean to control order mode, it can be a limit for timeout: a simple key =&gt; value(s) storage is needed to manage multiple settings in PrestaShop.</p>
 <p>Secondly, modules might sometimes need a simple storage system, and they should not have to create a new SQL table for such a simple need.</p>
 <p>To address these needs, the Configuration storage of PrestaShop uses a SQL table <code>ps_configuration</code> and allows simple fetch, update and deletion of values in it.</p>
@@ -29063,17 +29065,17 @@
 
 <p>Each value stored in the Configuration component can be controlled through a given key, is compatible with Multishop (as it can be overridden for a shop or a group of shops) and has timestamps.</p>
 <p>The storage is managed by the <code>Configuration</code> class.</p>
-<h2 id="usage">Usage</h2>
-<h3 id="accessing-the-component">Accessing the component</h3>
-<p>We recommend using the <code>prestashop.adapter.legacy.configuration</code> service to access configuration.</p>
+
+<h2 id="usage">Usage<a href="#usage"></a></h2>
+<h3 id="accessing-the-component">Accessing the component<a href="#accessing-the-component"></a></h3><p>We recommend using the <code>prestashop.adapter.legacy.configuration</code> service to access configuration.</p>
 
 <div class="notices note" >If you need backward compatibility with versions prior to 1.7 or if you find yourself unable to access the service for any reason, you can use the <a href="https://devdocs.prestashop-project.org/1.7/development/components/configuration/backward-compatibility/">legacy Configuration class</a>.</div>
 
-<h3 id="store-configuration-data">Store configuration data</h3>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">,</span> <span class="nx">mixed</span> <span class="nv">$value</span><span class="p">,</span> <span class="nx">ShopConstraint</span> <span class="nv">$shopConstraint</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
+
+<h3 id="store-configuration-data">Store configuration data<a href="#store-configuration-data"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">,</span> <span class="nx">mixed</span> <span class="nv">$value</span><span class="p">,</span> <span class="nx">ShopConstraint</span> <span class="nv">$shopConstraint</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
 </code></pre></div><p>This method returns <code>true</code> if the operation is successful, <code>false</code> otherwise.</p>
-<h5 id="parameters">Parameters</h5>
-<dl>
+
+<h5 id="parameters">Parameters<a href="#parameters"></a></h5><dl>
 <dt><code>$key</code></dt>
 <dd>Identifier to your data to reuse later. You can use any valid string, but by convention, identifiers are usually in <code>ALL_CAPS_WITH_UNDERSCORES</code>.</dd>
 <dt><code>$value</code></dt>
@@ -29100,11 +29102,11 @@
 <p>If not provided, the behavior will depend on the global shop context. To avoid unpredictable behavior in Multistore contexts, we recommend setting this parameter.</p>
 </dd>
 </dl>
-<h3 id="check-if-a-configuration-data-set-exists">Check if a configuration data set exists</h3>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">has</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">,</span> <span class="nx">ShopConstraint</span> <span class="nv">$shopConstraint</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
+
+<h3 id="check-if-a-configuration-data-set-exists">Check if a configuration data set exists<a href="#check-if-a-configuration-data-set-exists"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">has</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">,</span> <span class="nx">ShopConstraint</span> <span class="nv">$shopConstraint</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
 </code></pre></div><p>This method returns <code>true</code> if the data exists, <code>false</code> otherwise.</p>
-<h5 id="parameters-1">Parameters</h5>
-<dl>
+
+<h5 id="parameters-1">Parameters<a href="#parameters-1"></a></h5><dl>
 <dt><code>$key</code></dt>
 <dd>Identifier to check.</dd>
 <dt><code>$shopConstraint</code> 
@@ -29117,8 +29119,8 @@
 <p>If not provided or set to &ldquo;all shops&rdquo;, this method to checks if the identifier exists for <em>any</em> shop.</p>
 </dd>
 </dl>
-<h3 id="retrieve-configuration-data">Retrieve configuration data</h3>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">,</span> <span class="nx">mixed</span> <span class="nv">$default</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">mixed</span>
+
+<h3 id="retrieve-configuration-data">Retrieve configuration data<a href="#retrieve-configuration-data"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">,</span> <span class="nx">mixed</span> <span class="nv">$default</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">mixed</span>
 </code></pre></div><p>This method returns the data for <code>$key</code> if it data exists, or <code>NULL</code> otherwise.</p>
 <p>If the data is stored as multi language, this will return an array of values indexed by language id.</p>
 <p><strong>Parameters:</strong></p>
@@ -29133,16 +29135,16 @@
 </dt>
 <dd>This optional parameter lets you define the value to return if the identifier is not found.</dd>
 </dl>
-<h3 id="delete-configuration">Delete configuration</h3>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+
+<h3 id="delete-configuration">Delete configuration<a href="#delete-configuration"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$key</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
 </code></pre></div><p>This method returns nothing, and throws an Exception on error.</p>
 <p><strong>Parameters:</strong></p>
 <dl>
 <dt><code>$key</code></dt>
 <dd>Identifier to delete. Note that this method deletes the value for <strong>all shops</strong>.</dd>
 </dl>
-<h2 id="multistore">Multistore</h2>
 
+<h2 id="multistore">Multistore<a href="#multistore"></a></h2>
 <div class="magic-version-pill" data-version="1.7.7" data-title="New in PrestaShop 1.7.7"></div>
 
 
@@ -29186,17 +29188,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239958"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239958"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239958"></script>
-    <script src="/js/jquery.sticky.js?1677239958"></script>
-    <script src="/js/featherlight.min.js?1677239958"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239958"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239958"></script>
-    <script src="/js/learn.js?1677239958"></script>
-    <script src="/js/hugo-learn.js?1677239958"></script>
+    <script src="/js/clipboard.min.js?1678195036"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195036"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195036"></script>
+    <script src="/js/jquery.sticky.js?1678195036"></script>
+    <script src="/js/featherlight.min.js?1678195036"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195036"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195036"></script>
+    <script src="/js/learn.js?1678195036"></script>
+    <script src="/js/hugo-learn.js?1678195036"></script>
     
-    <script src="/main.js?1677239958"></script>
+    <script src="/main.js?1678195036"></script>
     
     
     

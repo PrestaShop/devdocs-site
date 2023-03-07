@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239964" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239964" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239964" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239964" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195041" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195041" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195041" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195041" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239964" rel="stylesheet">
+    <link href="/style.css?1678195041" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239964"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195041"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13776,21 +13776,21 @@
 
 
 
-<h1 id="hooks">Hooks</h1>
-<p><a href="https://devdocs.prestashop-project.org/8/development/components/hook/">Hooks</a> are a way to associate your code to some specific PrestaShop events.</p>
+
+<h1 id="hooks">Hooks<a href="#hooks"></a></h1><p><a href="https://devdocs.prestashop-project.org/8/development/components/hook/">Hooks</a> are a way to associate your code to some specific PrestaShop events.</p>
 <p>Most of the time, they are used to insert content in a page. The place it will be added (header, footer, left or right column &hellip;) will depend on the hook you choose.</p>
 <p>Hooks can also be used to perform specific actions under certain circumstances (i.e. sending an e-mail to the client on an order creation).</p>
-<h2 id="naming-scheme">Naming scheme</h2>
-<p>Hook names are prefixed with &ldquo;action&rdquo; or &ldquo;display&rdquo;. This prefix indicates if a hook is triggered by an event or if it&rsquo;s used to display content:</p>
+
+<h2 id="naming-scheme">Naming scheme<a href="#naming-scheme"></a></h2><p>Hook names are prefixed with &ldquo;action&rdquo; or &ldquo;display&rdquo;. This prefix indicates if a hook is triggered by an event or if it&rsquo;s used to display content:</p>
 <dl>
 <dt><strong>action&lt;Something&gt;</strong></dt>
 <dd>Triggered by specific events that take place in PrestaShop.</dd>
 <dt><strong>display&lt;Something&gt;</strong></dt>
 <dd>Result in something being displayed, either in the front-end or the back-end.</dd>
 </dl>
-<h2 id="using-hooks">Using hooks</h2>
-<h3 id="registration">Registration</h3>
-<p>Every hook you want to use must be registered first. This is usually done during the installation of your module, by calling the method <code>Module::registerHook($hookName)</code>.</p>
+
+<h2 id="using-hooks">Using hooks<a href="#using-hooks"></a></h2>
+<h3 id="registration">Registration<a href="#registration"></a></h3><p>Every hook you want to use must be registered first. This is usually done during the installation of your module, by calling the method <code>Module::registerHook($hookName)</code>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="c1">// [...]
@@ -13801,8 +13801,8 @@
     <span class="c1">// [...]
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></div><p>If you do not know where you can register, <a href="https://devdocs.prestashop-project.org/8/modules/concepts/hooks/list-of-hooks/">a list of available hooks</a> is available.</p>
-<h3 id="execution">Execution</h3>
-<p>For each registered hook, you must create a non-static public method, starting with the &ldquo;hook&rdquo; keyword followed by the name of the hook you want to use (starting with either &ldquo;display&rdquo; or &ldquo;action&rdquo;).</p>
+
+<h3 id="execution">Execution<a href="#execution"></a></h3><p>For each registered hook, you must create a non-static public method, starting with the &ldquo;hook&rdquo; keyword followed by the name of the hook you want to use (starting with either &ldquo;display&rdquo; or &ldquo;action&rdquo;).</p>
 <p>This method receives one (and only one) argument: an array of the contextual information sent to the hook.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayHeader</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
 <span class="p">{</span>
@@ -13819,29 +13819,29 @@
     <span class="c1">// Your code.
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></div><p>Remember, in order for a module to respond to a hook call, it must be registered within PrestaShop.</p>
-<h2 id="triggering-a-hook">Triggering a hook</h2>
-<h3 id="in-a-controller-legacy">In a controller (legacy)</h3>
-<p>It is easy to call a hook from within a controller: you simply have to use its name with the <code>Hook::exec($hook_name, $hook_args = array())</code> method. Some parameters can be sent as well.</p>
+
+<h2 id="triggering-a-hook">Triggering a hook<a href="#triggering-a-hook"></a></h2>
+<h3 id="in-a-controller-legacy">In a controller (legacy)<a href="#in-a-controller-legacy"></a></h3><p>It is easy to call a hook from within a controller: you simply have to use its name with the <code>Hook::exec($hook_name, $hook_args = array())</code> method. Some parameters can be sent as well.</p>
 <p>For instance:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span>
     <span class="s1">&#39;HOOK_LEFT_COLUMN&#39;</span><span class="p">,</span>
     <span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;displayLeftColumn&#39;</span><span class="p">)</span>
 <span class="p">);</span>
-</code></pre></div><h3 id="in-a-controller-symfony">In a controller (Symfony)</h3>
-<p>In a Symfony controller, please use the dispatchHook method of the inherited <code>FrameworkBundleAdminController</code> class:</p>
+</code></pre></div>
+<h3 id="in-a-controller-symfony">In a controller (Symfony)<a href="#in-a-controller-symfony"></a></h3><p>In a Symfony controller, please use the dispatchHook method of the inherited <code>FrameworkBundleAdminController</code> class:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">protected</span> <span class="k">function</span> <span class="nf">dispatchHook</span><span class="p">(</span><span class="nv">$hookName</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$parameters</span><span class="p">);</span>
-</code></pre></div><h3 id="in-a-theme-with-smarty">In a theme, with Smarty</h3>
-<p>It is easy to call a hook from within a template file (<code>.tpl</code>): you simply have to use its name with the hook function. You can add the name of a module that you want the hook execute.</p>
+</code></pre></div>
+<h3 id="in-a-theme-with-smarty">In a theme, with Smarty<a href="#in-a-theme-with-smarty"></a></h3><p>It is easy to call a hook from within a template file (<code>.tpl</code>): you simply have to use its name with the hook function. You can add the name of a module that you want the hook execute.</p>
 <p>Basic call of a hook:</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">{hook h=&#39;hookName&#39;}
 </code></pre></div><p>Call of a hook for a specific module:</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">{hook h=&#39;hookName&#39; mod=&#39;modulename&#39;}
-</code></pre></div><h3 id="in-a-theme-with-twig">In a theme, with Twig</h3>
-<p>It is easy to call a hook from within a twig template file (<code>.html.twig</code>): you simply have to use its name with the renderHook twig function. You can add params as a second argument.</p>
+</code></pre></div>
+<h3 id="in-a-theme-with-twig">In a theme, with Twig<a href="#in-a-theme-with-twig"></a></h3><p>It is easy to call a hook from within a twig template file (<code>.html.twig</code>): you simply have to use its name with the renderHook twig function. You can add params as a second argument.</p>
 <p>Basic call of a hook:</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">{{ renderHook(&#39;hookName&#39;, { params }) }}
-</code></pre></div><h2 id="going-further-creating-your-own-hook">Going further: Creating your own hook</h2>
-<p>You can create new PrestaShop hooks by adding a new record in the Hook table. This can be done with the Hook class, which inherit ObjectModel features:</p>
+</code></pre></div>
+<h2 id="going-further-creating-your-own-hook">Going further: Creating your own hook<a href="#going-further-creating-your-own-hook"></a></h2><p>You can create new PrestaShop hooks by adding a new record in the Hook table. This can be done with the Hook class, which inherit ObjectModel features:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$hook</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Hook</span><span class="p">();</span>
 <span class="nv">$hook</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;displayAtSpecificPlace&#39;</span><span class="p">;</span>
 <span class="nv">$hook</span><span class="o">-&gt;</span><span class="na">title</span> <span class="o">=</span> <span class="s1">&#39;The name of your hook&#39;</span><span class="p">;</span>
@@ -13896,17 +13896,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239964"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239964"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239964"></script>
-    <script src="/js/jquery.sticky.js?1677239964"></script>
-    <script src="/js/featherlight.min.js?1677239964"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239964"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239964"></script>
-    <script src="/js/learn.js?1677239964"></script>
-    <script src="/js/hugo-learn.js?1677239964"></script>
+    <script src="/js/clipboard.min.js?1678195041"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195041"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195041"></script>
+    <script src="/js/jquery.sticky.js?1678195041"></script>
+    <script src="/js/featherlight.min.js?1678195041"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195041"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195041"></script>
+    <script src="/js/learn.js?1678195041"></script>
+    <script src="/js/hugo-learn.js?1678195041"></script>
     
-    <script src="/main.js?1677239964"></script>
+    <script src="/main.js?1678195041"></script>
     
     
     

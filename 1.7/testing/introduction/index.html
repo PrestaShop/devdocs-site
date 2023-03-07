@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239917" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239917" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239917" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239917" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194998" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194998" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194998" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194998" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239917" rel="stylesheet">
+    <link href="/style.css?1678194998" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239917"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194998"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12525,6 +12525,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-testing-works-in-prestashop">How testing works in PrestaShop</a>
@@ -29040,22 +29042,22 @@
 
 
 
-<h1 id="how-testing-works-in-prestashop">How testing works in PrestaShop</h1>
 
+<h1 id="how-testing-works-in-prestashop">How testing works in PrestaShop<a href="#how-testing-works-in-prestashop"></a></h1>
 <div class="magic-version-pill" data-version="1.7.3" data-title="New in PrestaShop 1.7.3"></div>
 
 
 <p>PrestaShop is a complex software and uses automated testing to ensure that the new additions to the codebase do not break existing behaviors.</p>
 <p>Automated tests are located in <code>tests</code> and <code>tests-legacy</code> folders.</p>
-<h2 id="what-kind-of-tests-do-prestashop-use">What kind of tests do PrestaShop use?</h2>
-<p>In the <code>tests</code> folder, you will find:</p>
+
+<h2 id="what-kind-of-tests-do-prestashop-use">What kind of tests do PrestaShop use?<a href="#what-kind-of-tests-do-prestashop-use"></a></h2><p>In the <code>tests</code> folder, you will find:</p>
 <ul>
 <li>Unit tests</li>
 <li>Integration tests</li>
 <li>User interface tests</li>
 </ul>
-<h3 id="unit-tests">Unit tests</h3>
-<p>Unit tests are powered by <a href="https://phpunit.de/">PHPUnit</a>. They test one and only one php class, mocking/stubbing any dependencies that class has.</p>
+
+<h3 id="unit-tests">Unit tests<a href="#unit-tests"></a></h3><p>Unit tests are powered by <a href="https://phpunit.de/">PHPUnit</a>. They test one and only one php class, mocking/stubbing any dependencies that class has.</p>
 <p>This <code>Unit</code> folder meets some rules:</p>
 <ul>
 <li>One php class = one test file.</li>
@@ -29065,8 +29067,8 @@
 <p><em>If there is a hard-coded dependency such as a singleton pattern being used
 or a static call, this class cannot be unit tested and should be tested using
 integration tests.</em></p>
-<h4 id="conventions">Conventions</h4>
-<ul>
+
+<h4 id="conventions">Conventions<a href="#conventions"></a></h4><ul>
 <li>Use camelCase names for test function names.</li>
 <li>Try to make method names explain the <em>intent</em> of the test case as best as possible. Don&rsquo;t hesitate to write long method names if necessary.
 <ul>
@@ -29075,24 +29077,24 @@ integration tests.</em></p>
 </ul>
 </li>
 </ul>
-<h3 id="integration-tests">Integration tests</h3>
-<p>Unit tests can validate the behavior of a php class when it can be isolated.
+
+<h3 id="integration-tests">Integration tests<a href="#integration-tests"></a></h3><p>Unit tests can validate the behavior of a php class when it can be isolated.
 However, some classes cannot be validated this way. Moreover, a lot of logic from PrestaShop is written into complex SQL queries that cannot be validated by those kind of tests. This is why we also need integration tests.</p>
 <p>We use 2 technologies for the integration tests in the <code>Integration</code> folder:</p>
 <ul>
 <li><a href="https://behat.org/en/latest/">Behat</a> for tests that are meaningful scenarios from a user point of view</li>
 <li><a href="https://phpunit.de/">PHPUnit</a> for tests which rather answer the need to test the technical behavior of a class or a component</li>
 </ul>
-<h3 id="user-interface-tests">User Interface tests</h3>
-<p>Finally, we have some user interface tests (also sometimes referred to as web acceptance tests). These tests launch and control a browser that will then go on either the Front Office or the Back Office of a shop and perform several actions to check that the behavior, from the point of view of a browser, is as expected. So these tests send real HTTP requests and check the returned DOM.</p>
+
+<h3 id="user-interface-tests">User Interface tests<a href="#user-interface-tests"></a></h3><p>Finally, we have some user interface tests (also sometimes referred to as web acceptance tests). These tests launch and control a browser that will then go on either the Front Office or the Back Office of a shop and perform several actions to check that the behavior, from the point of view of a browser, is as expected. So these tests send real HTTP requests and check the returned DOM.</p>
 <p>These tests can be found in <code>UI</code> folders.</p>
 <p>UI tests rely on <a href="https://github.com/microsoft/playwright/">Playwright</a>.</p>
-<h2 id="what-are-legacy-tests-in-tests-legacy-folder">What are legacy tests in <code>tests-legacy</code> folder?</h2>
-<p>We are currently refactoring how the test folder is structured. As this is a huge work that is going to take months, we have chosen the following strategy:</p>
+
+<h2 id="what-are-legacy-tests-in-tests-legacy-folder">What are legacy tests in <code>tests-legacy</code> folder?<a href="#what-are-legacy-tests-in-tests-legacy-folder"></a></h2><p>We are currently refactoring how the test folder is structured. As this is a huge work that is going to take months, we have chosen the following strategy:</p>
 <p>Tests that we are not satisfied by remain in the <code>tests-legacy</code> folder and will be, one by one, replaced by tests of a higher quality inside the <code>tests</code> folder.</p>
 <p>We keep the legacy tests as they have value (they can detect mistakes in the modifications we bring to the codebase) but they are not being updated anymore as we want to replace them.</p>
-<h4 id="what-was-wrong-with-these-legacy-tests">What was wrong with these legacy tests?</h4>
-<p>Theses tests were powered by PHPUnit but were not unit tests: they were integration tests, which means they would test several classes together and would run additional services such as a database. This has made this test quite complex and sometimes lead to random failures.</p>
+
+<h4 id="what-was-wrong-with-these-legacy-tests">What was wrong with these legacy tests?<a href="#what-was-wrong-with-these-legacy-tests"></a></h4><p>Theses tests were powered by PHPUnit but were not unit tests: they were integration tests, which means they would test several classes together and would run additional services such as a database. This has made this test quite complex and sometimes lead to random failures.</p>
 
 
 <footer class="article-footer">
@@ -29117,17 +29119,17 @@ However, some classes cannot be validated this way. Moreover, a lot of logic fro
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239917"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239917"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239917"></script>
-    <script src="/js/jquery.sticky.js?1677239917"></script>
-    <script src="/js/featherlight.min.js?1677239917"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239917"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239917"></script>
-    <script src="/js/learn.js?1677239917"></script>
-    <script src="/js/hugo-learn.js?1677239917"></script>
+    <script src="/js/clipboard.min.js?1678194998"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194998"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194998"></script>
+    <script src="/js/jquery.sticky.js?1678194998"></script>
+    <script src="/js/featherlight.min.js?1678194998"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194998"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194998"></script>
+    <script src="/js/learn.js?1678194998"></script>
+    <script src="/js/hugo-learn.js?1678194998"></script>
     
-    <script src="/main.js?1677239917"></script>
+    <script src="/main.js?1678194998"></script>
     
     
     

@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/testing/ci-cd/">
 
     
-    <link href="/css/font-awesome.min.css?1677239917" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239917" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239917" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239917" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194997" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194997" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194997" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194997" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239917" rel="stylesheet">
+    <link href="/style.css?1678194997" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239917"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194997"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#continuous-integration--continuous-deployment">Continuous Integration / Continuous Deployment</a>
@@ -29040,13 +29042,13 @@
 
 
 
-<h1 id="continuous-integration--continuous-deployment">Continuous Integration / Continuous Deployment</h1>
-<p>In the previous page we detailed some testing tools and how to execute them. They may be run locally, in order to check that the code is fine before pushing it to a remote git repository, but they can also be automatically run by a dedicated test environment after each push. This can be useful to prevent code being pushed to production if one of your tools reports an issue you missed.</p>
+
+<h1 id="continuous-integration--continuous-deployment">Continuous Integration / Continuous Deployment<a href="#continuous-integration--continuous-deployment"></a></h1><p>In the previous page we detailed some testing tools and how to execute them. They may be run locally, in order to check that the code is fine before pushing it to a remote git repository, but they can also be automatically run by a dedicated test environment after each push. This can be useful to prevent code being pushed to production if one of your tools reports an issue you missed.</p>
 <p>Our modules are hosted on GitHub and GitLab repositories and each of them provide a solution for running these tests automatically. The following files allow the tools to run on both environments.</p>
-<h2 id="github">GitHub</h2>
-<p>This example is taken from the module <code>ps_checkout</code>. The latest version and more checks can be found in <a href="https://github.com/PrestaShopCorp/ps_checkout/tree/master/.github/workflows">https://github.com/PrestaShopCorp/ps_checkout/tree/master/.github/workflows</a>.</p>
-<h3 id="php-checks">PHP Checks</h3>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP tests</span><span class="w">
+
+<h2 id="github">GitHub<a href="#github"></a></h2><p>This example is taken from the module <code>ps_checkout</code>. The latest version and more checks can be found in <a href="https://github.com/PrestaShopCorp/ps_checkout/tree/master/.github/workflows">https://github.com/PrestaShopCorp/ps_checkout/tree/master/.github/workflows</a>.</p>
+
+<h3 id="php-checks">PHP Checks<a href="#php-checks"></a></h3><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP tests</span><span class="w">
 </span><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push, pull_request]</span><span class="w">
 </span><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="c"># Check that there are no syntax errors in the project</span><span class="w">
@@ -29136,8 +29138,8 @@
 </span><span class="w">
 </span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Run Header Stamp in Dry Run mode</span><span class="w">
 </span><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">php vendor/bin/header-stamp --license=vendor/prestashop/header-stamp/assets/afl.txt --exclude=vendor,tests,_dev --dry-run</span><span class="w">
-</span></code></pre></div><h3 id="build-module-artifact">Build module artifact</h3>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build</span><span class="w">
+</span></code></pre></div>
+<h3 id="build-module-artifact">Build module artifact<a href="#build-module-artifact"></a></h3><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build</span><span class="w">
 </span><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push, pull_request]</span><span class="w">
 </span><span class="w">
 </span><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
@@ -29169,8 +29171,8 @@
 </span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
 </span><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.event.repository.name }}</span><span class="w">
 </span><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">../</span><span class="w">
-</span></code></pre></div><h2 id="gitlab">GitLab</h2>
-<p>This example is taken from one of our module sold on the marketplace, hosted on GitLab.</p>
+</span></code></pre></div>
+<h2 id="gitlab">GitLab<a href="#gitlab"></a></h2><p>This example is taken from one of our module sold on the marketplace, hosted on GitLab.</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">stages</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span>- <span class="l">tests</span><span class="w">
 </span><span class="w">  </span>- <span class="l">build</span><span class="w">
@@ -29289,17 +29291,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239917"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239917"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239917"></script>
-    <script src="/js/jquery.sticky.js?1677239917"></script>
-    <script src="/js/featherlight.min.js?1677239917"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239917"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239917"></script>
-    <script src="/js/learn.js?1677239917"></script>
-    <script src="/js/hugo-learn.js?1677239917"></script>
+    <script src="/js/clipboard.min.js?1678194997"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194997"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194997"></script>
+    <script src="/js/jquery.sticky.js?1678194997"></script>
+    <script src="/js/featherlight.min.js?1678194997"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194997"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194997"></script>
+    <script src="/js/learn.js?1678194997"></script>
+    <script src="/js/hugo-learn.js?1678194997"></script>
     
-    <script src="/main.js?1677239917"></script>
+    <script src="/main.js?1678194997"></script>
     
     
     

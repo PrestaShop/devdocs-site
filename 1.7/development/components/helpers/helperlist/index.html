@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/helpers/helperlist/">
 
     
-    <link href="/css/font-awesome.min.css?1677239913" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239913" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239913" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239913" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194994" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194994" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194994" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194994" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239913" rel="stylesheet">
+    <link href="/style.css?1678194994" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239913"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194994"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12537,6 +12537,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#the-helperlist-class">The HelperList class</a>
@@ -29067,10 +29069,10 @@
 
 
 
-<h1 id="the-helperlist-class">The HelperList class</h1>
-<p>This Helper is used to generate a table of elements. The elements can belong to ObjectModel-type objects, but they do not have to. Example: client list, order status list.</p>
-<h2 id="list-declaration">List declaration</h2>
-<p>Fields inside [brackets] are optional as per the HTML standard.
+
+<h1 id="the-helperlist-class">The HelperList class<a href="#the-helperlist-class"></a></h1><p>This Helper is used to generate a table of elements. The elements can belong to ObjectModel-type objects, but they do not have to. Example: client list, order status list.</p>
+
+<h2 id="list-declaration">List declaration<a href="#list-declaration"></a></h2><p>Fields inside [brackets] are optional as per the HTML standard.
 Values between {curly braces} list the possible values for this field.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fields_list</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
   <span class="s1">&#39;country&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>                              <span class="c1">// First column.
@@ -29126,8 +29128,8 @@ Values between {curly braces} list the possible values for this field.</p>
 </span><span class="c1"></span>    <span class="o">...</span>
   <span class="p">),</span>
 <span class="p">);</span>
-</code></pre></div><h2 id="basic-declaration">Basic declaration</h2>
-<p>Removing all the optional fields, this is how to build a basic HelperList element:</p>
+</code></pre></div>
+<h2 id="basic-declaration">Basic declaration<a href="#basic-declaration"></a></h2><p>Removing all the optional fields, this is how to build a basic HelperList element:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">private</span> <span class="k">function</span> <span class="nf">initList</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fields_list</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
@@ -29162,38 +29164,38 @@ Values between {curly braces} list the possible values for this field.</p>
 <span class="p">}</span>
 </code></pre></div><p>This specific code generates this list:</p>
 <p><img src="../img/helperlist-sample01.png" alt="Generated list"></p>
-<h2 id="enabling-specific-features">Enabling specific features</h2>
-<h3 id="sortable-header">Sortable header</h3>
-<p>By default, the list&rsquo;s header simply displays the name of each column.</p>
+
+<h2 id="enabling-specific-features">Enabling specific features<a href="#enabling-specific-features"></a></h2>
+<h3 id="sortable-header">Sortable header<a href="#sortable-header"></a></h3><p>By default, the list&rsquo;s header simply displays the name of each column.</p>
 <p>In order to make the column sortable and searchable, you only have to disable one option:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">simple_header</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
 </code></pre></div><p>By disabling the <code>simple_header option</code>, the list displays a more complex header:</p>
 <p><img src="../img/helperlist-sample02-sort.png" alt="Advanced header list"></p>
-<h2 id="adding-an-actions-column">Adding an &ldquo;Actions&rdquo; column</h2>
-<p>The above example directly builds a table with an action column, which comprises three actions: edit, delete, view.</p>
+
+<h2 id="adding-an-actions-column">Adding an &ldquo;Actions&rdquo; column<a href="#adding-an-actions-column"></a></h2><p>The above example directly builds a table with an action column, which comprises three actions: edit, delete, view.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">actions</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;edit&#39;</span><span class="p">,</span> <span class="s1">&#39;delete&#39;</span><span class="p">,</span> <span class="s1">&#39;view&#39;</span><span class="p">);</span>
 </code></pre></div><p>Note that they will not work out of the box: while the action icons are there and can be clicked, nothing will happen when the user clicks until you have assigned proper code to these actions.</p>
-<h2 id="adding-a-details-row-action">Adding a &ldquo;Details&rdquo; row action</h2>
-<h3 id="principle">Principle</h3>
-<p>You can define a &ldquo;Details&rdquo; action (or &ldquo;+&rdquo; action) in each row of a list. This action is useful if you want to show other information about the row (for example, the details of a sum).</p>
+
+<h2 id="adding-a-details-row-action">Adding a &ldquo;Details&rdquo; row action<a href="#adding-a-details-row-action"></a></h2>
+<h3 id="principle">Principle<a href="#principle"></a></h3><p>You can define a &ldquo;Details&rdquo; action (or &ldquo;+&rdquo; action) in each row of a list. This action is useful if you want to show other information about the row (for example, the details of a sum).</p>
 <p>This action is represented by a &ldquo;+&rdquo; if the details is shown and by a &ldquo;-&rdquo; if the details is hidden. The content is obtained through an Ajax request.</p>
-<h3 id="example">Example</h3>
-<p>There are two possible ways to displays:</p>
+
+<h3 id="example">Example<a href="#example"></a></h3><p>There are two possible ways to displays:</p>
 <ul>
 <li>The easy one is to re-use the table structure. See for instance the &ldquo;Stock instant state&rdquo; page, under the &ldquo;Stock&rdquo; menu (when the &ldquo;Advanced Stock Management&rdquo; option is enabled).</li>
 <li>You can define your own structure (for example, to display a new table within the table). See for instance the &ldquo;Stock Management&rdquo; page, under the &ldquo;Stock&rdquo; menu (when the &ldquo;Advanced Stock Management&rdquo; option is enabled).</li>
 </ul>
-<h5 id="add-the-action">Add the action</h5>
-<p>To add the &ldquo;Details&rdquo; action, use the following function in the target AdminController:</p>
+
+<h5 id="add-the-action">Add the action<a href="#add-the-action"></a></h5><p>To add the &ldquo;Details&rdquo; action, use the following function in the target AdminController:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addRowAction</span><span class="p">(</span><span class="s1">&#39;details&#39;</span><span class="p">);</span>
-</code></pre></div><h2 id="ajax-generalities">Ajax generalities</h2>
-<p>Ajax requests must be generated by the <code>ajaxProcess()</code> method in your AdminController.</p>
+</code></pre></div>
+<h2 id="ajax-generalities">Ajax generalities<a href="#ajax-generalities"></a></h2><p>Ajax requests must be generated by the <code>ajaxProcess()</code> method in your AdminController.</p>
 <p>Only one element is sent to the request: the table row&rsquo;s id. You can get it by using:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
 </code></pre></div><p>This <code>id</code> is defined either in the <code>$identifier</code> class attribute, or by the table name (<code>$table</code> attribute), prefixed by <code>id_</code>.</p>
 <p>This function must display the result in JSON format.</p>
-<h3 id="performing-an-ajax-request-on-the-tables-structure">Performing an Ajax request on the table&rsquo;s structure</h3>
-<p>The expected JSON format:</p>
+
+<h3 id="performing-an-ajax-request-on-the-tables-structure">Performing an Ajax request on the table&rsquo;s structure<a href="#performing-an-ajax-request-on-the-tables-structure"></a></h3><p>The expected JSON format:</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
   <span class="nx">use_parent_structure</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>  <span class="c1">// Optional.
 </span><span class="c1"></span>  <span class="nx">data</span><span class="o">:</span>                        <span class="c1">// Here is the SQL result.
@@ -29212,8 +29214,8 @@ Values between {curly braces} list the possible values for this field.</p>
   <span class="p">));</span>
   <span class="k">die</span><span class="p">();</span>
 <span class="p">}</span>
-</code></pre></div><h3 id="performing-an-ajax-request-using-your-own-structure">Performing an Ajax request using your own structure</h3>
-<p>The expected JSON format:</p>
+</code></pre></div>
+<h3 id="performing-an-ajax-request-using-your-own-structure">Performing an Ajax request using your own structure<a href="#performing-an-ajax-request-using-your-own-structure"></a></h3><p>The expected JSON format:</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
     <span class="nx">use_parent_structure</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;&lt;p&gt;My HTML content&lt;/p&gt;&#39;</span>
@@ -29242,17 +29244,17 @@ Values between {curly braces} list the possible values for this field.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239913"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239913"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239913"></script>
-    <script src="/js/jquery.sticky.js?1677239913"></script>
-    <script src="/js/featherlight.min.js?1677239913"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239913"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239913"></script>
-    <script src="/js/learn.js?1677239913"></script>
-    <script src="/js/hugo-learn.js?1677239913"></script>
+    <script src="/js/clipboard.min.js?1678194994"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194994"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194994"></script>
+    <script src="/js/jquery.sticky.js?1678194994"></script>
+    <script src="/js/featherlight.min.js?1678194994"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194994"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194994"></script>
+    <script src="/js/learn.js?1678194994"></script>
+    <script src="/js/hugo-learn.js?1678194994"></script>
     
-    <script src="/main.js?1677239913"></script>
+    <script src="/main.js?1678194994"></script>
     
     
     

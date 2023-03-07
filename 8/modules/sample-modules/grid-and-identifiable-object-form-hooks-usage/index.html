@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239951" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239951" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239951" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239951" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195029" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195029" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195029" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195029" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239951" rel="stylesheet">
+    <link href="/style.css?1678195029" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239951"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195029"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13766,6 +13766,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#grid-and-identifiable-object-form-hooks-usage-example">Grid and identifiable object form hooks usage example</a>
@@ -30280,13 +30282,13 @@
 
 
 
-<h1 id="grid-and-identifiable-object-form-hooks-usage-example">Grid and identifiable object form hooks usage example</h1>
 
+<h1 id="grid-and-identifiable-object-form-hooks-usage-example">Grid and identifiable object form hooks usage example<a href="#grid-and-identifiable-object-form-hooks-usage-example"></a></h1>
 <div class="magic-version-pill" data-version="1.7.6" data-title="New in PrestaShop 1.7.6"></div>
 
 
-<h2 id="introduction">Introduction</h2>
-<p>In this tutorial we are going to build module which extends customers list with one extra column
+
+<h2 id="introduction">Introduction<a href="#introduction"></a></h2><p>In this tutorial we are going to build module which extends customers list with one extra column
 which can be toggled. It can have two states - turned on or off. In customer creation and edit
 form we will add switch which will also manage the same state. By following this tutorial you will learn
 how to:</p>
@@ -30295,12 +30297,12 @@ how to:</p>
 <li>extend identifiable object form. <a href="/8/development/architecture/migration-guide/forms/crud-forms/">identifiable object form</a></li>
 </ul>
 <p>The module created within this tutorial can be found <a href="https://github.com/PrestaShop/demo-cqrs-hooks-usage-module">here</a></p>
-<h2 id="prerequisites">Prerequisites</h2>
-<ul>
+
+<h2 id="prerequisites">Prerequisites<a href="#prerequisites"></a></h2><ul>
 <li>To be familiar with basic module creation.</li>
 </ul>
-<h2 id="register-hooks">Register hooks</h2>
-<p>On module installation the following hooks are being registered:</p>
+
+<h2 id="register-hooks">Register hooks<a href="#register-hooks"></a></h2><p>On module installation the following hooks are being registered:</p>
 <ul>
 <li><code>action</code><strong>Customer</strong><code>GridDefinitionModifier</code> - for adding new column to customers grid.</li>
 <li><code>action</code><strong>Customer</strong><code>GridQueryBuilderModifier</code> - for modifying customers grid sql.</li>
@@ -30330,9 +30332,9 @@ Hooks <code>action</code><strong>Customer</strong><code>FormBuilderModifier</cod
 in this case is <strong>Customer</strong> is retrieved from its form type <strong>CustomerType</strong>. E.g id retrieved from <strong>ManufacturerType</strong> will be <strong>Manufacturer</strong>. Some types might use
 function <code>getBlockPrefix</code> to retrieve the unique id</div>
 
-<h2 id="adding-new-column-to-customers-grid">Adding new column to customers grid</h2>
-<h3 id="extending-grid-definition-and-filters">Extending grid definition and filters</h3>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<h2 id="adding-new-column-to-customers-grid">Adding new column to customers grid<a href="#adding-new-column-to-customers-grid"></a></h2>
+<h3 id="extending-grid-definition-and-filters">Extending grid definition and filters<a href="#extending-grid-definition-and-filters"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Definition\GridDefinitionInterface</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\ToggleColumn</span><span class="p">;</span>
@@ -30380,8 +30382,8 @@ function <code>getBlockPrefix</code> to retrieve the unique id</div>
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></div><p>This hook, through <code>$params</code> array, received <code>GridDefinition</code> that defines how the grid is rendered. See <a href="/8/development/components/grid/#grid-definition">Grid definition</a> for more information.<br>
 In this sample a new toggable column which determines if the customer is eligible to review products is added just after another column which has id <code>optin</code>. The sample code also demonstrates how add new filter.</p>
-<h3 id="creating-route-for-toggle-column">Creating route for toggle column</h3>
-<p><code>ToggleColumn</code> - used to display booleans, it will display an icon instead of the value. If user clicks on it, this triggers a toggle of the boolean value. More information about this column and all available parameters can be found <a href="/8/development/components/grid/columns-reference/toggle/">here</a>.<br>
+
+<h3 id="creating-route-for-toggle-column">Creating route for toggle column<a href="#creating-route-for-toggle-column"></a></h3><p><code>ToggleColumn</code> - used to display booleans, it will display an icon instead of the value. If user clicks on it, this triggers a toggle of the boolean value. More information about this column and all available parameters can be found <a href="/8/development/components/grid/columns-reference/toggle/">here</a>.<br>
 As in this sample module we are creating <code>ToggleColumn</code> we need to configure the route in which the toggling action will be performed. Indeed when the end-user clicks on this column, an ajax request is performed and must reach one new controller to handle the action (here: toggle a value on and off).<br>
 If you only want to display data then this step can be skipped. E.g you are creating <code>DataColumn</code>. See <a href="/8/development/components/grid/columns-reference/">Column references</a> for full list of grid columns available.</p>
 <ul>
@@ -30428,8 +30430,8 @@ If you only want to display data then this step can be skipped. E.g you are crea
 </span><span class="w">    </span><span class="nt">customerId</span><span class="p">:</span><span class="w"> </span><span class="l">\d+</span><span class="w">
 </span></code></pre></div><p>Route name <code>ps_democqrshooksusage_toggle_is_allowed_for_review</code> matches the one that was passed as mandatory option when creating the
 <code>ToggleColumn</code>.</p>
-<h3 id="extending-grid-query-builder">Extending grid query builder</h3>
-<p>By just extending grid definition we won&rsquo;t be able to display any data since we need to fetch it first. Luckily, we can add additional sql
+
+<h3 id="extending-grid-query-builder">Extending grid query builder<a href="#extending-grid-query-builder"></a></h3><p>By just extending grid definition we won&rsquo;t be able to display any data since we need to fetch it first. Luckily, we can add additional sql
 conditions by extending <a href="https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/query-builder.html">doctrine&rsquo;s query builder</a>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">use</span> <span class="nx">Doctrine\DBAL\Query\QueryBuilder</span><span class="p">;</span>
@@ -30484,16 +30486,16 @@ conditions by extending <a href="https://www.doctrine-project.org/projects/doctr
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></div><p>This sample demonstrates how to extend sql of the customers grid. From our custom database table <code>democqrshooksusage_reviewer</code> we fetch the result of field <code>is_allowed_for_review</code>. This name must match the id we added in the grid definition. In order for sorting to work we also add <code>orderBy</code> condition and finally, in order
 for filters to work <code>where</code> conditions are added if the filter exists in <code>$searchCriteria-&gt;getFilters()</code>.</p>
-<h3 id="result">Result</h3>
-<p>After completing the steps above by going to customers list you should see new column &ldquo;allowed for review&rdquo; added.</p>
+
+<h3 id="result">Result<a href="#result"></a></h3><p>After completing the steps above by going to customers list you should see new column &ldquo;allowed for review&rdquo; added.</p>
 <figure><img src="../img/extended_customers_grid.png"/><figcaption>
             <h4>Allowed for review column added to customers list</h4>
         </figcaption>
 </figure>
 
-<h2 id="adding-new-form-field-to-customer-form">Adding new form field to customer form</h2>
-<h3 id="modifying-customers-form-builder">Modifying customers form builder</h3>
-<p>In this step we are appending to the customers form a new <code>SwitchType</code> form field - its one of many form types which already exist in PrestaShop. More information
+
+<h2 id="adding-new-form-field-to-customer-form">Adding new form field to customer form<a href="#adding-new-form-field-to-customer-form"></a></h2>
+<h3 id="modifying-customers-form-builder">Modifying customers form builder<a href="#modifying-customers-form-builder"></a></h3><p>In this step we are appending to the customers form a new <code>SwitchType</code> form field - its one of many form types which already exist in PrestaShop. More information
 about it can be found <a href="/8/development/components/form/types-reference/">here</a>.</p>
 
 <div class="notices note" ><p><strong>This example has been simplified for practical reasons.</strong></p>
@@ -30538,15 +30540,15 @@ about it can be found <a href="/8/development/components/form/types-reference/">
 </span><span class="c1"></span><span class="p">}</span>
 </code></pre></div><p>In this sample by using <a href="https://symfony.com/doc/current/forms.html">Symfony form builder</a> we just added another Form type. To determine if its
 on or off we also need to reset its form data by assigning <code>is_allowed_for_review</code> value to <code>true</code> or <code>false</code>.</p>
-<h3 id="result-1">Result</h3>
-<p>By completing the steps above newly added switch is now visible in the customers form.</p>
+
+<h3 id="result-1">Result<a href="#result-1"></a></h3><p>By completing the steps above newly added switch is now visible in the customers form.</p>
 <figure><img src="../img/allow_for_review_switch.png"/><figcaption>
             <h4>Allowed for review switch added to customers form</h4>
         </figcaption>
 </figure>
 
-<h2 id="extending-customers-form-after-create-and-update-actions">Extending customers form after create and update actions</h2>
-<p>In the previous example we have added a switch field ! But when we want to save its state (on or off) nothing happens. The data is not modified. This is because we have not used the hooks
+
+<h2 id="extending-customers-form-after-create-and-update-actions">Extending customers form after create and update actions<a href="#extending-customers-form-after-create-and-update-actions"></a></h2><p>In the previous example we have added a switch field ! But when we want to save its state (on or off) nothing happens. The data is not modified. This is because we have not used the hooks
 dedicated to handle this topic - lets do that!</p>
 
 <div class="notices note" ><p><strong>This example has been simplified for practical reasons.</strong></p>
@@ -30602,17 +30604,17 @@ All the form data is available here, including <code>is_allowed_for_review</code
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239951"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239951"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239951"></script>
-    <script src="/js/jquery.sticky.js?1677239951"></script>
-    <script src="/js/featherlight.min.js?1677239951"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239951"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239951"></script>
-    <script src="/js/learn.js?1677239951"></script>
-    <script src="/js/hugo-learn.js?1677239951"></script>
+    <script src="/js/clipboard.min.js?1678195029"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195029"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195029"></script>
+    <script src="/js/jquery.sticky.js?1678195029"></script>
+    <script src="/js/featherlight.min.js?1678195029"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195029"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195029"></script>
+    <script src="/js/learn.js?1678195029"></script>
+    <script src="/js/hugo-learn.js?1678195029"></script>
     
-    <script src="/main.js?1677239951"></script>
+    <script src="/main.js?1678195029"></script>
     
     
     

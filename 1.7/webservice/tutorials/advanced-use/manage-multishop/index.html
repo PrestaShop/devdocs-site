@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/webservice/tutorials/advanced-use/manage-multishop/">
 
     
-    <link href="/css/font-awesome.min.css?1677239922" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239922" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239922" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239922" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195002" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195002" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195002" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195002" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239922" rel="stylesheet">
+    <link href="/style.css?1678195002" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239922"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195002"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12537,6 +12537,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#manage-multishop">Manage Multishop</a>
@@ -29049,12 +29051,12 @@
 
 
 
-<h1 id="manage-multishop">Manage Multishop</h1>
-<p>In order to use web services when the multishop feature is enabled, you can use the regular API requests and add the <code>id_shop</code> parameter (or the <code>id_group_shop</code> parameter for overriding by group).</p>
-<h2 id="enable-multishop">Enable Multishop</h2>
-<p>The Multishop can be enabled via the <code>PS_MULTISHOP_FEATURE_ACTIVE</code> configuration value, here is a tutorial to <a href="/1.7/webservice/tutorials/advanced-use/manage-configuration/">manage configuration via API</a>.</p>
-<h2 id="list-shops">List shops</h2>
-<p>Once you have several instances you can access to the shop list and their IDs.</p>
+
+<h1 id="manage-multishop">Manage Multishop<a href="#manage-multishop"></a></h1><p>In order to use web services when the multishop feature is enabled, you can use the regular API requests and add the <code>id_shop</code> parameter (or the <code>id_group_shop</code> parameter for overriding by group).</p>
+
+<h2 id="enable-multishop">Enable Multishop<a href="#enable-multishop"></a></h2><p>The Multishop can be enabled via the <code>PS_MULTISHOP_FEATURE_ACTIVE</code> configuration value, here is a tutorial to <a href="/1.7/webservice/tutorials/advanced-use/manage-configuration/">manage configuration via API</a>.</p>
+
+<h2 id="list-shops">List shops<a href="#list-shops"></a></h2><p>Once you have several instances you can access to the shop list and their IDs.</p>
 <table>
 <thead>
 <tr>
@@ -29072,8 +29074,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="define-shop-specific-override">Define shop specific override</h2>
-<p>To deal with shop specific values you can use the regular APIs and specify the <code>shop</code> or <code>shop_group</code> you are targeting. They can be used for read and/or write operations.</p>
+
+<h2 id="define-shop-specific-override">Define shop specific override<a href="#define-shop-specific-override"></a></h2><p>To deal with shop specific values you can use the regular APIs and specify the <code>shop</code> or <code>shop_group</code> you are targeting. They can be used for read and/or write operations.</p>
 <table>
 <thead>
 <tr>
@@ -29092,8 +29094,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="create-shop">Create shop</h2>
-<p>You can refer to the tutorial explaining how to <a href="/1.7/webservice/tutorials/prestashop-webservice-lib/create-resource/">create a resource</a> or <a href="/1.7/webservice/tutorials/prestashop-webservice-lib/update-resource/">update a resource</a> to add/update a <code>shop</code>. It also will need a <code>shop_url</code> otherwise using its <code>id_shop</code> will result in a redirection by the API.</p>
+
+<h2 id="create-shop">Create shop<a href="#create-shop"></a></h2><p>You can refer to the tutorial explaining how to <a href="/1.7/webservice/tutorials/prestashop-webservice-lib/create-resource/">create a resource</a> or <a href="/1.7/webservice/tutorials/prestashop-webservice-lib/update-resource/">update a resource</a> to add/update a <code>shop</code>. It also will need a <code>shop_url</code> otherwise using its <code>id_shop</code> will result in a redirection by the API.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./vendor/autoload.php&#39;</span><span class="p">);</span>
@@ -29139,10 +29141,10 @@
 <span class="nv">$createdShopUrl</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shop_urls&#39;</span><span class="p">,</span> <span class="s1">&#39;postXml&#39;</span> <span class="o">=&gt;</span> <span class="nv">$blankXml</span><span class="o">-&gt;</span><span class="na">asXML</span><span class="p">()]);</span>
 <span class="nv">$shopUrlId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$createdShopUrl</span><span class="o">-&gt;</span><span class="na">shop_url</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
 <span class="k">echo</span> <span class="s1">&#39;Successfully created shop url &#39;</span> <span class="o">.</span> <span class="nv">$shopUrlId</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-</code></pre></div><h2 id="update-your-webservice-key-permissions">Update your webservice key permissions</h2>
-<p>At this point if you still use the same webservice key it will probably not have the permission to edit this new shop, you can edit your webservice key in the BackOffice and associate it with your new shop.</p>
-<h2 id="associate-content-to-shop">Associate content to shop</h2>
-<p>A new shop has no content associated at first, so you have to assign each content you want in your shop one by one. There is no association API, however we can use the update API by sending the same content and specifying the <code>id_shop</code> parameter, this will update the association without changing the resource content.</p>
+</code></pre></div>
+<h2 id="update-your-webservice-key-permissions">Update your webservice key permissions<a href="#update-your-webservice-key-permissions"></a></h2><p>At this point if you still use the same webservice key it will probably not have the permission to edit this new shop, you can edit your webservice key in the BackOffice and associate it with your new shop.</p>
+
+<h2 id="associate-content-to-shop">Associate content to shop<a href="#associate-content-to-shop"></a></h2><p>A new shop has no content associated at first, so you have to assign each content you want in your shop one by one. There is no association API, however we can use the update API by sending the same content and specifying the <code>id_shop</code> parameter, this will update the association without changing the resource content.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./vendor/autoload.php&#39;</span><span class="p">);</span>
@@ -29213,17 +29215,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239922"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239922"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239922"></script>
-    <script src="/js/jquery.sticky.js?1677239922"></script>
-    <script src="/js/featherlight.min.js?1677239922"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239922"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239922"></script>
-    <script src="/js/learn.js?1677239922"></script>
-    <script src="/js/hugo-learn.js?1677239922"></script>
+    <script src="/js/clipboard.min.js?1678195002"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195002"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195002"></script>
+    <script src="/js/jquery.sticky.js?1678195002"></script>
+    <script src="/js/featherlight.min.js?1678195002"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195002"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195002"></script>
+    <script src="/js/learn.js?1678195002"></script>
+    <script src="/js/hugo-learn.js?1678195002"></script>
     
-    <script src="/main.js?1677239922"></script>
+    <script src="/main.js?1678195002"></script>
     
     
     

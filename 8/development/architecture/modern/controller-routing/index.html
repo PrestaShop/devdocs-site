@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239927" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239927" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239927" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239927" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195007" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195007" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195007" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195007" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239927" rel="stylesheet">
+    <link href="/style.css?1678195007" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239927"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195007"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13772,6 +13772,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#symfony-controllers--routing">Symfony controllers &amp; routing</a>
@@ -30295,8 +30297,8 @@
 
 
 
-<h1 id="symfony-controllers--routing">Symfony controllers &amp; routing</h1>
 
+<h1 id="symfony-controllers--routing">Symfony controllers &amp; routing<a href="#symfony-controllers--routing"></a></h1>
 <div class="notices tip" >Read the Symfony documentation on <a href="https://symfony.com/doc/4.4/controller.html">Controllers</a> and <a href="https://symfony.com/doc/4.4/routing.html">Routing</a>.</div>
 
 <p>Controllers are located in <code>src/PrestaShopBundle/Controller/Admin</code> folder. They are organized in sub-folders following the Back Office menu. For instance, the <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/PrestaShopBundle/Controller/Admin/Improve/International/TaxController.php">TaxController</a> is located in <code>src/PrestaShop/Controller/Admin/Improve/International</code>.
@@ -30388,8 +30390,8 @@ Regarding the rendering of a Response, there is some data specific to PrestaShop
 </tr>
 </tbody>
 </table>
-<h3 id="controller-helpers">Controller Helpers</h3>
-<p>Some helpers are specific to PrestaShop to help you manage the security and the dispatching of legacy hooks, all of them are directly available in Controllers that extends <code>FrameworkBundleAdminController</code>.</p>
+
+<h3 id="controller-helpers">Controller Helpers<a href="#controller-helpers"></a></h3><p>Some helpers are specific to PrestaShop to help you manage the security and the dispatching of legacy hooks, all of them are directly available in Controllers that extends <code>FrameworkBundleAdminController</code>.</p>
 <ul>
 <li><code>isDemoModeEnabled()</code>: some actions should not be allowed in Demonstration Mode</li>
 <li><code>getDemoErrorMessage()</code>: returns a specific error message</li>
@@ -30404,8 +30406,8 @@ Regarding the rendering of a Response, there is some data specific to PrestaShop
 <li><code>getCommandBus</code>: returns the Command bus</li>
 <li><code>getQueryBus</code>: returns the Query bus</li>
 </ul>
-<h2 id="security">Security</h2>
-<p>In modern pages, the permissions system that checks if a user is allowed to do CRUD actions has been improved.</p>
+
+<h2 id="security">Security<a href="#security"></a></h2><p>In modern pages, the permissions system that checks if a user is allowed to do CRUD actions has been improved.</p>
 <p>PrestaShop allows merchants to choose which actions (like CREATE, READ, UPDATE, DELETE) can be done by each user profile on each resource (like &ldquo;Product&rdquo;, &ldquo;User&rdquo;). In PrestaShop Back Office, most of these resources are managed by only one Controller, so rights are handled on a page-per-page basis instead of by resource.</p>
 <p>So if a logged user wants to manipulate a resource, he or she needs to have the correct rights on the appropriate controller. For instance, to be able to access the &ldquo;Product Catalog&rdquo; page the user need READ access, because showing the page requires &ldquo;reading&rdquo; the Product information. If the user wants to delete a product, (s)he needs DELETE rights.</p>
 <p>To enforce this security policy, you have to set up the adequate checks for each one of the actions of your controller. Policies are declared as <em>annotations</em> on top of every controller Action method:</p>
@@ -30426,8 +30428,8 @@ Regarding the rendering of a Response, there is some data specific to PrestaShop
         <span class="c1">// action code
 </span><span class="c1"></span>    <span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div><h3 id="access-rules-convention">Access rules convention</h3>
-<p>The following access rules must be enforced:</p>
+</code></pre></div>
+<h3 id="access-rules-convention">Access rules convention<a href="#access-rules-convention"></a></h3><p>The following access rules must be enforced:</p>
 <ul>
 <li>indexAction requires READ permission and only this one</li>
 <li>createAction which allows to create an item, requires CREATE permission</li>
@@ -30437,8 +30439,8 @@ Regarding the rendering of a Response, there is some data specific to PrestaShop
 <p>Moreover, if one page allows to modify some prestashop settings, this action can be used by users who are granted either CREATE, UPDATE, DELETE permissions.</p>
 
 <div class="callout">
-<h5 id="how-does-this-work">How does this work?</h5>
-<p>The <code>AdminSecurity</code> annotation will check if the logged user is granted to access the Action (ie. to the URL).
+
+<h5 id="how-does-this-work">How does this work?<a href="#how-does-this-work"></a></h5><p>The <code>AdminSecurity</code> annotation will check if the logged user is granted to access the Action (ie. to the URL).
 This annotation has 5 properties:</p>
 <ul>
 <li>
@@ -30466,8 +30468,8 @@ If you use both <code>url</code> and <code>redirectRoute</code> at the same time
 
 </div>
 
-<h3 id="demo-mode">Demo Mode</h3>
-<p>PrestaShop is provided with a Demo Mode that, when enabled, defines access application-wide rights that override whatever rights the current user may have. In other words, something that is disabled in Demo Mode will be disabled for all users, even if that user would normally have access to it.</p>
+
+<h3 id="demo-mode">Demo Mode<a href="#demo-mode"></a></h3><p>PrestaShop is provided with a Demo Mode that, when enabled, defines access application-wide rights that override whatever rights the current user may have. In other words, something that is disabled in Demo Mode will be disabled for all users, even if that user would normally have access to it.</p>
 
 <div class="notices tip" >The demo mode can be enabled by setting <code>_PS_MODE_DEMO_</code> to <code>true</code> in <code>config/defines.inc.php</code>.</div>
 
@@ -30488,11 +30490,11 @@ If you use both <code>url</code> and <code>redirectRoute</code> at the same time
 </code></pre></div>
 <div class="notices tip" ><code>message</code> and <code>domain</code> are both optional.</div>
 
-<h3 id="dynamic-restrictions">Dynamic restrictions</h3>
-<p>Sometimes, it may be necessary to dynamically decide on restrictions (eg. depending on user input or an action performed). In addition, it may happen that a Controller action has to handle both the update and display of a resource. What if we want to allow the <em>READ</em> action but not the <em>UPDATE</em>?</p>
+
+<h3 id="dynamic-restrictions">Dynamic restrictions<a href="#dynamic-restrictions"></a></h3><p>Sometimes, it may be necessary to dynamically decide on restrictions (eg. depending on user input or an action performed). In addition, it may happen that a Controller action has to handle both the update and display of a resource. What if we want to allow the <em>READ</em> action but not the <em>UPDATE</em>?</p>
 <p>In this case, you can use the <a href="#controller-helpers">Controllers helper functions</a> we described above: <code>isDemoModeEnabled()</code> and <code>authorizationLevel()</code>.</p>
-<h2 id="routing-in-prestashop">Routing in PrestaShop</h2>
-<p>Routes are responsible for mapping a controller action to an url, you can read more about routing in <a href="https://symfony.com/doc/4.4/routing.html">symfony docs</a>.</p>
+
+<h2 id="routing-in-prestashop">Routing in PrestaShop<a href="#routing-in-prestashop"></a></h2><p>Routes are responsible for mapping a controller action to an url, you can read more about routing in <a href="https://symfony.com/doc/4.4/routing.html">symfony docs</a>.</p>
 
 <div class="notices info" >PrestaShop uses YAML files for service declaration and routing (NOT ANNOTATIONS).</div>
 
@@ -30547,8 +30549,8 @@ If you use both <code>url</code> and <code>redirectRoute</code> at the same time
 </span></code></pre></div>
 <div class="notices info" >PrestaShop uses YAML files for service declaration and routing</div>
 
-<h4 id="routing-configuration">Routing configuration</h4>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">route_name</span><span class="p">:</span><span class="w">
+
+<h4 id="routing-configuration">Routing configuration<a href="#routing-configuration"></a></h4><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">route_name</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">some/url</span><span class="w">
 </span><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
 </span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
@@ -30578,15 +30580,15 @@ If you use both <code>url</code> and <code>redirectRoute</code> at the same time
 </span><span class="w">            </span>- <span class="l">AdminEmails</span><span class="w">
 </span><span class="w">            </span>- <span class="l">AdminEmails:index</span><span class="w">
 </span><span class="w">            </span>- <span class="l">AdminEmails:list</span><span class="w">
-</span></code></pre></div><h4 id="automatic-redirection">Automatic redirection</h4>
-<p>Finally some urls might have been generated manually or hard coded. To avoid losing these legacy urls a Symfony listener
+</span></code></pre></div>
+<h4 id="automatic-redirection">Automatic redirection<a href="#automatic-redirection"></a></h4><p>Finally some urls might have been generated manually or hard coded. To avoid losing these legacy urls a Symfony listener
 checks each call to the back office and tries to match it to a migrated url if it is found then the response is <em>automatically</em>
 redirected to the new migrated url.</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">    admin/index.php?controller=AdminPaymentPreferences =&gt; Redirected to /admin/preferences
     admin/index.php?controller=AdminPaymentPreferences&amp;action=update =&gt; Redirected to /admin/preferences/update
     admin/index.php?controller=AdminPaymentPreferences&amp;action=export =&gt; No redirection, the legacy controller is called
-</code></pre></div><h3 id="javascript-generation">Javascript generation</h3>
-<p>In order to avoid hardcoded links in JavaScript, Prestashop uses the <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/admin-dev/themes/new-theme/js/components/router.ts"><code>Router</code> component</a>.</p>
+</code></pre></div>
+<h3 id="javascript-generation">Javascript generation<a href="#javascript-generation"></a></h3><p>In order to avoid hardcoded links in JavaScript, Prestashop uses the <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/admin-dev/themes/new-theme/js/components/router.ts"><code>Router</code> component</a>.</p>
 
 
 <footer class="article-footer">
@@ -30611,17 +30613,17 @@ redirected to the new migrated url.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239927"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239927"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239927"></script>
-    <script src="/js/jquery.sticky.js?1677239927"></script>
-    <script src="/js/featherlight.min.js?1677239927"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239927"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239927"></script>
-    <script src="/js/learn.js?1677239927"></script>
-    <script src="/js/hugo-learn.js?1677239927"></script>
+    <script src="/js/clipboard.min.js?1678195007"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195007"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195007"></script>
+    <script src="/js/jquery.sticky.js?1678195007"></script>
+    <script src="/js/featherlight.min.js?1678195007"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195007"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195007"></script>
+    <script src="/js/learn.js?1678195007"></script>
+    <script src="/js/hugo-learn.js?1678195007"></script>
     
-    <script src="/main.js?1677239927"></script>
+    <script src="/main.js?1678195007"></script>
     
     
     

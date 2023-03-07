@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/internationalization/translation/translation-tips/">
 
     
-    <link href="/css/font-awesome.min.css?1677239913" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239913" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239913" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239913" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194994" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194994" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194994" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194994" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239913" rel="stylesheet">
+    <link href="/style.css?1678194994" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239913"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194994"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12537,6 +12537,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#translation-tips-and-tricks">Translation tips and tricks</a>
@@ -29051,16 +29053,16 @@
 
 
 
-<h1 id="translation-tips-and-tricks">Translation tips and tricks</h1>
-<h2 id="adding-new-wordings">Adding new wordings</h2>
-<p>Wordings for the Core and Native modules can only be translated if they are declared in PrestaShop&rsquo;s default translation catalogue. Therefore, whenever a new wording is added to the core or to a native module, it must be added to the default catalogue as well.</p>
+
+<h1 id="translation-tips-and-tricks">Translation tips and tricks<a href="#translation-tips-and-tricks"></a></h1>
+<h2 id="adding-new-wordings">Adding new wordings<a href="#adding-new-wordings"></a></h2><p>Wordings for the Core and Native modules can only be translated if they are declared in PrestaShop&rsquo;s default translation catalogue. Therefore, whenever a new wording is added to the core or to a native module, it must be added to the default catalogue as well.</p>
 <p>Normally you would have to manually add each wording the appropriate default catalogue files (located in the <code>app/Resources/translations/default</code> folder). Thankfully, this task has been automated by the Core team!</p>
 <p>Before every minor release, the whole source code for PrestaShop and Native Modules is analyzed using <a href="https://github.com/PrestaShop/TranslationToolsBundle">TranslationToolsBundle</a>, and all newly discovered wordings are automatically added to the default catalogue.</p>
 
 <div class="notices note" >Incidentally, the same technique is also used to detect wordings used by third-party modules and make them translatable through the Back Office interface.</div>
 
-<h3 id="making-wordings-discoverable-for-automated-addition-to-the-catalogue">Making wordings discoverable for automated addition to the catalogue</h3>
-<p>TranslationToolsBundle uses static analysis to extract wordings from source code. Therefore, this means that you can simply use new wordings in the code, and they will be magically added to the catalogue later.</p>
+
+<h3 id="making-wordings-discoverable-for-automated-addition-to-the-catalogue">Making wordings discoverable for automated addition to the catalogue<a href="#making-wordings-discoverable-for-automated-addition-to-the-catalogue"></a></h3><p>TranslationToolsBundle uses static analysis to extract wordings from source code. Therefore, this means that you can simply use new wordings in the code, and they will be magically added to the catalogue later.</p>
 <p>However, due to limitations of this technique, the following guidelines must be followed when declaring new wordings:</p>
 <ol>
 <li>
@@ -29097,8 +29099,8 @@
 <div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="cp">{%</span> <span class="k">trans_default_domain</span> <span class="s1">&#39;Admin.Catalog.Feature&#39;</span> <span class="cp">%}</span><span class="x">
 </span><span class="x"></span><span class="cp">{{</span> <span class="s1">&#39;Hello world&#39;</span><span class="o">|</span><span class="nf">trans</span> <span class="cp">}}</span><span class="x">
 </span><span class="x"></span><span class="cp">{{</span> <span class="s1">&#39;Something else&#39;</span><span class="o">|</span><span class="nf">trans</span> <span class="cp">}}</span><span class="x">
-</span></code></pre></div><h4 id="form-choicetypes">Form ChoiceTypes</h4>
-<p>When declaring Symfony form types, you declare choices for <code>ChoiceType</code> fields as literal (untranslated) strings:</p>
+</span></code></pre></div>
+<h4 id="form-choicetypes">Form ChoiceTypes<a href="#form-choicetypes"></a></h4><p>When declaring Symfony form types, you declare choices for <code>ChoiceType</code> fields as literal (untranslated) strings:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">use</span> <span class="nx">PrestaShopBundle\Form\Admin\Type\TranslatorAwareType</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Symfony\Component\Form\Extension\Core\Type\ChoiceType</span><span class="p">;</span>
@@ -29129,16 +29131,16 @@
 
 <div class="notices tip" >If in doubt, have a look at <a href="https://github.com/PrestaShop/TranslationToolsBundle/blob/master/Translation/Extractor/Visitor/Translation/FormType/ChoiceExtractor.php">ChoiceExtractor</a></div>
 
-<h4 id="array-literals">Array literals</h4>
-<p>You can declare wordings as arrays as well. This obviously won&rsquo;t translate the wordings at runtime but it will make them discoverable by the extractor.</p>
+
+<h4 id="array-literals">Array literals<a href="#array-literals"></a></h4><p>You can declare wordings as arrays as well. This obviously won&rsquo;t translate the wordings at runtime but it will make them discoverable by the extractor.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="p">[</span>
     <span class="s1">&#39;key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;This is a sample text&#39;</span><span class="p">,</span>
     <span class="s1">&#39;domain&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Admin.Some.Feature&#39;</span><span class="p">,</span>
     <span class="s1">&#39;parameters&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
 <span class="p">];</span>
-</code></pre></div><h2 id="translate-core-wordings">Translate core wordings</h2>
-<p>You can translate core wordings (mainly present in PHP files) via Classic theme translation interface.</p>
+</code></pre></div>
+<h2 id="translate-core-wordings">Translate core wordings<a href="#translate-core-wordings"></a></h2><p>You can translate core wordings (mainly present in PHP files) via Classic theme translation interface.</p>
 
 <div class="notices note" >This tip also works if you don’t use the Classic theme on your shop.</div>
 
@@ -29166,17 +29168,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239913"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239913"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239913"></script>
-    <script src="/js/jquery.sticky.js?1677239913"></script>
-    <script src="/js/featherlight.min.js?1677239913"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239913"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239913"></script>
-    <script src="/js/learn.js?1677239913"></script>
-    <script src="/js/hugo-learn.js?1677239913"></script>
+    <script src="/js/clipboard.min.js?1678194994"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194994"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194994"></script>
+    <script src="/js/jquery.sticky.js?1678194994"></script>
+    <script src="/js/featherlight.min.js?1678194994"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194994"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194994"></script>
+    <script src="/js/learn.js?1678194994"></script>
+    <script src="/js/hugo-learn.js?1678194994"></script>
     
-    <script src="/main.js?1677239913"></script>
+    <script src="/main.js?1678194994"></script>
     
     
     

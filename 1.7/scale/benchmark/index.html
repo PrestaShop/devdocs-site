@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/scale/benchmark/">
 
     
-    <link href="/css/font-awesome.min.css?1677239960" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239960" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239960" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239960" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195038" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195038" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195038" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195038" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239960" rel="stylesheet">
+    <link href="/style.css?1678195038" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239960"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195038"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12525,6 +12525,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-to-setup-the-benchmark-of-your-prestashop-shop">How to setup the benchmark of your PrestaShop shop</a>
@@ -29033,20 +29035,20 @@
 
 
 
-<h1 id="how-to-setup-the-benchmark-of-your-prestashop-shop">How to setup the benchmark of your PrestaShop shop</h1>
-<h2 id="prerequisite">Prerequisite</h2>
-<ul>
+
+<h1 id="how-to-setup-the-benchmark-of-your-prestashop-shop">How to setup the benchmark of your PrestaShop shop<a href="#how-to-setup-the-benchmark-of-your-prestashop-shop"></a></h1>
+<h2 id="prerequisite">Prerequisite<a href="#prerequisite"></a></h2><ul>
 <li>git</li>
 <li>php-7+</li>
 <li><a href="https://getcomposer.org/download/composer">composer</a></li>
 <li>The PrestaShop version you want to bench</li>
 </ul>
-<h2 id="dockerized-installation-of-benchmark">Dockerized installation of benchmark</h2>
-<p>To get an automatically pre-populated shop, you can use the following github repository:
+
+<h2 id="dockerized-installation-of-benchmark">Dockerized installation of benchmark<a href="#dockerized-installation-of-benchmark"></a></h2><p>To get an automatically pre-populated shop, you can use the following github repository:
 <strong><a href="https://github.com/PrestaShop/performance-project">PrestaShop performance project</a></strong></p>
-<h2 id="manually-prepare-your-benchmark">Manually prepare your benchmark</h2>
-<h3 id="prepare-your-dataset">Prepare your dataset</h3>
-<p>Before launching a benchmark of PrestaShop, you need to put a few entries in your database.</p>
+
+<h2 id="manually-prepare-your-benchmark">Manually prepare your benchmark<a href="#manually-prepare-your-benchmark"></a></h2>
+<h3 id="prepare-your-dataset">Prepare your dataset<a href="#prepare-your-dataset"></a></h3><p>Before launching a benchmark of PrestaShop, you need to put a few entries in your database.</p>
 <p>The PrestaShop shop Generator will help you to do this.</p>
 <p>First clone the project from the following url, and set the number of entries you want for each main entities:</p>
 <div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">git clone https://github.com/PrestaShop/prestashop-shop-creator
@@ -29095,13 +29097,13 @@ langs ([fr_FR, en_US]):
 <p>Then run the following command to generate your initial dataset, which will be stored in the <code>generated_data</code>
 directory</p>
 <div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">php app/console.php
-</code></pre></div><h4 id="how-to-use-this-dataset-during-prestashop-install">How to use this dataset during PrestaShop install?</h4>
-<p>Actually it&rsquo;s quite simple. Just copy the content of the <code>generated_data</code> folders (three folders should be
+</code></pre></div>
+<h4 id="how-to-use-this-dataset-during-prestashop-install">How to use this dataset during PrestaShop install?<a href="#how-to-use-this-dataset-during-prestashop-install"></a></h4><p>Actually it&rsquo;s quite simple. Just copy the content of the <code>generated_data</code> folders (three folders should be
 there: data, img and langs) in the PrestaShop <code>install/fixtures/fashion</code> folders (overwrite the folders already
 there).</p>
 <p>Then launch a standard PrestaShop install.</p>
-<h3 id="prepare-your-shop">Prepare your shop</h3>
-<p>Make sure you&rsquo;re not in debug mode! In <code>config/defines.inc.php</code> you should have:</p>
+
+<h3 id="prepare-your-shop">Prepare your shop<a href="#prepare-your-shop"></a></h3><p>Make sure you&rsquo;re not in debug mode! In <code>config/defines.inc.php</code> you should have:</p>
 <div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">define(&#39;_PS_MODE_DEV_&#39;, false);
 </code></pre></div><p>The smarty cache should be enabled, but the multi-front synchronisation should be disabled for best performances.
 (those are the default settings).</p>
@@ -29111,8 +29113,8 @@ there).</p>
 export SYMFONY_DEBUG=0
 composer dump-autoload --optimize
 php bin/console cache:clear --env=prod --no-debug
-</code></pre></div><h3 id="write-down-your-settings">Write down your settings</h3>
-<p>Write down all the relevant informations which have an impact on your benchmark results:</p>
+</code></pre></div>
+<h3 id="write-down-your-settings">Write down your settings<a href="#write-down-your-settings"></a></h3><p>Write down all the relevant informations which have an impact on your benchmark results:</p>
 <ul>
 <li>Server configuration (CPU / Memory / Disks&hellip;)</li>
 <li>PHP / Apache / MySQL settings</li>
@@ -29144,17 +29146,17 @@ php bin/console cache:clear --env=prod --no-debug
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239961"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239961"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239961"></script>
-    <script src="/js/jquery.sticky.js?1677239961"></script>
-    <script src="/js/featherlight.min.js?1677239961"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239961"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239961"></script>
-    <script src="/js/learn.js?1677239961"></script>
-    <script src="/js/hugo-learn.js?1677239961"></script>
+    <script src="/js/clipboard.min.js?1678195038"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195038"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195038"></script>
+    <script src="/js/jquery.sticky.js?1678195038"></script>
+    <script src="/js/featherlight.min.js?1678195038"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195038"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195038"></script>
+    <script src="/js/learn.js?1678195038"></script>
+    <script src="/js/hugo-learn.js?1678195038"></script>
     
-    <script src="/main.js?1677239961"></script>
+    <script src="/main.js?1678195038"></script>
     
     
     

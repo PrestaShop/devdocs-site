@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239951" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239951" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239951" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239951" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195029" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195029" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195029" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195029" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239951" rel="stylesheet">
+    <link href="/style.css?1678195029" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239951"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195029"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13766,6 +13766,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#tutorial-creating-your-first-module">Tutorial: Creating your first module</a>
@@ -30282,27 +30284,27 @@
 
 
 
-<h1 id="tutorial-creating-your-first-module">Tutorial: Creating your first module</h1>
 
+<h1 id="tutorial-creating-your-first-module">Tutorial: Creating your first module<a href="#tutorial-creating-your-first-module"></a></h1>
 <div class="notices note" >Before you start writing code for your PrestaShop module, we recommend reading PrestaShop&rsquo;s <a href="https://devdocs.prestashop-project.org/8/development/coding-standards/">Coding standards</a>. Configuring your IDE hints or using <a href="https://github.com/PrestaShop/php-dev-tools">automated tools</a> can help you make sure you follow the project&rsquo;s standards properly.</div>
 
 <p>Let&rsquo;s create a first simple module, this will allow us to better describe its structure. We will name it <strong>&ldquo;My module&rdquo;</strong>.</p>
 <p>First, create the module&rsquo;s folder, in PrestaShop&rsquo;s <code>/modules</code> folder. Let&rsquo;s call it <code>mymodule</code>. This will be the module&rsquo;s &ldquo;technical&rdquo; name.</p>
 
-<div class="notices tip" >Technical names can only accept lower case alphanumeric characters (<code>[a-z0-9]</code>). Although accepted, we strongly discourage using underscores because they don&rsquo;t work with translation domains.</div>
+<div class="notices tip" >Technical names can only accept lower case alphanumeric characters (<code>[a-z0-9]</code>). <a href="https://devdocs.prestashop-project.org/8/modules/creation/module-translation/new-system/#translation-domain">Although accepted, we strongly discourage using underscores because they don&rsquo;t work with translation domains</a>.</div>
 
 <p>This folder must contain the main file, a PHP file of the same name as the folder, which will handle most of the processing: <code>mymodule.php</code>.</p>
 <p>That is enough for a very basic module. Obviously, more files and folders can be added later, if needed.</p>
-<h2 id="the-constant-test">The constant test</h2>
-<p>The main mymodule.php file must start with the following test:</p>
+
+<h2 id="the-constant-test">The constant test<a href="#the-constant-test"></a></h2><p>The main mymodule.php file must start with the following test:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
     <span class="k">exit</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div><p>This checks for the presence of an always-existing PrestaShop constant (its version number), and if it does not exist, it stops the module from loading. The sole purpose of this is to prevent malicious visitors to load this file directly.</p>
 <p>Note that, as required by PrestaShop&rsquo;s Coding Standards (see above), we do not use a closing PHP tag.</p>
-<h2 id="the-main-class">The main class</h2>
-<p>The main file must contain the module&rsquo;s main class.</p>
+
+<h2 id="the-main-class">The main class<a href="#the-main-class"></a></h2><p>The main file must contain the module&rsquo;s main class.</p>
 
 <div class="notices tip" >If you need to add more classes later, we suggest writing one single class per file.</div>
 
@@ -30317,8 +30319,8 @@
 <span class="p">}</span>
 </code></pre></div><p>It can just as well extend any class derived from Module, for specific needs: <code>PaymentModule</code>, <code>ModuleGridEngine</code>, <code>ModuleGraph</code>, etc.</p>
 <p>At this stage, if you place the module&rsquo;s folder on the <code>/modules</code> folder, the module can already be seen in the &ldquo;Module Catalog&rdquo; page in the back office, in the &ldquo;Other modules&rdquo; section – albeit with no real name nor thumbnail.</p>
-<h2 id="the-constructor-method">The constructor method</h2>
-<p>Now, let&rsquo;s create the constructor method of the module. Since the constructor is the first method to be called when the module is loaded by PrestaShop, this is the best place to set its details.</p>
+
+<h2 id="the-constructor-method">The constructor method<a href="#the-constructor-method"></a></h2><p>Now, let&rsquo;s create the constructor method of the module. Since the constructor is the first method to be called when the module is loaded by PrestaShop, this is the best place to set its details.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
     <span class="k">exit</span><span class="p">;</span>
@@ -30399,11 +30401,11 @@
 <p>The constructor method is now complete. You are free to add more to it later if necessary, but this the bare minimum for a working module.</p>
 <p>Now go to your back office&rsquo;s Module Catalog page (found at <em>&ldquo;Modules&rdquo; &gt; &ldquo;Module Catalog&rdquo;</em>) and search &ldquo;mymodule&rdquo;. The module is visible in the list, with its information displayed – and no icon for now.</p>
 <p>You can install the module, but it does not do anything yet.</p>
-<h2 id="building-the-install-and-uninstall-methods">Building the install() and uninstall() methods</h2>
-<p>Some modules have more needs than just using PrestaShop&rsquo;s features in special ways. Your module might need to perform actions on installation, such as checking PrestaShop&rsquo;s settings or to registering its own settings in the database. Likewise, if you changed things in the database on installation, it is highly recommended to change them back (or remove them) when uninstalling the module.</p>
+
+<h2 id="building-the-install-and-uninstall-methods">Building the install() and uninstall() methods<a href="#building-the-install-and-uninstall-methods"></a></h2><p>Some modules have more needs than just using PrestaShop&rsquo;s features in special ways. Your module might need to perform actions on installation, such as checking PrestaShop&rsquo;s settings or to registering its own settings in the database. Likewise, if you changed things in the database on installation, it is highly recommended to change them back (or remove them) when uninstalling the module.</p>
 <p>The <code>install()</code> and <code>uninstall()</code> methods make it possible to control what happens when the store administrator installs or uninstalls the module. They must be included in the main class' block of code (in our example, the <code>MyModule</code> class) – at the same level as the constructor method.</p>
-<h3 id="the-install-method">The install() method</h3>
-<p>Here is the bare minimum for the <code>install()</code> method:</p>
+
+<h3 id="the-install-method">The install() method<a href="#the-install-method"></a></h3><p>Here is the bare minimum for the <code>install()</code> method:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">();</span>
@@ -30431,8 +30433,8 @@
     <span class="p">);</span> 
 <span class="p">}</span>
 </code></pre></div><p>If any of the lines in the testing block fails, the method returns <code>false</code> and the installation is aborted.</p>
-<h3 id="the-uninstall-method">The uninstall() method</h3>
-<p>The <code>uninstall()</code> method follow the same logic as <code>install()</code>. Here is the bare minimum implementation:</p>
+
+<h3 id="the-uninstall-method">The uninstall() method<a href="#the-uninstall-method"></a></h3><p>The <code>uninstall()</code> method follow the same logic as <code>install()</code>. Here is the bare minimum implementation:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">();</span>
@@ -30445,15 +30447,15 @@
         <span class="o">&amp;&amp;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">deleteByName</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">)</span>
     <span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div><h2 id="the-configuration-object">The Configuration object</h2>
-<p>As you can see, our three blocks of code (<code>__construct()</code>, <code>install()</code> and <code>uninstall()</code>) all make use of a new object, <code>Configuration</code>.</p>
+</code></pre></div>
+<h2 id="the-configuration-object">The Configuration object<a href="#the-configuration-object"></a></h2><p>As you can see, our three blocks of code (<code>__construct()</code>, <code>install()</code> and <code>uninstall()</code>) all make use of a new object, <code>Configuration</code>.</p>
 <p>This PrestaShop-specific object allows you to easily manage all the shop&rsquo;s settings. It stores its data on the <code>PREFIX_configuration</code> database table.</p>
 <p>This is a very useful and easy-to-use object, and you will certainly use it in many situations. Most native modules use it too for their own settings.</p>
 
 <div class="notices note" >You can read more about this component in <a href="https://devdocs.prestashop-project.org/8/development/components/configuration/backward-compatibility/">Legacy Configuration object</a> and <a href="https://devdocs.prestashop-project.org/8/development/components/configuration/">Configuration storage</a>.</div>
 
-<h2 id="the-shop-object">The Shop object</h2>
-<p>The <code>install()</code> method also references this:</p>
+
+<h2 id="the-shop-object">The Shop object<a href="#the-shop-object"></a></h2><p>The <code>install()</code> method also references this:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">isFeatureActive</span><span class="p">())</span> <span class="p">{</span>
     <span class="nx">Shop</span><span class="o">::</span><span class="na">setContext</span><span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_ALL</span><span class="p">);</span>
 <span class="p">}</span>
@@ -30464,8 +30466,8 @@
 <li><code>Shop::setContext(Shop::CONTEXT_ALL)</code>: This changes the context in order to apply coming changes to all existing stores instead of only the current store.</li>
 </ul>
 <p>The Shop Context is explained in more details in the <a href="https://devdocs.prestashop-project.org/8/development/multistore/">Multistore documentation</a>.</p>
-<h2 id="the-icon-file">The icon file</h2>
-<p>To put the finishing touch to this basic module, you should add an icon, which will be displayed next to the module&rsquo;s name in the back office modules list. In case your module has been built for a prominent service, having that service&rsquo;s logo visible brings trust. Make sure you do not use an icon already in use by one of the native modules, or without authorization from the owner of the logo/service.</p>
+
+<h2 id="the-icon-file">The icon file<a href="#the-icon-file"></a></h2><p>To put the finishing touch to this basic module, you should add an icon, which will be displayed next to the module&rsquo;s name in the back office modules list. In case your module has been built for a prominent service, having that service&rsquo;s logo visible brings trust. Make sure you do not use an icon already in use by one of the native modules, or without authorization from the owner of the logo/service.</p>
 <p>The icon file must respect these requirements:</p>
 <ul>
 <li>It must be placed on the module&rsquo;s main folder.</li>
@@ -30480,21 +30482,21 @@
 </ul>
 </div>
 
-<h2 id="installing-the-module">Installing the module</h2>
-<p>You have two options to install a module: from the back office interface or using the Symfony Console component (CLI-base installation)</p>
-<h3 id="install-module-from-the-back-office-interface">Install module from the back office interface</h3>
-<p>Now that all basics are in place, reload the back office&rsquo;s &ldquo;Module Catalog&rdquo; page, in the &ldquo;Front office features&rdquo; section, you should find your module. Install it (or reset it if it is already installed).</p>
-<h3 id="install-module-from-cli-using-the-symfony-console-component">Install module from CLI using the Symfony Console component</h3>
-<p>Access your project&rsquo;s directory with a CLI, and run:</p>
+
+<h2 id="installing-the-module">Installing the module<a href="#installing-the-module"></a></h2><p>You have two options to install a module: from the back office interface or using the Symfony Console component (CLI-base installation)</p>
+
+<h3 id="install-module-from-the-back-office-interface">Install module from the back office interface<a href="#install-module-from-the-back-office-interface"></a></h3><p>Now that all basics are in place, reload the back office&rsquo;s &ldquo;Module Catalog&rdquo; page, in the &ldquo;Front office features&rdquo; section, you should find your module. Install it (or reset it if it is already installed).</p>
+
+<h3 id="install-module-from-cli-using-the-symfony-console-component">Install module from CLI using the Symfony Console component<a href="#install-module-from-cli-using-the-symfony-console-component"></a></h3><p>Access your project&rsquo;s directory with a CLI, and run:</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">php bin/console prestashop:module install mymodule
 </code></pre></div><p>Where <code>mymodule</code> is your module&rsquo;s name.</p>
 <p>To uninstall the module, run the following:</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">php bin/console prestashop:module uninstall mymodule
 </code></pre></div><p>For more informations, please read <a href="https://devdocs.prestashop-project.org/8/development/components/console/prestashop-module/">the reference of the ModuleCommand</a></p>
-<h3 id="the-configxml-file">The config.xml file</h3>
-<p>During the module&rsquo;s installation, PrestaShop automatically creates a small <code>config.xml</code> file in the module&rsquo;s folder, which stores the module&rsquo;s information. You should be very careful when editing this file by hand.</p>
-<h2 id="keeping-things-secure">Keeping things secure</h2>
-<p>Once your module is online, its files could be accessed by anyone from the Internet. Even if they cannot trigger anything but PHP errors, you might want to prevent this from happening.</p>
+
+<h3 id="the-configxml-file">The config.xml file<a href="#the-configxml-file"></a></h3><p>During the module&rsquo;s installation, PrestaShop automatically creates a small <code>config.xml</code> file in the module&rsquo;s folder, which stores the module&rsquo;s information. You should be very careful when editing this file by hand.</p>
+
+<h2 id="keeping-things-secure">Keeping things secure<a href="#keeping-things-secure"></a></h2><p>Once your module is online, its files could be accessed by anyone from the Internet. Even if they cannot trigger anything but PHP errors, you might want to prevent this from happening.</p>
 <p>You can achieve this by adding an <code>index.php</code> file at the root of any module folder you create. Here is a suggestion for what to put in the file.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Expires: Mon, 26 Jul 1997 05:00:00 GMT&#39;</span><span class="p">);</span>
@@ -30528,17 +30530,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239951"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239951"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239951"></script>
-    <script src="/js/jquery.sticky.js?1677239951"></script>
-    <script src="/js/featherlight.min.js?1677239951"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239951"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239951"></script>
-    <script src="/js/learn.js?1677239951"></script>
-    <script src="/js/hugo-learn.js?1677239951"></script>
+    <script src="/js/clipboard.min.js?1678195029"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195029"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195029"></script>
+    <script src="/js/jquery.sticky.js?1678195029"></script>
+    <script src="/js/featherlight.min.js?1678195029"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195029"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195029"></script>
+    <script src="/js/learn.js?1678195029"></script>
+    <script src="/js/hugo-learn.js?1678195029"></script>
     
-    <script src="/main.js?1677239951"></script>
+    <script src="/main.js?1678195029"></script>
     
     
     

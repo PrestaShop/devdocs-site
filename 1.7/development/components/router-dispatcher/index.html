@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/router-dispatcher/">
 
     
-    <link href="/css/font-awesome.min.css?1677239909" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239909" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239909" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239909" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194991" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194991" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194991" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194991" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239909" rel="stylesheet">
+    <link href="/style.css?1678194991" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239909"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194991"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#router-and-dispatcher">Router and Dispatcher</a>
@@ -29045,10 +29047,10 @@
 
 
 
-<h1 id="router-and-dispatcher">Router and Dispatcher</h1>
-<p>The legacy Dispatcher and the Symfony Router are in charge of parsing incoming HTTP requests and finding the right Controller to return HTTP response.</p>
-<h3 id="front-office-routing">Front office routing</h3>
-<p>The Front office controllers lie in the <code>controllers/front</code> directory.</p>
+
+<h1 id="router-and-dispatcher">Router and Dispatcher<a href="#router-and-dispatcher"></a></h1><p>The legacy Dispatcher and the Symfony Router are in charge of parsing incoming HTTP requests and finding the right Controller to return HTTP response.</p>
+
+<h3 id="front-office-routing">Front office routing<a href="#front-office-routing"></a></h3><p>The Front office controllers lie in the <code>controllers/front</code> directory.</p>
 <p>The Dispatcher matches a given HTTP request with a Front Office controller.</p>
 <p>When you visit <code>/</code> on your shop, you are being returned the Homepage unless you have your shop installed in a subdirectory, then <code>/your_subdirectory</code> is your Homepage.</p>
 <p>What happened behind the scenes is that:</p>
@@ -29062,21 +29064,21 @@
 <li>Dispatcher finds the right Front controller</li>
 <li>Front controller builds the right response using a Smarty template and relying on PrestaShop business logic</li>
 </ul>
-<h2 id="back-office-routing">Back office routing</h2>
-<p>The Back Office is split between the legacy part and the migrated part.</p>
+
+<h2 id="back-office-routing">Back office routing<a href="#back-office-routing"></a></h2><p>The Back Office is split between the legacy part and the migrated part.</p>
 <p>The legacy backend relies on controllers you can find in the <code>controllers/admin</code> directory.</p>
 <p>The Symfony backend relies on controllers you can find in <code>src/PrestaShopBundle/Controller/Admin</code>.</p>
 <p>The Back Office routing matches a given HTTP request with a Controller.</p>
-<h3 id="legacy-back-office-routing">Legacy Back Office routing</h3>
-<p>When you visit <code>/admin{x}/index.php?controller=AdminCarriers&amp;token={y}</code> on your shop, PrestaShop returns the Carriers Back Office HTML page.</p>
+
+<h3 id="legacy-back-office-routing">Legacy Back Office routing<a href="#legacy-back-office-routing"></a></h3><p>When you visit <code>/admin{x}/index.php?controller=AdminCarriers&amp;token={y}</code> on your shop, PrestaShop returns the Carriers Back Office HTML page.</p>
 <p>What happened behind the scenes is that:</p>
 <ol>
 <li>Your HTTP request hit the <code>/admin-{xxx}/index.php</code> Back Office routing file. This file detected no Symfony route matches your request so it relied on the <em>Dispatcher</em> to handle your query.</li>
 <li>The Dispatcher found the right Back Office controller - the <code>AdminCarriersController</code></li>
 <li>The Admin controllers use a generic system to choose what Smarty template use. Generic templates to display forms and listings are available and the controller provides the structure configuration (for example it controls what columns and rows are displayed).</li>
 </ol>
-<h3 id="migrated-back-office-routing">Migrated Back Office routing</h3>
-<p>When you visit <code>/admin-{xxx}/index.php/configure/shop/preferences/preferences?_token={yyy}</code> on your shop PrestaShop returns the Preferences Back Office HTML page.</p>
+
+<h3 id="migrated-back-office-routing">Migrated Back Office routing<a href="#migrated-back-office-routing"></a></h3><p>When you visit <code>/admin-{xxx}/index.php/configure/shop/preferences/preferences?_token={yyy}</code> on your shop PrestaShop returns the Preferences Back Office HTML page.</p>
 <p>What happened behind the scenes is that:</p>
 <ol>
 <li>Your HTTP request hit the <code>/admin-{xxx}/index.php</code> Back Office routing file. This file booted the Symfony kernel to handle your request.</li>
@@ -29088,8 +29090,8 @@
 <li>Symfony finds the right Back Office controller</li>
 <li>Symfony controller builds the right response using a Twig template and relying on PrestaShop business logic, organized either as Symfony services or using PrestaShop singleton</li>
 </ul>
-<h2 id="module-routing">Module routing</h2>
-<p>See <a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/controllers/">the Module Controllers page section</a></p>
+
+<h2 id="module-routing">Module routing<a href="#module-routing"></a></h2><p>See <a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/controllers/">the Module Controllers page section</a></p>
 
 
 <footer class="article-footer">
@@ -29114,17 +29116,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239909"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239909"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239909"></script>
-    <script src="/js/jquery.sticky.js?1677239909"></script>
-    <script src="/js/featherlight.min.js?1677239909"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239909"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239909"></script>
-    <script src="/js/learn.js?1677239909"></script>
-    <script src="/js/hugo-learn.js?1677239909"></script>
+    <script src="/js/clipboard.min.js?1678194991"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194991"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194991"></script>
+    <script src="/js/jquery.sticky.js?1678194991"></script>
+    <script src="/js/featherlight.min.js?1678194991"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194991"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194991"></script>
+    <script src="/js/learn.js?1678194991"></script>
+    <script src="/js/hugo-learn.js?1678194991"></script>
     
-    <script src="/main.js?1677239909"></script>
+    <script src="/main.js?1678194991"></script>
     
     
     

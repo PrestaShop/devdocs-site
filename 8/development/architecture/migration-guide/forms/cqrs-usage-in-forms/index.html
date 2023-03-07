@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239927" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239927" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239927" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239927" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195007" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195007" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195007" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195007" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239927" rel="stylesheet">
+    <link href="/style.css?1678195007" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239927"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195007"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13778,6 +13778,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#cqrs-usage-in-forms">CQRS usage in forms</a>
@@ -30296,20 +30298,20 @@
 
 
 
-<h1 id="cqrs-usage-in-forms">CQRS usage in forms</h1>
 
+<h1 id="cqrs-usage-in-forms">CQRS usage in forms<a href="#cqrs-usage-in-forms"></a></h1>
 <div class="notices note" >This article assumes that you are already familiar with CQRS and <a href="/8/development/architecture/migration-guide/forms/crud-forms/">CRUD forms</a>, as this topic only demonstrates the usage of the CQRS approach.</div>
 
-<h2 id="the-basics">The basics</h2>
-<p>To use CQRS you need to:</p>
+
+<h2 id="the-basics">The basics<a href="#the-basics"></a></h2><p>To use CQRS you need to:</p>
 <ol>
 <li>Inject a <code>CommandBus</code> or <code>QueryBus</code> instance using your class constructor.</li>
 <li>Create an instance of the desired <code>Command</code> or <code>Query</code>.</li>
 <li>Call your command using the <code>CommandBus</code> or <code>QueryBus</code>.</li>
 </ol>
-<h2 id="usage-examples">Usage examples</h2>
-<h3 id="using-commands">Using Commands</h3>
-<p>In this example, we will be working with edition in a <em>Contact</em> CRUD Form.</p>
+
+<h2 id="usage-examples">Usage examples<a href="#usage-examples"></a></h2>
+<h3 id="using-commands">Using Commands<a href="#using-commands"></a></h3><p>In this example, we will be working with edition in a <em>Contact</em> CRUD Form.</p>
 <p>To get started, let&rsquo;s inject the <code>CommandBus</code> into our <a href="/8/development/architecture/migration-guide/forms/crud-forms/#form-data-handler">Form Data Handler</a>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_data_handler.yml</span><span class="w">
 </span><span class="w">
@@ -30382,8 +30384,8 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div><p>In the <code>update()</code> method, <code>EditContactCommand</code> is used to encapsulate the actual action of saving the form. After that, the Command Bus handles the given command (persisting the information).</p>
-<h4 id="retrieving-the-created-object-id">Retrieving the created object ID</h4>
-<p>As a general rule, Commands Handlers return nothing. However, when creating a new object, the created object ID is usually determined by the database engine. How do we handle that?</p>
+
+<h4 id="retrieving-the-created-object-id">Retrieving the created object ID<a href="#retrieving-the-created-object-id"></a></h4><p>As a general rule, Commands Handlers return nothing. However, when creating a new object, the created object ID is usually determined by the database engine. How do we handle that?</p>
 <p>In this specific case, we allow Command Handlers to return the id of the newly created object after it&rsquo;s inserted into the database:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">)</span>
@@ -30398,8 +30400,8 @@
     <span class="k">return</span> <span class="nv">$contactId</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div><p>In this example, the Command Handler for <code>AddContactCommand</code> returns a <code>ContactId</code> value object that contains the contact ID.</p>
-<h3 id="using-queries">Using Queries</h3>
-<p>In this example, we will be working with edition in a <em>Contact</em> CRUD Form.</p>
+
+<h3 id="using-queries">Using Queries<a href="#using-queries"></a></h3><p>In this example, we will be working with edition in a <em>Contact</em> CRUD Form.</p>
 <p>First, let&rsquo;s inject <code>QueryBus</code> instance into the <a href="/8/development/architecture/migration-guide/forms/crud-forms/#form-data-provider">Form Data Provider</a>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_data_provider.yml</span><span class="w">
 </span><span class="w">
@@ -30497,17 +30499,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239927"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239927"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239927"></script>
-    <script src="/js/jquery.sticky.js?1677239927"></script>
-    <script src="/js/featherlight.min.js?1677239927"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239927"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239927"></script>
-    <script src="/js/learn.js?1677239927"></script>
-    <script src="/js/hugo-learn.js?1677239927"></script>
+    <script src="/js/clipboard.min.js?1678195007"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195007"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195007"></script>
+    <script src="/js/jquery.sticky.js?1678195007"></script>
+    <script src="/js/featherlight.min.js?1678195007"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195007"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195007"></script>
+    <script src="/js/learn.js?1678195007"></script>
+    <script src="/js/hugo-learn.js?1678195007"></script>
     
-    <script src="/main.js?1677239927"></script>
+    <script src="/main.js?1678195007"></script>
     
     
     

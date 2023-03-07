@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239964" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239964" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239964" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239964" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195041" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195041" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195041" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195041" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239964" rel="stylesheet">
+    <link href="/style.css?1678195041" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239964"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195041"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13784,6 +13784,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#cancellations-and-refunds">Cancellations and refunds</a>
@@ -30298,12 +30300,12 @@
 
 
 
-<h1 id="cancellations-and-refunds">Cancellations and refunds</h1>
 
+<h1 id="cancellations-and-refunds">Cancellations and refunds<a href="#cancellations-and-refunds"></a></h1>
 <div class="notices info" >For a full specification of how these features work, you can read <a href="https://build.prestashop-project.org/prestashop-specs/1.7/back-office/orders/orders/view-page.html#merchandise-return-has-to-be-enabled-if-the-merchant-wants-to-use-the-standard-refund-partial-refund-and-return-product-feature">the functional specifications</a></div>
 
-<h2 id="order-history-and-corresponding-cancellation-types">Order history and corresponding cancellation types</h2>
 
+<h2 id="order-history-and-corresponding-cancellation-types">Order history and corresponding cancellation types<a href="#order-history-and-corresponding-cancellation-types"></a></h2>
 <div class="notices info" >Refund features are not activated by default. To activate them, go to the &ldquo;Merchandise returns&rdquo; page under the &ldquo;Customer Service&rdquo; menu, and activate the &ldquo;Product returns&rdquo; option at the bottom of the page. This will apply to all products and orders.</div>
 
 <p>In the order detail page, <strong>return product</strong>, <strong>cancel product</strong>, and <strong>standard refund</strong> buttons can only exist exclusively, following these rules:</p>
@@ -30319,9 +30321,9 @@
 </li>
 </ul>
 <p>The <strong>Partial refund</strong> button is available once a payment was made on the order, it can exist jointly with other refunds, and it exists even if the &ldquo;Product returns&rdquo; option was not enabled.</p>
-<h2 id="performing-cancellation-actions-programmatically">Performing cancellation actions programmatically</h2>
-<h3 id="introduction">Introduction</h3>
-<p>Cancellation actions (that is to say <strong>cancel product</strong>, <strong>return product</strong>, <strong>standard refund</strong> and <strong>partial refund</strong>) are implemented following the CQRS design pattern.</p>
+
+<h2 id="performing-cancellation-actions-programmatically">Performing cancellation actions programmatically<a href="#performing-cancellation-actions-programmatically"></a></h2>
+<h3 id="introduction">Introduction<a href="#introduction"></a></h3><p>Cancellation actions (that is to say <strong>cancel product</strong>, <strong>return product</strong>, <strong>standard refund</strong> and <strong>partial refund</strong>) are implemented following the CQRS design pattern.</p>
 
 <div class="notices info" >You will find more informations about Prestashop&rsquo;s CQRS implementation <a href="/8/development/architecture/domain/cqrs/">on this page</a>.</div>
 
@@ -30343,8 +30345,8 @@
 <span class="c1">// Give it to the command bus
 </span><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">commandBus</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$command</span><span class="p">);</span>
 </code></pre></div><p>The following section will detail each cancellation commands and their required parameters.</p>
-<h3 id="list-of-refunds-related-cqrs-commands">List of refunds related CQRS commands</h3>
-<p>Note that all those commands are in this namespace: <code>PrestaShop\PrestaShop\Core\Domain\Order\Command</code><br><br></p>
+
+<h3 id="list-of-refunds-related-cqrs-commands">List of refunds related CQRS commands<a href="#list-of-refunds-related-cqrs-commands"></a></h3><p>Note that all those commands are in this namespace: <code>PrestaShop\PrestaShop\Core\Domain\Order\Command</code><br><br></p>
 <table>
 <thead>
 <tr>
@@ -30486,10 +30488,10 @@
 </tr>
 </tbody>
 </table>
-<h3 id="the-actionproductcancel-hook">The <strong>actionProductCancel</strong> hook</h3>
-<p>The <code>actionProductCancel</code> hook is triggered by all refund actions.</p>
-<h4 id="how-to-know-which-action-triggered-the-actionproductcancel-hook-">How to know which action triggered the <code>actionProductCancel</code> hook ?</h4>
-<p>The <code>actionProductCancel</code> hook has an <code>action</code> parameter indicating which action was performed. Its value is one of the attributes of the <code>CancellationActionType</code> class.</p>
+
+<h3 id="the-actionproductcancel-hook">The <strong>actionProductCancel</strong> hook<a href="#the-actionproductcancel-hook"></a></h3><p>The <code>actionProductCancel</code> hook is triggered by all refund actions.</p>
+
+<h4 id="how-to-know-which-action-triggered-the-actionproductcancel-hook-">How to know which action triggered the <code>actionProductCancel</code> hook ?<a href="#how-to-know-which-action-triggered-the-actionproductcancel-hook-"></a></h4><p>The <code>actionProductCancel</code> hook has an <code>action</code> parameter indicating which action was performed. Its value is one of the attributes of the <code>CancellationActionType</code> class.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 
 <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionProductCancel</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
@@ -30531,17 +30533,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239964"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239964"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239964"></script>
-    <script src="/js/jquery.sticky.js?1677239964"></script>
-    <script src="/js/featherlight.min.js?1677239964"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239964"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239964"></script>
-    <script src="/js/learn.js?1677239964"></script>
-    <script src="/js/hugo-learn.js?1677239964"></script>
+    <script src="/js/clipboard.min.js?1678195041"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195041"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195041"></script>
+    <script src="/js/jquery.sticky.js?1678195041"></script>
+    <script src="/js/featherlight.min.js?1678195041"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195041"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195041"></script>
+    <script src="/js/learn.js?1678195041"></script>
+    <script src="/js/hugo-learn.js?1678195041"></script>
     
-    <script src="/main.js?1677239964"></script>
+    <script src="/main.js?1678195041"></script>
     
     
     

@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/creation/adding-configuration-page/">
 
     
-    <link href="/css/font-awesome.min.css?1677239916" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239916" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239916" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239916" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194996" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194996" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194996" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194996" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239916" rel="stylesheet">
+    <link href="/style.css?1678194996" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239916"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194996"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#adding-a-configuration-page">Adding a configuration page</a>
@@ -29039,12 +29041,12 @@
 
 
 
-<h1 id="adding-a-configuration-page">Adding a configuration page</h1>
-<p>Modules usually provide a dedicated configuration page, accessible through a &ldquo;Configure&rdquo; button in the Module Manager list, that allows the shop&rsquo;s administrator to set up any options provided by the module.</p>
+
+<h1 id="adding-a-configuration-page">Adding a configuration page<a href="#adding-a-configuration-page"></a></h1><p>Modules usually provide a dedicated configuration page, accessible through a &ldquo;Configure&rdquo; button in the Module Manager list, that allows the shop&rsquo;s administrator to set up any options provided by the module.</p>
 <p>In difference with other <a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/controllers/">controllers</a>, the content of configuration page is handled directly in the module&rsquo;s main class by the <code>getContent()</code> public method. PrestaShop will check if this method exists and will only display the &ldquo;Configure&rdquo; button if this method is declared.</p>
 <p>In the following example we will implement a minimalistic configuration page that displays a form allowing the user to edit the content of the <code>MYMODULE_CONFIG</code> <a href="https://devdocs.prestashop-project.org/1.7/development/components/configuration/">Configuration</a> variable.</p>
-<h2 id="the-getcontent-method">The <code>getContent()</code> method</h2>
-<p>First, let&rsquo;s have a look at our <code>getContent()</code> method:</p>
+
+<h2 id="the-getcontent-method">The <code>getContent()</code> method<a href="#the-getcontent-method"></a></h2><p>First, let&rsquo;s have a look at our <code>getContent()</code> method:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
 </span><span class="sd"> * This method handles the module&#39;s configuration page
 </span><span class="sd"> * @return string The page&#39;s HTML content 
@@ -29083,8 +29085,8 @@
 <li>Finally, we use the custom <code>displayForm()</code> method (explained in the next section) in order to build the form, that we want to render whether if it is submitted or not. Then we will send the resulting HTML code into <code>$output</code> so that we can render the page. Note that we could have included the code for <code>displayForm()</code> right within <code>getContent()</code>, but chose to separate the two for readability and separation of concerns.</li>
 </ul>
 <p>This form-validation code is nothing new for PHP developers, but uses some of the PrestaShop methods that you will regularly use.</p>
-<h2 id="displaying-the-form">Displaying the form</h2>
-<p>The configuration form itself is displayed with the <code>displayForm()</code> method. Here is its code, which we are going to explain after the jump:</p>
+
+<h2 id="displaying-the-form">Displaying the form<a href="#displaying-the-form"></a></h2><p>The configuration form itself is displayed with the <code>displayForm()</code> method. Here is its code, which we are going to explain after the jump:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
 </span><span class="sd"> * Builds the configuration form
 </span><span class="sd"> * @return string HTML code
@@ -29162,8 +29164,8 @@
 <p>Once all <code>HelperForm</code> settings have been configured, we generate the form based on the content of the <code>$form</code> variable using <code>generateForm()</code>.</p>
 </li>
 </ul>
-<h3 id="understanding-helperform">Understanding HelperForm</h3>
-<p>The <a href="https://devdocs.prestashop-project.org/1.7/development/components/helpers/helperform/">HelperForm component</a> enables you to generate standard HTML elements for the back office as well as for module configuration pages.</p>
+
+<h3 id="understanding-helperform">Understanding HelperForm<a href="#understanding-helperform"></a></h3><p>The <a href="https://devdocs.prestashop-project.org/1.7/development/components/helpers/helperform/">HelperForm component</a> enables you to generate standard HTML elements for the back office as well as for module configuration pages.</p>
 <p>Our example uses several of <code>HelperForm</code>&rsquo;s attributes; they need to be set before we can generate the form using the <code>$form</code> variable:</p>
 <ul>
 <li><code>$helper-&gt;table</code> takes the module&rsquo;s table. <code>$this-&gt;table</code> set to &ldquo;modules&rdquo; by default for all modules.</li>
@@ -29202,17 +29204,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239916"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239916"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239916"></script>
-    <script src="/js/jquery.sticky.js?1677239916"></script>
-    <script src="/js/featherlight.min.js?1677239916"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239916"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239916"></script>
-    <script src="/js/learn.js?1677239916"></script>
-    <script src="/js/hugo-learn.js?1677239916"></script>
+    <script src="/js/clipboard.min.js?1678194997"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194997"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194997"></script>
+    <script src="/js/jquery.sticky.js?1678194997"></script>
+    <script src="/js/featherlight.min.js?1678194997"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194997"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194997"></script>
+    <script src="/js/learn.js?1678194997"></script>
+    <script src="/js/hugo-learn.js?1678194997"></script>
     
-    <script src="/main.js?1677239916"></script>
+    <script src="/main.js?1678194997"></script>
     
     
     

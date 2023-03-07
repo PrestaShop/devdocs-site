@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239931" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239931" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239931" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239931" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195011" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195011" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195011" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195011" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239931" rel="stylesheet">
+    <link href="/style.css?1678195011" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239931"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195011"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13772,6 +13772,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#symfony-bridge-for-hooks">Symfony bridge for hooks</a>
@@ -30278,8 +30280,8 @@
 
 
 
-<h1 id="symfony-bridge-for-hooks">Symfony bridge for hooks</h1>
-<p>In Back-Office, migrated pages are powered by Symfony. The powerful <a href="https://symfony.com/doc/current/components/event_dispatcher.html">Symfony Event Dispatcher</a> has been chosen to replace, in the long term, hooks. However, in order to preserve backward compatibility, both systems coexist.</p>
+
+<h1 id="symfony-bridge-for-hooks">Symfony bridge for hooks<a href="#symfony-bridge-for-hooks"></a></h1><p>In Back-Office, migrated pages are powered by Symfony. The powerful <a href="https://symfony.com/doc/current/components/event_dispatcher.html">Symfony Event Dispatcher</a> has been chosen to replace, in the long term, hooks. However, in order to preserve backward compatibility, both systems coexist.</p>
 <p>It is important that modules which subscribe to a hook are correctly notified no matter where the hook is dispatched from, be it in legacy code or modern code.</p>
 <p>In legacy code, hooks are dispatched using <code>Hook::exec()</code>.</p>
 <p>In Symfony-powered code, two services work together to achieve this:</p>
@@ -30287,17 +30289,17 @@
 <li>The class <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/src/Adapter/LegacyHookSubscriber.php">LegacyHookSubscriber</a> acts as a registry for hook subscriptions and as gateway between the legacy <code>Hook</code> class and Symfony.</li>
 <li>The class <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/src/Core/Hook/HookDispatcher.php">HookDispatcher</a> is actually a wrapper of Symfony&rsquo;s Event Dispatcher.</li>
 </ul>
-<h2 id="registry">Registry</h2>
-<p>First, on setup, <code>LegacyHookSubscriber</code> will retrieve all legacy hooks using <code>Hook::getHooks()</code>.</p>
+
+<h2 id="registry">Registry<a href="#registry"></a></h2><p>First, on setup, <code>LegacyHookSubscriber</code> will retrieve all legacy hooks using <code>Hook::getHooks()</code>.</p>
 <p>Then it will create as many event subscriptions as there are hooks, following a naming convention based on database IDs.</p>
 <p>For example, if module with <code>id_module</code> 267 has subscribed to hook with <code>id_hook</code> 82, <code>LegacyHookSubscriber</code> will create a subscription <code>call_82_267</code>.</p>
-<h2 id="dispatching">Dispatching</h2>
-<p>In Symfony-powered pages, to dispatch hook one must use the HookDispatcher:</p>
+
+<h2 id="dispatching">Dispatching<a href="#dispatching"></a></h2><p>In Symfony-powered pages, to dispatch hook one must use the HookDispatcher:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hookDispatcher</span><span class="o">-&gt;</span><span class="na">dispatchWithParameters</span><span class="p">(</span><span class="s2">&#34;actionModifyForm&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;form_builder&#39;</span> <span class="o">=&gt;</span> <span class="nv">$formBuilder</span><span class="p">]);</span>
 </code></pre></div><p>The HookDispatcher will act as standard dispatcher and call the eligible event listeners and subscribers, including LegacyHookSubscriber.</p>
 <p>Using a dedicated magic method <code>__call()</code>, the <code>LegacyHookSubscriber</code> will parse the called method (ex: <code>call_82_267</code>) to retrieve the appropriate hook and module (using their respective IDs) and trigger the related <code>Hook::exec()</code> call with the appropriate parameters.</p>
-<h2 id="to-sum-up">To sum up</h2>
-<p>When a hook is dispatched inside Symfony-powered controllers, <code>HookDispatcher</code> dispatches the hook similarly to a regular Symfony event; this event is being listened to by <code>LegacyHookSubscriber</code> who will then trigger the related <code>Hook::exec()</code> call.</p>
+
+<h2 id="to-sum-up">To sum up<a href="#to-sum-up"></a></h2><p>When a hook is dispatched inside Symfony-powered controllers, <code>HookDispatcher</code> dispatches the hook similarly to a regular Symfony event; this event is being listened to by <code>LegacyHookSubscriber</code> who will then trigger the related <code>Hook::exec()</code> call.</p>
 
 
 <footer class="article-footer">
@@ -30322,17 +30324,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239931"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239931"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239931"></script>
-    <script src="/js/jquery.sticky.js?1677239931"></script>
-    <script src="/js/featherlight.min.js?1677239931"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239931"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239931"></script>
-    <script src="/js/learn.js?1677239931"></script>
-    <script src="/js/hugo-learn.js?1677239931"></script>
+    <script src="/js/clipboard.min.js?1678195011"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195011"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195011"></script>
+    <script src="/js/jquery.sticky.js?1678195011"></script>
+    <script src="/js/featherlight.min.js?1678195011"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195011"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195011"></script>
+    <script src="/js/learn.js?1678195011"></script>
+    <script src="/js/hugo-learn.js?1678195011"></script>
     
-    <script src="/main.js?1677239931"></script>
+    <script src="/main.js?1678195011"></script>
     
     
     

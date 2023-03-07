@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/basics/keeping-up-to-date/migration/">
 
     
-    <link href="/css/font-awesome.min.css?1677239904" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239904" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239904" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239904" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194986" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194986" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194986" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194986" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239904" rel="stylesheet">
+    <link href="/style.css?1678194986" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239904"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194986"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12531,6 +12531,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#how-to-migrate-to-prestashop-17">How to migrate to PrestaShop 1.7</a>
@@ -29077,9 +29079,9 @@
 
 
 
-<h1 id="how-to-migrate-to-prestashop-17">How to migrate to PrestaShop 1.7</h1>
-<h2 id="manual-migration---process-details">Manual migration - Process details</h2>
-<p>We will use the ETL (Extract - Transform - Load) process to complete a migration, a concept usually applied to data warehouses.</p>
+
+<h1 id="how-to-migrate-to-prestashop-17">How to migrate to PrestaShop 1.7<a href="#how-to-migrate-to-prestashop-17"></a></h1>
+<h2 id="manual-migration---process-details">Manual migration - Process details<a href="#manual-migration---process-details"></a></h2><p>We will use the ETL (Extract - Transform - Load) process to complete a migration, a concept usually applied to data warehouses.</p>
 <p>The database structure may change with each new release of PrestaShop, but major versions may also imply features being replaced, preventing a shop to be smoothly upgraded in some cases. For these shops, a migration is a solution to be able to keep up with new releases.</p>
 <p>We will cover the 3 main steps in this chapter:</p>
 <ul>
@@ -29087,16 +29089,16 @@
 <li>Add / modify / delete some values if needed</li>
 <li>Import data on the new shop</li>
 </ul>
-<h3 id="exporting-data-from-the-source">Exporting data from the source</h3>
-<p>In difference with an upgrade, we won’t modify the database directly. We need to export the data first. We use CSV files here, the most compatible and generic format.</p>
+
+<h3 id="exporting-data-from-the-source">Exporting data from the source<a href="#exporting-data-from-the-source"></a></h3><p>In difference with an upgrade, we won’t modify the database directly. We need to export the data first. We use CSV files here, the most compatible and generic format.</p>
 <p>Exporting data can be done</p>
 <ul>
 <li>Via the PrestaShop administration panel,</li>
 <li>With your MySQL client.</li>
 </ul>
 <p>Depending on the way you export your data, you won’t get the same amount of data in your exports.</p>
-<h4 id="light---via-the-administration-panel">Light - Via the administration panel</h4>
-<p>Exporting data is quite straightforward. On each controller dedicated to the data you want to export, you will find action buttons at the top right of the page:</p>
+
+<h4 id="light---via-the-administration-panel">Light - Via the administration panel<a href="#light---via-the-administration-panel"></a></h4><p>Exporting data is quite straightforward. On each controller dedicated to the data you want to export, you will find action buttons at the top right of the page:</p>
 <figure><img src="../img/migration-export-bo-zoom.png"/><figcaption>
             <h4>Export button in action bar</h4>
         </figcaption>
@@ -29127,13 +29129,13 @@
 <div class="notices note" >The extraction will contain values for the current language. If your shop is multilang, you must switch your lang in your employee configuration (accessible from the top right corner of the page) and repeat the extraction.</div>
 
 <p>This method is limited to the displayed details (= what you see on the table), thus can be far from being exhaustive. In the case you want more or all columns, you may prefer to proceed manually with your own SQL client.</p>
-<h4 id="complete---via-a-mysql-client">Complete - Via a MySQL client</h4>
-<p>Advanced users can use their own client to extract data in CSV. This option give full control on the data to export.</p>
+
+<h4 id="complete---via-a-mysql-client">Complete - Via a MySQL client<a href="#complete---via-a-mysql-client"></a></h4><p>Advanced users can use their own client to extract data in CSV. This option give full control on the data to export.</p>
 <p>Choosing an extraction in CSV will allow you to bring changes easily with a spreadsheet editor, like Microsoft Excel or LibreOffice Calc.</p>
-<h5 id="phpmyadmin">phpMyAdmin</h5>
-<p>On phpMyAdmin, exporting in CSV can be done on the same page as the classic SQL dump.</p>
-<h6 id="quick-and-complete-export-recommended">Quick and complete export (recommended)</h6>
-<p>This step can be completed straightforwardly by exporting all tables in a single call. Click on your database, then the “Export” button to start:</p>
+
+<h5 id="phpmyadmin">phpMyAdmin<a href="#phpmyadmin"></a></h5><p>On phpMyAdmin, exporting in CSV can be done on the same page as the classic SQL dump.</p>
+
+<h6 id="quick-and-complete-export-recommended">Quick and complete export (recommended)<a href="#quick-and-complete-export-recommended"></a></h6><p>This step can be completed straightforwardly by exporting all tables in a single call. Click on your database, then the “Export” button to start:</p>
 <figure><img src="../img/migration-phpmyadmin-export-database-header.png"/>
 </figure>
 
@@ -29160,8 +29162,8 @@
 <p>To avoid a single CSV file to be returned with all your tables in it, check the option “Export tables as separate files”.
 You will get a Zip file instead, containing one CSV file for each table.</p>
 <p>Finally, we advise to check the option “Put columns names in the first row”. This will be useful in the next step when your data will need to be modified.</p>
-<h6 id="personalized-export-from-custom-sql-requests">Personalized export from custom SQL requests</h6>
-<p>We explained how to export all your tables to make sure you keep as much data as possible.</p>
+
+<h6 id="personalized-export-from-custom-sql-requests">Personalized export from custom SQL requests<a href="#personalized-export-from-custom-sql-requests"></a></h6><p>We explained how to export all your tables to make sure you keep as much data as possible.</p>
 <p>If you get your data from another CMS or prefer to proceed with your own method, you can run a custom SQL query to get all the information you need. This option is useful if you plan to import your data with the import feature of PrestaShop.</p>
 <p>As an example here is a SQL request to get the main product details, along with the texts corresponding to the first language of the first shop:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">ps_product</span><span class="o">`</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="o">`</span><span class="n">ps_product_lang</span><span class="o">`</span><span class="w"> </span><span class="n">pl</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_product</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_shop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_product</span><span class="w">
@@ -29169,8 +29171,8 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 <figure><img src="../img/migration-phpmyadmin-export-custom-sql.png"/>
 </figure>
 
-<h5 id="mysqldump">mysqldump</h5>
-<p>If you used <code>mysqldump</code> for your backups, there is also an option for extracting your data in CSV files, as described in the <a href="https://dev.mysql.com/doc/refman/8.0/en/mysqldump-delimited-text.html">documentation</a>. However, our tests have shown that method is far from being easy.</p>
+
+<h5 id="mysqldump">mysqldump<a href="#mysqldump"></a></h5><p>If you used <code>mysqldump</code> for your backups, there is also an option for extracting your data in CSV files, as described in the <a href="https://dev.mysql.com/doc/refman/8.0/en/mysqldump-delimited-text.html">documentation</a>. However, our tests have shown that method is far from being easy.</p>
 <p>Example for exporting the table ps_product:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">mysqldump -h127.0.0.1 -P3307 -uroot -p -T/var/lib/mysql-files --fields-enclosed-by<span class="o">=</span><span class="se">\&#34;</span> --fields-terminated-by<span class="o">=</span><span class="se">\;</span> prestashop16 ps_product
 </code></pre></div><p>Several notes about <code>mysqldump</code> with CSV files:</p>
@@ -29199,9 +29201,9 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 <div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">mysqldump: Got error: 1290: The MySQL server is running with the --secure-file-priv option so it cannot execute this statement when executing &#39;SELECT INTO OUTFILE&#39;
 </code></pre></div><p>If you want to know in which folder you can export the files, run the SQL request:</p>
 <div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;secure_file_priv&#34;</span><span class="p">;</span><span class="w">
-</span></code></pre></div><h3 id="updating-the-data">Updating the data</h3>
-<h4 id="get-changes-between-source-and-destination-databases">Get changes between source and destination databases</h4>
-<p>Now you have retrieved your data from the production shop, you have to adapt it to the new structure before inserting it on your new database.</p>
+</span></code></pre></div>
+<h3 id="updating-the-data">Updating the data<a href="#updating-the-data"></a></h3>
+<h4 id="get-changes-between-source-and-destination-databases">Get changes between source and destination databases<a href="#get-changes-between-source-and-destination-databases"></a></h4><p>Now you have retrieved your data from the production shop, you have to adapt it to the new structure before inserting it on your new database.</p>
 <p>An efficient way to get the changes is getting a database structure diff between the 2 running shops. MySQL provides another tool for this called <a href="https://docs.oracle.com/cd/E17952_01/mysql-utilities-1.5-en/mysqldiff.html">mysqldiff</a>.</p>
 <p>Note this utility may be not immediately available on your environment, even if you have the mysql client installed. For instance on Ubuntu, an additional package needs to be installed:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">apt install mysql-utilities
@@ -29218,16 +29220,16 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 </ul>
 <p>A example of output is available in <a href="https://gist.github.com/Quetzacoalt91/9cef61ebbf12c139f44d27035d3cb1fd">https://gist.github.com/Quetzacoalt91/9cef61ebbf12c139f44d27035d3cb1fd</a>. The changes are extracted from a diff structure between a PrestaShop 1.6.1.18 database and another one under PrestaShop 1.7.3.2.</p>
 <p>It appears the structure from PrestaShop has not drastically changed from 1.6 versions, although some columns type has evolved. Preparing your data for PrestaShop 1.7 should not need too many changes on your CSV files.</p>
-<h3 id="applying-structure-change">Applying structure change</h3>
-<p>This step has to be reproduced as many times as you have tables waiting to be migrated. The import step will be easier if you make sure the data you transfer fits the destination structure. This chapter will help to identify the changes to apply depending on the diff created during the previous step.</p>
+
+<h3 id="applying-structure-change">Applying structure change<a href="#applying-structure-change"></a></h3><p>This step has to be reproduced as many times as you have tables waiting to be migrated. The import step will be easier if you make sure the data you transfer fits the destination structure. This chapter will help to identify the changes to apply depending on the diff created during the previous step.</p>
 <p>A few notes:</p>
 <ul>
 <li>Not all differences require a change in your data,</li>
 <li>Basic changes can be done using spreadsheet editor,</li>
 <li>Complex modifications will require manual work.</li>
 </ul>
-<h5 id="new-column">New column</h5>
-<p>Any new column added to the database requires the same work on your CSV file. Check on the new shop what default value applies to the new column, by checking in the following order:</p>
+
+<h5 id="new-column">New column<a href="#new-column"></a></h5><p>Any new column added to the database requires the same work on your CSV file. Check on the new shop what default value applies to the new column, by checking in the following order:</p>
 <ul>
 <li>The database schema,</li>
 <li>The ObjectModel (folder classes of PrestaShop),</li>
@@ -29255,8 +29257,8 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 </figure>
 </p>
 <p>In this example the new column <code>checkout_session_data</code> has no default value and the existing data on our PrestaShop displays an empty column. As the column allows null values, we keep all rows empty.</p>
-<h5 id="column-has-the-same-type-but-not-the-same-size">Column has the same type, but not the same size</h5>
-<p>Example with address:</p>
+
+<h5 id="column-has-the-same-type-but-not-the-same-size">Column has the same type, but not the same size<a href="#column-has-the-same-type-but-not-the-same-size"></a></h5><p>Example with address:</p>
 <div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">- `lastname` varchar(32) NOT NULL,
 </span><span class="gd"></span><span class="gi">+ `lastname` varchar(255) NOT NULL,
 </span></code></pre></div><p>If a column keeps its type but only increases its size, it does not require any change on your side. The new version offers more room to your text before being truncated.</p>
@@ -29264,24 +29266,24 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 <div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">- `id_attribute_group` int(10) unsigned NOT NULL,
 </span><span class="gd"></span><span class="gi">+ `id_attribute_group` int(11) NOT NULL,
 </span></code></pre></div><p>This change does not imply anything on your side. This is a preliminary work for building relations between our tables.</p>
-<h5 id="column-removed">Column removed</h5>
-<p>This kind of change is easier than adding a column.</p>
+
+<h5 id="column-removed">Column removed<a href="#column-removed"></a></h5><p>This kind of change is easier than adding a column.</p>
 <div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">-  `scenes` tinyint(1) NOT NULL DEFAULT &#39;1&#39;,
 </span></code></pre></div><p>Open the related CSV, remove the column and save.</p>
 <p>However keep in mind in some cases the column may have been moved to another table. If this occurs, you will have to move the content of your column to another CSV.</p>
 <p>An example is available for the table <PREFIX><strong>store</strong>, some columns have been moved to the table <PREFIX><strong>store_lang</strong> to allow localized data to be used. Data needs to be moved to a new CSV, and duplicated as many time as you have languages installed on your shop.</p>
-<h5 id="default-value-disappeared">Default value disappeared</h5>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">- `position` int(10) unsigned NOT NULL DEFAULT &#39;0&#39;,
+
+<h5 id="default-value-disappeared">Default value disappeared<a href="#default-value-disappeared"></a></h5><div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">- `position` int(10) unsigned NOT NULL DEFAULT &#39;0&#39;,
 </span><span class="gd"></span><span class="gi">+ `position` int(11) NOT NULL,
 </span></code></pre></div><p>Here again, nothing to worry about, as there is no change needed on your data. The default value is now managed by the ORM. However, if the previous version did not show <code>NOT NULL</code>, this could require you to add a default value on the empty rows.</p>
-<h5 id="primary-key--unique-index-updates">Primary key / unique index updates</h5>
-<p>If the primary key or one unique key on a table evolves / is added, the import of your existing data can fail if it doesn’t respect the new unicity rules.</p>
+
+<h5 id="primary-key--unique-index-updates">Primary key / unique index updates<a href="#primary-key--unique-index-updates"></a></h5><p>If the primary key or one unique key on a table evolves / is added, the import of your existing data can fail if it doesn’t respect the new unicity rules.</p>
 <div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">-  PRIMARY KEY (`id_feature`,`id_product`),
 </span><span class="gd"></span><span class="gi">+  PRIMARY KEY (`id_feature`,`id_product`,`id_feature_value`),
 </span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gi">+  UNIQUE KEY `name_UNIQUE` (`name`),
 </span></code></pre></div><p>If you see this kind of diff, check that you do not have the same group of values more than once. Is is more likely to happen if a column is removed from a column group, or if a key is added.</p>
-<h5 id="redirection-for-disabled-products">Redirection for disabled products</h5>
-<p>This change is specific to the table product.</p>
+
+<h5 id="redirection-for-disabled-products">Redirection for disabled products<a href="#redirection-for-disabled-products"></a></h5><p>This change is specific to the table product.</p>
 <div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">- `redirect_type` enum(&#39;&#39;,&#39;404&#39;,&#39;301&#39;,&#39;302&#39;) NOT NULL DEFAULT &#39;&#39;,
 </span><span class="gd">- `id_product_redirected` int(10) unsigned NOT NULL DEFAULT &#39;0&#39;,
 </span><span class="gd"></span><span class="gi">+ `redirect_type` enum(&#39;&#39;,&#39;404&#39;,&#39;301-product&#39;,&#39;302-product&#39;,&#39;301-category&#39;,&#39;302-category&#39;) NOT NULL DEFAULT &#39;&#39;,
@@ -29323,8 +29325,8 @@ On PrestaShop 1.7 the number of options has increased, and a redirection to a ca
 <figure><img src="../img/migration-update-product-table-then.png"/>
 </figure>
 </p>
-<h5 id="shop-details">Shop details</h5>
-<p>You will notice that in the shop table the column <code>id_theme</code> has been replaced by <code>theme_name</code>. PrestaShop does not store data about theme in dedicated tables anymore. The only information remaining is the theme name used by each shop.</p>
+
+<h5 id="shop-details">Shop details<a href="#shop-details"></a></h5><p>You will notice that in the shop table the column <code>id_theme</code> has been replaced by <code>theme_name</code>. PrestaShop does not store data about theme in dedicated tables anymore. The only information remaining is the theme name used by each shop.</p>
 <p>As migrating to PrestaShop 1.7 implies losing the theme used on the shop in production, just write “classic” in this column for each shop.</p>
 <p><strong>Before:</strong>
 <figure><img src="../img/migration-update-shop-table-before.png"/>
@@ -29334,18 +29336,18 @@ On PrestaShop 1.7 the number of options has increased, and a redirection to a ca
 <figure><img src="../img/migration-update-shop-table-then.png"/>
 </figure>
 </p>
-<h4 id="ids-in-csv-files">IDs in CSV files</h4>
-<p>We assume that you will want to overwrite the demonstration data with the data you exported from the old shop. Leaving your IDs intact will replace any existing data with the same ID.</p>
+
+<h4 id="ids-in-csv-files">IDs in CSV files<a href="#ids-in-csv-files"></a></h4><p>We assume that you will want to overwrite the demonstration data with the data you exported from the old shop. Leaving your IDs intact will replace any existing data with the same ID.</p>
 <p>If you want to add the extracted data without overriding the existing records on the new shop, you should take care of removing the IDs from your CSV files, or ignore them during the import.</p>
-<h3 id="preparing-the-destination-shop">Preparing the destination shop</h3>
-<p>Make sure to select <code>dont install demo data</code> when installing the shop</p>
+
+<h3 id="preparing-the-destination-shop">Preparing the destination shop<a href="#preparing-the-destination-shop"></a></h3><p>Make sure to select <code>dont install demo data</code> when installing the shop</p>
 <figure><img src="../img/install-without-data-min.png"/><figcaption>
             <h4>Dont install demo data</h4>
         </figcaption>
 </figure>
 
-<h4 id="install-languages">Install languages</h4>
-<p>If you are selling in several countries, additional languages have to be reinstalled on the new shop. This can be done in International &gt; Localization &gt; Import a localization pack.</p>
+
+<h4 id="install-languages">Install languages<a href="#install-languages"></a></h4><p>If you are selling in several countries, additional languages have to be reinstalled on the new shop. This can be done in International &gt; Localization &gt; Import a localization pack.</p>
 <p>Also, make sure the IDs of your langs match on the source shop.</p>
 <figure><img src="../img/migration-update-langs.png"/><figcaption>
             <h4>Checking IDs of installed languages on a shop</h4>
@@ -29353,12 +29355,12 @@ On PrestaShop 1.7 the number of options has increased, and a redirection to a ca
 </figure>
 
 <p>This is an example of shop waiting to be migrated. As we can see, there is a discontinuity on the languages IDs. To reproduce these gaps, you can add unneeded languages you will remove in a second time.</p>
-<h3 id="importing-data">Importing data</h3>
-<p>Unlike a restore, we will only import content here, no table structure will be modified.
+
+<h3 id="importing-data">Importing data<a href="#importing-data"></a></h3><p>Unlike a restore, we will only import content here, no table structure will be modified.
 In a migration, the data imported must fit the new structure and not the old one.</p>
-<h4 id="via-a-mysql-client">Via a MySQL client</h4>
-<h5 id="phpmyadmin-1">PHPMyAdmin</h5>
-<p>PHPMyAdmin also provides a tool to import the data you previously modified into your tables.</p>
+
+<h4 id="via-a-mysql-client">Via a MySQL client<a href="#via-a-mysql-client"></a></h4>
+<h5 id="phpmyadmin-1">PHPMyAdmin<a href="#phpmyadmin-1"></a></h5><p>PHPMyAdmin also provides a tool to import the data you previously modified into your tables.</p>
 <p>Unlike the export step, we recommend you to proceed with tables one by one.</p>
 <p>We assume you want to get rid of the demonstration data of the destination shop, which also makes the import less risky regarding potential duplicate identifiers.</p>
 <ul>
@@ -29408,8 +29410,8 @@ confirmation page like this:</p>
 fixed by other import settings, while an SQL error will require you to
 fix your data.</p>
 <p>Repeat the process as many times as you have CSV files.</p>
-<h4 id="via-the-import-feature-of-prestashop">Via the import feature of PrestaShop</h4>
-<p>Importing your data can also be done via the PrestaShop administration
+
+<h4 id="via-the-import-feature-of-prestashop">Via the import feature of PrestaShop<a href="#via-the-import-feature-of-prestashop"></a></h4><p>Importing your data can also be done via the PrestaShop administration
 panel.</p>
 <p>That solution is best when your data does not come from another
 PrestaShop, or if you got your data from customized SQL requests.</p>
@@ -29444,8 +29446,8 @@ match the default schema.</p>
 several times if your shop is multi-language – once per language.
 Forcing the IDs provided by the CSV file will help you link your
 localized data with the original one.</p>
-<h5 id="import-main-configuration">Import main configuration</h5>
-<p>To import data, start by uploading your CSV file. It will be done
+
+<h5 id="import-main-configuration">Import main configuration<a href="#import-main-configuration"></a></h5><p>To import data, start by uploading your CSV file. It will be done
 automatically when you select your file from the filesystem.</p>
 <p>Before CSV selection or upload:</p>
 <figure><img src="../img/image65.png"/>
@@ -29465,8 +29467,8 @@ above) option could be useful to clean the demonstration content from
 your shop before importing your data. But if you export several CSV of
 the same type of data, make sure to disable it before proceeding with
 the second and following files.</p>
-<h5 id="column-assignment">Column assignment</h5>
-<p>The second step allows you to link the old columns with the new ones.</p>
+
+<h5 id="column-assignment">Column assignment<a href="#column-assignment"></a></h5><p>The second step allows you to link the old columns with the new ones.</p>
 <figure><img src="../img/image77.png"/>
 </figure>
 
@@ -29474,8 +29476,8 @@ the second and following files.</p>
 ask PrestaShop to bypass it by choosing the first option of the list:
 “Ignore this column”.</p>
 <p>When you’re ready to proceed, click on “Import”.</p>
-<h5 id="import-progress">Import progress</h5>
-<p>From that moment, you can just wait for the process to complete. The
+
+<h5 id="import-progress">Import progress<a href="#import-progress"></a></h5><p>From that moment, you can just wait for the process to complete. The
 time it will take depends on the number of lines to import, and the
 chosen options.</p>
 <figure><img src="../img/image32.png"/>
@@ -29488,8 +29490,8 @@ separate HTTP requests.</p>
 chunk. Depending on the result, more or less objects will be handled
 during the next HTTP requests. This gives a nice balance between
 performance and stability.</p>
-<h3 id="images">Images</h3>
-<p>Depending on how you migrated your data, (i.e without the import feature
+
+<h3 id="images">Images<a href="#images"></a></h3><p>Depending on how you migrated your data, (i.e without the import feature
 of PrestaShop), your images may be missing from the new shop. If they
 are not present, you may want to retrieve them from the old.</p>
 <p>Images are stored on the filesystem and their link to a product is
@@ -29525,8 +29527,8 @@ the new shop by removing the existing data at the same time.</p>
 properly on the product page, checkout funnel etc.</p>
 <p>Go to <em>Design &gt; Image settings &gt; Regenerate</em> <em>thumbnails</em> to
 regenerate all the missing sizes.</p>
-<h3 id="attachments">Attachments</h3>
-<p>Like the images, these folders need to be copied on the new server:</p>
+
+<h3 id="attachments">Attachments<a href="#attachments"></a></h3><p>Like the images, these folders need to be copied on the new server:</p>
 <ul>
 <li>
 <p>/download (Contains product attachments)</p>
@@ -29548,27 +29550,27 @@ database if you could not keep the original product IDs.</p>
 <p>&lt;PREFIX&gt;customization_data</p>
 </li>
 </ul>
-<h3 id="generate-search-index">Generate search index</h3>
-<p>Imported products are not immediately available for search to your
+
+<h3 id="generate-search-index">Generate search index<a href="#generate-search-index"></a></h3><p>Imported products are not immediately available for search to your
 customers. You must refresh the search index to make them available.</p>
 <p>Go to <em>Shop parameters &gt; Search &gt; Indexing</em> and click on “Add
 missing product to the index”.</p>
-<h2 id="other-migration-options-for-developers">Other migration options for developers</h2>
-<p>The manual process explained how to export and import data with CSV files
+
+<h2 id="other-migration-options-for-developers">Other migration options for developers<a href="#other-migration-options-for-developers"></a></h2><p>The manual process explained how to export and import data with CSV files
 from database. If you are a developer and you are willing to build your
 own tools for migrations, other ways exist to get the business data.</p>
 <p>The following interfaces will make your tools more efficient and stable
 than a simple CSV extraction. You can add values stored elsewhere than
 in the database, handle your own format, and handle many more objects
 from the source shop.</p>
-<h3 id="object-models">Object Models</h3>
-<p>Object Model is an interface in the PHP codebase used by PrestaShop
+
+<h3 id="object-models">Object Models<a href="#object-models"></a></h3><p>Object Model is an interface in the PHP codebase used by PrestaShop
 developers to request the database.</p>
 <p>This can be used while developing a module responsible of the export
 and/or import of the objects from/to the database.</p>
 <p>For more details, see the page dedicated to <a href="https://devdocs.prestashop-project.org/1.7/development/components/database/objectmodel/">ObjectModels</a></p>
-<h3 id="web-service-api">Web service (API)</h3>
-<p>The webservice API is another way to retrieve or store data in
+
+<h3 id="web-service-api">Web service (API)<a href="#web-service-api"></a></h3><p>The webservice API is another way to retrieve or store data in
 PrestaShop.</p>
 <p>It must be enabled from the administration panel before being accessible.
 See the doc for more details:
@@ -29593,9 +29595,9 @@ automatic, because:</p>
 <li><a href="https://doc.prestashop.com/display/PS16/Using+the+PrestaShop+Web+Service">Learning how-to use the webservice API</a></li>
 <li><a href="https://doc.prestashop.com/display/PS16/Web+service+one-page+documentation#Webserviceone-pagedocumentation-Availableresources">Getting a list of all available ressources, ready for import/export</a></li>
 </ul>
-<h2 id="migration-modules-and-services">Migration modules and services</h2>
-<h3 id="community-module">Community module</h3>
-<p>Although this solution is not made by PrestaShop, it follows the concept
+
+<h2 id="migration-modules-and-services">Migration modules and services<a href="#migration-modules-and-services"></a></h2>
+<h3 id="community-module">Community module<a href="#community-module"></a></h3><p>Although this solution is not made by PrestaShop, it follows the concept
 of export / import presented here and has been recommended several time
 on discussion platforms like the forum.</p>
 <p>That solution is a module called “MigrationPro” and is available on the
@@ -29604,8 +29606,8 @@ Marketplace:</p>
 <p>It bundles two different modules to install on your old and new shop,
 respectively responsible of the export and import of the business data.
 It uses the object models to interact with the database.</p>
-<h3 id="support-service">Support service</h3>
-<p>As well as for the upgrade, you can also ask our support team to proceed
+
+<h3 id="support-service">Support service<a href="#support-service"></a></h3><p>As well as for the upgrade, you can also ask our support team to proceed
 with the migration for you.</p>
 <p>Your data will be migrated and your compatible modules will be
 transferred. As the theme will be lost, you get instead a discount on
@@ -29639,17 +29641,17 @@ them are certainly in your area.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239904"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239904"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239904"></script>
-    <script src="/js/jquery.sticky.js?1677239904"></script>
-    <script src="/js/featherlight.min.js?1677239904"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239904"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239904"></script>
-    <script src="/js/learn.js?1677239904"></script>
-    <script src="/js/hugo-learn.js?1677239904"></script>
+    <script src="/js/clipboard.min.js?1678194986"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194986"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194986"></script>
+    <script src="/js/jquery.sticky.js?1678194986"></script>
+    <script src="/js/featherlight.min.js?1678194986"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194986"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194986"></script>
+    <script src="/js/learn.js?1678194986"></script>
+    <script src="/js/hugo-learn.js?1678194986"></script>
     
-    <script src="/main.js?1677239904"></script>
+    <script src="/main.js?1678194986"></script>
     
     
     

@@ -12,10 +12,10 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://devdocs.prestashop-project.org/8/development/components/hook/subscribing-to-hook/</guid>
-      <description>Subscribing to a Hook The Hook component acts as a registry for hook subscriptions, storing which modules have subscribed to which hook. Multiple modules can subscribe to the same hook, and a single module can subscribe to multiple hooks.
+      <description>Subscribing to a HookThe Hook component acts as a registry for hook subscriptions, storing which modules have subscribed to which hook. Multiple modules can subscribe to the same hook, and a single module can subscribe to multiple hooks.
 Modules subscribe to hooks through the registerHook() static function:
 Hook::registerHook(Module $moduleInstance, string|string[] $subscribedHooks, ?int[] $shopIds = null): bool This method returns true if the operation is successful, false otherwise.
-Parameters $moduleInstance : Instance of the module subscribing to the hook</description>
+Parameters$moduleInstance : Instance of the module subscribing to the hook</description>
     </item>
     
     <item>
@@ -24,7 +24,7 @@ Parameters $moduleInstance : Instance of the module subscribing to the hook</des
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://devdocs.prestashop-project.org/8/development/components/hook/dispatching-hook/</guid>
-      <description>Dispatching a Hook Hooks are placed everywhere throughout the software. Whenever a given hook is dispatched, the Hook component will check which modules subscribed to that hook and notify them by successively calling each subscriber&amp;rsquo;s callback.
+      <description>Dispatching a HookHooks are placed everywhere throughout the software. Whenever a given hook is dispatched, the Hook component will check which modules subscribed to that hook and notify them by successively calling each subscriber&amp;rsquo;s callback.
 Hooks are dispatched using the Hook::exec() function.
 Hook::exec( string $hookName, array $arguments, ?int $moduleId = null, bool $returnArray = false, bool $checkExceptions = true, bool $usePush = false, int $shopId = null, bool $chain = false ): mixed This method returns the result of all hook notification callbacks.</description>
     </item>
@@ -35,10 +35,10 @@ Hook::exec( string $hookName, array $arguments, ?int $moduleId = null, bool $ret
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://devdocs.prestashop-project.org/8/development/components/hook/register-new-hook/</guid>
-      <description>How to add a new Core Hook Although hooks are automatically created the first time they are subscribed to, new hooks added to the Core itself need to be properly registered and documented.
+      <description>How to add a new Core HookAlthough hooks are automatically created the first time they are subscribed to, new hooks added to the Core itself need to be properly registered and documented.
 Here are the steps you need to follow.
-1. Dispatch the new hook The very first step is just to dispatch the new hook wherever you need it, as explained in Dispatching a Hook.
-2. Update the Hooks definition file All known hooks are registered in the ps_hook database table.</description>
+1. Dispatch the new hookThe very first step is just to dispatch the new hook wherever you need it, as explained in Dispatching a Hook.
+2. Update the Hooks definition fileAll known hooks are registered in the ps_hook database table.</description>
     </item>
     
     <item>
@@ -47,7 +47,7 @@ Here are the steps you need to follow.
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://devdocs.prestashop-project.org/8/development/components/hook/symfony-bridge/</guid>
-      <description>Symfony bridge for hooks In Back-Office, migrated pages are powered by Symfony. The powerful Symfony Event Dispatcher has been chosen to replace, in the long term, hooks. However, in order to preserve backward compatibility, both systems coexist.
+      <description>Symfony bridge for hooksIn Back-Office, migrated pages are powered by Symfony. The powerful Symfony Event Dispatcher has been chosen to replace, in the long term, hooks. However, in order to preserve backward compatibility, both systems coexist.
 It is important that modules which subscribe to a hook are correctly notified no matter where the hook is dispatched from, be it in legacy code or modern code.
 In legacy code, hooks are dispatched using Hook::exec().</description>
     </item>

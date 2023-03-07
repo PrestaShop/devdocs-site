@@ -24,15 +24,15 @@
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/helpers/helperform/">
 
     
-    <link href="/css/font-awesome.min.css?1677239913" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239913" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239913" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239913" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678194994" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678194994" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678194994" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678194994" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239913" rel="stylesheet">
+    <link href="/style.css?1678194994" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239913"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678194994"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12537,6 +12537,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#the-helperform-component">The HelperForm component</a>
@@ -29058,13 +29060,13 @@
 
 
 
-<h1 id="the-helperform-component">The HelperForm component</h1>
-<p>This helper can used to generate HTML forms easily.</p>
+
+<h1 id="the-helperform-component">The HelperForm component<a href="#the-helperform-component"></a></h1><p>This helper can used to generate HTML forms easily.</p>
 
 <div class="notices note" >Note that HelperForm is based on Smarty and Bootstrap 3, and therefore is discouraged in Symfony controllers.</div>
 
-<h2 id="basic-usage">Basic usage</h2>
-<p>Removing all the optional fields, this is how to build a basic HelperForm element:</p>
+
+<h2 id="basic-usage">Basic usage<a href="#basic-usage"></a></h2><p>Removing all the optional fields, this is how to build a basic HelperForm element:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$helper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HelperForm</span><span class="p">();</span>
 <span class="nv">$form</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">[</span>
@@ -29104,8 +29106,8 @@
    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
 </code></pre></div><p>To learn more about the <code>$form</code> array structure, read the <a href="#form-declaration">Form declaration section</a> below.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
+
+<h2 id="attributes">Attributes<a href="#attributes"></a></h2><dl>
 <dt><code>$allow_employee_form_lang: int</code></dt>
 <dd><em>This defaults to <code>0</code> and has no effect in PrestaShop 1.7.</em></dd>
 <dt><code>$back_url: string</code></dt>
@@ -29161,8 +29163,8 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
 <dt><code>$tpl_vars: array</code></dt>
 <dd>This allows you to add new Smarty variables to the template or override the ones set by HelperForm.</dd>
 </dl>
-<h2 id="form-declaration">Form declaration</h2>
-<p>The form declaration follows a precise schema. At its root, it&rsquo;s a collection of form sections, also referred to as &ldquo;fieldsets&rdquo;. Each form section contains exactly one &ldquo;form&rdquo; declaration, like this:</p>
+
+<h2 id="form-declaration">Form declaration<a href="#form-declaration"></a></h2><p>The form declaration follows a precise schema. At its root, it&rsquo;s a collection of form sections, also referred to as &ldquo;fieldsets&rdquo;. Each form section contains exactly one &ldquo;form&rdquo; declaration, like this:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$form</span> <span class="o">=</span> <span class="p">[</span>
    <span class="nv">$firstSectionId</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$firstSectionDeclaration</span><span class="p">],</span>
    <span class="nv">$secondSectionId</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$secondSectionDeclaration</span><span class="p">],</span>
@@ -29173,23 +29175,23 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
     <span class="p">[</span><span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$formDeclaration</span><span class="p">]</span>
 <span class="p">];</span>
 </code></pre></div><p><code>$formDeclaration</code> is an array containing several properties, explained below.</p>
-<h3 id="section-heading">Section heading</h3>
-<p>The <code>legend</code> property lets you configure the form&rsquo;s heading.</p>
+
+<h3 id="section-heading">Section heading<a href="#section-heading"></a></h3><p>The <code>legend</code> property lets you configure the form&rsquo;s heading.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$formDeclaration</span><span class="p">[</span><span class="s1">&#39;legend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;icon&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;icon-cogs&#39;</span><span class="p">,</span>                <span class="c1">// Icon to display next to the tile
 </span><span class="c1"></span>    <span class="s1">&#39;image&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;//url/image.png&#39;</span><span class="p">,</span>          <span class="c1">// URL of an image that will be displayed next to the title
 </span><span class="c1"></span>    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Edit carrier&#39;</span><span class="p">),</span>   <span class="c1">// (Required) Title for this form section.
 </span><span class="c1"></span><span class="p">];</span>
-</code></pre></div><h3 id="messages">Messages</h3>
-<p>You can display different messages at the top of the form by declaring the appropriate property.</p>
+</code></pre></div>
+<h3 id="messages">Messages<a href="#messages"></a></h3><p>You can display different messages at the top of the form by declaring the appropriate property.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$formDeclaration</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;This form is used for doing foo bar&#39;</span><span class="p">),</span>
     <span class="s1">&#39;warning&#39;</span>     <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Warning: dangerous stuff ahead!&#39;</span><span class="p">),</span>
     <span class="s1">&#39;succcess&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Form saved!&#39;</span><span class="p">),</span>
     <span class="s1">&#39;error&#39;</span>       <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Oops, something went wrong.&#39;</span><span class="p">),</span>
 <span class="p">];</span>
-</code></pre></div><h3 id="buttons">Buttons</h3>
-<p>You can add a submit button to the form by setting the <code>submit</code> property.</p>
+</code></pre></div>
+<h3 id="buttons">Buttons<a href="#buttons"></a></h3><p>You can add a submit button to the form by setting the <code>submit</code> property.</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$formDeclaration</span><span class="p">[</span><span class="s1">&#39;submit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;send&#39;</span><span class="p">,</span>        <span class="c1">// If not defined, this will take the value of &#34;{$table}_form_submit_btn&#34;
 </span><span class="c1"></span>    <span class="s1">&#39;icon&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;icon-save&#39;</span><span class="p">,</span> <span class="c1">// Icon to show
@@ -29224,8 +29226,8 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
 </code></pre></div>
 <div class="notices note" >All buttons are added at the bottom of the form&rsquo;s section. Each section may have its own submit button, but all sections are part of the same form.</div>
 
-<h3 id="fields">Fields</h3>
-<p>The <code>input</code> property takes an array that defines the form&rsquo;s structure. Using the various offered possibilities, you can build just about any type of form, and be assured that it will comply with PrestaShop&rsquo;s style and form processing.</p>
+
+<h3 id="fields">Fields<a href="#fields"></a></h3><p>The <code>input</code> property takes an array that defines the form&rsquo;s structure. Using the various offered possibilities, you can build just about any type of form, and be assured that it will comply with PrestaShop&rsquo;s style and form processing.</p>
 <p>You can use as many element arrays as necessary for your form, one after the other.</p>
 <p>Example:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$formDeclaration</span><span class="p">[</span><span class="s1">&#39;input&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
@@ -29260,8 +29262,8 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
 <dt><code>$lang: bool</code></dt>
 <dd>False by default. If true, it indicates that the field is multi language.</dd>
 </dl>
-<h4 id="text-input">Text input</h4>
-<p>Here is how to generate a basic <code>&lt;input&gt;</code> element:</p>
+
+<h4 id="text-input">Text input<a href="#text-input"></a></h4><p>Here is how to generate a basic <code>&lt;input&gt;</code> element:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
   <span class="s1">&#39;type&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>                             <span class="c1">// This is a regular &lt;input&gt; tag.
 </span><span class="c1"></span>  <span class="s1">&#39;label&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">),</span>                   <span class="c1">// The &lt;label&gt; for this &lt;input&gt; tag.
@@ -29270,8 +29272,8 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
 </span><span class="c1"></span>  <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>                               <span class="c1">// If set to true, this option must be set.
 </span><span class="c1"></span>  <span class="s1">&#39;desc&#39;</span>     <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Please enter your name.&#39;</span><span class="p">)</span> <span class="c1">// A help text, displayed right next to the &lt;input&gt; tag.
 </span><span class="c1"></span><span class="p">),</span>
-</code></pre></div><h4 id="select">Select</h4>
-<p>Here is how to generate a <code>&lt;select&gt;</code> element:</p>
+</code></pre></div>
+<h4 id="select">Select<a href="#select"></a></h4><p>Here is how to generate a <code>&lt;select&gt;</code> element:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
   <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;select&#39;</span><span class="p">,</span>                              <span class="c1">// This is a &lt;select&gt; tag.
 </span><span class="c1"></span>  <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Shipping method:&#39;</span><span class="p">),</span>         <span class="c1">// The &lt;label&gt; for this &lt;select&gt; tag.
@@ -29305,8 +29307,8 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
     <span class="s2">&#34;name&#34;</span> <span class="o">=&gt;</span> <span class="nv">$gender</span><span class="o">-&gt;</span><span class="na">name</span>
   <span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div><h4 id="checkbox">Checkbox</h4>
-<p>Here is how to generate a <code>&lt;input&gt;</code> of type &ldquo;checkbox&rdquo;:</p>
+</code></pre></div>
+<h4 id="checkbox">Checkbox<a href="#checkbox"></a></h4><p>Here is how to generate a <code>&lt;input&gt;</code> of type &ldquo;checkbox&rdquo;:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
   <span class="s1">&#39;type&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;checkbox&#39;</span><span class="p">,</span>                   <span class="c1">// This is an &lt;input type=&#34;checkbox&#34;&gt; tag.
 </span><span class="c1"></span>  <span class="s1">&#39;label&#39;</span>   <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Options&#39;</span><span class="p">),</span>          <span class="c1">// The &lt;label&gt; for this &lt;input&gt; tag.
@@ -29327,8 +29329,8 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
   <span class="p">),</span>
 <span class="p">),</span>
 </code></pre></div><p>Just as for a selector input, check boxes take an array of arrays as the value of $options.</p>
-<h4 id="radio-button">Radio button</h4>
-<p>Here is how to generate a <code>&lt;input&gt;</code> of type &ldquo;radio&rdquo;:</p>
+
+<h4 id="radio-button">Radio button<a href="#radio-button"></a></h4><p>Here is how to generate a <code>&lt;input&gt;</code> of type &ldquo;radio&rdquo;:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
   <span class="s1">&#39;type&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;radio&#39;</span><span class="p">,</span>                               <span class="c1">// This is an &lt;input type=&#34;checkbox&#34;&gt; tag.
 </span><span class="c1"></span>  <span class="s1">&#39;label&#39;</span>     <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Enable this option&#39;</span><span class="p">),</span>        <span class="c1">// The &lt;label&gt; for this &lt;input&gt; tag.
@@ -29354,8 +29356,8 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
   <span class="p">),</span>
 <span class="p">),</span>
 </code></pre></div><p>Note that you have to use the &ldquo;t&rdquo; CSS class on your labels in order to have the proper styling (but you can redefine that class using the &ldquo;class&rdquo; variable).</p>
-<h4 id="other-html-elements">Other HTML elements</h4>
-<p>The type variable of the element declaration makes it possible to generate just about any kind of <code>&lt;input&gt;</code> element: <code>text</code>, <code>select</code>, <code>textarea</code>, <code>radio</code>, <code>checkbox</code>, <code>file</code> and many others! See the list of available types <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input">here</a>.</p>
+
+<h4 id="other-html-elements">Other HTML elements<a href="#other-html-elements"></a></h4><p>The type variable of the element declaration makes it possible to generate just about any kind of <code>&lt;input&gt;</code> element: <code>text</code>, <code>select</code>, <code>textarea</code>, <code>radio</code>, <code>checkbox</code>, <code>file</code> and many others! See the list of available types <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input">here</a>.</p>
 <p>You can also use some PrestaShop specific: <code>shop</code>, <code>asso_shop</code>, <code>free</code>, <code>color</code>. Try them out!</p>
 
 
@@ -29381,17 +29383,17 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239913"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239913"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239913"></script>
-    <script src="/js/jquery.sticky.js?1677239913"></script>
-    <script src="/js/featherlight.min.js?1677239913"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239913"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239913"></script>
-    <script src="/js/learn.js?1677239913"></script>
-    <script src="/js/hugo-learn.js?1677239913"></script>
+    <script src="/js/clipboard.min.js?1678194994"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678194994"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678194994"></script>
+    <script src="/js/jquery.sticky.js?1678194994"></script>
+    <script src="/js/featherlight.min.js?1678194994"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678194994"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678194994"></script>
+    <script src="/js/learn.js?1678194994"></script>
+    <script src="/js/hugo-learn.js?1678194994"></script>
     
-    <script src="/main.js?1677239913"></script>
+    <script src="/main.js?1678194994"></script>
     
     
     

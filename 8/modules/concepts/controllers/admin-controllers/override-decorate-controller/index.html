@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1677239932" rel="stylesheet">
-    <link href="/css/syntax-github.css?1677239932" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1677239932" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1677239932" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678195012" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678195012" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678195012" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678195012" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1677239932" rel="stylesheet">
+    <link href="/style.css?1678195012" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1677239932"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678195012"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13778,6 +13778,8 @@
             <div id="toc">
   <div class="wrapper">
     <div id="toc-title">Table of Contents</div>
+    
+    
     <nav id="TableOfContents">
   <ul>
     <li><a href="#override-or-decorate-a-core-controller">Override or decorate a Core controller</a>
@@ -30288,8 +30290,8 @@
 
 
 
-<h1 id="override-or-decorate-a-core-controller">Override or decorate a Core controller</h1>
 
+<h1 id="override-or-decorate-a-core-controller">Override or decorate a Core controller<a href="#override-or-decorate-a-core-controller"></a></h1>
 <div class="magic-version-pill" data-version="1.7.7" data-title="New in PrestaShop 1.7.7"></div>
 
 
@@ -30303,8 +30305,8 @@
 <li>Override the existing Core controller</li>
 <li>Decorate the existing Core controller</li>
 </ul>
-<h2 id="remap-the-route">Remap the route</h2>
-<p>In Symfony, <a href="https://symfony.com/doc/4.4/routing.html">routes</a> such as <code>/sell/orders/orders</code> are mapped to controllers by YAML configuration files such as this one:</p>
+
+<h2 id="remap-the-route">Remap the route<a href="#remap-the-route"></a></h2><p>In Symfony, <a href="https://symfony.com/doc/4.4/routing.html">routes</a> such as <code>/sell/orders/orders</code> are mapped to controllers by YAML configuration files such as this one:</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># src/PrestaShopBundle/Resources/config/routing/admin/sell/orders/orders.yml</span><span class="w">
 </span><span class="w"></span><span class="nt">admin_orders_index</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/sell/orders/orders/</span><span class="w">
@@ -30338,8 +30340,8 @@ You can do it by using <code>php bin/console cache:clear</code>.</p>
 <p>If you have trouble writing the right routing configuration for your controller, you can use Symfony debugger to dump the routes with <code>php bin/console debug:router</code>.</p>
 </div>
 
-<h2 id="override-the-controller">Override the controller</h2>
-<p>Since 1.7.7, PrestaShop Back Office controllers are registered as services, and like all public services, they can be <a href="https://devdocs.prestashop-project.org/8/modules/concepts/services/">overridden</a> by modules.</p>
+
+<h2 id="override-the-controller">Override the controller<a href="#override-the-controller"></a></h2><p>Since 1.7.7, PrestaShop Back Office controllers are registered as services, and like all public services, they can be <a href="https://devdocs.prestashop-project.org/8/modules/concepts/services/">overridden</a> by modules.</p>
 <p>For example, the controller responsible for the page &ldquo;Improve &gt; Design &gt; CMS Pages&rdquo; is registered with service ID <code>PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</code>.</p>
 <p>With the following configuration item, we can override this configuration to make it target our custom module:</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># modules/your-module/config/services.yml</span><span class="w">
@@ -30353,8 +30355,8 @@ You can do it by using <code>php bin/console cache:clear</code>.</p>
 
 <div class="notices tip" >If you have trouble writing the right service configuration for your controller, you can use Symfony debugger to dump the routes with <code>php bin/console debug:container</code>. It can also be helpful to find the service ID of the controller.</div>
 
-<h2 id="decorate-the-controller">Decorate the controller</h2>
-<p>Instead of replacing the whole controller, we recommend <em>extending</em> its behavior using <a href="https://symfony.com/doc/4.4/service_container/service_decoration.html">service decoration</a>. By implementing the <a href="https://refactoring.guru/design-patterns/decorator">decorator pattern</a>, you can keep most or all of the original behavior of the decorated controller, and only customize the parts you want.</p>
+
+<h2 id="decorate-the-controller">Decorate the controller<a href="#decorate-the-controller"></a></h2><p>Instead of replacing the whole controller, we recommend <em>extending</em> its behavior using <a href="https://symfony.com/doc/4.4/service_container/service_decoration.html">service decoration</a>. By implementing the <a href="https://refactoring.guru/design-patterns/decorator">decorator pattern</a>, you can keep most or all of the original behavior of the decorated controller, and only customize the parts you want.</p>
 
 <div class="notices note" >While you could achieve a similar end with an override (by making your controller extend the original one), the decorator pattern provides a greater degree of freedom, while leaving all complexity of initialization and dependency management to the service container.</div>
 
@@ -30442,17 +30444,17 @@ However we could modify the input request or the output given by decorated contr
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1677239933"></script>
-    <script src="/js/perfect-scrollbar.min.js?1677239933"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1677239933"></script>
-    <script src="/js/jquery.sticky.js?1677239933"></script>
-    <script src="/js/featherlight.min.js?1677239933"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1677239933"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1677239933"></script>
-    <script src="/js/learn.js?1677239933"></script>
-    <script src="/js/hugo-learn.js?1677239933"></script>
+    <script src="/js/clipboard.min.js?1678195012"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678195012"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678195012"></script>
+    <script src="/js/jquery.sticky.js?1678195012"></script>
+    <script src="/js/featherlight.min.js?1678195012"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678195012"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678195012"></script>
+    <script src="/js/learn.js?1678195012"></script>
+    <script src="/js/hugo-learn.js?1678195012"></script>
     
-    <script src="/main.js?1677239933"></script>
+    <script src="/main.js?1678195012"></script>
     
     
     
