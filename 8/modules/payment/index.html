@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1678212148" rel="stylesheet">
-    <link href="/css/syntax-github.css?1678212148" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1678212148" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1678212148" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1678458042" rel="stylesheet">
+    <link href="/css/syntax-github.css?1678458042" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1678458042" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1678458042" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1678212148" rel="stylesheet">
+    <link href="/style.css?1678458042" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1678212148"></script>
+    <script src="/js/jquery-3.3.1.min.js?1678458042"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13775,11 +13775,12 @@
                 <li><a href="#offline">Offline</a></li>
                 <li><a href="#external">External</a></li>
                 <li><a href="#embedded">Embedded</a></li>
-                <li><a href="#iframe">iFrame</a></li>
+                <li><a href="#iframe">iframe</a></li>
               </ul>
             </li>
           </ul>
         </li>
+        <li><a href="#payment-modules-rules">Payment modules rules</a></li>
         <li><a href="#migrating-from-16-to-17">Migrating from 1.6 to 1.7</a>
           <ul>
             <li><a href="#how-to">How-To</a>
@@ -30342,9 +30343,29 @@ It&rsquo;s a simple URL to call, then various information are displayed to the c
 <pre><code>The minimal variables to set are `$callToActionText` and `$form`. You can check the `getEmbeddedPaymentOption()` method of *[paymentexample](https://github.com/PrestaShop/paymentexample)* to have an example.
 </code></pre>
 
-<h4 id="iframe">iFrame<a href="#iframe"></a></h4><p>:   The payment form is displayed on the merchant&rsquo;s website, but inside an iFrame.</p>
+<h4 id="iframe">iframe<a href="#iframe"></a></h4><p>:   The payment form is displayed on the merchant&rsquo;s website, but inside an iframe.</p>
 <pre><code>The minimal variables to set are `$callToActionText` and `$additionalInformation`. You can check the `getIframePaymentOption()` method of *[paymentexample](https://github.com/PrestaShop/paymentexample)* to have an example.
 </code></pre>
+
+<h2 id="payment-modules-rules">Payment modules rules<a href="#payment-modules-rules"></a></h2><p>We do have extra rules for Payment Modules as this type of modules require higher security.
+Note that there are some modules which create the Order with a pending order status during the payment processing (1), while others wait for the payment system&rsquo;s approval to create it (2). But none of them create an order before the customer passed the payment service (bank, PayPal&hellip;).</p>
+<ul>
+<li>
+<p>Make sure you double check the id_cart before creating the order.</p>
+<ul>
+<li>The purpose is to make sure another customer cannot validate a cart which isn&rsquo;t his.</li>
+</ul>
+</li>
+<li>
+<p>if (2), make sure the amount you use to validateOrder() comes from the external payment system. Do not use Cart-&gt;getOrderTotal();</p>
+<ul>
+<li>For security reasons, always proceed as explained.</li>
+</ul>
+</li>
+<li>
+<p>For (2), when receiving a call to process the payment, make sure you double check the source of the call using a signature or a token. Those values must not be known of all.</p>
+</li>
+</ul>
 
 <h2 id="migrating-from-16-to-17">Migrating from 1.6 to 1.7<a href="#migrating-from-16-to-17"></a></h2>
 <h3 id="how-to">How-To<a href="#how-to"></a></h3><p>You need to change the <em>payment</em> hook where your module is hooked on by <em>paymentOption</em>. <strong>It&rsquo;s not a display hook anymore</strong>, so you must not use the <code>$this-&gt;display()</code> method to retrieve a template, but use the <code>$this-&gt;context-&gt;smarty-&gt;fetch()</code> method instead.</p>
@@ -30434,17 +30455,17 @@ it will replace the unique payment button in the checkout.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1678212148"></script>
-    <script src="/js/perfect-scrollbar.min.js?1678212148"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1678212148"></script>
-    <script src="/js/jquery.sticky.js?1678212148"></script>
-    <script src="/js/featherlight.min.js?1678212148"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1678212148"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1678212148"></script>
-    <script src="/js/learn.js?1678212148"></script>
-    <script src="/js/hugo-learn.js?1678212148"></script>
+    <script src="/js/clipboard.min.js?1678458042"></script>
+    <script src="/js/perfect-scrollbar.min.js?1678458042"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1678458042"></script>
+    <script src="/js/jquery.sticky.js?1678458042"></script>
+    <script src="/js/featherlight.min.js?1678458042"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1678458042"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1678458042"></script>
+    <script src="/js/learn.js?1678458042"></script>
+    <script src="/js/hugo-learn.js?1678458042"></script>
     
-    <script src="/main.js?1678212148"></script>
+    <script src="/main.js?1678458042"></script>
     
     
     
