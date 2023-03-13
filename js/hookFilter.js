@@ -36,6 +36,12 @@ $(function() {
     }
 
     const filterList = function(search) {
+
+        /* will match hook names as functions in modules */
+        if(search.substring(0, 4).toLowerCase() == "hook"){
+            search = search.substring(4);
+        }
+
         let count = 0;
         const regex = new RegExp(escapeRegExp(search), 'i');
         
