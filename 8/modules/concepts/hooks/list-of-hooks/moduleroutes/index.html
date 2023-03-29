@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1680070269" rel="stylesheet">
-    <link href="/css/syntax-github.css?1680070269" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1680070269" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1680070269" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1680082075" rel="stylesheet">
+    <link href="/css/syntax-github.css?1680082075" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1680082075" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1680082075" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1680070269" rel="stylesheet">
+    <link href="/style.css?1680082075" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1680070269"></script>
+    <script src="/js/jquery-3.3.1.min.js?1680082075"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13807,6 +13807,12 @@
       <ul>
         <li><a href="#information">Information</a></li>
         <li><a href="#call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file</a></li>
+        <li><a href="#example-implementation">Example implementation</a>
+          <ul>
+            <li><a href="#rule-and-keywords-parameters"><code>rule</code> and <code>keywords</code> parameters</a></li>
+            <li><a href="#implementation">Implementation</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -30320,7 +30326,12 @@
 
 
 <h1 id="hook-moduleroutes">Hook moduleRoutes<a href="#hook-moduleroutes"></a></h1>
-<h2 id="information">Information<a href="#information"></a></h2><p>Hook locations:</p>
+<h2 id="information">Information<a href="#information"></a></h2>
+<div class="notices tip" ><p><strong>Adds route to the PrestaShop router</strong></p>
+<p>This hook allows your module to extend default PrestaShop routes with custom ones and map them to your module front controllers.</p>
+</div>
+
+<p>Hook locations:</p>
 <ul>
 <li>front office</li>
 </ul>
@@ -30333,6 +30344,119 @@
 
 <h2 id="call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file<a href="#call-of-the-hook-in-the-origin-file"></a></h2><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;moduleRoutes&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;id_shop&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_shop</span><span class="p">],</span> <span class="k">null</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">)</span>
 </code></pre></div>
+<h2 id="example-implementation">Example implementation<a href="#example-implementation"></a></h2><p>This hook must return an <code>array</code> of routes, keyed by the names of the routes, and each route structured by:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
+  <span class="s1">&#39;rule&#39;</span> <span class="o">=&gt;</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="s1">&#39;keywords&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(),</span>
+  <span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span> <span class="nx">string</span><span class="p">,</span>
+  <span class="s1">&#39;params&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;fc&#39;</span> <span class="o">=&gt;</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="s1">&#39;module&#39;</span> <span class="o">=&gt;</span> <span class="nx">string</span>
+  <span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="rule-and-keywords-parameters"><code>rule</code> and <code>keywords</code> parameters<a href="#rule-and-keywords-parameters"></a></h3><p><code>rule</code> is the URL that will be matched by the router. <code>rule</code> can contain parameters, enclosed with <code>{}</code>.
+For example, to add an <code>id</code> parameter in your route, use the following <code>rule</code>:</p>
+<p><code>myrule/{id}</code></p>
+<p>Multiple parameters can be used, for example:</p>
+<p><code>myrule/{id}/{slug}</code></p>
+<p>Each parameter in your <code>rule</code> must be declared in the <code>keywords</code> array.</p>
+<p>In our example, <code>id</code> must be an integer and <code>slug</code> a string, and will be forwarded to the controller with <code>id</code> and <code>slug</code> parameter names:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="p">[</span>
+  <span class="s1">&#39;rule&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;myrule/{id}/{slug}&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;keywords&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s1">&#39;regexp&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;[0-9]*&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;param&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id&#39;</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;slug&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+      <span class="s1">&#39;regexp&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;.*&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;param&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;slug&#39;</span>
+    <span class="p">]</span>
+  <span class="p">],</span>
+  <span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;myrulecontroller&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;params&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+    <span class="s1">&#39;fc&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;module&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;module&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mymodulename&#39;</span>
+  <span class="p">]</span>
+<span class="p">]</span>
+</code></pre></div>
+<h3 id="implementation">Implementation<a href="#implementation"></a></h3><p>This example creates two <code>ModuleFrontController</code> controllers, and extends PrestaShop routes to map 2 routes to those controllers: one for listing items, the other one for showing one specific item.</p>
+<p>Create a <code>list.php</code> <code>ModuleFrontController</code> in <code>mymoduleaddingroutes/controllers/front/</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">MyModuleAddingRoutesListModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setTemplate</span><span class="p">(</span><span class="s1">&#39;module:mymoduleaddingroutes/views/templates/front/list.tpl&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>and a <code>show.php</code> <code>ModuleFrontController</code> in <code>mymoduleaddingroutes/controllers/front/</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">MyModuleAddingRoutesShowModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="c1">// It is just an example. Remember to always validate the input data!
+</span><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span>
+            <span class="p">[</span>
+              <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">),</span>
+              <span class="s1">&#39;slug&#39;</span> <span class="o">=&gt;</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;slug&#39;</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="p">);</span>
+        
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setTemplate</span><span class="p">(</span><span class="s1">&#39;module:mymoduleaddingroutes/views/templates/front/show.tpl&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>Now, create two templates in <code>mymoduleaddingroutes/views/templates/front/</code>:</p>
+<p><code>list.tpl</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>List template<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</code></pre></div><p><code>show.tpl</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Show template<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+Id: {$id}
+Slug: {$slug}
+</code></pre></div><p>Now we have 2 controllers, rendering 2 templates, we can create our routes with <code>moduleRoutes</code> hook, in <code>mymoduleaddingroutes/mymoduleaddingroutes.php</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">class</span> <span class="nc">MyModuleAddingRoutes</span> <span class="k">extends</span> <span class="nx">Module</span> 
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;moduleRoutes&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookModuleRoutes</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="p">[</span>
+          <span class="s1">&#39;module-mymoduleaddingroutes-list&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;rule&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mymoduleaddingroutes/list&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;keywords&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
+            <span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;list&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;params&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">&#39;fc&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;module&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;module&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mymoduleaddingroutes&#39;</span>
+            <span class="p">]</span>
+          <span class="p">],</span>
+          <span class="s1">&#39;module-mymoduleaddingroutes-show&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+            <span class="s1">&#39;rule&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mymoduleaddingroutes/show/{id}/{slug}&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;keywords&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+              <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">&#39;regexp&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;[0-9]*&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;param&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id&#39;</span>
+              <span class="p">],</span>
+              <span class="s1">&#39;slug&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">&#39;regexp&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;.*&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;param&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;slug&#39;</span>
+              <span class="p">]</span>
+            <span class="p">],</span>
+            <span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;show&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;params&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+                <span class="s1">&#39;fc&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;module&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;module&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mymoduleaddingroutes&#39;</span>
+            <span class="p">]</span>
+          <span class="p">]</span>
+        <span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>The complete implementation example is available in our <a href="https://github.com/PrestaShop/example-modules/demomoduleroutes">example modules repository</a>.</p>
+
 
 <footer class="article-footer">
 	
@@ -30356,17 +30480,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1680070269"></script>
-    <script src="/js/perfect-scrollbar.min.js?1680070269"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1680070269"></script>
-    <script src="/js/jquery.sticky.js?1680070269"></script>
-    <script src="/js/featherlight.min.js?1680070269"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1680070269"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1680070269"></script>
-    <script src="/js/learn.js?1680070269"></script>
-    <script src="/js/hugo-learn.js?1680070269"></script>
+    <script src="/js/clipboard.min.js?1680082076"></script>
+    <script src="/js/perfect-scrollbar.min.js?1680082076"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1680082076"></script>
+    <script src="/js/jquery.sticky.js?1680082076"></script>
+    <script src="/js/featherlight.min.js?1680082076"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1680082076"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1680082076"></script>
+    <script src="/js/learn.js?1680082076"></script>
+    <script src="/js/hugo-learn.js?1680082076"></script>
     
-    <script src="/main.js?1680070269"></script>
+    <script src="/main.js?1680082076"></script>
     
     
     
