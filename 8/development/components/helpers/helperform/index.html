@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1680082057" rel="stylesheet">
-    <link href="/css/syntax-github.css?1680082057" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1680082057" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1680082057" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1680526398" rel="stylesheet">
+    <link href="/css/syntax-github.css?1680526398" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1680526398" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1680526398" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1680082057" rel="stylesheet">
+    <link href="/style.css?1680526398" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1680082057"></script>
+    <script src="/js/jquery-3.3.1.min.js?1680526398"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13817,6 +13817,7 @@
             </li>
           </ul>
         </li>
+        <li><a href="#example-usage-in-native-modules">Example usage in native modules</a></li>
       </ul>
     </li>
   </ul>
@@ -30631,6 +30632,43 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
 <h4 id="other-html-elements">Other HTML elements<a href="#other-html-elements"></a></h4><p>The type variable of the element declaration makes it possible to generate just about any kind of <code>&lt;input&gt;</code> element: <code>text</code>, <code>select</code>, <code>textarea</code>, <code>radio</code>, <code>checkbox</code>, <code>file</code> and many others! See the list of available types <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input">here</a>.</p>
 <p>You can also use some PrestaShop specific: <code>shop</code>, <code>asso_shop</code>, <code>free</code>, <code>color</code>. Try them out!</p>
 
+<h2 id="example-usage-in-native-modules">Example usage in native modules<a href="#example-usage-in-native-modules"></a></h2><p><code>HelperForm</code> is implemented into several native modules, such as <a href="https://github.com/PrestaShop/contactform"><code>ContactForm</code></a>.</p>
+<p>In this module,</p>
+<ul>
+<li>a <a href="https://github.com/PrestaShop/contactform/blob/v4.4.1/contactform.php#L108"><code>renderForm()</code> method is created</a>,</li>
+<li>the <a href="https://github.com/PrestaShop/contactform/blob/v4.4.1/contactform.php#L120-L189">`form declaration is declared</a>,</li>
+<li>then a <a href="https://github.com/PrestaShop/contactform/blob/v4.4.1/contactform.php#L190"><code>HelperForm</code> is instantiated</a>,</li>
+<li>finally the html content is <a href="https://github.com/PrestaShop/contactform/blob/v4.4.1/contactform.php#L203">generated and returned</a>.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
+</span><span class="sd"> * @return string
+</span><span class="sd">*/</span>
+<span class="k">protected</span> <span class="k">function</span> <span class="nf">renderForm</span><span class="p">()</span>
+<span class="p">{</span>
+   <span class="nv">$form</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="c1">// ... form declaration as described on this page
+</span><span class="c1"></span>      <span class="c1">// refer to https://github.com/PrestaShop/contactform/blob/v4.4.1/contactform.php#L120-L189
+</span><span class="c1"></span>      <span class="c1">// for complete implementation
+</span><span class="c1"></span>   <span class="p">];</span>
+
+   <span class="nv">$helper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HelperForm</span><span class="p">();</span>
+   <span class="c1">// HelperForm settings, refer to https://github.com/PrestaShop/contactform/blob/v4.4.1/contactform.php#L190-L201
+</span><span class="c1"></span>   <span class="c1">// for complete implementation
+</span><span class="c1"></span>
+   <span class="k">return</span> <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">generateForm</span><span class="p">([</span><span class="nv">$form</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div><p>Then, in the <code>getContent()</code> method of this module, the <code>renderForm()</code> method is called:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
+</span><span class="sd"> * @return string
+</span><span class="sd">   */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span>
+<span class="p">{</span>
+   <span class="c1">// ...
+</span><span class="c1"></span>   <span class="nv">$html</span> <span class="o">.=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">renderForm</span><span class="p">();</span>
+   <span class="c1">// ...
+</span><span class="c1"></span>   <span class="k">return</span> <span class="nv">$html</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30654,17 +30692,17 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1680082057"></script>
-    <script src="/js/perfect-scrollbar.min.js?1680082057"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1680082057"></script>
-    <script src="/js/jquery.sticky.js?1680082057"></script>
-    <script src="/js/featherlight.min.js?1680082057"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1680082057"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1680082057"></script>
-    <script src="/js/learn.js?1680082057"></script>
-    <script src="/js/hugo-learn.js?1680082057"></script>
+    <script src="/js/clipboard.min.js?1680526398"></script>
+    <script src="/js/perfect-scrollbar.min.js?1680526398"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1680526398"></script>
+    <script src="/js/jquery.sticky.js?1680526398"></script>
+    <script src="/js/featherlight.min.js?1680526398"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1680526398"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1680526398"></script>
+    <script src="/js/learn.js?1680526398"></script>
+    <script src="/js/hugo-learn.js?1680526398"></script>
     
-    <script src="/main.js?1680082057"></script>
+    <script src="/main.js?1680526398"></script>
     
     
     

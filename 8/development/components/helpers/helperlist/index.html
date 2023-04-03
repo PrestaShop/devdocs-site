@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1680082057" rel="stylesheet">
-    <link href="/css/syntax-github.css?1680082057" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1680082057" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1680082057" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1680526398" rel="stylesheet">
+    <link href="/css/syntax-github.css?1680526398" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1680526398" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1680526398" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1680082057" rel="stylesheet">
+    <link href="/style.css?1680526398" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1680082057"></script>
+    <script src="/js/jquery-3.3.1.min.js?1680526398"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13823,6 +13823,7 @@
             <li><a href="#performing-an-ajax-request-using-your-own-structure">Performing an Ajax request using your own structure</a></li>
           </ul>
         </li>
+        <li><a href="#example-usage-in-native-modules">Example usage in native modules</a></li>
       </ul>
     </li>
   </ul>
@@ -30489,6 +30490,47 @@ Values between {curly braces} list the possible values for this field.</p>
     <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;&lt;p&gt;My HTML content&lt;/p&gt;&#39;</span>
 <span class="p">}</span>
 </code></pre></div>
+<h2 id="example-usage-in-native-modules">Example usage in native modules<a href="#example-usage-in-native-modules"></a></h2><p><code>HelperList</code> is implemented into several native modules, such as <a href="https://github.com/PrestaShop/ps_emailsubscription"><code>ps_emailsubscription</code></a>.</p>
+<p>In this module,</p>
+<ul>
+<li>a <a href="https://github.com/PrestaShop/ps_emailsubscription/blob/v2.7.1/ps_emailsubscription.php#L255"><code>renderList()</code> method is created</a>,</li>
+<li>the <a href="https://github.com/PrestaShop/ps_emailsubscription/blob/v2.7.1/ps_emailsubscription.php#L257-L297"><code>$field_ist</code> is declared</a>,</li>
+<li>then a <a href="https://github.com/PrestaShop/ps_emailsubscription/blob/v2.7.1/ps_emailsubscription.php#L303"><code>HelperList</code> is instantiated</a>,</li>
+<li>finally the html content is <a href="https://github.com/PrestaShop/ps_emailsubscription/blob/v2.7.1/ps_emailsubscription.php#L328">generated and returned</a>.</li>
+</ul>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">renderList</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$fields_list</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="c1">// ... fields list declaration, refer to https://github.com/PrestaShop/ps_emailsubscription/blob/v2.7.1/ps_emailsubscription.php#L257-L297
+</span><span class="c1"></span>      <span class="c1">// for complete implementation
+</span><span class="c1"></span>    <span class="p">];</span>
+
+    <span class="c1">// ...
+</span><span class="c1"></span>
+    <span class="nv">$helper_list</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HelperList</span><span class="p">();</span>
+    <span class="c1">// HelperList settings, refer to https://github.com/PrestaShop/ps_emailsubscription/blob/v2.7.1/ps_emailsubscription.php#L303-L317
+</span><span class="c1"></span>    <span class="c1">// for complete implementation
+</span><span class="c1"></span>
+    <span class="cm">/* Retrieve list data */</span>
+    <span class="nv">$subscribers</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getSubscribers</span><span class="p">();</span>
+
+    <span class="c1">// paginate results, refer to https://github.com/PrestaShop/ps_emailsubscription/blob/v2.7.1/ps_emailsubscription.php#L321-L326
+</span><span class="c1"></span>    <span class="c1">// for complete implementation
+</span><span class="c1"></span>
+    <span class="k">return</span> <span class="nv">$helper_list</span><span class="o">-&gt;</span><span class="na">generateList</span><span class="p">(</span><span class="nv">$subscribers</span><span class="p">,</span> <span class="nv">$fields_list</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>Then, in the <code>getContent()</code> method of this module, the <code>renderList()</code> method is called:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
+</span><span class="sd"> * @return string
+</span><span class="sd">   */</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span>
+<span class="p">{</span>
+   <span class="c1">// ...
+</span><span class="c1"></span>   <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_html</span> <span class="o">.=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">renderList</span><span class="p">();</span>
+   <span class="c1">// ...
+</span><span class="c1"></span>   <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_html</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30512,17 +30554,17 @@ Values between {curly braces} list the possible values for this field.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1680082057"></script>
-    <script src="/js/perfect-scrollbar.min.js?1680082057"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1680082057"></script>
-    <script src="/js/jquery.sticky.js?1680082057"></script>
-    <script src="/js/featherlight.min.js?1680082057"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1680082057"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1680082057"></script>
-    <script src="/js/learn.js?1680082057"></script>
-    <script src="/js/hugo-learn.js?1680082057"></script>
+    <script src="/js/clipboard.min.js?1680526398"></script>
+    <script src="/js/perfect-scrollbar.min.js?1680526398"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1680526398"></script>
+    <script src="/js/jquery.sticky.js?1680526398"></script>
+    <script src="/js/featherlight.min.js?1680526398"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1680526398"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1680526398"></script>
+    <script src="/js/learn.js?1680526398"></script>
+    <script src="/js/hugo-learn.js?1680526398"></script>
     
-    <script src="/main.js?1680082057"></script>
+    <script src="/main.js?1680526398"></script>
     
     
     
