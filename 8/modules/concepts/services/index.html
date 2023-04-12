@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1681214220" rel="stylesheet">
-    <link href="/css/syntax-github.css?1681214220" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1681214220" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1681214220" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1681282433" rel="stylesheet">
+    <link href="/css/syntax-github.css?1681282433" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1681282433" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1681282433" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1681214220" rel="stylesheet">
+    <link href="/style.css?1681282433" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1681214220"></script>
+    <script src="/js/jquery-3.3.1.min.js?1681282433"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -70,6 +70,7 @@
     
   
     
+    
     <div class="version-selector-container">
       <div class="version-selector" aria-label="Documentation version">
         <div class="version-selector-current">
@@ -83,11 +84,17 @@
           </svg>
         </div>
         <ul class="version-selector-dropdown">
-          <li><a href="/1.7/">
-              PrestaShop 1.7
-              <span class="version-selector-meta">Previous</span></a></li><li><a href="/8/">
-              PrestaShop 8
-              <span class="version-selector-meta">Current</span></a></li>
+          <li>
+                <a href="/1.7/modules/concepts/services/">
+              
+                PrestaShop 1.7
+                <span class="version-selector-meta">Previous</span></a>
+            </li><li>
+                <a href="/8/modules/concepts/services/">
+              
+                PrestaShop 8
+                <span class="version-selector-meta">Current</span></a>
+            </li>
         </ul>
       </div>
     </div>
@@ -13827,6 +13834,7 @@
                 <li><a href="#decorate-the-service">Decorate the service</a></li>
                 <li><a href="#finding-the-right-service">Finding the right service</a></li>
                 <li><a href="#maintaining-compatibility">Maintaining compatibility</a></li>
+                <li><a href="#advanced-services-parameters-_instanceof-or-interface-binding-manual-tags">Advanced services parameters (_instanceof or interface binding, manual tags) </a></li>
               </ul>
             </li>
           </ul>
@@ -30377,7 +30385,7 @@
 
 <h3 id="create-and-declare-a-new-symfony-service">Create and declare a new Symfony service<a href="#create-and-declare-a-new-symfony-service"></a></h3><p>First we strongly advise you to use
 <a href="https://www.php.net/manual/en/language.namespaces.php"><strong>namespaces</strong></a> &amp; autoloading in your module, which can be done thanks to composer.
-<a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/composer/">A dedicated chapter</a> is available to learn more about Composer and to set it up.</p>
+<a href="https://devdocs.prestashop-project.org/8/modules/concepts/composer/">A dedicated chapter</a> is available to learn more about Composer and to set it up.</p>
 
 <h4 id="define-your-service">Define your service<a href="#define-your-service"></a></h4><p>At first you will need to create a class for your service of course:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -30546,6 +30554,103 @@ their documentation about the <a href="https://symfony.com/doc/4.4/service_conta
 <p>If however no interface was used here, you probably need to <code>extend</code> the previous class, <code>ASpecificClass</code>, instead.</p>
 <p>As you can see, interfaces lay the ground for easy extension and customization, that is why we use them more and more in the Core codebase and we recommend you use them as well !</p>
 
+<h4 id="advanced-services-parameters-_instanceof-or-interface-binding-manual-tags">Advanced services parameters (_instanceof or interface binding, manual tags) 
+<span class="version-pill" title="New in PrestaShop 8.1">
+  8.1
+</span>
+
+<a href="#advanced-services-parameters-_instanceof-or-interface-binding-manual-tags"></a></h4><p>Since 
+<span class="version-pill" title="New in PrestaShop 8.1">
+  8.1
+</span>
+
+, <a href="https://github.com/PrestaShop/PrestaShop/pull/30588">modules autoloaders and service configurations loading are now registered before compiler passes</a>. That means that you can now use native Symfony service configuration features in your modules.</p>
+<p>Those features are:</p>
+<ul>
+<li><a href="https://symfony.com/blog/new-in-symfony-3-3-simpler-service-configuration#interface-based-service-configuration">applying configuration based on the extended classes or implemented interfaces</a></li>
+<li><a href="https://symfony.com/blog/new-in-symfony-3-3-simpler-service-configuration#interface-based-service-configuration">autoconfiguration</a></li>
+<li><a href="https://symfony.com/blog/new-in-symfony-3-3-optional-class-for-named-services">an option to skip the class attribute</a></li>
+<li><a href="https://symfony.com/blog/new-in-symfony-3-3-psr-4-based-service-discovery">automatically registering classes found in the specified directories as services</a></li>
+</ul>
+<p>As an example, let&rsquo;s consider a module with the following structure:</p>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">config/
+    services.yml
+src/
+    Collection/
+        Collection.php
+        Element.php
+        ElementInterface.php
+</code></pre></div><p>And this content:</p>
+<p>File: <code>src/Collection/Collection.php</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">TestModule\InstanceofConditionals\Collection</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Collection</span>
+<span class="p">{</span>
+    <span class="k">private</span> <span class="nv">$elements</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">iterable</span> <span class="nv">$elements</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$elements</span> <span class="k">as</span> <span class="nv">$element</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addElement</span><span class="p">(</span><span class="nv">$element</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div><p>File: <code>src/Collection/Element.php</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">TestModule\InstanceofConditionals\Collection</span><span class="p">;</span>
+
+<span class="k">interface</span> <span class="nx">ElementInterface</span>
+<span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div><p>File: <code>src/Collection/ElementInterface.php</code></p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">TestModule\InstanceofConditionals\Collection</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">Element</span> <span class="k">implements</span> <span class="nx">ElementInterface</span>
+<span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="example-bind-a-parameter-by-tag-name-and-_instanceof-automatic-tagging-via-interface">Example: bind a parameter by tag name and _instanceof automatic tagging (via interface)<a href="#example-bind-a-parameter-by-tag-name-and-_instanceof-automatic-tagging-via-interface"></a></h5><p>In your module&rsquo;s <code>config/common.yml</code>, set the following configuration:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">_defaults</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">autowire</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="nt">bind</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">$elements</span><span class="p">:</span><span class="w"> </span>!<span class="l">tagged test_module.instance_of.instance_of_tagged</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">_instanceof</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">TestModule\InstanceofConditionals\Collection\ElementInterface</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="l">test_module.instance_of.instance_of_tagged ]</span><span class="w">
+</span></code></pre></div><p>This example will tag all classes <em>instances of</em> <code>TestModule\InstanceofConditionals\Collection\ElementInterface</code> (<code>TestModule\InstanceofConditionals\Collection\Element</code> in our example) with the tag <code>test_module.instance_of.instance_of_tagged</code>.</p>
+<p>Then, it will bind all services with a <code>$element</code> variable in its constructor with a <code>test_module.instance_of.instance_of_tagged</code> service.</p>
+
+<h5 id="example-bind-a-parameter-by-tag-name-and-tag-a-service-manually">Example: bind a parameter by tag name and tag a service manually<a href="#example-bind-a-parameter-by-tag-name-and-tag-a-service-manually"></a></h5><p>In your module&rsquo;s <code>config/common.yml</code>, set the following configuration:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">_defaults</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">autowire</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="nt">bind</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">$elements</span><span class="p">:</span><span class="w"> </span>!<span class="l">tagged test_module.instance_of.manually_tagged</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">TestModule\InstanceofConditionals\Collection\Element</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">TestModule\InstanceofConditionals\Collection\Element</span><span class="w">
+</span><span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="l">test_module.instance_of.manually_tagged ]</span><span class="w">
+</span></code></pre></div><p>This example will tag the class <code>TestModule\InstanceofConditionals\Collection\Element</code> with the tag <code>test_module.instance_of.manually_tagged</code>.</p>
+<p>Then, it will bind all services with a <code>$element</code> variable in its constructor with a <code>test_module.instance_of.manually_tagged</code> service.</p>
+<p>If we wanted to bind only parameter <code>$element</code> of class <code>TestModule\InstanceofConditionals\Collection\Collection</code> with a <code>test_module.instance_of.manually_tagged</code> tag, we would had configured it this way:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">test_module.instance_of.manually_tagged_collection</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">TestModule\InstanceofConditionals\Collection\Collection</span><span class="w">
+</span><span class="w">    </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">    </span><span class="nt">bind</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span><span class="nt">$elements</span><span class="p">:</span><span class="w"> </span>!<span class="l">tagged test_module.instance_of.manually_tagged</span><span class="w">
+</span><span class="w">  
+</span><span class="w">  </span><span class="nt">TestModule\InstanceofConditionals\Collection\Element</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">TestModule\InstanceofConditionals\Collection\Element</span><span class="w">
+</span><span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="l">test_module.instance_of.manually_tagged ]</span><span class="w">
+</span></code></pre></div><p>Explore more configuration features in <a href="https://symfony.com/doc/4.4/service_container.html#creating-configuring-services-in-the-container">the official Symfony documentation</a>.</p>
+
 <h2 id="services-in-legacy-environment">Services in Legacy environment<a href="#services-in-legacy-environment"></a></h2>
 <div class="magic-version-pill" data-version="1.7.6" data-title="New in PrestaShop 1.7.6"></div>
 
@@ -30697,17 +30802,17 @@ create errors in case of modifications.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1681214221"></script>
-    <script src="/js/perfect-scrollbar.min.js?1681214221"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1681214221"></script>
-    <script src="/js/jquery.sticky.js?1681214221"></script>
-    <script src="/js/featherlight.min.js?1681214221"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1681214221"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1681214221"></script>
-    <script src="/js/learn.js?1681214221"></script>
-    <script src="/js/hugo-learn.js?1681214221"></script>
+    <script src="/js/clipboard.min.js?1681282433"></script>
+    <script src="/js/perfect-scrollbar.min.js?1681282433"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1681282433"></script>
+    <script src="/js/jquery.sticky.js?1681282433"></script>
+    <script src="/js/featherlight.min.js?1681282433"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1681282433"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1681282433"></script>
+    <script src="/js/learn.js?1681282433"></script>
+    <script src="/js/hugo-learn.js?1681282433"></script>
     
-    <script src="/main.js?1681214221"></script>
+    <script src="/main.js?1681282433"></script>
     
     
     
