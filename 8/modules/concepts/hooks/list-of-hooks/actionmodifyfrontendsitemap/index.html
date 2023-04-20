@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1681980498" rel="stylesheet">
-    <link href="/css/syntax-github.css?1681980498" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1681980498" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1681980498" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1681991178" rel="stylesheet">
+    <link href="/css/syntax-github.css?1681991178" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1681991178" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1681991178" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1681980498" rel="stylesheet">
+    <link href="/style.css?1681991178" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1681980498"></script>
+    <script src="/js/jquery-3.3.1.min.js?1681991178"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13858,6 +13858,7 @@
       <ul>
         <li><a href="#information">Information</a></li>
         <li><a href="#call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file</a></li>
+        <li><a href="#example-implementation">Example implementation</a></li>
       </ul>
     </li>
   </ul>
@@ -30434,6 +30435,20 @@
     <span class="k">true</span>
 <span class="p">);</span>
 </code></pre></div>
+<h2 id="example-implementation">Example implementation<a href="#example-implementation"></a></h2><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionModifyFrontendSitemap</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="nv">$customUrls</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">[</span>
+            <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;custom-url-1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Custom URL&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;url&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;https://prestashop-project.org&#39;</span><span class="p">,</span>
+        <span class="p">]</span>
+    <span class="p">];</span>
+
+    <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;urls&#39;</span><span class="p">][</span><span class="s1">&#39;pages&#39;</span><span class="p">][</span><span class="s1">&#39;links&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">array_merge</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;urls&#39;</span><span class="p">][</span><span class="s1">&#39;pages&#39;</span><span class="p">][</span><span class="s1">&#39;links&#39;</span><span class="p">],</span> <span class="nv">$customUrls</span><span class="p">);</span> <span class="c1">// add custom urls to pages group
+</span><span class="c1"></span>    <span class="nx">unset</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;urls&#39;</span><span class="p">][</span><span class="s1">&#39;categories&#39;</span><span class="p">]);</span> <span class="c1">// hide categories
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30457,17 +30472,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1681980498"></script>
-    <script src="/js/perfect-scrollbar.min.js?1681980498"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1681980498"></script>
-    <script src="/js/jquery.sticky.js?1681980498"></script>
-    <script src="/js/featherlight.min.js?1681980498"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1681980498"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1681980498"></script>
-    <script src="/js/learn.js?1681980498"></script>
-    <script src="/js/hugo-learn.js?1681980498"></script>
+    <script src="/js/clipboard.min.js?1681991178"></script>
+    <script src="/js/perfect-scrollbar.min.js?1681991178"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1681991178"></script>
+    <script src="/js/jquery.sticky.js?1681991178"></script>
+    <script src="/js/featherlight.min.js?1681991178"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1681991178"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1681991178"></script>
+    <script src="/js/learn.js?1681991178"></script>
+    <script src="/js/hugo-learn.js?1681991178"></script>
     
-    <script src="/main.js?1681980498"></script>
+    <script src="/main.js?1681991178"></script>
     
     
     
