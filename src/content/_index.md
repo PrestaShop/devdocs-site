@@ -9,7 +9,7 @@ PrestaShop is a free and Open Source e-commerce web platform, committed to provi
 This site covers the technical aspects of PrestaShop and it's tailored for theme, module and core developers.
 
 {{% notice note %}}
-Are you a PrestaShop user ?
+Are you a PrestaShop user?
 <a class="" href="https://docs.prestashop-project.org/">head to User Documentation</a>
 {{% /notice %}}
 
