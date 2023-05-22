@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1684741522" rel="stylesheet">
-    <link href="/css/syntax-github.css?1684741522" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1684741522" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1684741522" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1684743899" rel="stylesheet">
+    <link href="/css/syntax-github.css?1684743899" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1684743899" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1684743899" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1684741522" rel="stylesheet">
+    <link href="/style.css?1684743899" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1684741522"></script>
+    <script src="/js/jquery-3.3.1.min.js?1684743899"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -13925,6 +13925,7 @@
             <li><a href="#use-the-link-component-to-get-the-url-of-a-category-with-getcategorylink-method">Use the Link component to get the URL of a Category with getCategoryLink() method</a></li>
             <li><a href="#use-the-link-component-to-get-the-url-of-a-module-front-controller-with-getmodulelink-method">Use the Link component to get the URL of a Module front controller with getModuleLink() method</a></li>
             <li><a href="#use-the-link-component-to-get-the-url-of-a-page-with-getpagelink-method">Use the Link component to get the URL of a page with getPageLink() method</a></li>
+            <li><a href="#generate-urls-to-admin-routes-using-link">Generate URLs to admin routes using Link</a></li>
           </ul>
         </li>
       </ul>
@@ -30528,17 +30529,17 @@
 
 <h3 id="use-the-link-component-to-get-the-url-of-a-module-front-controller-with-getmodulelink-method">Use the Link component to get the URL of a Module front controller with getModuleLink() method<a href="#use-the-link-component-to-get-the-url-of-a-module-front-controller-with-getmodulelink-method"></a></h3><p>To obtain the URL of a module controller, with the right HTTP scheme, and URL rewriting (if enabled), use :</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// get your module&#39;s default controller URL
-</span><span class="c1"></span><span class="nv">$link</span> <span class="o">=</span> <span class="nv">$context</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s2">&#34;mymodulename&#34;</span><span class="p">);</span>
+</span><span class="c1"></span><span class="nv">$link</span> <span class="o">=</span> <span class="nv">$context</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s1">&#39;mymodulename&#39;</span><span class="p">);</span>
 
 <span class="c1">// get your module&#39;s specific controller URL
-</span><span class="c1"></span><span class="nv">$link</span> <span class="o">=</span> <span class="nv">$context</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s2">&#34;mymodulename&#34;</span><span class="p">,</span> <span class="s2">&#34;controllerName&#34;</span><span class="p">);</span>
+</span><span class="c1"></span><span class="nv">$link</span> <span class="o">=</span> <span class="nv">$context</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s1">&#39;mymodulename&#39;</span><span class="p">,</span> <span class="s1">&#39;controllerName&#39;</span><span class="p">);</span>
 
 <span class="c1">// get your module&#39;s specific controller URL with params
 </span><span class="c1"></span><span class="nv">$params</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&#34;id_item&#34;</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="s2">&#34;action&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;showTodo&#34;</span>
+    <span class="s1">&#39;id_item&#39;</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;showTodo&#39;</span>
 <span class="p">];</span>
-<span class="nv">$link</span> <span class="o">=</span> <span class="nv">$context</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s2">&#34;mymodulename&#34;</span><span class="p">,</span> <span class="s2">&#34;controllerName&#34;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
+<span class="nv">$link</span> <span class="o">=</span> <span class="nv">$context</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s1">&#39;mymodulename&#39;</span><span class="p">,</span> <span class="s1">&#39;controllerName&#39;</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
 </code></pre></div><p>More parameters are available for this method, please refer to the <a href="https://github.com/PrestaShop/PrestaShop/blob/8.1.x/classes/Link.php#L670-L684">method definition for details</a>.</p>
 
 <h3 id="use-the-link-component-to-get-the-url-of-a-page-with-getpagelink-method">Use the Link component to get the URL of a page with getPageLink() method<a href="#use-the-link-component-to-get-the-url-of-a-page-with-getpagelink-method"></a></h3><p>To obtain the URL of a page controller, with the right HTTP scheme, and URL rewriting (if enabled), use:</p>
@@ -30557,6 +30558,8 @@
 
 <span class="nv">$link</span> <span class="o">=</span> <span class="nv">$context</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getPageLink</span><span class="p">(</span><span class="s1">&#39;cart&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$params</span><span class="p">,</span><span class="k">false</span><span class="p">);</span>
 </code></pre></div><p>More parameters are available for this method, please refer to the <a href="https://github.com/PrestaShop/PrestaShop/blob/8.1.x/classes/Link.php#L1109-L1121">method definition for details</a>.</p>
+
+<h3 id="generate-urls-to-admin-routes-using-link">Generate URLs to admin routes using Link<a href="#generate-urls-to-admin-routes-using-link"></a></h3><p>You can also generate URLs for admin routes using Link, <a href="/8/modules/concepts/controllers/admin-controllers/route-generation/">please read the dedicated page on this topic</a></p>
 
 
 <footer class="article-footer">
@@ -30618,7 +30621,7 @@
                                 
                         
                         
-                        Last update on <a href="https://github.com/PrestaShop/docs/commit/e25f7aa5a57ed363a6700d4325a510ea81fdb2e1">2023-04-25 by Thomas Nares</a>.<br>
+                        Last update on <a href="https://github.com/PrestaShop/docs/commit/9c256ccf7f475ccf98c08e5391995d38d3006462">2023-05-22 by Thomas Nares</a>.<br>
                         This article is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
                         
                     </div>
@@ -30640,17 +30643,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1684741522"></script>
-    <script src="/js/perfect-scrollbar.min.js?1684741522"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1684741522"></script>
-    <script src="/js/jquery.sticky.js?1684741522"></script>
-    <script src="/js/featherlight.min.js?1684741522"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1684741522"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1684741522"></script>
-    <script src="/js/learn.js?1684741522"></script>
-    <script src="/js/hugo-learn.js?1684741522"></script>
+    <script src="/js/clipboard.min.js?1684743899"></script>
+    <script src="/js/perfect-scrollbar.min.js?1684743899"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1684743899"></script>
+    <script src="/js/jquery.sticky.js?1684743899"></script>
+    <script src="/js/featherlight.min.js?1684743899"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1684743899"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1684743899"></script>
+    <script src="/js/learn.js?1684743899"></script>
+    <script src="/js/hugo-learn.js?1684743899"></script>
     
-    <script src="/main.js?1684741522"></script>
+    <script src="/main.js?1684743899"></script>
     
     
     
