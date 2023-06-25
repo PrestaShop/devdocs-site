@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1687457646" rel="stylesheet">
-    <link href="/css/syntax-github.css?1687457646" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1687457646" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1687457646" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1687693288" rel="stylesheet">
+    <link href="/css/syntax-github.css?1687693288" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1687693288" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1687693288" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1687457646" rel="stylesheet">
+    <link href="/style.css?1687693288" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1687457646"></script>
+    <script src="/js/jquery-3.3.1.min.js?1687693288"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -7326,6 +7326,12 @@
           
 
         
+          
+            
+            
+          
+            
+            
           
             
             
@@ -27603,6 +27609,16 @@
     
   
       
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
     
   
       
@@ -31091,21 +31107,25 @@ by implementing the hooks' methods, and that was actually done in the
     <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;displayLeftColumn&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;actionFrontControllerSetMedia&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-        <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;my friend&#39;</span><span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;displayRightColumn&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+        <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;my module&#39;</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div><p>As you can see, we make it so that the module is hooked to the
-&ldquo;<code>displayLeftColumn</code>&rdquo; and &ldquo;<code>actionFrontControllerSetMedia</code>&rdquo; hooks. In addition to this, we will add
-code for the &ldquo;<code>displayRightColumn</code>&rdquo; hook.</p>
+</code></pre></div><p>As you can see, we make it so that the module is hooked to the <code>displayLeftColumn</code> and <code>actionFrontControllerSetMedia</code> hooks.
+In addition to this, we will add code for the <code>displayRightColumn</code> hook.</p>
+
+<div class="notices note" ><p>Those hooks will be displayed if your theme uses a three-column layout.</p>
+<p>To enable a three-column layout, you need to:</p>
+<ul>
+<li>go to back office &gt; Design &gt; Theme &amp; logo &gt; Configure your page layouts &gt; Choose layouts</li>
+<li>enable &ldquo;Three Columns&rdquo; layout on selected pages</li>
+</ul>
+</div>
+
 <p>Attaching code to a hook requires a specific method for each:</p>
 <ul>
-<li><code>hookDisplayLeftColumn()</code>: will hook code into the left column – in
-our case, it will fetch the MYMODULE_NAME module setting and
-display the module&rsquo;s template file, <code>mymodule.tpl</code>, which must be
-located in the <code>/views/templates/hook/</code> folder.</li>
-<li><code>hookDisplayRightColumn()</code>: will simply do the same as
-<code>hookDisplayLeftColumn()</code>, but for the right column.</li>
-<li><code>hookActionFrontControllerSetMedia()</code>: will add a link to the module&rsquo;s CSS file,
-<code>/views/css/mymodule.css</code> and module&rsquo;s JS file, <code>/views/js/mymodule.js</code>.</li>
+<li><code>hookDisplayLeftColumn()</code>: will hook code into the left column – in our case, it will fetch the MYMODULE_NAME module setting and display the module&rsquo;s template file, <code>mymodule.tpl</code>, which must be located in the <code>/views/templates/hook/</code> folder.</li>
+<li><code>hookDisplayRightColumn()</code>: will simply do the same as <code>hookDisplayLeftColumn()</code>, but for the right column.</li>
+<li><code>hookActionFrontControllerSetMedia()</code>: will add a link to the module&rsquo;s CSS file, <code>/views/css/mymodule.css</code> and module&rsquo;s JS file, <code>/views/js/mymodule.js</code>.</li>
 </ul>
 <p>Add the following to your mymodule.php file:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -31484,7 +31504,7 @@ the final output file.</p>
                                 
                         
                         
-                        Last update on <a href="https://github.com/PrestaShop/docs/commit/1f0df047841b84778100f0894720ce4e5696149e">2023-06-01 by Samar</a>.<br>
+                        Last update on <a href="https://github.com/PrestaShop/docs/commit/6338c7bb2e7af0e78aaa0025cbddf8adccca292a">2023-06-25 by Krystian Podemski</a>.<br>
                         This article is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
                         
                     </div>
@@ -31506,17 +31526,17 @@ the final output file.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1687457646"></script>
-    <script src="/js/perfect-scrollbar.min.js?1687457646"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1687457646"></script>
-    <script src="/js/jquery.sticky.js?1687457646"></script>
-    <script src="/js/featherlight.min.js?1687457646"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1687457646"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1687457646"></script>
-    <script src="/js/learn.js?1687457646"></script>
-    <script src="/js/hugo-learn.js?1687457646"></script>
+    <script src="/js/clipboard.min.js?1687693288"></script>
+    <script src="/js/perfect-scrollbar.min.js?1687693288"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1687693288"></script>
+    <script src="/js/jquery.sticky.js?1687693288"></script>
+    <script src="/js/featherlight.min.js?1687693288"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1687693288"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1687693288"></script>
+    <script src="/js/learn.js?1687693288"></script>
+    <script src="/js/hugo-learn.js?1687693288"></script>
     
-    <script src="/main.js?1687457646"></script>
+    <script src="/main.js?1687693288"></script>
     
     
     
@@ -33106,6 +33126,11 @@ the final output file.</p>
                     },
                 
                     {
+                        name: "displayLeftColumn",
+                        url: "/8/modules/concepts/hooks/list-of-hooks/displayleftcolumn/"
+                    },
+                
+                    {
                         name: "displayLeftColumnProduct",
                         url: "/8/modules/concepts/hooks/list-of-hooks/displayleftcolumnproduct/"
                     },
@@ -33218,6 +33243,11 @@ the final output file.</p>
                     {
                         name: "displayReassurance",
                         url: "/8/modules/concepts/hooks/list-of-hooks/displayreassurance/"
+                    },
+                
+                    {
+                        name: "displayRightColumn",
+                        url: "/8/modules/concepts/hooks/list-of-hooks/displayrightcolumn/"
                     },
                 
                     {

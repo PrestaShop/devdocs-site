@@ -24,15 +24,15 @@
     
 
     
-    <link href="/css/font-awesome.min.css?1687457648" rel="stylesheet">
-    <link href="/css/syntax-github.css?1687457648" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1687457648" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1687457648" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1687693291" rel="stylesheet">
+    <link href="/css/syntax-github.css?1687693291" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1687693291" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1687693291" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1687457648" rel="stylesheet">
+    <link href="/style.css?1687693291" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1687457648"></script>
+    <script src="/js/jquery-3.3.1.min.js?1687693291"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -8403,6 +8403,12 @@
             
             
           
+            
+            
+          
+            
+            
+          
         
         </ul>
       
@@ -14278,6 +14284,7 @@
       <ul>
         <li><a href="#executing-the-functional-test-suites">Executing the Functional test suites</a></li>
         <li><a href="#executing-only-part-of-phpunit-tests">Executing only part of phpunit tests</a></li>
+        <li><a href="#checking-for-code-coverage-in-phpunit-tests">Checking for code coverage in phpunit tests</a></li>
       </ul>
     </li>
   </ul>
@@ -27591,6 +27598,16 @@
     
   
       
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
     
   
       
@@ -31083,6 +31100,25 @@
 <div class="notices tip" >Hint: <code>--debug</code> without <code>--filter</code> gives a nice list to filter with.</div>
 
 
+<h2 id="checking-for-code-coverage-in-phpunit-tests">Checking for code coverage in phpunit tests<a href="#checking-for-code-coverage-in-phpunit-tests"></a></h2><p>To check if you covered everything in your test cases, it&rsquo;s best to run the tests with <a href="https://phpunit.readthedocs.io/en/9.5/code-coverage-analysis.html">phpunit coverage report</a>.</p>
+<p>First, get your <a href="/8/basics/installation/">environment up and running</a>.</p>
+<p>Then, <a href="https://xdebug.org/docs/install">install and enable Xdebug</a>.</p>
+<p>Finally, run your tests with coverage enabled:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">XDEBUG_MODE</span><span class="o">=</span>coverage vendor/bin/phpunit --coverage-text -c tests/Unit/phpunit.xml tests/Unit/PrestaShopBundle/Command/ConfigCommandTest.php
+</code></pre></div>
+<div class="notices note" ><p>You may use a <a href="/8/basics/installation/environments/docker/">Dockerized environment to run the project</a>.</p>
+<p>After that is up and running, you need to compile and enable Xdebug:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">docker compose <span class="nb">exec</span> prestashop_container pecl install xdebug <span class="c1">#prestashop_container is the container&#39;s name</span>
+docker compose <span class="nb">exec</span> prestashop_container docker-php-ext-enable xdebug <span class="c1">#prestashop_container is the container&#39;s name</span>
+</code></pre></div><p>Then run your tests with coverage enabled:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">docker compose <span class="nb">exec</span> -e <span class="nv">XDEBUG_MODE</span><span class="o">=</span>coverage prestashop_container vendor/bin/phpunit --coverage-text -c tests/Unit/phpunit.xml tests/Unit/PrestaShopBundle/Command/ConfigCommandTest.php
+</code></pre></div></div>
+
+<p>This will give you a nice report of how much of your code was covered by the tests, and you can extend your tests to get closer to a perfect score of 100%.</p>
+
+<div class="notices tip" >Running the coverage check does take a bit of time, be patient.</div>
+
+
 
 <footer class="article-footer">
 	    
@@ -31143,7 +31179,7 @@
                                 
                         
                         
-                        Last update on <a href="https://github.com/PrestaShop/docs/commit/bedd3b223afea8b265a9b1d33cf64ce7d52cd2db">2022-09-21 by Thomas Nares</a>.<br>
+                        Last update on <a href="https://github.com/PrestaShop/docs/commit/6d3a360dd2de44b755d944996b0f2c92d0bf7a66">2023-06-25 by Krystian Podemski</a>.<br>
                         This article is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
                         
                     </div>
@@ -31165,17 +31201,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1687457649"></script>
-    <script src="/js/perfect-scrollbar.min.js?1687457649"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1687457649"></script>
-    <script src="/js/jquery.sticky.js?1687457649"></script>
-    <script src="/js/featherlight.min.js?1687457649"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1687457649"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1687457649"></script>
-    <script src="/js/learn.js?1687457649"></script>
-    <script src="/js/hugo-learn.js?1687457649"></script>
+    <script src="/js/clipboard.min.js?1687693291"></script>
+    <script src="/js/perfect-scrollbar.min.js?1687693291"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1687693291"></script>
+    <script src="/js/jquery.sticky.js?1687693291"></script>
+    <script src="/js/featherlight.min.js?1687693291"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1687693291"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1687693291"></script>
+    <script src="/js/learn.js?1687693291"></script>
+    <script src="/js/hugo-learn.js?1687693291"></script>
     
-    <script src="/main.js?1687457649"></script>
+    <script src="/main.js?1687693291"></script>
     
     
     
@@ -32765,6 +32801,11 @@
                     },
                 
                     {
+                        name: "displayLeftColumn",
+                        url: "/8/modules/concepts/hooks/list-of-hooks/displayleftcolumn/"
+                    },
+                
+                    {
                         name: "displayLeftColumnProduct",
                         url: "/8/modules/concepts/hooks/list-of-hooks/displayleftcolumnproduct/"
                     },
@@ -32877,6 +32918,11 @@
                     {
                         name: "displayReassurance",
                         url: "/8/modules/concepts/hooks/list-of-hooks/displayreassurance/"
+                    },
+                
+                    {
+                        name: "displayRightColumn",
+                        url: "/8/modules/concepts/hooks/list-of-hooks/displayrightcolumn/"
                     },
                 
                     {

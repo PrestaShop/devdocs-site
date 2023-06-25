@@ -1290,7 +1290,7 @@ Create configurationIf the configuration doesn&amp;rsquo;t exist yet, you will r
       
       <guid>https://devdocs.prestashop-project.org/8/modules/creation/displaying-content-in-front-office/</guid>
       <description>Displaying content on the front officeAs it is, the module does not do much. In order to display something on the front office, we have to add support for a few hooks. This is done by implementing the hooks&#39; methods, and that was actually done in the install() method we wrote earlier, using the registerHook() method:
-&amp;lt;?php public function install() { if (Shop::isFeatureActive()) { Shop::setContext(Shop::CONTEXT_ALL); } return parent::install() &amp;amp;&amp;amp; $this-&amp;gt;registerHook(&amp;#39;displayLeftColumn&amp;#39;) &amp;amp;&amp;amp; $this-&amp;gt;registerHook(&amp;#39;actionFrontControllerSetMedia&amp;#39;) &amp;amp;&amp;amp; Configuration::updateValue(&amp;#39;MYMODULE_NAME&amp;#39;, &amp;#39;my friend&amp;#39;); } As you can see, we make it so that the module is hooked to the &amp;ldquo;displayLeftColumn&amp;rdquo; and &amp;ldquo;actionFrontControllerSetMedia&amp;rdquo; hooks.</description>
+&amp;lt;?php public function install() { if (Shop::isFeatureActive()) { Shop::setContext(Shop::CONTEXT_ALL); } return parent::install() &amp;amp;&amp;amp; $this-&amp;gt;registerHook(&amp;#39;displayLeftColumn&amp;#39;) &amp;amp;&amp;amp; $this-&amp;gt;registerHook(&amp;#39;actionFrontControllerSetMedia&amp;#39;) &amp;amp;&amp;amp; $this-&amp;gt;registerHook(&amp;#39;displayRightColumn&amp;#39;) &amp;amp;&amp;amp; Configuration::updateValue(&amp;#39;MYMODULE_NAME&amp;#39;, &amp;#39;my module&amp;#39;); } As you can see, we make it so that the module is hooked to the displayLeftColumn and actionFrontControllerSetMedia hooks.</description>
     </item>
     
     <item>
@@ -8907,6 +8907,21 @@ Located in:
     </item>
     
     <item>
+      <title>displayLeftColumn</title>
+      <link>https://devdocs.prestashop-project.org/8/modules/concepts/hooks/list-of-hooks/displayleftcolumn/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop-project.org/8/modules/concepts/hooks/list-of-hooks/displayleftcolumn/</guid>
+      <description> Hook displayLeftColumnAliases:
+ extraLeft  Information New elements on a page (left column):
+This hook displays new elements in the left-hand column of a page
+ When located on a product page, the hook is displayLeftColumnProduct Hook locations:
+ front office  Hook type: display
+Located in:
+ themes/classic/templates/layouts/layout-both-columns.tpl  Call of the Hook in the origin file{hook h=&amp;#39;displayLeftColumn&amp;#39;} </description>
+    </item>
+    
+    <item>
       <title>displayLeftColumnProduct</title>
       <link>https://devdocs.prestashop-project.org/8/modules/concepts/hooks/list-of-hooks/displayleftcolumnproduct/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -9209,6 +9224,21 @@ Located in:
  front office  Hook type: display
 Located in:
  themes/classic/templates/checkout/checkout.tpl  Call of the Hook in the origin file{hook h=&amp;#39;displayReassurance&amp;#39;} </description>
+    </item>
+    
+    <item>
+      <title>displayRightColumn</title>
+      <link>https://devdocs.prestashop-project.org/8/modules/concepts/hooks/list-of-hooks/displayrightcolumn/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://devdocs.prestashop-project.org/8/modules/concepts/hooks/list-of-hooks/displayrightcolumn/</guid>
+      <description> Hook displayRightColumnAliases:
+ extraRight  Information New elements on a page (right column):
+This hook displays new elements in the right-hand column of a page
+ When located on a product page, the hook is displayRightColumnProduct Hook locations:
+ front office  Hook type: display
+Located in:
+ themes/classic/templates/layouts/layout-both-columns.tpl  Call of the Hook in the origin file{hook h=&amp;#39;displayRightColumn&amp;#39;} </description>
     </item>
     
     <item>
