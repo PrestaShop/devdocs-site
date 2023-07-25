@@ -22,15 +22,15 @@
     <title>Settings Forms :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1690197571" rel="stylesheet">
-    <link href="/css/syntax-github.css?1690197571" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1690197571" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1690197571" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1690298432" rel="stylesheet">
+    <link href="/css/syntax-github.css?1690298432" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1690298432" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1690298432" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1690197571" rel="stylesheet">
+    <link href="/style.css?1690298432" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1690197571"></script>
+    <script src="/js/jquery-3.3.1.min.js?1690298432"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -7032,9 +7032,30 @@
  
   
     
-      <li data-nav-id="/8/modules/creation/adding-configuration-page/" title="Adding a configuration page" class="dd-item ">
+      <li data-nav-id="/8/modules/creation/adding-configuration-page/" title="Adding a configuration page (Legacy architecture)" class="dd-item ">
         <a href="/8/modules/creation/adding-configuration-page/">
-        Adding a configuration page
+        Adding a configuration page (Legacy architecture)
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/8/modules/creation/adding-configuration-page-modern/" title="Modern configuration page" class="dd-item ">
+        <a href="/8/modules/creation/adding-configuration-page-modern/">
+        Modern configuration page
         
         </a>
     </li>
@@ -14355,7 +14376,6 @@
         <li><a href="#form-data-providers">Form Data Providers</a></li>
         <li><a href="#form-handlers">Form Handlers</a></li>
         <li><a href="#form-request-handling-in-controllers">Form request handling in Controllers</a></li>
-        <li><a href="#render-the-form-using-twig">Render the form using Twig</a></li>
       </ul>
     </li>
   </ul>
@@ -25759,6 +25779,21 @@
       
 
       
+    
+  
+      
+        
+    
+    
+      
+        
+      
+      
+      
+      
+      
+
+      
         
     
     
@@ -31293,20 +31328,32 @@
 
 <h5 id="summary-with-a-schema">Summary with a schema<a href="#summary-with-a-schema"></a></h5><p>The following schemas sums up how Form Handlers, Form Builders, Controllers and Data Providers are wired together.</p>
 
-<h6 id="display-form-schema">Display Form schema<a href="#display-form-schema"></a></h6><figure><img src="../img/form-display.svg"/><figcaption>
-            <h4>Display Form schema</h4>
-        </figcaption>
-</figure>
-<div class="notices note" >You can update this schema using the <a href="/8/schemas/form-display.xml">source XML file</a> importable in services like <a href="https://draw.io">draw.io</a>.</div>
-
-<h6 id="submit-form-schema">Submit Form schema<a href="#submit-form-schema"></a></h6><figure><img src="../img/form-submit.svg"/><figcaption>
-            <h4>Submit Form schema</h4>
-        </figcaption>
-</figure>
-<div class="notices note" >You can update this schema using the <a href="/8/schemas/form-submit.xml">source XML file</a> importable in services like <a href="https://draw.io">draw.io</a>.</div>
-
+<h6 id="display-form-schema">Display Form schema<a href="#display-form-schema"></a></h6><div class='mermaid'>
+stateDiagram-v2
+  s1 : HTTP Request
+  s1 --> Controller: GET
+  Controller --> FormHandler: get form
+  FormHandler --> DataProvider: get data
+  s2: PrestaShop Configuration
+  s3: PrestaShop Database
+  DataProvider --> s2: get data from configuration
+  DataProvider --> s3: get data from database
+  DataProvider --> FormBuilder: pass data to
+  FormBuilder --> FormHandler: build form
+  FormBuilder --> FormType: get form configuration
 </div>
 
+<h6 id="submit-form-schema">Submit Form schema<a href="#submit-form-schema"></a></h6><div class='mermaid'>
+stateDiagram-v2
+  s1 : HTTP Request
+  s1 --> Controller: POST
+  Controller --> FormHandler: save data
+  FormHandler --> DataProvider: persist data
+  s2: PrestaShop Configuration
+  s3: PrestaShop Database
+  DataProvider --> s2: persist data
+  DataProvider --> s3: persist data
+</div>
 
 <h2 id="render-the-form-using-twig">Render the form using Twig<a href="#render-the-form-using-twig"></a></h2><p>The rendering of forms in Twig is already described by the <a href="https://symfony.com/doc/4.4/form/rendering.html">Symfony documentation</a>. PrestaShop uses its own <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/PrestaShopBundle/Resources/views/Admin/TwigTemplateForm/prestashop_ui_kit.html.twig">Form theme</a> that contains specific markup for the PrestaShop UI Kit. You can see it as a customized version of Symfony&rsquo;s Bootstrap 4 form theme, even though it&rsquo;s not directly based on it.</p>
 <p>To sum up how it works, the controller sends an instance of <code>FormView</code> to Twig and Twig uses form helpers to render the right markup for every field type (the Form theme defines a specific markup for each Form Type).</p>
@@ -31338,6 +31385,9 @@
 </span></code></pre></div><p>All these helpers are documented and help you generate an HTML form from your <code>FormView</code> object, using the right markup to be rendered by the PrestaShop UI Kit. Currently, several forms have already been migrated, so you can use them as base for your own work.</p>
 <p>All the templates for modern pages can be found in the <code>src/PrestaShopBundle/Resources/views/Admin</code> folder. Twig templates for a page are split in subfolders: Forms, Blocks, Lists, Panels. This helps to keep track the role of each template.</p>
 <p>Templates should be arranged by page and domain, keeping in mind that each part of template can be overridden by PrestaShop developers using modules. Use templates and Twig blocks wisely to make their job easy.</p>
+
+</div>
+
 
 
 <footer class="article-footer">
@@ -31399,7 +31449,7 @@
                                 
                         
                         
-                        Last update on <a href="https://github.com/PrestaShop/docs/commit/6d2ca1390756a58b8523f214eb4c1d4039bad7bf">2022-10-01 by Yannick Armand</a>.<br>
+                        Last update on <a href="https://github.com/PrestaShop/docs/commit/b4c27316c90066879f11d0493e84cb867cafc488">2023-07-19 by Thomas NARES</a>.<br>
                         This article is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
                         
                     </div>
@@ -31421,18 +31471,22 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1690197571"></script>
-    <script src="/js/perfect-scrollbar.min.js?1690197571"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1690197571"></script>
-    <script src="/js/jquery.sticky.js?1690197571"></script>
-    <script src="/js/featherlight.min.js?1690197571"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1690197571"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1690197571"></script>
-    <script src="/js/learn.js?1690197571"></script>
-    <script src="/js/hugo-learn.js?1690197571"></script>
+    <script src="/js/clipboard.min.js?1690298432"></script>
+    <script src="/js/perfect-scrollbar.min.js?1690298432"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1690298432"></script>
+    <script src="/js/jquery.sticky.js?1690298432"></script>
+    <script src="/js/featherlight.min.js?1690298432"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1690298432"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1690298432"></script>
+    <script src="/js/learn.js?1690298432"></script>
+    <script src="/js/hugo-learn.js?1690298432"></script>
     
-    <script src="/main.js?1690197571"></script>
+    <script src="/main.js?1690298432"></script>
     
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
     
     
 
