@@ -22,15 +22,15 @@
     <title>Upgrade Module internal behavior :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1692013167" rel="stylesheet">
-    <link href="/css/syntax-github.css?1692013167" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1692013167" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1692013167" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1692259108" rel="stylesheet">
+    <link href="/css/syntax-github.css?1692259108" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1692259108" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1692259108" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1692013167" rel="stylesheet">
+    <link href="/style.css?1692259108" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1692013167"></script>
+    <script src="/js/jquery-3.3.1.min.js?1692259108"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -10811,7 +10811,7 @@
     
       <li data-nav-id="/8/webservice/tutorials/creating-access/" title="Creating access to the Webservice" class="dd-item ">
         <a href="/8/webservice/tutorials/creating-access/">
-        1 - Creating access
+        Creating access
         
         </a>
     </li>
@@ -10832,7 +10832,7 @@
     
       <li data-nav-id="/8/webservice/tutorials/testing-access/" title="Testing access to the Webservice" class="dd-item ">
         <a href="/8/webservice/tutorials/testing-access/">
-        2 - Testing access
+        Testing access
         
         </a>
     </li>
@@ -10853,7 +10853,7 @@
     
       <li data-nav-id="/8/webservice/tutorials/testing-webservice-postman/" title="Testing the Webservice with Postman" class="dd-item ">
         <a href="/8/webservice/tutorials/testing-webservice-postman/">
-        3 - Testing with Postman
+        Testing with Postman
         
         </a>
     </li>
@@ -10881,7 +10881,7 @@
         ">
       <a href="/8/webservice/tutorials/prestashop-webservice-lib/">
           <span>
-            4 - PrestaShop Webservice lib
+            PrestaShop Webservice lib
           </span>
 
           
@@ -11051,7 +11051,7 @@
         ">
       <a href="/8/webservice/tutorials/advanced-use/">
           <span>
-            5 - Advanced use
+            Advanced use
           </span>
 
           
@@ -11198,6 +11198,27 @@
         </ul>
       
     </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/8/webservice/tutorials/create-product-az/" title="Create a product from start to finish with Webservices" class="dd-item ">
+        <a href="/8/webservice/tutorials/create-product-az/">
+        Creating a product - complete guide
+        
+        </a>
+    </li>
+     
   
  
 
@@ -14356,6 +14377,7 @@
           </ul>
         </li>
         <li><a href="#new-module-structure">New module structure</a></li>
+        <li><a href="#upgrade-modules-from-local-source">Upgrade modules from local source</a></li>
         <li><a href="#local-temporary-assets">Local temporary assets</a>
           <ul>
             <li><a href="#folders">Folders</a></li>
@@ -29262,6 +29284,21 @@
     
   
       
+        
+    
+    
+      
+        
+      
+      
+      
+      
+      
+
+      
+    
+  
+      
     
   
       
@@ -31259,12 +31296,17 @@ In the latest version, its responsibilities were restricted, which should be dis
 <li>Tasks (Can be considered as controllers for upgrade, rollback etc.)</li>
 </ul>
 
+<h2 id="upgrade-modules-from-local-source">Upgrade modules from local source<a href="#upgrade-modules-from-local-source"></a></h2><p>During the upgrade process, we check for new module versions in the PrestaShop Marketplace. If there is one, we download it and then upgrade it.</p>
+<p>Developers must release and push their module to the Marketplace in order to test the upgrade process, which is inconvenient. In order to simplify the testing process, you can place the ZIP file of your module in <code>/ADMIN_DIR/autoupgrade/modules/MODULE_NAME.zip</code>. This will allow you to use your local version for upgrading purposes.</p>
+<p>In case your local archive with a module fails to work, the latest version will be downloaded from the Marketplace.</p>
+
 <h2 id="local-temporary-assets">Local temporary assets<a href="#local-temporary-assets"></a></h2><p>In order to work properly, the upgrade module needs to write some files to your filesystem server. These files are stored in the following folders, all available in the <code>&lt;admin folder&gt;/autoupgrade</code> path.</p>
 
 <h3 id="folders">Folders<a href="#folders"></a></h3><ul>
 <li><code>backup</code>: Folder in which the current state of the shop will be saved before upgrade. It contains files archive, DB structure &amp; data.</li>
 <li><code>download</code>: Destination folder of the downloaded PrestaShop archive, before unzip.</li>
 <li><code>latest</code>: Working directory of the autoupgrade. This is where the &ldquo;lastest&rdquo; version of PrestaShop will be unziped, before copy.</li>
+<li><code>modules</code>: Folder where you can put an archive of a module. This one will be used when upgrading modules.</li>
 <li><code>tmp</code>: Temporary resources not specifically used for upgrade. For instance, logs will be stored in that folder.</li>
 </ul>
 
@@ -31328,7 +31370,7 @@ In the latest version, its responsibilities were restricted, which should be dis
                                 
                         
                         
-                        Last update on <a href="https://github.com/PrestaShop/docs/commit/9a7642f38cb859194495c00c51b2549c340b50c6">2023-04-20 by Krystian Podemski</a>.<br>
+                        Last update on <a href="https://github.com/PrestaShop/docs/commit/23f887aa984f27e74364488505424e4671d8b8a4">2023-08-14 by Krystian Podemski</a>.<br>
                         This article is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
                         
                     </div>
@@ -31350,17 +31392,17 @@ In the latest version, its responsibilities were restricted, which should be dis
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1692013167"></script>
-    <script src="/js/perfect-scrollbar.min.js?1692013167"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1692013167"></script>
-    <script src="/js/jquery.sticky.js?1692013167"></script>
-    <script src="/js/featherlight.min.js?1692013167"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1692013167"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1692013167"></script>
-    <script src="/js/learn.js?1692013167"></script>
-    <script src="/js/hugo-learn.js?1692013167"></script>
+    <script src="/js/clipboard.min.js?1692259108"></script>
+    <script src="/js/perfect-scrollbar.min.js?1692259108"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1692259108"></script>
+    <script src="/js/jquery.sticky.js?1692259108"></script>
+    <script src="/js/featherlight.min.js?1692259108"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1692259108"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1692259108"></script>
+    <script src="/js/learn.js?1692259108"></script>
+    <script src="/js/hugo-learn.js?1692259108"></script>
     
-    <script src="/main.js?1692013167"></script>
+    <script src="/main.js?1692259108"></script>
     
     
     
