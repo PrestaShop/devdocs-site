@@ -22,15 +22,15 @@
     <title>Modern configuration page :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1692259144" rel="stylesheet">
-    <link href="/css/syntax-github.css?1692259144" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1692259144" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1692259144" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1692603150" rel="stylesheet">
+    <link href="/css/syntax-github.css?1692603150" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1692603150" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1692603150" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1692259144" rel="stylesheet">
+    <link href="/style.css?1692603150" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1692259144"></script>
+    <script src="/js/jquery-3.3.1.min.js?1692603150"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -31372,12 +31372,12 @@
 </span><span class="w">
 </span><span class="w">  </span><span class="c"># Demo configuration text form</span><span class="w">
 </span><span class="w">  </span><span class="nt">prestashop.module.demosymfonyformsimple.form.type.demo_configuration_text</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\Module\DemoSymfonyFormSimple\Form\DemoConfigurationTextType&#39;</span><span class="w">
+</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\Module\DemoSymfonyFormSimple\Form\DemoConfigurationFormType&#39;</span><span class="w">
 </span><span class="w">    </span><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;form.type.translatable.aware&#39;</span><span class="w">
 </span><span class="w">    </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w">
 </span><span class="w">      </span>- {<span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">form.type }</span><span class="w">
-</span></code></pre></div><p>This <code>services.yml</code> file is registering your <code>PrestaShop\Module\DemoSymfonyFormSimple\Form\DemoConfigurationTextType</code> class as <code>prestashop.module.demosymfonyformsimple.form.type.demo_configuration_text</code>. It also add a tag <code>name: form.type</code>, and declares it as <code>public</code>.</p>
+</span></code></pre></div><p>This <code>services.yml</code> file is registering your <code>PrestaShop\Module\DemoSymfonyFormSimple\Form\DemoConfigurationFormType</code> class as <code>prestashop.module.demosymfonyformsimple.form.type.demo_configuration_text</code>. It also add a tag <code>name: form.type</code>, and declares it as <code>public</code>.</p>
 
 <div class="notices note" >You can read more about services in the <a href="https://symfony.com/doc/4.4/service_container.html">official Symfony official documentation</a></div>
 
@@ -31497,7 +31497,7 @@
 </span><span class="w">      </span>- <span class="s1">&#39;@prestashop.module.demosymfonyformsimple.form.demo_configuration_text_data_configuration&#39;</span><span class="w">
 </span></code></pre></div>
 <h2 id="create-and-register-the-form-handler">Create and register the form handler<a href="#create-and-register-the-form-handler"></a></h2><p>For this form handler, we don&rsquo;t need to create a new class, we can use PrestaShop native&rsquo;s one.</p>
-<p>By receiving an instance of <code>DemoConfigurationTextFormDataProvider</code> and <code>DemoConfigurationTextType</code>, the PrestaShop native Form Handler is able to process the data it receives.</p>
+<p>By receiving an instance of <code>DemoConfigurationTextFormDataProvider</code> and <code>DemoConfigurationFormType</code>, the PrestaShop native Form Handler is able to process the data it receives.</p>
 <p>Simply register it in <code>config/services.yml</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">  </span><span class="nt">prestashop.module.demosymfonyformsimple.form.demo_configuration_text_form_data_handler</span><span class="p">:</span><span class="w">
 </span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\Handler&#39;</span><span class="w">
@@ -31505,7 +31505,7 @@
 </span><span class="w">      </span>- <span class="s1">&#39;@form.factory&#39;</span><span class="w">
 </span><span class="w">      </span>- <span class="s1">&#39;@prestashop.core.hook.dispatcher&#39;</span><span class="w">
 </span><span class="w">      </span>- <span class="s1">&#39;@prestashop.module.demosymfonyformsimple.form.demo_configuration_text_form_data_provider&#39;</span><span class="w">
-</span><span class="w">      </span>- <span class="s1">&#39;PrestaShop\Module\DemoSymfonyFormSimple\Form\DemoConfigurationTextType&#39;</span><span class="w">
+</span><span class="w">      </span>- <span class="s1">&#39;PrestaShop\Module\DemoSymfonyFormSimple\Form\DemoConfigurationFormType&#39;</span><span class="w">
 </span><span class="w">      </span>- <span class="s1">&#39;DemoConfiguration&#39;</span><span class="w">
 </span></code></pre></div>
 <h2 id="create-the-form-templates">Create the form templates<a href="#create-the-form-templates"></a></h2><p>Create a <code>form.html.twig</code> file in <code>views/templates/admin</code>.</p>
@@ -31578,7 +31578,7 @@
 
 
 <h3 id="create-a-route-for-the-configuration-controller">Create a route for the configuration controller<a href="#create-a-route-for-the-configuration-controller"></a></h3><p>Create a <code>routes.yml</code> file in <code>config/</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">demo_configuration_form</span><span class="p">:</span><span class="w">
+<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">demo_configuration_form_simple</span><span class="p">:</span><span class="w">
 </span><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/demosymfonyformsimple/configuration</span><span class="w">
 </span><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET, POST]</span><span class="w">
 </span><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
@@ -31703,7 +31703,7 @@ php bin/console prestashop:module enable demosymfonyformsimple
                                 
                         
                         
-                        Last update on <a href="https://github.com/PrestaShop/docs/commit/3737df732a796ac3046110c6ce8f2a9e5ee44fe5">2023-07-25 by Thomas Nares</a>.<br>
+                        Last update on <a href="https://github.com/PrestaShop/docs/commit/ac9afb8bc732e48a771978daa4c83ca1c3b5b56a">2023-08-20 by ramalac</a>.<br>
                         This article is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
                         
                     </div>
@@ -31725,17 +31725,17 @@ php bin/console prestashop:module enable demosymfonyformsimple
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1692259144"></script>
-    <script src="/js/perfect-scrollbar.min.js?1692259144"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1692259144"></script>
-    <script src="/js/jquery.sticky.js?1692259144"></script>
-    <script src="/js/featherlight.min.js?1692259144"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1692259144"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1692259144"></script>
-    <script src="/js/learn.js?1692259144"></script>
-    <script src="/js/hugo-learn.js?1692259144"></script>
+    <script src="/js/clipboard.min.js?1692603150"></script>
+    <script src="/js/perfect-scrollbar.min.js?1692603150"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1692603150"></script>
+    <script src="/js/jquery.sticky.js?1692603150"></script>
+    <script src="/js/featherlight.min.js?1692603150"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1692603150"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1692603150"></script>
+    <script src="/js/learn.js?1692603150"></script>
+    <script src="/js/hugo-learn.js?1692603150"></script>
     
-    <script src="/main.js?1692259144"></script>
+    <script src="/main.js?1692603150"></script>
     
     
     
