@@ -22,15 +22,15 @@
     <title>Tips and tricks :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1692818977" rel="stylesheet">
-    <link href="/css/syntax-github.css?1692818977" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1692818977" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1692818977" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1692865841" rel="stylesheet">
+    <link href="/css/syntax-github.css?1692865841" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1692865841" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1692865841" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1692818977" rel="stylesheet">
+    <link href="/style.css?1692865841" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1692818977"></script>
+    <script src="/js/jquery-3.3.1.min.js?1692865841"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -14396,7 +14396,13 @@
       <ul>
         <li><a href="#adding-new-wordings">Adding new wordings</a>
           <ul>
-            <li><a href="#making-wordings-discoverable-for-automated-addition-to-the-catalogue">Making wordings discoverable for automated addition to the catalogue</a>
+            <li><a href="#module-and-theme-wordings">Module and theme wordings</a></li>
+            <li><a href="#core-wordings">Core wordings</a></li>
+          </ul>
+        </li>
+        <li><a href="#making-wordings-detectable">Making wordings detectable</a>
+          <ul>
+            <li>
               <ul>
                 <li><a href="#form-choicetypes">Form ChoiceTypes</a></li>
                 <li><a href="#array-literals">Array literals</a></li>
@@ -14404,7 +14410,6 @@
             </li>
           </ul>
         </li>
-        <li><a href="#translate-core-wordings">Translate core wordings</a></li>
       </ul>
     </li>
   </ul>
@@ -31277,25 +31282,47 @@
 
 
 <h1 id="translation-tips-and-tricks">Translation tips and tricks<a href="#translation-tips-and-tricks"></a></h1>
-<h2 id="adding-new-wordings">Adding new wordings<a href="#adding-new-wordings"></a></h2><p>Wordings for the Core and Native modules can only be translated if they are declared in PrestaShop&rsquo;s default translation catalogue. Therefore, whenever a new wording is added to the core or to a native module, it must be added to the default catalogue as well.</p>
-<p>Normally you would have to manually add each wording the appropriate default catalogue files (located in the <code>./translations/default</code> folder). Thankfully, this task has been automated by the Core team!</p>
-<p>Before every minor release, the whole source code for PrestaShop and Native Modules is analyzed using <a href="https://github.com/PrestaShop/TranslationToolsBundle">TranslationToolsBundle</a>, and all newly discovered wordings are automatically added to the default catalogue.</p>
+<h2 id="adding-new-wordings">Adding new wordings<a href="#adding-new-wordings"></a></h2><p>For a wording to become translatable through the Back office interface, it has to be made available to it. PrestaShop behaves differently according to whether the wordings belong to the Core or to 3rd party modules &amp; themes.</p>
 
-<div class="notices note" >Incidentally, the same technique is also used to detect wordings used by third-party modules and make them translatable through the Back Office interface.</div>
+<h3 id="module-and-theme-wordings">Module and theme wordings<a href="#module-and-theme-wordings"></a></h3><p>Wordings from modules and themes (except Native modules and the <em>Classic</em> theme) are automatically scanned from source code at runtime, so you can just use them in the code and they will magically appear in the translation interface — as long as you follow the coding and domain name conventions.</p>
 
-
-<h3 id="making-wordings-discoverable-for-automated-addition-to-the-catalogue">Making wordings discoverable for automated addition to the catalogue<a href="#making-wordings-discoverable-for-automated-addition-to-the-catalogue"></a></h3><p>TranslationToolsBundle uses static analysis to extract wordings from source code. Therefore, this means that you can simply use new wordings in the code, and they will be magically added to the catalogue later.</p>
-<p>However, due to limitations of this technique, the following guidelines must be followed when declaring new wordings:</p>
+<h3 id="core-wordings">Core wordings<a href="#core-wordings"></a></h3><p>Wordings from the Core (used in Back office, Front office, the <em>Classic</em> theme, Native modules, and built-in Emails) need to be present in the &ldquo;default&rdquo; translation catalogue files, located in the <code>./translations/default</code> folder. This means that any new Core wording that is used in the code needs to be added there too.</p>
+<p>If your new wordings will be included in a release (i.e. if you&rsquo;re contributing to the project), you don&rsquo;t need to manually extract and add them to the default catalogue. They will be added by the release manager later, during the preparation for the next minor or major release.</p>
+<p>If you are modifying PrestaShop for your own project, you must manually add your new wordings to the default catalogue:</p>
 <ol>
 <li>
-<p>This tool only detects wordings used through the <code>trans()</code> function, the <code>{l}</code> Smarty tag, and the <code>trans</code> Twig filter. Therefore, they must be declared in a PHP, TPL, or TWIG file. They will be detected regardless of whether that code is actually used in runtime or not.</p>
+<p>Find the translation file for the domain you are using (eg. <code>translations/default/ShopFormsErrors.xlf</code>) or create one from scratch if it doesn&rsquo;t exist.</p>
 </li>
 <li>
-<p><strong>Always use literal values, not variables, with the <code>trans()</code> function, the <code>{l}</code> Smarty tag, and <code>trans</code> Twig filter.</strong> Although variables are interpolated at runtime, they won&rsquo;t be understood by the code analyzer, which only supports literals. Passing variables as arguments to these functions will prevent those wordings from being added to the catalogue.</p>
+<p>Add a <code>trans-unit</code> block for every new wording:</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;trans-unit</span> <span class="na">id=</span><span class="s">&#34;cf8092a0be7b972d6cee3db90bfaf923&#34;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;source&gt;</span>You cannot access this store from your country. We apologize for the inconvenience.<span class="nt">&lt;/source&gt;</span>
+    <span class="nt">&lt;target&gt;</span>You cannot access this store from your country. We apologize for the inconvenience.<span class="nt">&lt;/target&gt;</span>
+    <span class="nt">&lt;note&gt;&lt;/note&gt;</span>
+<span class="nt">&lt;/trans-unit&gt;</span>
+</code></pre></div><ul>
+<li>The <code>id</code> property has no effect on PrestaShop but by convention must be unique. We use an MD5 checksum of the wording itself.</li>
+<li>The content of <code>&lt;source&gt;</code> and <code>&lt;target&gt;</code> must be the same.</li>
+<li>You can add your new <code>&lt;trans-unit&gt;</code> elements within the body of an existing <code>&lt;file&gt;</code> element, or create a new one — it has no effect.</li>
+</ul>
 </li>
 </ol>
 
-<div class="notices warning" >Failure to comply with these guidelines will result in the wording not being added to the catalogue and not being translatable!</div>
+<h2 id="making-wordings-detectable">Making wordings detectable<a href="#making-wordings-detectable"></a></h2><p>PrestaShop&rsquo;s <a href="https://github.com/PrestaShop/TranslationToolsBundle">TranslationToolsBundle</a> leverages static analysis to detect any new wording in the source code automatically, either at runtime (for modules and themes), or when preparing a release (for core wordings).</p>
+<p>To ensure your wordings are detected, make sure to follow these guidelines when using translation in your code:</p>
+<ol>
+<li>
+<p>Only wordings used through the <code>trans()</code> function, the <code>{l}</code> Smarty tag, and the <code>trans</code> Twig filter can be detected automatically. Therefore, only wordings present in <code>.php</code>, <code>.tpl</code>, and <code>.twig</code> files will be detected.</p>
+</li>
+<li>
+<p><strong>Always pass wordings as string literals, not variables</strong>, with the <code>trans()</code> function, the <code>{l}</code> Smarty tag, and <code>trans</code> Twig filter. Although variables would be interpreted at runtime, the code analyzer won&rsquo;t be able to figure out the link between the symbol and its assigned value. Passing variables as arguments to these functions will prevent those wordings from being detected.</p>
+</li>
+</ol>
+
+<div class="notices warning" >Failure to comply with these guidelines will result in the wording not being detected, and not appearing in the translation interface!</div>
+
+
+<div class="notices note" ><strong>Be aware:</strong>  Wordings will be detected regardless of whether the file is actually imported or its code is reachable during runtime.</div>
 
 <p>Examples:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -31322,7 +31349,11 @@
 </span><span class="x"></span><span class="cp">{{</span> <span class="s1">&#39;Hello world&#39;</span><span class="o">|</span><span class="nf">trans</span> <span class="cp">}}</span><span class="x">
 </span><span class="x"></span><span class="cp">{{</span> <span class="s1">&#39;Something else&#39;</span><span class="o">|</span><span class="nf">trans</span> <span class="cp">}}</span><span class="x">
 </span></code></pre></div>
-<h4 id="form-choicetypes">Form ChoiceTypes<a href="#form-choicetypes"></a></h4><p>When declaring Symfony form types, you declare choices for <code>ChoiceType</code> fields as literal (untranslated) strings:</p>
+<h4 id="form-choicetypes">Form ChoiceTypes<a href="#form-choicetypes"></a></h4><p>When creating Symfony <code>ChoiceType</code> form fields:</p>
+<ol>
+<li>Declare the <code>choices</code> field as literal (untranslated) strings.</li>
+<li>Set <code>choice_translation_domain</code> as the translation domain for all the choices.</li>
+</ol>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
 <span class="k">use</span> <span class="nx">PrestaShopBundle\Form\Admin\Type\TranslatorAwareType</span><span class="p">;</span>
 <span class="k">use</span> <span class="nx">Symfony\Component\Form\Extension\Core\Type\ChoiceType</span><span class="p">;</span>
@@ -31336,22 +31367,20 @@
     <span class="p">{</span>
         <span class="nv">$builder</span>
             <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;a_select_box&#39;</span><span class="p">,</span> <span class="nx">ChoiceType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="p">[</span>
+                <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;This is a select box&#39;</span><span class="p">,</span> <span class="s1">&#39;Admin.Catalog.Feature&#39;</span><span class="p">),</span>
                 <span class="s1">&#39;choices&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
                     <span class="s1">&#39;First option&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
                     <span class="s1">&#39;Second option&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>
                     <span class="s1">&#39;Third option&#39;</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
                 <span class="p">],</span>
-                <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
-                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;This is a select box&#39;</span><span class="p">,</span> <span class="s1">&#39;Admin.Catalog.Feature&#39;</span><span class="p">),</span>
                 <span class="s1">&#39;choice_translation_domain&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Admin.Some.Domain&#39;</span><span class="p">,</span>
             <span class="p">]);</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div><p>The form above declares a Choice field (select box), with three different options.</p>
-<p>Notice the declaration of <code>choice_translation_domain</code>. This explicit translation domain will be used to translate choices from this field.</p>
-<p><strong>Note:</strong> you must be careful when using this pattern: The analyzer expects the <code>ChoiceType</code> declaration to be inside a call to the <code>add()</code> method, using <code>ChoiceType::class</code> and not a FQCN.</p>
 
-<div class="notices tip" >If in doubt, have a look at <a href="https://github.com/PrestaShop/TranslationToolsBundle/blob/master/Translation/Extractor/Visitor/Translation/FormType/ChoiceExtractor.php">ChoiceExtractor</a></div>
+<div class="notices note" ><strong>Be aware:</strong> the analyzer expects the <code>ChoiceType</code> declaration to be inside a call to the <code>add()</code> method, using <code>ChoiceType::class</code> and not a FQCN. If in doubt, have a look at <a href="https://github.com/PrestaShop/TranslationToolsBundle/blob/master/Translation/Extractor/Visitor/Translation/FormType/ChoiceExtractor.php">ChoiceExtractor</a>.</div>
 
 
 <h4 id="array-literals">Array literals<a href="#array-literals"></a></h4><p>You can declare wordings as arrays as well. This obviously won&rsquo;t translate the wordings at runtime but it will make them discoverable by the extractor.</p>
@@ -31362,11 +31391,6 @@
     <span class="s1">&#39;parameters&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
 <span class="p">];</span>
 </code></pre></div>
-<h2 id="translate-core-wordings">Translate core wordings<a href="#translate-core-wordings"></a></h2><p>You can translate core wordings (mainly present in PHP files) via Classic theme translation interface.</p>
-
-<div class="notices note" >This tip also works if you don’t use the Classic theme on your shop.</div>
-
-
 
 <footer class="article-footer">
 	    
@@ -31427,7 +31451,7 @@
                                 
                         
                         
-                        Last update on <a href="https://github.com/PrestaShop/docs/commit/d17ad03b7ae0b23ac7c1f54921d13d0b169890ff">2023-08-22 by Pablo Borowicz</a>.<br>
+                        Last update on <a href="https://github.com/PrestaShop/docs/commit/a6f713972b7f1dc6f2472461f99d5089b8fbb827">2023-08-24 by Krystian Podemski</a>.<br>
                         This article is licensed under the <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
                         
                     </div>
@@ -31449,17 +31473,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1692818977"></script>
-    <script src="/js/perfect-scrollbar.min.js?1692818977"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1692818977"></script>
-    <script src="/js/jquery.sticky.js?1692818977"></script>
-    <script src="/js/featherlight.min.js?1692818977"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1692818977"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1692818977"></script>
-    <script src="/js/learn.js?1692818977"></script>
-    <script src="/js/hugo-learn.js?1692818977"></script>
+    <script src="/js/clipboard.min.js?1692865841"></script>
+    <script src="/js/perfect-scrollbar.min.js?1692865841"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1692865841"></script>
+    <script src="/js/jquery.sticky.js?1692865841"></script>
+    <script src="/js/featherlight.min.js?1692865841"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1692865841"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1692865841"></script>
+    <script src="/js/learn.js?1692865841"></script>
+    <script src="/js/hugo-learn.js?1692865841"></script>
     
-    <script src="/main.js?1692818977"></script>
+    <script src="/main.js?1692865841"></script>
     
     
     
