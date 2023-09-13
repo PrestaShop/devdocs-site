@@ -22,15 +22,15 @@
     <title>Optimize your nginx configuration :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1694533786" rel="stylesheet">
-    <link href="/css/syntax-github.css?1694533786" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1694533786" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1694533786" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1694595374" rel="stylesheet">
+    <link href="/css/syntax-github.css?1694595374" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1694595374" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1694595374" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1694533786" rel="stylesheet">
+    <link href="/style.css?1694595374" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1694533786"></script>
+    <script src="/js/jquery-3.3.1.min.js?1694595374"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -15095,6 +15095,7 @@
             <li><a href="#enable-accesslog-buffering">Enable access‑log buffering</a></li>
             <li><a href="#disable-access-logging-for-specific-locations">Disable access logging for specific locations</a></li>
             <li><a href="#turn-off-access-logging">Turn off access logging</a></li>
+            <li><a href="#allow-usage-of-well-known-directory-lets-encrypt--pki-validation-apple-pay">Allow usage of <code>.well-known</code> directory (Let&rsquo;s Encrypt / PKI validation, Apple Pay)</a></li>
           </ul>
         </li>
       </ul>
@@ -32551,6 +32552,18 @@
     <span class="s">...</span>
 <span class="err">}</span>
 </code></pre></div>
+<h3 id="allow-usage-of-well-known-directory-lets-encrypt--pki-validation-apple-pay">Allow usage of <code>.well-known</code> directory (Let&rsquo;s Encrypt / PKI validation, Apple Pay)<a href="#allow-usage-of-well-known-directory-lets-encrypt--pki-validation-apple-pay"></a></h3><p>The <code>.well-known</code> directory is a resource documented in <a href="https://datatracker.ietf.org/doc/html/rfc8615">RFC 8615</a> and used by <a href="https://en.m.wikipedia.org/wiki/Well-known_URI">many services</a>.
+If you need an external access to the <code>.well-known</code> directory, you can update you nginx configuration to use:</p>
+<div class="highlight"><pre class="chroma"><code class="language-nginx" data-lang="nginx"><span class="c1"># .htaccess, .DS_Store, .htpasswd, etc., but keep .well-known available
+</span><span class="c1"></span><span class="k">location</span> <span class="p">~</span><span class="sr">*</span> <span class="s">/\.(?!well-known\/)</span> <span class="p">{</span>
+    <span class="kn">deny</span> <span class="s">all</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1"># files in .well-known should be served as plain text.
+</span><span class="c1"></span><span class="k">location</span> <span class="p">~</span><span class="sr">*</span> <span class="s">^/\.well-known\/</span> <span class="p">{</span>
+    <span class="kn">default_type</span> <span class="s">text/plain</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <footer class="article-footer">
 	
@@ -32606,7 +32619,7 @@
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/e25f7aa5a57ed363a6700d4325a510ea81fdb2e1">2023-04-25 by Thomas Nares</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/35b1b2cc2241ee56e454805ee764c048a8f71004">2023-09-12 by Thomas NARES</a>.<br>
         
     
 
@@ -32628,17 +32641,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1694533786"></script>
-    <script src="/js/perfect-scrollbar.min.js?1694533786"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1694533786"></script>
-    <script src="/js/jquery.sticky.js?1694533786"></script>
-    <script src="/js/featherlight.min.js?1694533786"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1694533786"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1694533786"></script>
-    <script src="/js/learn.js?1694533786"></script>
-    <script src="/js/hugo-learn.js?1694533786"></script>
+    <script src="/js/clipboard.min.js?1694595374"></script>
+    <script src="/js/perfect-scrollbar.min.js?1694595374"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1694595374"></script>
+    <script src="/js/jquery.sticky.js?1694595374"></script>
+    <script src="/js/featherlight.min.js?1694595374"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1694595374"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1694595374"></script>
+    <script src="/js/learn.js?1694595374"></script>
+    <script src="/js/hugo-learn.js?1694595374"></script>
     
-    <script src="/main.js?1694533786"></script>
+    <script src="/main.js?1694595374"></script>
     
     
     
