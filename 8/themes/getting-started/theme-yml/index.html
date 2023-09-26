@@ -22,15 +22,15 @@
     <title>Theme.yml :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1695709136" rel="stylesheet">
-    <link href="/css/syntax-github.css?1695709136" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1695709136" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1695709136" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1695723256" rel="stylesheet">
+    <link href="/css/syntax-github.css?1695723256" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1695723256" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1695723256" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1695709136" rel="stylesheet">
+    <link href="/style.css?1695723256" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1695709136"></script>
+    <script src="/js/jquery-3.3.1.min.js?1695723256"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -15089,6 +15089,11 @@
     <li><a href="#themeyml">Theme.yml</a>
       <ul>
         <li><a href="#theme-description">Theme description</a></li>
+        <li><a href="#parent--child-settings">Parent / child settings</a>
+          <ul>
+            <li><a href="#use_parent_assets">use_parent_assets</a></li>
+          </ul>
+        </li>
         <li><a href="#global-settings">Global settings</a>
           <ul>
             <li><a href="#configuration">Configuration</a></li>
@@ -32502,6 +32507,40 @@
 </span><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">One small left column</span><span class="w">
 </span><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">Great for CMS pages to show advertisements on the side</span><span class="w">
 </span></code></pre></div>
+<h2 id="parent--child-settings">Parent / child settings<a href="#parent--child-settings"></a></h2>
+<div class="notices note" >Find more information about <a href="/8/themes/reference/template-inheritance/parent-child-feature/">Theming inheritance - Parent/child themes</a></div>
+
+<p>To set the parent theme, set the parent key to the theme&rsquo;s name:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="l">classic</span><span class="w">
+</span></code></pre></div>
+<h3 id="use_parent_assets">use_parent_assets<a href="#use_parent_assets"></a></h3><p>Starting from 
+<span class="version-pill" title="New in PrestaShop 8.0">
+  8.0
+</span>
+
+ , the setting <code>use_parent_assets</code> is now fully working and correctly loads assets from the parent theme.</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">assets</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">use_parent_assets</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></div><p>When set to <code>true</code>, some additional variables are changed for <code>Smarty</code> templates.</p>
+<ul>
+<li><code>theme_assets</code> is replaced with the parent theme assets URI,</li>
+<li><code>img_url</code>, <code>css_url</code>, <code>js_url</code> are replaced with the parent theme corresponding URIs,</li>
+</ul>
+<p>some other variables are available:</p>
+<ul>
+<li><code>child_theme_assets</code> which is the child theme assets URI,</li>
+<li><code>child_img_url</code>, <code>child_css_url</code>, <code>child_js_url</code> which are the child theme corresponding URIs.</li>
+</ul>
+<p>When set to <code>false</code>, only <code>theme_assets</code>, <code>img_url</code>, <code>css_url</code> and <code>js_url</code> are available, and are the child theme corresponding URIs.</p>
+
+<div class="notices note" ><p>To maintain the behavior of
+<span class="version-pill" title="New in PrestaShop 1.7">
+1.7
+</span></p>
+<p>and load the child theme&rsquo;s assets, <code>use_parent_assets</code> must be set to <code>false</code>.</p>
+</div>
+
+
 <h2 id="global-settings">Global settings<a href="#global-settings"></a></h2>
 <h3 id="configuration">Configuration<a href="#configuration"></a></h3><p>You can have the theme change the configuration of PrestaShop when the theme is enabled.</p>
 <div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="w">  </span><span class="nt">global_settings</span><span class="p">:</span><span class="w">
@@ -32691,7 +32730,7 @@ will export them when creating your theme zipball.</p>
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/e25f7aa5a57ed363a6700d4325a510ea81fdb2e1">2023-04-25 by Thomas Nares</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/33d74aa979ef0e455387b33de92957ca9ebc3f51">2023-09-26 by Thomas NARES</a>.<br>
         
     
 
@@ -32713,17 +32752,17 @@ will export them when creating your theme zipball.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1695709136"></script>
-    <script src="/js/perfect-scrollbar.min.js?1695709136"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1695709136"></script>
-    <script src="/js/jquery.sticky.js?1695709136"></script>
-    <script src="/js/featherlight.min.js?1695709136"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1695709136"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1695709136"></script>
-    <script src="/js/learn.js?1695709136"></script>
-    <script src="/js/hugo-learn.js?1695709136"></script>
+    <script src="/js/clipboard.min.js?1695723256"></script>
+    <script src="/js/perfect-scrollbar.min.js?1695723256"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1695723256"></script>
+    <script src="/js/jquery.sticky.js?1695723256"></script>
+    <script src="/js/featherlight.min.js?1695723256"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1695723256"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1695723256"></script>
+    <script src="/js/learn.js?1695723256"></script>
+    <script src="/js/hugo-learn.js?1695723256"></script>
     
-    <script src="/main.js?1695709136"></script>
+    <script src="/main.js?1695723256"></script>
     
     
     
