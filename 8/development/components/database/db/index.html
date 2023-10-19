@@ -22,15 +22,15 @@
     <title>Db class :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1697544838" rel="stylesheet">
-    <link href="/css/syntax-github.css?1697544838" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1697544838" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1697544838" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1697747329" rel="stylesheet">
+    <link href="/css/syntax-github.css?1697747329" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1697747329" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1697747329" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1697544838" rel="stylesheet">
+    <link href="/style.css?1697747329" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1697544838"></script>
+    <script src="/js/jquery-3.3.1.min.js?1697747329"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -32569,7 +32569,7 @@
 </code></pre></div><p>The first call to this method initializes the link to the database, and return the same link to all the next calls. <code>$db</code> in this example will be reused in all the next examples.</p>
 
 <h3 id="read-only-slave-server">Read-only &ldquo;slave&rdquo; server<a href="#read-only-slave-server"></a></h3><p>In some cases, you might encounter this alternative:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$db</span> <span class="o">=</span> <span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">(</span><span class="nx">_PS_USE_SQL_SLAVE_</span><span class="p">);</span>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$db</span> <span class="o">=</span> <span class="nx">\Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">(</span><span class="nx">_PS_USE_SQL_SLAVE_</span><span class="p">);</span>
 </code></pre></div><p>If PrestaShop&rsquo;s database user allows the use of MySQL slave servers in its architecture, then this last instance&rsquo;s connection can be done on the slave servers.
 You should only use the <code>PS_USE_SQL_SLAVE</code> argument when making read-only queries (<code>SELECT</code>, <code>SHOW</code>, etc.), and only if these do not need a result to be immediately updated with a result. If you make a query on a table right after inserting data in that same table, you should make that query on the master server.</p>
 
@@ -32593,7 +32593,7 @@ You should only use the <code>PS_USE_SQL_SLAVE</code> argument when making read-
 It should only be used for read only queries: SELECT, SHOW, etc.</p>
 
 <h4 id="retrieving-only-the-first-row-getrow">Retrieving only the first row: getRow()<a href="#retrieving-only-the-first-row-getrow"></a></h4><p>Using getRow() method will retrieve the first row of your query:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$request</span> <span class="o">=</span> <span class="s2">&#34;SELECT `id_table` FROM `&#39; . _DB_PREFIX_ . &#39;some_table` ...&#34;</span><span class="p">;</span>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$request</span> <span class="o">=</span> <span class="s1">&#39;SELECT `id_table` FROM `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;some_table` ...&#39;</span><span class="p">;</span>
 
 <span class="sd">/** @var array $result */</span>
 <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">getRow</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
@@ -32601,7 +32601,7 @@ It should only be used for read only queries: SELECT, SHOW, etc.</p>
 <p>Returns an associative array containing the first row of the query.
 This function automatically adds &ldquo;LIMIT 1&rdquo; to the query.</p>
 
-<h4 id="retrieving-only-a-single-value">Retrieving only a single value<a href="#retrieving-only-a-single-value"></a></h4><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$request</span> <span class="o">=</span> <span class="s2">&#34;SELECT `count(&#39;sales&#39;)` FROM `&#39; . _DB_PREFIX_ . &#39;some_table` ...&#34;</span><span class="p">;</span>
+<h4 id="retrieving-only-a-single-value">Retrieving only a single value<a href="#retrieving-only-a-single-value"></a></h4><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$request</span> <span class="o">=</span> <span class="s1">&#39;SELECT `count(&#39;</span><span class="nx">sales</span><span class="s1">&#39;)` FROM `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;some_table` ...&#39;</span><span class="p">;</span>
 
 <span class="sd">/** @var string|false $salesCount */</span>
 <span class="nv">$salesCount</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
@@ -32616,7 +32616,7 @@ This function automatically adds &ldquo;LIMIT 1&rdquo; to the query.</p>
 <h3 id="get-the-number-of-affected-rows">Get the number of affected rows<a href="#get-the-number-of-affected-rows"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">Affected_Rows</span><span class="p">();</span>
 </code></pre></div><p>Returns the number of rows impacted by the latest <code>INSERT</code>, <code>UPDATE</code>, <code>REPLACE</code> or <code>DELETE</code> query.</p>
 
-<h3 id="execute-a-raw-sql-request-update-insert">Execute a raw SQL request (UPDATE, INSERT&hellip;)<a href="#execute-a-raw-sql-request-update-insert"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$request</span> <span class="o">=</span> <span class="s2">&#34;INSERT INTO `&#39; . _DB_PREFIX_ . &#39;some_table` (`id_table`) VALUES (10)&#34;</span><span class="p">;</span>
+<h3 id="execute-a-raw-sql-request-update-insert">Execute a raw SQL request (UPDATE, INSERT&hellip;)<a href="#execute-a-raw-sql-request-update-insert"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$request</span> <span class="o">=</span> <span class="s1">&#39;INSERT INTO `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;some_table` (`id_table`) VALUES (10)&#39;</span><span class="p">;</span>
 
 <span class="sd">/** @var bool $result */</span>
 <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
@@ -32737,7 +32737,7 @@ This function automatically adds &ldquo;LIMIT 1&rdquo; to the query.</p>
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/cdf792e9106affe103604beb5e2c2c26dc23bcac">2023-05-31 by Thomas NARES</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/4a8f9a48e6e1bcf4166351dfee00c64748f45391">2023-10-19 by Daniel</a>.<br>
         
     
 
@@ -32759,17 +32759,17 @@ This function automatically adds &ldquo;LIMIT 1&rdquo; to the query.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1697544838"></script>
-    <script src="/js/perfect-scrollbar.min.js?1697544838"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1697544838"></script>
-    <script src="/js/jquery.sticky.js?1697544838"></script>
-    <script src="/js/featherlight.min.js?1697544838"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1697544838"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1697544838"></script>
-    <script src="/js/learn.js?1697544838"></script>
-    <script src="/js/hugo-learn.js?1697544838"></script>
+    <script src="/js/clipboard.min.js?1697747329"></script>
+    <script src="/js/perfect-scrollbar.min.js?1697747329"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1697747329"></script>
+    <script src="/js/jquery.sticky.js?1697747329"></script>
+    <script src="/js/featherlight.min.js?1697747329"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1697747329"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1697747329"></script>
+    <script src="/js/learn.js?1697747329"></script>
+    <script src="/js/hugo-learn.js?1697747329"></script>
     
-    <script src="/main.js?1697544838"></script>
+    <script src="/main.js?1697747329"></script>
     
     
     
