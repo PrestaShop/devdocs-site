@@ -22,15 +22,15 @@
     <title>Tutorial: Creating your first module :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1698773393" rel="stylesheet">
-    <link href="/css/syntax-github.css?1698773393" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1698773393" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1698773393" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1699288831" rel="stylesheet">
+    <link href="/css/syntax-github.css?1699288831" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1699288831" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1699288831" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1698773393" rel="stylesheet">
+    <link href="/style.css?1699288831" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1698773393"></script>
+    <script src="/js/jquery-3.3.1.min.js?1699288831"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -32599,13 +32599,13 @@
 
         <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
 
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="p">);</span>
 
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">confirmUninstall</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Are you sure you want to uninstall?&#39;</span><span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">confirmUninstall</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Are you sure you want to uninstall?&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="p">);</span>
 
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">))</span> <span class="p">{</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">warning</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;No name provided&#39;</span><span class="p">);</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">warning</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;No name provided&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -32638,14 +32638,14 @@
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
 </code></pre></div><p>This will trigger a lot of actions from PrestaShop that you do not need to know about at this point.</p>
 <p>This method call must be placed after the definition of <code>$this-&gt;name</code> variable and before any use of translation.</p>
-<p>The next section deals with text strings, which are encapsulated in PrestaShop&rsquo;s translation method, <code>l()</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">);</span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">);</span>
+<p>The next section deals with text strings, which are encapsulated in PrestaShop&rsquo;s translation method, <code>trans()</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="p">);</span>
 
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">confirmUninstall</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Are you sure you want to uninstall?&#39;</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">confirmUninstall</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Are you sure you want to uninstall?&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="p">);</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">))</span> <span class="p">{</span>
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">warning</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;No name provided.&#39;</span><span class="p">);</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">warning</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;No name provided.&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="p">);</span>
 <span class="p">}</span>
 </code></pre></div><p>These lines respectively assign:</p>
 <ul>
@@ -32814,7 +32814,7 @@
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/282600ca31036e8fbddb38c51d77023a49af9eb3">2023-08-31 by vcopleutre</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/4ac1bdc8387a58b6072b3ba1c6cd91e74727ac5b">2023-11-06 by Kaikina</a>.<br>
         
     
 
@@ -32836,17 +32836,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1698773393"></script>
-    <script src="/js/perfect-scrollbar.min.js?1698773393"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1698773393"></script>
-    <script src="/js/jquery.sticky.js?1698773393"></script>
-    <script src="/js/featherlight.min.js?1698773393"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1698773393"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1698773393"></script>
-    <script src="/js/learn.js?1698773393"></script>
-    <script src="/js/hugo-learn.js?1698773393"></script>
+    <script src="/js/clipboard.min.js?1699288831"></script>
+    <script src="/js/perfect-scrollbar.min.js?1699288831"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1699288831"></script>
+    <script src="/js/jquery.sticky.js?1699288831"></script>
+    <script src="/js/featherlight.min.js?1699288831"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1699288831"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1699288831"></script>
+    <script src="/js/learn.js?1699288831"></script>
+    <script src="/js/hugo-learn.js?1699288831"></script>
     
-    <script src="/main.js?1698773393"></script>
+    <script src="/main.js?1699288831"></script>
     
     
     
