@@ -22,15 +22,15 @@
     <title>ObjectModel class :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1700127048" rel="stylesheet">
-    <link href="/css/syntax-github.css?1700127048" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1700127048" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1700127048" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1701356672" rel="stylesheet">
+    <link href="/css/syntax-github.css?1701356672" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1701356672" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1701356672" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1700127048" rel="stylesheet">
+    <link href="/style.css?1701356672" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1700127048"></script>
+    <script src="/js/jquery-3.3.1.min.js?1701356672"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -15172,7 +15172,7 @@
               <ul>
                 <li><a href="#under-the-hood-how-does-it-work-2">Under the hood: how does it work?</a></li>
                 <li><a href="#enable-multi-language--multi-shop-for-your-entity">Enable multi language + multi shop for your entity</a></li>
-                <li><a href="#loading-or-saving-a-multishop_lang-object">Loading or saving a multishop_lang object</a></li>
+                <li><a href="#loading-or-saving-a-multilang_shop-object">Loading or saving a multilang_shop object</a></li>
               </ul>
             </li>
             <li><a href="#duplicate-an-object">Duplicate an object</a></li>
@@ -32946,10 +32946,10 @@ classDiagram
     }
 </div>
 
-<h4 id="enable-multi-language--multi-shop-for-your-entity">Enable multi language + multi shop for your entity<a href="#enable-multi-language--multi-shop-for-your-entity"></a></h4><p>To do so, you must declare the <code>multishop_lang</code> setting of your model definition to <code>true</code>:</p>
+<h4 id="enable-multi-language--multi-shop-for-your-entity">Enable multi language + multi shop for your entity<a href="#enable-multi-language--multi-shop-for-your-entity"></a></h4><p>To do so, you must declare the <code>multilang_shop</code> setting of your model definition to <code>true</code>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">static</span> <span class="nv">$definition</span> <span class="o">=</span> <span class="p">[</span>
     <span class="o">...</span>
-    <span class="s1">&#39;multishop_lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="s1">&#39;multilang_shop&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
     <span class="o">...</span>
 </code></pre></div><p>And then, you must declare which fields are available for translations:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;fields&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
@@ -32962,7 +32962,7 @@ classDiagram
     <span class="o">...</span>
 <span class="p">)</span>
 </code></pre></div>
-<h4 id="loading-or-saving-a-multishop_lang-object">Loading or saving a multishop_lang object<a href="#loading-or-saving-a-multishop_lang-object"></a></h4><p>While languages are <a href="#multiple-language-accessors">accessible with accessors</a>, if you need to programmatically retrieve an ObjectModel related to a particular shop (not the selected / current shop from Context), you need to change the method used to load an object:</p>
+<h4 id="loading-or-saving-a-multilang_shop-object">Loading or saving a multilang_shop object<a href="#loading-or-saving-a-multilang_shop-object"></a></h4><p>While languages are <a href="#multiple-language-accessors">accessible with accessors</a>, if you need to programmatically retrieve an ObjectModel related to a particular shop (not the selected / current shop from Context), you need to change the method used to load an object:</p>
 <div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$targetShopId</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
 <span class="nv">$category</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Category</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$targetShopId</span><span class="p">);</span> <span class="c1">// 1 is the id of the object
 </span></code></pre></div><p>If you need to update a translatable field on your entity, you need to add a <code>Shop::setContext()</code> call before you save your object :</p>
@@ -33220,7 +33220,7 @@ graph TD
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/04e58554681ff60bb4c54da875f784f60c091c32">2023-10-30 by Daniel</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/121f23a18d8ee586a9f725989be31cf4b636e971">2023-11-23 by Marco Ingraiti</a>.<br>
         
     
 
@@ -33242,17 +33242,17 @@ graph TD
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1700127048"></script>
-    <script src="/js/perfect-scrollbar.min.js?1700127048"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1700127048"></script>
-    <script src="/js/jquery.sticky.js?1700127048"></script>
-    <script src="/js/featherlight.min.js?1700127048"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1700127048"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1700127048"></script>
-    <script src="/js/learn.js?1700127048"></script>
-    <script src="/js/hugo-learn.js?1700127048"></script>
+    <script src="/js/clipboard.min.js?1701356672"></script>
+    <script src="/js/perfect-scrollbar.min.js?1701356672"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1701356672"></script>
+    <script src="/js/jquery.sticky.js?1701356672"></script>
+    <script src="/js/featherlight.min.js?1701356672"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1701356672"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1701356672"></script>
+    <script src="/js/learn.js?1701356672"></script>
+    <script src="/js/hugo-learn.js?1701356672"></script>
     
-    <script src="/main.js?1700127048"></script>
+    <script src="/main.js?1701356672"></script>
     
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
