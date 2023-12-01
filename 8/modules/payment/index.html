@@ -22,15 +22,15 @@
     <title>Payment modules :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1701356702" rel="stylesheet">
-    <link href="/css/syntax-github.css?1701356702" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1701356702" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1701356702" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1701466941" rel="stylesheet">
+    <link href="/css/syntax-github.css?1701466941" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1701466941" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1701466941" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1701356702" rel="stylesheet">
+    <link href="/style.css?1701466941" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1701356702"></script>
+    <script src="/js/jquery-3.3.1.min.js?1701466941"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -15109,33 +15109,22 @@
         <li><a href="#requirements">Requirements</a></li>
         <li><a href="#how-to-generate-your-paymentoption">How to generate your PaymentOption</a>
           <ul>
-            <li><a href="#paymentoption">PaymentOption</a></li>
-            <li><a href="#paymentoption-types">PaymentOption types</a>
+            <li><a href="#paymentoption">PaymentOption</a>
               <ul>
-                <li><a href="#offline">Offline</a></li>
-                <li><a href="#external">External</a></li>
-                <li><a href="#embedded">Embedded</a></li>
-                <li><a href="#iframe">iframe</a></li>
+                <li><a href="#example-of-paymentoption-creation">Example of PaymentOption creation</a></li>
+              </ul>
+            </li>
+            <li><a href="#paymentoption-types-and-scenarios">PaymentOption types and scenarios</a>
+              <ul>
+                <li><a href="#offline-scenario">Offline scenario</a></li>
+                <li><a href="#external-scenario">External scenario</a></li>
+                <li><a href="#embedded-scenario">Embedded scenario</a></li>
+                <li><a href="#iframe-scenario">Iframe scenario</a></li>
               </ul>
             </li>
           </ul>
         </li>
-        <li><a href="#payment-modules-rules">Payment modules rules</a></li>
-        <li><a href="#migrating-from-16-to-17">Migrating from 1.6 to 1.7</a>
-          <ul>
-            <li><a href="#how-to">How-To</a>
-              <ul>
-                <li><a href="#what-if-i-cant-remove-the-submit-button">What if I can&rsquo;t remove the submit button?</a></li>
-              </ul>
-            </li>
-            <li><a href="#hooks">Hooks</a>
-              <ul>
-                <li><a href="#before">BEFORE</a></li>
-                <li><a href="#after">AFTER</a></li>
-              </ul>
-            </li>
-          </ul>
-        </li>
+        <li><a href="#payment-modules-rules-and-notes">Payment modules rules and notes</a></li>
       </ul>
     </li>
   </ul>
@@ -32552,30 +32541,26 @@
 
 
 
-<h1 id="payment-modules">Payment modules<a href="#payment-modules"></a></h1><p>PrestaShop 1.7 introduces a new payment API. Below, you&rsquo;ll find information about how it works and also, how to migrate your module from PrestaShop 1.6 (and earlier) to PrestaShop 1.7.</p>
-<p>The main reason why the change was needed is on the customer side: Now, there is <strong>only one</strong> button to validate the order, not one by payment module anymore.</p>
-<p>The <a href="https://github.com/PrestaShop/bankwire/pull/18">bankwire module</a> is an example of how a payment module for PS 1.6 is migrated to PS 1.7 API.<br/>
-A skeleton is also available <a href="https://github.com/PrestaShop/paymentexample">on GitHub</a>.</p>
-<p>Please note that your module won&rsquo;t be listed in payment methods admin page unless it is referenced in <a href="https://api.prestashop.com/xml/tab_modules_list_17.xml">the official list</a>. However you can still configure it through the Module Manager.</p>
+<h1 id="payment-modules">Payment modules<a href="#payment-modules"></a></h1><p>PrestaShop 
+<span class="version-pill" title="New in PrestaShop 1.7">
+  1.7
+</span>
 
-<h2 id="requirements">Requirements<a href="#requirements"></a></h2><p>To make a payment module for PrestaShop 1.7, you&rsquo;ll have to respect some elements:</p>
+ introduced a new payment API. Below, you&rsquo;ll find information about how it works.</p>
+
+<div class="notices note" >To learn how to migrate a payment module from 1.6 to 1.7, please refer to <a href="/1.7/modules/payment/">1.7 version of this page</a>.</div>
+
+
+<div class="notices tip" >Please note that your module won&rsquo;t be listed in payment methods admin page unless it is referenced in <a href="https://api.prestashop.com/xml/tab_modules_list.xml">the official list</a>. However you can still configure it through the Module Manager.</div>
+
+
+<h2 id="requirements">Requirements<a href="#requirements"></a></h2><p>To develop a payment module for PrestaShop 8, you&rsquo;ll have to respect some elements:</p>
 <ul>
-<li>
-<p>Your class will have to extend <em>PaymentModule</em>.</p>
-</li>
-<li>
-<p>You will need to declare the following namespace.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Payment\PaymentOption</span><span class="p">;</span>
-</code></pre></div></li>
-<li>
-<p>You&rsquo;ll have to register the two following methods: <code>hookPaymentOptions()</code> &amp; <code>hookPaymentReturn()</code> and register these hooks.</p>
-</li>
-<li>
-<p>You must not have a submit button into your module&rsquo;s HTML code. It will automatically be generated by PrestaShop.</p>
-</li>
+<li>Your class have to extend <code>PaymentModule</code>.</li>
+<li>You have to implement the two following methods: <code>hookPaymentOptions()</code> &amp; <code>hookPaymentReturn()</code> and register these hooks (<code>PaymentOptions</code> and <code>PaymentReturn</code>).</li>
+<li>You must not have a submit button into your module&rsquo;s HTML code. It will automatically be generated by PrestaShop.</li>
 </ul>
-<p>In the <code>hookPaymentOptions()</code> method, you have to return an array of <em><a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Core/Payment/PaymentOption.php">PaymentOption</a></em>.</p>
+<p>In the <code>hookPaymentOptions()</code> method, you have to return an array of <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Core/Payment/PaymentOption.php"><code>PaymentOption</code></a>.</p>
 
 <h2 id="how-to-generate-your-paymentoption">How to generate your PaymentOption<a href="#how-to-generate-your-paymentoption"></a></h2>
 <h3 id="paymentoption">PaymentOption<a href="#paymentoption"></a></h3><p>Here is a list of the <em>PaymentOption</em> class variables. They all have a getter and a setter and are accessible in the array sent to the front office template.</p>
@@ -32586,42 +32571,107 @@ A skeleton is also available <a href="https://github.com/PrestaShop/paymentexamp
 <li><code>$action</code>: The URL to which the request to process the payment must be made.</li>
 <li><code>$inputs</code>: An associative array of additional parameters to use when sending the request to <code>$action</code>.</li>
 <li><code>$form</code>: The custom HTML to display like a form to enter the credit card information.</li>
-<li><code>$iframe</code>: The custom HTML containing an iframe with the payment confirmation widget for modules like <em>ATOS</em>.</li>
 <li><code>$moduleName</code>: The name of the module.</li>
 <li><code>$binary</code>: A boolean to set if the module form was generated by binaries and contains a submit button. It&rsquo;s necessary to adapt the behavior.</li>
 </ul>
 
-<h3 id="paymentoption-types">PaymentOption types<a href="#paymentoption-types"></a></h3><p>You can find a example module illustrating the four identified cases of payment modules on <a href="https://github.com/PrestaShop/paymentexample">GitHub</a>.</p>
+<h4 id="example-of-paymentoption-creation">Example of PaymentOption creation<a href="#example-of-paymentoption-creation"></a></h4><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// create a PaymentOption of type Offline
+</span><span class="c1"></span><span class="nv">$offlineOption</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PaymentOption</span><span class="p">();</span>
+<span class="nv">$offlineOption</span><span class="o">-&gt;</span><span class="na">setModuleName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">);</span>
+<span class="nv">$offlineOption</span><span class="o">-&gt;</span><span class="na">setCallToActionText</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Pay offline&#39;</span><span class="p">));</span>
+<span class="nv">$offlineOption</span><span class="o">-&gt;</span><span class="na">setAction</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">,</span> <span class="s1">&#39;validation&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;option&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;offline&#39;</span><span class="p">],</span> <span class="k">true</span><span class="p">));</span>
+<span class="nv">$offlineOption</span><span class="o">-&gt;</span><span class="na">setAdditionalInformation</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="s1">&#39;module:paymentexample/views/templates/front/paymentOptionOffline.tpl&#39;</span><span class="p">));</span>
+<span class="nv">$offlineOption</span><span class="o">-&gt;</span><span class="na">setLogo</span><span class="p">(</span><span class="nx">Media</span><span class="o">::</span><span class="na">getMediaPath</span><span class="p">(</span><span class="nx">_PS_MODULE_DIR_</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">.</span> <span class="s1">&#39;/views/img/option/offline.png&#39;</span><span class="p">));</span>
+</code></pre></div>
+<h3 id="paymentoption-types-and-scenarios">PaymentOption types and scenarios<a href="#paymentoption-types-and-scenarios"></a></h3><p>You can find a example module illustrating the four identified cases of payment modules on <a href="https://github.com/PrestaShop/paymentexample">GitHub</a>.</p>
 <p>We have identified four cases of payment module:</p>
+<table>
+<thead>
+<tr>
+<th>PaymentOption type</th>
+<th>Description</th>
+<th>Minimal variables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Offline</td>
+<td>This is the most simple case where you could be (e.g.:Bankwire, Cheque). It&rsquo;s a simple URL to call, then various information are displayed to the customer.</td>
+<td><code>$callToActionText</code>, <code>$action</code></td>
+</tr>
+<tr>
+<td>External</td>
+<td>It&rsquo;s a simple URL to call, then the payment is directly processed on the Payment Service Provider&rsquo;s website (e.g.: PayPal, Paybox).</td>
+<td><code>$callToActionText</code>, <code>$action</code></td>
+</tr>
+<tr>
+<td>Embedded</td>
+<td>You write your credit card number and all the required data directly on the merchant&rsquo;s website (e.g.: Stripe).</td>
+<td><code>$callToActionText</code>, <code>$form</code></td>
+</tr>
+<tr>
+<td>Iframe</td>
+<td>The payment form is displayed on the merchant&rsquo;s website, but inside an iframe.</td>
+<td><code>$callToActionText</code>, <code>$additionalInformation</code></td>
+</tr>
+</tbody>
+</table>
 
-<h4 id="offline">Offline<a href="#offline"></a></h4><p>:   This is the most simple case where you could be (e.g.:Bankwire, Cheque).
-It&rsquo;s a simple URL to call, then various information are displayed to the customer.</p>
-<pre><code>The minimal variables to set are `$callToActionText` and `$action`. You can check the `getOfflinePaymentOption()` method of *[paymentexample](https://github.com/PrestaShop/paymentexample)* to have an example.
-</code></pre>
+<h4 id="offline-scenario">Offline scenario<a href="#offline-scenario"></a></h4><div class='mermaid'>
+sequenceDiagram
+    Customer->>PrestaShop instance: Select an Offline payment method
+    PrestaShop instance-->>PrestaShop instance: Uses $action parameter to redirect to a controller and create the Order
+    PrestaShop instance->>Customer: Returns a confirmation page
+</div>
 
-<h4 id="external">External<a href="#external"></a></h4><p>:   It&rsquo;s a simple URL to call, then the payment is directly processed on the Payment Service Provider&rsquo;s website (e.g.: PayPal, Paybox).</p>
-<pre><code>The minimal variables to set are `$callToActionText` and `$action`. The form will be sent by POST and you can add hidden inputs such as a token, by using `setInput()` method. You can check the `getExternalPaymentOption()` method of *[paymentexample](https://github.com/PrestaShop/paymentexample)* to have an example.
-</code></pre>
+<h4 id="external-scenario">External scenario<a href="#external-scenario"></a></h4><div class='mermaid'>
+sequenceDiagram
+    Customer->>PrestaShop instance: Select an External payment method
+    PrestaShop instance->>External Payment service provider (PSP): Uses $action parameter to redirect to the PSP
+    External Payment service provider (PSP)-->>External Payment service provider (PSP): Handles payment form
+    External Payment service provider (PSP)->>PrestaShop instance: Redirects the customer back to the store
+    PrestaShop instance->>Customer: Returns a confirmation page
+    External Payment service provider (PSP)-->>PrestaShop instance: Usually send a webhook to the Store to give Server to server information about the payment
+    PrestaShop instance-->>PrestaShop instance: Updates payment status / order status
+</div>
 
-<h4 id="embedded">Embedded<a href="#embedded"></a></h4><p>:   You write your credit card number and all the required data directly on the merchant&rsquo;s website (e.g.: Stripe).</p>
-<pre><code>The minimal variables to set are `$callToActionText` and `$form`. You can check the `getEmbeddedPaymentOption()` method of *[paymentexample](https://github.com/PrestaShop/paymentexample)* to have an example.
-</code></pre>
+<h4 id="embedded-scenario">Embedded scenario<a href="#embedded-scenario"></a></h4><div class='mermaid'>
+sequenceDiagram
+    Customer->>PrestaShop instance: Select an Embedded payment method
+    PrestaShop instance->>PrestaShop instance: Uses $form parameter to build to the PSP form
+    Customer->>External Payment service provider (PSP): Submits the PSP embedded form within the PrestaShop checkout page
+    External Payment service provider (PSP)-->>External Payment service provider (PSP): Handles payment form
+    PrestaShop instance-->>PrestaShop instance: Creates the Order
+    PrestaShop instance->>Customer: Returns a confirmation page
+    External Payment service provider (PSP)-->>PrestaShop instance: Usually send a webhook to the Store to give Server to server information about the payment
+    PrestaShop instance-->>PrestaShop instance: Updates payment status / order status
+</div>
 
-<h4 id="iframe">iframe<a href="#iframe"></a></h4><p>:   The payment form is displayed on the merchant&rsquo;s website, but inside an iframe.</p>
-<pre><code>The minimal variables to set are `$callToActionText` and `$additionalInformation`. You can check the `getIframePaymentOption()` method of *[paymentexample](https://github.com/PrestaShop/paymentexample)* to have an example.
-</code></pre>
+<h4 id="iframe-scenario">Iframe scenario<a href="#iframe-scenario"></a></h4><div class='mermaid'>
+sequenceDiagram
+    Customer->>PrestaShop instance: Select an Embedded payment method
+    PrestaShop instance->>PrestaShop instance: Uses $additionalInformation parameter to display an HTML Iframe
+    Customer->>External Payment service provider (PSP): Submits the PSP form within the Iframe in the PrestaShop checkout page
+    External Payment service provider (PSP)-->>External Payment service provider (PSP): Handles payment form
+    PrestaShop instance-->>PrestaShop instance: Creates the Order
+    PrestaShop instance->>Customer: Returns a confirmation page
+    External Payment service provider (PSP)-->>PrestaShop instance: Usually send a webhook to the Store to give Server to server information about the payment
+    PrestaShop instance-->>PrestaShop instance: Updates payment status / order status
+</div>
 
-<h2 id="payment-modules-rules">Payment modules rules<a href="#payment-modules-rules"></a></h2><p>We do have extra rules for Payment Modules as this type of modules require higher security.
-Note that there are some modules which create the Order with a pending order status during the payment processing (1), while others wait for the payment system&rsquo;s approval to create it (2). But none of them create an order before the customer passed the payment service (bank, PayPal&hellip;).</p>
+<h2 id="payment-modules-rules-and-notes">Payment modules rules and notes<a href="#payment-modules-rules-and-notes"></a></h2>
+<div class="notices note" >There are extra rules for Payment Modules as this type of modules require higher security.</div>
+
+<p>Note that there are some modules which create the Order with a pending order status during the payment processing (1), while others wait for the payment system&rsquo;s approval to create it (2). But none of them create an order before the customer passed the payment service (bank, PayPal&hellip;).</p>
 <ul>
 <li>
-<p>Make sure you double check the id_cart before creating the order.</p>
+<p>Make sure you double check the <code>id_cart</code> before creating the order.</p>
 <ul>
 <li>The purpose is to make sure another customer cannot validate a cart which isn&rsquo;t his.</li>
 </ul>
 </li>
 <li>
-<p>if (2), make sure the amount you use to validateOrder() comes from the external payment system. Do not use Cart-&gt;getOrderTotal();</p>
+<p>if (2), make sure the amount you use to <code>validateOrder()</code> comes from the external payment system. Do not use <code>Cart-&gt;getOrderTotal()</code>;</p>
 <ul>
 <li>For security reasons, always proceed as explained.</li>
 </ul>
@@ -32631,69 +32681,6 @@ Note that there are some modules which create the Order with a pending order sta
 </li>
 </ul>
 
-<h2 id="migrating-from-16-to-17">Migrating from 1.6 to 1.7<a href="#migrating-from-16-to-17"></a></h2>
-<h3 id="how-to">How-To<a href="#how-to"></a></h3><p>You need to change the <em>payment</em> hook where your module is hooked on by <em>paymentOption</em>. <strong>It&rsquo;s not a display hook anymore</strong>, so you must not use the <code>$this-&gt;display()</code> method to retrieve a template, but use the <code>$this-&gt;context-&gt;smarty-&gt;fetch()</code> method instead.</p>
-<p>Then, implement the <code>hookPaymentOptions()</code> function to return an array of <em><a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Core/Payment/PaymentOption.php">PaymentOption</a></em>.</p>
-<p>Next, you&rsquo;ll need to identify the type of your payment module to know which variables are mandatory.</p>
-
-<h4 id="what-if-i-cant-remove-the-submit-button">What if I can&rsquo;t remove the submit button?<a href="#what-if-i-cant-remove-the-submit-button"></a></h4><p>As you may read it above, you must not have a submit button into your module&rsquo;s HTML code, because PrestaShop will automatically generate it. If you can&rsquo;t remove the submit button from the form for some reasons (e.g.: the form is generated by binaries), we have implemented another way to make your module PrestaShop 1.7 compatible. But, note that this is
-<strong>NOT</strong> the recommended way to do it.</p>
-<p>To do this, you&rsquo;ll need to implement a supplementary hook: <code>displayPaymentByBinaries</code>. It&rsquo;s made to display the payment form, and
-it will replace the unique payment button in the checkout.</p>
-<p>You&rsquo;ll also need to set the <code>$binary</code> variable to <em>true</em>. It will adapt the behavior to hide the payment button and replace it by the form when the payment option is selected.</p>
-
-<h3 id="hooks">Hooks<a href="#hooks"></a></h3><p>The params passed to the following hooks have been modified:</p>
-<ul>
-<li><code>hookPaymentReturn</code></li>
-<li><code>hookDisplayOrderConfirmation</code></li>
-</ul>
-
-<h4 id="before">BEFORE<a href="#before"></a></h4><table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>total_to_pay</td>
-<td>Result of <code>$order-&gt;getOrdersTotalPaid()</code></td>
-</tr>
-<tr>
-<td>currency</td>
-<td>Currency sign (string)</td>
-</tr>
-<tr>
-<td>currencyObj</td>
-<td>The loaded currency (Currency class)</td>
-</tr>
-<tr>
-<td>objOrder</td>
-<td>The current order object (Order class)</td>
-</tr>
-</tbody>
-</table>
-
-<h4 id="after">AFTER<a href="#after"></a></h4><table>
-<thead>
-<tr>
-<th>Key</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>order</td>
-<td>The current order object (Order class)</td>
-</tr>
-</tbody>
-</table>
-<p>Everything can be retrieved, for example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$currency</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Currency</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">id_currency</span><span class="p">);</span>
-<span class="nv">$total_to_pay</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">getOrdersTotalPaid</span><span class="p">();</span>
-</code></pre></div>
 
 
 
@@ -32751,7 +32738,7 @@ it will replace the unique payment button in the checkout.</p>
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/99b8bd2b55d9452767bfda189939d76ce247cc46">2023-03-08 by Dimitri Mouillard</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/ec1f952f3671ef05a5eb82e1214b6a16c3829ed5">2023-11-27 by thomas nares</a>.<br>
         
     
 
@@ -32773,18 +32760,22 @@ it will replace the unique payment button in the checkout.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1701356703"></script>
-    <script src="/js/perfect-scrollbar.min.js?1701356703"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1701356703"></script>
-    <script src="/js/jquery.sticky.js?1701356703"></script>
-    <script src="/js/featherlight.min.js?1701356703"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1701356703"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1701356703"></script>
-    <script src="/js/learn.js?1701356703"></script>
-    <script src="/js/hugo-learn.js?1701356703"></script>
+    <script src="/js/clipboard.min.js?1701466941"></script>
+    <script src="/js/perfect-scrollbar.min.js?1701466941"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1701466941"></script>
+    <script src="/js/jquery.sticky.js?1701466941"></script>
+    <script src="/js/featherlight.min.js?1701466941"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1701466941"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1701466941"></script>
+    <script src="/js/learn.js?1701466941"></script>
+    <script src="/js/hugo-learn.js?1701466941"></script>
     
-    <script src="/main.js?1701356703"></script>
+    <script src="/main.js?1701466941"></script>
     
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
     
     
 
