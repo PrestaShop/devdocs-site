@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Continuous Integration / Continuous Deployment :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163926" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163926" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163926" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163926" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164748" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164748" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164748" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164748" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163926" rel="stylesheet">
+    <link href="/style.css?1703164748" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163926"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164748"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33107,226 +33107,226 @@
 
 <h2 id="github">GitHub<a href="#github"></a></h2><p>This example is taken from the module <code>ps_checkout</code>. The latest version and more checks can be found in <a href="https://github.com/PrestaShopCorp/ps_checkout/tree/master/.github/workflows">https://github.com/PrestaShopCorp/ps_checkout/tree/master/.github/workflows</a>.</p>
 
-<h3 id="php-checks">PHP Checks<a href="#php-checks"></a></h3><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP tests</span><span class="w">
-</span><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push, pull_request]</span><span class="w">
-</span><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="c"># Check that there are no syntax errors in the project</span><span class="w">
-</span><span class="w">  </span><span class="nt">php-linter</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP Syntax check 5.6|7.2|7.3</span><span class="w">
-</span><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
-</span><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2.0.0</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP syntax checker 5.6</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/github-action-php-lint/5.6@master</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP syntax checker 7.2</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/github-action-php-lint/7.2@master</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP syntax checker 7.3</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/github-action-php-lint/7.3@master</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span><span class="c"># Check that the PHP code follows the coding standards</span><span class="w">
-</span><span class="w">  </span><span class="nt">php-cs-fixer</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP-CS-Fixer</span><span class="w">
-</span><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
-</span><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2.0.0</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Run PHP-CS-Fixer</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">prestashopcorp/github-action-php-cs-fixer@master</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span><span class="c"># Run PHPStan against the module and a PrestaShop release</span><span class="w">
-</span><span class="w">  </span><span class="nt">phpstan</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHPStan</span><span class="w">
-</span><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
-</span><span class="w">    </span><span class="nt">strategy</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">matrix</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">presta-versions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;1.7.0.3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;latest&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2.0.0</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span><span class="c"># Add vendor folder in cache to make next builds faster</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Cache vendor folder</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/cache@v1</span><span class="w">
-</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">vendor</span><span class="w">
-</span><span class="w">          </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">php-${{ hashFiles(&#39;composer.lock&#39;) }}</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span><span class="c"># Add composer local folder in cache to make next builds faster</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Cache composer folder</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/cache@v1</span><span class="w">
-</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">~/.composer/cache</span><span class="w">
-</span><span class="w">          </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">php-composer-cache</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">composer install</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span><span class="c"># Docker images prestashop/prestashop may be used, even if the shop remains uninstalled</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Pull PrestaShop files (Tag ${{ matrix.presta-versions }})</span><span class="w">
-</span><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">docker run -tid --rm -v ps-volume:/var/www/html --name temp-ps prestashop/prestashop:${{ matrix.presta-versions }}</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span><span class="c"># Run a container for PHPStan, having access to the module content and PrestaShop sources.</span><span class="w">
-</span><span class="w">      </span><span class="c"># This tool is outside the composer.json because of the compatibility with PHP 5.6</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name </span><span class="p">:</span><span class="w"> </span><span class="l">Run PHPStan</span><span class="w">
-</span><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">docker run --rm --volumes-from temp-ps -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module phpstan/phpstan:0.12 analyse --configuration=/web/module/tests/phpstan/phpstan.neon</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span><span class="nt">header-stamp</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Check license headers</span><span class="w">
-</span><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
-</span><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Cache vendor folder</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/cache@v1</span><span class="w">
-</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">vendor</span><span class="w">
-</span><span class="w">          </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">php-${{ hashFiles(&#39;composer.lock&#39;) }}</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Cache composer folder</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/cache@v1</span><span class="w">
-</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">~/.composer/cache</span><span class="w">
-</span><span class="w">          </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">php-composer-cache</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">composer install</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Run Header Stamp in Dry Run mode</span><span class="w">
-</span><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">php vendor/bin/header-stamp --license=vendor/prestashop/header-stamp/assets/afl.txt --exclude=vendor,tests,_dev --dry-run</span><span class="w">
-</span></code></pre></div>
-<h3 id="build-module-artifact">Build module artifact<a href="#build-module-artifact"></a></h3><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build</span><span class="w">
-</span><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push, pull_request]</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">deploy</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">build dependencies &amp; create artifact</span><span class="w">
-</span><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
-</span><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2.0.0</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span><span class="c"># Optional step compiling JS files</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build JS dependencies</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopCorp/github-action-build-js/12@v1.0</span><span class="w">
-</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="nt">cmd</span><span class="p">:</span><span class="w"> </span><span class="l">yarn</span><span class="w">
-</span><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">./_dev</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span><span class="c"># Install PHP dependencies (Production ONLY)</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install composer dependencies</span><span class="w">
-</span><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">composer install --no-dev -o</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span><span class="c"># Remove development files</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Clean-up project</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopCorp/github-action-clean-before-deploy@v1.0</span><span class="w">
-</span><span class="w">
-</span><span class="w">      </span><span class="c"># Zip files and upload to artifacts list</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Create &amp; upload artifact</span><span class="w">
-</span><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/upload-artifact@v1</span><span class="w">
-</span><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.event.repository.name }}</span><span class="w">
-</span><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">../</span><span class="w">
-</span></code></pre></div>
+<h3 id="php-checks">PHP Checks<a href="#php-checks"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP tests</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push, pull_request]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># Check that there are no syntax errors in the project</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">php-linter</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP Syntax check 5.6|7.2|7.3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP syntax checker 5.6</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/github-action-php-lint/5.6@master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP syntax checker 7.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/github-action-php-lint/7.2@master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP syntax checker 7.3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/github-action-php-lint/7.3@master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># Check that the PHP code follows the coding standards</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">php-cs-fixer</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHP-CS-Fixer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Run PHP-CS-Fixer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">prestashopcorp/github-action-php-cs-fixer@master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># Run PHPStan against the module and a PrestaShop release</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">phpstan</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">PHPStan</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">strategy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">matrix</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">presta-versions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;1.7.0.3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;latest&#39;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Add vendor folder in cache to make next builds faster</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Cache vendor folder</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/cache@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">vendor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">php-${{ hashFiles(&#39;composer.lock&#39;) }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Add composer local folder in cache to make next builds faster</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Cache composer folder</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/cache@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">~/.composer/cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">php-composer-cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">composer install</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Docker images prestashop/prestashop may be used, even if the shop remains uninstalled</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Pull PrestaShop files (Tag ${{ matrix.presta-versions }})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">docker run -tid --rm -v ps-volume:/var/www/html --name temp-ps prestashop/prestashop:${{ matrix.presta-versions }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Run a container for PHPStan, having access to the module content and PrestaShop sources.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># This tool is outside the composer.json because of the compatibility with PHP 5.6</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name </span><span class="p">:</span><span class="w"> </span><span class="l">Run PHPStan</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">docker run --rm --volumes-from temp-ps -v $PWD:/web/module -e _PS_ROOT_DIR_=/var/www/html --workdir=/web/module phpstan/phpstan:0.12 analyse --configuration=/web/module/tests/phpstan/phpstan.neon</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">header-stamp</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Check license headers</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Cache vendor folder</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/cache@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">vendor</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">php-${{ hashFiles(&#39;composer.lock&#39;) }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Cache composer folder</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/cache@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">~/.composer/cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l">php-composer-cache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">composer install</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Run Header Stamp in Dry Run mode</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">php vendor/bin/header-stamp --license=vendor/prestashop/header-stamp/assets/afl.txt --exclude=vendor,tests,_dev --dry-run</span><span class="w">
+</span></span></span></code></pre></div>
+<h3 id="build-module-artifact">Build module artifact<a href="#build-module-artifact"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push, pull_request]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">deploy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">build dependencies &amp; create artifact</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Optional step compiling JS files</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build JS dependencies</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopCorp/github-action-build-js/12@v1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">cmd</span><span class="p">:</span><span class="w"> </span><span class="l">yarn</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">./_dev</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Install PHP dependencies (Production ONLY)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install composer dependencies</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">composer install --no-dev -o</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Remove development files</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Clean-up project</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopCorp/github-action-clean-before-deploy@v1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Zip files and upload to artifacts list</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Create &amp; upload artifact</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/upload-artifact@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.event.repository.name }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">../</span><span class="w">
+</span></span></span></code></pre></div>
 <h2 id="gitlab">GitLab<a href="#gitlab"></a></h2><p>This example is taken from one of our module sold on the marketplace, hosted on GitLab.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">stages</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="l">tests</span><span class="w">
-</span><span class="w">  </span>- <span class="l">build</span><span class="w">
-</span><span class="w">  </span>- <span class="l">deploy</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Preliminary code to run, preparing the environment for a PHP job.</span><span class="w">
-</span><span class="w"></span><span class="c"># Install wget, git and composer, then get dependencies.</span><span class="w">
-</span><span class="w"></span><span class="nt">.before_script_php_template</span><span class="p">:</span><span class="w"> </span><span class="cp">&amp;before_script_php</span><span class="w">
-</span><span class="w">  </span><span class="nt">before_script</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="l">apt-get update &amp;&amp; apt-get install wget git zip unzip -y</span><span class="w">
-</span><span class="w">    </span>- <span class="l">wget https://composer.github.io/installer.sig -O - -q | tr -d &#39;\n&#39; &gt; installer.sig</span><span class="w">
-</span><span class="w">    </span>- <span class="l">php -r &#34;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&#34;</span><span class="w">
-</span><span class="w">    </span>- <span class="l">php -r &#34;if (hash_file(&#39;SHA384&#39;, &#39;composer-setup.php&#39;) === file_get_contents(&#39;installer.sig&#39;)) { echo &#39;Installer verified&#39;; } else { echo &#39;Installer corrupt&#39;; unlink(&#39;composer-setup.php&#39;); } echo PHP_EOL;&#34;</span><span class="w">
-</span><span class="w">    </span>- <span class="l">php composer-setup.php</span><span class="w">
-</span><span class="w">    </span>- <span class="l">php -r &#34;unlink(&#39;composer-setup.php&#39;); unlink(&#39;installer.sig&#39;);&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">test:php-5.6</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*before_script_php</span><span class="w">
-</span><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">php:5.6</span><span class="w">
-</span><span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">tests</span><span class="w">
-</span><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="l">find . -type f -name &#39;*.php&#39; ! -path &#34;./vendor/*&#34; ! -path &#34;./tests/*&#34; -exec php -l -n {} \; | (! grep -v &#34;No syntax errors detected&#34;)</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">test:php-7.2</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*before_script_php</span><span class="w">
-</span><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">php:7.2</span><span class="w">
-</span><span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">tests</span><span class="w">
-</span><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span>- <span class="l">find . -type f -name &#39;*.php&#39; ! -path &#34;./vendor/*&#34; ! -path &#34;./tests/*&#34; -exec php -l -n {} \; | (! grep -v &#34;No syntax errors detected&#34;)</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">php-cs-fixer-7-2</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*before_script_php</span><span class="w">
-</span><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">php:7.2</span><span class="w">
-</span><span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">tests</span><span class="w">
-</span><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span><span class="sd">    php composer.phar install --dev
-</span><span class="sd">    php -d memory_limit=-1 vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --diff-format udiff</span><span class="w">    
-</span><span class="w">
-</span><span class="w"></span><span class="nt">phpstan-php-7-2</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*before_script_php</span><span class="w">
-</span><span class="w">  </span><span class="nt">variables</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">_PS_ROOT_DIR_</span><span class="p">:</span><span class="w"> </span><span class="l">/var/www/html/</span><span class="w">
-</span><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/prestashop:1.7-7.2-apache</span><span class="w">
-</span><span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">tests</span><span class="w">
-</span><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span><span class="sd">    php composer.phar install --dev
-</span><span class="sd">    php composer.phar global require phpstan/phpstan-shim:0.12
-</span><span class="sd">    ln -s /builds/ps-addons/$CI_PROJECT_NAME /var/www/html/modules/$CI_PROJECT_NAME
-</span><span class="sd">    php -d memory_limit=-1 ~/.composer/vendor/bin/phpstan analyse --configuration=/var/www/html/modules/$CI_PROJECT_NAME/tests/phpstan/phpstan.neon</span><span class="w">    
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Optional job installing JS dependencies and compiling scripts</span><span class="w">
-</span><span class="w"></span><span class="nt">before-deploy</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">node:10.16</span><span class="w">
-</span><span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">build</span><span class="w">
-</span><span class="w">  </span><span class="nt">artifacts</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">untracked</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="l">npm install</span><span class="w">
-</span><span class="w">    </span>- <span class="l">npm run build</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Clean development files and zip content for the marketplace</span><span class="w">
-</span><span class="w"></span><span class="nt">deploy-artifact-release</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*before_script_php</span><span class="w">
-</span><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">php:7.2</span><span class="w">
-</span><span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">deploy</span><span class="w">
-</span><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span><span class="sd">    php composer.phar install --no-dev -o
-</span><span class="sd">    rm -rf node_modules
-</span><span class="sd">    rm -rf _dev
-</span><span class="sd">    rm -f .browserlistrc
-</span><span class="sd">    rm -f .eslintrc.js
-</span><span class="sd">    rm -f .postcssrc.js
-</span><span class="sd">    rm -f babel.config.js
-</span><span class="sd">    rm -f vue.config.js
-</span><span class="sd">    rm -f .package.json
-</span><span class="sd">    rm -f .package-lock.json
-</span><span class="sd">    rm -f .php_cs.dist
-</span><span class="sd">    rm -f .gitlab-ci.yml
-</span><span class="sd">    rm -f .editorconfig
-</span><span class="sd">    rm -f Makefile
-</span><span class="sd">    rm -f docker-compose.yml
-</span><span class="sd">    rm -rf .git
-</span><span class="sd">    rm -f .gitignore
-</span><span class="sd">    rm -rf tests
-</span><span class="sd">    rm -f composer.phar
-</span><span class="sd">    mkdir ../module
-</span><span class="sd">    mv * ../module
-</span><span class="sd">    mkdir $CI_PROJECT_NAME
-</span><span class="sd">    mv ../module/* $CI_PROJECT_NAME</span><span class="w">    
-</span><span class="w">
-</span><span class="w">  </span><span class="nt">artifacts</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">$CI_PROJECT_NAME</span><span class="w">
-</span><span class="w">    </span><span class="nt">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="l">$CI_PROJECT_NAME</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">stages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">tests</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">build</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Preliminary code to run, preparing the environment for a PHP job.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Install wget, git and composer, then get dependencies.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">.before_script_php_template</span><span class="p">:</span><span class="w"> </span><span class="cp">&amp;before_script_php</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">before_script</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">apt-get update &amp;&amp; apt-get install wget git zip unzip -y</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">wget https://composer.github.io/installer.sig -O - -q | tr -d &#39;\n&#39; &gt; installer.sig</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">php -r &#34;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">php -r &#34;if (hash_file(&#39;SHA384&#39;, &#39;composer-setup.php&#39;) === file_get_contents(&#39;installer.sig&#39;)) { echo &#39;Installer verified&#39;; } else { echo &#39;Installer corrupt&#39;; unlink(&#39;composer-setup.php&#39;); } echo PHP_EOL;&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">php composer-setup.php</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">php -r &#34;unlink(&#39;composer-setup.php&#39;); unlink(&#39;installer.sig&#39;);&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">test:php-5.6</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*before_script_php</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">php:5.6</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">tests</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">find . -type f -name &#39;*.php&#39; ! -path &#34;./vendor/*&#34; ! -path &#34;./tests/*&#34; -exec php -l -n {} \; | (! grep -v &#34;No syntax errors detected&#34;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">test:php-7.2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*before_script_php</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">php:7.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">tests</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="l">find . -type f -name &#39;*.php&#39; ! -path &#34;./vendor/*&#34; ! -path &#34;./tests/*&#34; -exec php -l -n {} \; | (! grep -v &#34;No syntax errors detected&#34;)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">php-cs-fixer-7-2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*before_script_php</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">php:7.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">tests</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    php composer.phar install --dev
+</span></span></span><span class="line"><span class="cl"><span class="sd">    php -d memory_limit=-1 vendor/bin/php-cs-fixer fix --dry-run --diff --using-cache=no --diff-format udiff</span><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">phpstan-php-7-2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*before_script_php</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">variables</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_PS_ROOT_DIR_</span><span class="p">:</span><span class="w"> </span><span class="l">/var/www/html/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/prestashop:1.7-7.2-apache</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">tests</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    php composer.phar install --dev
+</span></span></span><span class="line"><span class="cl"><span class="sd">    php composer.phar global require phpstan/phpstan-shim:0.12
+</span></span></span><span class="line"><span class="cl"><span class="sd">    ln -s /builds/ps-addons/$CI_PROJECT_NAME /var/www/html/modules/$CI_PROJECT_NAME
+</span></span></span><span class="line"><span class="cl"><span class="sd">    php -d memory_limit=-1 ~/.composer/vendor/bin/phpstan analyse --configuration=/var/www/html/modules/$CI_PROJECT_NAME/tests/phpstan/phpstan.neon</span><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Optional job installing JS dependencies and compiling scripts</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">before-deploy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">node:10.16</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">build</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">artifacts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">untracked</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">npm install</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">npm run build</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Clean development files and zip content for the marketplace</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">deploy-artifact-release</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">&lt;&lt;</span><span class="p">:</span><span class="w"> </span><span class="cp">*before_script_php</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">php:7.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">stage</span><span class="p">:</span><span class="w"> </span><span class="l">deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">    php composer.phar install --no-dev -o
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -rf node_modules
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -rf _dev
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f .browserlistrc
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f .eslintrc.js
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f .postcssrc.js
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f babel.config.js
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f vue.config.js
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f .package.json
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f .package-lock.json
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f .php_cs.dist
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f .gitlab-ci.yml
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f .editorconfig
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f Makefile
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f docker-compose.yml
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -rf .git
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f .gitignore
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -rf tests
+</span></span></span><span class="line"><span class="cl"><span class="sd">    rm -f composer.phar
+</span></span></span><span class="line"><span class="cl"><span class="sd">    mkdir ../module
+</span></span></span><span class="line"><span class="cl"><span class="sd">    mv * ../module
+</span></span></span><span class="line"><span class="cl"><span class="sd">    mkdir $CI_PROJECT_NAME
+</span></span></span><span class="line"><span class="cl"><span class="sd">    mv ../module/* $CI_PROJECT_NAME</span><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">artifacts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">$CI_PROJECT_NAME</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">$CI_PROJECT_NAME</span><span class="w">
+</span></span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33404,17 +33404,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163926"></script>
-    <script src="/js/jquery.sticky.js?1703163926"></script>
-    <script src="/js/featherlight.min.js?1703163926"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163926"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163926"></script>
-    <script src="/js/learn.js?1703163926"></script>
-    <script src="/js/hugo-learn.js?1703163926"></script>
+    <script src="/js/clipboard.min.js?1703164748"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164748"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164748"></script>
+    <script src="/js/jquery.sticky.js?1703164748"></script>
+    <script src="/js/featherlight.min.js?1703164748"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164748"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164748"></script>
+    <script src="/js/learn.js?1703164748"></script>
+    <script src="/js/hugo-learn.js?1703164748"></script>
     
-    <script src="/main.js?1703163926"></script>
+    <script src="/main.js?1703164748"></script>
     
     
     

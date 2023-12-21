@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Commands :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163911" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163911" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163911" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163911" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164736" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164736" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164736" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164736" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163911" rel="stylesheet">
+    <link href="/style.css?1703164736" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163911"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164736"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33122,37 +33122,37 @@ Removing this limitation is being explored for future PS versions.</div>
 <h3 id="setup-composer">Setup composer<a href="#setup-composer"></a></h3><p>First you need to setup your composer file, you will find more info about it in <a href="https://devdocs.prestashop-project.org/8/modules/concepts/composer/">Setup composer</a></p>
 
 <h3 id="creation-of-the-command">Creation of the command<a href="#creation-of-the-command"></a></h3><p>At this moment, the only requirement is that you PHP file needs to be a class that extends <code>Symfony\Component\Console\Command\Command</code>. Let&rsquo;s create ExportCommand file:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// your-module/src/Command/ExportCommand.php
-</span><span class="c1"></span><span class="k">namespace</span> <span class="nx">YourCompany\YourModule\Command</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Symfony\Component\Console\Command\Command</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\Console\Input\InputInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\Console\Output\OutputInterface</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">ExportCommand</span> <span class="k">extends</span> <span class="nx">Command</span>
-<span class="p">{</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="c1">// The name of the command (the part after &#34;bin/console&#34;)
-</span><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;your-module:export&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">execute</span><span class="p">(</span><span class="nx">InputInterface</span> <span class="nv">$input</span><span class="p">,</span> <span class="nx">OutputInterface</span> <span class="nv">$output</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// Here your business logic.
-</span><span class="c1"></span>        <span class="nv">$output</span><span class="o">-&gt;</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;Export done!&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// your-module/src/Command/ExportCommand.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">namespace</span> <span class="nx">YourCompany\YourModule\Command</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Console\Command\Command</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Console\Input\InputInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Console\Output\OutputInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ExportCommand</span> <span class="k">extends</span> <span class="nx">Command</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">configure</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// The name of the command (the part after &#34;bin/console&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;your-module:export&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">execute</span><span class="p">(</span><span class="nx">InputInterface</span> <span class="nv">$input</span><span class="p">,</span> <span class="nx">OutputInterface</span> <span class="nv">$output</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Here your business logic.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$output</span><span class="o">-&gt;</span><span class="na">write</span><span class="p">(</span><span class="s1">&#39;Export done!&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="registration-of-the-command">Registration of the command<a href="#registration-of-the-command"></a></h3><p>Now, in order to make this really simple command available in the console, we register it in the services.yml file:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># your-module/config/services.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">your_company.your_module.export_command</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">YourCompany\YourModule\Command\ExportCommand</span><span class="w">
-</span><span class="w">        </span><span class="nt">tags</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- {<span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;console.command&#39;</span><span class="w"> </span>}<span class="w">
-</span></code></pre></div><p>The command should be now available using <code>./bin/console your-module:export</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># your-module/config/services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">your_company.your_module.export_command</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">YourCompany\YourModule\Command\ExportCommand</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">tags</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- {<span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;console.command&#39;</span><span class="w"> </span>}<span class="w">
+</span></span></span></code></pre></div><p>The command should be now available using <code>./bin/console your-module:export</code>.</p>
 
 <h2 id="learn-more-about-the-prestashop-console">Learn more about the PrestaShop Console<a href="#learn-more-about-the-prestashop-console"></a></h2><p>We use the Symfony Console with nothing specific to PrestaShop.</p>
 <p>You can learn everything about this component in <a href="https://symfony.com/doc/4.4/console.html">their documentation</a> in version 4.4.</p>
@@ -33243,17 +33243,17 @@ Removing this limitation is being explored for future PS versions.</div>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163911"></script>
-    <script src="/js/jquery.sticky.js?1703163911"></script>
-    <script src="/js/featherlight.min.js?1703163911"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163911"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163911"></script>
-    <script src="/js/learn.js?1703163911"></script>
-    <script src="/js/hugo-learn.js?1703163911"></script>
+    <script src="/js/clipboard.min.js?1703164736"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164736"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164736"></script>
+    <script src="/js/jquery.sticky.js?1703164736"></script>
+    <script src="/js/featherlight.min.js?1703164736"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164736"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164736"></script>
+    <script src="/js/learn.js?1703164736"></script>
+    <script src="/js/hugo-learn.js?1703164736"></script>
     
-    <script src="/main.js?1703163911"></script>
+    <script src="/main.js?1703164736"></script>
     
     
     

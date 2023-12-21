@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to use Grid Actions :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163909" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163909" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163909" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163909" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164735" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164735" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164735" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164735" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163909" rel="stylesheet">
+    <link href="/style.css?1703164735" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163909"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164735"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33160,55 +33160,55 @@
 <li>Export to the SQL Manager;</li>
 </ul>
 <p>See code example from the Core below:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span> <span class="c1">// src/Core/Grid/Definition/Factory/CustomerGridDefinitionFactory.php
-</span><span class="c1"></span>
-<span class="k">final</span> <span class="k">class</span> <span class="nc">CustomerGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractGridDefinitionFactory</span>
-<span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     */</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getGridActions</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">GridActionCollection</span><span class="p">())</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-                <span class="p">(</span><span class="k">new</span> <span class="nx">LinkGridAction</span><span class="p">(</span><span class="s1">&#39;import&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Import&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;cloud_upload&#39;</span><span class="p">)</span>
-                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_import&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;route_params&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                        <span class="s1">&#39;import_type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;customers&#39;</span><span class="p">,</span>
-                    <span class="p">],</span>
-                <span class="p">])</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-                <span class="p">(</span><span class="k">new</span> <span class="nx">LinkGridAction</span><span class="p">(</span><span class="s1">&#39;export&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Export&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;cloud_download&#39;</span><span class="p">)</span>
-                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_customers_export&#39;</span><span class="p">,</span>
-                <span class="p">])</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-                <span class="p">(</span><span class="k">new</span> <span class="nx">SimpleGridAction</span><span class="p">(</span><span class="s1">&#39;common_refresh_list&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Refresh list&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Advparameters.Feature&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;refresh&#39;</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-                <span class="p">(</span><span class="k">new</span> <span class="nx">SimpleGridAction</span><span class="p">(</span><span class="s1">&#39;common_show_query&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Show SQL query&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-                <span class="p">(</span><span class="k">new</span> <span class="nx">SimpleGridAction</span><span class="p">(</span><span class="s1">&#39;common_export_sql_manager&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Export to SQL Manager&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;storage&#39;</span><span class="p">)</span>
-            <span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>As you see, Grid stores Grid actions using a <code>GridActionCollection</code> object. This means that every action needed for Grid must be added to <code>GridActionCollection</code> using <code>add()</code> method.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span> <span class="c1">// src/Core/Grid/Definition/Factory/CustomerGridDefinitionFactory.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">CustomerGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractGridDefinitionFactory</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getGridActions</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">GridActionCollection</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="k">new</span> <span class="nx">LinkGridAction</span><span class="p">(</span><span class="s1">&#39;import&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Import&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;cloud_upload&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_import&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route_params&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;import_type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;customers&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="k">new</span> <span class="nx">LinkGridAction</span><span class="p">(</span><span class="s1">&#39;export&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Export&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;cloud_download&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_customers_export&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="k">new</span> <span class="nx">SimpleGridAction</span><span class="p">(</span><span class="s1">&#39;common_refresh_list&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Refresh list&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Advparameters.Feature&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;refresh&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="k">new</span> <span class="nx">SimpleGridAction</span><span class="p">(</span><span class="s1">&#39;common_show_query&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Show SQL query&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;code&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="k">new</span> <span class="nx">SimpleGridAction</span><span class="p">(</span><span class="s1">&#39;common_export_sql_manager&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Export to SQL Manager&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;storage&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>As you see, Grid stores Grid actions using a <code>GridActionCollection</code> object. This means that every action needed for Grid must be added to <code>GridActionCollection</code> using <code>add()</code> method.
 You&rsquo;ll find the list of existing actions in the documentation.</p>
 
 <h2 id="how-to-add-grid-actions-to-a-grid-using-a-module">How to add Grid actions to a Grid using a module?<a href="#how-to-add-grid-actions-to-a-grid-using-a-module"></a></h2><p>You can add additional actions to any Grid by hooking to the Grid workflow. You have to follow these steps:</p>
@@ -33216,90 +33216,90 @@ You&rsquo;ll find the list of existing actions in the documentation.</p>
 <li>Register hook <code>action{gridId}GridDefinitionModifier</code> where <code>{gridId}</code> is Grid id (e.g. <code>customer</code> for Customers grid, this means that hook name would be <code>actionCustomerGridDefinitionModifier</code>).</li>
 <li>Implement hook method in your module:</li>
 </ol>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/mymodule/mymodule.php
-</span><span class="c1"></span>
-<span class="k">class</span> <span class="nc">Mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>
-    <span class="sd">/**
-</span><span class="sd">     * Use hook to add Grid action for subscribing multiple customers to newsletter
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCustomerGridDefinitionModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="sd">/** @var \PrestaShop\PrestaShop\Core\Grid\Definition\GridDefinition */</span>
-        <span class="nv">$gridDefinition</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;definition&#39;</span><span class="p">];</span>
-
-        <span class="nv">$gridDefinition</span><span class="o">-&gt;</span><span class="na">getGridActions</span><span class="p">()</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-                <span class="p">(</span><span class="k">new</span> <span class="nx">LinkGridAction</span><span class="p">(</span><span class="s1">&#39;new_action&#39;</span><span class="p">))</span>
-                    <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;New action&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;MyModule.Admin.Actions&#39;</span><span class="p">))</span>
-                    <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;add_circle&#39;</span><span class="p">)</span> <span class="c1">// icon from https://materializecss.com/icons.html by default
-</span><span class="c1"></span>                    <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                        <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;my_module_specific_route&#39;</span><span class="p">,</span>
-                    <span class="p">])</span>
-            <span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Now you should be able to see new action available into the Customers grid!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/mymodule/mymodule.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Use hook to add Grid action for subscribing multiple customers to newsletter
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCustomerGridDefinitionModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var \PrestaShop\PrestaShop\Core\Grid\Definition\GridDefinition */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$gridDefinition</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;definition&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$gridDefinition</span><span class="o">-&gt;</span><span class="na">getGridActions</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="k">new</span> <span class="nx">LinkGridAction</span><span class="p">(</span><span class="s1">&#39;new_action&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;New action&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;MyModule.Admin.Actions&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;add_circle&#39;</span><span class="p">)</span> <span class="c1">// icon from https://materializecss.com/icons.html by default
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;my_module_specific_route&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Now you should be able to see new action available into the Customers grid!</p>
 
 <h2 id="how-to-create-custom-grid-action">How to create custom Grid action?<a href="#how-to-create-custom-grid-action"></a></h2><p>PrestaShop already comes with a bunch of actions that are available for use in your Grids or for extending PrestaShop grids.
 However, in some use cases you may find that the existing actions do not fit your needs.</p>
 <p>Luckily, there is a solution, you can create and register your own custom actions.</p>
 <p>First, you need to create a Grid action itself:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/mymodule/src/Grid/Action/Type/
-</span><span class="c1"></span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Action\AbstractGridAction</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\OptionsResolver\OptionsResolver</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * It extends AbstractGridAction,
-</span><span class="sd"> * but you can also implement \PrestaShop\PrestaShop\Core\Grid\Action\GridActionInterface 
-</span><span class="sd"> * if for some reason you want to avoid using the abstract class
-</span><span class="sd"> */</span> 
-<span class="k">final</span> <span class="k">class</span> <span class="nc">MySpecificAction</span> <span class="k">extends</span> <span class="nx">AbstractGridAction</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getType</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="s1">&#39;my_specific&#39;</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     */</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">configureOptions</span><span class="p">(</span><span class="nx">OptionsResolver</span> <span class="nv">$resolver</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="sd">/**
-</span><span class="sd">         * options passed to the resolver will be available in the Grid action
-</span><span class="sd">         * and also in the template responsible of rendering the action.
-</span><span class="sd">         */</span>
-        <span class="nv">$resolver</span>
-            <span class="o">-&gt;</span><span class="na">setRequired</span><span class="p">([</span>
-                <span class="s1">&#39;route&#39;</span><span class="p">,</span>
-            <span class="p">])</span>
-            <span class="o">-&gt;</span><span class="na">setDefaults</span><span class="p">([</span>
-                <span class="s1">&#39;route_params&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
-            <span class="p">])</span>
-            <span class="o">-&gt;</span><span class="na">setAllowedTypes</span><span class="p">(</span><span class="s1">&#39;route&#39;</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">setAllowedTypes</span><span class="p">(</span><span class="s1">&#39;route_params&#39;</span><span class="p">,</span> <span class="s1">&#39;array&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Then you need to create template so it can render nicely in your grid.</p>
-<div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="c">{# mymodule/views/PrestaShop/Admin/Common/Grid/Actions/Grid/my_specific.html.twig #}</span><span class="x">
-</span><span class="x">
-</span><span class="x">&lt;a id=&#34;</span><span class="cp">{{</span> <span class="s1">&#39;%s_grid_action_%s&#39;</span><span class="o">|</span><span class="nf">format</span><span class="o">(</span><span class="nv">grid.id</span><span class="o">,</span> <span class="nv">action.id</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&#34; href=&#34;</span><span class="cp">{{</span> <span class="nv">path</span><span class="o">(</span><span class="nv">action.options.route</span><span class="o">,</span> <span class="nv">action.options.route_params</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&#34; class=&#34;dropdown-item&#34;&gt;
-</span><span class="x">  </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">action.icon</span> <span class="k">is</span> <span class="k">not</span> <span class="nf">empty</span> <span class="cp">%}</span><span class="x">
-</span><span class="x">    &lt;i class=&#34;material-icons&#34;&gt;</span><span class="cp">{{</span> <span class="nv">action.icon</span> <span class="cp">}}</span><span class="x">&lt;/i&gt;
-</span><span class="x">  </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x">
-</span><span class="x">  </span><span class="cp">{{</span> <span class="nv">action.name</span> <span class="cp">}}</span><span class="x">
-</span><span class="x">&lt;/a&gt;
-</span></code></pre></div><p>Last thing is to add your newly created Grid action to Grid&rsquo;s <code>GridActionCollection</code> and then it should be available in your Grid!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/mymodule/src/Grid/Action/Type/
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Action\AbstractGridAction</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\OptionsResolver\OptionsResolver</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * It extends AbstractGridAction,
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * but you can also implement \PrestaShop\PrestaShop\Core\Grid\Action\GridActionInterface 
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * if for some reason you want to avoid using the abstract class
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span> 
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">MySpecificAction</span> <span class="k">extends</span> <span class="nx">AbstractGridAction</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getType</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;my_specific&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">configureOptions</span><span class="p">(</span><span class="nx">OptionsResolver</span> <span class="nv">$resolver</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">         * options passed to the resolver will be available in the Grid action
+</span></span></span><span class="line"><span class="cl"><span class="sd">         * and also in the template responsible of rendering the action.
+</span></span></span><span class="line"><span class="cl"><span class="sd">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$resolver</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setRequired</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;route&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setDefaults</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;route_params&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">            <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setAllowedTypes</span><span class="p">(</span><span class="s1">&#39;route&#39;</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setAllowedTypes</span><span class="p">(</span><span class="s1">&#39;route_params&#39;</span><span class="p">,</span> <span class="s1">&#39;array&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Then you need to create template so it can render nicely in your grid.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="c">{# mymodule/views/PrestaShop/Admin/Common/Grid/Actions/Grid/my_specific.html.twig #}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">&lt;a id=&#34;</span><span class="cp">{{</span> <span class="s1">&#39;%s_grid_action_%s&#39;</span><span class="o">|</span><span class="nf">format</span><span class="o">(</span><span class="nv">grid.id</span><span class="o">,</span> <span class="nv">action.id</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&#34; href=&#34;</span><span class="cp">{{</span> <span class="nv">path</span><span class="o">(</span><span class="nv">action.options.route</span><span class="o">,</span> <span class="nv">action.options.route_params</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&#34; class=&#34;dropdown-item&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">  </span><span class="cp">{%</span> <span class="k">if</span> <span class="nv">action.icon</span> <span class="k">is</span> <span class="k">not</span> <span class="nf">empty</span> <span class="cp">%}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;i class=&#34;material-icons&#34;&gt;</span><span class="cp">{{</span> <span class="nv">action.icon</span> <span class="cp">}}</span><span class="x">&lt;/i&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">  </span><span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">  </span><span class="cp">{{</span> <span class="nv">action.name</span> <span class="cp">}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">&lt;/a&gt;
+</span></span></span></code></pre></div><p>Last thing is to add your newly created Grid action to Grid&rsquo;s <code>GridActionCollection</code> and then it should be available in your Grid!</p>
 
 
 <footer class="article-footer">
@@ -33378,17 +33378,17 @@ However, in some use cases you may find that the existing actions do not fit you
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163909"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163909"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163909"></script>
-    <script src="/js/jquery.sticky.js?1703163909"></script>
-    <script src="/js/featherlight.min.js?1703163909"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163909"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163909"></script>
-    <script src="/js/learn.js?1703163909"></script>
-    <script src="/js/hugo-learn.js?1703163909"></script>
+    <script src="/js/clipboard.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164735"></script>
+    <script src="/js/jquery.sticky.js?1703164735"></script>
+    <script src="/js/featherlight.min.js?1703164735"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164735"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164735"></script>
+    <script src="/js/learn.js?1703164735"></script>
+    <script src="/js/hugo-learn.js?1703164735"></script>
     
-    <script src="/main.js?1703163909"></script>
+    <script src="/main.js?1703164735"></script>
     
     
     

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to work with the Search Form in 1.7.5 :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163891" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163891" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163891" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163891" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164718" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164718" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164718" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164718" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163891" rel="stylesheet">
+    <link href="/style.css?1703164718" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163891"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164718"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30347,108 +30347,108 @@
 </li>
 </ul>
 
-<h2 id="add-filters-into-griddefinition">Add Filters into GridDefinition<a href="#add-filters-into-griddefinition"></a></h2><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">final</span> <span class="k">class</span> <span class="nc">EmailLogsDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractGridDefinitionFactory</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @param string $resetActionUrl
-</span><span class="sd">     * @param string $redirectionUrl
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$resetActionUrl</span><span class="p">,</span> <span class="nv">$redirectionUrl</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resetActionUrl</span> <span class="o">=</span> <span class="nv">$resetActionUrl</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectionUrl</span> <span class="o">=</span> <span class="nv">$redirectionUrl</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     */</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="s1">&#39;email_logs&#39;</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="o">...</span>
-    <span class="sd">/**
-</span><span class="sd">    * {@inheritdoc}
-</span><span class="sd">    */</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getFilters</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">FilterCollection</span><span class="p">())</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;id_meta&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
-                <span class="p">])</span>
-                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;id_meta&#39;</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
-                <span class="p">])</span>
-                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
-                <span class="p">])</span>
-                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;url_rewrite&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
-                <span class="p">])</span>
-                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;url_rewrite&#39;</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">,</span> <span class="nx">SearchAndResetType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                        <span class="s1">&#39;data-url&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resetActionUrl</span><span class="p">,</span>
-                        <span class="s1">&#39;data-redirect&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectionUrl</span><span class="p">,</span>
-                    <span class="p">],</span>
-                <span class="p">])</span>
-                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">)</span>
-            <span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-    <span class="o">...</span>
-<span class="p">}</span>
-</code></pre></div><p>And here is the service definition associated</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="w">    </span><span class="nt">prestashop.core.grid.definition.factory.email_logs</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\Definition\Factory\EmailLogsDefinitionFactory&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.grid.definition.factory.abstract_grid_definition&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="s2">&#34;@=service(&#39;router&#39;).generate(&#39;admin_common_reset_search&#39;, {&#39;controller&#39;: &#39;email&#39;, &#39;action&#39;: &#39;index&#39;})&#34;</span><span class="w">
-</span><span class="w">            </span>- <span class="s2">&#34;@=service(&#39;router&#39;).generate(&#39;admin_emails_index&#39;)&#34;</span><span class="w">
-</span><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></div>
+<h2 id="add-filters-into-griddefinition">Add Filters into GridDefinition<a href="#add-filters-into-griddefinition"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">EmailLogsDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractGridDefinitionFactory</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $resetActionUrl
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $redirectionUrl
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$resetActionUrl</span><span class="p">,</span> <span class="nv">$redirectionUrl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resetActionUrl</span> <span class="o">=</span> <span class="nv">$resetActionUrl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectionUrl</span> <span class="o">=</span> <span class="nv">$redirectionUrl</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;email_logs&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">    * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">    */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getFilters</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">FilterCollection</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;id_meta&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;id_meta&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;url_rewrite&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;url_rewrite&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">,</span> <span class="nx">SearchAndResetType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;data-url&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">resetActionUrl</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;data-redirect&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectionUrl</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>And here is the service definition associated</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">    </span><span class="nt">prestashop.core.grid.definition.factory.email_logs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\Definition\Factory\EmailLogsDefinitionFactory&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.grid.definition.factory.abstract_grid_definition&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s2">&#34;@=service(&#39;router&#39;).generate(&#39;admin_common_reset_search&#39;, {&#39;controller&#39;: &#39;email&#39;, &#39;action&#39;: &#39;index&#39;})&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s2">&#34;@=service(&#39;router&#39;).generate(&#39;admin_emails_index&#39;)&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div>
 <h3 id="the-filters-types">The filters types<a href="#the-filters-types"></a></h3><p>In the filters collection you define all the available filters (which will match your grid columns), you can define a specific type depending on the column.
 You can basically use any Symfony form type (including your custom ones) and PrestaShop provides a few <a href="https://devdocs.prestashop-project.org/1.7/development/components/grid/filter-types-reference/">filter types</a> that might be useful to you.</p>
 
 <h2 id="filters-class">Filters class<a href="#filters-class"></a></h2><p>You need to define a <code>Filters</code> class linked to your Grid, it will allow you to define the default filters and sorting values.
 It will also make your list action simpler as PrestaShop provides a parameter resolver responsible of automatically create and fill a <code>Filters</code> object.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Search\Filters</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * Class EmailLogsFilter defines default filters for Email logs grid.
-</span><span class="sd"> */</span>
-<span class="k">final</span> <span class="k">class</span> <span class="nc">EmailLogsFilter</span> <span class="k">extends</span> <span class="nx">Filters</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">getDefaults</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;limit&#39;</span> <span class="o">=&gt;</span> <span class="mi">50</span><span class="p">,</span>
-            <span class="s1">&#39;offset&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s1">&#39;orderBy&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_mail&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;sortOrder&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;desc&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;filters&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
-        <span class="p">];</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Search\Filters</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Class EmailLogsFilter defines default filters for Email logs grid.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">EmailLogsFilter</span> <span class="k">extends</span> <span class="nx">Filters</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">getDefaults</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;limit&#39;</span> <span class="o">=&gt;</span> <span class="mi">50</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;offset&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;orderBy&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_mail&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;sortOrder&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;desc&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;filters&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="controller-actions">Controller actions<a href="#controller-actions"></a></h2><p>The Grid filtering workflow is divided into three controllers:</p>
 <ul>
 <li>search action: it parses the filters from the POST request, then redirects to the list action</li>
@@ -30456,89 +30456,89 @@ It will also make your list action simpler as PrestaShop provides a parameter re
 <li>reset action: to clean the persisted filters and reset to the default ones</li>
 </ul>
 
-<h3 id="search-action">Search action<a href="#search-action"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">EmailController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
-<span class="p">{</span>
-    <span class="o">...</span>
-    <span class="sd">/**
-</span><span class="sd">     * @AdminSecurity(&#34;is_granted(&#39;read&#39;, request.get(&#39;_legacy_controller&#39;))&#34;, message=&#34;Access denied.&#34;)
-</span><span class="sd">     *
-</span><span class="sd">     * @param Request $request
-</span><span class="sd">     *
-</span><span class="sd">     * @return RedirectResponse
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">searchAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$definitionFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.definition.factory.email_logs&#39;</span><span class="p">);</span>
-        <span class="nv">$emailLogsDefinition</span> <span class="o">=</span> <span class="nv">$definitionFactory</span><span class="o">-&gt;</span><span class="na">getDefinition</span><span class="p">();</span>
-
-        <span class="nv">$gridFilterFormFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.filter.form_factory&#39;</span><span class="p">);</span>
-        <span class="nv">$filtersForm</span> <span class="o">=</span> <span class="nv">$gridFilterFormFactory</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$emailLogsDefinition</span><span class="p">);</span>
-        <span class="nv">$filtersForm</span><span class="o">-&gt;</span><span class="na">handleRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
-
-        <span class="nv">$filters</span> <span class="o">=</span> <span class="p">[];</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$filtersForm</span><span class="o">-&gt;</span><span class="na">isSubmitted</span><span class="p">())</span> <span class="p">{</span>
-            <span class="nv">$filters</span> <span class="o">=</span> <span class="nv">$filtersForm</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_emails_index&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;filters&#39;</span> <span class="o">=&gt;</span> <span class="nv">$filters</span><span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="o">...</span>
-<span class="p">}</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># Routing</span><span class="w">
-</span><span class="w"></span><span class="nt">admin_emails_search</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
-</span><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">POST]</span><span class="w">
-</span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle:Admin\Configure\AdvancedParameters\Email:search&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminEmails</span><span class="w">
-</span></code></pre></div>
+<h3 id="search-action">Search action<a href="#search-action"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">EmailController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @AdminSecurity(&#34;is_granted(&#39;read&#39;, request.get(&#39;_legacy_controller&#39;))&#34;, message=&#34;Access denied.&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param Request $request
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return RedirectResponse
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">searchAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$definitionFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.definition.factory.email_logs&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$emailLogsDefinition</span> <span class="o">=</span> <span class="nv">$definitionFactory</span><span class="o">-&gt;</span><span class="na">getDefinition</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$gridFilterFormFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.filter.form_factory&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$filtersForm</span> <span class="o">=</span> <span class="nv">$gridFilterFormFactory</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$emailLogsDefinition</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$filtersForm</span><span class="o">-&gt;</span><span class="na">handleRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$filters</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$filtersForm</span><span class="o">-&gt;</span><span class="na">isSubmitted</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$filters</span> <span class="o">=</span> <span class="nv">$filtersForm</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_emails_index&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;filters&#39;</span> <span class="o">=&gt;</span> <span class="nv">$filters</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Routing</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">admin_emails_search</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">POST]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle:Admin\Configure\AdvancedParameters\Email:search&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminEmails</span><span class="w">
+</span></span></span></code></pre></div>
 <h3 id="list-action">List action<a href="#list-action"></a></h3><p>Thanks to the internal parameter resolver you can directly use your <code>Filters</code> class as an argument in the controller. It then automatically:</p>
 <ul>
 <li>parses the potential parameters in the query and fills them into the <code>Filters</code> argument</li>
 <li>matches thanks to the class the filters from the database and fetch them if present</li>
 <li>persists the filters in the database</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">EmailController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
-<span class="p">{</span>
-    <span class="o">...</span>
-    <span class="sd">/**
-</span><span class="sd">     * Show email configuration page.
-</span><span class="sd">     *
-</span><span class="sd">     * @AdminSecurity(&#34;is_granted(&#39;read&#39;, request.get(&#39;_legacy_controller&#39;))&#34;, message=&#34;Access denied.&#34;)
-</span><span class="sd">     *
-</span><span class="sd">     * @param Request $request
-</span><span class="sd">     * @param EmailLogsFilter $filters
-</span><span class="sd">     *
-</span><span class="sd">     * @return Response
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nx">EmailLogsFilter</span> <span class="nv">$filters</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$emailLogsGridFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.factory.email_logs&#39;</span><span class="p">);</span>
-        <span class="nv">$emailLogsGrid</span> <span class="o">=</span> <span class="nv">$emailLogsGridFactory</span><span class="o">-&gt;</span><span class="na">getGrid</span><span class="p">(</span><span class="nv">$filters</span><span class="p">);</span>
-        <span class="nv">$presentedEmailLogsGrid</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">presentGrid</span><span class="p">(</span><span class="nv">$emailLogsGrid</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Configure/AdvancedParameters/Email/index.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
-            <span class="s1">&#39;enableSidebar&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-            <span class="s1">&#39;emailLogsGrid&#39;</span> <span class="o">=&gt;</span> <span class="nv">$presentedEmailLogsGrid</span><span class="p">,</span>
-            <span class="s1">&#39;help_link&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">generateSidebarLink</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;_legacy_controller&#39;</span><span class="p">)),</span>
-        <span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="o">...</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">EmailController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Show email configuration page.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @AdminSecurity(&#34;is_granted(&#39;read&#39;, request.get(&#39;_legacy_controller&#39;))&#34;, message=&#34;Access denied.&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param Request $request
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param EmailLogsFilter $filters
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return Response
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nx">EmailLogsFilter</span> <span class="nv">$filters</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$emailLogsGridFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.factory.email_logs&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$emailLogsGrid</span> <span class="o">=</span> <span class="nv">$emailLogsGridFactory</span><span class="o">-&gt;</span><span class="na">getGrid</span><span class="p">(</span><span class="nv">$filters</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$presentedEmailLogsGrid</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">presentGrid</span><span class="p">(</span><span class="nv">$emailLogsGrid</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Configure/AdvancedParameters/Email/index.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;enableSidebar&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;emailLogsGrid&#39;</span> <span class="o">=&gt;</span> <span class="nv">$presentedEmailLogsGrid</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;help_link&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">generateSidebarLink</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;_legacy_controller&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="reset-action">Reset action<a href="#reset-action"></a></h3><p>Last action is used to reset the persisted filters and your grid filtering/sorting. This action is the same for nearly all grids so PrestaShop provides a common controller to manage it, and you actually already set it via the grid definition.</p>
 <p>It is defined in the service definition, it uses the <code>admin_common_reset_search</code> route and use <code>email/index</code> as keys to match the controller/action.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="w">    </span><span class="nt">prestashop.core.grid.definition.factory.email_logs</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\Definition\Factory\EmailLogsDefinitionFactory&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.grid.definition.factory.abstract_grid_definition&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="s2">&#34;@=service(&#39;router&#39;).generate(&#39;admin_common_reset_search&#39;, {&#39;controller&#39;: &#39;email&#39;, &#39;action&#39;: &#39;index&#39;})&#34;</span><span class="w">
-</span><span class="w">            </span>- <span class="s2">&#34;@=service(&#39;router&#39;).generate(&#39;admin_emails_index&#39;)&#34;</span><span class="w">
-</span><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">    </span><span class="nt">prestashop.core.grid.definition.factory.email_logs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\Definition\Factory\EmailLogsDefinitionFactory&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.grid.definition.factory.abstract_grid_definition&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s2">&#34;@=service(&#39;router&#39;).generate(&#39;admin_common_reset_search&#39;, {&#39;controller&#39;: &#39;email&#39;, &#39;action&#39;: &#39;index&#39;})&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s2">&#34;@=service(&#39;router&#39;).generate(&#39;admin_emails_index&#39;)&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30616,17 +30616,17 @@ It will also make your list action simpler as PrestaShop provides a parameter re
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163891"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163891"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163891"></script>
-    <script src="/js/jquery.sticky.js?1703163891"></script>
-    <script src="/js/featherlight.min.js?1703163891"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163891"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163891"></script>
-    <script src="/js/learn.js?1703163891"></script>
-    <script src="/js/hugo-learn.js?1703163891"></script>
+    <script src="/js/clipboard.min.js?1703164719"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164719"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164719"></script>
+    <script src="/js/jquery.sticky.js?1703164719"></script>
+    <script src="/js/featherlight.min.js?1703164719"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164719"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164719"></script>
+    <script src="/js/learn.js?1703164719"></script>
+    <script src="/js/hugo-learn.js?1703164719"></script>
     
-    <script src="/main.js?1703163891"></script>
+    <script src="/main.js?1703164719"></script>
     
     
     

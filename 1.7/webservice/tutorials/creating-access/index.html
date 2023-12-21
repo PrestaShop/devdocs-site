@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Creating access to the Webservice :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/webservice/tutorials/creating-access/">
     
-    <link href="/css/font-awesome.min.css?1703163899" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163899" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163899" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163899" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164725" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164725" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164725" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164725" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163899" rel="stylesheet">
+    <link href="/style.css?1703164725" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163899"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164725"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30272,12 +30272,12 @@
 
 <h3 id="programmatically">Programmatically<a href="#programmatically"></a></h3><p>The Webservice switch is stored in the configuration table of PrestaShop.</p>
 <p>In order to enable the webservice API:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;PS_WEBSERVICE&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-</code></pre></div><p>With the equivalent for disabling it:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;PS_WEBSERVICE&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;PS_WEBSERVICE&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span></code></pre></div><p>With the equivalent for disabling it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;PS_WEBSERVICE&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span></code></pre></div>
 <h2 id="create-an-access-key">Create an access key<a href="#create-an-access-key"></a></h2>
 <h3 id="via-the-user-interface-1">Via the user interface<a href="#via-the-user-interface-1"></a></h3><p>In order to have access to the API you need to create an access key, this will allow you to finely tune the permissions you give to the different data of your shop.
 You will use this key later in each call to the API. Open the &ldquo;Webservice&rdquo; page under the &ldquo;Advanced Parameters&rdquo; menu, and then click the &ldquo;Add new webservice key&rdquo; button to access the account configuration section.</p>
@@ -30299,22 +30299,22 @@ Make sure to only select the rights needed for the usage of that key. <strong>Do
 </ul>
 
 <h3 id="programatically">Programatically<a href="#programatically"></a></h3><p>Creating API keys can be done with the class WebserviceKey.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$apiAccess</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebserviceKey</span><span class="p">();</span>
-<span class="nv">$apiAccess</span><span class="o">-&gt;</span><span class="na">key</span> <span class="o">=</span> <span class="s1">&#39;GENERATE_A_COMPLEX_VALUE_WITH_32_CHARACTERS&#39;</span><span class="p">;</span>
-<span class="nv">$apiAccess</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
-</code></pre></div><p>This first code allows you to pass the authentication layer. You also need access to the resources you expect to use.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$apiAccess</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebserviceKey</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$apiAccess</span><span class="o">-&gt;</span><span class="na">key</span> <span class="o">=</span> <span class="s1">&#39;GENERATE_A_COMPLEX_VALUE_WITH_32_CHARACTERS&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$apiAccess</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</span></span></code></pre></div><p>This first code allows you to pass the authentication layer. You also need access to the resources you expect to use.</p>
 <p>We need the Api account ID in order to grant it access, and an array having the resource name as key and the array of methods allowed as value.
 The available resources can be found in <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.6.0/classes/webservice/WebserviceRequest.php#L285%5D"><code>WebserviceRequest::getResources()</code> (link to definition)</a>.</p>
 <p>For instance is we want to give all permissions for customers and orders resources for the account we previously created:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$permissions</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="s1">&#39;customers&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;GET&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;DELETE&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;HEAD&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],</span>
-  <span class="s1">&#39;orders&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;GET&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;DELETE&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;HEAD&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],</span>
-<span class="p">];</span>
-
-<span class="nx">WebserviceKey</span><span class="o">::</span><span class="na">setPermissionForAccount</span><span class="p">(</span><span class="nv">$apiAccess</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">,</span> <span class="nv">$permissions</span><span class="p">);</span>
-</code></pre></div><p>Note only the key in the nested arrays of permissions are important. We set <code>1</code> as a value in this example but it can be anything.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$permissions</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;customers&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;GET&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;DELETE&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;HEAD&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;orders&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;GET&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;PUT&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;DELETE&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;HEAD&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">WebserviceKey</span><span class="o">::</span><span class="na">setPermissionForAccount</span><span class="p">(</span><span class="nv">$apiAccess</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">,</span> <span class="nv">$permissions</span><span class="p">);</span>
+</span></span></code></pre></div><p>Note only the key in the nested arrays of permissions are important. We set <code>1</code> as a value in this example but it can be anything.</p>
 
 
 <footer class="article-footer">
@@ -30393,17 +30393,17 @@ The available resources can be found in <a href="https://github.com/PrestaShop/P
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163899"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163899"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163899"></script>
-    <script src="/js/jquery.sticky.js?1703163899"></script>
-    <script src="/js/featherlight.min.js?1703163899"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163899"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163899"></script>
-    <script src="/js/learn.js?1703163899"></script>
-    <script src="/js/hugo-learn.js?1703163899"></script>
+    <script src="/js/clipboard.min.js?1703164725"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164725"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164725"></script>
+    <script src="/js/jquery.sticky.js?1703164725"></script>
+    <script src="/js/featherlight.min.js?1703164725"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164725"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164725"></script>
+    <script src="/js/learn.js?1703164725"></script>
+    <script src="/js/hugo-learn.js?1703164725"></script>
     
-    <script src="/main.js?1703163899"></script>
+    <script src="/main.js?1703164725"></script>
     
     
     

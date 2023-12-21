@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Templates &amp; layouts :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163928" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163928" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163928" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163928" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164750" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164750" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164750" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164750" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163928" rel="stylesheet">
+    <link href="/style.css?1703164750" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163928"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164750"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33234,73 +33234,73 @@ tree. Basically it hold the opening and closing <code>&lt;html&gt;</code> tags.<
 
 <div class="notices note" >Remember to define as many blocks as possible.</div>
 
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="x">    &lt;!doctype html&gt;
-</span><span class="x">    &lt;html lang=&#34;</span><span class="cp">{</span><span class="nv">$language.iso_code</span><span class="cp">}</span><span class="x">&#34;&gt;
-</span><span class="x">
-</span><span class="x">    &lt;head&gt;
-</span><span class="x">      </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;head&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">        </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;_partials/head.tpl&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">      </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
-</span><span class="x">    &lt;/head&gt;
-</span><span class="x">
-</span><span class="x">    &lt;body id=&#34;</span><span class="cp">{</span><span class="nv">$page.page_name</span><span class="cp">}</span><span class="x">&#34; class=&#34;</span><span class="cp">{</span><span class="nv">$page.body_classes</span><span class="o">|</span><span class="na">classnames</span><span class="cp">}</span><span class="x">&#34;&gt;
-</span><span class="x">
-</span><span class="x">      </span><span class="cp">{</span><span class="nf">hook</span> <span class="na">h</span><span class="o">=</span><span class="s1">&#39;displayAfterBodyOpeningTag&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">
-</span><span class="x">      &lt;main&gt;
-</span><span class="x">
-</span><span class="x">        &lt;header id=&#34;header&#34;&gt;
-</span><span class="x">          </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;header&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">            </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;_partials/header.tpl&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">          </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
-</span><span class="x">        &lt;/header&gt;
-</span><span class="x">
-</span><span class="x">        &lt;section id=&#34;wrapper&#34;&gt;
-</span><span class="x">          &lt;div class=&#34;container&#34;&gt;
-</span><span class="x">
-</span><span class="x">            </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;breadcrumb&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">              </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;_partials/breadcrumb.tpl&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">            </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
-</span><span class="x">
-</span><span class="x">            </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s2">&#34;left_column&#34;</span><span class="cp">}</span><span class="x">
-</span><span class="x">              &lt;div id=&#34;left-column&#34;&gt;
-</span><span class="x">                </span><span class="cp">{</span><span class="nf">if</span> <span class="nv">$page.page_name</span> <span class="o">==</span> <span class="s1">&#39;product&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">                  </span><span class="cp">{</span><span class="nf">hook</span> <span class="na">h</span><span class="o">=</span><span class="s1">&#39;displayLeftColumnProduct&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">                </span><span class="cp">{</span><span class="nf">else</span><span class="cp">}</span><span class="x">
-</span><span class="x">                  </span><span class="cp">{</span><span class="nf">hook</span> <span class="na">h</span><span class="o">=</span><span class="s2">&#34;displayLeftColumn&#34;</span><span class="cp">}</span><span class="x">
-</span><span class="x">                </span><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x">
-</span><span class="x">              &lt;/div&gt;
-</span><span class="x">            </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
-</span><span class="x">
-</span><span class="x">            </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s2">&#34;content_wrapper&#34;</span><span class="cp">}</span><span class="x">
-</span><span class="x">              &lt;div id=&#34;content-wrapper&#34;&gt;
-</span><span class="x">                </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s2">&#34;content&#34;</span><span class="cp">}</span><span class="x">
-</span><span class="x">                  &lt;p&gt;Hello world! This is HTML5 Boilerplate.&lt;/p&gt;
-</span><span class="x">                </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
-</span><span class="x">              &lt;/div&gt;
-</span><span class="x">            </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
-</span><span class="x">
-</span><span class="x">          &lt;/div&gt;
-</span><span class="x">        &lt;/section&gt;
-</span><span class="x">
-</span><span class="x">        &lt;footer id=&#34;footer&#34;&gt;
-</span><span class="x">          </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s2">&#34;footer&#34;</span><span class="cp">}</span><span class="x">
-</span><span class="x">            </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&#34;_partials/footer.tpl&#34;</span><span class="cp">}</span><span class="x">
-</span><span class="x">          </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
-</span><span class="x">        &lt;/footer&gt;
-</span><span class="x">
-</span><span class="x">      &lt;/main&gt;
-</span><span class="x">
-</span><span class="x">      </span><span class="cp">{</span><span class="nf">hook</span> <span class="na">h</span><span class="o">=</span><span class="s1">&#39;displayBeforeBodyClosingTag&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">
-</span><span class="x">      </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;javascript_bottom&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">        </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&#34;_partials/javascript.tpl&#34;</span> <span class="na">javascript</span><span class="o">=</span><span class="nv">$javascript.bottom</span><span class="cp">}</span><span class="x">
-</span><span class="x">      </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
-</span><span class="x">
-</span><span class="x">    &lt;/body&gt;
-</span><span class="x">
-</span><span class="x">    &lt;/html&gt;
-</span></code></pre></div><p>From there, each part of the theme will do its job and replace content inside these
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-smarty" data-lang="smarty"><span class="line"><span class="cl"><span class="x">    &lt;!doctype html&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;html lang=&#34;</span><span class="cp">{</span><span class="nv">$language.iso_code</span><span class="cp">}</span><span class="x">&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">      </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;head&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">        </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;_partials/head.tpl&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">      </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;/head&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;body id=&#34;</span><span class="cp">{</span><span class="nv">$page.page_name</span><span class="cp">}</span><span class="x">&#34; class=&#34;</span><span class="cp">{</span><span class="nv">$page.body_classes</span><span class="o">|</span><span class="na">classnames</span><span class="cp">}</span><span class="x">&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">      </span><span class="cp">{</span><span class="nf">hook</span> <span class="na">h</span><span class="o">=</span><span class="s1">&#39;displayAfterBodyOpeningTag&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">      &lt;main&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">        &lt;header id=&#34;header&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">          </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;header&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">            </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;_partials/header.tpl&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">          </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">        &lt;/header&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">        &lt;section id=&#34;wrapper&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">          &lt;div class=&#34;container&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">            </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;breadcrumb&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">              </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;_partials/breadcrumb.tpl&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">            </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">            </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s2">&#34;left_column&#34;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">              &lt;div id=&#34;left-column&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">                </span><span class="cp">{</span><span class="nf">if</span> <span class="nv">$page.page_name</span> <span class="o">==</span> <span class="s1">&#39;product&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">                  </span><span class="cp">{</span><span class="nf">hook</span> <span class="na">h</span><span class="o">=</span><span class="s1">&#39;displayLeftColumnProduct&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">                </span><span class="cp">{</span><span class="nf">else</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">                  </span><span class="cp">{</span><span class="nf">hook</span> <span class="na">h</span><span class="o">=</span><span class="s2">&#34;displayLeftColumn&#34;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">                </span><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">              &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">            </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">            </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s2">&#34;content_wrapper&#34;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">              &lt;div id=&#34;content-wrapper&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">                </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s2">&#34;content&#34;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">                  &lt;p&gt;Hello world! This is HTML5 Boilerplate.&lt;/p&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">                </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">              &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">            </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">          &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">        &lt;/section&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">        &lt;footer id=&#34;footer&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">          </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s2">&#34;footer&#34;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">            </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&#34;_partials/footer.tpl&#34;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">          </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">        &lt;/footer&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">      &lt;/main&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">      </span><span class="cp">{</span><span class="nf">hook</span> <span class="na">h</span><span class="o">=</span><span class="s1">&#39;displayBeforeBodyClosingTag&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">      </span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;javascript_bottom&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">        </span><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s2">&#34;_partials/javascript.tpl&#34;</span> <span class="na">javascript</span><span class="o">=</span><span class="nv">$javascript.bottom</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">      </span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;/body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;/html&gt;
+</span></span></span></code></pre></div><p>From there, each part of the theme will do its job and replace content inside these
 bricks, keeping the same organization.</p>
 
 
@@ -33380,17 +33380,17 @@ bricks, keeping the same organization.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163928"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163928"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163928"></script>
-    <script src="/js/jquery.sticky.js?1703163928"></script>
-    <script src="/js/featherlight.min.js?1703163928"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163928"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163928"></script>
-    <script src="/js/learn.js?1703163928"></script>
-    <script src="/js/hugo-learn.js?1703163928"></script>
+    <script src="/js/clipboard.min.js?1703164750"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164750"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164750"></script>
+    <script src="/js/jquery.sticky.js?1703164750"></script>
+    <script src="/js/featherlight.min.js?1703164750"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164750"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164750"></script>
+    <script src="/js/learn.js?1703164750"></script>
+    <script src="/js/hugo-learn.js?1703164750"></script>
     
-    <script src="/main.js?1703163928"></script>
+    <script src="/main.js?1703164750"></script>
     
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';

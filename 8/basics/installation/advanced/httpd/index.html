@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Configure Apache Http :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163900" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163900" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163900" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163900" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164726" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164726" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164726" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164726" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163900" rel="stylesheet">
+    <link href="/style.css?1703164726" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163900"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164726"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33121,85 +33121,84 @@ It may be incomplete, and remember you must adapt it for your own server&rsquo;s
 We assume you are using Apache Http 2.4 or higher.</p>
 </blockquote>
 
-<h2 id="with-mod_phpphp-cgi">With mod_php/PHP-CGI<a href="#with-mod_phpphp-cgi"></a></h2><div class="highlight"><pre class="chroma"><code class="language-apache" data-lang="apache"><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span> <span class="c"># or 443 for SSL support</span>
-
-    <span class="nb">ServerName</span> example.com
-    <span class="nb">DocumentRoot</span> <span class="sx">/path/to/prestashop</span>
-
-    <span class="c"># SSLEngine on</span>
-    <span class="c"># SSLCertificateFile /etc/apache2/ssl/example.crt</span>
-    <span class="c"># SSLCertificateKeyFile /etc/apache2/ssl/example.key</span>
-
-    <span class="nt">&lt;Directory</span> <span class="s">/path/to/prestashop</span><span class="nt">&gt;</span>
-        <span class="c"># enable the .htaccess rewrites</span>
-        <span class="nb">AllowOverride</span> <span class="k">All</span>
-        <span class="nb">Options</span> +Indexes
-        <span class="nb">Require</span> <span class="k">all</span> granted
-        
-        <span class="c"># Disable back office token</span>
-        <span class="c"># SetEnv _TOKEN_ disabled</span>
-    <span class="nt">&lt;/Directory&gt;</span>
-
-    <span class="nb">ErrorLog</span> <span class="sx">/var/log/apache2/prestashop.error.log</span>
-    <span class="nb">CustomLog</span> <span class="sx">/var/log/apache2/prestashop.access.log</span> combined
-<span class="nt">&lt;/VirtualHost&gt;</span>
-</code></pre></div>
+<h2 id="with-mod_phpphp-cgi">With mod_php/PHP-CGI<a href="#with-mod_phpphp-cgi"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-apache" data-lang="apache"><span class="line"><span class="cl"><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span> <span class="c"># or 443 for SSL support</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">ServerName</span> example.com
+</span></span><span class="line"><span class="cl">    <span class="nb">DocumentRoot</span> <span class="sx">/path/to/prestashop</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c"># SSLEngine on</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># SSLCertificateFile /etc/apache2/ssl/example.crt</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># SSLCertificateKeyFile /etc/apache2/ssl/example.key</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Directory</span> <span class="s">/path/to/prestashop</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># enable the .htaccess rewrites</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">AllowOverride</span> <span class="k">All</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Options</span> +Indexes
+</span></span><span class="line"><span class="cl">        <span class="nb">Require</span> <span class="k">all</span> granted
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c"># Disable back office token</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># SetEnv _TOKEN_ disabled</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Directory&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">ErrorLog</span> <span class="sx">/var/log/apache2/prestashop.error.log</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">CustomLog</span> <span class="sx">/var/log/apache2/prestashop.access.log</span> combined
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/VirtualHost&gt;</span>
+</span></span></code></pre></div>
 <h2 id="with-php-fpm">With PHP-FPM<a href="#with-php-fpm"></a></h2><p>You first have to ensure you have the <code>php-fpm</code> binary and Apache&rsquo;s FastCGI installed.
 On a Debian based, packages are <code>libapache2-mod-fcgid</code> and <code>php7.2-fpm</code>.</p>
 <p>After installing these packages, fpm service will automatically be started.
 PHP-FPM uses so-called pools to handle incoming FastCGI requests.</p>
 <p>Here&rsquo;s an example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-ini" data-lang="ini"><span class="c1">; a pool called www</span>
-<span class="k">[www]</span>
-<span class="na">user</span> <span class="o">=</span> <span class="s">www-data</span>
-<span class="na">group</span> <span class="o">=</span> <span class="s">www-data</span>
-
-<span class="c1">; use a unix domain socket</span>
-<span class="na">listen</span> <span class="o">=</span> <span class="s">/var/run/php/php7.2-fpm.sock</span>
-<span class="c1">; or listen on a TCP socket</span>
-<span class="c1">; listen = 127.0.0.1:9000</span>
-
-</code></pre></div><p>You also need to enable few modules that are required for the configuration of multiple PHP versions with Apache.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">a2enmod <span class="nb">alias</span> proxy proxy_fcgi
-</code></pre></div><p>Finally, configure the Apache VirtualHost to run with FPM/FastCGI.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1">; a pool called www</span>
+</span></span><span class="line"><span class="cl"><span class="k">[www]</span>
+</span></span><span class="line"><span class="cl"><span class="na">user</span> <span class="o">=</span> <span class="s">www-data</span>
+</span></span><span class="line"><span class="cl"><span class="na">group</span> <span class="o">=</span> <span class="s">www-data</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">; use a unix domain socket</span>
+</span></span><span class="line"><span class="cl"><span class="na">listen</span> <span class="o">=</span> <span class="s">/var/run/php/php7.2-fpm.sock</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; or listen on a TCP socket</span>
+</span></span><span class="line"><span class="cl"><span class="c1">; listen = 127.0.0.1:9000</span>
+</span></span></code></pre></div><p>You also need to enable few modules that are required for the configuration of multiple PHP versions with Apache.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">a2enmod <span class="nb">alias</span> proxy proxy_fcgi
+</span></span></code></pre></div><p>Finally, configure the Apache VirtualHost to run with FPM/FastCGI.
 Don&rsquo;t forget to edit this configuration to make it works.</p>
-<div class="highlight"><pre class="chroma"><code class="language-apache" data-lang="apache"><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span> <span class="c"># or 443 for SSL support</span>
-
-    <span class="nb">ServerName</span> example.com
-    <span class="nb">DocumentRoot</span> <span class="sx">/path/to/prestashop</span>
-
-    <span class="c"># SSLEngine on</span>
-    <span class="c"># SSLCertificateFile /etc/apache2/ssl/example.crt</span>
-    <span class="c"># SSLCertificateKeyFile /etc/apache2/ssl/example.key</span>
-
-    <span class="c"># Uncomment the following line to force Apache to pass the Authorization</span>
-    <span class="c"># header to PHP: required for &#34;basic_auth&#34; under PHP-FPM and FastCGI</span>
-    <span class="c">#</span>
-    <span class="c"># SetEnvIfNoCase ^Authorization$ &#34;(.+)&#34; HTTP_AUTHORIZATION=$1</span>
-
-    <span class="c"># For Apache 2.4 or higher</span>
-    <span class="c"># Using SetHandler avoids issues with using ProxyPassMatch in combination</span>
-    <span class="c"># with mod_rewrite or mod_autoindex</span>
-    <span class="nt">&lt;FilesMatch</span> <span class="s">\.php$</span><span class="nt">&gt;</span>
-        <span class="c"># SetHandler proxy:fcgi://127.0.0.1:9000</span>
-        <span class="nb">SetHandler</span> proxy:unix:/var/run/php/php7.2-fpm.sock|fcgi://dummy
-    <span class="nt">&lt;/FilesMatch&gt;</span>
-
-    <span class="nb">DocumentRoot</span> <span class="sx">/path/to/prestashop</span>
-    <span class="nt">&lt;Directory</span> <span class="s">/path/to/prestashop</span><span class="nt">&gt;</span>
-        <span class="c"># enable the .htaccess rewrites</span>
-        <span class="nb">AllowOverride</span> <span class="k">All</span>
-        <span class="nb">Options</span> +Indexes
-        <span class="nb">Require</span> <span class="k">all</span> granted
-        
-        <span class="c"># Disable back office token</span>
-        <span class="c"># SetEnv _TOKEN_ disabled</span>
-    <span class="nt">&lt;/Directory&gt;</span>
-
-    <span class="nb">ErrorLog</span> <span class="sx">/var/log/apache2/prestashop.error.log</span>
-    <span class="nb">CustomLog</span> <span class="sx">/var/log/apache2/prestashop.access.log</span> combined
-<span class="nt">&lt;/VirtualHost&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-apache" data-lang="apache"><span class="line"><span class="cl"><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span> <span class="c"># or 443 for SSL support</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">ServerName</span> example.com
+</span></span><span class="line"><span class="cl">    <span class="nb">DocumentRoot</span> <span class="sx">/path/to/prestashop</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c"># SSLEngine on</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># SSLCertificateFile /etc/apache2/ssl/example.crt</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># SSLCertificateKeyFile /etc/apache2/ssl/example.key</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c"># Uncomment the following line to force Apache to pass the Authorization</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># header to PHP: required for &#34;basic_auth&#34; under PHP-FPM and FastCGI</span>
+</span></span><span class="line"><span class="cl">    <span class="c">#</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># SetEnvIfNoCase ^Authorization$ &#34;(.+)&#34; HTTP_AUTHORIZATION=$1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c"># For Apache 2.4 or higher</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># Using SetHandler avoids issues with using ProxyPassMatch in combination</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># with mod_rewrite or mod_autoindex</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;FilesMatch</span> <span class="s">\.php$</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># SetHandler proxy:fcgi://127.0.0.1:9000</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">SetHandler</span> proxy:unix:/var/run/php/php7.2-fpm.sock|fcgi://dummy
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/FilesMatch&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">DocumentRoot</span> <span class="sx">/path/to/prestashop</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;Directory</span> <span class="s">/path/to/prestashop</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># enable the .htaccess rewrites</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">AllowOverride</span> <span class="k">All</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">Options</span> +Indexes
+</span></span><span class="line"><span class="cl">        <span class="nb">Require</span> <span class="k">all</span> granted
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c"># Disable back office token</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># SetEnv _TOKEN_ disabled</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/Directory&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nb">ErrorLog</span> <span class="sx">/var/log/apache2/prestashop.error.log</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">CustomLog</span> <span class="sx">/var/log/apache2/prestashop.access.log</span> combined
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/VirtualHost&gt;</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33277,17 +33276,17 @@ Don&rsquo;t forget to edit this configuration to make it works.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163900"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163900"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163900"></script>
-    <script src="/js/jquery.sticky.js?1703163900"></script>
-    <script src="/js/featherlight.min.js?1703163900"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163900"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163900"></script>
-    <script src="/js/learn.js?1703163900"></script>
-    <script src="/js/hugo-learn.js?1703163900"></script>
+    <script src="/js/clipboard.min.js?1703164726"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164726"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164726"></script>
+    <script src="/js/jquery.sticky.js?1703164726"></script>
+    <script src="/js/featherlight.min.js?1703164726"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164726"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164726"></script>
+    <script src="/js/learn.js?1703164726"></script>
+    <script src="/js/hugo-learn.js?1703164726"></script>
     
-    <script src="/main.js?1703163900"></script>
+    <script src="/main.js?1703164726"></script>
     
     
     

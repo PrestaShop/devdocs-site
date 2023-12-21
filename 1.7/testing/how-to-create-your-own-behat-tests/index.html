@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to create your own Behat tests :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163895" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163895" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163895" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163895" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164722" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164722" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164722" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164722" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163895" rel="stylesheet">
+    <link href="/style.css?1703164722" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163895"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164722"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30249,15 +30249,15 @@
 <h2 id="what-is-behat">What is Behat<a href="#what-is-behat"></a></h2><p><a href="https://behat.org/en/latest/">Behat</a> is a <a href="https://en.wikipedia.org/wiki/Behavior-driven_development">Behavior-Driven Development</a> framework for PHP.</p>
 <p>Behat is a testing tool that brings one great asset to your tests: the test scenarios are written so that they are understandable by humans without technical knowledge needed ! This makes them easier to read and maintain.</p>
 <p>Example of a behat scenario:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">  </span><span class="nt">Scenario</span><span class="p">:</span><span class="w"> </span><span class="l">With free shipping voucher, there is no shipping fees</span><span class="w">
-</span><span class="w">    </span><span class="l">Given on my shop, there is only 1 carrier which can ship my products</span><span class="w">
-</span><span class="w">    </span><span class="l">And his shipping fees of 5.0 euros in zone &#34;US&#34; for product whose price ranges between 0 and 150 euros</span><span class="w">
-</span><span class="w">    </span><span class="l">Given I start with an empty default cart</span><span class="w">
-</span><span class="w">    </span><span class="l">And I add a standard product into my cart, the price of the product is 50.0 euros</span><span class="w">
-</span><span class="w">    </span><span class="l">Then my cart price is currently 55 euros</span><span class="w">
-</span><span class="w">    </span><span class="l">When I use a cart rule with code &#34;free4behat&#34; that provides free shipping</span><span class="w">
-</span><span class="w">    </span><span class="l">Then my cart price is now 50 euros !</span><span class="w">
-</span></code></pre></div><p>It is better to discover Behat from its <a href="https://behat.org/en/latest/">documentation</a> but if you want to understand quickly what it does:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w">  </span><span class="nt">Scenario</span><span class="p">:</span><span class="w"> </span><span class="l">With free shipping voucher, there is no shipping fees</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Given on my shop, there is only 1 carrier which can ship my products</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And his shipping fees of 5.0 euros in zone &#34;US&#34; for product whose price ranges between 0 and 150 euros</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Given I start with an empty default cart</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And I add a standard product into my cart, the price of the product is 50.0 euros</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Then my cart price is currently 55 euros</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">When I use a cart rule with code &#34;free4behat&#34; that provides free shipping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Then my cart price is now 50 euros !</span><span class="w">
+</span></span></span></code></pre></div><p>It is better to discover Behat from its <a href="https://behat.org/en/latest/">documentation</a> but if you want to understand quickly what it does:</p>
 <ul>
 <li>test scenarios (known as &ldquo;features&rdquo;) are being parsed by Behat following <a href="https://docs.behat.org/en/v2.5/guides/1.gherkin.html">gherkin</a> syntax</li>
 <li>Behat matches each scenario step with a regular expression that must be provided as a method of a PHP class called feature context</li>
@@ -30267,9 +30267,9 @@
 
 <h2 id="launch-the-prestashop-behat-test-suite">Launch the PrestaShop behat test suite<a href="#launch-the-prestashop-behat-test-suite"></a></h2><p>Run tests using behat binary using the right behat.yml configuration file</p>
 <p>This requires that a test database has been generated previously, using Composer command <code>composer create-test-db</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># from the PrestaShop root folder</span>
-php -d date.timezone<span class="o">=</span>UTC ./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># from the PrestaShop root folder</span>
+</span></span><span class="line"><span class="cl">php -d date.timezone<span class="o">=</span>UTC ./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml
+</span></span></code></pre></div>
 <h2 id="add-new-behat-tests">Add new behat tests<a href="#add-new-behat-tests"></a></h2><p>You can add a new test in one of the feature files or create a new feature file. It must use the
 <a href="https://docs.behat.org/en/v2.5/guides/1.gherkin.html">gherkin</a> syntax.</p>
 <p>If you create new steps, you can add them to one of the available FeatureContext if the step belongs
@@ -30293,26 +30293,26 @@ tests on PrestaShop.</p>
 <h4 id="write-a-new-scenario-and-feature">Write a new scenario and feature<a href="#write-a-new-scenario-and-feature"></a></h4><p>We will first write our feature. We can either add it to one of the existing <code>.feature</code> files in folder <code>tests/Integration/Behaviour/Features/Scenario/</code> or create a new feature file. If the new feature file is in a new folder, you need to update the main Behat configuration file <code>tests/Integration/Behaviour/behat.yml</code> to either add this folder to one of the existing test suites or to create a new test suite.</p>
 <p>For this tutorial, we&rsquo;ll add the new scenario to the <code>tests/Integration/Behaviour/Features/Scenario/Cart/Calculation/CartRule/free_shipping.feature</code> file.</p>
 <p>The scenario we want to test is the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w">  </span><span class="kc">On</span><span class="w"> </span><span class="l">my shop, there is only 1 carrier which can ship my products</span><span class="w">
-</span><span class="w">  </span><span class="l">And his shipping fees of 5.0 euros in zone &#34;US&#34; for product whose price ranges between 0 and 150 euros</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span><span class="l">I start with an empty default cart</span><span class="w">
-</span><span class="w">  </span><span class="l">I add a standard product into my cart, the price of the product is 50.0 euros</span><span class="w">
-</span><span class="w">  </span><span class="l">So my cart price is currently 55 euros</span><span class="w">
-</span><span class="w">  </span><span class="l">I use a cart rule with code &#34;free4behat&#34; that provides free shipping</span><span class="w">
-</span><span class="w">  </span><span class="l">Then my cart price is now 50 euros !</span><span class="w">
-</span></code></pre></div><p>Then I convert it to use <a href="https://docs.behat.org/en/v2.5/guides/1.gherkin.html">Gherkin</a> syntax. This means each step must start with <code>Given</code>, <code>When</code> or <code>Then</code>. We can also use <code>And</code> which is an alias for the latest prefix used.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">
-</span><span class="w">  </span><span class="nt">Scenario</span><span class="p">:</span><span class="w"> </span><span class="l">With free shipping voucher, there is no shipping fees</span><span class="w">
-</span><span class="w">    </span><span class="l">Given On my shop, there is only 1 carrier which can ship my products</span><span class="w">
-</span><span class="w">    </span><span class="l">And his shipping fees of 5.0 euros in zone &#34;US&#34; for product whose price ranges between 0 and 150 euros</span><span class="w">
-</span><span class="w">    </span><span class="l">Given I start with an empty default cart</span><span class="w">
-</span><span class="w">    </span><span class="l">And I add a standard product into my cart, the price of the product is 50.0 euros</span><span class="w">
-</span><span class="w">    </span><span class="l">Then my cart price is currently 55 euros</span><span class="w">
-</span><span class="w">    </span><span class="l">When I use a cart rule with code &#34;free4behat&#34; that provides free shipping</span><span class="w">
-</span><span class="w">    </span><span class="l">Then my cart price is now 50 euros !</span><span class="w">
-</span></code></pre></div><p>There is no rule that requires to use <code>Given</code>, <code>When</code> or <code>Then</code>. You could use <code>Then</code> everywhere but usually we say that:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kc">On</span><span class="w"> </span><span class="l">my shop, there is only 1 carrier which can ship my products</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="l">And his shipping fees of 5.0 euros in zone &#34;US&#34; for product whose price ranges between 0 and 150 euros</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="l">I start with an empty default cart</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="l">I add a standard product into my cart, the price of the product is 50.0 euros</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="l">So my cart price is currently 55 euros</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="l">I use a cart rule with code &#34;free4behat&#34; that provides free shipping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="l">Then my cart price is now 50 euros !</span><span class="w">
+</span></span></span></code></pre></div><p>Then I convert it to use <a href="https://docs.behat.org/en/v2.5/guides/1.gherkin.html">Gherkin</a> syntax. This means each step must start with <code>Given</code>, <code>When</code> or <code>Then</code>. We can also use <code>And</code> which is an alias for the latest prefix used.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">Scenario</span><span class="p">:</span><span class="w"> </span><span class="l">With free shipping voucher, there is no shipping fees</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Given On my shop, there is only 1 carrier which can ship my products</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And his shipping fees of 5.0 euros in zone &#34;US&#34; for product whose price ranges between 0 and 150 euros</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Given I start with an empty default cart</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And I add a standard product into my cart, the price of the product is 50.0 euros</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Then my cart price is currently 55 euros</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">When I use a cart rule with code &#34;free4behat&#34; that provides free shipping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Then my cart price is now 50 euros !</span><span class="w">
+</span></span></span></code></pre></div><p>There is no rule that requires to use <code>Given</code>, <code>When</code> or <code>Then</code>. You could use <code>Then</code> everywhere but usually we say that:</p>
 <ul>
 <li>Given steps are used to lay the ground for the scenario, to describe existing items</li>
 <li>When steps are used to trigger something, to make an event happen which modifies the software state</li>
@@ -30322,39 +30322,39 @@ tests on PrestaShop.</p>
 
 <h4 id="run-behat-on-this-new-scenario">Run Behat on this new scenario<a href="#run-behat-on-this-new-scenario"></a></h4><p>This scenario is now runnable by Behat. I add it to the <code>free_shipping.feature</code> file. Now this scenario is part of the PrestaShop testing suite for Behat !</p>
 <p>Let&rsquo;s see what happens if I run the whole feature to see the output:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># from the PrestaShop root folder</span>
-php ./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml --name<span class="o">=</span><span class="s2">&#34;free shipping&#34;</span>
-</code></pre></div><p>(I use the <code>--name</code> filter to allow Behat to target my specific file, and not all the available tests)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># from the PrestaShop root folder</span>
+</span></span><span class="line"><span class="cl">php ./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml --name<span class="o">=</span><span class="s2">&#34;free shipping&#34;</span>
+</span></span></code></pre></div><p>(I use the <code>--name</code> filter to allow Behat to target my specific file, and not all the available tests)</p>
 <p>We can see that Behat detects that some steps are not defined yet and suggests to create them for me:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"> &gt;&gt; cart suite has undefined steps. Please choose the context to generate snippets:
-</code></pre></div><p>That is one great asset from Behat: if it is unable to match one of the steps with one existing regexp, it can generate snippets ready-to-use for us !</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> &gt;&gt; cart suite has undefined steps. Please choose the context to generate snippets:
+</span></span></code></pre></div><p>That is one great asset from Behat: if it is unable to match one of the steps with one existing regexp, it can generate snippets ready-to-use for us !</p>
 <p>However I am rather going to check into existing Context files (in <code>tests/Integration/Behaviour/Features/Context/</code> folder) to see if I can re-use existing steps. It&rsquo;s better to avoid unnecessary duplication.</p>
 <p>Luckily for me, it seems I can use existing steps for my whole feature! So we do not need to add new Behat steps in the Context file. We will however see later how to add a new step.</p>
 <p>Back to my usecase: I check available existing steps from either the other Feature files or the Context files, so I can reuse them to replace all the steps I have written by steps that are already understandable by Behat.</p>
 <p>Here is my scenario now:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">  </span><span class="nt">Scenario</span><span class="p">:</span><span class="w"> </span><span class="l">With free shipping voucher, there is no shipping fees</span><span class="w">
-</span><span class="w">    </span><span class="c"># Start with an empty cart</span><span class="w">
-</span><span class="w">    </span><span class="l">Given I have an empty default cart</span><span class="w">
-</span><span class="w">    </span><span class="c"># We need a product</span><span class="w">
-</span><span class="w">    </span><span class="l">And there is a product in the catalog named &#34;product1&#34; with a price of 50.0 and 1000 items in stock</span><span class="w">
-</span><span class="w">    </span><span class="c"># We define the standard PrestaShop localisation tree: zone &gt; country &gt; state &gt; address</span><span class="w">
-</span><span class="w">    </span><span class="l">And there is a zone named &#34;North America&#34;</span><span class="w">
-</span><span class="w">    </span><span class="l">And there is a country named &#34;country1&#34; and iso code &#34;US&#34; in zone &#34;North America&#34;</span><span class="w">
-</span><span class="w">    </span><span class="l">And there is a state named &#34;state1&#34; with iso code &#34;TEST-1&#34; in country&#34;country1&#34; and zone &#34;North America&#34;</span><span class="w">
-</span><span class="w">    </span><span class="l">And there is an address named &#34;address1&#34; with postcode &#34;1&#34; in state &#34;state1&#34;</span><span class="w">
-</span><span class="w">    </span><span class="c"># We need a carrier with shipping fees</span><span class="w">
-</span><span class="w">    </span><span class="l">Given there is a carrier named &#34;carrier1&#34;</span><span class="w">
-</span><span class="w">    </span><span class="l">And carrier &#34;carrier1&#34; applies shipping fees of 5.0 in zone &#34;North America&#34; for price between 0 and 150</span><span class="w">
-</span><span class="w">    </span><span class="c"># Create the voucher</span><span class="w">
-</span><span class="w">    </span><span class="l">Given there is a cart rule named &#34;free4behat&#34; that applies no discount with priority 4, quantity of 1000 and quantity per user 1000</span><span class="w">
-</span><span class="w">    </span><span class="l">And cart rule &#34;free4behat&#34; offers free shipping</span><span class="w">
-</span><span class="w">    </span><span class="l">And cart rule &#34;free4behat&#34; has a discount code &#34;free4behat&#34;</span><span class="w">
-</span><span class="w">    </span><span class="l">When I add 1 items of product &#34;product1&#34; in my cart</span><span class="w">
-</span><span class="w">    </span><span class="c"># 57 because product = 50 € + 5 € (carrier shipping fees) + 2 € (default carrier handling cost)</span><span class="w">
-</span><span class="w">    </span><span class="l">Then my cart total should be 57.0 tax included</span><span class="w">
-</span><span class="w">    </span><span class="l">When I use the discount &#34;free4behat&#34;</span><span class="w">
-</span><span class="w">    </span><span class="l">Then my cart total should be 50.0 tax included</span><span class="w">
-</span></code></pre></div><p>This one is valid: Behat is able to match each of the lines with one Context step. And if I run my command, I can see Behat go through the whole scenario successfully. This means that my free shipping voucher behavior is correct: Behat has checked that the cart total, after using the voucher, has no shipping fees.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w">  </span><span class="nt">Scenario</span><span class="p">:</span><span class="w"> </span><span class="l">With free shipping voucher, there is no shipping fees</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># Start with an empty cart</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Given I have an empty default cart</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># We need a product</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And there is a product in the catalog named &#34;product1&#34; with a price of 50.0 and 1000 items in stock</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># We define the standard PrestaShop localisation tree: zone &gt; country &gt; state &gt; address</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And there is a zone named &#34;North America&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And there is a country named &#34;country1&#34; and iso code &#34;US&#34; in zone &#34;North America&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And there is a state named &#34;state1&#34; with iso code &#34;TEST-1&#34; in country&#34;country1&#34; and zone &#34;North America&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And there is an address named &#34;address1&#34; with postcode &#34;1&#34; in state &#34;state1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># We need a carrier with shipping fees</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Given there is a carrier named &#34;carrier1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And carrier &#34;carrier1&#34; applies shipping fees of 5.0 in zone &#34;North America&#34; for price between 0 and 150</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># Create the voucher</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Given there is a cart rule named &#34;free4behat&#34; that applies no discount with priority 4, quantity of 1000 and quantity per user 1000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And cart rule &#34;free4behat&#34; offers free shipping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And cart rule &#34;free4behat&#34; has a discount code &#34;free4behat&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">When I add 1 items of product &#34;product1&#34; in my cart</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># 57 because product = 50 € + 5 € (carrier shipping fees) + 2 € (default carrier handling cost)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Then my cart total should be 57.0 tax included</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">When I use the discount &#34;free4behat&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Then my cart total should be 50.0 tax included</span><span class="w">
+</span></span></span></code></pre></div><p>This one is valid: Behat is able to match each of the lines with one Context step. And if I run my command, I can see Behat go through the whole scenario successfully. This means that my free shipping voucher behavior is correct: Behat has checked that the cart total, after using the voucher, has no shipping fees.</p>
 <p>My feature is validated by Behat !</p>
 
 <h4 id="adding-a-new-step">Adding a new step<a href="#adding-a-new-step"></a></h4><p>Now we are going to add a new step that is not yet supported by existing Contexts.</p>
@@ -30364,62 +30364,62 @@ So when shipping fees are added, the handling cost is added too.</p>
 <p>So we need to add a new step: <code>Given the carrier &quot;carrier1&quot; has no handling costs</code>.</p>
 <p>This step is unknown to Behat, so we will need to help Behat &ldquo;understand it&rdquo;.</p>
 <p>We add the step to the scenario and we run again</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># from the PrestaShop root folder</span>
-php ./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml --name<span class="o">=</span><span class="s2">&#34;free shipping&#34;</span>
-</code></pre></div><p>Again, Behat detects the unmatched step and warns me <code>suite has undefined steps. Please choose the context to generate snippets:</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># from the PrestaShop root folder</span>
+</span></span><span class="line"><span class="cl">php ./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml --name<span class="o">=</span><span class="s2">&#34;free shipping&#34;</span>
+</span></span></code></pre></div><p>Again, Behat detects the unmatched step and warns me <code>suite has undefined steps. Please choose the context to generate snippets:</code>.</p>
 <p>I accept the help of Behat and let him generate a snippet ready-to-use for me for my step.</p>
 <p>I choose to put the new step into <code>Tests\Integration\Behaviour\Features\Context\CarrierFeatureContext</code> as it is related to carriers. The generated snippet looks like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="sd">/**
-</span><span class="sd">     * @Given the carrier :arg1 has no handling costs
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">theCarrierHasNoHandlingCosts</span><span class="p">(</span><span class="nv">$arg1</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">PendingException</span><span class="p">();</span>
-    <span class="p">}</span>
-</code></pre></div><p>I can pick it, copy it into <code>CarrierFeatureContext</code> file and <em>implement it</em>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @Given the carrier :arg1 has no handling costs
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">theCarrierHasNoHandlingCosts</span><span class="p">(</span><span class="nv">$arg1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="k">new</span> <span class="nx">PendingException</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>I can pick it, copy it into <code>CarrierFeatureContext</code> file and <em>implement it</em>.</p>
 <p>Implementing a Behat step means: performing the required process, be it call functions, perform SQL queries, that are required by the action &ldquo;carrier has no costs&rdquo;. I also rename the function and improve the regular expression provided by Behat.</p>
 <p>After I have implemented it, this is what my step looks like:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="sd">/**
-</span><span class="sd">     * @Given the carrier :carrierName has no handling costs
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">carrierHasNoHandlingCosts</span><span class="p">(</span><span class="nv">$carrierName</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// check a carrier with this name exists
-</span><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">checkCarrierWithNameExists</span><span class="p">(</span><span class="nv">$carrierName</span><span class="p">);</span>
-        <span class="c1">// fetch the carrier
-</span><span class="c1"></span>        <span class="nv">$carrier</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">carriers</span><span class="p">[</span><span class="nv">$carrierName</span><span class="p">];</span>
-
-        <span class="c1">// disable handling cost
-</span><span class="c1"></span>        <span class="nv">$carrier</span><span class="o">-&gt;</span><span class="na">shipping_handling</span> <span class="o">=</span> <span class="k">false</span><span class="o">:</span>
-        <span class="nv">$carrier</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
-    <span class="p">}</span>
-</code></pre></div><p>Now I update my scenario:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">  </span><span class="nt">Scenario</span><span class="p">:</span><span class="w"> </span><span class="l">With free shipping voucher, there is no shipping fees</span><span class="w">
-</span><span class="w">    </span><span class="c"># Start with an empty cart</span><span class="w">
-</span><span class="w">    </span><span class="l">Given I have an empty default cart</span><span class="w">
-</span><span class="w">    </span><span class="c"># We need a product</span><span class="w">
-</span><span class="w">    </span><span class="l">And there is a product in the catalog named &#34;product1&#34; with a price of 50.0 and 1000 items in stock</span><span class="w">
-</span><span class="w">    </span><span class="c"># We define the standard PrestaShop localisation tree: zone &gt; country &gt; state &gt; address</span><span class="w">
-</span><span class="w">    </span><span class="l">And there is a zone named &#34;North America&#34;</span><span class="w">
-</span><span class="w">    </span><span class="l">And there is a country named &#34;country1&#34; and iso code &#34;US&#34; in zone &#34;North America&#34;</span><span class="w">
-</span><span class="w">    </span><span class="l">And there is a state named &#34;state1&#34; with iso code &#34;TEST-1&#34; in country&#34;country1&#34; and zone &#34;North America&#34;</span><span class="w">
-</span><span class="w">    </span><span class="l">And there is an address named &#34;address1&#34; with postcode &#34;1&#34; in state &#34;state1&#34;</span><span class="w">
-</span><span class="w">    </span><span class="c"># We need a carrier with shipping fees</span><span class="w">
-</span><span class="w">    </span><span class="l">Given there is a carrier named &#34;carrier1&#34;</span><span class="w">
-</span><span class="w">    </span><span class="l">Given the carrier &#34;carrier1&#34; has no handling costs</span><span class="w">
-</span><span class="w">    </span><span class="l">And carrier &#34;carrier1&#34; applies shipping fees of 5.0 in zone &#34;North America&#34; for price between 0 and 150</span><span class="w">
-</span><span class="w">    </span><span class="c"># Create the voucher</span><span class="w">
-</span><span class="w">    </span><span class="l">Given there is a cart rule named &#34;free4behat&#34; that applies no discount with priority 4, quantity of 1000 and quantity per user 1000</span><span class="w">
-</span><span class="w">    </span><span class="l">And cart rule &#34;free4behat&#34; offers free shipping</span><span class="w">
-</span><span class="w">    </span><span class="l">And cart rule &#34;free4behat&#34; has a discount code &#34;free4behat&#34;</span><span class="w">
-</span><span class="w">    </span><span class="l">When I add 1 items of product &#34;product1&#34; in my cart</span><span class="w">
-</span><span class="w">    </span><span class="c"># 55 because product = 50 € + 5 € (carrier shipping fees)</span><span class="w">
-</span><span class="w">    </span><span class="l">Then my cart total should be 55.0 tax excluded</span><span class="w">
-</span><span class="w">    </span><span class="l">When I use the discount &#34;free4behat&#34;</span><span class="w">
-</span><span class="w">    </span><span class="l">Then my cart total should be 50.0 tax included</span><span class="w">
-</span></code></pre></div><p>Have you noticed my cart total, before using the voucher, is now 55€ and not 57€ ?
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @Given the carrier :carrierName has no handling costs
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">carrierHasNoHandlingCosts</span><span class="p">(</span><span class="nv">$carrierName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// check a carrier with this name exists
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">checkCarrierWithNameExists</span><span class="p">(</span><span class="nv">$carrierName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// fetch the carrier
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$carrier</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">carriers</span><span class="p">[</span><span class="nv">$carrierName</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// disable handling cost
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$carrier</span><span class="o">-&gt;</span><span class="na">shipping_handling</span> <span class="o">=</span> <span class="k">false</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$carrier</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>Now I update my scenario:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w">  </span><span class="nt">Scenario</span><span class="p">:</span><span class="w"> </span><span class="l">With free shipping voucher, there is no shipping fees</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># Start with an empty cart</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Given I have an empty default cart</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># We need a product</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And there is a product in the catalog named &#34;product1&#34; with a price of 50.0 and 1000 items in stock</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># We define the standard PrestaShop localisation tree: zone &gt; country &gt; state &gt; address</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And there is a zone named &#34;North America&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And there is a country named &#34;country1&#34; and iso code &#34;US&#34; in zone &#34;North America&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And there is a state named &#34;state1&#34; with iso code &#34;TEST-1&#34; in country&#34;country1&#34; and zone &#34;North America&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And there is an address named &#34;address1&#34; with postcode &#34;1&#34; in state &#34;state1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># We need a carrier with shipping fees</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Given there is a carrier named &#34;carrier1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Given the carrier &#34;carrier1&#34; has no handling costs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And carrier &#34;carrier1&#34; applies shipping fees of 5.0 in zone &#34;North America&#34; for price between 0 and 150</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># Create the voucher</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Given there is a cart rule named &#34;free4behat&#34; that applies no discount with priority 4, quantity of 1000 and quantity per user 1000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And cart rule &#34;free4behat&#34; offers free shipping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">And cart rule &#34;free4behat&#34; has a discount code &#34;free4behat&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">When I add 1 items of product &#34;product1&#34; in my cart</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># 55 because product = 50 € + 5 € (carrier shipping fees)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Then my cart total should be 55.0 tax excluded</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">When I use the discount &#34;free4behat&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">Then my cart total should be 50.0 tax included</span><span class="w">
+</span></span></span></code></pre></div><p>Have you noticed my cart total, before using the voucher, is now 55€ and not 57€ ?
 And when this scenario is run by Behat, everything runs fine, so my calculations are correct !</p>
 <p>I have again a dedicated scenario that validates the behavior of my free shipping voucher.</p>
 
@@ -30500,17 +30500,17 @@ And when this scenario is run by Behat, everything runs fine, so my calculations
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163895"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163895"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163895"></script>
-    <script src="/js/jquery.sticky.js?1703163895"></script>
-    <script src="/js/featherlight.min.js?1703163895"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163895"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163895"></script>
-    <script src="/js/learn.js?1703163895"></script>
-    <script src="/js/hugo-learn.js?1703163895"></script>
+    <script src="/js/clipboard.min.js?1703164722"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164722"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164722"></script>
+    <script src="/js/jquery.sticky.js?1703164722"></script>
+    <script src="/js/featherlight.min.js?1703164722"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164722"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164722"></script>
+    <script src="/js/learn.js?1703164722"></script>
+    <script src="/js/hugo-learn.js?1703164722"></script>
     
-    <script src="/main.js?1703163895"></script>
+    <script src="/main.js?1703164722"></script>
     
     
     

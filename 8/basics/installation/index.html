@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Installation :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163935" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163935" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163935" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163935" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164756" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164756" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164756" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164756" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163935" rel="stylesheet">
+    <link href="/style.css?1703164756" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163935"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164756"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -231,7 +231,7 @@
     
     
     <li data-nav-id="/8/basics/installation/" title="Installation" class="dd-item
-        parent
+        
         active currentPage
         
         isParent
@@ -244,7 +244,7 @@
           
 
           
-            <i class="fa fa-angle-up"></i>
+            <i class="fa fa-angle-down"></i>
           
       </a>
       
@@ -33198,21 +33198,21 @@ You will need this user&rsquo;s credentials to configure PrestaShop during the i
 <h5 id="from-the-command-line">From the command line<a href="#from-the-command-line"></a></h5><p>The database must be created with 4-Byte UTF-8 encoding (<code>utf8mb4_general_ci</code>).
 For information on installation and configuring MySQL, see the <a href="https://dev.mysql.com/doc/refman/5.6/en/">MySQL 5.6 documentation</a>.
 Connect as root to your MySQL server. In this example our root user is called <code>adminusername</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ mysql -u adminusername -p
-</code></pre></div><p>Create the database and give it a name like &ldquo;prestashop&rdquo;:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">&gt; CREATE DATABASE prestashop COLLATE utf8mb4_general_ci<span class="p">;</span>
-</code></pre></div><p>Grant privileges to that database to a new user (the one that PrestaShop will use to connect to the database). Let&rsquo;s call it &ldquo;prestashopuser&rdquo;.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">&gt; CREATE USER <span class="s2">&#34;prestashopuser&#34;</span>@<span class="s2">&#34;hostname&#34;</span> IDENTIFIED BY <span class="s2">&#34;somepassword&#34;</span><span class="p">;</span>
-&gt; GRANT ALL PRIVILEGES ON prestashop.* TO <span class="s2">&#34;prestashopuser&#34;</span>@<span class="s2">&#34;hostname&#34;</span><span class="p">;</span>
-</code></pre></div><p>In the example above,</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ mysql -u adminusername -p
+</span></span></code></pre></div><p>Create the database and give it a name like &ldquo;prestashop&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt; CREATE DATABASE prestashop COLLATE utf8mb4_general_ci<span class="p">;</span>
+</span></span></code></pre></div><p>Grant privileges to that database to a new user (the one that PrestaShop will use to connect to the database). Let&rsquo;s call it &ldquo;prestashopuser&rdquo;.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt; CREATE USER <span class="s2">&#34;prestashopuser&#34;</span>@<span class="s2">&#34;hostname&#34;</span> IDENTIFIED BY <span class="s2">&#34;somepassword&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">&gt; GRANT ALL PRIVILEGES ON prestashop.* TO <span class="s2">&#34;prestashopuser&#34;</span>@<span class="s2">&#34;hostname&#34;</span><span class="p">;</span>
+</span></span></code></pre></div><p>In the example above,</p>
 <ul>
 <li><code>prestashop</code> is the name of the new database</li>
 <li><code>hostname</code> is usually localhost (<code>127.0.0.1</code> or <code>localhost</code>), if you don&rsquo;t know the value, check with a system administrator</li>
 <li><code>somepassword</code> must be a strong password and of course, only known by you</li>
 </ul>
 <p>Finally, flush privileges:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">&gt; FLUSH PRIVILEGES<span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt; FLUSH PRIVILEGES<span class="p">;</span>
+</span></span></code></pre></div>
 <h3 id="prepare-prestashop-installation">Prepare PrestaShop installation<a href="#prepare-prestashop-installation"></a></h3>
 <h4 id="download-prestashop">Download PrestaShop<a href="#download-prestashop"></a></h4><p>The source code of PrestaShop is hosted on the <a href="https://github.com/PrestaShop/PrestaShop/">Official PrestaShop GitHub Repository</a>.</p>
 <p>You can find all the released versions of PrestaShop here: <a href="https://github.com/PrestaShop/PrestaShop/releases">PrestaShop releases</a>.</p>
@@ -33263,16 +33263,16 @@ Connect as root to your MySQL server. In this example our root user is called <c
 
 
 <h5 id="php-dependencies">PHP dependencies<a href="#php-dependencies"></a></h5><p>Use <a href="https://getcomposer.org/download/">composer</a> to download the project&rsquo;s dependencies:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /path/to/prestashop
-composer install
-<span class="c1"># or alternatively:</span>
-make composer
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /path/to/prestashop
+</span></span><span class="line"><span class="cl">composer install
+</span></span><span class="line"><span class="cl"><span class="c1"># or alternatively:</span>
+</span></span><span class="line"><span class="cl">make composer
+</span></span></code></pre></div>
 <h5 id="javascript-and-css-dependencies">JavaScript and CSS dependencies<a href="#javascript-and-css-dependencies"></a></h5><p>PrestaShop uses <code>NPM</code> to manage dependencies and <a href="https://webpack.js.org/"><code>Webpack</code></a> to compile them into static assets.
 You only need <code>NodeJS 14.x</code> (version <code>16.x</code> is recommended, <a href="https://nodejs.org/">you can get it here</a>), and NPM will take care of it all.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /path/to/prestashop
-make assets
-</code></pre></div><p>You can also compile assets for the particular element of the system:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /path/to/prestashop
+</span></span><span class="line"><span class="cl">make assets
+</span></span></code></pre></div><p>You can also compile assets for the particular element of the system:</p>
 <ul>
 <li><code>make admin-default</code> - for the legacy back office theme</li>
 <li><code>make admin-new-theme</code> - for the new back office theme</li>
@@ -33284,26 +33284,26 @@ make assets
 <p>Alternatively, you can <a href="/8/development/compile-assets/">compile assets</a> manually.</p>
 
 <h4 id="setting-up-file-permissions">Setting up file permissions<a href="#setting-up-file-permissions"></a></h4><p>PrestaShop needs recursive write permissions on several directories:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">├─-admin-dev
-|  └--autoupgrade
-├─-app/config
-├─-cache
-├─-config
-├─-download
-├─-img
-├─-log
-├─-mails
-├─-modules
-├─-override
-├─-themes
-├─-translations
-├─-upload
-└--var
-</code></pre></div><p>You can set up the appropriate permissions using this command:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ chmod -R +w admin-dev/autoupgrade app/config var/logs cache config download img log mails modules override themes translations upload var
-</code></pre></div><p>If you do not have some of the folders above, please create them before changing permissions. For example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir log var/logs
-</code></pre></div><p>To ease up your life on a development environment, we suggest to make Apache run with your own user and group.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="err">├─</span><span class="o">-</span><span class="n">admin</span><span class="o">-</span><span class="n">dev</span>
+</span></span><span class="line"><span class="cl"><span class="o">|</span>  <span class="err">└</span><span class="o">--</span><span class="n">autoupgrade</span>
+</span></span><span class="line"><span class="cl"><span class="err">├─</span><span class="o">-</span><span class="n">app</span><span class="o">/</span><span class="n">config</span>
+</span></span><span class="line"><span class="cl"><span class="err">├─</span><span class="o">-</span><span class="n">cache</span>
+</span></span><span class="line"><span class="cl"><span class="err">├─</span><span class="o">-</span><span class="n">config</span>
+</span></span><span class="line"><span class="cl"><span class="err">├─</span><span class="o">-</span><span class="n">download</span>
+</span></span><span class="line"><span class="cl"><span class="err">├─</span><span class="o">-</span><span class="n">img</span>
+</span></span><span class="line"><span class="cl"><span class="err">├─</span><span class="o">-</span><span class="nb">log</span>
+</span></span><span class="line"><span class="cl"><span class="err">├─</span><span class="o">-</span><span class="n">mails</span>
+</span></span><span class="line"><span class="cl"><span class="err">├─</span><span class="o">-</span><span class="n">modules</span>
+</span></span><span class="line"><span class="cl"><span class="err">├─</span><span class="o">-</span><span class="n">override</span>
+</span></span><span class="line"><span class="cl"><span class="err">├─</span><span class="o">-</span><span class="n">themes</span>
+</span></span><span class="line"><span class="cl"><span class="err">├─</span><span class="o">-</span><span class="n">translations</span>
+</span></span><span class="line"><span class="cl"><span class="err">├─</span><span class="o">-</span><span class="n">upload</span>
+</span></span><span class="line"><span class="cl"><span class="err">└</span><span class="o">--</span><span class="k">var</span>
+</span></span></code></pre></div><p>You can set up the appropriate permissions using this command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ chmod -R +w admin-dev/autoupgrade app/config var/logs cache config download img log mails modules override themes translations upload var
+</span></span></code></pre></div><p>If you do not have some of the folders above, please create them before changing permissions. For example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ mkdir log var/logs
+</span></span></code></pre></div><p>To ease up your life on a development environment, we suggest to make Apache run with your own user and group.</p>
 
 <div class="notices warning" ><b>Never do that in production!</b> Carefully change permissions folder by folder instead.</div>
 
@@ -33402,17 +33402,17 @@ make assets
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163935"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163935"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163935"></script>
-    <script src="/js/jquery.sticky.js?1703163935"></script>
-    <script src="/js/featherlight.min.js?1703163935"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163935"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163935"></script>
-    <script src="/js/learn.js?1703163935"></script>
-    <script src="/js/hugo-learn.js?1703163935"></script>
+    <script src="/js/clipboard.min.js?1703164756"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164756"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164756"></script>
+    <script src="/js/jquery.sticky.js?1703164756"></script>
+    <script src="/js/featherlight.min.js?1703164756"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164756"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164756"></script>
+    <script src="/js/learn.js?1703164756"></script>
+    <script src="/js/hugo-learn.js?1703164756"></script>
     
-    <script src="/main.js?1703163935"></script>
+    <script src="/main.js?1703164756"></script>
     
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';

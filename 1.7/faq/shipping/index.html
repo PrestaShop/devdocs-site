@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Shipping FAQ :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/faq/shipping/">
     
-    <link href="/css/font-awesome.min.css?1703163892" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163892" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163892" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163892" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164720" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164720" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164720" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164720" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163892" rel="stylesheet">
+    <link href="/style.css?1703164720" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163892"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164720"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30253,28 +30253,28 @@
 <li>You may call <code>Carrier::getCarriers(...)</code> to retrieve all the carriers existing on the shop, with the details about their name, the module related, the delay&hellip;</li>
 <li>If you need to update one of these carriers, you may use the <code>Carrier</code> (ObjectModel) class. Instantiate the carrier you need with:</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// From the carrier ID stored in the var $carrierId
-</span><span class="c1"></span>
-<span class="nv">$carrier</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Carrier</span><span class="p">(</span><span class="nv">$carrierId</span><span class="p">);</span>
-
-<span class="c1">// Apply changes to the $carrier object, then save.
-</span><span class="c1"></span><span class="nv">$carrier</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// From the carrier ID stored in the var $carrierId
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$carrier</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Carrier</span><span class="p">(</span><span class="nv">$carrierId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Apply changes to the $carrier object, then save.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$carrier</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</span></span></code></pre></div>
 <h3 id="order-specific-details">Order specific details<a href="#order-specific-details"></a></h3><p>Some other details are specific to each order, like the tracking number. Regarding the required fields in your question, there is no place to store the real delivery date in the core tables.</p>
 <p>You may reach the order delivery details with the following example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// From an Order ID you have
-</span><span class="c1"></span><span class="nv">$order</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Order</span><span class="p">(</span><span class="nv">$orderId</span><span class="p">);</span>
-<span class="nv">$orderCarrier</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OrderCarrier</span><span class="p">(</span><span class="nv">$order</span><span class="o">-&gt;</span><span class="na">getIdOrderCarrier</span><span class="p">());</span>
-
-<span class="c1">// 1- Get tracking number
-</span><span class="c1"></span><span class="nv">$trackingNumber</span> <span class="o">=</span> <span class="nv">$orderCarrier</span><span class="o">-&gt;</span><span class="na">tracking_number</span><span class="p">;</span>
-
-<span class="c1">// 2- Set tracking number
-</span><span class="c1"></span><span class="nv">$orderCarrier</span><span class="o">-&gt;</span><span class="na">tracking_number</span> <span class="o">=</span> <span class="s1">&#39;ABDC00F&#39;</span><span class="p">;</span>
-<span class="nv">$orderCarrier</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// From an Order ID you have
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$order</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Order</span><span class="p">(</span><span class="nv">$orderId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$orderCarrier</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OrderCarrier</span><span class="p">(</span><span class="nv">$order</span><span class="o">-&gt;</span><span class="na">getIdOrderCarrier</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 1- Get tracking number
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$trackingNumber</span> <span class="o">=</span> <span class="nv">$orderCarrier</span><span class="o">-&gt;</span><span class="na">tracking_number</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 2- Set tracking number
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$orderCarrier</span><span class="o">-&gt;</span><span class="na">tracking_number</span> <span class="o">=</span> <span class="s1">&#39;ABDC00F&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$orderCarrier</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</span></span></code></pre></div>
 <h2 id="how-do-i-add-a-service-fee-to-an-order">How do I add a service fee to an order?<a href="#how-do-i-add-a-service-fee-to-an-order"></a></h2><p>I want to create a module that provides an additional service (insurance, tracking, …) to an order. The service is billed to the buyer not the merchant.</p>
 <p>How do I add a service fee to an order ?</p>
 <p>TODO:write answer</p>
@@ -30356,17 +30356,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163892"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163892"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163892"></script>
-    <script src="/js/jquery.sticky.js?1703163892"></script>
-    <script src="/js/featherlight.min.js?1703163892"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163892"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163892"></script>
-    <script src="/js/learn.js?1703163892"></script>
-    <script src="/js/hugo-learn.js?1703163892"></script>
+    <script src="/js/clipboard.min.js?1703164720"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164720"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164720"></script>
+    <script src="/js/jquery.sticky.js?1703164720"></script>
+    <script src="/js/featherlight.min.js?1703164720"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164720"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164720"></script>
+    <script src="/js/learn.js?1703164720"></script>
+    <script src="/js/hugo-learn.js?1703164720"></script>
     
-    <script src="/main.js?1703163892"></script>
+    <script src="/main.js?1703164720"></script>
     
     
     

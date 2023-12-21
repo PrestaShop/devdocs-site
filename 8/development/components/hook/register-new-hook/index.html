@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Adding a new Core hook :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163910" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163910" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163910" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163910" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164735" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164735" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164735" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164735" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163910" rel="stylesheet">
+    <link href="/style.css?1703164735" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163910"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164735"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33130,26 +33130,26 @@
 <h2 id="2-update-the-hooks-definition-file">2. Update the Hooks definition file<a href="#2-update-the-hooks-definition-file"></a></h2><p>All known hooks are registered in the <code>ps_hook</code> database table. This table is populated with Core hooks during the installation, by reading the <code>install-dev/data/xml/hook.xml</code> file, then during runtime every time a new hook is used.</p>
 <p>Having Core hooks registered is important for two main reasons. First, every hook registered in database will be displayed in the Hook debugger, so it will help developers figure out which hooks are available on a given page. Second, known hooks are displayed in the Positions page, allowing to transplant modules from one hook into another (this is especially useful for display hooks).</p>
 <p>Each hook has a name, a title and a definition. They are identified by an additional id attribute in XML, which is the same as its name.</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;entity_hook&gt;</span>
-  <span class="nt">&lt;fields</span> <span class="na">id=</span><span class="s">&#34;name&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&#34;name&#34;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&#34;title&#34;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&#34;description&#34;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;/fields&gt;</span>
-  <span class="nt">&lt;entities&gt;</span>
-    <span class="nt">&lt;hook</span> <span class="na">id=</span><span class="s">&#34;actionMaintenancePageFormSave&#34;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name&gt;</span>actionMaintenancePageFormSave<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;title&gt;</span>Processing Maintenance page form<span class="nt">&lt;/title&gt;</span>
-      <span class="nt">&lt;description&gt;</span>This hook is called when the Maintenance Page form is processed<span class="nt">&lt;/description&gt;</span>
-    <span class="nt">&lt;/hook&gt;</span>
-    <span class="nt">&lt;hook</span> <span class="na">id=</span><span class="s">&#34;...&#34;</span><span class="nt">&gt;</span>
-      ...
-    <span class="nt">&lt;/hook&gt;</span>
-  <span class="nt">&lt;/entities&gt;</span>
-<span class="nt">&lt;/entity_hook&gt;</span>
-<span class="nt">&lt;/xml&gt;</span>
-</code></pre></div><p>Add new hooks at the bottom of the list, as hooks are registered sequentially.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;entity_hook&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;fields</span> <span class="na">id=</span><span class="s">&#34;name&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&#34;name&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&#34;title&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&#34;description&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/fields&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;entities&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;hook</span> <span class="na">id=</span><span class="s">&#34;actionMaintenancePageFormSave&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;name&gt;</span>actionMaintenancePageFormSave<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;title&gt;</span>Processing Maintenance page form<span class="nt">&lt;/title&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;description&gt;</span>This hook is called when the Maintenance Page form is processed<span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/hook&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;hook</span> <span class="na">id=</span><span class="s">&#34;...&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      ...
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/hook&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/entities&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/entity_hook&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/xml&gt;</span>
+</span></span></code></pre></div><p>Add new hooks at the bottom of the list, as hooks are registered sequentially.</p>
 
 <h2 id="3-prepare-database-update-for-shop-upgrades">3. Prepare database update for shop upgrades<a href="#3-prepare-database-update-for-shop-upgrades"></a></h2><p>The previous step only adds the hook to <em>new</em> shops. We also need to register the hook to shops that upgrade from a previous version.</p>
 <p>The last step is to insert the new hooks in the <code>ps_hooks</code> table using the upgrade system. Locate the X.Y.Z.sql file that refers to the PrestaShop version that will include your change: for instance, if the release expected to include this change is <code>1.7.5.0</code>, locate that file in the <code>upgrade/sql</code> folder from the <a href="https://github.com/PrestaShop/autoupgrade">autoupgrade</a> module.</p>
@@ -33157,10 +33157,10 @@
 <div class="notices tip" >This process is explained here: <a href="https://devdocs.prestashop-project.org/8/development/database/structure/#structure-and-content-upgrades">Structure and content upgrades</a></div>
 
 <p>Once you have located the file, add the corresponding SQL commands to add new hooks:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">INSERT</span><span class="w"> </span><span class="k">IGNORE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_hook</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">title</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">description</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w">
-</span><span class="w">  </span><span class="p">(</span><span class="s1">&#39;displayAdministrationPageForm&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Manage Administration Page form fields&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook adds, update or remove fields of the Administration Page form&#39;</span><span class="p">),</span><span class="w">
-</span><span class="w">  </span><span class="p">(</span><span class="s1">&#39;actionMaintenancePageFormSave&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Processing Maintenance page form&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook is called when the Maintenance Page form is processed&#39;</span><span class="p">);</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">IGNORE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_hook</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">title</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">description</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">(</span><span class="s1">&#39;displayAdministrationPageForm&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Manage Administration Page form fields&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook adds, update or remove fields of the Administration Page form&#39;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">(</span><span class="s1">&#39;actionMaintenancePageFormSave&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Processing Maintenance page form&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook is called when the Maintenance Page form is processed&#39;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33238,17 +33238,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163910"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163910"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163910"></script>
-    <script src="/js/jquery.sticky.js?1703163910"></script>
-    <script src="/js/featherlight.min.js?1703163910"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163910"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163910"></script>
-    <script src="/js/learn.js?1703163910"></script>
-    <script src="/js/hugo-learn.js?1703163910"></script>
+    <script src="/js/clipboard.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164735"></script>
+    <script src="/js/jquery.sticky.js?1703164735"></script>
+    <script src="/js/featherlight.min.js?1703164735"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164735"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164735"></script>
+    <script src="/js/learn.js?1703164735"></script>
+    <script src="/js/hugo-learn.js?1703164735"></script>
     
-    <script src="/main.js?1703163910"></script>
+    <script src="/main.js?1703164735"></script>
     
     
     

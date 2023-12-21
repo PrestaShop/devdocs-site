@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Changes in PrestaShop 1.7.7 :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163894" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163894" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163894" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163894" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164721" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164721" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164721" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164721" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163894" rel="stylesheet">
+    <link href="/style.css?1703164721" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163894"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164721"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30682,7 +30682,7 @@
 <li><a href="https://api.jquery.com/attr/"><code>jQuery.attr()</code> behavior has evolved</a>, most of the time, you should use <code>jQuery.prop()</code> instead.</li>
 </ul>
 
-<h2 id="order-view-page-layout-modifications">Order view page layout modifications<a href="#order-view-page-layout-modifications"></a></h2><p>In this version the order page has been migrated with Symfony. We used this migration as an opportunity to improve the page layout to meet the merchants' needs.
+<h2 id="order-view-page-layout-modifications">Order view page layout modifications<a href="#order-view-page-layout-modifications"></a></h2><p>In this version the order page has been migrated with Symfony. We used this migration as an opportunity to improve the page layout to meet the merchants&rsquo; needs.
 You can see a representation of these new hooks in the page here:</p>
 <figure><img src="../img/order-view-page-hooks.jpg"/><figcaption>
             <h4>Order view page hooks layout</h4>
@@ -30796,14 +30796,14 @@ This image ID is then used to populate the <code>product.cover</code> field usab
 <p><code>$quickView = (Tools::getValue('action') == 'quickview)</code></p>
 <p>From v1.7.7 due to changes related to dynamic refresh of <code>displayProductAdditionalInfo</code> in quick view modal, it&rsquo;s no longer possible to do that this way.</p>
 <p>From now on, you can always ask <code>ProductController</code> to tell you if customer is using quick view, using this code:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span> <span class="nx">instanceof</span> <span class="nx">ProductController</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">isQuickView</span><span class="p">())</span> <span class="p">{</span>
-    <span class="c1">// We&#39;re in quick view mode
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>or directly in <code>.tpl</code> file:</p>
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="nf">if</span> <span class="nv">$page.page_name</span> <span class="o">==</span> <span class="s1">&#39;product&#39;</span> <span class="o">&amp;&amp;</span> <span class="na">Context</span><span class="o">::</span><span class="na">getContext</span><span class="o">()-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">isQuickView</span><span class="o">()</span><span class="cp">}</span><span class="x">
-</span><span class="x">    We&#39;re in quick view mode for </span><span class="cp">{</span><span class="nv">$product.id_product</span><span class="cp">}</span><span class="x"> and attribute </span><span class="cp">{</span><span class="nv">$product.id_product_attribute</span><span class="cp">}</span><span class="x">
-</span><span class="x"></span><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span> <span class="nx">instanceof</span> <span class="nx">ProductController</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">isQuickView</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// We&#39;re in quick view mode
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>or directly in <code>.tpl</code> file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-smarty" data-lang="smarty"><span class="line"><span class="cl"><span class="cp">{</span><span class="nf">if</span> <span class="nv">$page.page_name</span> <span class="o">==</span> <span class="s1">&#39;product&#39;</span> <span class="o">&amp;&amp;</span> <span class="na">Context</span><span class="o">::</span><span class="na">getContext</span><span class="o">()-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">isQuickView</span><span class="o">()</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">    We&#39;re in quick view mode for </span><span class="cp">{</span><span class="nv">$product.id_product</span><span class="cp">}</span><span class="x"> and attribute </span><span class="cp">{</span><span class="nv">$product.id_product_attribute</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{</span><span class="nf">/if</span><span class="cp">}</span><span class="x">
+</span></span></span></code></pre></div>
 <h2 id="modern-tabs-for-modern-modules">Modern Tabs for modern modules<a href="#modern-tabs-for-modern-modules"></a></h2><p>Modern modules that use Symfony controller and routing can now use the <code>$tabs</code> property in their module class to <a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/controllers/admin-controllers/tabs/#automatic-tab-registration">automatically register Tabs in the BackOffice menu</a>.</p>
 <p>Also new in this version, when a module is enabled/disabled all its related <a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/controllers/admin-controllers/tabs/#automatic-hiding-of-disabled-modules">Tab links are automatically shown/hidden</a>.</p>
 
@@ -30817,7 +30817,7 @@ Instead, <code>/usr/sbin/sendmail</code> is now the default way of sending mails
 <li>CLDR <code>Specification\Number</code> <a href="https://github.com/PrestaShop/PrestaShop/pull/15755">is now immutable</a></li>
 <li>Configuration forms have been split up <a href="https://github.com/PrestaShop/PrestaShop/pull/17482">for security reasons</a></li>
 <li>New alias for webpack namespace app -&gt; @app</li>
-<li>The <code>clickable_row</code> option on Grids' <code>LinkRowAction</code> now uses <code>.clickable</code> as a selector, modules that rely on this feature should make sure that their templates use the appropriate class</li>
+<li>The <code>clickable_row</code> option on Grids&rsquo; <code>LinkRowAction</code> now uses <code>.clickable</code> as a selector, modules that rely on this feature should make sure that their templates use the appropriate class</li>
 <li>CLDR data has been <a href="https://github.com/PrestaShop/PrestaShop/pull/16347">updated to v36</a></li>
 <li>Smarty has been <a href="https://github.com/PrestaShop/PrestaShop/pull/16429">updated to v3.1.34</a></li>
 </ul>
@@ -30899,17 +30899,17 @@ Instead, <code>/usr/sbin/sendmail</code> is now the default way of sending mails
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163894"></script>
-    <script src="/js/jquery.sticky.js?1703163894"></script>
-    <script src="/js/featherlight.min.js?1703163894"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163894"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163894"></script>
-    <script src="/js/learn.js?1703163894"></script>
-    <script src="/js/hugo-learn.js?1703163894"></script>
+    <script src="/js/clipboard.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164721"></script>
+    <script src="/js/jquery.sticky.js?1703164721"></script>
+    <script src="/js/featherlight.min.js?1703164721"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164721"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164721"></script>
+    <script src="/js/learn.js?1703164721"></script>
+    <script src="/js/hugo-learn.js?1703164721"></script>
     
-    <script src="/main.js?1703163894"></script>
+    <script src="/main.js?1703164721"></script>
     
     
     

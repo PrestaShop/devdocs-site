@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Adding a configuration page (Legacy architecture) :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163925" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163925" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163925" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163925" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164747" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164747" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164747" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164747" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163925" rel="stylesheet">
+    <link href="/style.css?1703164747" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163925"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164747"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33112,34 +33112,34 @@
 <p>In the following example we will implement a minimalistic configuration page that displays a form allowing the user to edit the content of the <code>MYMODULE_CONFIG</code> <a href="https://devdocs.prestashop-project.org/8/development/components/configuration/">Configuration</a> variable.</p>
 
 <h2 id="the-getcontent-method">The <code>getContent()</code> method<a href="#the-getcontent-method"></a></h2><p>First, let&rsquo;s have a look at our <code>getContent()</code> method:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
-</span><span class="sd"> * This method handles the module&#39;s configuration page
-</span><span class="sd"> * @return string The page&#39;s HTML content 
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="nv">$output</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-
-    <span class="c1">// this part is executed only when the form is submitted
-</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">Tools</span><span class="o">::</span><span class="na">isSubmit</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">))</span> <span class="p">{</span>
-        <span class="c1">// retrieve the value set by the user
-</span><span class="c1"></span>        <span class="nv">$configValue</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">);</span>
-
-        <span class="c1">// check that the value is valid
-</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$configValue</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">Validate</span><span class="o">::</span><span class="na">isGenericName</span><span class="p">(</span><span class="nv">$configValue</span><span class="p">))</span> <span class="p">{</span>
-            <span class="c1">// invalid value, show an error
-</span><span class="c1"></span>            <span class="nv">$output</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayError</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Invalid Configuration value&#39;</span><span class="p">));</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="c1">// value is ok, update it and display a confirmation message
-</span><span class="c1"></span>            <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">,</span> <span class="nv">$configValue</span><span class="p">);</span>
-            <span class="nv">$output</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayConfirmation</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Settings updated&#39;</span><span class="p">));</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="c1">// display any message, then the form
-</span><span class="c1"></span>    <span class="k">return</span> <span class="nv">$output</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayForm</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div><p>The <code>getContent()</code> method is called when the configuration page is loaded. Therefore, we use it to both display a form and handle the action behind that form.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * This method handles the module&#39;s configuration page
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @return string The page&#39;s HTML content 
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$output</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// this part is executed only when the form is submitted
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">Tools</span><span class="o">::</span><span class="na">isSubmit</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// retrieve the value set by the user
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$configValue</span> <span class="o">=</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// check that the value is valid
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$configValue</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="nx">Validate</span><span class="o">::</span><span class="na">isGenericName</span><span class="p">(</span><span class="nv">$configValue</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// invalid value, show an error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$output</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayError</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Invalid Configuration value&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// value is ok, update it and display a confirmation message
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">,</span> <span class="nv">$configValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$output</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayConfirmation</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Settings updated&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// display any message, then the form
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nv">$output</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayForm</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The <code>getContent()</code> method is called when the configuration page is loaded. Therefore, we use it to both display a form and handle the action behind that form.</p>
 <p>Here is a step by step explanation:</p>
 <ul>
 <li><code>Tools::isSubmit()</code> is a PrestaShop-specific method that checks if a given form has been submitted. In this case, if the configuration form has not yet been sent, the whole <code>if()</code> block is skipped and PrestaShop will only use the last line, which displays the configuration form using current values, as generated by the <code>displayForm()</code> method.</li>
@@ -33152,75 +33152,75 @@
 <p>This form-validation code is nothing new for PHP developers, but uses some of the PrestaShop methods that you will regularly use.</p>
 
 <h2 id="displaying-the-form">Displaying the form<a href="#displaying-the-form"></a></h2><p>The configuration form itself is displayed with the <code>displayForm()</code> method. Here is its code, which we are going to explain after the jump:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
-</span><span class="sd"> * Builds the configuration form
-</span><span class="sd"> * @return string HTML code
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">displayForm</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="c1">// Init Fields form array
-</span><span class="c1"></span>    <span class="nv">$form</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">&#39;legend&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Settings&#39;</span><span class="p">),</span>
-            <span class="p">],</span>
-            <span class="s1">&#39;input&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                <span class="p">[</span>
-                    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Configuration value&#39;</span><span class="p">),</span>
-                    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">,</span>
-                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-                <span class="p">],</span>
-            <span class="p">],</span>
-            <span class="s1">&#39;submit&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Save&#39;</span><span class="p">),</span>
-                <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;btn btn-default pull-right&#39;</span><span class="p">,</span>
-            <span class="p">],</span>
-        <span class="p">],</span>
-    <span class="p">];</span>
-
-    <span class="nv">$helper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HelperForm</span><span class="p">();</span>
-
-    <span class="c1">// Module, token and currentIndex
-</span><span class="c1"></span>    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">table</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">;</span>
-    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">name_controller</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
-    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">token</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getAdminTokenLite</span><span class="p">(</span><span class="s1">&#39;AdminModules&#39;</span><span class="p">);</span>
-    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">currentIndex</span> <span class="o">=</span> <span class="nx">AdminController</span><span class="o">::</span><span class="nv">$currentIndex</span> <span class="o">.</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">.</span> <span class="nx">http_build_query</span><span class="p">([</span><span class="s1">&#39;configure&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">]);</span>
-    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">submit_action</span> <span class="o">=</span> <span class="s1">&#39;submit&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
-
-    <span class="c1">// Default language
-</span><span class="c1"></span>    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">default_form_language</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_LANG_DEFAULT&#39;</span><span class="p">);</span>
-
-    <span class="c1">// Load current value into the form
-</span><span class="c1"></span>    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">fields_value</span><span class="p">[</span><span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">,</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">));</span>
-
-    <span class="k">return</span> <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">generateForm</span><span class="p">([</span><span class="nv">$form</span><span class="p">]);</span>
-<span class="p">}</span>
-</code></pre></div><p>While this might look like a huge block of code for a single form field, this block actually uses some of PrestaShop&rsquo;s methods that make it easier to build forms, most notably the <code>HelperForm</code> object.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Builds the configuration form
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @return string HTML code
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">displayForm</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Init Fields form array
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$form</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;legend&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Settings&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;input&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Configuration value&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;submit&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Save&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;btn btn-default pull-right&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HelperForm</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Module, token and currentIndex
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">table</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">name_controller</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">token</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getAdminTokenLite</span><span class="p">(</span><span class="s1">&#39;AdminModules&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">currentIndex</span> <span class="o">=</span> <span class="nx">AdminController</span><span class="o">::</span><span class="nv">$currentIndex</span> <span class="o">.</span> <span class="s1">&#39;&amp;&#39;</span> <span class="o">.</span> <span class="nx">http_build_query</span><span class="p">([</span><span class="s1">&#39;configure&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">submit_action</span> <span class="o">=</span> <span class="s1">&#39;submit&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Default language
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">default_form_language</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_LANG_DEFAULT&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Load current value into the form
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">fields_value</span><span class="p">[</span><span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">,</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">generateForm</span><span class="p">([</span><span class="nv">$form</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>While this might look like a huge block of code for a single form field, this block actually uses some of PrestaShop&rsquo;s methods that make it easier to build forms, most notably the <code>HelperForm</code> object.</p>
 <p>Let&rsquo;s run down this method:</p>
 <ul>
 <li>
 <p>In preparation for the generation of the form, we create the <code>$form</code> variable, which contains the definition of the various elements (fields, labels, etc) the form will contain. From this variable, PrestaShop will render the HTML form as it is described.</p>
 <p>In this example, we define three sections (<code>legend</code>, <code>input</code> and <code>submit</code>) and their properties using arrays. The format is quite straightforward: the <code>legend</code> and <code>submit</code> arrays simply contain the attributes to each tag, while the <code>input</code> array contains as many input elements as needed, each being in turn an array containing the necessary attributes.</p>
 <p>For instance:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;input&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-    <span class="p">[</span>
-        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Configuration value&#39;</span><span class="p">),</span>
-        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">,</span>
-        <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-    <span class="p">]</span>
-<span class="p">]</span>
-</code></pre></div><p>&hellip;generates the following HTML:</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">label</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;control-label col-lg-4 required&#34;</span><span class="p">&gt;</span>Configuration value<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-lg-8&#34;</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;MYMODULE_CONFIG&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;MYMODULE_CONFIG&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">size</span><span class="o">=</span><span class="s">&#34;20&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;my friend&#34;</span> <span class="na">required</span><span class="o">=</span><span class="s">&#34;required&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div><p>As you can see, PrestaShop is quite clever, and will generate all the code that is needed to obtain a useful form.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="s1">&#39;input&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Configuration value&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;MYMODULE_CONFIG&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">20</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></div><p>&hellip;generates the following HTML:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">label</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;control-label col-lg-4 required&#34;</span><span class="p">&gt;</span>Configuration value<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-lg-8&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;MYMODULE_CONFIG&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;MYMODULE_CONFIG&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">size</span><span class="o">=</span><span class="s">&#34;20&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;my friend&#34;</span> <span class="na">required</span><span class="o">=</span><span class="s">&#34;required&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>As you can see, PrestaShop is quite clever, and will generate all the code that is needed to obtain a useful form.</p>
 </li>
 <li>
 <p>We then create an instance of the <code>HelperForm</code> class.</p>
@@ -33323,17 +33323,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163925"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163925"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163925"></script>
-    <script src="/js/jquery.sticky.js?1703163925"></script>
-    <script src="/js/featherlight.min.js?1703163925"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163925"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163925"></script>
-    <script src="/js/learn.js?1703163925"></script>
-    <script src="/js/hugo-learn.js?1703163925"></script>
+    <script src="/js/clipboard.min.js?1703164747"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164747"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164747"></script>
+    <script src="/js/jquery.sticky.js?1703164747"></script>
+    <script src="/js/featherlight.min.js?1703164747"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164747"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164747"></script>
+    <script src="/js/learn.js?1703164747"></script>
+    <script src="/js/hugo-learn.js?1703164747"></script>
     
-    <script src="/main.js?1703163925"></script>
+    <script src="/main.js?1703164747"></script>
     
     
     

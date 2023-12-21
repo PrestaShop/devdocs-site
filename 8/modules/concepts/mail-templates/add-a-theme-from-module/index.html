@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to add an email theme from a module :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163925" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163925" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163925" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163925" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164747" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164747" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164747" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164747" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163925" rel="stylesheet">
+    <link href="/style.css?1703164747" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163925"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164747"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33123,64 +33123,64 @@
 <h1 id="how-to-add-an-email-theme-from-a-module">How to add an email theme from a module<a href="#how-to-add-an-email-theme-from-a-module"></a></h1><p>Now, what if you want to add a whole new email theme? Of course one possibility is to add a new theme folder in <code>mails/themes/</code> but it&rsquo;s not the most convenient if you want to install/uninstall it easily and quickly, so let&rsquo;s integrate the theme in a module.</p>
 <p>Just like we did to <a href="https://devdocs.prestashop-project.org/8/modules/concepts/mail-templates/add-a-layout-from-module/">add a layout from a module</a> we are going to use the <code>actionListMailThemes</code> hook, except this time we are going to add a whole email theme. Now to ease things a bit we can use <code>FolderThemeScanner</code> used by the core to scan its own themes.</p>
 
-<h2 id="using-the-hook">Using the hook<a href="#using-the-hook"></a></h2><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\Layout\Layout</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeCatalogInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeCollectionInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\FolderThemeScanner</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">MyEmailThemeModule</span> <span class="k">extends</span> <span class="nx">Module</span> 
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span> 
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span>
-            <span class="c1">// This class constant contains &#39;actionListMailThemes&#39;
-</span><span class="c1"></span>            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span> 
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">()</span>
-            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">unregisterHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">enable</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">enable</span><span class="p">()</span>
-            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">disable</span><span class="p">()</span> 
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">disable</span><span class="p">()</span>
-            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">unregisterHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param array $hookParams
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionListMailThemes</span><span class="p">(</span><span class="k">array</span> <span class="nv">$hookParams</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;mailThemes&#39;</span><span class="p">]))</span> <span class="p">{</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="sd">/** @var ThemeCollectionInterface $themes */</span>
-        <span class="nv">$themes</span> <span class="o">=</span> <span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;mailThemes&#39;</span><span class="p">];</span>
-
-        <span class="nv">$scanner</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FolderThemeScanner</span><span class="p">();</span>
-        <span class="nv">$darkTheme</span> <span class="o">=</span> <span class="nv">$scanner</span><span class="o">-&gt;</span><span class="na">scan</span><span class="p">(</span><span class="no">__DIR__</span><span class="o">.</span><span class="s1">&#39;/mails/themes/dark_modern&#39;</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="o">!==</span> <span class="nv">$darkTheme</span> <span class="o">&amp;&amp;</span> <span class="nv">$darkTheme</span><span class="o">-&gt;</span><span class="na">getLayouts</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$themes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nv">$darkTheme</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>You can then go to the &ldquo;Design &gt; Email Theme&rdquo; page and preview the <code>dark_modern</code> theme.</p>
+<h2 id="using-the-hook">Using the hook<a href="#using-the-hook"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\Layout\Layout</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeCatalogInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeCollectionInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\FolderThemeScanner</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyEmailThemeModule</span> <span class="k">extends</span> <span class="nx">Module</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// This class constant contains &#39;actionListMailThemes&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">unregisterHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">enable</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">enable</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">disable</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">disable</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">unregisterHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $hookParams
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionListMailThemes</span><span class="p">(</span><span class="k">array</span> <span class="nv">$hookParams</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;mailThemes&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var ThemeCollectionInterface $themes */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$themes</span> <span class="o">=</span> <span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;mailThemes&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$scanner</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FolderThemeScanner</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$darkTheme</span> <span class="o">=</span> <span class="nv">$scanner</span><span class="o">-&gt;</span><span class="na">scan</span><span class="p">(</span><span class="no">__DIR__</span><span class="o">.</span><span class="s1">&#39;/mails/themes/dark_modern&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="o">!==</span> <span class="nv">$darkTheme</span> <span class="o">&amp;&amp;</span> <span class="nv">$darkTheme</span><span class="o">-&gt;</span><span class="na">getLayouts</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$themes</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nv">$darkTheme</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>You can then go to the &ldquo;Design &gt; Email Theme&rdquo; page and preview the <code>dark_modern</code> theme.</p>
 <figure><img src="../img/dark_modern_theme.png"/><figcaption>
             <h4>Dark modern theme available</h4>
         </figcaption>
@@ -33264,17 +33264,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163925"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163925"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163925"></script>
-    <script src="/js/jquery.sticky.js?1703163925"></script>
-    <script src="/js/featherlight.min.js?1703163925"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163925"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163925"></script>
-    <script src="/js/learn.js?1703163925"></script>
-    <script src="/js/hugo-learn.js?1703163925"></script>
+    <script src="/js/clipboard.min.js?1703164747"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164747"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164747"></script>
+    <script src="/js/jquery.sticky.js?1703164747"></script>
+    <script src="/js/featherlight.min.js?1703164747"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164747"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164747"></script>
+    <script src="/js/learn.js?1703164747"></script>
+    <script src="/js/hugo-learn.js?1703164747"></script>
     
-    <script src="/main.js?1703163925"></script>
+    <script src="/main.js?1703164747"></script>
     
     
     

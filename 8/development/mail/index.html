@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to send e-mails :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163901" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163901" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163901" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163901" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164728" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164728" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164728" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164728" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163901" rel="stylesheet">
+    <link href="/style.css?1703164728" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163901"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164728"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33080,29 +33080,29 @@
 
 <div class="notices note" >This example is assuming you are using in a controller named <code>mycontroller</code> of a module named <code>mymodule</code></div>
 
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">mymodulemycontrollerModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
-<span class="p">{</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">parent</span><span class="o">::</span><span class="na">initContent</span><span class="p">();</span>
-        <span class="nx">Mail</span><span class="o">::</span><span class="na">Send</span><span class="p">(</span>
-            <span class="p">(</span><span class="nx">int</span><span class="p">)(</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_LANG_DEFAULT&#39;</span><span class="p">)),</span> <span class="c1">// defaut language id
-</span><span class="c1"></span>            <span class="s1">&#39;contact&#39;</span><span class="p">,</span> <span class="c1">// email template file to be use
-</span><span class="c1"></span>            <span class="s1">&#39; Module Installation&#39;</span><span class="p">,</span> <span class="c1">// email subject
-</span><span class="c1"></span>            <span class="k">array</span><span class="p">(</span>
-                <span class="s1">&#39;{email}&#39;</span> <span class="o">=&gt;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_SHOP_EMAIL&#39;</span><span class="p">),</span> <span class="c1">// sender email address
-</span><span class="c1"></span>                <span class="s1">&#39;{message}&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello world&#39;</span> <span class="c1">// email content
-</span><span class="c1"></span>            <span class="p">),</span>
-            <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_SHOP_EMAIL&#39;</span><span class="p">),</span> <span class="c1">// receiver email address
-</span><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span> <span class="c1">//receiver name
-</span><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span> <span class="c1">//from email address
-</span><span class="c1"></span>            <span class="k">NULL</span>  <span class="c1">//from name
-</span><span class="c1"></span>        <span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">mymodulemycontrollerModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">initContent</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Mail</span><span class="o">::</span><span class="na">Send</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nx">int</span><span class="p">)(</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_LANG_DEFAULT&#39;</span><span class="p">)),</span> <span class="c1">// defaut language id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;contact&#39;</span><span class="p">,</span> <span class="c1">// email template file to be use
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39; Module Installation&#39;</span><span class="p">,</span> <span class="c1">// email subject
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;{email}&#39;</span> <span class="o">=&gt;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_SHOP_EMAIL&#39;</span><span class="p">),</span> <span class="c1">// sender email address
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="s1">&#39;{message}&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello world&#39;</span> <span class="c1">// email content
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_SHOP_EMAIL&#39;</span><span class="p">),</span> <span class="c1">// receiver email address
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span> <span class="c1">//receiver name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span> <span class="c1">//from email address
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">NULL</span>  <span class="c1">//from name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices tip" >Prestashop will use the Shop Configuration to decide if use <code>smtp</code> connection or php <code>mail</code> function so check it out on backoffice or in <code>app/config/parameter.php</code></div>
 
 
@@ -33111,32 +33111,32 @@
 <p>In this folder you do create 2 files: one with extension <code>.html</code> and one with extension <code>.txt</code>.</p>
 <p>The name of the template files is in second parameter. In the under example the template name is <code>contact</code>. So you do create 2 files in mails subfolders of your module: <code>modules\yourmodulename\mails\en\contact.html</code> and <code>modules\yourmodulename\mails\en\contact.txt</code>.</p>
 <p>After installation, the templates email files are moved under the active folder theme: <code>theme\classic\modules\yourmodulename\mails\en\....</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">mymodulemycontrollerModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
-<span class="p">{</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">parent</span><span class="o">::</span><span class="na">initContent</span><span class="p">();</span>
-        <span class="nx">Mail</span><span class="o">::</span><span class="na">Send</span><span class="p">(</span>
-            <span class="p">(</span><span class="nx">int</span><span class="p">)(</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_LANG_DEFAULT&#39;</span><span class="p">)),</span> <span class="c1">// defaut language id
-</span><span class="c1"></span>            <span class="s1">&#39;contact&#39;</span><span class="p">,</span> <span class="c1">// email template file to be use
-</span><span class="c1"></span>            <span class="s1">&#39; Module Installation&#39;</span><span class="p">,</span> <span class="c1">// email subject
-</span><span class="c1"></span>            <span class="k">array</span><span class="p">(</span>
-                <span class="s1">&#39;{email}&#39;</span> <span class="o">=&gt;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_SHOP_EMAIL&#39;</span><span class="p">),</span> <span class="c1">// sender email address
-</span><span class="c1"></span>                <span class="s1">&#39;{message}&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello world&#39;</span> <span class="c1">// email content
-</span><span class="c1"></span>            <span class="p">),</span>
-            <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_SHOP_EMAIL&#39;</span><span class="p">),</span> <span class="c1">// receiver email address
-</span><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span> <span class="c1">//receiver name
-</span><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span> <span class="c1">//from email address
-</span><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span>  <span class="c1">//from name
-</span><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span> <span class="c1">//file attachment
-</span><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span> <span class="c1">//mode smtp
-</span><span class="c1"></span>            <span class="nx">_PS_MODULE_DIR_</span> <span class="o">.</span> <span class="s1">&#39;yourmodulename/mails&#39;</span> <span class="c1">//custom template path
-</span><span class="c1"></span>        <span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">mymodulemycontrollerModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">initContent</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Mail</span><span class="o">::</span><span class="na">Send</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nx">int</span><span class="p">)(</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_LANG_DEFAULT&#39;</span><span class="p">)),</span> <span class="c1">// defaut language id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;contact&#39;</span><span class="p">,</span> <span class="c1">// email template file to be use
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39; Module Installation&#39;</span><span class="p">,</span> <span class="c1">// email subject
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;{email}&#39;</span> <span class="o">=&gt;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_SHOP_EMAIL&#39;</span><span class="p">),</span> <span class="c1">// sender email address
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="s1">&#39;{message}&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Hello world&#39;</span> <span class="c1">// email content
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_SHOP_EMAIL&#39;</span><span class="p">),</span> <span class="c1">// receiver email address
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span> <span class="c1">//receiver name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span> <span class="c1">//from email address
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span>  <span class="c1">//from name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span> <span class="c1">//file attachment
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">NULL</span><span class="p">,</span> <span class="c1">//mode smtp
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">_PS_MODULE_DIR_</span> <span class="o">.</span> <span class="s1">&#39;yourmodulename/mails&#39;</span> <span class="c1">//custom template path
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33214,17 +33214,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163901"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163901"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163901"></script>
-    <script src="/js/jquery.sticky.js?1703163901"></script>
-    <script src="/js/featherlight.min.js?1703163901"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163901"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163901"></script>
-    <script src="/js/learn.js?1703163901"></script>
-    <script src="/js/hugo-learn.js?1703163901"></script>
+    <script src="/js/clipboard.min.js?1703164728"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164728"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164728"></script>
+    <script src="/js/jquery.sticky.js?1703164728"></script>
+    <script src="/js/featherlight.min.js?1703164728"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164728"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164728"></script>
+    <script src="/js/learn.js?1703164728"></script>
+    <script src="/js/hugo-learn.js?1703164728"></script>
     
-    <script src="/main.js?1703163901"></script>
+    <script src="/main.js?1703164728"></script>
     
     
     

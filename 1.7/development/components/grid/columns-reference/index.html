@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Column Types reference :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/grid/columns-reference/">
     
-    <link href="/css/font-awesome.min.css?1703163932" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163932" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163932" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163932" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164754" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164754" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164754" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164754" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163932" rel="stylesheet">
+    <link href="/style.css?1703164754" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163932"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164754"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -4354,7 +4354,7 @@
     
     
     <li data-nav-id="/1.7/development/components/grid/columns-reference/" title="Column Types reference" class="dd-item
-        parent
+        
         active currentPage
         
         isParent
@@ -4367,7 +4367,7 @@
           
 
           
-            <i class="fa fa-angle-up"></i>
+            <i class="fa fa-angle-down"></i>
           
       </a>
       
@@ -30336,65 +30336,65 @@
 <li><a href="https://devdocs.prestashop-project.org/1.7/development/components/grid/columns-reference/severity-level/">SeverityLevelColumn</a></li>
 </ul>
 
-<h2 id="use-case-example">Use case example<a href="#use-case-example"></a></h2><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// /modules/my-module/src/Grid/MyGridDefinitionFactory.php
-</span><span class="c1"></span><span class="k">namespace</span> <span class="nx">MyModule\Grid</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Definition\Factory\AbstractGridDefinitionFactory</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\Type\DataColumn</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\ColumnCollection</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\BulkActionColumn</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Action\Row\RowActionCollection</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Action\Row\Type\LinkRowAction</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\ActionColumn</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * How to define the Grid&#39;s columns?
-</span><span class="sd"> * You can adapt this example or look at the existing ones
-</span><span class="sd"> * in PrestaShop&#39;s Core.
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">MyGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractGridDefinitionFactory</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     */</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getColumns</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ColumnCollection</span><span class="p">())</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-                <span class="p">(</span><span class="k">new</span> <span class="nx">BulkActionColumn</span><span class="p">(</span><span class="s1">&#39;delete_stuff&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;bulk_field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_stuff&#39;</span><span class="p">,</span>
-                <span class="p">])</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-                <span class="p">(</span><span class="k">new</span> <span class="nx">DataColumn</span><span class="p">(</span><span class="s1">&#39;id_stuff&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;ID&#39;</span><span class="p">)</span>
-                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_stuff&#39;</span><span class="p">,</span>
-                <span class="p">])</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-                <span class="p">(</span><span class="k">new</span> <span class="nx">ActionColumn</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;Actions&#39;</span><span class="p">)</span>
-                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;actions&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="k">new</span> <span class="nx">RowActionCollection</span><span class="p">())</span>
-                    <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-                        <span class="p">(</span><span class="k">new</span> <span class="nx">LinkRowAction</span><span class="p">(</span><span class="s1">&#39;delete&#39;</span><span class="p">))</span>
-                        <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;delete&#39;</span><span class="p">)</span>
-                        <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                            <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;delete_stuff&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;route_param_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;stuffId&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;route_param_field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_stuff&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;confirm_message&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Delete selected item?&#39;</span><span class="p">,</span>
-                        <span class="p">])</span>
-                    <span class="p">),</span>
-                <span class="p">])</span>
-            <span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<h2 id="use-case-example">Use case example<a href="#use-case-example"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// /modules/my-module/src/Grid/MyGridDefinitionFactory.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">namespace</span> <span class="nx">MyModule\Grid</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Definition\Factory\AbstractGridDefinitionFactory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\Type\DataColumn</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\ColumnCollection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\BulkActionColumn</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Action\Row\RowActionCollection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Action\Row\Type\LinkRowAction</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\Type\Common\ActionColumn</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * How to define the Grid&#39;s columns?
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * You can adapt this example or look at the existing ones
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * in PrestaShop&#39;s Core.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractGridDefinitionFactory</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getColumns</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ColumnCollection</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="k">new</span> <span class="nx">BulkActionColumn</span><span class="p">(</span><span class="s1">&#39;delete_stuff&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;bulk_field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_stuff&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="k">new</span> <span class="nx">DataColumn</span><span class="p">(</span><span class="s1">&#39;id_stuff&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;ID&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_stuff&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="k">new</span> <span class="nx">ActionColumn</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;Actions&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;actions&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="k">new</span> <span class="nx">RowActionCollection</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">                    <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">(</span><span class="k">new</span> <span class="nx">LinkRowAction</span><span class="p">(</span><span class="s1">&#39;delete&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;delete&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                        <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                            <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;delete_stuff&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="s1">&#39;route_param_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;stuffId&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="s1">&#39;route_param_field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_stuff&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="s1">&#39;confirm_message&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Delete selected item?&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">])</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices note" >You need to create a custom Column Type? We got you <a href="../tutorials/create-custom-column-type">covered</a>!</div>
 
 
@@ -30477,17 +30477,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163932"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163932"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163932"></script>
-    <script src="/js/jquery.sticky.js?1703163932"></script>
-    <script src="/js/featherlight.min.js?1703163932"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163932"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163932"></script>
-    <script src="/js/learn.js?1703163932"></script>
-    <script src="/js/hugo-learn.js?1703163932"></script>
+    <script src="/js/clipboard.min.js?1703164754"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164754"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164754"></script>
+    <script src="/js/jquery.sticky.js?1703164754"></script>
+    <script src="/js/featherlight.min.js?1703164754"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164754"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164754"></script>
+    <script src="/js/learn.js?1703164754"></script>
+    <script src="/js/hugo-learn.js?1703164754"></script>
     
-    <script src="/main.js?1703163932"></script>
+    <script src="/main.js?1703164754"></script>
     
     
     

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>HelperList :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/helpers/helperlist/">
     
-    <link href="/css/font-awesome.min.css?1703163891" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163891" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163891" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163891" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164719" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164719" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164719" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164719" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163891" rel="stylesheet">
+    <link href="/style.css?1703164719" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163891"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164719"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30303,107 +30303,107 @@
 
 <h2 id="list-declaration">List declaration<a href="#list-declaration"></a></h2><p>Fields inside [brackets] are optional as per the HTML standard.
 Values between {curly braces} list the possible values for this field.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fields_list</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-  <span class="s1">&#39;country&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>                              <span class="c1">// First column.
-</span><span class="c1"></span>    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Country&#39;</span><span class="p">),</span>                <span class="c1">// Column name.
-</span><span class="c1"></span>    <span class="s1">&#39;width&#39;</span> <span class="o">=&gt;</span> <span class="mi">100</span><span class="p">,</span>                                <span class="c1">// Column width. At least one field should be set to &#39;auto&#39; in order to grow with window size.
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;align&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">},</span>      <span class="c1">// Content position inside the column (default &#39;left&#39;, optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s1">&#39;select&#39;</span><span class="p">,</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span>         <span class="c1">// Column format.
-</span><span class="c1"></span>      <span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;decimal&#39;</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="s1">&#39;percent&#39;</span><span class="p">,</span>
-      <span class="s1">&#39;editable&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">},</span>
-    <span class="p">[</span><span class="s1">&#39;list&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">countries_array</span><span class="p">,</span>            <span class="c1">// For type == select only. Content for the select drop down filter list (optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;filter_key&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;cl\!id_country&#39;</span><span class="p">),</span>           <span class="c1">// Define a custom filter key to be used by the filter SQL request
-</span><span class="c1"></span>                                                   <span class="c1">// (optional, default uses the array key name, i.e. &#39;country&#39;).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;orderby&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">},</span>                  <span class="c1">// If true, list will be alphabetically ordered using this column values (optional, default false).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;search&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">},</span>                   <span class="c1">// If true, this column will have a search field (optional, default true).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span>                              <span class="c1">// If set, an image will be displayed in this field located in the &#39;/img&#39; subfolder defined as value here (optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;image_id&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>                             <span class="c1">// If &#39;image&#39; is set and if &#39;image_id&#39; is set, it will be used as the image filename,
-</span><span class="c1"></span>                                                   <span class="c1">// else the record item id will be used (optional)
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;icon&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>                              <span class="c1">// If set, an icon will be displayed with icon key matching the field value.
-</span><span class="c1"></span>      <span class="mi">0</span> <span class="o">=&gt;</span> <span class="s1">&#39;disabled.gif&#39;</span><span class="p">,</span>                         <span class="c1">// Used in combination with type == bool (optional).
-</span><span class="c1"></span>      <span class="mi">1</span> <span class="o">=&gt;</span> <span class="s1">&#39;enabled.gif&#39;</span><span class="p">,</span>
-      <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;disabled.gif&#39;</span>
-    <span class="p">),</span>
-    <span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;status&#39;</span><span class="p">,</span>                        <span class="c1">// If set, the field will be replaced by a clickable boolean switch for the item field (i.e. &#39;status&#39;).
-</span><span class="c1"></span>                                                   <span class="c1">// An icon will display the current status.
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;activeVisu&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;new_window&#39;</span><span class="p">,</span>                <span class="c1">// If set, the field will be replaced by an icon depending on the boolean value
-</span><span class="c1"></span>                                                   <span class="c1">// of the field specified (i.e. &#39;new_window&#39;) (optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;callback&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;getOrderTotalUsingTaxCalculationMethod&#39;</span><span class="p">,</span> <span class="c1">// If set, the return value of the defined method call
-</span><span class="c1"></span>                                                              <span class="c1">//  will be used as the field content (optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;callback_object&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="nv">$cart</span><span class="p">,</span>                  <span class="c1">// If set in combination with &#39;callback&#39;, the method will be called from the provided object
-</span><span class="c1"></span>                                                   <span class="c1">// instead of the current controller (optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;prefix&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;0x&#39;</span><span class="p">,</span>                            <span class="c1">// If set, it will be displayed before the field value (optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;suffix&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;kg&#39;</span><span class="p">,</span>                            <span class="c1">// If set, it will be displayed after the field value (optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;currency&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">},</span>                 <span class="c1">// If set and type == price, the currency displayed
-</span><span class="c1"></span>                                                   <span class="c1">// will use the item currency and not the default currency (optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;maxlength&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="mi">90</span><span class="p">,</span>                           <span class="c1">// If set, the field value will be truncated if it has more characters than the numeric value set (optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;position&#39;</span><span class="p">,</span>                    <span class="c1">// If set to position, the field will display arrows
-</span><span class="c1"></span>                                                   <span class="c1">// and be drag and droppable, which will update position in db (optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;tmpTableFilter&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">},</span>           <span class="c1">// If set to true, the WHERE clause used to filter results
-</span><span class="c1"></span>                                                   <span class="c1">// will use the $_tmpTableFilter variable (optional, default false).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;havingFilter&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">},</span>             <span class="c1">// If set to true, the WHERE clause used to filter results
-</span><span class="c1"></span>                                                   <span class="c1">// will use the $_filterHaving variable (optional, default false).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;filter_type&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="s1">&#39;decimal&#39;</span><span class="p">},</span> <span class="c1">// Specify the value format when used in the filter where clause.
-</span><span class="c1"></span>                                                   <span class="c1">// Useful when &#34;filter_type&#34; is different from &#34;type&#34; (i.e. type == select) (optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;color&#39;</span><span class="p">,</span>                          <span class="c1">// If set, the field value will appear inside a colored element.
-</span><span class="c1"></span>                                                   <span class="c1">// The color used is the &#34;color&#34; index of the record and is in HTML name or hexadecimal format (optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;hint&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;This is the quantity available in the current shop/group.&#39;</span><span class="p">),</span> <span class="c1">// The hint will appear on column name hover (optional).
-</span><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;ajax&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">}</span>                        <span class="c1">// if the type is bool, you use ajax
-</span><span class="c1"></span> <span class="p">),</span>
-  <span class="s1">&#39;another_field&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>                        <span class="c1">// Second column.
-</span><span class="c1"></span>    <span class="o">...</span>
-  <span class="p">),</span>
-  <span class="s1">&#39;another_field&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>                        <span class="c1">// Third column.
-</span><span class="c1"></span>    <span class="o">...</span>
-  <span class="p">),</span>
-<span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fields_list</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;country&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>                              <span class="c1">// First column.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Country&#39;</span><span class="p">),</span>                <span class="c1">// Column name.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;width&#39;</span> <span class="o">=&gt;</span> <span class="mi">100</span><span class="p">,</span>                                <span class="c1">// Column width. At least one field should be set to &#39;auto&#39; in order to grow with window size.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;align&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">},</span>      <span class="c1">// Content position inside the column (default &#39;left&#39;, optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s1">&#39;select&#39;</span><span class="p">,</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span>         <span class="c1">// Column format.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;decimal&#39;</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="s1">&#39;percent&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;editable&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s1">&#39;list&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">countries_array</span><span class="p">,</span>            <span class="c1">// For type == select only. Content for the select drop down filter list (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;filter_key&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;cl\!id_country&#39;</span><span class="p">),</span>           <span class="c1">// Define a custom filter key to be used by the filter SQL request
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                   <span class="c1">// (optional, default uses the array key name, i.e. &#39;country&#39;).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;orderby&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">},</span>                  <span class="c1">// If true, list will be alphabetically ordered using this column values (optional, default false).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;search&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">},</span>                   <span class="c1">// If true, this column will have a search field (optional, default true).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span>                              <span class="c1">// If set, an image will be displayed in this field located in the &#39;/img&#39; subfolder defined as value here (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;image_id&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span>                             <span class="c1">// If &#39;image&#39; is set and if &#39;image_id&#39; is set, it will be used as the image filename,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                   <span class="c1">// else the record item id will be used (optional)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;icon&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>                              <span class="c1">// If set, an icon will be displayed with icon key matching the field value.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="mi">0</span> <span class="o">=&gt;</span> <span class="s1">&#39;disabled.gif&#39;</span><span class="p">,</span>                         <span class="c1">// Used in combination with type == bool (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="mi">1</span> <span class="o">=&gt;</span> <span class="s1">&#39;enabled.gif&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;disabled.gif&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;status&#39;</span><span class="p">,</span>                        <span class="c1">// If set, the field will be replaced by a clickable boolean switch for the item field (i.e. &#39;status&#39;).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                   <span class="c1">// An icon will display the current status.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;activeVisu&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;new_window&#39;</span><span class="p">,</span>                <span class="c1">// If set, the field will be replaced by an icon depending on the boolean value
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                   <span class="c1">// of the field specified (i.e. &#39;new_window&#39;) (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;callback&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;getOrderTotalUsingTaxCalculationMethod&#39;</span><span class="p">,</span> <span class="c1">// If set, the return value of the defined method call
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                              <span class="c1">//  will be used as the field content (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;callback_object&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="nv">$cart</span><span class="p">,</span>                  <span class="c1">// If set in combination with &#39;callback&#39;, the method will be called from the provided object
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                   <span class="c1">// instead of the current controller (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;prefix&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;0x&#39;</span><span class="p">,</span>                            <span class="c1">// If set, it will be displayed before the field value (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;suffix&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;kg&#39;</span><span class="p">,</span>                            <span class="c1">// If set, it will be displayed after the field value (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;currency&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">},</span>                 <span class="c1">// If set and type == price, the currency displayed
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                   <span class="c1">// will use the item currency and not the default currency (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;maxlength&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="mi">90</span><span class="p">,</span>                           <span class="c1">// If set, the field value will be truncated if it has more characters than the numeric value set (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;position&#39;</span><span class="p">,</span>                    <span class="c1">// If set to position, the field will display arrows
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                   <span class="c1">// and be drag and droppable, which will update position in db (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;tmpTableFilter&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">},</span>           <span class="c1">// If set to true, the WHERE clause used to filter results
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                   <span class="c1">// will use the $_tmpTableFilter variable (optional, default false).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;havingFilter&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">},</span>             <span class="c1">// If set to true, the WHERE clause used to filter results
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                   <span class="c1">// will use the $_filterHaving variable (optional, default false).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;filter_type&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="s1">&#39;decimal&#39;</span><span class="p">},</span> <span class="c1">// Specify the value format when used in the filter where clause.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                   <span class="c1">// Useful when &#34;filter_type&#34; is different from &#34;type&#34; (i.e. type == select) (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="s1">&#39;color&#39;</span><span class="p">,</span>                          <span class="c1">// If set, the field value will appear inside a colored element.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                   <span class="c1">// The color used is the &#34;color&#34; index of the record and is in HTML name or hexadecimal format (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;hint&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;This is the quantity available in the current shop/group.&#39;</span><span class="p">),</span> <span class="c1">// The hint will appear on column name hover (optional).
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">[</span><span class="s1">&#39;ajax&#39;</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="k">true</span><span class="p">,</span> <span class="k">false</span><span class="p">}</span>                        <span class="c1">// if the type is bool, you use ajax
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;another_field&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>                        <span class="c1">// Second column.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">  <span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;another_field&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>                        <span class="c1">// Third column.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">  <span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span></code></pre></div>
 <h2 id="basic-declaration">Basic declaration<a href="#basic-declaration"></a></h2><p>Removing all the optional fields, this is how to build a basic HelperList element:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">private</span> <span class="k">function</span> <span class="nf">initList</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fields_list</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;id_category&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Id&#39;</span><span class="p">),</span>
-            <span class="s1">&#39;width&#39;</span> <span class="o">=&gt;</span> <span class="mi">140</span><span class="p">,</span>
-            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
-        <span class="p">),</span>
-        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">),</span>
-            <span class="s1">&#39;width&#39;</span> <span class="o">=&gt;</span> <span class="mi">140</span><span class="p">,</span>
-            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
-        <span class="p">),</span>
-    <span class="p">);</span>
-    <span class="nv">$helper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HelperList</span><span class="p">();</span>
-     
-    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">shopLinkType</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-     
-    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">simple_header</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
-     
-    <span class="c1">// Actions to be displayed in the &#34;Actions&#34; column
-</span><span class="c1"></span>    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">actions</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;edit&#39;</span><span class="p">,</span> <span class="s1">&#39;delete&#39;</span><span class="p">,</span> <span class="s1">&#39;view&#39;</span><span class="p">);</span>
-     
-    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">identifier</span> <span class="o">=</span> <span class="s1">&#39;id_category&#39;</span><span class="p">;</span>
-    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">show_toolbar</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
-    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">title</span> <span class="o">=</span> <span class="s1">&#39;HelperList&#39;</span><span class="p">;</span>
-    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">table</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;_categories&#39;</span><span class="p">;</span>
-     
-    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">token</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getAdminTokenLite</span><span class="p">(</span><span class="s1">&#39;AdminModules&#39;</span><span class="p">);</span>
-    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">currentIndex</span> <span class="o">=</span> <span class="nx">AdminController</span><span class="o">::</span><span class="nv">$currentIndex</span><span class="o">.</span><span class="s1">&#39;&amp;configure=&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
-    <span class="k">return</span> <span class="nv">$helper</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>This specific code generates this list:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">private</span> <span class="k">function</span> <span class="nf">initList</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fields_list</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;id_category&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Id&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;width&#39;</span> <span class="o">=&gt;</span> <span class="mi">140</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;width&#39;</span> <span class="o">=&gt;</span> <span class="mi">140</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HelperList</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">     
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">shopLinkType</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">     
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">simple_header</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">     
+</span></span><span class="line"><span class="cl">    <span class="c1">// Actions to be displayed in the &#34;Actions&#34; column
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">actions</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;edit&#39;</span><span class="p">,</span> <span class="s1">&#39;delete&#39;</span><span class="p">,</span> <span class="s1">&#39;view&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">     
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">identifier</span> <span class="o">=</span> <span class="s1">&#39;id_category&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">show_toolbar</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">title</span> <span class="o">=</span> <span class="s1">&#39;HelperList&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">table</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;_categories&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">     
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">token</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getAdminTokenLite</span><span class="p">(</span><span class="s1">&#39;AdminModules&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">currentIndex</span> <span class="o">=</span> <span class="nx">AdminController</span><span class="o">::</span><span class="nv">$currentIndex</span><span class="o">.</span><span class="s1">&#39;&amp;configure=&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$helper</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This specific code generates this list:</p>
 <p><img src="../img/helperlist-sample01.png" alt="Generated list"></p>
 
 <h2 id="enabling-specific-features">Enabling specific features<a href="#enabling-specific-features"></a></h2>
 <h3 id="sortable-header">Sortable header<a href="#sortable-header"></a></h3><p>By default, the list&rsquo;s header simply displays the name of each column.</p>
 <p>In order to make the column sortable and searchable, you only have to disable one option:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">simple_header</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
-</code></pre></div><p>By disabling the <code>simple_header option</code>, the list displays a more complex header:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">simple_header</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+</span></span></code></pre></div><p>By disabling the <code>simple_header option</code>, the list displays a more complex header:</p>
 <p><img src="../img/helperlist-sample02-sort.png" alt="Advanced header list"></p>
 
 <h2 id="adding-an-actions-column">Adding an &ldquo;Actions&rdquo; column<a href="#adding-an-actions-column"></a></h2><p>The above example directly builds a table with an action column, which comprises three actions: edit, delete, view.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">actions</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;edit&#39;</span><span class="p">,</span> <span class="s1">&#39;delete&#39;</span><span class="p">,</span> <span class="s1">&#39;view&#39;</span><span class="p">);</span>
-</code></pre></div><p>Note that they will not work out of the box: while the action icons are there and can be clicked, nothing will happen when the user clicks until you have assigned proper code to these actions.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">actions</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;edit&#39;</span><span class="p">,</span> <span class="s1">&#39;delete&#39;</span><span class="p">,</span> <span class="s1">&#39;view&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>Note that they will not work out of the box: while the action icons are there and can be clicked, nothing will happen when the user clicks until you have assigned proper code to these actions.</p>
 
 <h2 id="adding-a-details-row-action">Adding a &ldquo;Details&rdquo; row action<a href="#adding-a-details-row-action"></a></h2>
 <h3 id="principle">Principle<a href="#principle"></a></h3><p>You can define a &ldquo;Details&rdquo; action (or &ldquo;+&rdquo; action) in each row of a list. This action is useful if you want to show other information about the row (for example, the details of a sum).</p>
@@ -30416,40 +30416,40 @@ Values between {curly braces} list the possible values for this field.</p>
 </ul>
 
 <h5 id="add-the-action">Add the action<a href="#add-the-action"></a></h5><p>To add the &ldquo;Details&rdquo; action, use the following function in the target AdminController:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addRowAction</span><span class="p">(</span><span class="s1">&#39;details&#39;</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addRowAction</span><span class="p">(</span><span class="s1">&#39;details&#39;</span><span class="p">);</span>
+</span></span></code></pre></div>
 <h2 id="ajax-generalities">Ajax generalities<a href="#ajax-generalities"></a></h2><p>Ajax requests must be generated by the <code>ajaxProcess()</code> method in your AdminController.</p>
 <p>Only one element is sent to the request: the table row&rsquo;s id. You can get it by using:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
-</code></pre></div><p>This <code>id</code> is defined either in the <code>$identifier</code> class attribute, or by the table name (<code>$table</code> attribute), prefixed by <code>id_</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>This <code>id</code> is defined either in the <code>$identifier</code> class attribute, or by the table name (<code>$table</code> attribute), prefixed by <code>id_</code>.</p>
 <p>This function must display the result in JSON format.</p>
 
 <h3 id="performing-an-ajax-request-on-the-tables-structure">Performing an Ajax request on the table&rsquo;s structure<a href="#performing-an-ajax-request-on-the-tables-structure"></a></h3><p>The expected JSON format:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
-  <span class="nx">use_parent_structure</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>  <span class="c1">// Optional.
-</span><span class="c1"></span>  <span class="nx">data</span><span class="o">:</span>                        <span class="c1">// Here is the SQL result.
-</span><span class="c1"></span>  <span class="p">[</span>
-    <span class="p">{</span><span class="nx">field_name</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span><span class="p">}</span>
-  <span class="p">],</span>
-  <span class="nx">fields_display</span><span class="o">:</span>              <span class="c1">// $fieldsDisplay attribute for the AdminController.
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>Sample Ajax request code:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">ajaxProcess</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="nv">$query</span> <span class="o">=</span> <span class="s1">&#39;SELECT * FROM mytable&#39;</span><span class="p">;</span>
-  <span class="k">echo</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">jsonEncode</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
-    <span class="s1">&#39;data&#39;</span><span class="o">=&gt;</span> <span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">(</span><span class="nx">_PS_USE_SQL_SLAVE_</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">executeS</span><span class="p">(</span><span class="nv">$query</span><span class="p">),</span>
-    <span class="s1">&#39;fields_display&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fieldsDisplay</span>
-  <span class="p">));</span>
-  <span class="k">die</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">use_parent_structure</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>  <span class="c1">// Optional.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">data</span><span class="o">:</span>                        <span class="c1">// Here is the SQL result.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="nx">field_name</span><span class="o">:</span> <span class="s1">&#39;value&#39;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fields_display</span><span class="o">:</span>              <span class="c1">// $fieldsDisplay attribute for the AdminController.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>Sample Ajax request code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">ajaxProcess</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$query</span> <span class="o">=</span> <span class="s1">&#39;SELECT * FROM mytable&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">echo</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">jsonEncode</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;data&#39;</span><span class="o">=&gt;</span> <span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">(</span><span class="nx">_PS_USE_SQL_SLAVE_</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">executeS</span><span class="p">(</span><span class="nv">$query</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;fields_display&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fieldsDisplay</span>
+</span></span><span class="line"><span class="cl">  <span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="k">die</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="performing-an-ajax-request-using-your-own-structure">Performing an Ajax request using your own structure<a href="#performing-an-ajax-request-using-your-own-structure"></a></h3><p>The expected JSON format:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
-    <span class="nx">use_parent_structure</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;&lt;p&gt;My HTML content&lt;/p&gt;&#39;</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">use_parent_structure</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;&lt;p&gt;My HTML content&lt;/p&gt;&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30527,17 +30527,17 @@ Values between {curly braces} list the possible values for this field.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163891"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163891"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163891"></script>
-    <script src="/js/jquery.sticky.js?1703163891"></script>
-    <script src="/js/featherlight.min.js?1703163891"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163891"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163891"></script>
-    <script src="/js/learn.js?1703163891"></script>
-    <script src="/js/hugo-learn.js?1703163891"></script>
+    <script src="/js/clipboard.min.js?1703164719"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164719"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164719"></script>
+    <script src="/js/jquery.sticky.js?1703164719"></script>
+    <script src="/js/featherlight.min.js?1703164719"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164719"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164719"></script>
+    <script src="/js/learn.js?1703164719"></script>
+    <script src="/js/hugo-learn.js?1703164719"></script>
     
-    <script src="/main.js?1703163891"></script>
+    <script src="/main.js?1703164719"></script>
     
     
     

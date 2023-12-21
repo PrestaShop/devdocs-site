@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Forms :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163937" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163937" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163937" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163937" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164758" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164758" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164758" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164758" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163937" rel="stylesheet">
+    <link href="/style.css?1703164758" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163937"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164758"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -9555,7 +9555,7 @@
     
     
     <li data-nav-id="/8/modules/concepts/forms/" title="Forms" class="dd-item
-        parent
+        
         active currentPage
         
         isParent
@@ -9568,7 +9568,7 @@
           
 
           
-            <i class="fa fa-angle-up"></i>
+            <i class="fa fa-angle-down"></i>
           
       </a>
       
@@ -15486,88 +15486,88 @@
 <li><strong>setConstraint</strong>: Add a validation constraint to the field, call methods are those of the Validation class (ex isEmail)</li>
 </ul>
 <p>Here are all the possible types of fields:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">return</span> <span class="p">[</span>
-    <span class="c1">// Standard text field
-</span><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;first_name&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setRequired</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setValue</span><span class="p">(</span><span class="s2">&#34;John&#34;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setMaxLength</span><span class="p">(</span><span class="s2">&#34;128&#34;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Your first name&#39;</span><span class="p">)),</span>
-        
-    <span class="c1">// File field
-</span><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;file_upload&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Upload a document&#39;</span><span class="p">)),</span>
-        
-    <span class="c1">// Select field
-</span><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;select_field&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setAvailableValues</span><span class="p">([</span><span class="s1">&#39;key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value 1&#39;</span><span class="p">,</span> <span class="s1">&#39;key2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value2&#39;</span><span class="p">])</span>
-        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Select type&#39;</span><span class="p">)),</span>
-        
-    <span class="c1">// Country select field (like select but add a &#39;js js-country&#39; class)
-</span><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;country_field&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;countrySelect&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setAvailableValues</span><span class="p">([</span><span class="s1">&#39;key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value 1&#39;</span><span class="p">,</span> <span class="s1">&#39;key2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value2&#39;</span><span class="p">])</span>
-        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Country select&#39;</span><span class="p">)),</span>
-        
-    <span class="c1">// Checkbox field
-</span><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;checkbox_field&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;checkbox&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setValue</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Checkbox type&#39;</span><span class="p">)),</span>
-        
-    <span class="c1">// Radio buttons field
-</span><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;radio_field&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;radio-buttons&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setAvailableValues</span><span class="p">([</span><span class="s1">&#39;key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value 1&#39;</span><span class="p">,</span> <span class="s1">&#39;key2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value2&#39;</span><span class="p">])</span>
-        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Radio buttons type&#39;</span><span class="p">)),</span>
-        
-    <span class="c1">// Date field
-</span><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;date_field&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)),</span>
-        
-    <span class="c1">// Birthday field
-</span><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;birthday_field&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;birthday&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Birthday&#39;</span><span class="p">)),</span>
-        
-    <span class="c1">// Password field
-</span><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;password_field&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Password&#39;</span><span class="p">)),</span>
-        
-    <span class="c1">// Email field
-</span><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;email_field&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Email type&#39;</span><span class="p">)),</span>
-        
-    <span class="c1">// Phone field
-</span><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;phone_field&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;phone&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Phone type&#39;</span><span class="p">)),</span>
-        
-    <span class="c1">// Hidden field
-</span><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;hidden_field&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;hidden&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">setValue</span><span class="p">(</span><span class="s1">&#39;My hidden value&#39;</span><span class="p">)</span>
-<span class="p">];</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Standard text field
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;first_name&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;text&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setRequired</span><span class="p">(</span><span class="k">true</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setValue</span><span class="p">(</span><span class="s2">&#34;John&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setMaxLength</span><span class="p">(</span><span class="s2">&#34;128&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Your first name&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="c1">// File field
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;file_upload&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;file&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Upload a document&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="c1">// Select field
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;select_field&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setAvailableValues</span><span class="p">([</span><span class="s1">&#39;key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value 1&#39;</span><span class="p">,</span> <span class="s1">&#39;key2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value2&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Select type&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="c1">// Country select field (like select but add a &#39;js js-country&#39; class)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;country_field&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;countrySelect&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setAvailableValues</span><span class="p">([</span><span class="s1">&#39;key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value 1&#39;</span><span class="p">,</span> <span class="s1">&#39;key2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value2&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Country select&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="c1">// Checkbox field
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;checkbox_field&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;checkbox&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setValue</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Checkbox type&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="c1">// Radio buttons field
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;radio_field&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;radio-buttons&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setAvailableValues</span><span class="p">([</span><span class="s1">&#39;key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value 1&#39;</span><span class="p">,</span> <span class="s1">&#39;key2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;value2&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Radio buttons type&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="c1">// Date field
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;date_field&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;date&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="c1">// Birthday field
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;birthday_field&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;birthday&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Birthday&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="c1">// Password field
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;password_field&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Password&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="c1">// Email field
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;email_field&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Email type&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="c1">// Phone field
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;phone_field&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;phone&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setLabel</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Phone type&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="c1">// Hidden field
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">(</span><span class="k">new</span> <span class="nx">FormField</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="s1">&#39;hidden_field&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setType</span><span class="p">(</span><span class="s1">&#39;hidden&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">setValue</span><span class="p">(</span><span class="s1">&#39;My hidden value&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span></code></pre></div>
 
 
 
@@ -15664,17 +15664,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163937"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163937"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163937"></script>
-    <script src="/js/jquery.sticky.js?1703163937"></script>
-    <script src="/js/featherlight.min.js?1703163937"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163937"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163937"></script>
-    <script src="/js/learn.js?1703163937"></script>
-    <script src="/js/hugo-learn.js?1703163937"></script>
+    <script src="/js/clipboard.min.js?1703164758"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164758"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164758"></script>
+    <script src="/js/jquery.sticky.js?1703164758"></script>
+    <script src="/js/featherlight.min.js?1703164758"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164758"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164758"></script>
+    <script src="/js/learn.js?1703164758"></script>
+    <script src="/js/hugo-learn.js?1703164758"></script>
     
-    <script src="/main.js?1703163937"></script>
+    <script src="/main.js?1703164758"></script>
     
     
     

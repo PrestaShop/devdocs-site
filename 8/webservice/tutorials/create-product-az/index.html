@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Create a product from start to finish with Webservices :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163931" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163931" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163931" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163931" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164752" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164752" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164752" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164752" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163931" rel="stylesheet">
+    <link href="/style.css?1703164752" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163931"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164752"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33138,78 +33138,78 @@
 <p>You have to send a request for each <code>Manufacturer</code> and <code>Supplier</code> to the Webservices before creating your <code>Product</code>.</p>
 
 <h3 id="create-a-manufacturer">Create a Manufacturer<a href="#create-a-manufacturer"></a></h3><p>Send a <code>POST</code> request to <code>/api/manufacturers</code> with the following body:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;manufacturer&gt;</span>
-        <span class="nt">&lt;name&gt;</span>ACMEManufacturer<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;/manufacturer&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><p>Retrieve the newly created manufacturer <code>ID</code> from the Webservices&rsquo;s response:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;manufacturer&gt;</span>
-        <span class="nt">&lt;id&gt;</span>
-            <span class="cp">&lt;![CDATA[4]]&gt;</span>
-        <span class="nt">&lt;/id&gt;</span>
-        <span class="nt">&lt;active&gt;</span>
-            <span class="cp">&lt;![CDATA[]]&gt;</span>
-        <span class="nt">&lt;/active&gt;</span>
-        <span class="nt">&lt;link_rewrite</span> <span class="na">notFilterable=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
-            <span class="cp">&lt;![CDATA[acmemanufacturer]]&gt;</span>
-        <span class="nt">&lt;/link_rewrite&gt;</span>
-        <span class="nt">&lt;name&gt;</span>
-            <span class="cp">&lt;![CDATA[ACMEManufacturer]]&gt;</span>
-        <span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;date_add&gt;</span>
-            <span class="cp">&lt;![CDATA[2023-08-07 09:31:06]]&gt;</span>
-        <span class="nt">&lt;/date_add&gt;</span>
-        <span class="nt">&lt;date_upd&gt;</span>
-            <span class="cp">&lt;![CDATA[2023-08-07 09:31:06]]&gt;</span>
-        <span class="nt">&lt;/date_upd&gt;</span>
-        <span class="nt">&lt;description&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span>
-                <span class="cp">&lt;![CDATA[]]&gt;</span>
-            <span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/description&gt;</span>
-        <span class="nt">&lt;short_description&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span>
-                <span class="cp">&lt;![CDATA[]]&gt;</span>
-            <span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/short_description&gt;</span>
-        <span class="nt">&lt;meta_title&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span>
-                <span class="cp">&lt;![CDATA[]]&gt;</span>
-            <span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/meta_title&gt;</span>
-        <span class="nt">&lt;meta_description&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span>
-                <span class="cp">&lt;![CDATA[]]&gt;</span>
-            <span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/meta_description&gt;</span>
-        <span class="nt">&lt;meta_keywords&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span>
-                <span class="cp">&lt;![CDATA[]]&gt;</span>
-            <span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/meta_keywords&gt;</span>
-        <span class="nt">&lt;associations&gt;</span>
-            <span class="nt">&lt;addresses</span> <span class="na">nodeType=</span><span class="s">&#34;address&#34;</span> <span class="na">api=</span><span class="s">&#34;addresses&#34;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;/associations&gt;</span>
-    <span class="nt">&lt;/manufacturer&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;manufacturer&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>ACMEManufacturer<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/manufacturer&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div><p>Retrieve the newly created manufacturer <code>ID</code> from the Webservices&rsquo;s response:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;manufacturer&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="cp">&lt;![CDATA[4]]&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;active&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="cp">&lt;![CDATA[]]&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/active&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;link_rewrite</span> <span class="na">notFilterable=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="cp">&lt;![CDATA[acmemanufacturer]]&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/link_rewrite&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="cp">&lt;![CDATA[ACMEManufacturer]]&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;date_add&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="cp">&lt;![CDATA[2023-08-07 09:31:06]]&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/date_add&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;date_upd&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="cp">&lt;![CDATA[2023-08-07 09:31:06]]&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/date_upd&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;description&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;short_description&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/short_description&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;meta_title&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/meta_title&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;meta_description&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/meta_description&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;meta_keywords&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/meta_keywords&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;associations&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;addresses</span> <span class="na">nodeType=</span><span class="s">&#34;address&#34;</span> <span class="na">api=</span><span class="s">&#34;addresses&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/associations&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/manufacturer&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <div class="notices note" ><p>Related request in the Postman collection:</p>
 <p>1 - Create manufacturer</p>
 </div>
 
 
 <h3 id="create-a-supplier">Create a Supplier<a href="#create-a-supplier"></a></h3><p>Send a <code>POST</code> request to <code>/api/suppliers</code> with the following body:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;supplier&gt;</span>
-        <span class="nt">&lt;name&gt;</span>ACMESupplier<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;/supplier&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><p>Retrieve the newly created supplier <code>ID</code> from the Webservices&rsquo;s response.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;supplier&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>ACMESupplier<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/supplier&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div><p>Retrieve the newly created supplier <code>ID</code> from the Webservices&rsquo;s response.</p>
 
 <div class="notices note" ><p>Related request in the Postman collection:</p>
 <p>2 - Create supplier</p>
@@ -33218,23 +33218,23 @@
 
 <h2 id="create-a-category-for-our-product">Create a Category for our Product<a href="#create-a-category-for-our-product"></a></h2><p>Let&rsquo;s create a designated <code>Category</code> for our <code>Product</code>.</p>
 <p>Send a <code>POST</code> request to <code>/api/categories</code> with the following body:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;category&gt;</span>
-    <span class="nt">&lt;name&gt;</span>
-        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Category demo]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-    <span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;link_rewrite&gt;</span>
-        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[category-demo]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-    <span class="nt">&lt;/link_rewrite&gt;</span>
-    <span class="nt">&lt;description&gt;</span>
-        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[my awesome category description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-    <span class="nt">&lt;/description&gt;</span>
-    <span class="nt">&lt;active&gt;</span>1<span class="nt">&lt;/active&gt;</span>
-    <span class="nt">&lt;id_parent&gt;</span>1<span class="nt">&lt;/id_parent&gt;</span>
-<span class="nt">&lt;/category&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><p>Ensure the provided <code>Language</code> ID corresponds to your <code>Language</code> ID in your back office.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;category&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Category demo]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;link_rewrite&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[category-demo]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/link_rewrite&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;description&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[my awesome category description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;active&gt;</span>1<span class="nt">&lt;/active&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;id_parent&gt;</span>1<span class="nt">&lt;/id_parent&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/category&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div><p>Ensure the provided <code>Language</code> ID corresponds to your <code>Language</code> ID in your back office.</p>
 <p>Retrieve the newly created category <code>ID</code> from the Webservices&rsquo;s response.</p>
 
 <div class="notices note" ><p>Related request in the Postman collection:</p>
@@ -33244,56 +33244,56 @@
 
 <h2 id="create-the-product">Create the Product<a href="#create-the-product"></a></h2><p>Now that the required dependencies are in place, we can move forward with crafting the minimum viable product.</p>
 <p>Send a <code>POST</code> request to <code>/api/products</code> with the following body:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;product&gt;</span>
-    <span class="nt">&lt;id_manufacturer&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_manufacturer&gt;</span>
-    <span class="nt">&lt;id_supplier&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_supplier&gt;</span>
-    <span class="nt">&lt;id_category_default&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_category_default&gt;</span>
-    <span class="nt">&lt;new&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/new&gt;</span>
-    <span class="nt">&lt;id_default_combination&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_default_combination&gt;</span>
-    <span class="nt">&lt;id_tax_rules_group&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_tax_rules_group&gt;</span>
-    <span class="nt">&lt;type&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/type&gt;</span>
-    <span class="nt">&lt;id_shop_default&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_shop_default&gt;</span>
-    <span class="nt">&lt;reference&gt;</span><span class="cp">&lt;![CDATA[123456]]&gt;</span><span class="nt">&lt;/reference&gt;</span>
-    <span class="nt">&lt;supplier_reference&gt;</span><span class="cp">&lt;![CDATA[ABCDEF]]&gt;</span><span class="nt">&lt;/supplier_reference&gt;</span>
-    <span class="nt">&lt;ean13&gt;</span><span class="cp">&lt;![CDATA[1231231231231]]&gt;</span><span class="nt">&lt;/ean13&gt;</span>
-    <span class="nt">&lt;state&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/state&gt;</span>
-    <span class="nt">&lt;product_type&gt;</span><span class="cp">&lt;![CDATA[standard]]&gt;</span><span class="nt">&lt;/product_type&gt;</span>
-    <span class="nt">&lt;price&gt;</span><span class="cp">&lt;![CDATA[123.45]]&gt;</span><span class="nt">&lt;/price&gt;</span>
-    <span class="nt">&lt;unit_price&gt;</span><span class="cp">&lt;![CDATA[123.45]]&gt;</span><span class="nt">&lt;/unit_price&gt;</span>
-    <span class="nt">&lt;active&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/active&gt;</span>
-    <span class="nt">&lt;meta_description&gt;</span>
-        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-    <span class="nt">&lt;/meta_description&gt;</span>
-    <span class="nt">&lt;meta_keywords&gt;</span>
-        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Keywords]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-    <span class="nt">&lt;/meta_keywords&gt;</span>
-    <span class="nt">&lt;meta_title&gt;</span>
-        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[My Title for SEO]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-    <span class="nt">&lt;/meta_title&gt;</span>
-    <span class="nt">&lt;link_rewrite&gt;</span>
-        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[awesome-product]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-    <span class="nt">&lt;/link_rewrite&gt;</span>
-    <span class="nt">&lt;name&gt;</span>
-        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[My awesome Product]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-    <span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;description&gt;</span>
-        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-    <span class="nt">&lt;/description&gt;</span>
-    <span class="nt">&lt;description_short&gt;</span>
-        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Short description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-    <span class="nt">&lt;/description_short&gt;</span>
-    <span class="nt">&lt;associations&gt;</span>
-        <span class="nt">&lt;categories&gt;</span>
-            <span class="nt">&lt;category&gt;</span>
-                <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id&gt;</span>
-            <span class="nt">&lt;/category&gt;</span>
-        <span class="nt">&lt;/categories&gt;</span>
-    <span class="nt">&lt;/associations&gt;</span>
-<span class="nt">&lt;/product&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><p>Replace <code>id_manufacturer</code>, <code>id_supplier</code>, <code>id_category_default</code>, <code>associations &gt; categories &gt; category &gt; id</code> with the retrieved IDs from the previously created entities.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;product&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;id_manufacturer&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_manufacturer&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;id_supplier&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_supplier&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;id_category_default&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_category_default&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;new&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/new&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;id_default_combination&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_default_combination&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;id_tax_rules_group&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_tax_rules_group&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;type&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/type&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;id_shop_default&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_shop_default&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;reference&gt;</span><span class="cp">&lt;![CDATA[123456]]&gt;</span><span class="nt">&lt;/reference&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;supplier_reference&gt;</span><span class="cp">&lt;![CDATA[ABCDEF]]&gt;</span><span class="nt">&lt;/supplier_reference&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;ean13&gt;</span><span class="cp">&lt;![CDATA[1231231231231]]&gt;</span><span class="nt">&lt;/ean13&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;state&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/state&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;product_type&gt;</span><span class="cp">&lt;![CDATA[standard]]&gt;</span><span class="nt">&lt;/product_type&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;price&gt;</span><span class="cp">&lt;![CDATA[123.45]]&gt;</span><span class="nt">&lt;/price&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;unit_price&gt;</span><span class="cp">&lt;![CDATA[123.45]]&gt;</span><span class="nt">&lt;/unit_price&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;active&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/active&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;meta_description&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/meta_description&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;meta_keywords&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Keywords]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/meta_keywords&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;meta_title&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[My Title for SEO]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/meta_title&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;link_rewrite&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[awesome-product]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/link_rewrite&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[My awesome Product]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;description&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;description_short&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Short description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/description_short&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;associations&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;categories&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;category&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/category&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/categories&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/associations&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/product&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div><p>Replace <code>id_manufacturer</code>, <code>id_supplier</code>, <code>id_category_default</code>, <code>associations &gt; categories &gt; category &gt; id</code> with the retrieved IDs from the previously created entities.</p>
 <p>This will create a <code>Product</code>, of type: <code>ProductType::TYPE_STANDARD</code>, associated with the <code>Shop</code> with <code>id:1</code>.</p>
 
 <div class="notices note" ><p>Related request in the Postman collection:</p>
@@ -33315,50 +33315,50 @@
 <p>5 - Get stock available</p>
 </div>
 
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;stock_availables&gt;</span>
-        <span class="nt">&lt;stock_available&gt;</span>
-            <span class="nt">&lt;id&gt;</span>
-                <span class="cp">&lt;![CDATA[67]]&gt;</span>
-            <span class="nt">&lt;/id&gt;</span>
-            <span class="nt">&lt;id_product</span> <span class="na">xlink:href=</span><span class="s">&#34;http://localhost:8080/api/products/27&#34;</span><span class="nt">&gt;</span>
-                <span class="cp">&lt;![CDATA[27]]&gt;</span>
-            <span class="nt">&lt;/id_product&gt;</span>
-            <span class="nt">&lt;id_product_attribute&gt;</span>
-                <span class="cp">&lt;![CDATA[0]]&gt;</span>
-            <span class="nt">&lt;/id_product_attribute&gt;</span>
-            <span class="nt">&lt;id_shop</span> <span class="na">xlink:href=</span><span class="s">&#34;http://localhost:8080/api/shops/1&#34;</span><span class="nt">&gt;</span>
-                <span class="cp">&lt;![CDATA[1]]&gt;</span>
-            <span class="nt">&lt;/id_shop&gt;</span>
-            <span class="nt">&lt;id_shop_group&gt;</span>
-                <span class="cp">&lt;![CDATA[0]]&gt;</span>
-            <span class="nt">&lt;/id_shop_group&gt;</span>
-            <span class="nt">&lt;quantity&gt;</span>
-                <span class="cp">&lt;![CDATA[0]]&gt;</span>
-            <span class="nt">&lt;/quantity&gt;</span>
-            <span class="nt">&lt;depends_on_stock&gt;</span>
-                <span class="cp">&lt;![CDATA[0]]&gt;</span>
-            <span class="nt">&lt;/depends_on_stock&gt;</span>
-            <span class="nt">&lt;out_of_stock&gt;</span>
-                <span class="cp">&lt;![CDATA[2]]&gt;</span>
-            <span class="nt">&lt;/out_of_stock&gt;</span>
-            <span class="nt">&lt;location&gt;</span>
-                <span class="cp">&lt;![CDATA[]]&gt;</span>
-            <span class="nt">&lt;/location&gt;</span>
-        <span class="nt">&lt;/stock_available&gt;</span>
-    <span class="nt">&lt;/stock_availables&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><p>You can update the available quantities by sending a <code>PATCH</code> request to <code>/api/stock_availables/{{id}}</code> (with <code>{{id}}</code> the previously retrieved stock_available entity id).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;stock_availables&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;stock_available&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;id&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[67]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;id_product</span> <span class="na">xlink:href=</span><span class="s">&#34;http://localhost:8080/api/products/27&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[27]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/id_product&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;id_product_attribute&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[0]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/id_product_attribute&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;id_shop</span> <span class="na">xlink:href=</span><span class="s">&#34;http://localhost:8080/api/shops/1&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[1]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/id_shop&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;id_shop_group&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[0]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/id_shop_group&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;quantity&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[0]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/quantity&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;depends_on_stock&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[0]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/depends_on_stock&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;out_of_stock&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[2]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/out_of_stock&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;location&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="cp">&lt;![CDATA[]]&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/location&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/stock_available&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/stock_availables&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div><p>You can update the available quantities by sending a <code>PATCH</code> request to <code>/api/stock_availables/{{id}}</code> (with <code>{{id}}</code> the previously retrieved stock_available entity id).</p>
 <p>In this example, the returned stock_available entity id was: <code>67</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;stock_available&gt;</span>
-        <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[67]]&gt;</span><span class="nt">&lt;/id&gt;</span>
-        <span class="nt">&lt;quantity&gt;</span><span class="cp">&lt;![CDATA[10]]&gt;</span><span class="nt">&lt;/quantity&gt;</span>
-    <span class="nt">&lt;/stock_available&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;stock_available&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[67]]&gt;</span><span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;quantity&gt;</span><span class="cp">&lt;![CDATA[10]]&gt;</span><span class="nt">&lt;/quantity&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/stock_available&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <div class="notices note" ><p>Related request in the Postman collection:</p>
 <p>5 - Update stock available</p>
 </div>
@@ -33388,41 +33388,41 @@
 <li><code>id:2</code> - French</li>
 </ul>
 <p>You can add translations for your multi-lang fields on your <code>Product</code> by sending a <code>PATCH</code> request on <code>/api/products/{{id}}</code> (with <code>{{id}}</code> your product id) with this body:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;product&gt;</span>
-        <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[{{id}}]]&gt;</span><span class="nt">&lt;/id&gt;</span>
-        <span class="nt">&lt;meta_description&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Meta English description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description meta en français]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/meta_description&gt;</span>
-        <span class="nt">&lt;meta_keywords&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[EN keyworkds]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Mots clés FR]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/meta_keywords&gt;</span>
-        <span class="nt">&lt;meta_title&gt;</span>    
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[English Title]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Titre en Francais]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/meta_title&gt;</span>
-        <span class="nt">&lt;link_rewrite&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[english-title]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[titre-francais]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/link_rewrite&gt;</span>
-        <span class="nt">&lt;name&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Product name]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Nom du produit]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;description&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[English Description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description en français]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/description&gt;</span>
-        <span class="nt">&lt;description_short&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Short English description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description courte en français]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/description_short&gt;</span>
-    <span class="nt">&lt;/product&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;product&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[{{id}}]]&gt;</span><span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;meta_description&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Meta English description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description meta en français]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/meta_description&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;meta_keywords&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[EN keyworkds]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Mots clés FR]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/meta_keywords&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;meta_title&gt;</span>    
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[English Title]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Titre en Francais]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/meta_title&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;link_rewrite&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[english-title]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[titre-francais]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/link_rewrite&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Product name]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Nom du produit]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;description&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[English Description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description en français]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;description_short&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Short English description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description courte en français]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/description_short&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/product&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <div class="notices note" ><p>Related request in the Postman collection:</p>
 <p>7 - Update multi-lang fields</p>
 </div>
@@ -33434,52 +33434,52 @@
 <p>You need to retrieve the ID of the <code>Feature Value</code>.</p>
 
 <h3 id="create-a-feature-and-a-feature-value">Create a Feature and a Feature Value<a href="#create-a-feature-and-a-feature-value"></a></h3><p>To create a new <code>Feature</code>, send a <code>POST</code> request to <code>/api/product_features</code> with the following body:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;product_feature&gt;</span>
-        <span class="nt">&lt;name&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[{{feature_name}}]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;/product_feature&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;product_feature&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[{{feature_name}}]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/product_feature&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <div class="notices note" ><p>Related request in the Postman collection:</p>
 <p>12 - Create Feature</p>
 </div>
 
 <p>Retrieve the <code>id</code> of the <code>Feature</code> created, and create your <code>Feature Value</code> by sending a <code>POST</code> request to <code>/api/product_feature_values</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;product_feature_value&gt;</span>
-        <span class="nt">&lt;id_feature&gt;</span><span class="cp">&lt;![CDATA[{{id_feature}}]]&gt;</span><span class="nt">&lt;/id_feature&gt;</span>
-        <span class="nt">&lt;value&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[{{value}}]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/value&gt;</span>
-    <span class="nt">&lt;/product_feature_value&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;product_feature_value&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_feature&gt;</span><span class="cp">&lt;![CDATA[{{id_feature}}]]&gt;</span><span class="nt">&lt;/id_feature&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;value&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[{{value}}]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/product_feature_value&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <div class="notices note" ><p>Related request in the Postman collection:</p>
 <p>13 - Create Feature value</p>
 </div>
 
 
 <h3 id="associate-your-feature-value-to-your-product">Associate your Feature Value to your Product<a href="#associate-your-feature-value-to-your-product"></a></h3><p>When creating or updating a <code>Product</code>, fill the <code>associations &gt; product_features &gt; product_feature</code> node with the <code>ID</code> of the  <code>Feature</code> and the <code>ID</code> of the <code>Feature Value</code> retrieved from the Back Office or created with the webservice.</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;product&gt;</span>
-        [...]
-	    <span class="nt">&lt;associations&gt;</span>
-            <span class="nt">&lt;product_features&gt;</span>
-                <span class="nt">&lt;product_feature&gt;</span>
-                    <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[{{id_feature}}]]&gt;</span><span class="nt">&lt;/id&gt;</span>
-                    <span class="nt">&lt;id_feature_value&gt;</span><span class="cp">&lt;![CDATA[{{id_feature_value}}]]&gt;</span><span class="nt">&lt;/id_feature_value&gt;</span>
-                <span class="nt">&lt;/product_feature&gt;</span>
-            <span class="nt">&lt;/product_features&gt;</span>
-        <span class="nt">&lt;/associations&gt;</span>
-        [...]
-    <span class="nt">&lt;/product&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;product&gt;</span>
+</span></span><span class="line"><span class="cl">        [...]
+</span></span><span class="line"><span class="cl">	    <span class="nt">&lt;associations&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;product_features&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;product_feature&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[{{id_feature}}]]&gt;</span><span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&lt;id_feature_value&gt;</span><span class="cp">&lt;![CDATA[{{id_feature_value}}]]&gt;</span><span class="nt">&lt;/id_feature_value&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;/product_feature&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/product_features&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/associations&gt;</span>
+</span></span><span class="line"><span class="cl">        [...]
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/product&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <div class="notices note" ><p>Related request in the Postman collection:</p>
 <p>14 - Associate Feature to Product</p>
 </div>
@@ -33490,56 +33490,56 @@
 
 <h3 id="create-the-product-1">Create the Product<a href="#create-the-product-1"></a></h3><p>Change XML body of the <a href="#create-the-product">Product creation request</a>. Modify <code>&lt;product_type&gt;</code> node, and replace <code>standard</code> with <code>combinations</code>.</p>
 <p>Send a <code>POST</code> request to <code>/api/products</code> with the following body:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;product&gt;</span>
-        <span class="nt">&lt;id_manufacturer&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_manufacturer&gt;</span>
-        <span class="nt">&lt;id_supplier&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_supplier&gt;</span>
-        <span class="nt">&lt;id_category_default&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_category_default&gt;</span>
-        <span class="nt">&lt;new&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/new&gt;</span>
-        <span class="nt">&lt;id_default_combination&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_default_combination&gt;</span>
-        <span class="nt">&lt;id_tax_rules_group&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_tax_rules_group&gt;</span>
-        <span class="nt">&lt;type&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/type&gt;</span>
-        <span class="nt">&lt;id_shop_default&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_shop_default&gt;</span>
-        <span class="nt">&lt;reference&gt;</span><span class="cp">&lt;![CDATA[123456]]&gt;</span><span class="nt">&lt;/reference&gt;</span>
-        <span class="nt">&lt;supplier_reference&gt;</span><span class="cp">&lt;![CDATA[ABCDEF]]&gt;</span><span class="nt">&lt;/supplier_reference&gt;</span>
-        <span class="nt">&lt;ean13&gt;</span><span class="cp">&lt;![CDATA[1231231231231]]&gt;</span><span class="nt">&lt;/ean13&gt;</span>
-        <span class="nt">&lt;state&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/state&gt;</span>
-        <span class="nt">&lt;product_type&gt;</span><span class="cp">&lt;![CDATA[combinations]]&gt;</span><span class="nt">&lt;/product_type&gt;</span>
-        <span class="nt">&lt;price&gt;</span><span class="cp">&lt;![CDATA[123.45]]&gt;</span><span class="nt">&lt;/price&gt;</span>
-        <span class="nt">&lt;unit_price&gt;</span><span class="cp">&lt;![CDATA[123.45]]&gt;</span><span class="nt">&lt;/unit_price&gt;</span>
-        <span class="nt">&lt;active&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/active&gt;</span>
-        <span class="nt">&lt;meta_description&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/meta_description&gt;</span>
-        <span class="nt">&lt;meta_keywords&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Keywords]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/meta_keywords&gt;</span>
-        <span class="nt">&lt;meta_title&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[My Title for SEO]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/meta_title&gt;</span>
-        <span class="nt">&lt;link_rewrite&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[awesome-product]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/link_rewrite&gt;</span>
-        <span class="nt">&lt;name&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[My awesome Product with combinations]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;description&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/description&gt;</span>
-        <span class="nt">&lt;description_short&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Short description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/description_short&gt;</span>
-        <span class="nt">&lt;associations&gt;</span>
-            <span class="nt">&lt;categories&gt;</span>
-                <span class="nt">&lt;category&gt;</span>
-                    <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id&gt;</span>
-                <span class="nt">&lt;/category&gt;</span>
-            <span class="nt">&lt;/categories&gt;</span>
-        <span class="nt">&lt;/associations&gt;</span>
-    <span class="nt">&lt;/product&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;product&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_manufacturer&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_manufacturer&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_supplier&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_supplier&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_category_default&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_category_default&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;new&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/new&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_default_combination&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_default_combination&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_tax_rules_group&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_tax_rules_group&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;type&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/type&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_shop_default&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_shop_default&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;reference&gt;</span><span class="cp">&lt;![CDATA[123456]]&gt;</span><span class="nt">&lt;/reference&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;supplier_reference&gt;</span><span class="cp">&lt;![CDATA[ABCDEF]]&gt;</span><span class="nt">&lt;/supplier_reference&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;ean13&gt;</span><span class="cp">&lt;![CDATA[1231231231231]]&gt;</span><span class="nt">&lt;/ean13&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;state&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/state&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;product_type&gt;</span><span class="cp">&lt;![CDATA[combinations]]&gt;</span><span class="nt">&lt;/product_type&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;price&gt;</span><span class="cp">&lt;![CDATA[123.45]]&gt;</span><span class="nt">&lt;/price&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;unit_price&gt;</span><span class="cp">&lt;![CDATA[123.45]]&gt;</span><span class="nt">&lt;/unit_price&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;active&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/active&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;meta_description&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/meta_description&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;meta_keywords&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Keywords]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/meta_keywords&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;meta_title&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[My Title for SEO]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/meta_title&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;link_rewrite&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[awesome-product]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/link_rewrite&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[My awesome Product with combinations]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;description&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;description_short&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[Short description]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/description_short&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;associations&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;categories&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;category&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;/category&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/categories&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/associations&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/product&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <div class="notices note" ><p>Related request in the Postman collection:</p>
 <p>8 - Create Combination Product</p>
 </div>
@@ -33550,20 +33550,20 @@
 <p>You need to retrieve the ID of the <code>Attribute Value</code>.</p>
 
 <h4 id="create-an-attribute-and-attribute-value">Create an Attribute and Attribute Value<a href="#create-an-attribute-and-attribute-value"></a></h4><p>To create a new <code>Attribute</code>, send a <code>POST</code> request to <code>/api/product_options</code> with the following body:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;product_option&gt;</span>
-        <span class="nt">&lt;is_color_group&gt;</span><span class="cp">&lt;![CDATA[0]]&gt;</span><span class="nt">&lt;/is_color_group&gt;</span>
-        <span class="nt">&lt;group_type&gt;</span><span class="cp">&lt;![CDATA[select]]&gt;</span><span class="nt">&lt;/group_type&gt;</span>
-        <span class="nt">&lt;name&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[{{attribute_name}}]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;public_name&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[{{attribute_name}}]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/public_name&gt;</span>
-    <span class="nt">&lt;/product_option&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;product_option&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;is_color_group&gt;</span><span class="cp">&lt;![CDATA[0]]&gt;</span><span class="nt">&lt;/is_color_group&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;group_type&gt;</span><span class="cp">&lt;![CDATA[select]]&gt;</span><span class="nt">&lt;/group_type&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[{{attribute_name}}]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;public_name&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[{{attribute_name}}]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/public_name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/product_option&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <div class="notices note" ><p>Related request in the Postman collection:</p>
 <p>9 - Create Product option</p>
 </div>
@@ -33571,41 +33571,41 @@
 <p>For the <code>group_type</code> attribute, you can choose between <code>radio</code> (radio input type) or <code>select</code> (select / option input type).
 You can also choose <code>color</code> for this attribute, and set <code>is_color_group</code> to <code>1</code> to make your <code>Attribute</code> a swatch to select colors.</p>
 <p>Retrieve the <code>id</code> of the <code>Attribute</code> created, and create your <code>Attribute Values</code> by sending a <code>POST</code> request to <code>/api/product_option_values</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;product_option_value&gt;</span>
-        <span class="nt">&lt;id_attribute_group&gt;</span><span class="cp">&lt;![CDATA[{{id_product_attribute}}]]&gt;</span><span class="nt">&lt;/id_attribute_group&gt;</span>
-        <span class="nt">&lt;name&gt;</span>
-            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[{{attribute_value_name}}]]&gt;</span><span class="nt">&lt;/language&gt;</span>
-        <span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;/product_option_value&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;product_option_value&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_attribute_group&gt;</span><span class="cp">&lt;![CDATA[{{id_product_attribute}}]]&gt;</span><span class="nt">&lt;/id_attribute_group&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;language</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[{{attribute_value_name}}]]&gt;</span><span class="nt">&lt;/language&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/product_option_value&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <div class="notices note" ><p>Related request in the Postman collection:</p>
 <p>10 - Create Product option value</p>
 </div>
 
 
 <h3 id="create-the-combinations">Create the Combinations<a href="#create-the-combinations"></a></h3><p>Send as many <code>POST</code> requests to <code>/api/combinations</code> as combinations to be created. Use <code>{{id_product}}</code> of your previously created <code>Product</code>, and <code>{{id_product_attribute_value}}</code> previously retrieved (from existing values in the Back Office or created with the webservice).</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;combination&gt;</span>
-        <span class="nt">&lt;id_product&gt;</span><span class="cp">&lt;![CDATA[{{id_product}}]]&gt;</span><span class="nt">&lt;/id_product&gt;</span>
-        <span class="nt">&lt;ean13&gt;</span><span class="cp">&lt;![CDATA[1234567890123]]&gt;</span><span class="nt">&lt;/ean13&gt;</span>
-        <span class="nt">&lt;mpn&gt;</span><span class="cp">&lt;![CDATA[123456]]&gt;</span><span class="nt">&lt;/mpn&gt;</span>
-        <span class="nt">&lt;reference&gt;</span><span class="cp">&lt;![CDATA[demo_1]]&gt;</span><span class="nt">&lt;/reference&gt;</span>
-        <span class="nt">&lt;supplier_reference&gt;</span><span class="cp">&lt;![CDATA[mfr_1]]&gt;</span><span class="nt">&lt;/supplier_reference&gt;</span>
-        <span class="nt">&lt;price&gt;</span><span class="cp">&lt;![CDATA[10.000000]]&gt;</span><span class="nt">&lt;/price&gt;</span>
-        <span class="nt">&lt;associations&gt;</span>
-            <span class="nt">&lt;product_option_values</span> <span class="na">nodeType=</span><span class="s">&#34;product_option_value&#34;</span> <span class="na">api=</span><span class="s">&#34;product_option_values&#34;</span><span class="nt">&gt;</span>
-                <span class="nt">&lt;product_option_value&gt;</span>
-                    <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[{{id_product_attribute_value}}]]&gt;</span><span class="nt">&lt;/id&gt;</span>
-                <span class="nt">&lt;/product_option_value&gt;</span>
-            <span class="nt">&lt;/product_option_values&gt;</span>
-        <span class="nt">&lt;/associations&gt;</span>
-    <span class="nt">&lt;/combination&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;combination&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_product&gt;</span><span class="cp">&lt;![CDATA[{{id_product}}]]&gt;</span><span class="nt">&lt;/id_product&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;ean13&gt;</span><span class="cp">&lt;![CDATA[1234567890123]]&gt;</span><span class="nt">&lt;/ean13&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;mpn&gt;</span><span class="cp">&lt;![CDATA[123456]]&gt;</span><span class="nt">&lt;/mpn&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;reference&gt;</span><span class="cp">&lt;![CDATA[demo_1]]&gt;</span><span class="nt">&lt;/reference&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;supplier_reference&gt;</span><span class="cp">&lt;![CDATA[mfr_1]]&gt;</span><span class="nt">&lt;/supplier_reference&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;price&gt;</span><span class="cp">&lt;![CDATA[10.000000]]&gt;</span><span class="nt">&lt;/price&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;associations&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;product_option_values</span> <span class="na">nodeType=</span><span class="s">&#34;product_option_value&#34;</span> <span class="na">api=</span><span class="s">&#34;product_option_values&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;product_option_value&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[{{id_product_attribute_value}}]]&gt;</span><span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;/product_option_value&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/product_option_values&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/associations&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/combination&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <div class="notices note" ><p>Related request in the Postman collection:</p>
 <p>11 - Create Combinations</p>
 </div>
@@ -33693,17 +33693,17 @@ You can also choose <code>color</code> for this attribute, and set <code>is_colo
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163931"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163931"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163931"></script>
-    <script src="/js/jquery.sticky.js?1703163931"></script>
-    <script src="/js/featherlight.min.js?1703163931"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163931"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163931"></script>
-    <script src="/js/learn.js?1703163931"></script>
-    <script src="/js/hugo-learn.js?1703163931"></script>
+    <script src="/js/clipboard.min.js?1703164752"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164752"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164752"></script>
+    <script src="/js/jquery.sticky.js?1703164752"></script>
+    <script src="/js/featherlight.min.js?1703164752"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164752"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164752"></script>
+    <script src="/js/learn.js?1703164752"></script>
+    <script src="/js/hugo-learn.js?1703164752"></script>
     
-    <script src="/main.js?1703163931"></script>
+    <script src="/main.js?1703164752"></script>
     
     
     

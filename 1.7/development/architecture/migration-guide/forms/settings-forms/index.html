@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Settings Forms :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/architecture/migration-guide/forms/settings-forms/">
     
-    <link href="/css/font-awesome.min.css?1703163888" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163888" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163888" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163888" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164716" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164716" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164716" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164716" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163888" rel="stylesheet">
+    <link href="/style.css?1703164716" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163888"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164716"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30313,42 +30313,42 @@
 
 <h2 id="form-data-providers">Form Data Providers<a href="#form-data-providers"></a></h2><p>In order to load existing data into the form (when editing, for instance) and save the form data (when the form is submitted), you need to create and register a <strong>Form Data Provider</strong>.</p>
 <p>You can create your own based on one of the existing implementations, or on the interface:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form</span><span class="p">;</span>
-
-<span class="k">interface</span> <span class="nx">FormDataProviderInterface</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @return array the form data as an associative array
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getData</span><span class="p">();</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Persists form Data in Database and Filesystem.
-</span><span class="sd">     *
-</span><span class="sd">     * @param array $data
-</span><span class="sd">     * @return array $errors if data can&#39;t persisted an array of errors messages
-</span><span class="sd">     * @throws UndefinedOptionsException
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setData</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>The idea is to uncouple data management from Controllers, so populating the form and saving form data will be done in these classes. Be aware though, you shouldn&rsquo;t manipulate the database here – that task need to be delegated to dedicated classes.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">interface</span> <span class="nx">FormDataProviderInterface</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return array the form data as an associative array
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getData</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Persists form Data in Database and Filesystem.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $data
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return array $errors if data can&#39;t persisted an array of errors messages
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws UndefinedOptionsException
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setData</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The idea is to uncouple data management from Controllers, so populating the form and saving form data will be done in these classes. Be aware though, you shouldn&rsquo;t manipulate the database here – that task need to be delegated to dedicated classes.</p>
 
 <h2 id="form-handlers">Form Handlers<a href="#form-handlers"></a></h2><p>Once you are able to manage data loaded to or sent by your forms, you need a way to build those forms (which can be themselves composed of multiple forms).</p>
 <p>For this, you need a Form Handler. You can either implement it yourself as a class (based on the interface <code>PrestaShop\PrestaShop\Core\Form\FormHandlerInterface</code>), or use PrestaShop&rsquo;s core <code>FormHandler</code> to create a service in a declarative way – no need for a new class!</p>
 <p>As an example, here&rsquo;s how the Administration page&rsquo;s Form Handler service is declared:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># /src/PrestaShopBundle/Resources/config/services/form/form_handler.yml</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">prestashop.adapter.administration.general.form_handler</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\Handler&#39;</span><span class="w">
-</span><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@form.factory&#39;</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.hook.dispatcher&#39;</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@prestashop.adapter.administration.general.form_provider&#39;</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;PrestaShopBundle\Form\Admin\Configure\AdvancedParameters\Administration\GeneralType&#39;</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;AdministrationPageGeneral&#39;</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;general&#39;</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># /src/PrestaShopBundle/Resources/config/services/form/form_handler.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">prestashop.adapter.administration.general.form_handler</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\Handler&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@form.factory&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.hook.dispatcher&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.adapter.administration.general.form_provider&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;PrestaShopBundle\Form\Admin\Configure\AdvancedParameters\Administration\GeneralType&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;AdministrationPageGeneral&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;general&#39;</span><span class="w">
+</span></span></span></code></pre></div>
 <div class="notices note" >The class <code>PrestaShop\PrestaShop\Core\Form\Handler</code> has been added in 1.7.8.0. Previously, <code>PrestaShop\PrestaShop\Core\Form\FormHandler</code> was used.</div>
 
 <p>Let&rsquo;s look at the arguments one by one:</p>
@@ -30380,24 +30380,24 @@
 
 <h2 id="form-request-handling-in-controllers">Form request handling in Controllers<a href="#form-request-handling-in-controllers"></a></h2><p>In modern pages, Controllers have or should have only one responsibility: handle the User request and return a response. This is why in modern pages, controllers should be as thin as possible and rely on specific classes (services) to manage the data. As always, check out the existing implementations, like in the <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/PrestaShopBundle/Controller/Admin/Configure/AdvancedParameters/PerformanceController.php">PerformanceController</a>.</p>
 <p>This is how we manage a form submit inside a Controller:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$form</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.adapter.performance.form_handler&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
-<span class="nv">$form</span><span class="o">-&gt;</span><span class="na">handleRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="nv">$form</span><span class="o">-&gt;</span><span class="na">isSubmitted</span><span class="p">())</span> <span class="p">{</span>
-    <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span>
-    <span class="nv">$saveErrors</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.adapter.performance.form_handler&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
-    
-    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">===</span> <span class="nx">count</span><span class="p">(</span><span class="nv">$saveErrors</span><span class="p">))</span> <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Successful update.&#39;</span><span class="p">,</span> <span class="s1">&#39;Admin.Notifications.Success&#39;</span><span class="p">));</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_performance&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-    
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">flashErrors</span><span class="p">(</span><span class="nv">$saveErrors</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_performance&#39;</span><span class="p">);</span>
-</code></pre></div><p>So, there are basically three steps:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$form</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.adapter.performance.form_handler&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$form</span><span class="o">-&gt;</span><span class="na">handleRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$form</span><span class="o">-&gt;</span><span class="na">isSubmitted</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$saveErrors</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.adapter.performance.form_handler&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">===</span> <span class="nx">count</span><span class="p">(</span><span class="nv">$saveErrors</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Successful update.&#39;</span><span class="p">,</span> <span class="s1">&#39;Admin.Notifications.Success&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_performance&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">flashErrors</span><span class="p">(</span><span class="nv">$saveErrors</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_performance&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>So, there are basically three steps:</p>
 <ol>
 <li>Get information from User request and get form data;</li>
 <li>If form has been submitted, validate the form;</li>
@@ -30428,32 +30428,32 @@
 
 <h2 id="render-the-form-using-twig">Render the form using Twig<a href="#render-the-form-using-twig"></a></h2><p>The rendering of forms in Twig is already described by the <a href="https://symfony.com/doc/3.4/form/rendering.html">Symfony documentation</a>. PrestaShop uses its own <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/PrestaShopBundle/Resources/views/Admin/TwigTemplateForm/prestashop_ui_kit.html.twig">Form theme</a> that contains specific markup for the PrestaShop UI Kit. You can see it as a customized version of Symfony&rsquo;s Bootstrap 4 form theme, even though it&rsquo;s not directly based on it.</p>
 <p>To sum up how it works, the controller sends an instance of <code>FormView</code> to Twig and Twig uses form helpers to render the right markup for every field type (the Form theme defines a specific markup for each Form Type).</p>
-<div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="cp">{{</span> <span class="nv">form_start</span><span class="o">(</span><span class="nv">logsByEmailForm</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
-</span><span class="x">&lt;div class=&#34;col-md-12&#34;&gt;
-</span><span class="x">  &lt;div class=&#34;col&#34;&gt;
-</span><span class="x">    &lt;div class=&#34;card&#34;&gt;
-</span><span class="x">      &lt;h3 class=&#34;card-header&#34;&gt;
-</span><span class="x">        &lt;i class=&#34;material-icons&#34;&gt;business_center&lt;/i&gt; </span><span class="cp">{{</span> <span class="s1">&#39;Logs by email&#39;</span><span class="o">|</span><span class="nf">trans</span> <span class="cp">}}</span><span class="x">
-</span><span class="x">      &lt;/h3&gt;
-</span><span class="x">      &lt;div class=&#34;card-block&#34;&gt;
-</span><span class="x">        &lt;div class=&#34;card-text&#34;&gt;
-</span><span class="x">          &lt;div class=&#34;form-group row&#34;&gt;
-</span><span class="x">          </span><span class="cp">{{</span> <span class="nv">ps.label_with_help</span><span class="o">((</span><span class="s1">&#39;Minimum severity level&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">),</span> <span class="o">(</span><span class="s1">&#39;Enter &#34;5&#34; if you do not want to receive any emails.&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;Admin.Advparameters.Feature&#39;</span><span class="o">)),</span> <span class="s1">&#39;col-sm-2&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
-</span><span class="x">            &lt;div class=&#34;col-sm-8&#34;&gt;
-</span><span class="x">              </span><span class="cp">{{</span> <span class="nv">form_errors</span><span class="o">(</span><span class="nv">logsByEmailForm.severity_level</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
-</span><span class="x">              </span><span class="cp">{{</span> <span class="nv">form_widget</span><span class="o">(</span><span class="nv">logsByEmailForm.severity_level</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
-</span><span class="x">            &lt;/div&gt;
-</span><span class="x">          &lt;/div&gt;
-</span><span class="x">        &lt;/div&gt;
-</span><span class="x">      &lt;/div&gt;
-</span><span class="x">      &lt;div class=&#34;card-footer&#34;&gt;
-</span><span class="x">        &lt;button class=&#34;btn btn-primary&#34;&gt;</span><span class="cp">{{</span> <span class="s1">&#39;Save&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/button&gt;
-</span><span class="x">      &lt;/div&gt;
-</span><span class="x">    &lt;/div&gt;
-</span><span class="x">  &lt;/div&gt;
-</span><span class="x">&lt;/div&gt;
-</span><span class="x"></span><span class="cp">{{</span> <span class="nv">form_end</span><span class="o">(</span><span class="nv">logsByEmailForm</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
-</span></code></pre></div><p>All these helpers are documented and help you generate an HTML form from your <code>FormView</code> object, using the right markup to be rendered by the PrestaShop UI Kit. Currently, several forms have already been migrated, so you can use them as base for your own work.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="cp">{{</span> <span class="nv">form_start</span><span class="o">(</span><span class="nv">logsByEmailForm</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">&lt;div class=&#34;col-md-12&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">  &lt;div class=&#34;col&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;div class=&#34;card&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">      &lt;h3 class=&#34;card-header&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">        &lt;i class=&#34;material-icons&#34;&gt;business_center&lt;/i&gt; </span><span class="cp">{{</span> <span class="s1">&#39;Logs by email&#39;</span><span class="o">|</span><span class="nf">trans</span> <span class="cp">}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">      &lt;/h3&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">      &lt;div class=&#34;card-block&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">        &lt;div class=&#34;card-text&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">          &lt;div class=&#34;form-group row&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">          </span><span class="cp">{{</span> <span class="nv">ps.label_with_help</span><span class="o">((</span><span class="s1">&#39;Minimum severity level&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">),</span> <span class="o">(</span><span class="s1">&#39;Enter &#34;5&#34; if you do not want to receive any emails.&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;Admin.Advparameters.Feature&#39;</span><span class="o">)),</span> <span class="s1">&#39;col-sm-2&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">            &lt;div class=&#34;col-sm-8&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">              </span><span class="cp">{{</span> <span class="nv">form_errors</span><span class="o">(</span><span class="nv">logsByEmailForm.severity_level</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">              </span><span class="cp">{{</span> <span class="nv">form_widget</span><span class="o">(</span><span class="nv">logsByEmailForm.severity_level</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">            &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">          &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">        &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">      &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">      &lt;div class=&#34;card-footer&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">        &lt;button class=&#34;btn btn-primary&#34;&gt;</span><span class="cp">{{</span> <span class="s1">&#39;Save&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/button&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">      &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">  &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">&lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{{</span> <span class="nv">form_end</span><span class="o">(</span><span class="nv">logsByEmailForm</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
+</span></span></span></code></pre></div><p>All these helpers are documented and help you generate an HTML form from your <code>FormView</code> object, using the right markup to be rendered by the PrestaShop UI Kit. Currently, several forms have already been migrated, so you can use them as base for your own work.</p>
 <p>All the templates for modern pages can be found in the <code>src/PrestaShopBundle/Resources/views/Admin</code> folder. Twig templates for a page are split in subfolders: Forms, Blocks, Lists, Panels. This helps to keep track the role of each template.</p>
 <p>Templates should be arranged by page and domain, keeping in mind that each part of template can be overridden by PrestaShop developers using modules. Use templates and Twig blocks wisely to make their job easy.</p>
 
@@ -30534,17 +30534,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163889"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163889"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163889"></script>
-    <script src="/js/jquery.sticky.js?1703163889"></script>
-    <script src="/js/featherlight.min.js?1703163889"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163889"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163889"></script>
-    <script src="/js/learn.js?1703163889"></script>
-    <script src="/js/hugo-learn.js?1703163889"></script>
+    <script src="/js/clipboard.min.js?1703164716"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164716"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164716"></script>
+    <script src="/js/jquery.sticky.js?1703164716"></script>
+    <script src="/js/featherlight.min.js?1703164716"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164716"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164716"></script>
+    <script src="/js/learn.js?1703164716"></script>
+    <script src="/js/hugo-learn.js?1703164716"></script>
     
-    <script src="/main.js?1703163889"></script>
+    <script src="/main.js?1703164716"></script>
     
     
     

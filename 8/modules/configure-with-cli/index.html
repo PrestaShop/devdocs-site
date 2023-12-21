@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Configure with CLI :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163911" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163911" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163911" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163911" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164736" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164736" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164736" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164736" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163911" rel="stylesheet">
+    <link href="/style.css?1703164736" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163911"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164736"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33104,44 +33104,44 @@
 
 <h2 id="apply-configuration-file-on-a-specific-shop-or-group">Apply configuration file on a specific shop or group<a href="#apply-configuration-file-on-a-specific-shop-or-group"></a></h2><p>The Prestashop <code>prestashop:module</code> command allows you to restrict its actions on a specific shop (or group).</p>
 <p>To do so, add an <code>--id_shop</code> or an <code>--id_shop_group</code> argument to the command:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">php bin/console prestashop:module configure &lt;modulename&gt; &lt;configfilepath&gt; --id_shop<span class="o">=</span>&lt;id&gt;
-php bin/console prestashop:module configure &lt;modulename&gt; &lt;configfilepath&gt; --id_shop_group<span class="o">=</span>&lt;id&gt;
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php bin/console prestashop:module configure &lt;modulename&gt; &lt;configfilepath&gt; --id_shop<span class="o">=</span>&lt;id&gt;
+</span></span><span class="line"><span class="cl">php bin/console prestashop:module configure &lt;modulename&gt; &lt;configfilepath&gt; --id_shop_group<span class="o">=</span>&lt;id&gt;
+</span></span></code></pre></div>
 <h2 id="configuration-file-reference">Configuration file reference<a href="#configuration-file-reference"></a></h2>
 <h3 id="change-values-in-the-configuration-table">Change values in the Configuration table<a href="#change-values-in-the-configuration-table"></a></h3><p>The Self Configurator feature allows editing values in the <code>Configuration</code> table from the configuration file.</p>
 <p>To do so, add a <code>configuration:</code> line, choose if you want to update or delete a configuration value, and add the configuration key and its value like in those examples:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">configuration</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">update</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">PAYPAL_SANDBOX</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">configuration</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">delete</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s2">&#34;PAYPAL_ONBOARDING&#34;</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">configuration</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">update</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">PAYPAL_SANDBOX</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">configuration</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">delete</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;PAYPAL_ONBOARDING&#34;</span><span class="w">
+</span></span></span></code></pre></div>
 <div class="notices info" >Please note that you can <code>create</code> values by specifying them in the <code>update</code> section.</div>
 
 
 <h3 id="execute-sql-statements-from-a-sql-file">Execute SQL statements from a <code>.sql</code> file<a href="#execute-sql-statements-from-a-sql-file"></a></h3><p>The Self Configurator feature allows to execute a <code>.sql</code> file with statements on your database.</p>
 <p>To do so, add the path of your <code>.sql</code> file like in this example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">sql</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="s2">&#34;myscript.sql&#34;</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">sql</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;myscript.sql&#34;</span><span class="w">
+</span></span></span></code></pre></div>
 <div class="notices info" >Please note that your paths are relative to the configuration file.</div>
 
 
 <h3 id="copy-files">Copy files<a href="#copy-files"></a></h3><p>The Self Configurator feature allows to copy files (or URLs) from the configuration file.</p>
 <p>To do so, add your source and destination path like in those examples:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">files</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;../source/file.txt&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;docs/file.txt&#34;</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">files</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://www.prestashop-project.org&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;webpage.html&#34;</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">files</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;../source/file1.txt&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;docs/file1.txt&#34;</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;../source/file2.txt&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;docs/file2.txt&#34;</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;../source/file.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;docs/file.txt&#34;</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://www.prestashop-project.org&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;webpage.html&#34;</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;../source/file1.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;docs/file1.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;../source/file2.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;docs/file2.txt&#34;</span><span class="w">
+</span></span></span></code></pre></div>
 <div class="notices info" >Please note that if you use paths, your paths should be relative to the configuration file.</div>
 
 
@@ -33150,70 +33150,70 @@ php bin/console prestashop:module configure &lt;modulename&gt; &lt;configfilepat
 <p><strong>The class name needs to match the file name.</strong></p>
 <p>You have to declare a method: <code>public function run(ModuleInterface $module, array $params);</code></p>
 <p>Create a file named <code>ConfigurationScript.php</code> with this content:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Adapter\Module\Configuration\ModuleComplexConfigurationInterface</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">ConfigurationScript</span> <span class="k">implements</span> <span class="nx">ModuleComplexConfigurationInterface</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">(</span><span class="nx">ModuleInterface</span> <span class="nv">$module</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>And add to the configuration file:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">php</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ConfigurationScript.php&#34;</span><span class="w">
-</span></code></pre></div><p>The method will receive the module&rsquo;s name, and an empty <code>array $params</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Adapter\Module\Configuration\ModuleComplexConfigurationInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ConfigurationScript</span> <span class="k">implements</span> <span class="nx">ModuleComplexConfigurationInterface</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">(</span><span class="nx">ModuleInterface</span> <span class="nv">$module</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>And add to the configuration file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">php</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ConfigurationScript.php&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>The method will receive the module&rsquo;s name, and an empty <code>array $params</code>.</p>
 <p>To add a parameter with key <code>myParam1</code> and value <code>1</code>, do the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">php</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ConfigurationScript.php&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">params</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="nt">myParam1</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span></code></pre></div><p>To add a parameter of type <code>array</code>, with key <code>oneArrayParam</code> and the following value <code>[&quot;value1&quot;, &quot;value2&quot;, &quot;withSpecificKey&quot; =&gt; &quot;value3&quot;]</code>, do the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">php</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ConfigurationScript.php&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">params</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="nt">oneArrayParam</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="s2">&#34;value1&#34;</span><span class="w">
-</span><span class="w">            </span>- <span class="s2">&#34;value2&#34;</span><span class="w">
-</span><span class="w">            </span>- <span class="nt">withSpecificKey</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;value3&#34;</span><span class="w">
-</span></code></pre></div>
-<h2 id="complete-config-file-example">Complete config file example<a href="#complete-config-file-example"></a></h2><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># This file is an example of data configuration which can be applied to a module</span><span class="w">
-</span><span class="w"></span><span class="c"># Paths are relative to the config file!</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Update data in Configuration table</span><span class="w">
-</span><span class="w"></span><span class="nt">configuration</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">update</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="c"># Option 1: having a pair key/value</span><span class="w">
-</span><span class="w">        </span><span class="nt">PAYPAL_SANDBOX</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">        </span><span class="nt">PAYPAL_API_CARD</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
-</span><span class="w">        </span><span class="c"># Option 2: use &#34;value&#34; subkey. Will allow to use addtionnal keys later</span><span class="w">
-</span><span class="w">        </span><span class="nt">PAYPAL_SANDBOX_2</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">    </span><span class="nt">delete</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s2">&#34;PAYPAL_ONBOARDING&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Execute sql files</span><span class="w">
-</span><span class="w"></span><span class="nt">sql</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="s2">&#34;sql/default-config.sql&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Copy files</span><span class="w">
-</span><span class="w"></span><span class="nt">files</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;../source/file.txt&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;docs/file.txt&#34;</span><span class="w">
-</span><span class="w">      
-</span><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://www.prestashop.com&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;webpage.html&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Execute php script</span><span class="w">
-</span><span class="w"></span><span class="nt">php</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ConfigurationScript.php&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">params</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="nt">myParam1</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">        </span>- <span class="nt">oneArrayParam</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="s2">&#34;value1&#34;</span><span class="w">
-</span><span class="w">            </span>- <span class="s2">&#34;value2&#34;</span><span class="w">
-</span><span class="w">            </span>- <span class="nt">withSpecificKey</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;value3&#34;</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">php</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ConfigurationScript.php&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">params</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">myParam1</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span></code></pre></div><p>To add a parameter of type <code>array</code>, with key <code>oneArrayParam</code> and the following value <code>[&quot;value1&quot;, &quot;value2&quot;, &quot;withSpecificKey&quot; =&gt; &quot;value3&quot;]</code>, do the following:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">php</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ConfigurationScript.php&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">params</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">oneArrayParam</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s2">&#34;value1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s2">&#34;value2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">withSpecificKey</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;value3&#34;</span><span class="w">
+</span></span></span></code></pre></div>
+<h2 id="complete-config-file-example">Complete config file example<a href="#complete-config-file-example"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># This file is an example of data configuration which can be applied to a module</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Paths are relative to the config file!</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Update data in Configuration table</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">configuration</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">update</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># Option 1: having a pair key/value</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">PAYPAL_SANDBOX</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">PAYPAL_API_CARD</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># Option 2: use &#34;value&#34; subkey. Will allow to use addtionnal keys later</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">PAYPAL_SANDBOX_2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">delete</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;PAYPAL_ONBOARDING&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Execute sql files</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">sql</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;sql/default-config.sql&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Copy files</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;../source/file.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;docs/file.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://www.prestashop.com&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;webpage.html&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Execute php script</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">php</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;ConfigurationScript.php&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">params</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">myParam1</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">oneArrayParam</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s2">&#34;value1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s2">&#34;value2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">withSpecificKey</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;value3&#34;</span><span class="w">
+</span></span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33291,17 +33291,17 @@ php bin/console prestashop:module configure &lt;modulename&gt; &lt;configfilepat
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163911"></script>
-    <script src="/js/jquery.sticky.js?1703163911"></script>
-    <script src="/js/featherlight.min.js?1703163911"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163911"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163911"></script>
-    <script src="/js/learn.js?1703163911"></script>
-    <script src="/js/hugo-learn.js?1703163911"></script>
+    <script src="/js/clipboard.min.js?1703164736"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164736"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164736"></script>
+    <script src="/js/jquery.sticky.js?1703164736"></script>
+    <script src="/js/featherlight.min.js?1703164736"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164736"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164736"></script>
+    <script src="/js/learn.js?1703164736"></script>
+    <script src="/js/hugo-learn.js?1703164736"></script>
     
-    <script src="/main.js?1703163911"></script>
+    <script src="/main.js?1703164736"></script>
     
     
     

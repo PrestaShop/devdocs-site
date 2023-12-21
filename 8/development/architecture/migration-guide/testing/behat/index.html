@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Behat testing :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163905" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163905" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163905" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163905" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164731" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164731" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164731" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164731" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163905" rel="stylesheet">
+    <link href="/style.css?1703164731" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163905"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164731"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33211,20 +33211,20 @@ So each feature must handle database restoration dedicated steps or custom hooks
 <div class="notices tip" >Before continuing, <strong>please read the official <code>behat</code> documentation</strong> about the <a href="https://docs.behat.org/en/latest/user_guide/features_scenarios.html">features and scenarios</a>.</div>
 
 <p>In PrestaShop all <code>*.feature</code> files are placed in <a href="https://github.com/PrestaShop/PrestaShop/tree/8.0.x/tests/Integration/Behaviour/Features/Scenario">.tests/Integration/Behaviour/Features/Scenario</a>. Each feature is placed in a dedicated directory organized by <code>domain</code> (or even a <code>subdomain</code> if necessary). These feature files contains text that describes the testing scenarios in a user-friendly manner, each of them must start with a keyword <code>Feature</code> and have a one or multiple scenarios starting with a keyword <code>Scenario</code>. For example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="k">Feature:</span><span class="nf"> Update product status from BO (Back Office)
-</span><span class="nf">  As an employee I must be able to update product status (enable/disable)
-</span><span class="nf">
-</span><span class="nf">  </span><span class="k">Scenario:</span><span class="nf"> I update standard product status
-</span><span class="nf"></span><span class="k">    Given </span><span class="nf">I add product &#34;</span><span class="s">product1</span><span class="nf">&#34; with following information:
-</span><span class="nf"></span><span class="k">      |</span><span class="s"> name[en-US]</span><span class="k"> |</span><span class="s"> Values list poster nr. 1 (paper)</span><span class="k"> |</span><span class="nf">
-</span><span class="nf"></span><span class="k">      |</span><span class="s"> type</span><span class="k">        |</span><span class="s"> standard</span><span class="k">                         |</span><span class="nf">
-</span><span class="nf">    </span><span class="k">And </span><span class="nf">product product</span><span class="s">1</span><span class="nf"> type should be standard
-</span><span class="nf">    </span><span class="k">And </span><span class="nf">product &#34;</span><span class="s">product1</span><span class="nf">&#34; should be disabled
-</span><span class="nf">    </span><span class="k">When </span><span class="nf">I enable product &#34;</span><span class="s">product1</span><span class="nf">&#34;
-</span><span class="nf">    </span><span class="k">Then </span><span class="nf">product &#34;</span><span class="s">product1</span><span class="nf">&#34; should be enabled
-</span><span class="nf">    </span><span class="k">When </span><span class="nf">I disable product &#34;</span><span class="s">product1</span><span class="nf">&#34;
-</span><span class="nf">    </span><span class="k">Then </span><span class="nf">product &#34;</span><span class="s">product1</span><span class="nf">&#34; should be disabled
-</span></code></pre></div><p>As you can see, we state the <code>given</code> information, then we describe the action and finally the assertion. These scenarios should be easy to understand even for non-technical people. So when writing one, try to avoid the technical keywords and make it as user-friendly as possible.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-feature" data-lang="feature"><span class="line"><span class="cl"><span class="k">Feature:</span><span class="nf"> Update product status from BO (Back Office)
+</span></span></span><span class="line"><span class="cl"><span class="nf">  As an employee I must be able to update product status (enable/disable)
+</span></span></span><span class="line"><span class="cl"><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf">  </span><span class="k">Scenario:</span><span class="nf"> I update standard product status
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="k">    Given </span><span class="nf">I add product &#34;</span><span class="s">product1</span><span class="nf">&#34; with following information:
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="k">      |</span><span class="s"> name[en-US]</span><span class="k"> |</span><span class="s"> Values list poster nr. 1 (paper)</span><span class="k"> |</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="k">      |</span><span class="s"> type</span><span class="k">        |</span><span class="s"> standard</span><span class="k">                         |</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf">    </span><span class="k">And </span><span class="nf">product product</span><span class="s">1</span><span class="nf"> type should be standard
+</span></span></span><span class="line"><span class="cl"><span class="nf">    </span><span class="k">And </span><span class="nf">product &#34;</span><span class="s">product1</span><span class="nf">&#34; should be disabled
+</span></span></span><span class="line"><span class="cl"><span class="nf">    </span><span class="k">When </span><span class="nf">I enable product &#34;</span><span class="s">product1</span><span class="nf">&#34;
+</span></span></span><span class="line"><span class="cl"><span class="nf">    </span><span class="k">Then </span><span class="nf">product &#34;</span><span class="s">product1</span><span class="nf">&#34; should be enabled
+</span></span></span><span class="line"><span class="cl"><span class="nf">    </span><span class="k">When </span><span class="nf">I disable product &#34;</span><span class="s">product1</span><span class="nf">&#34;
+</span></span></span><span class="line"><span class="cl"><span class="nf">    </span><span class="k">Then </span><span class="nf">product &#34;</span><span class="s">product1</span><span class="nf">&#34; should be disabled
+</span></span></span></code></pre></div><p>As you can see, we state the <code>given</code> information, then we describe the action and finally the assertion. These scenarios should be easy to understand even for non-technical people. So when writing one, try to avoid the technical keywords and make it as user-friendly as possible.</p>
 
 <div class="notices tip" >There is also a keyword <code>Background</code>, which allows running certain code before each scenario. See more <a href="https://docs.behat.org/en/latest/user_guide/writing_scenarios.html#user-guide-writing-scenarios-backgrounds">here</a>.</div>
 
@@ -33239,64 +33239,63 @@ So each feature must handle database restoration dedicated steps or custom hooks
 <div class="notices " >The <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/tests/Integration/Behaviour/Features/Context/Domain/AbstractDomainFeatureContext.php"><code>AbstractDomainFeatureContext</code></a> contains some commonly used helper methods, and it implements the <code>Behat\Behat\Context</code> which is necessary for these tests to work.</div>
 
 <p>This is how the context looks like:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">OrderFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractDomainFeatureContext</span>
-<span class="p">{</span>
-<span class="c1">//    ...
-</span><span class="c1"></span>    <span class="sd">/**
-</span><span class="sd">     * @Given I add order :orderReference with the following details:
-</span><span class="sd">     *
-</span><span class="sd">     * @param string $orderReference
-</span><span class="sd">     * @param TableNode $table
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">addOrderWithTheFollowingDetails</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$orderReference</span><span class="p">,</span> <span class="nx">TableNode</span> <span class="nv">$table</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$testCaseData</span> <span class="o">=</span> <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">getRowsHash</span><span class="p">();</span>
-
-        <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mapAddOrderFromBackOfficeData</span><span class="p">(</span><span class="nv">$testCaseData</span><span class="p">);</span>
-
-        <span class="sd">/** @var OrderId $orderId */</span>
-        <span class="nv">$orderId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getCommandBus</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span>
-            <span class="k">new</span> <span class="nx">AddOrderFromBackOfficeCommand</span><span class="p">(</span>
-                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;cartId&#39;</span><span class="p">],</span>
-                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;employeeId&#39;</span><span class="p">],</span>
-                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;orderMessage&#39;</span><span class="p">],</span>
-                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;paymentModuleName&#39;</span><span class="p">],</span>
-                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;orderStateId&#39;</span><span class="p">]</span>
-            <span class="p">)</span>
-        <span class="p">);</span>
-
-        <span class="nx">SharedStorage</span><span class="o">::</span><span class="na">getStorage</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nv">$orderReference</span><span class="p">,</span> <span class="nv">$orderId</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">());</span>
-    <span class="p">}</span>
-    
-<span class="c1">//    ...
-</span></code></pre></div><p>As you can see in example, the string <code>@Given I add order :orderReference with the following details:</code> maps this method to related line in <code>*.feature</code> file. The <code>:orderReference</code> acts as a variable which actually is the <code>id</code> of the order, that is saved into the <a href="#shared-storage"><code>SharedStorage</code></a>. The <code>TableNode $table</code> is a specific argument, you can read about it <a href="https://behat.org/en/latest/user_guide/writing_scenarios.html#tables">here</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">OrderFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractDomainFeatureContext</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//    ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @Given I add order :orderReference with the following details:
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $orderReference
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param TableNode $table
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">addOrderWithTheFollowingDetails</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$orderReference</span><span class="p">,</span> <span class="nx">TableNode</span> <span class="nv">$table</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$testCaseData</span> <span class="o">=</span> <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">getRowsHash</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mapAddOrderFromBackOfficeData</span><span class="p">(</span><span class="nv">$testCaseData</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var OrderId $orderId */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$orderId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getCommandBus</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="k">new</span> <span class="nx">AddOrderFromBackOfficeCommand</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;cartId&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;employeeId&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;orderMessage&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;paymentModuleName&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;orderStateId&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">SharedStorage</span><span class="o">::</span><span class="na">getStorage</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nv">$orderReference</span><span class="p">,</span> <span class="nv">$orderId</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="c1">//    ...
+</span></span></span></code></pre></div><p>As you can see in example, the string <code>@Given I add order :orderReference with the following details:</code> maps this method to related line in <code>*.feature</code> file. The <code>:orderReference</code> acts as a variable which actually is the <code>id</code> of the order, that is saved into the <a href="#shared-storage"><code>SharedStorage</code></a>. The <code>TableNode $table</code> is a specific argument, you can read about it <a href="https://behat.org/en/latest/user_guide/writing_scenarios.html#tables">here</a>.</p>
 
 <h2 id="shared-storage">Shared storage<a href="#shared-storage"></a></h2><p>The <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/tests/Integration/Behaviour/Features/Context/SharedStorage.php">SharedStorage</a> is responsible for holding certain values in memory which are shared across the feature. The most common usage example is the <code>id</code> reference - we specify a certain keyword e.g. <code>product1</code> before creating it, and once the command returns the auto-incremented value, we set it in shared storage like this <code>SharedStorage::getStorage()-&gt;set($orderReference, $orderId-&gt;getValue());</code>. In upcoming scenarios we can reuse this reference to get the record, something like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getProductForEditing</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$reference</span><span class="p">)</span><span class="o">:</span> <span class="nx">ProductForEditing</span>
-    <span class="p">{</span>
-        <span class="nv">$productId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getSharedStorage</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$reference</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getQueryBus</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="k">new</span> <span class="nx">GetProductForEditing</span><span class="p">(</span>
-            <span class="nv">$productId</span>
-        <span class="p">));</span>
-    <span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getProductForEditing</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$reference</span><span class="p">)</span><span class="o">:</span> <span class="nx">ProductForEditing</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getSharedStorage</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$reference</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getQueryBus</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="k">new</span> <span class="nx">GetProductForEditing</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$productId</span>
+</span></span><span class="line"><span class="cl">        <span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="hooks">Hooks<a href="#hooks"></a></h2><p>Behats allow you to use <a href="https://docs.behat.org/en/v2.5/guides/3.hooks.html#hooks">hooks</a>. You can find some usages in <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/tests/Integration/Behaviour/Features/Context/CommonFeatureContext.php">CommonFeatureContext</a>. You can use these hooked methods by tagging them before the <code>Feature</code> (or before <code>Scenario</code> depending on the hook type), like this (<a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/tests/Integration/Behaviour/Features/Context/Domain/Product/AddProductFeatureContext.php">add_product.feature</a>
 ):</p>
-<div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@clear-cache-before-feature</span><span class="nf">
-</span><span class="nf"></span><span class="nt">@clear-cache-after-feature</span><span class="nf">
-</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
-</span><span class="nf">  As a BO user
-</span><span class="nf">  I need to be able to add new product with basic information from the BO
-</span><span class="nf">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-feature" data-lang="feature"><span class="line"><span class="cl"><span class="nt">@clear-cache-before-feature</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="nt">@clear-cache-after-feature</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span></span></span><span class="line"><span class="cl"><span class="nf">  As a BO user
+</span></span></span><span class="line"><span class="cl"><span class="nf">  I need to be able to add new product with basic information from the BO
+</span></span></span></code></pre></div>
 <div class="notices tip" ><p>You can also tag specific <code>features</code> if you want to run only them with a <code>--tags</code> filter. For example, if you add following tag in your Feature:</p>
-<div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@add</span><span class="nf">
-</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
-</span><span class="nf">  As a BO user
-</span><span class="nf">  I need to be able to add new product with basic information from the BO
-</span><span class="nf">    ...
-</span></code></pre></div><p>Then you can run only this feature by following command <code>./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml -s product --tags add</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-feature" data-lang="feature"><span class="line"><span class="cl"><span class="nt">@add</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span></span></span><span class="line"><span class="cl"><span class="nf">  As a BO user
+</span></span></span><span class="line"><span class="cl"><span class="nf">  I need to be able to add new product with basic information from the BO
+</span></span></span><span class="line"><span class="cl"><span class="nf">    ...
+</span></span></span></code></pre></div><p>Then you can run only this feature by following command <code>./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml -s product --tags add</code></p>
 </div>
 
 
@@ -33304,195 +33303,195 @@ So each feature must handle database restoration dedicated steps or custom hooks
 To assume that you need to take responsibility for cleaning it after the feature or the suite is over. There are several ways of restoring/cleaning the database.
 Sometimes clearing the cache of the software is also needed since all the behat suites are run in a single process.</p>
 
-<h3 id="restore-step-by-step">Restore step by step<a href="#restore-step-by-step"></a></h3><div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@add</span><span class="nf">
-</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
-</span><span class="nf">  As a BO user
-</span><span class="nf">  I need to be able to add new product with basic information from the BO
-</span><span class="nf">
-</span><span class="nf">  </span><span class="k">Scenario:</span><span class="nf"> I modify stuff in product tables I clean them afterwards
-</span><span class="nf">     ...</span><span class="c">
-</span><span class="c">     # You don&#39;t need to specify the database prefix, tables are separated by a comma</span><span class="nf">
-</span><span class="nf"></span><span class="k">     Then </span><span class="nf">I restore tables &#34;</span><span class="s">product,product_attributes</span><span class="nf">&#34;
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\CommonFeatureContext
-</span><span class="c1"></span><span class="k">class</span> <span class="nc">CommonFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @Given I restore tables :tableNames
-</span><span class="sd">     *
-</span><span class="sd">     * @param string $tableNames
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">restoreTables</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$tableNames</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="nv">$tables</span> <span class="o">=</span> <span class="nx">explode</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="nv">$tableNames</span><span class="p">);</span>
-        <span class="nx">DatabaseDump</span><span class="o">::</span><span class="na">restoreTables</span><span class="p">(</span><span class="nv">$tables</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="restore-all-tables-with-generic-tag">Restore all tables with generic tag<a href="#restore-all-tables-with-generic-tag"></a></h3><div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@restore-all-tables-before-feature</span><span class="nf">
-</span><span class="nf"></span><span class="nt">@add</span><span class="nf">
-</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
-</span><span class="nf">  As a BO user
-</span><span class="nf">  I need to be able to add new product with basic information from the BO
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\CommonFeatureContext
-</span><span class="c1"></span><span class="k">class</span> <span class="nc">CommonFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * This hook can be used to flag a feature for database hard reset
-</span><span class="sd">     *
-</span><span class="sd">     * @BeforeFeature @restore-all-tables-before-feature
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreAllTablesBeforeFeature</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nx">DatabaseDump</span><span class="o">::</span><span class="na">restoreAllTables</span><span class="p">();</span>
-        <span class="k">require_once</span> <span class="nx">_PS_ROOT_DIR_</span> <span class="o">.</span> <span class="s1">&#39;/config/config.inc.php&#39;</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="restore-a-domain-with-specific-tag">Restore a domain with specific tag<a href="#restore-a-domain-with-specific-tag"></a></h3><div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@restore-products-before-feature</span><span class="nf">
-</span><span class="nf"></span><span class="nt">@add</span><span class="nf">
-</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
-</span><span class="nf">  As a BO user
-</span><span class="nf">  I need to be able to add new product with basic information from the BO
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\Domain\Product\CommonProductFeatureContext
-</span><span class="c1"></span><span class="k">class</span> <span class="nc">CommonProductFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @BeforeFeature @restore-products-before-feature
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreProductTablesBeforeFeature</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="k">static</span><span class="o">::</span><span class="na">restoreProductTables</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="k">private</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreProductTables</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="nx">DatabaseDump</span><span class="o">::</span><span class="na">restoreTables</span><span class="p">([</span>
-            <span class="s1">&#39;product&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;product_attachment&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;product_attribute&#39;</span><span class="p">,</span>
-            <span class="c1">// And many more but it&#39;s not the point here
-</span><span class="c1"></span>        <span class="p">]);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<h3 id="restore-step-by-step">Restore step by step<a href="#restore-step-by-step"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-feature" data-lang="feature"><span class="line"><span class="cl"><span class="nt">@add</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span></span></span><span class="line"><span class="cl"><span class="nf">  As a BO user
+</span></span></span><span class="line"><span class="cl"><span class="nf">  I need to be able to add new product with basic information from the BO
+</span></span></span><span class="line"><span class="cl"><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf">  </span><span class="k">Scenario:</span><span class="nf"> I modify stuff in product tables I clean them afterwards
+</span></span></span><span class="line"><span class="cl"><span class="nf">     ...</span><span class="c">
+</span></span></span><span class="line"><span class="cl"><span class="c">     # You don&#39;t need to specify the database prefix, tables are separated by a comma</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="k">     Then </span><span class="nf">I restore tables &#34;</span><span class="s">product,product_attributes</span><span class="nf">&#34;
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\CommonFeatureContext
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">CommonFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @Given I restore tables :tableNames
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $tableNames
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">restoreTables</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$tableNames</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$tables</span> <span class="o">=</span> <span class="nx">explode</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="nv">$tableNames</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">DatabaseDump</span><span class="o">::</span><span class="na">restoreTables</span><span class="p">(</span><span class="nv">$tables</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+<h3 id="restore-all-tables-with-generic-tag">Restore all tables with generic tag<a href="#restore-all-tables-with-generic-tag"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-feature" data-lang="feature"><span class="line"><span class="cl"><span class="nt">@restore-all-tables-before-feature</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="nt">@add</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span></span></span><span class="line"><span class="cl"><span class="nf">  As a BO user
+</span></span></span><span class="line"><span class="cl"><span class="nf">  I need to be able to add new product with basic information from the BO
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\CommonFeatureContext
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">CommonFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * This hook can be used to flag a feature for database hard reset
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @BeforeFeature @restore-all-tables-before-feature
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreAllTablesBeforeFeature</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">DatabaseDump</span><span class="o">::</span><span class="na">restoreAllTables</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">require_once</span> <span class="nx">_PS_ROOT_DIR_</span> <span class="o">.</span> <span class="s1">&#39;/config/config.inc.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+<h3 id="restore-a-domain-with-specific-tag">Restore a domain with specific tag<a href="#restore-a-domain-with-specific-tag"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-feature" data-lang="feature"><span class="line"><span class="cl"><span class="nt">@restore-products-before-feature</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="nt">@add</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span></span></span><span class="line"><span class="cl"><span class="nf">  As a BO user
+</span></span></span><span class="line"><span class="cl"><span class="nf">  I need to be able to add new product with basic information from the BO
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\Domain\Product\CommonProductFeatureContext
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">CommonProductFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @BeforeFeature @restore-products-before-feature
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreProductTablesBeforeFeature</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">static</span><span class="o">::</span><span class="na">restoreProductTables</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreProductTables</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">DatabaseDump</span><span class="o">::</span><span class="na">restoreTables</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;product&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;product_attachment&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;product_attribute&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// And many more but it&#39;s not the point here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="restore-a-whole-suite">Restore a whole suite<a href="#restore-a-whole-suite"></a></h3><p>This hook is triggered just by associating the context class to your suite (see behat configuration below).</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\Domain\Product\CommonProductFeatureContext
-</span><span class="c1"></span><span class="k">class</span> <span class="nc">CommonProductFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @BeforeSuite
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreAllTablesBeforeSuite</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="nx">DatabaseDump</span><span class="o">::</span><span class="na">restoreAllTables</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @AfterSuite
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreProductTablesAfterSuite</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="k">static</span><span class="o">::</span><span class="na">restoreProductTables</span><span class="p">();</span>
-        <span class="nx">LanguageFeatureContext</span><span class="o">::</span><span class="na">restoreLanguagesTablesAfterFeature</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="clear-cache">Clear cache<a href="#clear-cache"></a></h3><div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@clear-cache-before-feature</span><span class="nf">
-</span><span class="nf"></span><span class="nt">@clear-cache-after-feature</span><span class="nf">
-</span><span class="nf"></span><span class="nt">@add</span><span class="nf">
-</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
-</span><span class="nf">  As a BO user
-</span><span class="nf">  I need to be able to add new product with basic information from the BO
-</span><span class="nf">
-</span><span class="nf">  @clear-cache-before-scenario
-</span><span class="nf">  </span><span class="k">Scenario:</span><span class="nf"> I test something but I make sure cache is cleared before startying this scenario
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\CommonFeatureContext
-</span><span class="c1"></span><span class="k">class</span> <span class="nc">CommonFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @AfterFeature @clear-cache-after-feature
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">clearCacheAfterFeature</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nx">self</span><span class="o">::</span><span class="na">clearCache</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @BeforeFeature @clear-cache-before-feature
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">clearCacheBeforeFeature</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nx">self</span><span class="o">::</span><span class="na">clearCache</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @BeforeScenario @clear-cache-before-scenario
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">clearCacheBeforeScenario</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nx">self</span><span class="o">::</span><span class="na">clearCache</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Clears cache
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">clearCache</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="nx">Address</span><span class="o">::</span><span class="na">resetStaticCache</span><span class="p">();</span>
-        <span class="nx">Cache</span><span class="o">::</span><span class="na">clear</span><span class="p">();</span>
-        <span class="nx">Carrier</span><span class="o">::</span><span class="na">resetStaticCache</span><span class="p">();</span>
-        <span class="nx">Cart</span><span class="o">::</span><span class="na">resetStaticCache</span><span class="p">();</span>
-        <span class="c1">// And many more but it&#39;s not the point here
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="reboot-kernel">Reboot kernel<a href="#reboot-kernel"></a></h3><div class="highlight"><pre class="chroma"><code class="language-feature" data-lang="feature"><span class="nt">@reboot-kernel-after-feature</span><span class="nf">
-</span><span class="nf"></span><span class="nt">@add</span><span class="nf">
-</span><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
-</span><span class="nf">  As a BO user
-</span><span class="nf">  I perform many modification is Symfony services so I reboot the kernel to reset everything for the following features
-</span><span class="nf">
-</span><span class="nf">  </span><span class="k">Scenario:</span><span class="nf"> I test something that impacts CLDR, make a modification and test again I need to reset the service by resetting the whole kernel
-</span><span class="nf">    ...
-</span><span class="nf"></span><span class="k">    When </span><span class="nf">I reboot kernel
-</span><span class="nf">    ...
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\CommonFeatureContext
-</span><span class="c1"></span><span class="k">class</span> <span class="nc">CommonFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * This hook can be used to flag a feature for kernel reboot
-</span><span class="sd">     *
-</span><span class="sd">     * @AfterFeature @reboot-kernel-after-feature
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">rebootKernelAfterFeature</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nx">self</span><span class="o">::</span><span class="na">rebootKernel</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @Given I reboot kernel
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">rebootKernelOnDemand</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nx">self</span><span class="o">::</span><span class="na">rebootKernel</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\Domain\Product\CommonProductFeatureContext
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">CommonProductFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @BeforeSuite
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreAllTablesBeforeSuite</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">DatabaseDump</span><span class="o">::</span><span class="na">restoreAllTables</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @AfterSuite
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">restoreProductTablesAfterSuite</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">static</span><span class="o">::</span><span class="na">restoreProductTables</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">LanguageFeatureContext</span><span class="o">::</span><span class="na">restoreLanguagesTablesAfterFeature</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+<h3 id="clear-cache">Clear cache<a href="#clear-cache"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-feature" data-lang="feature"><span class="line"><span class="cl"><span class="nt">@clear-cache-before-feature</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="nt">@clear-cache-after-feature</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="nt">@add</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span></span></span><span class="line"><span class="cl"><span class="nf">  As a BO user
+</span></span></span><span class="line"><span class="cl"><span class="nf">  I need to be able to add new product with basic information from the BO
+</span></span></span><span class="line"><span class="cl"><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf">  @clear-cache-before-scenario
+</span></span></span><span class="line"><span class="cl"><span class="nf">  </span><span class="k">Scenario:</span><span class="nf"> I test something but I make sure cache is cleared before startying this scenario
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\CommonFeatureContext
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">CommonFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @AfterFeature @clear-cache-after-feature
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">clearCacheAfterFeature</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">self</span><span class="o">::</span><span class="na">clearCache</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @BeforeFeature @clear-cache-before-feature
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">clearCacheBeforeFeature</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">self</span><span class="o">::</span><span class="na">clearCache</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @BeforeScenario @clear-cache-before-scenario
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">clearCacheBeforeScenario</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">self</span><span class="o">::</span><span class="na">clearCache</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Clears cache
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">clearCache</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Address</span><span class="o">::</span><span class="na">resetStaticCache</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Cache</span><span class="o">::</span><span class="na">clear</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Carrier</span><span class="o">::</span><span class="na">resetStaticCache</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Cart</span><span class="o">::</span><span class="na">resetStaticCache</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// And many more but it&#39;s not the point here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+<h3 id="reboot-kernel">Reboot kernel<a href="#reboot-kernel"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-feature" data-lang="feature"><span class="line"><span class="cl"><span class="nt">@reboot-kernel-after-feature</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="nt">@add</span><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="k">Feature:</span><span class="nf"> Add basic product from Back Office (BO)
+</span></span></span><span class="line"><span class="cl"><span class="nf">  As a BO user
+</span></span></span><span class="line"><span class="cl"><span class="nf">  I perform many modification is Symfony services so I reboot the kernel to reset everything for the following features
+</span></span></span><span class="line"><span class="cl"><span class="nf">
+</span></span></span><span class="line"><span class="cl"><span class="nf">  </span><span class="k">Scenario:</span><span class="nf"> I test something that impacts CLDR, make a modification and test again I need to reset the service by resetting the whole kernel
+</span></span></span><span class="line"><span class="cl"><span class="nf">    ...
+</span></span></span><span class="line"><span class="cl"><span class="nf"></span><span class="k">    When </span><span class="nf">I reboot kernel
+</span></span></span><span class="line"><span class="cl"><span class="nf">    ...
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// Class Tests\Integration\Behaviour\Features\Context\CommonFeatureContext
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">CommonFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractPrestaShopFeatureContext</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * This hook can be used to flag a feature for kernel reboot
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @AfterFeature @reboot-kernel-after-feature
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">rebootKernelAfterFeature</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">self</span><span class="o">::</span><span class="na">rebootKernel</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @Given I reboot kernel
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">rebootKernelOnDemand</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">self</span><span class="o">::</span><span class="na">rebootKernel</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="behatyml">behat.yml<a href="#behatyml"></a></h2><p>When you have already created features and contexts it is time to map them with the test suite. The mapping is done in the behat.yml configuration file. It looks like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">default</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">suites</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">customer</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span><span class="nt">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span>- <span class="l">%paths.base%/Features/Scenario/Customer</span><span class="w">
-</span><span class="w">            </span><span class="nt">contexts</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CommonFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CustomerManagerFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\Domain\CustomerFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CustomerFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\Configuration\CommonConfigurationFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Transform\StringToBoolTransformContext</span><span class="w">
-</span><span class="w">        </span><span class="nt">category</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span><span class="nt">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span>- <span class="l">%paths.base%/Features/Scenario/Category</span><span class="w">
-</span><span class="w">            </span><span class="nt">contexts</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CommonFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CategoryFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\Domain\CategoryFeatureContext</span><span class="w">
-</span></code></pre></div><p>As you can see, you have to define the <code>suite</code>, the <code>path</code> to features, and all the necessary <code>contexts</code>. According to the example, when you run the following: <code>./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml -s customer</code> - all the <code>*.feature</code> files from <code>tests/Integration/Behaviour/Features/Scenario/Customer</code> directory will be used to execute the related methods in all the provided contexts.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">default</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">suites</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">customer</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">%paths.base%/Features/Scenario/Customer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">contexts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CommonFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CustomerManagerFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\Domain\CustomerFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CustomerFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\Configuration\CommonConfigurationFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Transform\StringToBoolTransformContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">category</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">%paths.base%/Features/Scenario/Category</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">contexts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CommonFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CategoryFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\Domain\CategoryFeatureContext</span><span class="w">
+</span></span></span></code></pre></div><p>As you can see, you have to define the <code>suite</code>, the <code>path</code> to features, and all the necessary <code>contexts</code>. According to the example, when you run the following: <code>./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml -s customer</code> - all the <code>*.feature</code> files from <code>tests/Integration/Behaviour/Features/Scenario/Customer</code> directory will be used to execute the related methods in all the provided contexts.</p>
 
 
 <footer class="article-footer">
@@ -33571,17 +33570,17 @@ Sometimes clearing the cache of the software is also needed since all the behat 
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163905"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163905"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163905"></script>
-    <script src="/js/jquery.sticky.js?1703163905"></script>
-    <script src="/js/featherlight.min.js?1703163905"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163905"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163905"></script>
-    <script src="/js/learn.js?1703163905"></script>
-    <script src="/js/hugo-learn.js?1703163905"></script>
+    <script src="/js/clipboard.min.js?1703164731"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164731"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164731"></script>
+    <script src="/js/jquery.sticky.js?1703164731"></script>
+    <script src="/js/featherlight.min.js?1703164731"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164731"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164731"></script>
+    <script src="/js/learn.js?1703164731"></script>
+    <script src="/js/hugo-learn.js?1703164731"></script>
     
-    <script src="/main.js?1703163905"></script>
+    <script src="/main.js?1703164731"></script>
     
     
     

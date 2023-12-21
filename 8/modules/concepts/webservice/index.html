@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Extend Webservice with a custom resource :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163938" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163938" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163938" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163938" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164758" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164758" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164758" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164758" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163938" rel="stylesheet">
+    <link href="/style.css?1703164758" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163938"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164758"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -9975,7 +9975,7 @@
     
     
     <li data-nav-id="/8/modules/concepts/webservice/" title="Extend Webservice with a custom resource" class="dd-item
-        parent
+        
         active currentPage
         
         
@@ -33128,143 +33128,143 @@
 
 <h2 id="create-and-declare-the-new-entity">Create and declare the new entity<a href="#create-and-declare-the-new-entity"></a></h2><p>The following example is about an entity that can manage blog articles, the folder where you create your Entity is not relevant.</p>
 <p>PS: Remember to create the respective table(s) in the database, usually created during the module installation.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/yourmodule/src/Entity/Article.php
-</span><span class="c1"></span>
-<span class="k">class</span> <span class="nc">Article</span> <span class="k">extends</span> <span class="nx">ObjectModel</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="nv">$title</span><span class="p">;</span>
-    <span class="k">public</span> <span class="nv">$type</span><span class="p">;</span>
-    <span class="k">public</span> <span class="nv">$content</span><span class="p">;</span>
-    <span class="k">public</span> <span class="nv">$meta_title</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="nv">$date_add</span><span class="p">;</span>
-    <span class="k">public</span> <span class="nv">$date_upd</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @see ObjectModel::$definition
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="nv">$definition</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;table&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;article&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;primary&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_article&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;multilang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-        <span class="s1">&#39;fields&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isCleanHtml&#39;</span><span class="p">,</span> <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">255</span><span class="p">),</span>
-            <span class="s1">&#39;date_add&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_DATE</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isDate&#39;</span><span class="p">],</span>
-            <span class="s1">&#39;date_upd&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_DATE</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isDate&#39;</span><span class="p">],</span>
-
-            <span class="c1">// Lang fields
-</span><span class="c1"></span>            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isCleanHtml&#39;</span><span class="p">,</span> <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">255</span><span class="p">),</span>
-            <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_HTML</span><span class="p">,</span> <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isCleanHtml&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">4000</span><span class="p">),</span>
-            <span class="s1">&#39;meta_title&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span> <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isCleanHtml&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">255</span><span class="p">)</span>
-        <span class="p">)</span>
-    <span class="p">);</span>
-
-    <span class="k">protected</span> <span class="nv">$webserviceParameters</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-      <span class="s1">&#39;objectNodeName&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;article&#39;</span><span class="p">,</span>
-      <span class="s1">&#39;objectsNodeName&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;articles&#39;</span><span class="p">,</span>
-      <span class="s1">&#39;fields&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-          <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">),</span>
-          <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">),</span>
-          <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(),</span>
-          <span class="s1">&#39;meta_title&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(),</span>
-        <span class="p">)</span>
-    <span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>The <code>$webserviceParameters</code> array is mandatory to define how and which fields to expose.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/yourmodule/src/Entity/Article.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Article</span> <span class="k">extends</span> <span class="nx">ObjectModel</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$title</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$meta_title</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$date_add</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$date_upd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @see ObjectModel::$definition
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="nv">$definition</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;table&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;article&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;primary&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_article&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;multilang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;fields&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isCleanHtml&#39;</span><span class="p">,</span> <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">255</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;date_add&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_DATE</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isDate&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;date_upd&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_DATE</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isDate&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="c1">// Lang fields
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isCleanHtml&#39;</span><span class="p">,</span> <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">255</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_HTML</span><span class="p">,</span> <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isCleanHtml&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">4000</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;meta_title&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span> <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isCleanHtml&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">255</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nv">$webserviceParameters</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;objectNodeName&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;article&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;objectsNodeName&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;articles&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;fields&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;meta_title&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The <code>$webserviceParameters</code> array is mandatory to define how and which fields to expose.</p>
 <p>The key to access all the elements:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;objectsNodeName&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;articles&#39;</span>
-</code></pre></div><p>The key to access a single element:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;objectNodeName&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;articles&#39;</span>
-</code></pre></div><p>The parameter to set which fields to expose through the webservice and settings for each of them:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;fields&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">()</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="s1">&#39;objectsNodeName&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;articles&#39;</span>
+</span></span></code></pre></div><p>The key to access a single element:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="s1">&#39;objectNodeName&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;articles&#39;</span>
+</span></span></code></pre></div><p>The parameter to set which fields to expose through the webservice and settings for each of them:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="s1">&#39;fields&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">()</span>
+</span></span></code></pre></div>
 <h2 id="register-the-hook">Register the hook<a href="#register-the-hook"></a></h2><p>The hook <code>addWebserviceResources</code> must be registered and implemented by the module.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookAddWebserviceResources</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="p">[</span>
-      <span class="s1">&#39;articles&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-          <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Blog articles&#39;</span><span class="p">,</span> <span class="c1">// The description for those who access to this resource through WS
-</span><span class="c1"></span>          <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Article&#39;</span><span class="p">,</span> <span class="c1">// The classname of your Entity
-</span><span class="c1"></span>          <span class="s1">&#39;forbidden_method&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;DELETE&#39;</span><span class="p">)</span> <span class="c1">// Optional, if you want to forbid some methods
-</span><span class="c1"></span>      <span class="p">]</span>
-    <span class="p">];</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookAddWebserviceResources</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;articles&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Blog articles&#39;</span><span class="p">,</span> <span class="c1">// The description for those who access to this resource through WS
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Article&#39;</span><span class="p">,</span> <span class="c1">// The classname of your Entity
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>          <span class="s1">&#39;forbidden_method&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;DELETE&#39;</span><span class="p">)</span> <span class="c1">// Optional, if you want to forbid some methods
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="load-the-entity">Load the entity<a href="#load-the-entity"></a></h2><p>Don&rsquo;t forget to include the class file of the entity (e.g., Article.php) at the top of the main module file (unless you use a composer-based module with namespaces).
 The following is an example of a correct configuration to load the example entity in the module.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">require_once</span> <span class="nx">_PS_MODULE_DIR_</span> <span class="o">.</span> <span class="s1">&#39;wsarticle/src/Entity/Article.php&#39;</span><span class="p">;</span>
-</code></pre></div>
-<h3 id="complete-example-of-a-main-module-file">Complete example of a main module file<a href="#complete-example-of-a-main-module-file"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">exit</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">require_once</span> <span class="nx">_PS_MODULE_DIR_</span> <span class="o">.</span> <span class="s1">&#39;wsarticle/src/Entity/Article.php&#39;</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">WsArticle</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;wsarticle&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tab</span> <span class="o">=</span> <span class="s1">&#39;front_office_features&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="s1">&#39;PrestaShop&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">need_instance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">secure_key</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">encrypt</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bootstrap</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
-
-        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getTranslator</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Extend WS demo module&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(),</span> <span class="s1">&#39;Modules.Wsarticle.Admin&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">installDB</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="c1">// Create tables in the DB
-</span><span class="c1"></span>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;addWebserviceResources&#39;</span><span class="p">);</span> <span class="c1">// Register the module to the hook
-</span><span class="c1"></span>    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">installDB</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$sql</span> <span class="o">=</span> <span class="s1">&#39;CREATE TABLE IF NOT EXISTS `&#39;</span><span class="o">.</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="nx">Article</span><span class="o">::</span><span class="nv">$definition</span><span class="p">[</span><span class="s1">&#39;table&#39;</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;` (
-</span><span class="s1">            `id_article` int(10) unsigned NOT NULL AUTO_INCREMENT,
-</span><span class="s1">            `type` varchar(255),
-</span><span class="s1">            `date_add` datetime NOT NULL,
-</span><span class="s1">            `date_upd` datetime NOT NULL,
-</span><span class="s1">            PRIMARY KEY  (`id_article`)
-</span><span class="s1">        ) ENGINE=&#39;</span><span class="o">.</span><span class="nx">_MYSQL_ENGINE_</span><span class="o">.</span><span class="s1">&#39; DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci&#39;</span><span class="p">;</span>
-
-        <span class="nv">$sql_lang</span> <span class="o">=</span> <span class="s1">&#39;CREATE TABLE IF NOT EXISTS `&#39;</span><span class="o">.</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="nx">Article</span><span class="o">::</span><span class="nv">$definition</span><span class="p">[</span><span class="s1">&#39;table&#39;</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;_lang` (
-</span><span class="s1">            `id_article` int(10) unsigned NOT NULL,
-</span><span class="s1">            `id_lang` int(10) unsigned NOT NULL,
-</span><span class="s1">            `title` varchar(255),
-</span><span class="s1">            `content` text NOT NULL,
-</span><span class="s1">            `meta_title` varchar(255) NOT NULL,
-</span><span class="s1">            PRIMARY KEY  (`id_article`, `id_lang`)
-</span><span class="s1">        ) ENGINE=&#39;</span><span class="o">.</span><span class="nx">_MYSQL_ENGINE_</span><span class="o">.</span><span class="s1">&#39; DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci&#39;</span><span class="p">;</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="nv">$sql</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="nv">$sql_lang</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-        <span class="p">}</span>
-        
-        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookAddWebserviceResources</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;articles&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-                <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Blog articles&#39;</span><span class="p">,</span> <span class="c1">// The description for those who access to this resource through WS
-</span><span class="c1"></span>                <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Article&#39;</span><span class="p">,</span> <span class="c1">// The classname of your Entity
-</span><span class="c1"></span>                <span class="s1">&#39;forbidden_method&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;DELETE&#39;</span><span class="p">)</span> <span class="c1">// Optional, if you want to forbid some methods
-</span><span class="c1"></span>            <span class="p">)</span>
-        <span class="p">];</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">require_once</span> <span class="nx">_PS_MODULE_DIR_</span> <span class="o">.</span> <span class="s1">&#39;wsarticle/src/Entity/Article.php&#39;</span><span class="p">;</span>
+</span></span></code></pre></div>
+<h3 id="complete-example-of-a-main-module-file">Complete example of a main module file<a href="#complete-example-of-a-main-module-file"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">require_once</span> <span class="nx">_PS_MODULE_DIR_</span> <span class="o">.</span> <span class="s1">&#39;wsarticle/src/Entity/Article.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">WsArticle</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;wsarticle&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tab</span> <span class="o">=</span> <span class="s1">&#39;front_office_features&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="s1">&#39;PrestaShop&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">need_instance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">secure_key</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">encrypt</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bootstrap</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getTranslator</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Extend WS demo module&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(),</span> <span class="s1">&#39;Modules.Wsarticle.Admin&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">installDB</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="c1">// Create tables in the DB
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;addWebserviceResources&#39;</span><span class="p">);</span> <span class="c1">// Register the module to the hook
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">installDB</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$sql</span> <span class="o">=</span> <span class="s1">&#39;CREATE TABLE IF NOT EXISTS `&#39;</span><span class="o">.</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="nx">Article</span><span class="o">::</span><span class="nv">$definition</span><span class="p">[</span><span class="s1">&#39;table&#39;</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;` (
+</span></span></span><span class="line"><span class="cl"><span class="s1">            `id_article` int(10) unsigned NOT NULL AUTO_INCREMENT,
+</span></span></span><span class="line"><span class="cl"><span class="s1">            `type` varchar(255),
+</span></span></span><span class="line"><span class="cl"><span class="s1">            `date_add` datetime NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="s1">            `date_upd` datetime NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="s1">            PRIMARY KEY  (`id_article`)
+</span></span></span><span class="line"><span class="cl"><span class="s1">        ) ENGINE=&#39;</span><span class="o">.</span><span class="nx">_MYSQL_ENGINE_</span><span class="o">.</span><span class="s1">&#39; DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$sql_lang</span> <span class="o">=</span> <span class="s1">&#39;CREATE TABLE IF NOT EXISTS `&#39;</span><span class="o">.</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="nx">Article</span><span class="o">::</span><span class="nv">$definition</span><span class="p">[</span><span class="s1">&#39;table&#39;</span><span class="p">]</span><span class="o">.</span><span class="s1">&#39;_lang` (
+</span></span></span><span class="line"><span class="cl"><span class="s1">            `id_article` int(10) unsigned NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="s1">            `id_lang` int(10) unsigned NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="s1">            `title` varchar(255),
+</span></span></span><span class="line"><span class="cl"><span class="s1">            `content` text NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="s1">            `meta_title` varchar(255) NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="s1">            PRIMARY KEY  (`id_article`, `id_lang`)
+</span></span></span><span class="line"><span class="cl"><span class="s1">        ) ENGINE=&#39;</span><span class="o">.</span><span class="nx">_MYSQL_ENGINE_</span><span class="o">.</span><span class="s1">&#39; DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="nv">$sql</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="nv">$sql_lang</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookAddWebserviceResources</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;articles&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Blog articles&#39;</span><span class="p">,</span> <span class="c1">// The description for those who access to this resource through WS
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Article&#39;</span><span class="p">,</span> <span class="c1">// The classname of your Entity
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="s1">&#39;forbidden_method&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;DELETE&#39;</span><span class="p">)</span> <span class="c1">// Optional, if you want to forbid some methods
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="final-notes">Final notes<a href="#final-notes"></a></h2><p>Following the example above, the new resource will be available in the webservice resources list:</p>
 <figure><img src="../img/new-ws-resource.png"/><figcaption>
             <h4>New Webservice resource</h4>
@@ -33370,17 +33370,17 @@ The following is an example of a correct configuration to load the example entit
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163938"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163938"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163938"></script>
-    <script src="/js/jquery.sticky.js?1703163938"></script>
-    <script src="/js/featherlight.min.js?1703163938"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163938"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163938"></script>
-    <script src="/js/learn.js?1703163938"></script>
-    <script src="/js/hugo-learn.js?1703163938"></script>
+    <script src="/js/clipboard.min.js?1703164759"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164759"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164759"></script>
+    <script src="/js/jquery.sticky.js?1703164759"></script>
+    <script src="/js/featherlight.min.js?1703164759"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164759"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164759"></script>
+    <script src="/js/learn.js?1703164759"></script>
+    <script src="/js/hugo-learn.js?1703164759"></script>
     
-    <script src="/main.js?1703163938"></script>
+    <script src="/main.js?1703164759"></script>
     
     
     

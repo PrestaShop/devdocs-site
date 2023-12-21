@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Validation checklist :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163895" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163895" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163895" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163895" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164722" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164722" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164722" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164722" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163895" rel="stylesheet">
+    <link href="/style.css?1703164722" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163895"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164722"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30355,14 +30355,14 @@ To do so, create a unique token during the module&rsquo;s installation and use i
 </ul>
 <p>Configuration data is shared between the shop and every module installed. This is convenient if your need to get a value from another part of the shop, but include some risks if two modules stores some data in the same key.</p>
 <p>Too avoid conflicts, configuration keys must be prefixed by the module name. For instance, using a configuration key in the module <code>TheModule</code> would be:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;THE_MODULE_PAYMENT_METHODS_ORDER&#39;</span><span class="p">);</span>
-<span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;THE_MODULE_PAYMENT_METHODS_ORDER&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">...</span><span class="p">]);</span>
-</code></pre></div><p>instead of</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PAYMENT_METHODS_ORDER&#39;</span><span class="p">);</span>
-<span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;PAYMENT_METHODS_ORDER&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">...</span><span class="p">]);</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;THE_MODULE_PAYMENT_METHODS_ORDER&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;THE_MODULE_PAYMENT_METHODS_ORDER&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">...</span><span class="p">]);</span>
+</span></span></code></pre></div><p>instead of</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PAYMENT_METHODS_ORDER&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;PAYMENT_METHODS_ORDER&#39;</span><span class="p">,</span> <span class="p">[</span><span class="o">...</span><span class="p">]);</span>
+</span></span></code></pre></div><ul>
 <li>Classes</li>
 </ul>
 <p>This also applies to classes defined outside a namespace.
@@ -30383,76 +30383,76 @@ For more details:</p>
 <ul>
 <li>Module filtering the creation of orders from another module</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="sd">/**
-</span><span class="sd">     * Hook executed at the order confirmation
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookOrderConfirmation</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1"># If created by another module, return.
-</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">module</span> <span class="o">!==</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-        <span class="p">}</span>
-        
-        <span class="c1">// [...]
-</span><span class="c1"></span>    <span class="p">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Hook executed at the order confirmation
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookOrderConfirmation</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># If created by another module, return.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;order&#39;</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">module</span> <span class="o">!==</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">// [...]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li>Filter for a hook called on all BO pages:</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="sd">/**
-</span><span class="sd">     * Display content ONLY in the admin payment controller
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayAdminAfterHeader</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$currentController</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">controller_name</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;AdminPayment&#39;</span> <span class="o">!==</span> <span class="nv">$currentController</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="c1">// [...]
-</span><span class="c1"></span>        <span class="c1">// return $this-&gt;display(...)
-</span><span class="c1"></span>    <span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Display content ONLY in the admin payment controller
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayAdminAfterHeader</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$currentController</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">controller_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;AdminPayment&#39;</span> <span class="o">!==</span> <span class="nv">$currentController</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// [...]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// return $this-&gt;display(...)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span></code></pre></div>
 <h4 id="debug-statements-are-cleaned">Debug statements are cleaned<a href="#debug-statements-are-cleaned"></a></h4><p>All the debug tests have to be removed.</p>
 <p>Example : <code>var_dump($a)</code>, <code>dump($a)</code>, <code>console.log(‘a’)</code>&hellip;</p>
 
 <h4 id="commented-code-is-removed">Commented code is removed<a href="#commented-code-is-removed"></a></h4><p>To have a code easier to maintain / review, you must remove the commented lines of code. Code comments are welcome of course!</p>
 <p>Commented code to be removed:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookPaymentOptions</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// if (false === $this-&gt;active) { // &lt;-- never called, to be removed
-</span><span class="c1"></span>        <span class="c1">//     return false;
-</span><span class="c1"></span>        <span class="c1">// }
-</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="k">false</span> <span class="o">===</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">merchantIsValid</span><span class="p">())</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="c1">// if (false === $this-&gt;checkCurrency($params[&#39;cart&#39;])) // {
-</span><span class="c1"></span>        <span class="c1">//     return false;
-</span><span class="c1"></span>        <span class="c1">// }
-</span><span class="c1"></span>        <span class="c1">// if (false === $this-&gt;isPaymentStep()) {
-</span><span class="c1"></span>        <span class="c1">//     return false;
-</span><span class="c1"></span>        <span class="c1">// }
-</span><span class="c1"></span>
-        <span class="c1">// [...]
-</span><span class="c1"></span>        <span class="k">return</span> <span class="nv">$payment_options</span><span class="p">;</span>
-    <span class="p">}</span>
-</code></pre></div><p>Encouraged code comments:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="sd">/**
-</span><span class="sd">     * Add payment option at the checkout in the front office
-</span><span class="sd">     *
-</span><span class="sd">     * @param array $params return by the hook
-</span><span class="sd">     *
-</span><span class="sd">     * @return array|false all payment option available
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookPaymentOptions</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// [...]
-</span><span class="c1"></span>        <span class="k">return</span> <span class="nv">$payment_options</span><span class="p">;</span>
-    <span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookPaymentOptions</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// if (false === $this-&gt;active) { // &lt;-- never called, to be removed
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     return false;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="k">false</span> <span class="o">===</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">merchantIsValid</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// if (false === $this-&gt;checkCurrency($params[&#39;cart&#39;])) // {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     return false;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// if (false === $this-&gt;isPaymentStep()) {
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//     return false;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// [...]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="nv">$payment_options</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>Encouraged code comments:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Add payment option at the checkout in the front office
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $params return by the hook
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return array|false all payment option available
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookPaymentOptions</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// [...]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="nv">$payment_options</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div>
 <h4 id="empty--generated-files-are-removed">Empty &amp; generated files are removed<a href="#empty--generated-files-are-removed"></a></h4><p>As they have no consequences in the module execution, empty files can be removed before submission.
 Generated files such as log files, invoice or other documents in PDFs etc. should be removed as well, as they:</p>
 <ul>
@@ -30566,17 +30566,17 @@ Note that there are some modules which create the Order with a pending order sta
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163895"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163895"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163895"></script>
-    <script src="/js/jquery.sticky.js?1703163895"></script>
-    <script src="/js/featherlight.min.js?1703163895"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163895"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163895"></script>
-    <script src="/js/learn.js?1703163895"></script>
-    <script src="/js/hugo-learn.js?1703163895"></script>
+    <script src="/js/clipboard.min.js?1703164722"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164722"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164722"></script>
+    <script src="/js/jquery.sticky.js?1703164722"></script>
+    <script src="/js/featherlight.min.js?1703164722"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164722"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164722"></script>
+    <script src="/js/learn.js?1703164722"></script>
+    <script src="/js/hugo-learn.js?1703164722"></script>
     
-    <script src="/main.js?1703163895"></script>
+    <script src="/main.js?1703164722"></script>
     
     
     

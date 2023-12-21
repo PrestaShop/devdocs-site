@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Extending the new product page form :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163925" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163925" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163925" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163925" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164747" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164747" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164747" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164747" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163925" rel="stylesheet">
+    <link href="/style.css?1703164747" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163925"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164747"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -15449,10 +15449,10 @@
     
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#extending-the-new-product-page-form">Extending the new product page form </a>
+    <li><a href="#extending-the-new-product-page-form-hahahugoshortcode2036s0hbhb">Extending the new product page form HAHAHUGOSHORTCODE2036s0HBHB</a>
       <ul>
-        <li><a href="#add-a-custom-field-before">Add a custom field, before </a></li>
-        <li><a href="#add-a-custom-field-from">Add a custom field, from </a></li>
+        <li><a href="#add-a-custom-field-before-hahahugoshortcode2036s3hbhb">Add a custom field, before HAHAHUGOSHORTCODE2036s3HBHB</a></li>
+        <li><a href="#add-a-custom-field-from-hahahugoshortcode2036s7hbhb">Add a custom field, from HAHAHUGOSHORTCODE2036s7HBHB</a></li>
         <li><a href="#cheatsheet-for-oldnew-hooks--new-hooks">Cheatsheet for old/new hooks / new hooks</a>
           <ul>
             <li><a href="#hook-actionproductformbuildermodifier">Hook: actionProductFormBuilderModifier</a></li>
@@ -33104,12 +33104,12 @@
 
 
 
-<h1 id="extending-the-new-product-page-form">Extending the new product page form 
+<h1 id="extending-the-new-product-page-form-hahahugoshortcode2036s0hbhb">Extending the new product page form 
 <span class="version-pill" title="New in PrestaShop 8.1.0">
   8.1.0
 </span>
 
-<a href="#extending-the-new-product-page-form"></a></h1><p>The new Back Office product page introduced in 
+<a href="#extending-the-new-product-page-form-hahahugoshortcode2036s0hbhb"></a></h1><p>The new Back Office product page introduced in 
 <span class="version-pill" title="New in PrestaShop 8.1.0">
   8.1.0
 </span>
@@ -33137,12 +33137,12 @@
 <p>In this guide, we will discover how to extend the product page by adding custom fields, in the old and new ways of doing this.</p>
 <p>Finally, we will discover how to add a new tab to the product page, which is possible for a new product page from PrestaShop 8.1.</p>
 
-<h2 id="add-a-custom-field-before">Add a custom field, before 
+<h2 id="add-a-custom-field-before-hahahugoshortcode2036s3hbhb">Add a custom field, before 
 <span class="version-pill" title="New in PrestaShop 8.1.0">
   8.1.0
 </span>
 
-<a href="#add-a-custom-field-before"></a></h2><p>A custom field, before 
+<a href="#add-a-custom-field-before-hahahugoshortcode2036s3hbhb"></a></h2><p>A custom field, before 
 <span class="version-pill" title="New in PrestaShop 8.1.0">
   8.1.0
 </span>
@@ -33150,48 +33150,48 @@
 , was added by hooking to one of the <code>displayAdminProducts&lt;Location&gt;</code> hooks.</p>
 <p>For example, to add a custom field, in the <code>SEO</code> tab, you had to create a module with this content:</p>
 <p><code>demooldhooks.php</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">use</span> <span class="nx">Symfony\Component\Form\Extension\Core\Type\TextType</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">DemoOldHooks</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-  <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-  <span class="p">{</span>
-    <span class="c1">// [...]
-</span><span class="c1"></span>  <span class="p">}</span>
-
-  <span class="sd">/**
-</span><span class="sd">   * @return bool
-</span><span class="sd">   */</span>
-  <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-  <span class="p">{</span>
-      <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">([</span><span class="s1">&#39;displayAdminProductsSeoStepBottom&#39;</span><span class="p">]);</span>
-  <span class="p">}</span>
-
-  <span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayAdminProductsSeoStepBottom</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="nv">$productId</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id_product&#39;</span><span class="p">];</span>
-    <span class="nv">$formFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;form.factory&#39;</span><span class="p">);</span>
-    <span class="nv">$twig</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;twig&#39;</span><span class="p">);</span>
-
-    <span class="nv">$product</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Product</span><span class="p">(</span><span class="nv">$productId</span><span class="p">);</span>
-
-    <span class="nv">$form</span> <span class="o">=</span> <span class="nv">$formFactory</span>
-      <span class="o">-&gt;</span><span class="na">createNamedBuilder</span><span class="p">(</span><span class="s1">&#39;seo_special_field&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
-      <span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
-
-    <span class="nv">$template</span> <span class="o">=</span> <span class="s1">&#39;@Modules/demooldhooks/views/templates/seo_special_field.html.twig&#39;</span><span class="p">;</span>
-
-    <span class="k">return</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="nv">$template</span><span class="p">,</span> <span class="p">[</span>
-      <span class="s1">&#39;seo_special_field&#39;</span> <span class="o">=&gt;</span> <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">createView</span><span class="p">()</span>
-    <span class="p">]);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p><code>views/templates/seo_special_field.html.twig</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">SEO</span> <span class="nx">Special</span> <span class="nx">field</span><span class="o">&lt;/</span><span class="nx">h3</span><span class="o">&gt;</span>
-<span class="p">{{</span> <span class="nx">form_widget</span><span class="p">(</span><span class="nx">seo_special_field</span><span class="p">)</span> <span class="p">}}</span>
-</code></pre></div><p>Before 
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Form\Extension\Core\Type\TextType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DemoOldHooks</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// [...]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">   * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">([</span><span class="s1">&#39;displayAdminProductsSeoStepBottom&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayAdminProductsSeoStepBottom</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$productId</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id_product&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$formFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;form.factory&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$twig</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;twig&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$product</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Product</span><span class="p">(</span><span class="nv">$productId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$form</span> <span class="o">=</span> <span class="nv">$formFactory</span>
+</span></span><span class="line"><span class="cl">      <span class="o">-&gt;</span><span class="na">createNamedBuilder</span><span class="p">(</span><span class="s1">&#39;seo_special_field&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">      <span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$template</span> <span class="o">=</span> <span class="s1">&#39;@Modules/demooldhooks/views/templates/seo_special_field.html.twig&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="nv">$template</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;seo_special_field&#39;</span> <span class="o">=&gt;</span> <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">createView</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>views/templates/seo_special_field.html.twig</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">SEO</span> <span class="nx">Special</span> <span class="nx">field</span><span class="o">&lt;/</span><span class="nx">h3</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{{</span> <span class="nx">form_widget</span><span class="p">(</span><span class="nx">seo_special_field</span><span class="p">)</span> <span class="p">}}</span>
+</span></span></code></pre></div><p>Before 
 <span class="version-pill" title="New in PrestaShop 8.1.0">
   8.1.0
 </span>
@@ -33205,12 +33205,12 @@
 
 , this field won&rsquo;t be displayed as a hook (<code>displayAdminProductsSeoStepBottom</code>) is no longer available.</p>
 
-<h2 id="add-a-custom-field-from">Add a custom field, from 
+<h2 id="add-a-custom-field-from-hahahugoshortcode2036s7hbhb">Add a custom field, from 
 <span class="version-pill" title="New in PrestaShop 8.1.0">
   8.1.0
 </span>
 
-<a href="#add-a-custom-field-from"></a></h2><p>To do exactly the same, from 
+<a href="#add-a-custom-field-from-hahahugoshortcode2036s7hbhb"></a></h2><p>To do exactly the same, from 
 <span class="version-pill" title="New in PrestaShop 8.1.0">
   8.1.0
 </span>
@@ -33218,104 +33218,104 @@
 , we will implement <code>actionProductFormBuilderModifier</code> hook and modify product&rsquo;s FormBuilder.</p>
 <p>First, create a module, with a <code>composer.json</code> file, <a href="/8/modules/concepts/composer/">as instructed here</a>.</p>
 <p><code>demonewhooks.php</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">use</span> <span class="nx">DemoNewHooks\Form\Modifier\ProductFormModifier</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">DemoNewHooks</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="c1">// [...]
-</span><span class="c1"></span>    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">([</span><span class="s1">&#39;actionProductFormBuilderModifier&#39;</span><span class="p">]);</span>
-    <span class="p">}</span>
-    
-    <span class="sd">/**
-</span><span class="sd">     * Modify product form builder
-</span><span class="sd">     *
-</span><span class="sd">     * @param array $params
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionProductFormBuilderModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="sd">/** @var ProductFormModifier $productFormModifier */</span>
-        <span class="nv">$productFormModifier</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">ProductFormModifier</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
-        <span class="nv">$productId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
-
-        <span class="nv">$productFormModifier</span><span class="o">-&gt;</span><span class="na">modify</span><span class="p">(</span><span class="nv">$productId</span><span class="p">,</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;form_builder&#39;</span><span class="p">]);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p><code>config/services.yml</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">DemoNewHooks\Form\Modifier\ProductFormModifier</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">autowire</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span><span class="nt">$formBuilderModifier</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;@form.form_builder_modifier&#39;</span><span class="w">
-</span></code></pre></div><p><code>src/Form/Modifier/ProductFormModifier.php</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">DemoNewHooks\Form\Modifier</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Form\FormBuilderModifier</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\Form\Extension\Core\Type\TextType</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\Form\FormBuilderInterface</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">ProductFormModifier</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var FormBuilderModifier
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$formBuilderModifier</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param FormBuilderModifier $formBuilderModifier
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
-        <span class="nx">FormBuilderModifier</span> <span class="nv">$formBuilderModifier</span>
-    <span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formBuilderModifier</span> <span class="o">=</span> <span class="nv">$formBuilderModifier</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param int|null $productId
-</span><span class="sd">     * @param FormBuilderInterface $productFormBuilder
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">modify</span><span class="p">(</span>
-        <span class="nx">int</span> <span class="nv">$productId</span><span class="p">,</span>
-        <span class="nx">FormBuilderInterface</span> <span class="nv">$productFormBuilder</span>
-    <span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
-     
-        <span class="nv">$seoTabFormBuilder</span> <span class="o">=</span> <span class="nv">$productFormBuilder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;seo&#39;</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formBuilderModifier</span><span class="o">-&gt;</span><span class="na">addAfter</span><span class="p">(</span>
-            <span class="nv">$seoTabFormBuilder</span><span class="p">,</span> <span class="c1">// the tab
-</span><span class="c1"></span>            <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="c1">// the input/form from which to insert after/before
-</span><span class="c1"></span>            <span class="s1">&#39;demo_module_custom_field&#39;</span><span class="p">,</span> <span class="c1">// your field name
-</span><span class="c1"></span>            <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="c1">// your field type
-</span><span class="c1"></span>            <span class="p">[</span>
-                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;SEO Special Field&#39;</span><span class="p">,</span> <span class="c1">// you can remove the label if you dont need it by passing &#39;label&#39; =&gt; false
-</span><span class="c1"></span>                <span class="s1">&#39;label_attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span> <span class="c1">// customize label with any HTML attribute
-</span><span class="c1"></span>                    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;h2&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text-info&#39;</span><span class="p">,</span>
-                <span class="p">],</span>
-                <span class="s1">&#39;attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                    <span class="s1">&#39;placeholder&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;SEO Special field&#39;</span><span class="p">,</span>
-                <span class="p">],</span>
-                <span class="c1">// this is just an example, but in real case scenario, you could have some data provider class to handle more complex cases
-</span><span class="c1"></span>                <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
-                <span class="s1">&#39;empty_data&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;form_theme&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;@PrestaShop/Admin/TwigTemplateForm/prestashop_ui_kit_base.html.twig&#39;</span><span class="p">,</span>
-            <span class="p">]</span>
-        <span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>This module uses a Form Builder Modifier (<code>FormBuilderModifier</code>), and adds a <code>TextType</code> field to the <code>SEO</code> tab form,  after the existing <code>tags</code> form element.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">DemoNewHooks\Form\Modifier\ProductFormModifier</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DemoNewHooks</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// [...]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">([</span><span class="s1">&#39;actionProductFormBuilderModifier&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Modify product form builder
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $params
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionProductFormBuilderModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var ProductFormModifier $productFormModifier */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productFormModifier</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">ProductFormModifier</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$productFormModifier</span><span class="o">-&gt;</span><span class="na">modify</span><span class="p">(</span><span class="nv">$productId</span><span class="p">,</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;form_builder&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>config/services.yml</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">DemoNewHooks\Form\Modifier\ProductFormModifier</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">autowire</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">$formBuilderModifier</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;@form.form_builder_modifier&#39;</span><span class="w">
+</span></span></span></code></pre></div><p><code>src/Form/Modifier/ProductFormModifier.php</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">DemoNewHooks\Form\Modifier</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Form\FormBuilderModifier</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Form\Extension\Core\Type\TextType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Form\FormBuilderInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ProductFormModifier</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var FormBuilderModifier
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$formBuilderModifier</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param FormBuilderModifier $formBuilderModifier
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">FormBuilderModifier</span> <span class="nv">$formBuilderModifier</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formBuilderModifier</span> <span class="o">=</span> <span class="nv">$formBuilderModifier</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int|null $productId
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param FormBuilderInterface $productFormBuilder
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">modify</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">int</span> <span class="nv">$productId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">FormBuilderInterface</span> <span class="nv">$productFormBuilder</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     
+</span></span><span class="line"><span class="cl">        <span class="nv">$seoTabFormBuilder</span> <span class="o">=</span> <span class="nv">$productFormBuilder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;seo&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formBuilderModifier</span><span class="o">-&gt;</span><span class="na">addAfter</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$seoTabFormBuilder</span><span class="p">,</span> <span class="c1">// the tab
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;tags&#39;</span><span class="p">,</span> <span class="c1">// the input/form from which to insert after/before
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;demo_module_custom_field&#39;</span><span class="p">,</span> <span class="c1">// your field name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="c1">// your field type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;SEO Special Field&#39;</span><span class="p">,</span> <span class="c1">// you can remove the label if you dont need it by passing &#39;label&#39; =&gt; false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="s1">&#39;label_attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span> <span class="c1">// customize label with any HTML attribute
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;h2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text-info&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;placeholder&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;SEO Special field&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="c1">// this is just an example, but in real case scenario, you could have some data provider class to handle more complex cases
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="s2">&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;empty_data&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;form_theme&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;@PrestaShop/Admin/TwigTemplateForm/prestashop_ui_kit_base.html.twig&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This module uses a Form Builder Modifier (<code>FormBuilderModifier</code>), and adds a <code>TextType</code> field to the <code>SEO</code> tab form,  after the existing <code>tags</code> form element.</p>
 <p><code>FormBuilderModifier</code> is hooked to the <code>actionProductFormBuilderModifier</code>.</p>
 <p>These changes produces the below&rsquo;s:</p>
 <p><img src="../img/new-product-form/seo-custom-field.png" alt="Custom field in SEO tab in newer versions of PrestaShop"></p>
@@ -33405,68 +33405,68 @@
 <ul>
 <li>Hook to actionProductCombinationFormBuilderModifier (<a href="/8/modules/concepts/hooks/list-of-hooks/actionformnameformbuildermodifier/"><code>action&lt;Object&gt;FormBuilderModifier</code></a>)</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
-</span><span class="sd"> * Hook that modifies the combination form structure.
-</span><span class="sd"> *
-</span><span class="sd"> * @param array $params
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCombinationFormFormBuilderModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
-<span class="p">{</span>
-    <span class="sd">/** @var CombinationFormModifier $productFormModifier */</span>
-    <span class="nv">$productFormModifier</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">CombinationFormModifier</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
-    <span class="nv">$combinationId</span> <span class="o">=</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="k">new</span> <span class="nx">CombinationId</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span> <span class="o">:</span> <span class="k">null</span><span class="p">;</span>
-
-    <span class="nv">$productFormModifier</span><span class="o">-&gt;</span><span class="na">modify</span><span class="p">(</span><span class="nv">$combinationId</span><span class="p">,</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;form_builder&#39;</span><span class="p">]);</span>
-<span class="p">}</span>
-</code></pre></div><p><code>src/Form/Modifier/CombinationFormModifier.php</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// [...]
-</span><span class="c1"></span><span class="k">class</span> <span class="nc">CombinationFormModifier</span>
-<span class="p">{</span>
-    <span class="c1">// [...]
-</span><span class="c1"></span>
-    <span class="sd">/**
-</span><span class="sd">     * @param CombinationId|null $combinationId
-</span><span class="sd">     * @param FormBuilderInterface $combinationFormBuilder
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">modify</span><span class="p">(</span>
-        <span class="o">?</span><span class="nx">CombinationId</span> <span class="nv">$combinationId</span><span class="p">,</span>
-        <span class="nx">FormBuilderInterface</span> <span class="nv">$combinationFormBuilder</span>
-    <span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
-        <span class="nv">$idValue</span> <span class="o">=</span> <span class="nv">$combinationId</span> <span class="o">?</span> <span class="nv">$combinationId</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">()</span> <span class="o">:</span> <span class="k">null</span><span class="p">;</span>
-        <span class="nv">$customCombination</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomCombination</span><span class="p">(</span><span class="nv">$idValue</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addCustomField</span><span class="p">(</span><span class="nv">$customCombination</span><span class="p">,</span> <span class="nv">$combinationFormBuilder</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param CustomCombination $customCombination
-</span><span class="sd">     * @param FormBuilderInterface $combinationFormBuilder
-</span><span class="sd">     *
-</span><span class="sd">     * @see demoproductform::hook
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">addCustomField</span><span class="p">(</span><span class="nx">CustomCombination</span> <span class="nv">$customCombination</span><span class="p">,</span> <span class="nx">FormBuilderInterface</span> <span class="nv">$combinationFormBuilder</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formBuilderModifier</span><span class="o">-&gt;</span><span class="na">addAfter</span><span class="p">(</span>
-            <span class="nv">$combinationFormBuilder</span><span class="p">,</span>
-            <span class="s1">&#39;references&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;demo_module_custom_field&#39;</span><span class="p">,</span>
-            <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
-            <span class="p">[</span>
-                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">translator</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Demo custom field&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Demoproductform.Admin&#39;</span><span class="p">),</span>
-                <span class="s1">&#39;label_attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;h2&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text-info&#39;</span><span class="p">,</span>
-                <span class="p">],</span>
-                <span class="s1">&#39;attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                    <span class="s1">&#39;placeholder&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">translator</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Your example text here&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Demoproductform.Admin&#39;</span><span class="p">),</span>
-                <span class="p">],</span>
-                <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="nv">$customCombination</span><span class="o">-&gt;</span><span class="na">custom_field</span><span class="p">,</span>
-                <span class="s1">&#39;empty_data&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;form_theme&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;@PrestaShop/Admin/TwigTemplateForm/prestashop_ui_kit_base.html.twig&#39;</span><span class="p">,</span>
-            <span class="p">]</span>
-        <span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>This example will add a <code>TextType</code> input on each <code>Combination</code> of a <code>Product</code>.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Hook that modifies the combination form structure.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param array $params
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCombinationFormFormBuilderModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/** @var CombinationFormModifier $productFormModifier */</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$productFormModifier</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">CombinationFormModifier</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$combinationId</span> <span class="o">=</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="k">new</span> <span class="nx">CombinationId</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span> <span class="o">:</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$productFormModifier</span><span class="o">-&gt;</span><span class="na">modify</span><span class="p">(</span><span class="nv">$combinationId</span><span class="p">,</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;form_builder&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>src/Form/Modifier/CombinationFormModifier.php</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// [...]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">CombinationFormModifier</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// [...]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param CombinationId|null $combinationId
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param FormBuilderInterface $combinationFormBuilder
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">modify</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="o">?</span><span class="nx">CombinationId</span> <span class="nv">$combinationId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">FormBuilderInterface</span> <span class="nv">$combinationFormBuilder</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$idValue</span> <span class="o">=</span> <span class="nv">$combinationId</span> <span class="o">?</span> <span class="nv">$combinationId</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">()</span> <span class="o">:</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$customCombination</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomCombination</span><span class="p">(</span><span class="nv">$idValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addCustomField</span><span class="p">(</span><span class="nv">$customCombination</span><span class="p">,</span> <span class="nv">$combinationFormBuilder</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param CustomCombination $customCombination
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param FormBuilderInterface $combinationFormBuilder
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @see demoproductform::hook
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">addCustomField</span><span class="p">(</span><span class="nx">CustomCombination</span> <span class="nv">$customCombination</span><span class="p">,</span> <span class="nx">FormBuilderInterface</span> <span class="nv">$combinationFormBuilder</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formBuilderModifier</span><span class="o">-&gt;</span><span class="na">addAfter</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$combinationFormBuilder</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;references&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;demo_module_custom_field&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">translator</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Demo custom field&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Demoproductform.Admin&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;label_attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;h2&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text-info&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;placeholder&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">translator</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Your example text here&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Demoproductform.Admin&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="nv">$customCombination</span><span class="o">-&gt;</span><span class="na">custom_field</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;empty_data&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;form_theme&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;@PrestaShop/Admin/TwigTemplateForm/prestashop_ui_kit_base.html.twig&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This example will add a <code>TextType</code> input on each <code>Combination</code> of a <code>Product</code>.
 A complete working example and implementation is available in our <a href="https://github.com/PrestaShop/example-modules/tree/master/demoproductform">example-module repository</a>.</p>
 
 <h2 id="add-a-custom-tab-to-the-product-page">Add a custom tab to the product page<a href="#add-a-custom-tab-to-the-product-page"></a></h2><p>
@@ -33480,193 +33480,193 @@ A complete working example and implementation is available in our <a href="https
 <li>You can extend the product form builder with <code>actionProductFormBuilderModifier</code> hook with a created modifier:</li>
 </ul>
 <p><code>demonewhooks.php</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">use</span> <span class="nx">DemoNewHooks\Form\Modifier\ProductFormModifier</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">DemoNewHooks</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="c1">// [...]
-</span><span class="c1"></span>    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">([</span><span class="s1">&#39;actionProductFormBuilderModifier&#39;</span><span class="p">]);</span>
-    <span class="p">}</span>
-    
-    <span class="sd">/**
-</span><span class="sd">     * Modify product form builder
-</span><span class="sd">     *
-</span><span class="sd">     * @param array $params
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionProductFormBuilderModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="sd">/** @var ProductFormModifier $productFormModifier */</span>
-        <span class="nv">$productFormModifier</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">ProductFormModifier</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
-        <span class="nv">$productId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
-
-        <span class="nv">$productFormModifier</span><span class="o">-&gt;</span><span class="na">modify</span><span class="p">(</span><span class="nv">$productId</span><span class="p">,</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;form_builder&#39;</span><span class="p">]);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p><code>config/services.yml</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">DemoNewHooks\Form\Modifier\ProductFormModifier</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">autowire</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span><span class="nt">$formBuilderModifier</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;@form.form_builder_modifier&#39;</span><span class="w">
-</span></code></pre></div><p><code>src/Form/Modifier/ProductFormModifier.php</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">DemoNewHooks\Form\Modifier</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Form\FormBuilderModifier</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\Form\Extension\Core\Type\TextType</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\Form\FormBuilderInterface</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">ProductFormModifier</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var FormBuilderModifier
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$formBuilderModifier</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param FormBuilderModifier $formBuilderModifier
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
-        <span class="nx">FormBuilderModifier</span> <span class="nv">$formBuilderModifier</span>
-    <span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formBuilderModifier</span> <span class="o">=</span> <span class="nv">$formBuilderModifier</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param int|null $productId
-</span><span class="sd">     * @param FormBuilderInterface $productFormBuilder
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">modify</span><span class="p">(</span>
-        <span class="nx">int</span> <span class="nv">$productId</span><span class="p">,</span>
-        <span class="nx">FormBuilderInterface</span> <span class="nv">$productFormBuilder</span>
-    <span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
-        
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">DemoNewHooks\Form\Modifier\ProductFormModifier</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DemoNewHooks</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// [...]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">([</span><span class="s1">&#39;actionProductFormBuilderModifier&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Modify product form builder
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $params
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionProductFormBuilderModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var ProductFormModifier $productFormModifier */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productFormModifier</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">ProductFormModifier</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$productFormModifier</span><span class="o">-&gt;</span><span class="na">modify</span><span class="p">(</span><span class="nv">$productId</span><span class="p">,</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;form_builder&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><code>config/services.yml</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">DemoNewHooks\Form\Modifier\ProductFormModifier</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">autowire</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">$formBuilderModifier</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;@form.form_builder_modifier&#39;</span><span class="w">
+</span></span></span></code></pre></div><p><code>src/Form/Modifier/ProductFormModifier.php</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">DemoNewHooks\Form\Modifier</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Form\FormBuilderModifier</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Form\Extension\Core\Type\TextType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Form\FormBuilderInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ProductFormModifier</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var FormBuilderModifier
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$formBuilderModifier</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param FormBuilderModifier $formBuilderModifier
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">FormBuilderModifier</span> <span class="nv">$formBuilderModifier</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formBuilderModifier</span> <span class="o">=</span> <span class="nv">$formBuilderModifier</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int|null $productId
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param FormBuilderInterface $productFormBuilder
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">modify</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">int</span> <span class="nv">$productId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">FormBuilderInterface</span> <span class="nv">$productFormBuilder</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li>Create a new Type for your custom tab, for example <code>CustomTabType</code>, and add a <code>MoneyType</code> input in this tab:</li>
 </ul>
 <p><code>src/Form/Type/CustomTabType.php</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoProductForm\Form\Type</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Form\Admin\Type\TranslatorAwareType</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\Form\Extension\Core\Type\MoneyType</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\Form\FormBuilderInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\OptionsResolver\OptionsResolver</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\Translation\TranslatorInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\Validator\Constraints\NotBlank</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\Validator\Constraints\PositiveOrZero</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\Validator\Constraints\Type</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">CustomTabType</span> <span class="k">extends</span> <span class="nx">TranslatorAwareType</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var \Currency
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$defaultCurrency</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param TranslatorInterface $translator
-</span><span class="sd">     * @param array $locales
-</span><span class="sd">     * @param \Currency $defaultCurrency
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
-        <span class="nx">TranslatorInterface</span> <span class="nv">$translator</span><span class="p">,</span>
-        <span class="k">array</span> <span class="nv">$locales</span><span class="p">,</span>
-        <span class="nx">\Currency</span> <span class="nv">$defaultCurrency</span>
-    <span class="p">)</span> <span class="p">{</span>
-        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="nv">$translator</span><span class="p">,</span> <span class="nv">$locales</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">defaultCurrency</span> <span class="o">=</span> <span class="nv">$defaultCurrency</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritDoc}
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">buildForm</span><span class="p">(</span><span class="nx">FormBuilderInterface</span> <span class="nv">$builder</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$options</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">parent</span><span class="o">::</span><span class="na">buildForm</span><span class="p">(</span><span class="nv">$builder</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
-        <span class="nv">$builder</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;custom_price&#39;</span><span class="p">,</span> <span class="nx">MoneyType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="p">[</span>
-                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;My custom price&#39;</span><span class="p">,</span> <span class="s1">&#39;Modules.Demoproductform.Admin&#39;</span><span class="p">),</span>
-                <span class="s1">&#39;label_tag_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;h3&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;currency&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">defaultCurrency</span><span class="o">-&gt;</span><span class="na">iso_code</span><span class="p">,</span>
-                <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
-                <span class="s1">&#39;constraints&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                    <span class="k">new</span> <span class="nx">NotBlank</span><span class="p">(),</span>
-                    <span class="k">new</span> <span class="nx">Type</span><span class="p">([</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;float&#39;</span><span class="p">]),</span>
-                    <span class="k">new</span> <span class="nx">PositiveOrZero</span><span class="p">(),</span>
-                <span class="p">],</span>
-            <span class="p">])</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritDoc}
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">configureOptions</span><span class="p">(</span><span class="nx">OptionsResolver</span> <span class="nv">$resolver</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">parent</span><span class="o">::</span><span class="na">configureOptions</span><span class="p">(</span><span class="nv">$resolver</span><span class="p">);</span>
-
-        <span class="nv">$resolver</span>
-            <span class="o">-&gt;</span><span class="na">setDefaults</span><span class="p">([</span>
-                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Customization&#39;</span><span class="p">,</span> <span class="s1">&#39;Modules.Demoproductform.Admin&#39;</span><span class="p">),</span>
-            <span class="p">])</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Declare your service in your <code>config.yml</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">DemoNewHooks\Form\Type\CustomTabType</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">DemoNewHooks\Form\Type\CustomTabType</span><span class="w">
-</span><span class="w">        </span><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;form.type.translatable.aware&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="s1">&#39;@=service(&#34;prestashop.adapter.data_provider.currency&#34;).getDefaultCurrency()&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">tags</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- {<span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">form.type }</span><span class="w">
-</span></code></pre></div><p>Add a <code>use</code> statement in your <code>ProductFormModifier</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">use</span> <span class="nx">DemoNewHooks\Form\Type\CustomTabType</span><span class="p">;</span>
-</code></pre></div><p>Finally, add this <code>CustomTabType</code> to the <code>$productFormBuilder</code> variable in your <code>modify</code> method in the <code>ProductFormModifier</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
-</span><span class="sd"> * @param int|null $productId
-</span><span class="sd"> * @param FormBuilderInterface $productFormBuilder
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">modify</span><span class="p">(</span>
-    <span class="nx">int</span> <span class="nv">$productId</span><span class="p">,</span>
-    <span class="nx">FormBuilderInterface</span> <span class="nv">$productFormBuilder</span>
-<span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
-    
-    <span class="nv">$idValue</span> <span class="o">=</span> <span class="nv">$productId</span> <span class="o">?</span> <span class="nv">$productId</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">()</span> <span class="o">:</span> <span class="k">null</span><span class="p">;</span>
-    <span class="nv">$customProduct</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomProduct</span><span class="p">(</span><span class="nv">$idValue</span><span class="p">);</span>
-
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formBuilderModifier</span><span class="o">-&gt;</span><span class="na">addAfter</span><span class="p">(</span>
-        <span class="nv">$productFormBuilder</span><span class="p">,</span>
-        <span class="s1">&#39;pricing&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;custom_tab&#39;</span><span class="p">,</span>
-        <span class="nx">CustomTabType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
-        <span class="p">[</span>
-            <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                <span class="s1">&#39;custom_price&#39;</span> <span class="o">=&gt;</span> <span class="nv">$customProduct</span><span class="o">-&gt;</span><span class="na">custom_price</span><span class="p">,</span>
-            <span class="p">],</span>
-        <span class="p">]</span>
-    <span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoProductForm\Form\Type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Form\Admin\Type\TranslatorAwareType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Form\Extension\Core\Type\MoneyType</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Form\FormBuilderInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\OptionsResolver\OptionsResolver</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Translation\TranslatorInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Validator\Constraints\NotBlank</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Validator\Constraints\PositiveOrZero</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Validator\Constraints\Type</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CustomTabType</span> <span class="k">extends</span> <span class="nx">TranslatorAwareType</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var \Currency
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$defaultCurrency</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param TranslatorInterface $translator
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $locales
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param \Currency $defaultCurrency
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">TranslatorInterface</span> <span class="nv">$translator</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="k">array</span> <span class="nv">$locales</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">\Currency</span> <span class="nv">$defaultCurrency</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="nv">$translator</span><span class="p">,</span> <span class="nv">$locales</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">defaultCurrency</span> <span class="o">=</span> <span class="nv">$defaultCurrency</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritDoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">buildForm</span><span class="p">(</span><span class="nx">FormBuilderInterface</span> <span class="nv">$builder</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$options</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">buildForm</span><span class="p">(</span><span class="nv">$builder</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$builder</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;custom_price&#39;</span><span class="p">,</span> <span class="nx">MoneyType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;My custom price&#39;</span><span class="p">,</span> <span class="s1">&#39;Modules.Demoproductform.Admin&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;label_tag_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;h3&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;currency&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">defaultCurrency</span><span class="o">-&gt;</span><span class="na">iso_code</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;constraints&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">new</span> <span class="nx">NotBlank</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">new</span> <span class="nx">Type</span><span class="p">([</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;float&#39;</span><span class="p">]),</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">new</span> <span class="nx">PositiveOrZero</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">                <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritDoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">configureOptions</span><span class="p">(</span><span class="nx">OptionsResolver</span> <span class="nv">$resolver</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">configureOptions</span><span class="p">(</span><span class="nv">$resolver</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$resolver</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setDefaults</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Customization&#39;</span><span class="p">,</span> <span class="s1">&#39;Modules.Demoproductform.Admin&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Declare your service in your <code>config.yml</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">DemoNewHooks\Form\Type\CustomTabType</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">DemoNewHooks\Form\Type\CustomTabType</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;form.type.translatable.aware&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s1">&#39;@=service(&#34;prestashop.adapter.data_provider.currency&#34;).getDefaultCurrency()&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">tags</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- {<span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">form.type }</span><span class="w">
+</span></span></span></code></pre></div><p>Add a <code>use</code> statement in your <code>ProductFormModifier</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">DemoNewHooks\Form\Type\CustomTabType</span><span class="p">;</span>
+</span></span></code></pre></div><p>Finally, add this <code>CustomTabType</code> to the <code>$productFormBuilder</code> variable in your <code>modify</code> method in the <code>ProductFormModifier</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param int|null $productId
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param FormBuilderInterface $productFormBuilder
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">modify</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">int</span> <span class="nv">$productId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">FormBuilderInterface</span> <span class="nv">$productFormBuilder</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nv">$idValue</span> <span class="o">=</span> <span class="nv">$productId</span> <span class="o">?</span> <span class="nv">$productId</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">()</span> <span class="o">:</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$customProduct</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomProduct</span><span class="p">(</span><span class="nv">$idValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formBuilderModifier</span><span class="o">-&gt;</span><span class="na">addAfter</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productFormBuilder</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;pricing&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;custom_tab&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">CustomTabType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;custom_price&#39;</span> <span class="o">=&gt;</span> <span class="nv">$customProduct</span><span class="o">-&gt;</span><span class="na">custom_price</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices note" >Any type added directly to the <code>$productFormBuilder</code> (and not to a sub-tab) will be considered as a tab.</div>
 
 
@@ -33680,19 +33680,19 @@ A complete working example and implementation is available in our <a href="https
 
 <div class="notices info" >Although kept for backward compatibility, this hook (<code>displayAdminProductsExtra</code>) is not recommended for new modules.</div>
 
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayAdminProductsExtra</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span>
-<span class="p">{</span>
-    <span class="nv">$productId</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id_product&#39;</span><span class="p">];</span>
-    <span class="nv">$customProduct</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomProduct</span><span class="p">(</span><span class="nv">$productId</span><span class="p">);</span>
-
-    <span class="sd">/** @var EngineInterface $twig */</span>
-    <span class="nv">$twig</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;twig&#39;</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/demoproductform/views/templates/admin/extra_module.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
-        <span class="s1">&#39;customProduct&#39;</span> <span class="o">=&gt;</span> <span class="nv">$customProduct</span><span class="p">,</span>
-    <span class="p">]);</span>
-<span class="p">}</span>
-</code></pre></div><p>A complete working example and implementation is available in our <a href="https://github.com/PrestaShop/example-modules/tree/master/demoproductform">example-module repository</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayAdminProductsExtra</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span><span class="o">:</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$productId</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id_product&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$customProduct</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomProduct</span><span class="p">(</span><span class="nv">$productId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/** @var EngineInterface $twig */</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$twig</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;twig&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$twig</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/demoproductform/views/templates/admin/extra_module.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;customProduct&#39;</span> <span class="o">=&gt;</span> <span class="nv">$customProduct</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>A complete working example and implementation is available in our <a href="https://github.com/PrestaShop/example-modules/tree/master/demoproductform">example-module repository</a>.</p>
 
 <h2 id="handle-data-modified-by-formbuildermodifier">Handle data modified by FormBuilderModifier<a href="#handle-data-modified-by-formbuildermodifier"></a></h2><p>You need to implement the corresponding <a href="/8/modules/concepts/hooks/list-of-hooks/actionaftercreateformnameformhandler/"><code>actionAfterCreate&lt;FormName&gt;FormHandler</code></a> or <a href="/8/modules/concepts/hooks/list-of-hooks/actionafterupdateformnameformhandler/"><code>actionAfterUpdate&lt;FormName&gt;FormHandler</code></a> hook, as shown in our <a href="https://github.com/PrestaShop/example-modules/tree/master/demoproductform">example-module repository</a>.</p>
 
@@ -33773,17 +33773,17 @@ A complete working example and implementation is available in our <a href="https
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163926"></script>
-    <script src="/js/jquery.sticky.js?1703163926"></script>
-    <script src="/js/featherlight.min.js?1703163926"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163926"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163926"></script>
-    <script src="/js/learn.js?1703163926"></script>
-    <script src="/js/hugo-learn.js?1703163926"></script>
+    <script src="/js/clipboard.min.js?1703164748"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164748"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164748"></script>
+    <script src="/js/jquery.sticky.js?1703164748"></script>
+    <script src="/js/featherlight.min.js?1703164748"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164748"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164748"></script>
+    <script src="/js/learn.js?1703164748"></script>
+    <script src="/js/hugo-learn.js?1703164748"></script>
     
-    <script src="/main.js?1703163926"></script>
+    <script src="/main.js?1703164748"></script>
     
     
     

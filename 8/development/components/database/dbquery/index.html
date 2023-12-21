@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>DBQuery class :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163906" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163906" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163906" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163906" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164732" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164732" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164732" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164732" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163906" rel="stylesheet">
+    <link href="/style.css?1703164732" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163906"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164732"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33121,14 +33121,14 @@
 
 
 <h1 id="the-dbquery-class">The DBQuery class<a href="#the-dbquery-class"></a></h1><p>The DBQuery class is a query builder which helps you create SQL queries. For instance:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$sql</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DbQuery</span><span class="p">();</span>
-<span class="nv">$sql</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">);</span>
-<span class="nv">$sql</span><span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;cms&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">);</span>
-<span class="nv">$sql</span><span class="o">-&gt;</span><span class="na">innerJoin</span><span class="p">(</span><span class="s1">&#39;cms_lang&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;c.id_cms = l.id_cms AND l.id_lang = &#39;</span><span class="o">.</span><span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$id_lang</span><span class="p">);</span>
-<span class="nv">$sql</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;c.active = 1&#39;</span><span class="p">);</span>
-<span class="nv">$sql</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">);</span>
-<span class="k">return</span> <span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">executeS</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$sql</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DbQuery</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sql</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sql</span><span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="s1">&#39;cms&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sql</span><span class="o">-&gt;</span><span class="na">innerJoin</span><span class="p">(</span><span class="s1">&#39;cms_lang&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;c.id_cms = l.id_cms AND l.id_lang = &#39;</span><span class="o">.</span><span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$id_lang</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sql</span><span class="o">-&gt;</span><span class="na">where</span><span class="p">(</span><span class="s1">&#39;c.active = 1&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$sql</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="s1">&#39;position&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">executeS</span><span class="p">(</span><span class="nv">$sql</span><span class="p">);</span>
+</span></span></code></pre></div>
 <h2 id="main-methods">Main methods<a href="#main-methods"></a></h2><div class="function-definition">
 <dl>
 <dt>__toString()</dt>
@@ -33241,17 +33241,17 @@ E.g. <code>$this-&gt;join('RIGHT JOIN'.DB_PREFIX.'produc t p ON ...');</code>.</
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163906"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163906"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163906"></script>
-    <script src="/js/jquery.sticky.js?1703163906"></script>
-    <script src="/js/featherlight.min.js?1703163906"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163906"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163906"></script>
-    <script src="/js/learn.js?1703163906"></script>
-    <script src="/js/hugo-learn.js?1703163906"></script>
+    <script src="/js/clipboard.min.js?1703164732"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164732"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164732"></script>
+    <script src="/js/jquery.sticky.js?1703164732"></script>
+    <script src="/js/featherlight.min.js?1703164732"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164732"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164732"></script>
+    <script src="/js/learn.js?1703164732"></script>
+    <script src="/js/hugo-learn.js?1703164732"></script>
     
-    <script src="/main.js?1703163906"></script>
+    <script src="/main.js?1703164732"></script>
     
     
     

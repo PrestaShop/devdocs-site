@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Advanced checks :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/testing/advanced-checks/">
     
-    <link href="/css/font-awesome.min.css?1703163895" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163895" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163895" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163895" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164722" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164722" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164722" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164722" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163895" rel="stylesheet">
+    <link href="/style.css?1703164722" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163895"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164722"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30277,15 +30277,15 @@ Static code analysers are able to detect some of these issues, such as:</p>
 <li><strong>Project requires PHP 7 min</strong></li>
 </ul>
 <p>If the current requirements of your project match PHPStan ones, your may add it directly in your project dependencies.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">composer require --dev phpstan/phpstan
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">composer require --dev phpstan/phpstan
+</span></span></code></pre></div><ul>
 <li><strong>Project is compliant with PHP 5.x</strong></li>
 </ul>
 <p>Requiring the library in a project that can run on PHP 5.x will trigger compatibility errors from Composer. One workaround is to install it globally, so it can be run from anywhere flawlessly.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">composer global require phpstan/phpstan
-</code></pre></div><p>Another option is to use the Docker image of PHPStan, following the same versioning of the library on Packagist.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">docker run --rm <span class="o">[</span>...<span class="o">]</span> phpstan/phpstan analyse 
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">composer global require phpstan/phpstan
+</span></span></code></pre></div><p>Another option is to use the Docker image of PHPStan, following the same versioning of the library on Packagist.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run --rm <span class="o">[</span>...<span class="o">]</span> phpstan/phpstan analyse 
+</span></span></code></pre></div>
 <h3 id="setting-up">Setting up<a href="#setting-up"></a></h3><p>PHPStan can analyse a standalone project without much configuration, where it only needs the files to analyse.
 Some features, like autoloading with composer, are enabled by default.</p>
 <p>A module deals with many methods from the core in order to work. To avoid issues like undefined methods and classes, the core needs to be autoloaded in memory each time the module is analysed. PHPStan handles several levels of checks, which are defined in <a href="https://phpstan.org/user-guide/rule-levels">their documentation page &ldquo;Rule levels&rdquo;</a>. The higher the better, but somes inconsistencies in the core PHPDoc may prevent you to reach the highest level.</p>
@@ -30298,71 +30298,71 @@ Some features, like autoloading with composer, are enabled by default.</p>
 <li>If run with different versions of PS: Do not report ignored messages that aren&rsquo;t reported.</li>
 </ul>
 <p><a href="https://phpstan.org/config-reference">Their documentation page &ldquo;Config reference&rdquo;</a> explains how to write this configuration file from scratch. We also provide a model having some specificities useful for a module. To setup a project with it, require the package <code>prestashop/php-dev-tools</code> and call the initialization of PHPStan:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Install dependencies</span>
-composer require --dev prestashop/php-dev-tools
-
-<span class="c1"># Set up configuration files</span>
-php vendor/bin/prestashop-coding-standards phpstan:init
-</code></pre></div><p>Files will be copied in the folder <code>tests/phpstan/</code> of your module. We provide this library to setup a proper environment for a module, for instance to handle constants that are only defined when PrestaShop is installed. If only the source is downloaded in your test environment, the configuration we provide will use an extension file defining these constants for you. In the next version of this library, we expect more rules to be added to avoid false positive issues and add pertinent errors in a module context.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Install dependencies</span>
+</span></span><span class="line"><span class="cl">composer require --dev prestashop/php-dev-tools
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Set up configuration files</span>
+</span></span><span class="line"><span class="cl">php vendor/bin/prestashop-coding-standards phpstan:init
+</span></span></code></pre></div><p>Files will be copied in the folder <code>tests/phpstan/</code> of your module. We provide this library to setup a proper environment for a module, for instance to handle constants that are only defined when PrestaShop is installed. If only the source is downloaded in your test environment, the configuration we provide will use an extension file defining these constants for you. In the next version of this library, we expect more rules to be added to avoid false positive issues and add pertinent errors in a module context.</p>
 
 <h3 id="usage">Usage<a href="#usage"></a></h3><p>Running PHPStan can be done in several ways, and depends on the way you installed it. But in all cases, an environment variable <code>_PS_ROOT_DIR_</code> must be set, targeting the PrestaShop root folder.</p>
 <ul>
 <li><strong>Project requires PHP 7 min</strong></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">_PS_ROOT_DIR_</span><span class="o">=</span>/var/www/html vendor/bin/phpstan analyse --configuration<span class="o">=</span>tests/phpstan/phpstan.neon
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">_PS_ROOT_DIR_</span><span class="o">=</span>/var/www/html vendor/bin/phpstan analyse --configuration<span class="o">=</span>tests/phpstan/phpstan.neon
+</span></span></code></pre></div><ul>
 <li>
 <p><strong>Project is compliant with PHP 5.x</strong></p>
 <ul>
 <li>
 <p>Via Composer global dependencies</p>
 <p>PrestaShop is considered to be present in the folder <code>/var/www/html</code>. PHPStan can be found in your global composer folder, available from the home directory.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">_PS_ROOT_DIR_</span><span class="o">=</span>/var/www/html ~/.config/composer/vendor/bin/phpstan analyse --configuration<span class="o">=</span>tests/phpstan/phpstan.neon
-</code></pre></div><p>or</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nv">_PS_ROOT_DIR_</span><span class="o">=</span>/var/www/html ~/.composer/vendor/bin/phpstan analyse --configuration<span class="o">=</span>tests/phpstan/phpstan.neon
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">_PS_ROOT_DIR_</span><span class="o">=</span>/var/www/html ~/.config/composer/vendor/bin/phpstan analyse --configuration<span class="o">=</span>tests/phpstan/phpstan.neon
+</span></span></code></pre></div><p>or</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nv">_PS_ROOT_DIR_</span><span class="o">=</span>/var/www/html ~/.composer/vendor/bin/phpstan analyse --configuration<span class="o">=</span>tests/phpstan/phpstan.neon
+</span></span></code></pre></div></li>
 <li>
 <p>Via Docker</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Create a container with PrestaShop files</span>
-docker run -tid --rm -v ps-volume:/var/www/html --name temp-ps prestashop/prestashop
-
-<span class="c1"># Run the PHPStan image with all the volumes available to read the module and the core files</span>
-docker run --rm --volumes-from temp-ps -v <span class="nv">$PWD</span>:/web/module -e <span class="nv">_PS_ROOT_DIR_</span><span class="o">=</span>/var/www/html --workdir<span class="o">=</span>/web/module phpstan/phpstan analyse --configuration<span class="o">=</span>/web/module/tests/phpstan/phpstan.neon
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Create a container with PrestaShop files</span>
+</span></span><span class="line"><span class="cl">docker run -tid --rm -v ps-volume:/var/www/html --name temp-ps prestashop/prestashop
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Run the PHPStan image with all the volumes available to read the module and the core files</span>
+</span></span><span class="line"><span class="cl">docker run --rm --volumes-from temp-ps -v <span class="nv">$PWD</span>:/web/module -e <span class="nv">_PS_ROOT_DIR_</span><span class="o">=</span>/var/www/html --workdir<span class="o">=</span>/web/module phpstan/phpstan analyse --configuration<span class="o">=</span>/web/module/tests/phpstan/phpstan.neon
+</span></span></code></pre></div></li>
 </ul>
 </li>
 </ul>
 <p>Here is an example of output. In that case, we were using PHPStan on a module with the latest version of PrestaShop, and tried to run it with a old PS 1.7 version (1.7.0.3), so we could assert that all the methods we call exist in the project and we won&rsquo;t encounter compatibility issues:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ _PS_ROOT_DIR_=/var/www/html vendor/bin/phpstan analyse --configuration=tests/phpstan/phpstan.neon
-
- ------ ------------------------------------------------------------------ 
-  Line   controllers/admin/AdminAjaxPoppromoController.php                 
- ------ ------------------------------------------------------------------ 
-  428    Call to an undefined static method ImageType::getFormatedName().  
- ------ ------------------------------------------------------------------ 
-
- [ERROR] Found 1 error      
-</code></pre></div><p>PHPStan allowed us to know that a method disappeared in the first 1.7 versions of PrestaShop, although it was found on PS 1.6 and went back in later versions.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">$</span> <span class="n">_PS_ROOT_DIR_</span><span class="o">=/</span><span class="k">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">html</span> <span class="n">vendor</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">phpstan</span> <span class="n">analyse</span> <span class="o">--</span><span class="n">configuration</span><span class="o">=</span><span class="n">tests</span><span class="o">/</span><span class="n">phpstan</span><span class="o">/</span><span class="n">phpstan</span><span class="o">.</span><span class="n">neon</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="o">------</span> <span class="o">------------------------------------------------------------------</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">Line</span>   <span class="n">controllers</span><span class="o">/</span><span class="n">admin</span><span class="o">/</span><span class="n">AdminAjaxPoppromoController</span><span class="o">.</span><span class="n">php</span>                 
+</span></span><span class="line"><span class="cl"> <span class="o">------</span> <span class="o">------------------------------------------------------------------</span> 
+</span></span><span class="line"><span class="cl">  <span class="mi">428</span>    <span class="n">Call</span> <span class="n">to</span> <span class="n">an</span> <span class="n">undefined</span> <span class="k">static</span> <span class="n">method</span> <span class="n">ImageType</span><span class="p">::</span><span class="n">getFormatedName</span><span class="p">()</span><span class="o">.</span>  
+</span></span><span class="line"><span class="cl"> <span class="o">------</span> <span class="o">------------------------------------------------------------------</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="p">[</span><span class="n">ERROR</span><span class="p">]</span> <span class="n">Found</span> <span class="mi">1</span> <span class="n">error</span>      
+</span></span></code></pre></div><p>PHPStan allowed us to know that a method disappeared in the first 1.7 versions of PrestaShop, although it was found on PS 1.6 and went back in later versions.</p>
 
 <h2 id="unit-tests">Unit tests<a href="#unit-tests"></a></h2><p>Having unit tests on a module can be challenging because of the relations between your code and PrestaShop&rsquo;s (i.e ObjectModels, context, Database instance). Even though the full coverage of a module cannot be reached, there is some business logic which can be isolated and tested.</p>
 <p>The main tools used for unit testing is <a href="https://phpunit.de/">PHPUnit</a>.</p>
 <p>Like other PHP testing tools, it can be installed in your project with composer. Take care to install it in your <strong>development dependencies</strong> to avoid distributing in your production releases.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">composer require --dev phpunit/phpunit:5.7
-</code></pre></div><p>While newer versions of PHPUnit exist, the version chosen in your project must match the PHP compatibility range of the project, otherwise composer will refuse to install it. The version provided in the example above is the last one compatible with PHP 5.6.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">composer require --dev phpunit/phpunit:5.7
+</span></span></code></pre></div><p>While newer versions of PHPUnit exist, the version chosen in your project must match the PHP compatibility range of the project, otherwise composer will refuse to install it. The version provided in the example above is the last one compatible with PHP 5.6.</p>
 <p>Creating your unit tests can be done the same way as the core, so more details can be found in
 the chapter <a href="https://devdocs.prestashop-project.org/1.7/testing/how-to-create-your-own-unit-tests/">Testing of the core</a>.</p>
 <p>Supposing it was installed via Composer, the command to run it is:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">php vendor/bin/phpunit tests
-</code></pre></div><p>The following example provides the output expected by this tool when 19 unit tests have been created in the <code>tests/</code> folder and pass:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ php vendor/bin/phpunit tests
-PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
-
-...................                                19 / 19 (100%)
-
-Time: 40 ms, Memory: 4.00MB
-
-OK (19 tests, 28 assertions)
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">php vendor/bin/phpunit tests
+</span></span></code></pre></div><p>The following example provides the output expected by this tool when 19 unit tests have been created in the <code>tests/</code> folder and pass:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ php vendor/bin/phpunit tests
+</span></span><span class="line"><span class="cl">PHPUnit 5.7.27 by Sebastian Bergmann and contributors.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">...................                                19 / 19 (100%)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Time: 40 ms, Memory: 4.00MB
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">OK (19 tests, 28 assertions)
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30440,17 +30440,17 @@ OK (19 tests, 28 assertions)
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163895"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163895"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163895"></script>
-    <script src="/js/jquery.sticky.js?1703163895"></script>
-    <script src="/js/featherlight.min.js?1703163895"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163895"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163895"></script>
-    <script src="/js/learn.js?1703163895"></script>
-    <script src="/js/hugo-learn.js?1703163895"></script>
+    <script src="/js/clipboard.min.js?1703164722"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164722"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164722"></script>
+    <script src="/js/jquery.sticky.js?1703164722"></script>
+    <script src="/js/featherlight.min.js?1703164722"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164722"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164722"></script>
+    <script src="/js/learn.js?1703164722"></script>
+    <script src="/js/hugo-learn.js?1703164722"></script>
     
-    <script src="/main.js?1703163895"></script>
+    <script src="/main.js?1703164722"></script>
     
     
     

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to handle multi lang Doctrine entity :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163911" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163911" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163911" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163911" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164737" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164737" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164737" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164737" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163911" rel="stylesheet">
+    <link href="/style.css?1703164737" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163911"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164737"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33159,8 +33159,7 @@ All the content of this documentation can be found in this <a href="https://gith
 <li>Grid listing</li>
 <li>Symfony controller</li>
 <li>Symfony Services</li>
-</ul>
-</div>
+</ul></div>
 
 
 <h2 id="define-your-entities">Define your entities<a href="#define-your-entities"></a></h2><p>This example will be based on an example of quotes from various authors that need to be translated (so that it matches the user&rsquo;s language), these quotes can then be randomly be displayed on the Frontend.</p>
@@ -33172,471 +33171,470 @@ All the content of this documentation can be found in this <a href="https://gith
 <li>the dates of creation and updates (which rely on <a href="https://symfony.com/doc/4.4/doctrine/lifecycle_callbacks.html">Doctrine lifecycle callbacks</a> to be filled automatically)</li>
 <li>the definition of the associated repository <code>PrestaShop\Module\DemoDoctrine\Repository\QuoteRepository</code></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/**
-</span><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
-</span><span class="sd"> *
-</span><span class="sd"> * NOTICE OF LICENSE
-</span><span class="sd"> *
-</span><span class="sd"> * This source file is subject to the Academic Free License version 3.0
-</span><span class="sd"> * that is bundled with this package in the file LICENSE.md.
-</span><span class="sd"> * It is also available through the world-wide-web at this URL:
-</span><span class="sd"> * https://opensource.org/licenses/AFL-3.0
-</span><span class="sd"> * If you did not receive a copy of the license and are unable to
-</span><span class="sd"> * obtain it through the world-wide-web, please send an email
-</span><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
-</span><span class="sd"> *
-</span><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
-</span><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
-</span><span class="sd"> */</span>
-<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoDoctrine\Entity</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">DateTime</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Doctrine\Common\Collections\ArrayCollection</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Doctrine\ORM\Mapping</span> <span class="k">as</span> <span class="nx">ORM</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * @ORM\Table()
-</span><span class="sd"> * @ORM\Entity(repositoryClass=&#34;PrestaShop\Module\DemoDoctrine\Repository\QuoteRepository&#34;)
-</span><span class="sd"> * @ORM\HasLifecycleCallbacks
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">Quote</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var int
-</span><span class="sd">     *
-</span><span class="sd">     * @ORM\Id
-</span><span class="sd">     * @ORM\Column(name=&#34;id_quote&#34;, type=&#34;integer&#34;)
-</span><span class="sd">     * @ORM\GeneratedValue(strategy=&#34;AUTO&#34;)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$id</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @var string
-</span><span class="sd">     *
-</span><span class="sd">     * @ORM\Column(name=&#34;author&#34;, type=&#34;string&#34;, length=255)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$author</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @ORM\OneToMany(targetEntity=&#34;PrestaShop\Module\DemoDoctrine\Entity\QuoteLang&#34;, cascade={&#34;persist&#34;, &#34;remove&#34;}, mappedBy=&#34;quote&#34;)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$quoteLangs</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @var DateTime
-</span><span class="sd">     *
-</span><span class="sd">     * @ORM\Column(name=&#34;date_add&#34;, type=&#34;datetime&#34;)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$dateAdd</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @var DateTime
-</span><span class="sd">     *
-</span><span class="sd">     * @ORM\Column(name=&#34;date_upd&#34;, type=&#34;datetime&#34;)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$dateUpd</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quoteLangs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ArrayCollection</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return int
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span><span class="o">:</span> <span class="nx">int</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return ArrayCollection
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getQuoteLangs</span><span class="p">()</span><span class="o">:</span> <span class="nx">ArrayCollection</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quoteLangs</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param int $langId
-</span><span class="sd">     * @return QuoteLang|null
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getQuoteLangByLangId</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$langId</span><span class="p">)</span><span class="o">:</span> <span class="o">?</span><span class="nx">QuoteLang</span>
-    <span class="p">{</span>
-        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quoteLangs</span> <span class="k">as</span> <span class="nv">$quoteLang</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nv">$langId</span> <span class="o">===</span> <span class="nv">$quoteLang</span><span class="o">-&gt;</span><span class="na">getLang</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">())</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="nv">$quoteLang</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param QuoteLang $quoteLang
-</span><span class="sd">     * @return $this
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">addQuoteLang</span><span class="p">(</span><span class="nx">QuoteLang</span> <span class="nv">$quoteLang</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
-    <span class="p">{</span>
-        <span class="nv">$quoteLang</span><span class="o">-&gt;</span><span class="na">setQuote</span><span class="p">(</span><span class="nv">$this</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quoteLangs</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nv">$quoteLang</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return string
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getQuoteContent</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quoteLangs</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="nv">$quoteLang</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quoteLangs</span><span class="o">-&gt;</span><span class="na">first</span><span class="p">();</span>
-
-        <span class="k">return</span> <span class="nv">$quoteLang</span><span class="o">-&gt;</span><span class="na">getContent</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return string
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getAuthor</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param string $author
-</span><span class="sd">     * @return $this
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setAuthor</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$author</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="nv">$author</span><span class="p">;</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Set dateAdd.
-</span><span class="sd">     *
-</span><span class="sd">     * @param DateTime $dateAdd
-</span><span class="sd">     *
-</span><span class="sd">     * @return $this
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setDateAdd</span><span class="p">(</span><span class="nx">DateTime</span> <span class="nv">$dateAdd</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dateAdd</span> <span class="o">=</span> <span class="nv">$dateAdd</span><span class="p">;</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Get dateAdd.
-</span><span class="sd">     *
-</span><span class="sd">     * @return DateTime
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getDateAdd</span><span class="p">()</span><span class="o">:</span> <span class="nx">DateTime</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dateAdd</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Set dateUpd.
-</span><span class="sd">     *
-</span><span class="sd">     * @param DateTime $dateUpd
-</span><span class="sd">     *
-</span><span class="sd">     * @return $this
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setDateUpd</span><span class="p">(</span><span class="nx">DateTime</span> <span class="nv">$dateUpd</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dateUpd</span> <span class="o">=</span> <span class="nv">$dateUpd</span><span class="p">;</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Get dateUpd.
-</span><span class="sd">     *
-</span><span class="sd">     * @return DateTime
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getDateUpd</span><span class="p">()</span><span class="o">:</span> <span class="nx">DateTime</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dateUpd</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Now we tell doctrine that before we persist or update we call the updatedTimestamps() function.
-</span><span class="sd">     *
-</span><span class="sd">     * @ORM\PrePersist
-</span><span class="sd">     * @ORM\PreUpdate
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">updatedTimestamps</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setDateUpd</span><span class="p">(</span><span class="k">new</span> <span class="nx">DateTime</span><span class="p">());</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getDateAdd</span><span class="p">()</span> <span class="o">==</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setDateAdd</span><span class="p">(</span><span class="k">new</span> <span class="nx">DateTime</span><span class="p">());</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * NOTICE OF LICENSE
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * This source file is subject to the Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * that is bundled with this package in the file LICENSE.md.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * It is also available through the world-wide-web at this URL:
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * https://opensource.org/licenses/AFL-3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * If you did not receive a copy of the license and are unable to
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * obtain it through the world-wide-web, please send an email
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoDoctrine\Entity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">DateTime</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\Common\Collections\ArrayCollection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\ORM\Mapping</span> <span class="k">as</span> <span class="nx">ORM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @ORM\Table()
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @ORM\Entity(repositoryClass=&#34;PrestaShop\Module\DemoDoctrine\Repository\QuoteRepository&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @ORM\HasLifecycleCallbacks
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Quote</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var int
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Id
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(name=&#34;id_quote&#34;, type=&#34;integer&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\GeneratedValue(strategy=&#34;AUTO&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(name=&#34;author&#34;, type=&#34;string&#34;, length=255)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$author</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\OneToMany(targetEntity=&#34;PrestaShop\Module\DemoDoctrine\Entity\QuoteLang&#34;, cascade={&#34;persist&#34;, &#34;remove&#34;}, mappedBy=&#34;quote&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$quoteLangs</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var DateTime
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(name=&#34;date_add&#34;, type=&#34;datetime&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$dateAdd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var DateTime
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(name=&#34;date_upd&#34;, type=&#34;datetime&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$dateUpd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quoteLangs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ArrayCollection</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return int
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span><span class="o">:</span> <span class="nx">int</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return ArrayCollection
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getQuoteLangs</span><span class="p">()</span><span class="o">:</span> <span class="nx">ArrayCollection</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quoteLangs</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int $langId
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return QuoteLang|null
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getQuoteLangByLangId</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$langId</span><span class="p">)</span><span class="o">:</span> <span class="o">?</span><span class="nx">QuoteLang</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quoteLangs</span> <span class="k">as</span> <span class="nv">$quoteLang</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nv">$langId</span> <span class="o">===</span> <span class="nv">$quoteLang</span><span class="o">-&gt;</span><span class="na">getLang</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nv">$quoteLang</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param QuoteLang $quoteLang
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return $this
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">addQuoteLang</span><span class="p">(</span><span class="nx">QuoteLang</span> <span class="nv">$quoteLang</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$quoteLang</span><span class="o">-&gt;</span><span class="na">setQuote</span><span class="p">(</span><span class="nv">$this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quoteLangs</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="nv">$quoteLang</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getQuoteContent</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quoteLangs</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$quoteLang</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quoteLangs</span><span class="o">-&gt;</span><span class="na">first</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$quoteLang</span><span class="o">-&gt;</span><span class="na">getContent</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getAuthor</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $author
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return $this
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setAuthor</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$author</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="nv">$author</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Set dateAdd.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param DateTime $dateAdd
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return $this
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setDateAdd</span><span class="p">(</span><span class="nx">DateTime</span> <span class="nv">$dateAdd</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dateAdd</span> <span class="o">=</span> <span class="nv">$dateAdd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Get dateAdd.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return DateTime
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getDateAdd</span><span class="p">()</span><span class="o">:</span> <span class="nx">DateTime</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dateAdd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Set dateUpd.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param DateTime $dateUpd
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return $this
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setDateUpd</span><span class="p">(</span><span class="nx">DateTime</span> <span class="nv">$dateUpd</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dateUpd</span> <span class="o">=</span> <span class="nv">$dateUpd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Get dateUpd.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return DateTime
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getDateUpd</span><span class="p">()</span><span class="o">:</span> <span class="nx">DateTime</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dateUpd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Now we tell doctrine that before we persist or update we call the updatedTimestamps() function.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\PrePersist
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\PreUpdate
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">updatedTimestamps</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setDateUpd</span><span class="p">(</span><span class="k">new</span> <span class="nx">DateTime</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getDateAdd</span><span class="p">()</span> <span class="o">==</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setDateAdd</span><span class="p">(</span><span class="k">new</span> <span class="nx">DateTime</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="quotelang-entity">QuoteLang Entity<a href="#quotelang-entity"></a></h3><p>This entity contains:</p>
 <ul>
 <li>the translatable fields (in this example only the <code>content</code> of the Quote)</li>
 <li>the relationship with the parent quote (since it&rsquo;s bidirectional)</li>
 <li>and finally the relationship to the <code>Lang</code> entity (which is a Core entity from PrestaShop) this is what allows to associate the translation to the appropriate language</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/**
-</span><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
-</span><span class="sd"> *
-</span><span class="sd"> * NOTICE OF LICENSE
-</span><span class="sd"> *
-</span><span class="sd"> * This source file is subject to the Academic Free License version 3.0
-</span><span class="sd"> * that is bundled with this package in the file LICENSE.md.
-</span><span class="sd"> * It is also available through the world-wide-web at this URL:
-</span><span class="sd"> * https://opensource.org/licenses/AFL-3.0
-</span><span class="sd"> * If you did not receive a copy of the license and are unable to
-</span><span class="sd"> * obtain it through the world-wide-web, please send an email
-</span><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
-</span><span class="sd"> *
-</span><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
-</span><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
-</span><span class="sd"> */</span>
-<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoDoctrine\Entity</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Doctrine\ORM\Mapping</span> <span class="k">as</span> <span class="nx">ORM</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Entity\Lang</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * @ORM\Table()
-</span><span class="sd"> * @ORM\Entity()
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">QuoteLang</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var Quote
-</span><span class="sd">     * @ORM\Id
-</span><span class="sd">     * @ORM\ManyToOne(targetEntity=&#34;PrestaShop\Module\DemoDoctrine\Entity\Quote&#34;, inversedBy=&#34;quoteLangs&#34;)
-</span><span class="sd">     * @ORM\JoinColumn(name=&#34;id_quote&#34;, referencedColumnName=&#34;id_quote&#34;, nullable=false)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$quote</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @var Lang
-</span><span class="sd">     * @ORM\Id
-</span><span class="sd">     * @ORM\ManyToOne(targetEntity=&#34;PrestaShopBundle\Entity\Lang&#34;)
-</span><span class="sd">     * @ORM\JoinColumn(name=&#34;id_lang&#34;, referencedColumnName=&#34;id_lang&#34;, nullable=false, onDelete=&#34;CASCADE&#34;)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$lang</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @var string
-</span><span class="sd">     * @ORM\Column(name=&#34;content&#34;, type=&#34;string&#34;, nullable=false)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$content</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return Quote
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getQuote</span><span class="p">()</span><span class="o">:</span> <span class="nx">Quote</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quote</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param Quote $quote
-</span><span class="sd">     * @return $this
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setQuote</span><span class="p">(</span><span class="nx">Quote</span> <span class="nv">$quote</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quote</span> <span class="o">=</span> <span class="nv">$quote</span><span class="p">;</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return Lang
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getLang</span><span class="p">()</span><span class="o">:</span> <span class="nx">Lang</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">lang</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param Lang $lang
-</span><span class="sd">     * @return $this
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setLang</span><span class="p">(</span><span class="nx">Lang</span> <span class="nv">$lang</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">lang</span> <span class="o">=</span> <span class="nv">$lang</span><span class="p">;</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return string
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param string $content
-</span><span class="sd">     * @return $this
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setContent</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$content</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span> <span class="o">=</span> <span class="nv">$content</span><span class="p">;</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * NOTICE OF LICENSE
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * This source file is subject to the Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * that is bundled with this package in the file LICENSE.md.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * It is also available through the world-wide-web at this URL:
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * https://opensource.org/licenses/AFL-3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * If you did not receive a copy of the license and are unable to
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * obtain it through the world-wide-web, please send an email
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoDoctrine\Entity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\ORM\Mapping</span> <span class="k">as</span> <span class="nx">ORM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Entity\Lang</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @ORM\Table()
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @ORM\Entity()
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">QuoteLang</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var Quote
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Id
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\ManyToOne(targetEntity=&#34;PrestaShop\Module\DemoDoctrine\Entity\Quote&#34;, inversedBy=&#34;quoteLangs&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\JoinColumn(name=&#34;id_quote&#34;, referencedColumnName=&#34;id_quote&#34;, nullable=false)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$quote</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var Lang
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Id
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\ManyToOne(targetEntity=&#34;PrestaShopBundle\Entity\Lang&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\JoinColumn(name=&#34;id_lang&#34;, referencedColumnName=&#34;id_lang&#34;, nullable=false, onDelete=&#34;CASCADE&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$lang</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(name=&#34;content&#34;, type=&#34;string&#34;, nullable=false)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return Quote
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getQuote</span><span class="p">()</span><span class="o">:</span> <span class="nx">Quote</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quote</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param Quote $quote
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return $this
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setQuote</span><span class="p">(</span><span class="nx">Quote</span> <span class="nv">$quote</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">quote</span> <span class="o">=</span> <span class="nv">$quote</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return Lang
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getLang</span><span class="p">()</span><span class="o">:</span> <span class="nx">Lang</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">lang</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param Lang $lang
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return $this
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setLang</span><span class="p">(</span><span class="nx">Lang</span> <span class="nv">$lang</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">lang</span> <span class="o">=</span> <span class="nv">$lang</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $content
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return $this
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setContent</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$content</span><span class="p">)</span><span class="o">:</span> <span class="nx">self</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span> <span class="o">=</span> <span class="nv">$content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices tip" ><p><strong>More about Doctrine relations</strong>
 If you need more info about how to setup and handle Doctrine relations, you can read the <a href="https://symfony.com/doc/4.4/doctrine/associations.html">Symfony documentation</a> about it.
-Focus on the <code>Annotation</code> sections since PrestaShop only handles this kind of configuration from modules' Entities. Here are some additional link that might be useful:</p>
+Focus on the <code>Annotation</code> sections since PrestaShop only handles this kind of configuration from modules&rsquo; Entities. Here are some additional link that might be useful:</p>
 <ul>
 <li><a href="https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/association-mapping.html">Doctrine Association mapping</a></li>
 <li><a href="https://symfonycasts.com/screencast/symfony4-doctrine-relations">Mastering Doctrine Relationships in Symfony 4 (video tutorial)</a></li>
-</ul>
-</div>
+</ul></div>
 
 
 <h2 id="create-a-translated-entity">Create a translated entity<a href="#create-a-translated-entity"></a></h2><p>We will here display a more basic usage of Doctrine entity manager to create a translated entity:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\Module\DemoDoctrine\Entity\Quote</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\Module\DemoDoctrine\Entity\QuoteLang</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Entity\Lang</span><span class="p">;</span>
-
-<span class="c1">// Getting the container depends if you are in a module or a controller but the rest of the code remains the same
-</span><span class="c1"></span><span class="nv">$container</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getContainer</span><span class="p">();</span>
-
-<span class="c1">// Get all languages vie the Lang repository
-</span><span class="c1"></span><span class="nv">$langRepository</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.admin.lang.repository&#39;</span><span class="p">);</span>
-<span class="nv">$languages</span> <span class="o">=</span> <span class="nv">$langRepository</span><span class="o">-&gt;</span><span class="na">findAll</span><span class="p">();</span>
-
-<span class="c1">// The entity manager will allow us to persist the Doctrine entities
-</span><span class="c1"></span><span class="nv">$entityManager</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;doctrine.orm.default_entity_manager&#39;</span><span class="p">);</span>
-
-<span class="c1">// This are some fixtures data
-</span><span class="c1"></span><span class="nv">$quotesData</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span>
-        <span class="s1">&#39;author&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pierre Augustin Caron de Beaumarchais&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;quotes&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-          <span class="s1">&#39;en&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Proving that I am right would be admitting that I could be wrong.&#39;</span><span class="p">,</span>
-          <span class="s1">&#39;fr&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Prouver que j\&#39;ai raison serait accorder que je puis avoir tort.&#39;</span><span class="p">,</span>
-        <span class="p">]</span>
-    <span class="p">],</span>
-    <span class="p">[</span>
-        <span class="s1">&#39;author&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Georges Bernanos&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;quotes&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-          <span class="s1">&#39;en&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;There are no half-truths.&#39;</span><span class="p">,</span>
-          <span class="s1">&#39;fr&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Il n\&#39;y a pas de verités moyennes.&#39;</span><span class="p">,</span>
-        <span class="p">]</span>
-    <span class="p">],</span>
-<span class="p">];</span>
-
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$quotesData</span> <span class="k">as</span> <span class="nv">$quoteData</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nv">$quote</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Quote</span><span class="p">();</span>
-    <span class="nv">$quote</span><span class="o">-&gt;</span><span class="na">setAuthor</span><span class="p">(</span><span class="nv">$quoteData</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]);</span>
-
-    <span class="sd">/** @var Lang $language */</span>
-    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$languages</span> <span class="k">as</span> <span class="nv">$language</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$quoteLang</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QuoteLang</span><span class="p">();</span>
-        <span class="nv">$quoteLang</span><span class="o">-&gt;</span><span class="na">setLang</span><span class="p">(</span><span class="nv">$language</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$quoteData</span><span class="p">[</span><span class="s1">&#39;quotes&#39;</span><span class="p">][</span><span class="nv">$language</span><span class="o">-&gt;</span><span class="na">getIsoCode</span><span class="p">()]))</span> <span class="p">{</span>
-            <span class="nv">$quoteLang</span><span class="o">-&gt;</span><span class="na">setContent</span><span class="p">(</span><span class="nv">$quoteData</span><span class="p">[</span><span class="s1">&#39;quotes&#39;</span><span class="p">][</span><span class="nv">$language</span><span class="o">-&gt;</span><span class="na">getIsoCode</span><span class="p">()]);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="nv">$quoteLang</span><span class="o">-&gt;</span><span class="na">setContent</span><span class="p">(</span><span class="nv">$quoteData</span><span class="p">[</span><span class="s1">&#39;quotes&#39;</span><span class="p">][</span><span class="s1">&#39;en&#39;</span><span class="p">]);</span>
-        <span class="p">}</span>
-        <span class="nv">$quote</span><span class="o">-&gt;</span><span class="na">addQuoteLang</span><span class="p">(</span><span class="nv">$quoteLang</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Usually we should also persist the QuoteLang entities, but since we setup the cascading persist in the Quote
-</span><span class="c1"></span>    <span class="c1">// entity it is not necessary here, this action allows the entity manager to be aware of this new entity.
-</span><span class="c1"></span>    <span class="nv">$entityManager</span><span class="o">-&gt;</span><span class="na">persist</span><span class="p">(</span><span class="nv">$quote</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="c1">// Finally the entity manager applies ALL the creation in one go
-</span><span class="c1"></span><span class="nv">$entityManager</span><span class="o">-&gt;</span><span class="na">flush</span><span class="p">();</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\Module\DemoDoctrine\Entity\Quote</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\Module\DemoDoctrine\Entity\QuoteLang</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Entity\Lang</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Getting the container depends if you are in a module or a controller but the rest of the code remains the same
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$container</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getContainer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Get all languages vie the Lang repository
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$langRepository</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.admin.lang.repository&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$languages</span> <span class="o">=</span> <span class="nv">$langRepository</span><span class="o">-&gt;</span><span class="na">findAll</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// The entity manager will allow us to persist the Doctrine entities
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$entityManager</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;doctrine.orm.default_entity_manager&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// This are some fixtures data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$quotesData</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;author&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Pierre Augustin Caron de Beaumarchais&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;quotes&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;en&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Proving that I am right would be admitting that I could be wrong.&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;fr&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Prouver que j\&#39;ai raison serait accorder que je puis avoir tort.&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;author&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Georges Bernanos&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;quotes&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;en&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;There are no half-truths.&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;fr&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Il n\&#39;y a pas de verités moyennes.&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$quotesData</span> <span class="k">as</span> <span class="nv">$quoteData</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$quote</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Quote</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$quote</span><span class="o">-&gt;</span><span class="na">setAuthor</span><span class="p">(</span><span class="nv">$quoteData</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/** @var Lang $language */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$languages</span> <span class="k">as</span> <span class="nv">$language</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$quoteLang</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">QuoteLang</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$quoteLang</span><span class="o">-&gt;</span><span class="na">setLang</span><span class="p">(</span><span class="nv">$language</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$quoteData</span><span class="p">[</span><span class="s1">&#39;quotes&#39;</span><span class="p">][</span><span class="nv">$language</span><span class="o">-&gt;</span><span class="na">getIsoCode</span><span class="p">()]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$quoteLang</span><span class="o">-&gt;</span><span class="na">setContent</span><span class="p">(</span><span class="nv">$quoteData</span><span class="p">[</span><span class="s1">&#39;quotes&#39;</span><span class="p">][</span><span class="nv">$language</span><span class="o">-&gt;</span><span class="na">getIsoCode</span><span class="p">()]);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$quoteLang</span><span class="o">-&gt;</span><span class="na">setContent</span><span class="p">(</span><span class="nv">$quoteData</span><span class="p">[</span><span class="s1">&#39;quotes&#39;</span><span class="p">][</span><span class="s1">&#39;en&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$quote</span><span class="o">-&gt;</span><span class="na">addQuoteLang</span><span class="p">(</span><span class="nv">$quoteLang</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Usually we should also persist the QuoteLang entities, but since we setup the cascading persist in the Quote
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// entity it is not necessary here, this action allows the entity manager to be aware of this new entity.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$entityManager</span><span class="o">-&gt;</span><span class="na">persist</span><span class="p">(</span><span class="nv">$quote</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Finally the entity manager applies ALL the creation in one go
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$entityManager</span><span class="o">-&gt;</span><span class="na">flush</span><span class="p">();</span>
+</span></span></code></pre></div>
 <h2 id="fetching-your-multi-lang-entity">Fetching your multi lang entity<a href="#fetching-your-multi-lang-entity"></a></h2>
 <h3 id="creating-your-repository-service">Creating your repository service<a href="#creating-your-repository-service"></a></h3><p>It is more efficient to have a dedicated repository service to handle your entity, as mentioned when creating the <code>Quote</code> entity a repository <code>PrestaShop\Module\DemoDoctrine\Repository\QuoteRepository</code> has been configured and assigned to this entity, this allows the Doctrine entity manager to map them, but we can also define our own service so that we can get it via a service name.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">prestashop.module.demodoctrine.repository.quote_repository</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShop\Module\DemoDoctrine\Repository\QuoteRepository</span><span class="w">
-</span><span class="w">        </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;@doctrine.orm.default_entity_manager&#39;</span><span class="p">,</span><span class="w"> </span><span class="l">getRepository]</span><span class="w">
-</span><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="l">PrestaShop\Module\DemoDoctrine\Entity\Quote</span><span class="w">
-</span></code></pre></div><p>This will allow to get the Quote repository easily:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$quoteRepository</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getContainer</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.module.demodoctrine.repository.quote_repository&#39;</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">prestashop.module.demodoctrine.repository.quote_repository</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShop\Module\DemoDoctrine\Repository\QuoteRepository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;@doctrine.orm.default_entity_manager&#39;</span><span class="p">,</span><span class="w"> </span><span class="l">getRepository]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">PrestaShop\Module\DemoDoctrine\Entity\Quote</span><span class="w">
+</span></span></span></code></pre></div><p>This will allow to get the Quote repository easily:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$quoteRepository</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getContainer</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.module.demodoctrine.repository.quote_repository&#39;</span><span class="p">);</span>
+</span></span></code></pre></div>
 <h3 id="using-the-repository-to-get-entities-relying-on-doctrine-query-builder">Using the repository to get entities relying on Doctrine query builder<a href="#using-the-repository-to-get-entities-relying-on-doctrine-query-builder"></a></h3><p>Here we get the list of all <code>Quote</code> entities and their associated <code>QuoteLang</code>, it returns all the language by default but we also have a <code>$langId</code> parameter available if only one language is wanted.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/**
-</span><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
-</span><span class="sd"> *
-</span><span class="sd"> * NOTICE OF LICENSE
-</span><span class="sd"> *
-</span><span class="sd"> * This source file is subject to the Academic Free License version 3.0
-</span><span class="sd"> * that is bundled with this package in the file LICENSE.md.
-</span><span class="sd"> * It is also available through the world-wide-web at this URL:
-</span><span class="sd"> * https://opensource.org/licenses/AFL-3.0
-</span><span class="sd"> * If you did not receive a copy of the license and are unable to
-</span><span class="sd"> * obtain it through the world-wide-web, please send an email
-</span><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
-</span><span class="sd"> *
-</span><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
-</span><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
-</span><span class="sd"> */</span>
-<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoDoctrine\Repository</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Doctrine\ORM\EntityRepository</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Doctrine\ORM\QueryBuilder</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">QuoteRepository</span> <span class="k">extends</span> <span class="nx">EntityRepository</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @param int $langId
-</span><span class="sd">     *
-</span><span class="sd">     * @return array
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getQuotes</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$langId</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="k">array</span>
-    <span class="p">{</span>
-        <span class="sd">/** @var QueryBuilder $qb */</span>
-        <span class="nv">$qb</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">createQueryBuilder</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">addSelect</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">addSelect</span><span class="p">(</span><span class="s1">&#39;ql&#39;</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">leftJoin</span><span class="p">(</span><span class="s1">&#39;q.quoteLangs&#39;</span><span class="p">,</span> <span class="s1">&#39;ql&#39;</span><span class="p">)</span>
-        <span class="p">;</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!==</span> <span class="nv">$langId</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$qb</span>
-                <span class="o">-&gt;</span><span class="na">andWhere</span><span class="p">(</span><span class="s1">&#39;ql.lang = :langId&#39;</span><span class="p">)</span>
-                <span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;langId&#39;</span><span class="p">,</span> <span class="nv">$langId</span><span class="p">)</span>
-            <span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">getQuery</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * NOTICE OF LICENSE
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * This source file is subject to the Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * that is bundled with this package in the file LICENSE.md.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * It is also available through the world-wide-web at this URL:
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * https://opensource.org/licenses/AFL-3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * If you did not receive a copy of the license and are unable to
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * obtain it through the world-wide-web, please send an email
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoDoctrine\Repository</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\ORM\EntityRepository</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\ORM\QueryBuilder</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">QuoteRepository</span> <span class="k">extends</span> <span class="nx">EntityRepository</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int $langId
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return array
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getQuotes</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$langId</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span><span class="o">:</span> <span class="k">array</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var QueryBuilder $qb */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$qb</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">createQueryBuilder</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">addSelect</span><span class="p">(</span><span class="s1">&#39;q&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">addSelect</span><span class="p">(</span><span class="s1">&#39;ql&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">leftJoin</span><span class="p">(</span><span class="s1">&#39;q.quoteLangs&#39;</span><span class="p">,</span> <span class="s1">&#39;ql&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">!==</span> <span class="nv">$langId</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$qb</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">andWhere</span><span class="p">(</span><span class="s1">&#39;ql.lang = :langId&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;langId&#39;</span><span class="p">,</span> <span class="nv">$langId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">getQuery</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getResult</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33714,17 +33712,17 @@ Focus on the <code>Annotation</code> sections since PrestaShop only handles this
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163911"></script>
-    <script src="/js/jquery.sticky.js?1703163911"></script>
-    <script src="/js/featherlight.min.js?1703163911"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163911"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163911"></script>
-    <script src="/js/learn.js?1703163911"></script>
-    <script src="/js/hugo-learn.js?1703163911"></script>
+    <script src="/js/clipboard.min.js?1703164737"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164737"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164737"></script>
+    <script src="/js/jquery.sticky.js?1703164737"></script>
+    <script src="/js/featherlight.min.js?1703164737"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164737"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164737"></script>
+    <script src="/js/learn.js?1703164737"></script>
+    <script src="/js/hugo-learn.js?1703164737"></script>
     
-    <script src="/main.js?1703163911"></script>
+    <script src="/main.js?1703164737"></script>
     
     
     

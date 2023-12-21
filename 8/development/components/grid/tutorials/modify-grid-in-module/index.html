@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to modify an existing Grid in a module :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163909" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163909" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163909" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163909" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164735" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164735" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164735" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164735" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163909" rel="stylesheet">
+    <link href="/style.css?1703164735" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163909"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164735"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33178,47 +33178,47 @@
 </ul>
 <p>We need to register a hook into a module (let&rsquo;s name it <code>customers</code> for the sake of the example).</p>
 <p>The Customers Grid id is &ldquo;customer&rdquo;, you can find this information in the associated class: <code>CustomerGridDefinitionFactory</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/**
-</span><span class="sd"> * Hooks allows to modify Customer grid definition.
-</span><span class="sd"> * This hook is a right place to add/remove columns or actions (bulk, grid).
-</span><span class="sd"> *
-</span><span class="sd"> * @param array $params
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCustomerGridDefinitionModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="sd">/** @var GridDefinitionInterface $definition */</span>
-    <span class="nv">$definition</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;definition&#39;</span><span class="p">];</span>
-
-    <span class="sd">/** @var ColumnCollection */</span>
-    <span class="nv">$columns</span> <span class="o">=</span> <span class="nv">$definition</span><span class="o">-&gt;</span><span class="na">getColumns</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div><p>Once we have registered the hook, we can alter the columns:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Hooks allows to modify Customer grid definition.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * This hook is a right place to add/remove columns or actions (bulk, grid).
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param array $params
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCustomerGridDefinitionModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/** @var GridDefinitionInterface $definition */</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$definition</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;definition&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/** @var ColumnCollection */</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$columns</span> <span class="o">=</span> <span class="nv">$definition</span><span class="o">-&gt;</span><span class="na">getColumns</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Once we have registered the hook, we can alter the columns:</p>
 <ul>
 <li>remove the existing ones,</li>
 <li>add new ones,</li>
 <li>and position them precisely;</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/** @var ColumnCollection */</span>
-<span class="nv">$columns</span> <span class="o">=</span> <span class="nv">$definition</span><span class="o">-&gt;</span><span class="na">getColumns</span><span class="p">();</span>
-<span class="nv">$columns</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;social_title&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;optin&#39;</span><span class="p">)</span>
-<span class="p">;</span>
-</code></pre></div><p>Afer the activation of the module, the grid should looks like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/** @var ColumnCollection */</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$columns</span> <span class="o">=</span> <span class="nv">$definition</span><span class="o">-&gt;</span><span class="na">getColumns</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$columns</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;social_title&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;optin&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">;</span>
+</span></span></code></pre></div><p>Afer the activation of the module, the grid should looks like this:</p>
 <p><img src="https://user-images.githubusercontent.com/1247388/52344104-33516780-2a1a-11e9-8f88-b299c6e444f7.png" alt="grid-tuto1"></p>
 <p>It&rsquo;s not really nice&hellip; because we also need to delete the related search filters!</p>
 <p>Let&rsquo;s do that:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/** @var FilterCollection $filters */</span>
-<span class="nv">$filters</span> <span class="o">=</span> <span class="nv">$definition</span><span class="o">-&gt;</span><span class="na">getFilters</span><span class="p">();</span>
-
-<span class="nv">$filters</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;social_title&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;optin&#39;</span><span class="p">)</span>
-<span class="p">;</span>
-</code></pre></div><p>And this time, our grid is awesome!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/** @var FilterCollection $filters */</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$filters</span> <span class="o">=</span> <span class="nv">$definition</span><span class="o">-&gt;</span><span class="na">getFilters</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$filters</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;social_title&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;optin&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">;</span>
+</span></span></code></pre></div><p>And this time, our grid is awesome!</p>
 <p><img src="https://user-images.githubusercontent.com/1247388/52344105-33516780-2a1a-11e9-9ec8-96427561be15.png" alt="grid-tuto-2"></p>
 
 <h2 id="re-ordering-grid-columns-and-filters">Re-ordering grid columns and filters<a href="#re-ordering-grid-columns-and-filters"></a></h2><p>When adding a new column, it&rsquo;s super easy to position it in a grid.</p>
@@ -33228,16 +33228,16 @@
 <li><code>addBefore($columnId, ColumnInterface $column)</code></li>
 </ul>
 <p>If you need to insert a new column &ldquo;$newColumn&rdquo; after a specific column with the id &ldquo;name&rdquo;, this is how you can do that:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$newColumn</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DataColumn</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span> <span class="o">...</span>
-<span class="nv">$columns</span><span class="o">-&gt;</span><span class="na">addAfter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nv">$newColumn</span><span class="p">);</span>
-</code></pre></div><p>The operation is <strong>more difficult</strong> with an existing column. We need to remove and add it again to the right position:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$columns</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;the_column_we_need_to_move&#39;</span><span class="p">);</span>
-
-<span class="nv">$columnWeNeedToMove</span> <span class="o">=</span> <span class="k">new</span> <span class="o">...</span> <span class="c1">// we create the column
-</span><span class="c1"></span><span class="nv">$columns</span><span class="o">-&gt;</span><span class="na">addBefore</span><span class="p">(</span><span class="s1">&#39;sales&#39;</span><span class="p">,</span> <span class="nv">$columnWeNeedToMove</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$newColumn</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DataColumn</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$columns</span><span class="o">-&gt;</span><span class="na">addAfter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nv">$newColumn</span><span class="p">);</span>
+</span></span></code></pre></div><p>The operation is <strong>more difficult</strong> with an existing column. We need to remove and add it again to the right position:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$columns</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="s1">&#39;the_column_we_need_to_move&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$columnWeNeedToMove</span> <span class="o">=</span> <span class="k">new</span> <span class="o">...</span> <span class="c1">// we create the column
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$columns</span><span class="o">-&gt;</span><span class="na">addBefore</span><span class="p">(</span><span class="s1">&#39;sales&#39;</span><span class="p">,</span> <span class="nv">$columnWeNeedToMove</span><span class="p">);</span>
+</span></span></code></pre></div>
 <h3 id="re-ordering-filters">Re-ordering filters?<a href="#re-ordering-filters"></a></h3><p>There is a good news here: filters are linked to the columns thanks to the function <code>setAssociatedColumn</code> of the <code>FilterInterface</code> contract.</p>
 <p>This means that you don&rsquo;t need to re-order filters when you re-order columns: great!</p>
 <p>If you don&rsquo;t define a new filter when creating a new column, you won&rsquo;t be able to search using this column as a filter.</p>
@@ -33252,24 +33252,24 @@
 
 <h3 id="querybuilder-configuration">QueryBuilder configuration<a href="#querybuilder-configuration"></a></h3><p>We want to retrieve the number of orders for each customer.</p>
 <p>To alter the QueryBuilder, we have a hook named <code>action{GridId}GridQueryBuilderModifier</code>. This is how you can fill the column data to retrieve the number of orders from a customers:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCustomerGridQueryBuilderModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nv">$searchQueryBuilder</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;search_query_builder&#39;</span><span class="p">];</span>
-
-    <span class="nv">$searchQueryBuilder</span><span class="o">-&gt;</span><span class="na">addSelect</span><span class="p">(</span><span class="s1">&#39;COUNT(o.id_order) as nb_orders&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="s1">&#39;orders o&#39;</span><span class="p">)</span>
-    <span class="p">;</span>
-
-    <span class="nv">$countQueryBuilder</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;count_query_builder&#39;</span><span class="p">];</span>
-
-    <span class="c1">// So the pagination and the number of customers
-</span><span class="c1"></span>    <span class="c1">// retrieved will be right.
-</span><span class="c1"></span>    <span class="nv">$countQueryBuilder</span><span class="o">-&gt;</span><span class="na">addSelect</span><span class="p">(</span><span class="s1">&#39;COUNT(o.id_order) as nb_orders&#39;</span><span class="p">)</span>
-        <span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="s1">&#39;orders o&#39;</span><span class="p">)</span>
-    <span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCustomerGridQueryBuilderModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$searchQueryBuilder</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;search_query_builder&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$searchQueryBuilder</span><span class="o">-&gt;</span><span class="na">addSelect</span><span class="p">(</span><span class="s1">&#39;COUNT(o.id_order) as nb_orders&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="s1">&#39;orders o&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$countQueryBuilder</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;count_query_builder&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// So the pagination and the number of customers
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// retrieved will be right.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$countQueryBuilder</span><span class="o">-&gt;</span><span class="na">addSelect</span><span class="p">(</span><span class="s1">&#39;COUNT(o.id_order) as nb_orders&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="s1">&#39;orders o&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices note" >The result column name (here <code>nb_orders</code>) must be the same of the <code>field</code> option of the related column: this is how the mapping of data works.</div>
 
 <p>Once the new hook is registered and the module activated, you should see the &ldquo;Customers&rdquo; grid customized according to the use cases we have listed in the introduction: great!</p>
@@ -33351,17 +33351,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163909"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163909"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163909"></script>
-    <script src="/js/jquery.sticky.js?1703163909"></script>
-    <script src="/js/featherlight.min.js?1703163909"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163909"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163909"></script>
-    <script src="/js/learn.js?1703163909"></script>
-    <script src="/js/hugo-learn.js?1703163909"></script>
+    <script src="/js/clipboard.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164735"></script>
+    <script src="/js/jquery.sticky.js?1703164735"></script>
+    <script src="/js/featherlight.min.js?1703164735"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164735"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164735"></script>
+    <script src="/js/learn.js?1703164735"></script>
+    <script src="/js/hugo-learn.js?1703164735"></script>
     
-    <script src="/main.js?1703163909"></script>
+    <script src="/main.js?1703164735"></script>
     
     
     

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Widgets :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163911" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163911" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163911" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163911" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164736" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164736" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164736" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164736" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163911" rel="stylesheet">
+    <link href="/style.css?1703164736" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163911"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164736"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33134,10 +33134,10 @@ this feature available. This can be done by implementing the interface
 (<a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Core/Module/WidgetInterface.php">Source code</a>).</p>
 
 <h3 id="declare-mandatory-methods">Declare mandatory methods<a href="#declare-mandatory-methods"></a></h3><p>As soon as a module implements the <code>WidgetInterface</code>, two methods must be declared:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">renderWidget</span><span class="p">(</span><span class="nv">$hookName</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$configuration</span><span class="p">);</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">getWidgetVariables</span><span class="p">(</span><span class="nv">$hookName</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$configuration</span><span class="p">);</span>
-</code></pre></div><p>The method <code>renderWidget()</code> is the entrypoint for the core in order to get the generated view (fetch smarty template).
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">renderWidget</span><span class="p">(</span><span class="nv">$hookName</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$configuration</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">getWidgetVariables</span><span class="p">(</span><span class="nv">$hookName</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$configuration</span><span class="p">);</span>
+</span></span></code></pre></div><p>The method <code>renderWidget()</code> is the entrypoint for the core in order to get the generated view (fetch smarty template).
 The method <code>getWidgetVariables()</code> returns the variables you want to assign to smarty.</p>
 <p>The parameters sent to both functions are the same:</p>
 <ul>
@@ -33157,13 +33157,13 @@ is called.</li>
 <ul>
 <li>From a PHP class</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="nv">$hook_name</span><span class="p">)</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="nv">$hook_name</span><span class="p">)</span>
+</span></span></code></pre></div><ul>
 <li>From a Smarty template</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-tpl" data-lang="tpl"><span class="cp">{</span><span class="nf">hook</span> <span class="na">h</span><span class="o">=</span><span class="s1">&#39;&lt;hook_name&gt;&#39;</span><span class="cp">}</span><span class="x">
-</span></code></pre></div><p>The called method will be different regarding the module content:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tpl" data-lang="tpl"><span class="line"><span class="cl"><span class="cp">{</span><span class="nf">hook</span> <span class="na">h</span><span class="o">=</span><span class="s1">&#39;&lt;hook_name&gt;&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span></code></pre></div><p>The called method will be different regarding the module content:</p>
 <figure><img src="../img/widget-example-hooks.png"/><figcaption>
             <h4>Using widget from hooks</h4>
         </figcaption>
@@ -33174,84 +33174,83 @@ is called.</li>
 <ul>
 <li>From a Smarty template (recommended)</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="x">&lt;!-- Generic call --&gt;
-</span><span class="x"></span><span class="cp">{</span><span class="nf">widget</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;&lt;module_name&gt;&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">
-</span><span class="x">&lt;!-- Call with a hook name --&gt;
-</span><span class="x"></span><span class="cp">{</span><span class="nf">widget</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;&lt;module_name&gt;&#39;</span> <span class="na">hook</span><span class="o">=</span><span class="s1">&#39;&lt;hook_name&gt;&#39;</span><span class="cp">}</span><span class="x">
-</span></code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-smarty" data-lang="smarty"><span class="line"><span class="cl"><span class="x">&lt;!-- Generic call --&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{</span><span class="nf">widget</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;&lt;module_name&gt;&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">&lt;!-- Call with a hook name --&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{</span><span class="nf">widget</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;&lt;module_name&gt;&#39;</span> <span class="na">hook</span><span class="o">=</span><span class="s1">&#39;&lt;hook_name&gt;&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span></code></pre></div><ul>
 <li>From a PHP class</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nx">Hook</span><span class="o">::</span><span class="na">coreRenderWidget</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">,</span> <span class="nv">$hook_name</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Hook</span><span class="o">::</span><span class="na">coreRenderWidget</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">,</span> <span class="nv">$hook_name</span><span class="p">,</span> <span class="nv">$params</span><span class="p">);</span>
+</span></span></code></pre></div>
 <h2 id="code-example">Code example<a href="#code-example"></a></h2><ul>
 <li>From a PHP class</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">exit</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Module\WidgetInterface</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">MyModule</span> <span class="k">extends</span> <span class="nx">Module</span> <span class="k">implements</span> <span class="nx">WidgetInterface</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;mymodule&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tab</span> <span class="o">=</span> <span class="s1">&#39;front_office_features&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="s1">&#39;Firstname Lastname&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">need_instance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ps_versions_compliancy</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="nx">_PS_VERSION_</span>
-        <span class="p">];</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bootstrap</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
-
-        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">);</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">confirmUninstall</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Are you sure you want to uninstall?&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">renderWidget</span><span class="p">(</span><span class="nv">$hookName</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$configuration</span><span class="p">)</span> 
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getWidgetVariables</span><span class="p">(</span><span class="nv">$hookName</span><span class="p">,</span> <span class="nv">$configuration</span><span class="p">));</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="s1">&#39;module:&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/views/templates/widget/mymodule.tpl&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
- 
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getWidgetVariables</span><span class="p">(</span><span class="nv">$hookName</span> <span class="p">,</span> <span class="k">array</span> <span class="nv">$configuration</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$myParamKey</span> <span class="o">=</span> <span class="nv">$configuration</span><span class="p">[</span><span class="s1">&#39;my_param_key&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="k">null</span><span class="p">;</span>
-        
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;my_var1&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;my_var1_value&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;my_var2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;my_var2_value&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;my_var_n&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;my_var_n_value&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;my_dynamic_var_by_param&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getMyDynamicVarByParamKey</span><span class="p">(</span><span class="nv">$myParamKey</span><span class="p">),</span>
-        <span class="p">];</span>
-    <span class="p">}</span>
-    
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getMyDynamicVarByParamKey</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$paramKey</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="nv">$paramKey</span> <span class="o">===</span> <span class="s1">&#39;my_param_value&#39;</span><span class="p">)</span> <span class="p">{</span>
-           <span class="k">return</span> <span class="s1">&#39;my_dynamic_var_by_my_param_value&#39;</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Module\WidgetInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyModule</span> <span class="k">extends</span> <span class="nx">Module</span> <span class="k">implements</span> <span class="nx">WidgetInterface</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;mymodule&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tab</span> <span class="o">=</span> <span class="s1">&#39;front_office_features&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="s1">&#39;Firstname Lastname&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">need_instance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ps_versions_compliancy</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="nx">_PS_VERSION_</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bootstrap</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">confirmUninstall</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Are you sure you want to uninstall?&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">renderWidget</span><span class="p">(</span><span class="nv">$hookName</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$configuration</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getWidgetVariables</span><span class="p">(</span><span class="nv">$hookName</span><span class="p">,</span> <span class="nv">$configuration</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="s1">&#39;module:&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/views/templates/widget/mymodule.tpl&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getWidgetVariables</span><span class="p">(</span><span class="nv">$hookName</span> <span class="p">,</span> <span class="k">array</span> <span class="nv">$configuration</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$myParamKey</span> <span class="o">=</span> <span class="nv">$configuration</span><span class="p">[</span><span class="s1">&#39;my_param_key&#39;</span><span class="p">]</span> <span class="o">??</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;my_var1&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;my_var1_value&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;my_var2&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;my_var2_value&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;my_var_n&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;my_var_n_value&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;my_dynamic_var_by_param&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getMyDynamicVarByParamKey</span><span class="p">(</span><span class="nv">$myParamKey</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getMyDynamicVarByParamKey</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$paramKey</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="nv">$paramKey</span> <span class="o">===</span> <span class="s1">&#39;my_param_value&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">           <span class="k">return</span> <span class="s1">&#39;my_dynamic_var_by_my_param_value&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li>From a Smarty template</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="nf">widget</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;mymodule&#39;</span> <span class="na">my_param_key</span><span class="o">=</span><span class="s1">&#39;my_param_value&#39;</span><span class="cp">}</span><span class="x">
-</span></code></pre></div><p>The hook name sent to <code>renderWidget</code> will depend on the value provided to the optional <code>hook</code> parameter.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-smarty" data-lang="smarty"><span class="line"><span class="cl"><span class="cp">{</span><span class="nf">widget</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;mymodule&#39;</span> <span class="na">my_param_key</span><span class="o">=</span><span class="s1">&#39;my_param_value&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span></code></pre></div><p>The hook name sent to <code>renderWidget</code> will depend on the value provided to the optional <code>hook</code> parameter.</p>
 
 
 <footer class="article-footer">
@@ -33330,17 +33329,17 @@ is called.</li>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163911"></script>
-    <script src="/js/jquery.sticky.js?1703163911"></script>
-    <script src="/js/featherlight.min.js?1703163911"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163911"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163911"></script>
-    <script src="/js/learn.js?1703163911"></script>
-    <script src="/js/hugo-learn.js?1703163911"></script>
+    <script src="/js/clipboard.min.js?1703164737"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164737"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164737"></script>
+    <script src="/js/jquery.sticky.js?1703164737"></script>
+    <script src="/js/featherlight.min.js?1703164737"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164737"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164737"></script>
+    <script src="/js/learn.js?1703164737"></script>
+    <script src="/js/hugo-learn.js?1703164737"></script>
     
-    <script src="/main.js?1703163911"></script>
+    <script src="/main.js?1703164737"></script>
     
     
     

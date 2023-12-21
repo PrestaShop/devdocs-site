@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Manage Configuration :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163931" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163931" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163931" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163931" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164752" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164752" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164752" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164752" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163931" rel="stylesheet">
+    <link href="/style.css?1703164752" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163931"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164752"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33131,108 +33131,108 @@
 <h2 id="api-call">API call<a href="#api-call"></a></h2><p>First check if the configuration already exists by using <a href="/8/webservice/tutorials/advanced-use/additional-list-parameters/">filters and display parameters</a> <code>/api/configurations/?display=[id,name,value]&amp;filter[name]=[PS_MULTISHOP_FEATURE_ACTIVE]</code></p>
 
 <h3 id="create-configuration">Create configuration<a href="#create-configuration"></a></h3><p>If the configuration doesn&rsquo;t exist yet, you will receive an empty list:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;configurations&gt;</span>
-    <span class="nt">&lt;/configurations&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><p>So you need to POST on the <code>configuration</code> API <code>/api/configurations/</code> to create this new value</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;configuration&gt;</span>
-        <span class="nt">&lt;value&gt;</span>1<span class="nt">&lt;/value&gt;</span>
-        <span class="nt">&lt;name&gt;</span>PS_MULTISHOP_FEATURE_ACTIVE<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;/configuration&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;configurations&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/configurations&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div><p>So you need to POST on the <code>configuration</code> API <code>/api/configurations/</code> to create this new value</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;value&gt;</span>1<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>PS_MULTISHOP_FEATURE_ACTIVE<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/configuration&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <h3 id="update-configuration">Update configuration<a href="#update-configuration"></a></h3><p>If it is already defined you will receive a list with the searched configuration:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;configurations&gt;</span>
-        <span class="nt">&lt;configuration&gt;</span>
-            <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[411]]&gt;</span><span class="nt">&lt;/id&gt;</span>
-            <span class="nt">&lt;value&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/value&gt;</span>
-            <span class="nt">&lt;name&gt;</span><span class="cp">&lt;![CDATA[PS_MULTISHOP_FEATURE_ACTIVE]]&gt;</span><span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;/configuration&gt;</span>
-    <span class="nt">&lt;/configurations&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><p>So you need to update it via a PUT using the configuration ID: <code>/api/configurations/411</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;configuration&gt;</span>
-        <span class="nt">&lt;id&gt;</span>411<span class="nt">&lt;/id&gt;</span>
-        <span class="nt">&lt;value&gt;</span>1<span class="nt">&lt;/value&gt;</span>
-        <span class="nt">&lt;name&gt;</span>PS_MULTISHOP_FEATURE_ACTIVE<span class="nt">&lt;/name&gt;</span>
-    <span class="nt">&lt;/configuration&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;configurations&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[411]]&gt;</span><span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;value&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;name&gt;</span><span class="cp">&lt;![CDATA[PS_MULTISHOP_FEATURE_ACTIVE]]&gt;</span><span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/configuration&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/configurations&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div><p>So you need to update it via a PUT using the configuration ID: <code>/api/configurations/411</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id&gt;</span>411<span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;value&gt;</span>1<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;name&gt;</span>PS_MULTISHOP_FEATURE_ACTIVE<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/configuration&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <div class="notices warning" >The API being a simple CRUD it lacks logic on resources and doesn&rsquo;t check for existing values, so be sure to check the existence of the configuration and use the appropriate action <code>POST|PUT</code> if you want to avoid duplicates.</div>
 
 
-<h2 id="php-webservice-lib">PHP Webservice lib<a href="#php-webservice-lib"></a></h2><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./vendor/autoload.php&#39;</span><span class="p">);</span>
-
-<span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$webServiceUrl</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/&#39;</span><span class="p">;</span>
-    <span class="nv">$webServiceKey</span> <span class="o">=</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">;</span>
-    <span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="nv">$webServiceUrl</span><span class="p">,</span> <span class="nv">$webServiceKey</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
-
-    <span class="nv">$configurationName</span> <span class="o">=</span> <span class="s1">&#39;PS_MULTISHOP_FEATURE_ACTIVE&#39;</span><span class="p">;</span>
-    <span class="nv">$configurationValue</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-
-    <span class="c1">// Start by checking if the configuration is present and get its ID
-</span><span class="c1"></span>    <span class="nv">$xml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span>
-        <span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;configurations&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;filter[name]&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;[&#39;</span><span class="o">.</span> <span class="nv">$configurationName</span> <span class="o">.</span> <span class="s1">&#39;]&#39;</span><span class="p">,</span>
-    <span class="p">]);</span>
-
-    <span class="nv">$configurationId</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">configurations</span><span class="o">-&gt;</span><span class="na">configuration</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$configurationId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">configurations</span><span class="o">-&gt;</span><span class="na">configuration</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="p">()[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Get the base XML, either a blank one or the existing one
-</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="o">===</span> <span class="nv">$configurationId</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$configurationXml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;url&#39;</span> <span class="o">=&gt;</span> <span class="nv">$webServiceUrl</span> <span class="o">.</span> <span class="s1">&#39;api/configurations?schema=blank&#39;</span><span class="p">]);</span>    
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="nv">$configurationXml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span>
-            <span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;configurations&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$configurationId</span><span class="p">,</span>
-        <span class="p">]);</span>    
-    <span class="p">}</span>
-
-    <span class="c1">// Update values
-</span><span class="c1"></span>    <span class="nv">$configurationXml</span><span class="o">-&gt;</span><span class="na">configuration</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="nv">$configurationName</span><span class="p">;</span>
-    <span class="nv">$configurationXml</span><span class="o">-&gt;</span><span class="na">configuration</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">value</span> <span class="o">=</span> <span class="nv">$configurationValue</span><span class="p">;</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="s1">&#39;Error:&#39;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c1">// Either create new configuration or update it
-</span><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="o">===</span> <span class="nv">$configurationId</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">try</span> <span class="p">{</span>
-        <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">([</span>
-            <span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;configurations&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;postXml&#39;</span> <span class="o">=&gt;</span> <span class="nv">$configurationXml</span><span class="o">-&gt;</span><span class="na">asXML</span><span class="p">(),</span>
-        <span class="p">]);</span>
-        <span class="k">echo</span> <span class="s1">&#39;Successfully created configuration &#39;</span> <span class="o">.</span> <span class="nv">$configurationName</span> <span class="o">.</span> <span class="s1">&#39; = &#39;</span> <span class="o">.</span> <span class="nv">$configurationValue</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">echo</span> <span class="s1">&#39;Error while adding the configuration:&#39;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="k">try</span> <span class="p">{</span>
-        <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">edit</span><span class="p">([</span>
-            <span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;configurations&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$configurationId</span><span class="p">,</span>
-            <span class="s1">&#39;putXml&#39;</span> <span class="o">=&gt;</span> <span class="nv">$configurationXml</span><span class="o">-&gt;</span><span class="na">asXML</span><span class="p">(),</span>
-        <span class="p">]);</span>
-        <span class="k">echo</span> <span class="s1">&#39;Successfully updated configuration &#39;</span> <span class="o">.</span> <span class="nv">$configurationName</span> <span class="o">.</span> <span class="s1">&#39; = &#39;</span> <span class="o">.</span> <span class="nv">$configurationValue</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">echo</span> <span class="s1">&#39;Error while updating the configuration:&#39;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<h2 id="php-webservice-lib">PHP Webservice lib<a href="#php-webservice-lib"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./vendor/autoload.php&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$webServiceUrl</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$webServiceKey</span> <span class="o">=</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="nv">$webServiceUrl</span><span class="p">,</span> <span class="nv">$webServiceKey</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$configurationName</span> <span class="o">=</span> <span class="s1">&#39;PS_MULTISHOP_FEATURE_ACTIVE&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$configurationValue</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Start by checking if the configuration is present and get its ID
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$xml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;configurations&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;filter[name]&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;[&#39;</span><span class="o">.</span> <span class="nv">$configurationName</span> <span class="o">.</span> <span class="s1">&#39;]&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$configurationId</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">configurations</span><span class="o">-&gt;</span><span class="na">configuration</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$configurationId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">configurations</span><span class="o">-&gt;</span><span class="na">configuration</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="p">()[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Get the base XML, either a blank one or the existing one
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="o">===</span> <span class="nv">$configurationId</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$configurationXml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;url&#39;</span> <span class="o">=&gt;</span> <span class="nv">$webServiceUrl</span> <span class="o">.</span> <span class="s1">&#39;api/configurations?schema=blank&#39;</span><span class="p">]);</span>    
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$configurationXml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;configurations&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$configurationId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>    
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Update values
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$configurationXml</span><span class="o">-&gt;</span><span class="na">configuration</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="nv">$configurationName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$configurationXml</span><span class="o">-&gt;</span><span class="na">configuration</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">value</span> <span class="o">=</span> <span class="nv">$configurationValue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s1">&#39;Error:&#39;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Either create new configuration or update it
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="o">===</span> <span class="nv">$configurationId</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;configurations&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;postXml&#39;</span> <span class="o">=&gt;</span> <span class="nv">$configurationXml</span><span class="o">-&gt;</span><span class="na">asXML</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s1">&#39;Successfully created configuration &#39;</span> <span class="o">.</span> <span class="nv">$configurationName</span> <span class="o">.</span> <span class="s1">&#39; = &#39;</span> <span class="o">.</span> <span class="nv">$configurationValue</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s1">&#39;Error while adding the configuration:&#39;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">edit</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;configurations&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$configurationId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;putXml&#39;</span> <span class="o">=&gt;</span> <span class="nv">$configurationXml</span><span class="o">-&gt;</span><span class="na">asXML</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s1">&#39;Successfully updated configuration &#39;</span> <span class="o">.</span> <span class="nv">$configurationName</span> <span class="o">.</span> <span class="s1">&#39; = &#39;</span> <span class="o">.</span> <span class="nv">$configurationValue</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s1">&#39;Error while updating the configuration:&#39;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33310,17 +33310,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163931"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163931"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163931"></script>
-    <script src="/js/jquery.sticky.js?1703163931"></script>
-    <script src="/js/featherlight.min.js?1703163931"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163931"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163931"></script>
-    <script src="/js/learn.js?1703163931"></script>
-    <script src="/js/hugo-learn.js?1703163931"></script>
+    <script src="/js/clipboard.min.js?1703164753"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164753"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164753"></script>
+    <script src="/js/jquery.sticky.js?1703164753"></script>
+    <script src="/js/featherlight.min.js?1703164753"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164753"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164753"></script>
+    <script src="/js/learn.js?1703164753"></script>
+    <script src="/js/hugo-learn.js?1703164753"></script>
     
-    <script src="/main.js?1703163931"></script>
+    <script src="/main.js?1703164753"></script>
     
     
     

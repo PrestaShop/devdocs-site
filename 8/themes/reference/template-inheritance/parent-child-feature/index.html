@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Parent/child theme :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163928" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163928" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163928" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163928" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164750" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164750" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164750" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164750" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163928" rel="stylesheet">
+    <link href="/style.css?1703164750" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163928"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164750"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33139,22 +33139,22 @@ override the minimum amount of code.</div>
 
 <h2 id="how-to-create-a-child-theme">How to create a child theme<a href="#how-to-create-a-child-theme"></a></h2><p>First you need to have the theme you want to use as parent in your store <code>/themes</code> folder.</p>
 <p>Then you can create a very minimal theme, containing only the following files:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">  .
-  ├── config
-  │   └── theme.yml
-  └── preview.png
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  .
+</span></span><span class="line"><span class="cl">  ├── config
+</span></span><span class="line"><span class="cl">  │   └── theme.yml
+</span></span><span class="line"><span class="cl">  └── preview.png
+</span></span></code></pre></div>
 <div class="notices tip" >It&rsquo;s recommended to copy these files from the Parent theme.</div>
 
 <p>Once you have this, you will specify in your child theme <code>theme.yml</code> which theme should be used as a parent.
 The value must be the theme technical name (ie: the theme folder name).</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="l">classic</span><span class="w">
-</span><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">childtheme</span><span class="w">
-</span><span class="w"></span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l">My first child Theme</span><span class="w">
-</span><span class="w"></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">1.0.0</span><span class="w">
-</span><span class="w"></span><span class="nt">assets</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">use_parent_assets</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="l">classic</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">childtheme</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">display_name</span><span class="p">:</span><span class="w"> </span><span class="l">My first child Theme</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">1.0.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">assets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">use_parent_assets</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div>
 <div class="notices note" >Find more information about <a href="/8/themes/getting-started/theme-yml/#parent--child-settings"><code>use_parent_assets</code> behavior here</a></div>
 
 <p>Go ahead, select this theme in your backoffice and you&rsquo;re all set.</p>
@@ -33166,13 +33166,13 @@ The value must be the theme technical name (ie: the theme folder name).</p>
 can do anything you want in this template but most likely you still want to extend product-list template. If so,
 you don&rsquo;t have to copy product-list template to your child theme, PrestaShop will use the parent file.</p>
 <p>Extend product-list the normal way and override the block you need.</p>
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="x">  </span><span class="cp">{</span><span class="nf">extends</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;catalog/listing/product-list.tpl&#39;</span><span class="cp">}</span><span class="x">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-smarty" data-lang="smarty"><span class="line"><span class="cl"><span class="x">  </span><span class="cp">{</span><span class="nf">extends</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;catalog/listing/product-list.tpl&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span></code></pre></div>
 <h3 id="extending-the-same-template">Extending the same template<a href="#extending-the-same-template"></a></h3><p>Another way to overriding the category template would be to extend the parent template and define just the
 block you need. There is a little difference if you want to override the same template, you need to add
 the parent resource (note the parent keyword in the example below).</p>
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="x">  </span><span class="cp">{</span><span class="nf">extends</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;parent:catalog/listing/category.tpl&#39;</span><span class="cp">}</span><span class="x">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-smarty" data-lang="smarty"><span class="line"><span class="cl"><span class="x">  </span><span class="cp">{</span><span class="nf">extends</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;parent:catalog/listing/category.tpl&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33250,17 +33250,17 @@ the parent resource (note the parent keyword in the example below).</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163928"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163928"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163928"></script>
-    <script src="/js/jquery.sticky.js?1703163928"></script>
-    <script src="/js/featherlight.min.js?1703163928"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163928"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163928"></script>
-    <script src="/js/learn.js?1703163928"></script>
-    <script src="/js/hugo-learn.js?1703163928"></script>
+    <script src="/js/clipboard.min.js?1703164750"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164750"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164750"></script>
+    <script src="/js/jquery.sticky.js?1703164750"></script>
+    <script src="/js/featherlight.min.js?1703164750"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164750"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164750"></script>
+    <script src="/js/learn.js?1703164750"></script>
+    <script src="/js/hugo-learn.js?1703164750"></script>
     
-    <script src="/main.js?1703163928"></script>
+    <script src="/main.js?1703164750"></script>
     
     
     

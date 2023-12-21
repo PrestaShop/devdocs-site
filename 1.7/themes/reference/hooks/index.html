@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Theme Hooks :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/themes/reference/hooks/">
     
-    <link href="/css/font-awesome.min.css?1703163934" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163934" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163934" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163934" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164756" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164756" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164756" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164756" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163934" rel="stylesheet">
+    <link href="/style.css?1703164756" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163934"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164756"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -8492,7 +8492,7 @@
     
     
     <li data-nav-id="/1.7/themes/reference/hooks/" title="Theme Hooks" class="dd-item
-        parent
+        
         active currentPage
         
         
@@ -30268,11 +30268,11 @@
 
 <h2 id="creating-a-dynamic-hook">Creating a dynamic hook<a href="#creating-a-dynamic-hook"></a></h2><p>When your module or theme calls a hook, PrestaShop executes it.</p>
 <p>This is how it is called from a PHP file:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;MyCustomHook&#39;</span><span class="p">);</span>
-</code></pre></div><p>This is how it is called from a Smarty template:</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html">{hook h=&#39;MyCustomHook&#39;}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;MyCustomHook&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>This is how it is called from a Smarty template:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{hook h=&#39;MyCustomHook&#39;}
+</span></span></code></pre></div>
 <h2 id="register-the-hook-to-make-it-visible-and-reusable">Register the hook to make it visible and reusable<a href="#register-the-hook-to-make-it-visible-and-reusable"></a></h2><p>If you add a hook call, it is better to register it.</p>
 <p>This will enable Back Office user to:</p>
 <ul>
@@ -30281,23 +30281,23 @@
 <li>allow other modules to listen to this hook being called and add some extra behavior</li>
 </ul>
 <p>You can register your hook from your theme&rsquo;s <a href="https://devdocs.prestashop-project.org/1.7/themes/getting-started/theme-yml/">theme.yml file</a>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">global_settings</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">hooks</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">custom_hooks</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">displayFooterBefore</span><span class="w">
-</span><span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">displayFooterBefore</span><span class="w">
-</span><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">Add a widget area above the footer</span><span class="w">
-</span></code></pre></div><p>You can also register your hook from a module:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// Create the function for the MyCustomHook hook public function
-</span><span class="c1"></span><span class="nx">MyCustomHook</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// method body }
-</span><span class="c1"></span>
-<span class="c1">// Register the MyCustomHook hook
-</span><span class="c1"></span><span class="nx">Hook</span><span class="o">::</span><span class="na">register</span><span class="p">(</span><span class="s1">&#39;MyCustomHook&#39;</span><span class="p">);</span>
-
-<span class="c1">// Call it from PHP
-</span><span class="c1"></span><span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;MyCustomHook&#39;</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">global_settings</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">hooks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">custom_hooks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">displayFooterBefore</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="l">displayFooterBefore</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l">Add a widget area above the footer</span><span class="w">
+</span></span></span></code></pre></div><p>You can also register your hook from a module:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Create the function for the MyCustomHook hook public function
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">MyCustomHook</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// method body }
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Register the MyCustomHook hook
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">Hook</span><span class="o">::</span><span class="na">register</span><span class="p">(</span><span class="s1">&#39;MyCustomHook&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Call it from PHP
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;MyCustomHook&#39;</span><span class="p">);</span>
+</span></span></code></pre></div>
 
 
 
@@ -30377,17 +30377,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163935"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163935"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163935"></script>
-    <script src="/js/jquery.sticky.js?1703163935"></script>
-    <script src="/js/featherlight.min.js?1703163935"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163935"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163935"></script>
-    <script src="/js/learn.js?1703163935"></script>
-    <script src="/js/hugo-learn.js?1703163935"></script>
+    <script src="/js/clipboard.min.js?1703164756"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164756"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164756"></script>
+    <script src="/js/jquery.sticky.js?1703164756"></script>
+    <script src="/js/featherlight.min.js?1703164756"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164756"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164756"></script>
+    <script src="/js/learn.js?1703164756"></script>
+    <script src="/js/hugo-learn.js?1703164756"></script>
     
-    <script src="/main.js?1703163935"></script>
+    <script src="/main.js?1703164756"></script>
     
     
     

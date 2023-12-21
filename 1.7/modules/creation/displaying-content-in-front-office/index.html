@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Displaying content on the front office :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/creation/displaying-content-in-front-office/">
     
-    <link href="/css/font-awesome.min.css?1703163894" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163894" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163894" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163894" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164721" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164721" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164721" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164721" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163894" rel="stylesheet">
+    <link href="/style.css?1703164721" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163894"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164721"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30260,21 +30260,21 @@
 
 <h1 id="displaying-content-on-the-front-office">Displaying content on the front office<a href="#displaying-content-on-the-front-office"></a></h1><p>As it is, the module does not do much. In order to display something on
 the front office, we have to add support for a few hooks. This is done
-by implementing the hooks' methods, and that was actually done in the
+by implementing the hooks&rsquo; methods, and that was actually done in the
 <code>install()</code> method we wrote earlier, using the <code>registerHook()</code> method:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">isFeatureActive</span><span class="p">())</span> <span class="p">{</span>
-        <span class="nx">Shop</span><span class="o">::</span><span class="na">setContext</span><span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_ALL</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;displayLeftColumn&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;actionFrontControllerSetMedia&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
-        <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;my friend&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>As you can see, we make it so that the module is hooked to the
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">isFeatureActive</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Shop</span><span class="o">::</span><span class="na">setContext</span><span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_ALL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;displayLeftColumn&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;actionFrontControllerSetMedia&#39;</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;my friend&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>As you can see, we make it so that the module is hooked to the
 &ldquo;<code>displayLeftColumn</code>&rdquo; and &ldquo;<code>actionFrontControllerSetMedia</code>&rdquo; hooks. In addition to this, we will add
 code for the &ldquo;<code>displayRightColumn</code>&rdquo; hook.</p>
 <p>Attaching code to a hook requires a specific method for each:</p>
@@ -30289,43 +30289,43 @@ located in the <code>/views/templates/hook/</code> folder.</li>
 <code>/views/css/mymodule.css</code> and module&rsquo;s JS file, <code>/views/js/mymodule.js</code>.</li>
 </ul>
 <p>Add the following to your mymodule.php file:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayLeftColumn</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">([</span>
-            <span class="s1">&#39;my_module_name&#39;</span> <span class="o">=&gt;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">),</span>
-            <span class="s1">&#39;my_module_link&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s1">&#39;mymodule&#39;</span><span class="p">,</span> <span class="s1">&#39;display&#39;</span><span class="p">)</span>
-        <span class="p">]);</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">,</span> <span class="s1">&#39;mymodule.tpl&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayRightColumn</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hookDisplayLeftColumn</span><span class="p">(</span><span class="nv">$params</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionFrontControllerSetMedia</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">registerStylesheet</span><span class="p">(</span>
-            <span class="s1">&#39;mymodule-style&#39;</span><span class="p">,</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_path</span><span class="o">.</span><span class="s1">&#39;views/css/mymodule.css&#39;</span><span class="p">,</span>
-            <span class="p">[</span>
-                <span class="s1">&#39;media&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">1000</span><span class="p">,</span>
-            <span class="p">]</span>
-        <span class="p">);</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">registerJavascript</span><span class="p">(</span>
-            <span class="s1">&#39;mymodule-javascript&#39;</span><span class="p">,</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_path</span><span class="o">.</span><span class="s1">&#39;views/js/mymodule.js&#39;</span><span class="p">,</span>
-            <span class="p">[</span>
-                <span class="s1">&#39;position&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">1000</span><span class="p">,</span>
-            <span class="p">]</span>
-        <span class="p">);</span>
-    <span class="p">}</span>
-</code></pre></div><p>We are using the Context (<code>$this-&gt;context</code>) to change a Smarty variable:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayLeftColumn</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;my_module_name&#39;</span> <span class="o">=&gt;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;my_module_link&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s1">&#39;mymodule&#39;</span><span class="p">,</span> <span class="s1">&#39;display&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">,</span> <span class="s1">&#39;mymodule.tpl&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayRightColumn</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hookDisplayLeftColumn</span><span class="p">(</span><span class="nv">$params</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionFrontControllerSetMedia</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">registerStylesheet</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;mymodule-style&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_path</span><span class="o">.</span><span class="s1">&#39;views/css/mymodule.css&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;media&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">1000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">registerJavascript</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;mymodule-javascript&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_path</span><span class="o">.</span><span class="s1">&#39;views/js/mymodule.js&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;position&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">1000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>We are using the Context (<code>$this-&gt;context</code>) to change a Smarty variable:
 Smarty&rsquo;s <code>assign()</code> method makes it possible for us to set the
 template&rsquo;s name variable with the value of the <code>MYMODULE_NAME</code> setting
 stored in the configuration database table.</p>
@@ -30396,25 +30396,25 @@ your module to also work in PrestaShop 1.4, you should keep your files
 at the root.</p>
 <p>Here is our template file, located at
 <code>/views/templates/hook/mymodule.tpl</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- Block mymodule --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;mymodule_block_home&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;block&#34;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>{l s=&#39;Welcome!&#39; mod=&#39;mymodule&#39;}<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;block_content&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello,
-           {if isset($my_module_name) <span class="err">&amp;&amp;</span> $my_module_name}
-               {$my_module_name}
-           {else}
-               World
-           {/if}
-           !
-    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{$my_module_link}&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;Click this link&#34;</span><span class="p">&gt;</span>Click me!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="c">&lt;!-- /Block mymodule --&gt;</span>
-</code></pre></div><p>This is just regular HTML code&hellip; except for a few Smarty calls:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="c">&lt;!-- Block mymodule --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;mymodule_block_home&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;block&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>{l s=&#39;Welcome!&#39; mod=&#39;mymodule&#39;}<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;block_content&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello,
+</span></span><span class="line"><span class="cl">           {if isset($my_module_name) <span class="err">&amp;&amp;</span> $my_module_name}
+</span></span><span class="line"><span class="cl">               {$my_module_name}
+</span></span><span class="line"><span class="cl">           {else}
+</span></span><span class="line"><span class="cl">               World
+</span></span><span class="line"><span class="cl">           {/if}
+</span></span><span class="line"><span class="cl">           !
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{$my_module_link}&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;Click this link&#34;</span><span class="p">&gt;</span>Click me!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- /Block mymodule --&gt;</span>
+</span></span></code></pre></div><p>This is just regular HTML code&hellip; except for a few Smarty calls:</p>
 <ul>
 <li>The <code>{l s='xxx' mod='yyy'}</code> call is PrestaShop-specific method that
 enables you to register the string in the module&rsquo;s translation
@@ -30435,11 +30435,11 @@ point to PrestaShop&rsquo;s root directory.</li>
 <p>In addition to that, we are going to create a CSS file, and save it as
 /views/css/mymodule.css in the module&rsquo;s folder (or any sub-folder you like to
 keep you CSS in):</p>
-<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="nt">div</span><span class="p">#</span><span class="nn">mymodule_block_home</span> <span class="nt">p</span> <span class="p">{</span>
-    <span class="k">font-size</span><span class="p">:</span> <span class="mi">150</span><span class="kt">%</span><span class="p">;</span>
-    <span class="k">font-style</span><span class="p">:</span><span class="kc">italic</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>Save the template file in the module&rsquo;s <code>/views/templates/hook/</code> folder
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-css" data-lang="css"><span class="line"><span class="cl"><span class="nt">div</span><span class="p">#</span><span class="nn">mymodule_block_home</span> <span class="nt">p</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">font-size</span><span class="p">:</span> <span class="mi">150</span><span class="kt">%</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">font-style</span><span class="p">:</span><span class="kc">italic</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Save the template file in the module&rsquo;s <code>/views/templates/hook/</code> folder
 and the CSS file in the module&rsquo;s <code>/views/css/</code> folder, reload your shop&rsquo;s
 homepage: the content of the template should appear on top of the left
 column, right below the shop&rsquo;s logo (if you have indeed moved it at the
@@ -30482,8 +30482,8 @@ register <code>actionFrontControllerSetMedia</code> hook.</p>
 <h2 id="embedding-a-template-in-the-theme">Embedding a template in the theme<a href="#embedding-a-template-in-the-theme"></a></h2><p>The link that the module displays does not lead anywhere for now. Let&rsquo;s
 create the <code>display.php</code> file that it targets, with a minimal content,
 and put it in: modules/yourmodule/controllers/front/.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">    Welcome to this page!
-</code></pre></div><p>Click the &ldquo;Click me!&rdquo; link: the resulting page is just that raw text,
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    Welcome to this page!
+</span></span></code></pre></div><p>Click the &ldquo;Click me!&rdquo; link: the resulting page is just that raw text,
 without anything from the theme. We would like to have this text
 embedded in the theme, so let&rsquo;s see how to do just that.</p>
 <p>As you would expect, we have to create a template file in order to use
@@ -30499,23 +30499,23 @@ which is a must when using the translation tool.</p>
 <ul>
 <li><em>display.php</em></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">mymoduledisplayModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">parent</span><span class="o">::</span><span class="na">initContent</span><span class="p">();</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setTemplate</span><span class="p">(</span><span class="s1">&#39;module:mymodule/views/templates/front/display.tpl&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">mymoduledisplayModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">initContent</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setTemplate</span><span class="p">(</span><span class="s1">&#39;module:mymodule/views/templates/front/display.tpl&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li><em>display.tpl</em></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Welcome to my shop!
-</code></pre></div><p>Let&rsquo;s explore <code>display.php</code>, our first PrestaShop front-end controller,
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Welcome to my shop!
+</span></span></code></pre></div><p>Let&rsquo;s explore <code>display.php</code>, our first PrestaShop front-end controller,
 stored in the /controllers/front folder of the module&rsquo;s main folder.</p>
 <p>A front-end controller must be a class that extends the ModuleFrontController class.
-That controller must have one method: <code>initContent()</code>, which calls the parent class' <code>initContent()</code> method&hellip;
+That controller must have one method: <code>initContent()</code>, which calls the parent class&rsquo; <code>initContent()</code> method&hellip;
 &hellip;which then calls the <code>setTemplate()</code> method with our <code>display.tpl</code> file.</p>
 <p><code>setTemplate()</code> is the method that will take care of embedding our
 one-line template into a full-blown page, with proper header, footer and
@@ -30523,15 +30523,15 @@ sidebars.</p>
 <p>Until PrestaShop 1.4, developers who wanted to embed a template file
 into the site&rsquo;s theme had to use PHP&rsquo;s include() calls to include each
 portion of the page. Here is the equivalent code for display.php:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">// This file must be placed at the root of the module&#39;s folder.
-global $smarty;
-include(&#39;../../config/config.inc.php&#39;);
-include(&#39;../../header.php&#39;);
-
-$smarty-&gt;display(dirname(__FILE__).&#39;/display.tpl&#39;);
-
-include(&#39;../../footer.php&#39;);
-</code></pre></div><p>As you can see, this is not necessary anymore since PrestaShop 1.5: you
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// This file must be placed at the root of the module&#39;s folder.
+</span></span><span class="line"><span class="cl">global $smarty;
+</span></span><span class="line"><span class="cl">include(&#39;../../config/config.inc.php&#39;);
+</span></span><span class="line"><span class="cl">include(&#39;../../header.php&#39;);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">$smarty-&gt;display(dirname(__FILE__).&#39;/display.tpl&#39;);
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">include(&#39;../../footer.php&#39;);
+</span></span></code></pre></div><p>As you can see, this is not necessary anymore since PrestaShop 1.5: you
 can and should use a front-end controller, and both the controller
 (Controller) and its template (View) should share the same name:
 <code>display.php</code> is tied to <code>display.tpl</code>.</p>
@@ -30555,26 +30555,26 @@ our template file:</p>
 <ul>
 <li><em>mymodule.php</em></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayLeftColumn</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span>
-        <span class="p">[</span>
-            <span class="s1">&#39;my_module_name&#39;</span> <span class="o">=&gt;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">),</span>
-            <span class="s1">&#39;my_module_link&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s1">&#39;mymodule&#39;</span><span class="p">,</span> <span class="s1">&#39;display&#39;</span><span class="p">),</span>
-            <span class="s1">&#39;my_module_message&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;This is a simple text message&#39;</span><span class="p">)</span> <span class="c1">// Do not forget to enclose your strings in the l() translation method
-</span><span class="c1"></span>        <span class="p">]</span>
-    <span class="p">);</span>
-
-    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">,</span> <span class="s1">&#39;mymodule.tpl&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>From there on, we can ask Smarty to display the content of this variable
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayLeftColumn</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;my_module_name&#39;</span> <span class="o">=&gt;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;my_module_link&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s1">&#39;mymodule&#39;</span><span class="p">,</span> <span class="s1">&#39;display&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;my_module_message&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;This is a simple text message&#39;</span><span class="p">)</span> <span class="c1">// Do not forget to enclose your strings in the l() translation method
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">display</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">,</span> <span class="s1">&#39;mymodule.tpl&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>From there on, we can ask Smarty to display the content of this variable
 in our TPL file.</p>
 <ul>
 <li><em>mymodule.tpl</em></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">{$my_module_message}
-</code></pre></div><p>PrestaShop adds its own set of variables. For instance,
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{$my_module_message}
+</span></span></code></pre></div><p>PrestaShop adds its own set of variables. For instance,
 <code>{$hook_left_column}</code> will be replaced with the content for the left
 column, meaning the content from all the modules that have been attached
 to the left column&rsquo;s hook.</p>
@@ -30734,16 +30734,16 @@ name, or even your own name or initials, such as:
 </table>
 <p>There are many other contextual hooks. If you need to display all of the
 current page&rsquo;s Smarty variables, add the following call:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">{debug}
-</code></pre></div><p>If you need to display a variable, add the following call:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">{dump($variableName)}
-</code></pre></div><p>Comments are based on asterisk:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">{* This string is commented out *}
-
-{*
-This string is too!
-*}
-</code></pre></div><p>Unlike with HTML comments, commented-out Smarty code is not present in
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{debug}
+</span></span></code></pre></div><p>If you need to display a variable, add the following call:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">{</span><span class="n">dump</span><span class="p">(</span><span class="o">$</span><span class="n">variableName</span><span class="p">)}</span>
+</span></span></code></pre></div><p>Comments are based on asterisk:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{* This string is commented out *}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{*
+</span></span><span class="line"><span class="cl">This string is too!
+</span></span><span class="line"><span class="cl">*}
+</span></span></code></pre></div><p>Unlike with HTML comments, commented-out Smarty code is not present in
 the final output file.</p>
 
 
@@ -30823,17 +30823,17 @@ the final output file.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163894"></script>
-    <script src="/js/jquery.sticky.js?1703163894"></script>
-    <script src="/js/featherlight.min.js?1703163894"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163894"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163894"></script>
-    <script src="/js/learn.js?1703163894"></script>
-    <script src="/js/hugo-learn.js?1703163894"></script>
+    <script src="/js/clipboard.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164721"></script>
+    <script src="/js/jquery.sticky.js?1703164721"></script>
+    <script src="/js/featherlight.min.js?1703164721"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164721"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164721"></script>
+    <script src="/js/learn.js?1703164721"></script>
+    <script src="/js/hugo-learn.js?1703164721"></script>
     
-    <script src="/main.js?1703163894"></script>
+    <script src="/main.js?1703164721"></script>
     
     
     

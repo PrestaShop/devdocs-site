@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Front controllers :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/concepts/controllers/front-controllers/">
     
-    <link href="/css/font-awesome.min.css?1703163893" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163893" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163893" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163893" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164720" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164720" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164720" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164720" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163893" rel="stylesheet">
+    <link href="/style.css?1703164720" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163893"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164720"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30318,16 +30318,16 @@ to be followed:</p>
 <h3 id="minimum-controller-example">Minimum controller example<a href="#minimum-controller-example"></a></h3><p>Let&rsquo;s say we want a controller responsible of payments validation in our
 module <code>cheque</code>.</p>
 <p>We create a file <code>/modules/cheque/controllers/front/validation.php</code> and its class:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/**
-</span><span class="sd"> * &lt;ModuleClassName&gt; =&gt; Cheque
-</span><span class="sd"> * &lt;FileName&gt; =&gt; validation.php
-</span><span class="sd"> * Format expected: &lt;ModuleClassName&gt;&lt;FileName&gt;ModuleFrontController
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">ChequeValidationModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
-<span class="p">{</span>
-<span class="p">}</span>
-</code></pre></div><p>That&rsquo;s all, methods added to the class will be taken in account by PrestaShop
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * &lt;ModuleClassName&gt; =&gt; Cheque
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * &lt;FileName&gt; =&gt; validation.php
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Format expected: &lt;ModuleClassName&gt;&lt;FileName&gt;ModuleFrontController
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ChequeValidationModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>That&rsquo;s all, methods added to the class will be taken in account by PrestaShop
 automatically.</p>
 
 <h2 id="available-properties">Available properties<a href="#available-properties"></a></h2><p>The controllers added in a module extend <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/classes/controller/ModuleFrontController.php"><code>ModuleFrontController</code></a>, itself extending <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/classes/controller/FrontController.php"><code>FrontController</code></a> &amp; <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/classes/controller/Controller.php"><code>Controller</code></a>.
@@ -30355,37 +30355,37 @@ template to be displayed.</p>
 
 <h4 id="assign-variables-to-smarty">Assign variables to smarty<a href="#assign-variables-to-smarty"></a></h4><p>The smarty engine is available in the <code>context</code> property of the controller.
 Assigning variables can be done with its method <code>assign(array $vars)</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="c1">// In the template, we need the vars paymentId &amp; paymentStatus to be defined
-</span><span class="c1"></span>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span>
-    <span class="k">array</span><span class="p">(</span>
-      <span class="s1">&#39;paymentId&#39;</span> <span class="o">=&gt;</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="c1">// Retrieved from GET vars
-</span><span class="c1"></span>      <span class="s1">&#39;paymentStatus&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
-    <span class="p">));</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// In the template, we need the vars paymentId &amp; paymentStatus to be defined
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;paymentId&#39;</span> <span class="o">=&gt;</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="c1">// Retrieved from GET vars
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="s1">&#39;paymentStatus&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h4 id="display-html-content">Display HTML content<a href="#display-html-content"></a></h4><p>This is the second part we expect in the method <code>initContent()</code>.</p>
 <p>HTML content should be stored in a smarty template, available in
 the module subfolder <code>views/templates/front/</code>.</p>
 <p>The method <code>setTemplate(...)</code> expect the template file name as parameter. There is no
 need to write its complete path, as PrestaShop expects to find it in the folder
 <code>views/templates/front/</code> of the same module.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="c1">// In the template, we need the vars paymentId &amp; paymentStatus to be defined
-</span><span class="c1"></span>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span>
-    <span class="k">array</span><span class="p">(</span>
-      <span class="s1">&#39;paymentId&#39;</span> <span class="o">=&gt;</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="c1">// Retrieved from GET vars
-</span><span class="c1"></span>      <span class="s1">&#39;paymentStatus&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
-    <span class="p">));</span>
-
-  <span class="c1">// Will use the file modules/cheque/views/templates/front/validation.tpl
-</span><span class="c1"></span>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setTemplate</span><span class="p">(</span><span class="s1">&#39;module:cheque/views/templates/front/validation.tpl&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// In the template, we need the vars paymentId &amp; paymentStatus to be defined
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;paymentId&#39;</span> <span class="o">=&gt;</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">),</span> <span class="c1">// Retrieved from GET vars
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="s1">&#39;paymentStatus&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// Will use the file modules/cheque/views/templates/front/validation.tpl
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">setTemplate</span><span class="p">(</span><span class="s1">&#39;module:cheque/views/templates/front/validation.tpl&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="handle-actions-post">Handle actions (POST)<a href="#handle-actions-post"></a></h3><p>POST requests will be managed from the method <code>postProcess()</code>.</p>
 <p>It does not receive parameters and does not expect any value to be returned,
 but user input can be checked with <code>Tools::getIsset(...)</code> and retrieved with
@@ -30394,24 +30394,24 @@ but user input can be checked with <code>Tools::getIsset(...)</code> and retriev
 <code>Tools::redirect(&lt;url&gt;)</code>.</p>
 
 <h2 id="accessing-a-module-front-controller">Accessing a module front controller<a href="#accessing-a-module-front-controller"></a></h2><p>Addresses to your controller can be generated easily with the class <code>Link</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">Link</span><span class="o">::</span><span class="na">getModuleLink</span><span class="p">(</span><span class="nv">$module</span><span class="p">,</span> <span class="nv">$controller</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">());</span>
-</code></pre></div><p><code>$module</code> is the technical name of the module, <code>$controller</code> is the controller
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">Link</span><span class="o">::</span><span class="na">getModuleLink</span><span class="p">(</span><span class="nv">$module</span><span class="p">,</span> <span class="nv">$controller</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$params</span> <span class="o">=</span> <span class="k">array</span><span class="p">());</span>
+</span></span></code></pre></div><p><code>$module</code> is the technical name of the module, <code>$controller</code> is the controller
 file name (without &lsquo;.php&rsquo;), and <code>$params</code> is an array of variables to add in a
 customized route or simply as GET params.</p>
 <p>The generated address handles automatically HTTP or HTTPS environments, with or
 without URL rewriting.</p>
 
-<h3 id="example-of-method-calls">Example of method calls<a href="#example-of-method-calls"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s1">&#39;cheque&#39;</span><span class="p">,</span> <span class="s1">&#39;validation&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;idPayment&#39;</span> <span class="o">=&gt;</span> <span class="mi">1337</span><span class="p">));</span>
-</code></pre></div><ul>
+<h3 id="example-of-method-calls">Example of method calls<a href="#example-of-method-calls"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s1">&#39;cheque&#39;</span><span class="p">,</span> <span class="s1">&#39;validation&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;idPayment&#39;</span> <span class="o">=&gt;</span> <span class="mi">1337</span><span class="p">));</span>
+</span></span></code></pre></div><ul>
 <li>Without URL rewriting: <code>http://&lt;shop_domain&gt;/index.php?idPayment=1337&amp;fc=module&amp;module=cheque&amp;controller=validation&amp;id_lang=1</code></li>
 <li>With URL rewriting: <code>http://&lt;shop_domain&gt;/en/module/cheque/validation?idPayment=1337</code></li>
 </ul>
 
 <h3 id="ajax-request">Ajax request<a href="#ajax-request"></a></h3><p>When you call controller via AJAX, you need to add <code>ajax</code> parameter in the url.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s1">&#39;cheque&#39;</span><span class="p">,</span> <span class="s1">&#39;validation&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;idPayment&#39;</span> <span class="o">=&gt;</span> <span class="mi">1337</span><span class="p">,</span> <span class="s1">&#39;ajax&#39;</span><span class="o">=&gt;</span><span class="k">true</span><span class="p">));</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">link</span><span class="o">-&gt;</span><span class="na">getModuleLink</span><span class="p">(</span><span class="s1">&#39;cheque&#39;</span><span class="p">,</span> <span class="s1">&#39;validation&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;idPayment&#39;</span> <span class="o">=&gt;</span> <span class="mi">1337</span><span class="p">,</span> <span class="s1">&#39;ajax&#39;</span><span class="o">=&gt;</span><span class="k">true</span><span class="p">));</span>
+</span></span></code></pre></div><ul>
 <li>Without URL rewriting: <code>http://&lt;shop_domain&gt;/index.php?idPayment=1337&amp;fc=module&amp;module=cheque&amp;controller=validation&amp;id_lang=1&amp;ajax=true</code></li>
 <li>With URL rewriting: <code>http://&lt;shop_domain&gt;/en/module/cheque/validation?idPayment=1337&amp;ajax=true</code></li>
 </ul>
@@ -30419,19 +30419,19 @@ without URL rewriting.</p>
 <h2 id="restricting-access">Restricting access<a href="#restricting-access"></a></h2>
 <h3 id="logged-customers-only">Logged customers only<a href="#logged-customers-only"></a></h3><p>Set the property <code>$auth</code> to <code>true</code> if you want guests to be redirected to the
 login page automatically.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="nv">$auth</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
-<span class="k">public</span> <span class="nv">$guestAllowed</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="nv">$auth</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="nv">$guestAllowed</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+</span></span></code></pre></div>
 <h3 id="to-everybody-temporarily">To everybody, temporarily<a href="#to-everybody-temporarily"></a></h3><p>You can force the maintenance page to be displayed when a customer reaches a controller.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">protected</span> <span class="nv">$maintenance</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span> <span class="nv">$maintenance</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span></code></pre></div>
 <h3 id="non-ssl-calls">Non-SSL calls<a href="#non-ssl-calls"></a></h3><p>When SSL is enabled to a shop, you can force a call to a controller to be
 secured by redirecting it to HTTPS.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="nv">$ssl</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="nv">$ssl</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span></code></pre></div>
 <h2 id="execution-order-of-the-controllers-functions">Execution order of the controller’s functions<a href="#execution-order-of-the-controllers-functions"></a></h2><ul>
 <li><strong>__construct()</strong>: Sets all the controller’s member variables.</li>
 <li><strong>init()</strong>: Initializes the controller.</li>
@@ -30453,43 +30453,43 @@ controller. The trick is to define it as an Ajax call to prevent the page
 template to be displayed.</p>
 <p>The following code provides a base for a cron task in the module <code>examplemodule</code>.</p>
 <p><strong>modules/examplemodule/controllers/front/cron.php</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">ExampleModuleCronModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
-<span class="p">{</span>
-    <span class="sd">/** @var bool If set to true, will be redirected to authentication page */</span>
-    <span class="k">public</span> <span class="nv">$auth</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
-
-    <span class="sd">/** @var bool */</span>
-    <span class="k">public</span> <span class="nv">$ajax</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">display</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ajax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="nx">php_sapi_name</span><span class="p">()</span> <span class="o">!==</span> <span class="s1">&#39;cli&#39;</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ajaxRender</span><span class="p">(</span><span class="s1">&#39;Forbidden call.&#39;</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="c1">// Additional token checks
-</span><span class="c1"></span>
-        <span class="c1">// ...
-</span><span class="c1"></span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ajaxRender</span><span class="p">(</span><span class="s2">&#34;hello</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>This controller can now be triggered by creating a PHP file that initiates the route to the controller, then includes the index.php at the root of PrestaShop in order to init the dispatcher and your controller.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ExampleModuleCronModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/** @var bool If set to true, will be redirected to authentication page */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$auth</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/** @var bool */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$ajax</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">display</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ajax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">php_sapi_name</span><span class="p">()</span> <span class="o">!==</span> <span class="s1">&#39;cli&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ajaxRender</span><span class="p">(</span><span class="s1">&#39;Forbidden call.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Additional token checks
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ajaxRender</span><span class="p">(</span><span class="s2">&#34;hello</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This controller can now be triggered by creating a PHP file that initiates the route to the controller, then includes the index.php at the root of PrestaShop in order to init the dispatcher and your controller.</p>
 <p>This kind of script is also useful if a standalone PHP script interacting with PrestaShop has been migrated to a ModuleFrontController. The URLs to call would change by moving into a Controller, but the old one would be still accessible with this workaround.</p>
 <p><strong>modules/examplemodule/cron.php</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;fc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
-<span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;module&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;examplemodule&#39;</span><span class="p">;</span>
-<span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;controller&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;cron&#39;</span><span class="p">;</span>
-
-<span class="k">require_once</span> <span class="nx">dirname</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;/../../index.php&#39;</span><span class="p">;</span>
-</code></pre></div><p>The code is now callable via the php command on a terminal:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ php modules/examplemodule/cron.php 
-hello
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;fc&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;module&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;module&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;examplemodule&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;controller&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;cron&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">require_once</span> <span class="nx">dirname</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;/../../index.php&#39;</span><span class="p">;</span>
+</span></span></code></pre></div><p>The code is now callable via the php command on a terminal:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ php modules/examplemodule/cron.php 
+</span></span><span class="line"><span class="cl">hello
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30567,17 +30567,17 @@ hello
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163893"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163893"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163893"></script>
-    <script src="/js/jquery.sticky.js?1703163893"></script>
-    <script src="/js/featherlight.min.js?1703163893"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163893"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163893"></script>
-    <script src="/js/learn.js?1703163893"></script>
-    <script src="/js/hugo-learn.js?1703163893"></script>
+    <script src="/js/clipboard.min.js?1703164720"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164720"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164720"></script>
+    <script src="/js/jquery.sticky.js?1703164720"></script>
+    <script src="/js/featherlight.min.js?1703164720"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164720"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164720"></script>
+    <script src="/js/learn.js?1703164720"></script>
+    <script src="/js/hugo-learn.js?1703164720"></script>
     
-    <script src="/main.js?1703163893"></script>
+    <script src="/main.js?1703164720"></script>
     
     
     

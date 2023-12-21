@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Using Vue.js :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/concepts/templating/vuejs/">
     
-    <link href="/css/font-awesome.min.css?1703163934" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163934" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163934" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163934" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164755" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164755" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164755" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164755" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163934" rel="stylesheet">
+    <link href="/style.css?1703164755" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163934"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164755"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -6984,7 +6984,7 @@
     
     
     <li data-nav-id="/1.7/modules/concepts/templating/vuejs/" title="Using Vue.js" class="dd-item
-        parent
+        
         active currentPage
         
         isParent
@@ -6997,7 +6997,7 @@
           
 
           
-            <i class="fa fa-angle-up"></i>
+            <i class="fa fa-angle-down"></i>
           
       </a>
       
@@ -12711,18 +12711,18 @@ but we will use the CLI option to get all the stack.</p>
 <ul>
 <li>Installation of Vue.js CLI tool (globally)</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ npm install -g @vue/cli
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ npm install -g @vue/cli
+</span></span></code></pre></div><ul>
 <li>Creation of the project</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ vue create _dev
-</code></pre></div><p>We chose the preset with Vue 2 &amp; Babel for this tutorial.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ vue create _dev
+</span></span></code></pre></div><p>We chose the preset with Vue 2 &amp; Babel for this tutorial.</p>
 <p>After the initialization process with some questions and downloads, a whole standalone application
 will be created and available in the <code>_dev</code> folder. Running npm commands are defined in the <code>package.json</code>
 file to run or build it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ cd _dev
-$ npm run build
-</code></pre></div><p>At the moment, we have a Vue.js application that can run independantly from the module.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ cd _dev
+</span></span><span class="line"><span class="cl">$ npm run build
+</span></span></code></pre></div><p>At the moment, we have a Vue.js application that can run independantly from the module.
 In the next parts, this standalone application will be adapted to run inside a PrestaShop page.</p>
 
 <h2 id="2--cleanup">2- Cleanup<a href="#2--cleanup"></a></h2><p>Supposing that the Vue.js workspace is the <code>_dev</code> folder:</p>
@@ -12734,104 +12734,103 @@ In the next parts, this standalone application will be adapted to run inside a P
 <h2 id="3--customization-of-the-application-for-a-prestashop-context">3- Customization of the application for a PrestaShop context<a href="#3--customization-of-the-application-for-a-prestashop-context"></a></h2><p>In <a href="https://devdocs.prestashop-project.org/1.7/modules/creation/module-file-structure/">the module structure</a>, JavaScript
 files must be stored in <code>views/js/</code>. We will ask the compiler to write the distributable files in there.</p>
 <p>Create or edit <code>_dev/vue.config.js</code> with:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
-
-<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="nx">chainWebpack</span><span class="o">:</span> <span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="c1">// Stop generating the HTML page
-</span><span class="c1"></span>    <span class="nx">config</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;html&#39;</span><span class="p">);</span>
-    <span class="nx">config</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;preload&#39;</span><span class="p">);</span>
-    <span class="nx">config</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;prefetch&#39;</span><span class="p">);</span>
-
-    <span class="c1">// Allow resolving images in the subfolder src/assets/ 
-</span><span class="c1"></span>    <span class="nx">config</span><span class="p">.</span><span class="nx">resolve</span><span class="p">.</span><span class="nx">alias</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="mi">__</span><span class="nx">dirname</span><span class="p">,</span> <span class="s1">&#39;src&#39;</span><span class="p">));</span>
-  <span class="p">},</span>
-  <span class="nx">css</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">extract</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="p">},</span>
-  <span class="nx">runtimeCompiler</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="nx">productionSourceMap</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nx">filenameHashing</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="c1">// These rules allow the files to be compiled and stored in the proper folder
-</span><span class="c1"></span>  <span class="nx">outputDir</span><span class="o">:</span> <span class="s1">&#39;../views/&#39;</span><span class="p">,</span>
-  <span class="nx">assetsDir</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
-  <span class="c1">// ⚠️ Change this line with your module name
-</span><span class="c1"></span>  <span class="nx">publicPath</span><span class="o">:</span> <span class="s1">&#39;../modules/&lt;module_name&gt;/views/&#39;</span><span class="p">,</span>
-<span class="p">};</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">chainWebpack</span><span class="o">:</span> <span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Stop generating the HTML page
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">config</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;html&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">config</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;preload&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">config</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="s1">&#39;prefetch&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Allow resolving images in the subfolder src/assets/ 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">config</span><span class="p">.</span><span class="nx">resolve</span><span class="p">.</span><span class="nx">alias</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">,</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">&#39;src&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">css</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">extract</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">runtimeCompiler</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">productionSourceMap</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">filenameHashing</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// These rules allow the files to be compiled and stored in the proper folder
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">outputDir</span><span class="o">:</span> <span class="s1">&#39;../views/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">assetsDir</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ⚠️ Change this line with your module name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">publicPath</span><span class="o">:</span> <span class="s1">&#39;../modules/&lt;module_name&gt;/views/&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div>
 <div class="notices warning" ><p>This configuration will delete all files present in the <code>views/js/</code> folder. Before going further,
 make sure:</p>
 <ul>
 <li>there are no existing files that would be lost, or</li>
 <li>to write your generated files in an additional subfolder inside <code>views/js/</code> by modifying
 <code>outputDir</code> &amp; <code>publicPath</code>.</li>
-</ul>
-</div>
+</ul></div>
 
 <p>Then, the scripts available in the package.json can be replaced by these ones:</p>
 <p><em>modules/[module_name]/_dev/package.json</em></p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js">    <span class="s2">&#34;build&#34;</span><span class="o">:</span> <span class="s2">&#34;vue-cli-service build --no-clean&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;lint&#34;</span><span class="o">:</span> <span class="s2">&#34;vue-cli-service lint --fix&#34;</span><span class="p">,</span>
-    <span class="s2">&#34;dev&#34;</span><span class="o">:</span> <span class="s2">&#34;vue-cli-service build --no-clean --mode development --watch&#34;</span><span class="p">,</span>
-</code></pre></div><p>The new <code>dev</code> script allow to compile the JS files, and keep watching at any change that would happen
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">    <span class="s2">&#34;build&#34;</span><span class="o">:</span> <span class="s2">&#34;vue-cli-service build --no-clean&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;lint&#34;</span><span class="o">:</span> <span class="s2">&#34;vue-cli-service lint --fix&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;dev&#34;</span><span class="o">:</span> <span class="s2">&#34;vue-cli-service build --no-clean --mode development --watch&#34;</span><span class="p">,</span>
+</span></span></code></pre></div><p>The new <code>dev</code> script allow to compile the JS files, and keep watching at any change that would happen
 in the project directories. Everytime one file is saved, the compilation will run again immediately.</p>
 <p>Testing the compilation of the files is done with:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ npm run dev
-</code></pre></div><p>After some time, a similar output should appear on the terminal once done:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ npm run dev
-
-[...]
-
- DONE  Compiled successfully in 2679ms                                                                                                                                19:17:27
-
-  File                            Size                                                                 Gzipped
-
-  ../views/js/chunk-vendors.js    121.79 KiB                                                           44.16 KiB
-  ../views/js/app.js              5.41 KiB                                                             1.94 KiB
-
-  Images and other types of assets omitted.
-
- DONE  Build complete. The ../views directory is ready to be deployed.
- INFO  Check out deployment instructions at https://cli.vuejs.org/guide/deployment.html
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ npm run dev
+</span></span></code></pre></div><p>After some time, a similar output should appear on the terminal once done:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ npm run dev
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[...]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> DONE  Compiled successfully in 2679ms                                                                                                                                19:17:27
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  File                            Size                                                                 Gzipped
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  ../views/js/chunk-vendors.js    121.79 KiB                                                           44.16 KiB
+</span></span><span class="line"><span class="cl">  ../views/js/app.js              5.41 KiB                                                             1.94 KiB
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Images and other types of assets omitted.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> DONE  Build complete. The ../views directory is ready to be deployed.
+</span></span><span class="line"><span class="cl"> INFO  Check out deployment instructions at https://cli.vuejs.org/guide/deployment.html
+</span></span></code></pre></div>
 <h2 id="4--display-of-the-application">4- Display of the application<a href="#4--display-of-the-application"></a></h2><p>The application is now ready to be integrated inside a page of PrestaShop.
 There are several steps to complete:</p>
 <ul>
 <li><strong>Adding a div with the proper ID inside a template</strong></li>
 </ul>
 <p><em>modules/[module_name]/views/templates/admin/app.tpl</em></p>
-<div class="highlight"><pre class="chroma"><code class="language-tpl" data-lang="tpl"><span class="x">&lt;link href=&#34;</span><span class="cp">{</span><span class="nv">$pathApp</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="s1">&#39;htmlall&#39;</span><span class="o">:</span><span class="s1">&#39;UTF-8&#39;</span><span class="cp">}</span><span class="x">&#34; rel=preload as=script&gt;
-</span><span class="x">
-</span><span class="x">&lt;div id=&#34;app&#34;&gt;&lt;/div&gt;
-</span><span class="x">&lt;script src=&#34;</span><span class="cp">{</span><span class="nv">$chunkVendor</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="s1">&#39;htmlall&#39;</span><span class="o">:</span><span class="s1">&#39;UTF-8&#39;</span><span class="cp">}</span><span class="x">&#34;&gt;&lt;/script&gt;
-</span><span class="x">&lt;script src=&#34;</span><span class="cp">{</span><span class="nv">$pathApp</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="s1">&#39;htmlall&#39;</span><span class="o">:</span><span class="s1">&#39;UTF-8&#39;</span><span class="cp">}</span><span class="x">&#34;&gt;&lt;/script&gt;
-</span></code></pre></div><p>Although this is not recommended, this example adds the JS file inside the template so the example remains short.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-tpl" data-lang="tpl"><span class="line"><span class="cl"><span class="x">&lt;link href=&#34;</span><span class="cp">{</span><span class="nv">$pathApp</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="s1">&#39;htmlall&#39;</span><span class="o">:</span><span class="s1">&#39;UTF-8&#39;</span><span class="cp">}</span><span class="x">&#34; rel=preload as=script&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">&lt;div id=&#34;app&#34;&gt;&lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">&lt;script src=&#34;</span><span class="cp">{</span><span class="nv">$chunkVendor</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="s1">&#39;htmlall&#39;</span><span class="o">:</span><span class="s1">&#39;UTF-8&#39;</span><span class="cp">}</span><span class="x">&#34;&gt;&lt;/script&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">&lt;script src=&#34;</span><span class="cp">{</span><span class="nv">$pathApp</span><span class="o">|</span><span class="na">escape</span><span class="o">:</span><span class="s1">&#39;htmlall&#39;</span><span class="o">:</span><span class="s1">&#39;UTF-8&#39;</span><span class="cp">}</span><span class="x">&#34;&gt;&lt;/script&gt;
+</span></span></span></code></pre></div><p>Although this is not recommended, this example adds the JS file inside the template so the example remains short.
 You should use <code>registerJavascript()</code> when possible.</p>
 <ul>
 <li><strong>Displaying the template content</strong></li>
 </ul>
 <p>For an application integrated in an <code>AdminModuleController</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">([</span>
-      <span class="s1">&#39;pathApp&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">getPathUri</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;views/js/app.js&#39;</span><span class="p">,</span>
-      <span class="s1">&#39;chunkVendor&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">getPathUri</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;views/js/chunk-vendors.js&#39;</span><span class="p">,</span>
-  <span class="p">]);</span>
-  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="s1">&#39;module:modulename//views/templates/admin/app.tpl&#39;</span><span class="p">);</span>
-  <span class="k">parent</span><span class="o">::</span><span class="na">initContent</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div><p>Or for an application integrated in the module main class (i.e in the method <code>getContent()</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;pathApp&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">getPathUri</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;views/js/app.js&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;chunkVendor&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">getPathUri</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;views/js/chunk-vendors.js&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="s1">&#39;module:modulename//views/templates/admin/app.tpl&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">parent</span><span class="o">::</span><span class="na">initContent</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Or for an application integrated in the module main class (i.e in the method <code>getContent()</code>):</p>
 <p><em>modules/[module_name]/[module_name].php</em></p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">([</span>
-      <span class="s1">&#39;pathApp&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getPathUri</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;views/js/app.js&#39;</span><span class="p">,</span>
-      <span class="s1">&#39;chunkVendor&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getPathUri</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;views/js/chunk-vendors.js&#39;</span><span class="p">,</span>
-  <span class="p">]);</span>
-
-  <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="s1">&#39;module:modulename/views/templates/admin/app.tpl&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>If the integration goes fine, the page should display the welcome screen of Vue.js:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;pathApp&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getPathUri</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;views/js/app.js&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;chunkVendor&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getPathUri</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;views/js/chunk-vendors.js&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">smarty</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">(</span><span class="s1">&#39;module:modulename/views/templates/admin/app.tpl&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>If the integration goes fine, the page should display the welcome screen of Vue.js:</p>
 <figure><img src="../img/bo-with-vuejs.png"/><figcaption>
             <h4>Module configuration page with welcome page of Vue.js</h4>
         </figcaption>
@@ -12937,17 +12936,17 @@ of any JS dependency that will be added to the project.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163934"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163934"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163934"></script>
-    <script src="/js/jquery.sticky.js?1703163934"></script>
-    <script src="/js/featherlight.min.js?1703163934"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163934"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163934"></script>
-    <script src="/js/learn.js?1703163934"></script>
-    <script src="/js/hugo-learn.js?1703163934"></script>
+    <script src="/js/clipboard.min.js?1703164755"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164755"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164755"></script>
+    <script src="/js/jquery.sticky.js?1703164755"></script>
+    <script src="/js/featherlight.min.js?1703164755"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164755"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164755"></script>
+    <script src="/js/learn.js?1703164755"></script>
+    <script src="/js/hugo-learn.js?1703164755"></script>
     
-    <script src="/main.js?1703163934"></script>
+    <script src="/main.js?1703164755"></script>
     
     
     

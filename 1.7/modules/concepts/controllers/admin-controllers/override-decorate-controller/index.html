@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Override or decorate a Core controller :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/concepts/controllers/admin-controllers/override-decorate-controller/">
     
-    <link href="/css/font-awesome.min.css?1703163893" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163893" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163893" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163893" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164720" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164720" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164720" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164720" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163893" rel="stylesheet">
+    <link href="/style.css?1703164720" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163893"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164720"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30318,24 +30318,24 @@
 </ul>
 
 <h2 id="remap-the-route">Remap the route<a href="#remap-the-route"></a></h2><p>In Symfony, <a href="https://symfony.com/doc/3.4/routing.html">routes</a> such as <code>/sell/orders/orders</code> are mapped to controllers by YAML configuration files such as this one:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># src/PrestaShopBundle/Resources/config/routing/admin/sell/orders/orders.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">admin_orders_index</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/sell/orders/orders/</span><span class="w">
-</span><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
-</span><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin/Sell/Order/Order:index</span><span class="w">
-</span><span class="w">    </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminOrders</span><span class="w">
-</span><span class="w">    </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminOrders</span><span class="w">
-</span></code></pre></div><p>In your module, you have the possibility to replace this configuration item by your own.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># src/PrestaShopBundle/Resources/config/routing/admin/sell/orders/orders.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">admin_orders_index</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/sell/orders/orders/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin/Sell/Order/Order:index</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminOrders</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminOrders</span><span class="w">
+</span></span></span></code></pre></div><p>In your module, you have the possibility to replace this configuration item by your own.</p>
 <p>So for example, if you want that people browsing the Back Office on URL <code>/sell/orders/orders/</code> to hit your own controller <code>MyModule\Controller\DemoController</code> instead of the Core&rsquo;s, you can do this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># modules/your-module/config/routes.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">admin_orders_index</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/sell/orders/orders/</span><span class="w">
-</span><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
-</span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModule\Controller\DemoController::demoAction&#39;</span><span class="w">
-</span><span class="w">      </span><span class="nt">_disable_module_prefix</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># modules/your-module/config/routes.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">admin_orders_index</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/sell/orders/orders/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModule\Controller\DemoController::demoAction&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">_disable_module_prefix</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div>
 <div class="notices tip" >In the above example, the <code>path</code> has not been changed, but you can change it to whatever you want (eg. <code>/demo/orders</code>). However, keep in mind that while this will re-route internal links, external or hardcoded links will keep targeting the old path.</div>
 
 
@@ -30355,11 +30355,10 @@ You can do it by using <code>php bin/console cache:clear</code>.</p>
 <h2 id="override-the-controller">Override the controller<a href="#override-the-controller"></a></h2><p>Since 1.7.7, PrestaShop Back Office controllers are registered as services, and like all public services, they can be <a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/services/">overridden</a> by modules.</p>
 <p>For example, the controller responsible for the page &ldquo;Improve &gt; Design &gt; CMS Pages&rdquo; is registered with service ID <code>PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</code>.</p>
 <p>With the following configuration item, we can override this configuration to make it target our custom module:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># modules/your-module/config/services.yml</span><span class="w">
-</span><span class="w">  </span><span class="nt">&#39;PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController&#39;</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">MyModule\Controller\DemoController</span><span class="w">
-</span><span class="w">
-</span></code></pre></div><p>Thanks to this, whenever Symfony forwards a request to the Core controller <code>PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</code> it will be forwarded to <code>DemoController</code> instead.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># modules/your-module/config/services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">&#39;PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController&#39;</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">MyModule\Controller\DemoController</span><span class="w">
+</span></span></span></code></pre></div><p>Thanks to this, whenever Symfony forwards a request to the Core controller <code>PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</code> it will be forwarded to <code>DemoController</code> instead.</p>
 
 <div class="notices warning" ><strong>This method is not recommended</strong> unless you intend to rewrite the whole controller. In addition, if the implementation is updated in later versions of PrestaShop, your override will ignore these updates, which might create bugs.</div>
 
@@ -30373,52 +30372,52 @@ You can do it by using <code>php bin/console cache:clear</code>.</p>
 
 <p>Back to the controller responsible for the page &ldquo;Improve &gt; Design &gt; CMS Pages&rdquo; which is registered with service ID <code>PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</code>.</p>
 <p>With the following configuration item, we can decorate it with a custom controller in our module:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># modules/your-module/config/services.yml</span><span class="w">
-</span><span class="w">  </span><span class="nt">custom_controller</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">MyModule\Controller\DemoController</span><span class="w">
-</span><span class="w">    </span><span class="nt">decorates</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</span><span class="w">
-</span><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;@custom_controller.inner&#39;</span><span class="p">]</span><span class="w">
-</span></code></pre></div><p>Thanks to this, whenever Symfony forwards a request to the Core controller <code>PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</code> it will be forwarded to <code>DemoController</code> instead. But what is different with overriding is that the decorated CmsPageController is injected into the constructor of DemoController, and we can use it:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">namespace</span> <span class="nx">MyModule\Controller</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Search\Filters\CmsPageCategoryFilters</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Search\Filters\CmsPageFilters</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">DemoController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var CmsPageController
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$decoratedController</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CmsPageController</span> <span class="nv">$decoratedController</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">decoratedController</span> <span class="o">=</span> <span class="nv">$decoratedController</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nx">CmsPageCategoryFilters</span> <span class="nv">$categoryFilters</span><span class="p">,</span> <span class="nx">CmsPageFilters</span> <span class="nv">$cmsFilters</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">decoratedController</span><span class="o">-&gt;</span><span class="na">indexAction</span><span class="p">(</span><span class="nv">$categoryFilters</span><span class="p">,</span> <span class="nv">$cmsFilters</span><span class="p">,</span> <span class="nv">$request</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>In this example we do nothing more than returning the exact output from the decorated controller.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># modules/your-module/config/services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">custom_controller</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">MyModule\Controller\DemoController</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">decorates</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;@custom_controller.inner&#39;</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div><p>Thanks to this, whenever Symfony forwards a request to the Core controller <code>PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</code> it will be forwarded to <code>DemoController</code> instead. But what is different with overriding is that the decorated CmsPageController is injected into the constructor of DemoController, and we can use it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">MyModule\Controller</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Search\Filters\CmsPageCategoryFilters</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Search\Filters\CmsPageFilters</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\Improve\Design\CmsPageController</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DemoController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var CmsPageController
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$decoratedController</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CmsPageController</span> <span class="nv">$decoratedController</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">decoratedController</span> <span class="o">=</span> <span class="nv">$decoratedController</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nx">CmsPageCategoryFilters</span> <span class="nv">$categoryFilters</span><span class="p">,</span> <span class="nx">CmsPageFilters</span> <span class="nv">$cmsFilters</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">decoratedController</span><span class="o">-&gt;</span><span class="na">indexAction</span><span class="p">(</span><span class="nv">$categoryFilters</span><span class="p">,</span> <span class="nv">$cmsFilters</span><span class="p">,</span> <span class="nv">$request</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>In this example we do nothing more than returning the exact output from the decorated controller.
 However we could modify the input request or the output given by decorated controller before returning it. Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nx">CmsPageCategoryFilters</span> <span class="nv">$categoryFilters</span><span class="p">,</span> <span class="nx">CmsPageFilters</span> <span class="nv">$cmsFilters</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$output</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">decoratedController</span><span class="o">-&gt;</span><span class="na">indexAction</span><span class="p">(</span><span class="nv">$categoryFilters</span><span class="p">,</span> <span class="nv">$cmsFilters</span><span class="p">,</span> <span class="nv">$request</span><span class="p">);</span>
-
-        <span class="nv">$myService</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getMyPaymentService</span><span class="p">();</span>
-        <span class="nv">$output</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">injectMyData</span><span class="p">(</span><span class="nv">$myService</span><span class="p">,</span> <span class="nv">$output</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="nv">$output</span><span class="p">;</span>
-    <span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nx">CmsPageCategoryFilters</span> <span class="nv">$categoryFilters</span><span class="p">,</span> <span class="nx">CmsPageFilters</span> <span class="nv">$cmsFilters</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$output</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">decoratedController</span><span class="o">-&gt;</span><span class="na">indexAction</span><span class="p">(</span><span class="nv">$categoryFilters</span><span class="p">,</span> <span class="nv">$cmsFilters</span><span class="p">,</span> <span class="nv">$request</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$myService</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getMyPaymentService</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$output</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">injectMyData</span><span class="p">(</span><span class="nv">$myService</span><span class="p">,</span> <span class="nv">$output</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$output</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices tip" >If you have trouble writing the right service configuration for your decoration, you can use Symfony debugger to dump the routes with <code>php bin/console debug:container</code>. It can also be helpful to find the service ID of the controller.</div>
 
 
@@ -30499,17 +30498,17 @@ However we could modify the input request or the output given by decorated contr
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163893"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163893"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163893"></script>
-    <script src="/js/jquery.sticky.js?1703163893"></script>
-    <script src="/js/featherlight.min.js?1703163893"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163893"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163893"></script>
-    <script src="/js/learn.js?1703163893"></script>
-    <script src="/js/hugo-learn.js?1703163893"></script>
+    <script src="/js/clipboard.min.js?1703164720"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164720"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164720"></script>
+    <script src="/js/jquery.sticky.js?1703164720"></script>
+    <script src="/js/featherlight.min.js?1703164720"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164720"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164720"></script>
+    <script src="/js/learn.js?1703164720"></script>
+    <script src="/js/hugo-learn.js?1703164720"></script>
     
-    <script src="/main.js?1703163893"></script>
+    <script src="/main.js?1703164720"></script>
     
     
     

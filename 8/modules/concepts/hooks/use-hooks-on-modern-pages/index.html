@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Use hooks on modern pages :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163911" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163911" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163911" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163911" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164737" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164737" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164737" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164737" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163911" rel="stylesheet">
+    <link href="/style.css?1703164737" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163911"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164737"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33162,188 +33162,188 @@
 <p>As we need to act on Dashboard but after the header, in the icons toolbar (with others export options) <code>hookdisplayDashboardToolbarIcons</code> sounds like the hook we are looking for.</p>
 
 <h3 id="second-step-create-and-register-the-hook">Second step: create and register the Hook<a href="#second-step-create-and-register-the-hook"></a></h3><p>Create a <a href="https://devdocs.prestashop-project.org/8/modules/creation/tutorial">new module</a> called <code>foo</code> and register the hook. You should end up with this kind of code in your module:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// foo.php
-</span><span class="c1"></span>
-<span class="cm">/* ... */</span>
-
-<span class="sd">/**
-</span><span class="sd"> * Module installation.
-</span><span class="sd"> *
-</span><span class="sd"> * @return bool Success of the installation
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;displayDashboardToolbarIcons&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="sd">/**
-</span><span class="sd"> * Add an &#34;XML export&#34; action in Product Catalog page.
-</span><span class="sd"> *
-</span><span class="sd"> * @return bool Success of the installation
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayDashboardToolbarIcons</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isSymfonyContext</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;admin_product_catalog&#39;</span><span class="p">)</span> <span class="p">{</span>
-      <span class="c1">// to be continued
-</span><span class="c1"></span>  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// foo.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* ... */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Module installation.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @return bool Success of the installation
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;displayDashboardToolbarIcons&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Add an &#34;XML export&#34; action in Product Catalog page.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @return bool Success of the installation
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayDashboardToolbarIcons</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isSymfonyContext</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;admin_product_catalog&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// to be continued
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices note" >The <code>route</code> property is only available for modern pages. To find out the route for a given page, look at the Debug toolbar.</div>
 
 
 <h3 id="third-step-create-your-own-product-serializer">Third step: create your own product serializer<a href="#third-step-create-your-own-product-serializer"></a></h3><p>At this point, this is basic PHP code we need to produce. We need to retrieve the list of products from database, and serialize them into XML and dump into a file sent to the user.</p>
 
 <h4 id="using-doctrine-dbal-to-retrieve-data">Using Doctrine (DBAL) to retrieve data<a href="#using-doctrine-dbal-to-retrieve-data"></a></h4><p>Even if using old way to retrieve data is still valid (<code>Product::getProducts</code> or through the webservice), we&rsquo;d like to introduce a best practice here: using a repository and get rid of the Object model. This has a lot of advantages, you rely on database instead of model and you&rsquo;ll have better performances and control on your data.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// src/Repository/ProductRepository.php
-</span><span class="c1"></span><span class="k">namespace</span> <span class="nx">Foo\Repository</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Doctrine\DBAL\Connection</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">ProductRepository</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var Connection the Database connection.
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$connection</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @var string the Database prefix.
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$databasePrefix</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Connection</span> <span class="nv">$connection</span><span class="p">,</span> <span class="nv">$databasePrefix</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">connection</span> <span class="o">=</span> <span class="nv">$connection</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">databasePrefix</span> <span class="o">=</span> <span class="nv">$databasePrefix</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param int $langId the lang id
-</span><span class="sd">     * @return array the list of products
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">findAllbyLangId</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$langId</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$prefix</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">databasePrefix</span><span class="p">;</span>
-        <span class="nv">$productTable</span> <span class="o">=</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span><span class="s2">product&#34;</span><span class="p">;</span>
-        <span class="nv">$productLangTable</span> <span class="o">=</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span><span class="s2">product_lang&#34;</span><span class="p">;</span>
-
-        <span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;SELECT p.* FROM </span><span class="si">${</span><span class="nv">productTable</span><span class="si">}</span><span class="s2"> p LEFT JOIN </span><span class="si">${</span><span class="nv">productLangTable</span><span class="si">}</span><span class="s2"> pl ON (p.`id_product` = pl.`id_product`) WHERE pl.`id_lang` = :langId&#34;</span><span class="p">;</span>
-        <span class="nv">$statement</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">connection</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
-        <span class="nv">$statement</span><span class="o">-&gt;</span><span class="na">bindValue</span><span class="p">(</span><span class="s1">&#39;langId&#39;</span><span class="p">,</span> <span class="nv">$langId</span><span class="p">);</span>
-        <span class="nv">$statement</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
-
-        <span class="k">return</span> <span class="nv">$statement</span><span class="o">-&gt;</span><span class="na">fetchAll</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>And declare your repository as a service:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># modules/foo/config/services.yml</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">product_repository</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">Foo\Repository\ProductRepository</span><span class="w">
-</span><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;@doctrine.dbal.default_connection&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;%database_prefix%&#39;</span><span class="p">]</span><span class="w">
-</span><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// src/Repository/ProductRepository.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">namespace</span> <span class="nx">Foo\Repository</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\DBAL\Connection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ProductRepository</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var Connection the Database connection.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$connection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var string the Database prefix.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$databasePrefix</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Connection</span> <span class="nv">$connection</span><span class="p">,</span> <span class="nv">$databasePrefix</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">connection</span> <span class="o">=</span> <span class="nv">$connection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">databasePrefix</span> <span class="o">=</span> <span class="nv">$databasePrefix</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int $langId the lang id
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return array the list of products
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">findAllbyLangId</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$langId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$prefix</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">databasePrefix</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productTable</span> <span class="o">=</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span><span class="s2">product&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productLangTable</span> <span class="o">=</span> <span class="s2">&#34;</span><span class="si">${</span><span class="nv">prefix</span><span class="si">}</span><span class="s2">product_lang&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$query</span> <span class="o">=</span> <span class="s2">&#34;SELECT p.* FROM </span><span class="si">${</span><span class="nv">productTable</span><span class="si">}</span><span class="s2"> p LEFT JOIN </span><span class="si">${</span><span class="nv">productLangTable</span><span class="si">}</span><span class="s2"> pl ON (p.`id_product` = pl.`id_product`) WHERE pl.`id_lang` = :langId&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$statement</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">connection</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$statement</span><span class="o">-&gt;</span><span class="na">bindValue</span><span class="p">(</span><span class="s1">&#39;langId&#39;</span><span class="p">,</span> <span class="nv">$langId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$statement</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$statement</span><span class="o">-&gt;</span><span class="na">fetchAll</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>And declare your repository as a service:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># modules/foo/config/services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">product_repository</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">Foo\Repository\ProductRepository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;@doctrine.dbal.default_connection&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;%database_prefix%&#39;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div>
 <div class="notices info" >Note: Since Symfony 4.4, services that are not dependency injected and that are not declared as “public” are removed from the container.</div>
 
 <p>Prestashop automatically checks if modules have a <code>config/services.yml</code> file and will autoload it for you. In order to force Prestashop to parse the file, you need to clear the cache:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">./bin/console cache:clear --no-warmup
-</code></pre></div><p>If PrestaShop fails to load files automatically, <a href="https://devdocs.prestashop-project.org/8/modules/concepts/composer/">you can generate the autoloader</a> with Composer. This will create a <code>vendor</code> directory with a Composer-based autoloader inside.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">./bin/console cache:clear --no-warmup
+</span></span></code></pre></div><p>If PrestaShop fails to load files automatically, <a href="https://devdocs.prestashop-project.org/8/modules/concepts/composer/">you can generate the autoloader</a> with Composer. This will create a <code>vendor</code> directory with a Composer-based autoloader inside.</p>
 <p>You can now use it in your module (and everywhere in PrestaShop modern pages!):</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// foo.php
-</span><span class="c1"></span>
-<span class="cm">/* ... */</span>
-<span class="sd">/**
-</span><span class="sd"> * Get the list of products for a specific lang.
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayDashboardToolbarIcons</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isSymfonyContext</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;admin_product_catalog&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$products</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;product_repository&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">findAllByLangId</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-        <span class="nx">dump</span><span class="p">(</span><span class="nv">$products</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>In Product Catalog Page you should see the list of Products in debug toolbar in &ldquo;Dump&rdquo; section:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// foo.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* ... */</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Get the list of products for a specific lang.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayDashboardToolbarIcons</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isSymfonyContext</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;admin_product_catalog&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$products</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;product_repository&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">findAllByLangId</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">dump</span><span class="p">(</span><span class="nv">$products</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>In Product Catalog Page you should see the list of Products in debug toolbar in &ldquo;Dump&rdquo; section:</p>
 <p><img src="../Catalog_Products_dump.png" alt="Get products in Dump section"></p>
 
 <h4 id="using-the-symfony-components-to-create-an-xml-export-file">Using the Symfony components to create an XML export file<a href="#using-the-symfony-components-to-create-an-xml-export-file"></a></h4><p>Now we retrieve the product list from our module and that we are able to display the information into the back office,
 we could already create our XML file with raw PHP. Let&rsquo;s see how we can do it using the components provided by Symfony &ldquo;out of box&rdquo;.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// foo.php
-</span><span class="c1"></span>
-<span class="cm">/* ... */</span>
-<span class="sd">/**
-</span><span class="sd"> * Creates an XML file with list of products in &#34;upload&#34; folder.
-</span><span class="sd"> *
-</span><span class="sd"> * @return bool Success of the installation
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayDashboardToolbarIcons</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isSymfonyContext</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;admin_product_catalog&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$products</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;product_repository&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">findAllByLangId</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-
-        <span class="nv">$productsXml</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;serializer&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">serialize</span><span class="p">(</span>
-            <span class="nv">$products</span><span class="p">,</span>
-            <span class="s1">&#39;xml&#39;</span><span class="p">,</span>
-            <span class="p">[</span>
-                <span class="s1">&#39;xml_root_node_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;products&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;xml_format_output&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-            <span class="p">]</span>
-        <span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;filesystem&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">dumpFile</span><span class="p">(</span><span class="nx">_PS_UPLOAD_DIR_</span> <span class="o">.</span> <span class="s1">&#39;products.xml&#39;</span><span class="p">,</span> <span class="nv">$productsXml</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// foo.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* ... */</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Creates an XML file with list of products in &#34;upload&#34; folder.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @return bool Success of the installation
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayDashboardToolbarIcons</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isSymfonyContext</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;admin_product_catalog&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$products</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;product_repository&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">findAllByLangId</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$productsXml</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;serializer&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">serialize</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$products</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;xml&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;xml_root_node_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;products&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;xml_format_output&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;filesystem&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">dumpFile</span><span class="p">(</span><span class="nx">_PS_UPLOAD_DIR_</span> <span class="o">.</span> <span class="s1">&#39;products.xml&#39;</span><span class="p">,</span> <span class="nv">$productsXml</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices info" >Note: the <code>serializer</code> service is not enabled in PrestaShop 1.7.3 but will be enabled in 1.7.4. If you really want to enable it in 1.7.3, uncomment the following configuration line in your <code>services.yml</code> file of your Shop.</div>
 
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># app/config/services.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Enables the serializer</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">framework</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">serializer</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="nt">enable_annotations</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span>}<span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># app/config/services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Enables the serializer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">framework</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">serializer</span><span class="p">:</span><span class="w"> </span>{<span class="w"> </span><span class="nt">enable_annotations</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span>}<span class="w">
+</span></span></span></code></pre></div>
 <h4 id="render-the-icon-using-twig-templating-engine">Render the icon using Twig templating engine<a href="#render-the-icon-using-twig-templating-engine"></a></h4><p>Now we have serialized our products, it&rsquo;s time to render an Icon link with the file to download!</p>
 <p>We could (of course) use Smarty to render a template, but it&rsquo;s a chance to discover Twig which is also available as a service. First, let&rsquo;s refactor and finalize our hook call:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/**
-</span><span class="sd"> * Make products export in XML.
-</span><span class="sd"> *
-</span><span class="sd"> * @param $params array
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayDashboardToolbarIcons</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isSymfonyContext</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;admin_product_catalog&#39;</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$products</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;product_repository&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">findAllByLangId</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-
-        <span class="nv">$productsXml</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;serializer&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">serialize</span><span class="p">(</span>
-            <span class="nv">$products</span><span class="p">,</span>
-            <span class="s1">&#39;xml&#39;</span><span class="p">,</span>
-            <span class="p">[</span>
-                <span class="s1">&#39;xml_root_node_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;products&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;xml_format_output&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-            <span class="p">]</span>
-        <span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;filesystem&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">dumpFile</span><span class="p">(</span><span class="nx">_PS_UPLOAD_DIR_</span> <span class="o">.</span> <span class="s1">&#39;products.xml&#39;</span><span class="p">,</span> <span class="nv">$productsXml</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;twig&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/Foo/views/download_link.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
-            <span class="s1">&#39;filepath&#39;</span> <span class="o">=&gt;</span> <span class="nx">_PS_BASE_URL_</span> <span class="o">.</span> <span class="s1">&#39;/upload/&#39;</span> <span class="o">.</span> <span class="s1">&#39;products.xml&#39;</span><span class="p">,</span>
-        <span class="p">]);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Make products export in XML.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param $params array
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayDashboardToolbarIcons</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">isSymfonyContext</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;admin_product_catalog&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$products</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;product_repository&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">findAllByLangId</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$productsXml</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;serializer&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">serialize</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$products</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;xml&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;xml_root_node_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;products&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;xml_format_output&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;filesystem&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">dumpFile</span><span class="p">(</span><span class="nx">_PS_UPLOAD_DIR_</span> <span class="o">.</span> <span class="s1">&#39;products.xml&#39;</span><span class="p">,</span> <span class="nv">$productsXml</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;twig&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/Foo/views/download_link.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;filepath&#39;</span> <span class="o">=&gt;</span> <span class="nx">_PS_BASE_URL_</span> <span class="o">.</span> <span class="s1">&#39;/upload/&#39;</span> <span class="o">.</span> <span class="s1">&#39;products.xml&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices info" >We have extracted business logic into specific functions.</div>
 
 <p>And now, the template:</p>
-<div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="c">{# in Foo/views/download_link.twig #}</span><span class="x">
-</span><span class="x">&lt;a id=&#34;desc-product-export&#34; class=&#34;dropdown-item&#34; href=&#34;</span><span class="cp">{{</span> <span class="nv">filepath</span> <span class="cp">}}</span><span class="x">&#34; target=&#34;_blank&#34;&gt;
-</span><span class="x">    &lt;i class=&#34;material-icons&#34;&gt;cloud&lt;/i&gt;</span><span class="cp">{{</span> <span class="s2">&#34;Export XML&#34;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;Module.Foo&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
-</span><span class="x">&lt;/a&gt;
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="c">{# in Foo/views/download_link.twig #}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">&lt;a id=&#34;desc-product-export&#34; class=&#34;dropdown-item&#34; href=&#34;</span><span class="cp">{{</span> <span class="nv">filepath</span> <span class="cp">}}</span><span class="x">&#34; target=&#34;_blank&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;i class=&#34;material-icons&#34;&gt;cloud&lt;/i&gt;</span><span class="cp">{{</span> <span class="s2">&#34;Export XML&#34;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;Module.Foo&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">&lt;/a&gt;
+</span></span></span></code></pre></div>
 <div class="notices info" >We have used a key for translation, making our own translations available in back office when using Twig.</div>
 
 <p><img src="../Catalog_Products_2xml.png" alt="Export XML action button"></p>
@@ -33426,17 +33426,17 @@ we could already create our XML file with raw PHP. Let&rsquo;s see how we can do
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163912"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163912"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163912"></script>
-    <script src="/js/jquery.sticky.js?1703163912"></script>
-    <script src="/js/featherlight.min.js?1703163912"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163912"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163912"></script>
-    <script src="/js/learn.js?1703163912"></script>
-    <script src="/js/hugo-learn.js?1703163912"></script>
+    <script src="/js/clipboard.min.js?1703164737"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164737"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164737"></script>
+    <script src="/js/jquery.sticky.js?1703164737"></script>
+    <script src="/js/featherlight.min.js?1703164737"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164737"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164737"></script>
+    <script src="/js/learn.js?1703164737"></script>
+    <script src="/js/hugo-learn.js?1703164737"></script>
     
-    <script src="/main.js?1703163912"></script>
+    <script src="/main.js?1703164737"></script>
     
     
     

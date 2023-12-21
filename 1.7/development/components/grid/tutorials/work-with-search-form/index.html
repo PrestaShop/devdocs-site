@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to work with the Search Form :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/grid/tutorials/work-with-search-form/">
     
-    <link href="/css/font-awesome.min.css?1703163932" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163932" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163932" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163932" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164754" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164754" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164754" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164754" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163932" rel="stylesheet">
+    <link href="/style.css?1703164754" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163932"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164754"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -4881,7 +4881,7 @@
     
     
     <li data-nav-id="/1.7/development/components/grid/tutorials/work-with-search-form/" title="How to work with the Search Form" class="dd-item
-        parent
+        
         active currentPage
         
         isParent
@@ -4894,7 +4894,7 @@
           
 
           
-            <i class="fa fa-angle-up"></i>
+            <i class="fa fa-angle-down"></i>
           
       </a>
       
@@ -30351,62 +30351,62 @@
 </ul>
 
 <h2 id="add-filters-into-griddefinition">Add Filters into GridDefinition<a href="#add-filters-into-griddefinition"></a></h2><p>You should use <code>AbstractGridDefinitionFactory</code> as a parent class, and define a const <code>GRID_ID</code> which will be used as a key to persist the <code>Filters</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">final</span> <span class="k">class</span> <span class="nc">ManufacturerGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractGridDefinitionFactory</span>
-<span class="p">{</span>
-    <span class="k">const</span> <span class="no">GRID_ID</span> <span class="o">=</span> <span class="s1">&#39;manufacturer&#39;</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     */</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">self</span><span class="o">::</span><span class="na">GRID_ID</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="o">...</span>
-    <span class="sd">/**
-</span><span class="sd">    * {@inheritdoc}
-</span><span class="sd">    */</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getFilters</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">FilterCollection</span><span class="p">())</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;id_manufacturer&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
-                    <span class="s1">&#39;attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                        <span class="s1">&#39;placeholder&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Search ID&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">),</span>
-                    <span class="p">],</span>
-                <span class="p">])</span>
-                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;id_manufacturer&#39;</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
-                    <span class="s1">&#39;attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                        <span class="s1">&#39;placeholder&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Search name&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">),</span>
-                    <span class="p">],</span>
-                <span class="p">])</span>
-                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="nx">YesAndNoChoiceType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">)</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">,</span> <span class="nx">SearchAndResetType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">)</span>
-                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;reset_route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_common_reset_search_by_filter_id&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;reset_route_params&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                        <span class="s1">&#39;filterId&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">GRID_ID</span><span class="p">,</span>
-                    <span class="p">],</span>
-                    <span class="s1">&#39;redirect_route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_manufacturers_index&#39;</span><span class="p">,</span>
-                <span class="p">])</span>
-            <span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-    <span class="o">...</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ManufacturerGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractGridDefinitionFactory</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="no">GRID_ID</span> <span class="o">=</span> <span class="s1">&#39;manufacturer&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">self</span><span class="o">::</span><span class="na">GRID_ID</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">    * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">    */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getFilters</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">FilterCollection</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;id_manufacturer&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;placeholder&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Search ID&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;id_manufacturer&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;attr&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;placeholder&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Search name&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span> <span class="nx">YesAndNoChoiceType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">,</span> <span class="nx">SearchAndResetType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;reset_route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_common_reset_search_by_filter_id&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;reset_route_params&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;filterId&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">GRID_ID</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;redirect_route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_manufacturers_index&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="the-filters-types">The filters types<a href="#the-filters-types"></a></h3><p>The filters collection allows you to define all the available filters (which will match your grid columns). You can define a specific type depending on the column.
 You can basically use any Symfony form type (including your custom ones) and PrestaShop provides a few <a href="https://devdocs.prestashop-project.org/1.7/development/components/grid/filter-types-reference/">filter types</a> that might be useful to you.</p>
 
@@ -30415,50 +30415,50 @@ You can basically use any Symfony form type (including your custom ones) and Pre
 
 
 <p>Starting the 1.7.7 we made it even easier, you can use the <code>AbstractFilterableGridDefinitionFactory</code>. This will allow you use the <a href="#common-search-controller">common search controller</a>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">final</span> <span class="k">class</span> <span class="nc">AddressGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractFilterableGridDefinitionFactory</span>
-<span class="p">{</span>
-    <span class="k">const</span> <span class="no">GRID_ID</span> <span class="o">=</span> <span class="s1">&#39;address&#39;</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     */</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">self</span><span class="o">::</span><span class="na">GRID_ID</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="o">...</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">AddressGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractFilterableGridDefinitionFactory</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="no">GRID_ID</span> <span class="o">=</span> <span class="s1">&#39;address&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">self</span><span class="o">::</span><span class="na">GRID_ID</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="filters-class">Filters class<a href="#filters-class"></a></h2><p>You need to define a <code>Filters</code> class linked to your Grid, it will allow you to define the default filters and sorting values.
 It will also make your list action simpler as PrestaShop provides a parameter resolver responsible of automatically create and fill a <code>Filters</code> object.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Definition\Factory\ManufacturerGridDefinitionFactory</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Search\Filters</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * Class ManufacturerFilters is responsible for providing filter values for manufacturer grid.
-</span><span class="sd"> */</span>
-<span class="k">final</span> <span class="k">class</span> <span class="nc">ManufacturerFilters</span> <span class="k">extends</span> <span class="nx">Filters</span>
-<span class="p">{</span>
-    <span class="sd">/** @var string */</span>
-    <span class="k">protected</span> <span class="nv">$filterId</span> <span class="o">=</span> <span class="nx">ManufacturerGridDefinitionFactory</span><span class="o">::</span><span class="na">GRID_ID</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">getDefaults</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;limit&#39;</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
-            <span class="s1">&#39;offset&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s1">&#39;orderBy&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;sortOrder&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;asc&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;filters&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
-        <span class="p">];</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Definition\Factory\ManufacturerGridDefinitionFactory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Search\Filters</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Class ManufacturerFilters is responsible for providing filter values for manufacturer grid.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ManufacturerFilters</span> <span class="k">extends</span> <span class="nx">Filters</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/** @var string */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nv">$filterId</span> <span class="o">=</span> <span class="nx">ManufacturerGridDefinitionFactory</span><span class="o">::</span><span class="na">GRID_ID</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">getDefaults</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;limit&#39;</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;offset&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;orderBy&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;sortOrder&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;asc&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;filters&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="controller-actions">Controller actions<a href="#controller-actions"></a></h2><p>The Grid filtering workflow is divided into three actions:</p>
 <ul>
 <li>search action: it parses the filters from the POST request, then redirects to the list action</li>
@@ -30480,116 +30480,116 @@ It will also make your list action simpler as PrestaShop provides a parameter re
 <li>the filter ID</li>
 <li>the list route for redirection</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Definition\Factory\ManufacturerGridDefinitionFactory</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Service\Grid\ResponseBuilder</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Security\Annotation\AdminSecurity</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\RedirectResponse</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">ManufacturerController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
-<span class="p">{</span>
-    <span class="o">...</span>
-    <span class="sd">/**
-</span><span class="sd">     * Provides filters functionality
-</span><span class="sd">     *
-</span><span class="sd">     * @AdminSecurity(&#34;is_granted(&#39;read&#39;, request.get(&#39;_legacy_controller&#39;))&#34;)
-</span><span class="sd">     *
-</span><span class="sd">     * @param Request $request
-</span><span class="sd">     *
-</span><span class="sd">     * @return RedirectResponse
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">searchAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="sd">/** @var ResponseBuilder $responseBuilder */</span>
-        <span class="nv">$responseBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.bundle.grid.response_builder&#39;</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="nv">$responseBuilder</span><span class="o">-&gt;</span><span class="na">buildSearchResponse</span><span class="p">(</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.definition.factory.manufacturer&#39;</span><span class="p">),</span>
-            <span class="nv">$request</span><span class="p">,</span>
-            <span class="nx">ManufacturerGridDefinitionFactory</span><span class="o">::</span><span class="na">GRID_ID</span><span class="p">,</span>
-            <span class="s1">&#39;admin_manufacturers_index&#39;</span>
-        <span class="p">);</span>
-    <span class="p">}</span>
-    <span class="o">...</span>
-<span class="p">}</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># your-module/config/routes.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">admin_manufacturers_search</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
-</span><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="l">POST</span><span class="w">
-</span><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle:Admin/Sell/Catalog/Manufacturer:search&#39;</span><span class="w">
-</span><span class="w">    </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminManufacturers</span><span class="w">
-</span><span class="w">    </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminManufacturers:submitFiltermanufacturer</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Definition\Factory\ManufacturerGridDefinitionFactory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Service\Grid\ResponseBuilder</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Security\Annotation\AdminSecurity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\RedirectResponse</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ManufacturerController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Provides filters functionality
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @AdminSecurity(&#34;is_granted(&#39;read&#39;, request.get(&#39;_legacy_controller&#39;))&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param Request $request
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return RedirectResponse
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">searchAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var ResponseBuilder $responseBuilder */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$responseBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.bundle.grid.response_builder&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$responseBuilder</span><span class="o">-&gt;</span><span class="na">buildSearchResponse</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.definition.factory.manufacturer&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$request</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">ManufacturerGridDefinitionFactory</span><span class="o">::</span><span class="na">GRID_ID</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;admin_manufacturers_index&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># your-module/config/routes.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">admin_manufacturers_search</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="l">POST</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle:Admin/Sell/Catalog/Manufacturer:search&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminManufacturers</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminManufacturers:submitFiltermanufacturer</span><span class="w">
+</span></span></span></code></pre></div>
 <h4 id="common-search-controller">Common search controller<a href="#common-search-controller"></a></h4>
 <div class="magic-version-pill" data-version="1.7.7" data-title="New in PrestaShop 1.7.7"></div>
 
 
 <p>As this controller is almost always the same, starting 1.7.7, we introduced a common controller. So all you need to do is define the routing:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># your-module/config/routes.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">admin_addresses_search</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
-</span><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">POST]</span><span class="w">
-</span><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin\Common:searchGrid</span><span class="w">
-</span><span class="w">    </span><span class="nt">gridDefinitionFactoryServiceId</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop.core.grid.definition.factory.address</span><span class="w">
-</span><span class="w">    </span><span class="nt">redirectRoute</span><span class="p">:</span><span class="w"> </span><span class="l">admin_addresses_index</span><span class="w">
-</span><span class="w">    </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminAddresses</span><span class="w">
-</span><span class="w">    </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminAddresses:submitFilteraddress</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># your-module/config/routes.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">admin_addresses_search</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">POST]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin\Common:searchGrid</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">gridDefinitionFactoryServiceId</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop.core.grid.definition.factory.address</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">redirectRoute</span><span class="p">:</span><span class="w"> </span><span class="l">admin_addresses_index</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminAddresses</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminAddresses:submitFilteraddress</span><span class="w">
+</span></span></span></code></pre></div>
 <h3 id="list-action">List action<a href="#list-action"></a></h3><p>Thanks to the internal parameter resolver you can directly use your <code>Filters</code> class as an argument in the controller. It then automatically:</p>
 <ul>
 <li>parses the potential parameters in the query and fills them into the <code>Filters</code> argument</li>
 <li>matches thanks to the class the filters from the database and fetch them if present</li>
 <li>persists the filters in the database</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">ManufacturerController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
-<span class="p">{</span>
-    <span class="o">...</span>
-    <span class="sd">/**
-</span><span class="sd">     * Show manufacturers listing page.
-</span><span class="sd">     *
-</span><span class="sd">     * @AdminSecurity(&#34;is_granted(&#39;read&#39;, request.get(&#39;_legacy_controller&#39;))&#34;)
-</span><span class="sd">     *
-</span><span class="sd">     * @param Request $request
-</span><span class="sd">     * @param ManufacturerFilters $manufacturerFilters
-</span><span class="sd">     *
-</span><span class="sd">     * @return Response
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span>
-        <span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span>
-        <span class="nx">ManufacturerFilters</span> <span class="nv">$manufacturerFilters</span>
-    <span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$manufacturerGridFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.grid_factory.manufacturer&#39;</span><span class="p">);</span>
-        <span class="nv">$manufacturerGrid</span> <span class="o">=</span> <span class="nv">$manufacturerGridFactory</span><span class="o">-&gt;</span><span class="na">getGrid</span><span class="p">(</span><span class="nv">$manufacturerFilters</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Sell/Catalog/Manufacturer/index.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
-            <span class="s1">&#39;enableSidebar&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-            <span class="s1">&#39;help_link&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">generateSidebarLink</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;_legacy_controller&#39;</span><span class="p">)),</span>
-            <span class="s1">&#39;manufacturerGrid&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">presentGrid</span><span class="p">(</span><span class="nv">$manufacturerGrid</span><span class="p">),</span>
-        <span class="p">]);</span>
-    <span class="p">}</span>
-    <span class="o">...</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ManufacturerController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Show manufacturers listing page.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @AdminSecurity(&#34;is_granted(&#39;read&#39;, request.get(&#39;_legacy_controller&#39;))&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param Request $request
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param ManufacturerFilters $manufacturerFilters
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return Response
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">ManufacturerFilters</span> <span class="nv">$manufacturerFilters</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$manufacturerGridFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.grid_factory.manufacturer&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$manufacturerGrid</span> <span class="o">=</span> <span class="nv">$manufacturerGridFactory</span><span class="o">-&gt;</span><span class="na">getGrid</span><span class="p">(</span><span class="nv">$manufacturerFilters</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Sell/Catalog/Manufacturer/index.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;enableSidebar&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;help_link&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">generateSidebarLink</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;_legacy_controller&#39;</span><span class="p">)),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;manufacturerGrid&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">presentGrid</span><span class="p">(</span><span class="nv">$manufacturerGrid</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="reset-action">Reset action<a href="#reset-action"></a></h3><p>This action resets the persisted filters and your grid filtering/sorting. This action is the same for nearly all grids so PrestaShop provides a common controller to manage it, and you actually already set it via the grid definition.</p>
 <p>It is defined in the <a href="https://devdocs.prestashop-project.org/1.7/development/components/grid/filter-types-reference/#searchandresettype"><code>SearchAndResetType</code> options</a>, it uses <code>admin_common_reset_search_by_filter_id</code> and only needs the filter id to identify the filters to clear, and a redirection route.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="o">...</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">,</span> <span class="nx">SearchAndResetType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">)</span>
-                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;reset_route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_common_reset_search_by_filter_id&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;reset_route_params&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                        <span class="s1">&#39;filterId&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">GRID_ID</span><span class="p">,</span>
-                    <span class="p">],</span>
-                    <span class="s1">&#39;redirect_route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_manufacturers_index&#39;</span><span class="p">,</span>
-                <span class="p">])</span>
-            <span class="p">)</span>
-    <span class="o">...</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">Filter</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">,</span> <span class="nx">SearchAndResetType</span><span class="o">::</span><span class="na">class</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setAssociatedColumn</span><span class="p">(</span><span class="s1">&#39;actions&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setTypeOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;reset_route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_common_reset_search_by_filter_id&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;reset_route_params&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;filterId&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">GRID_ID</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;redirect_route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_manufacturers_index&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span></code></pre></div>
 <h2 id="search-form-in-175">Search form in 1.7.5<a href="#search-form-in-175"></a></h2><p>In the 1.7.5 version, first one that integrated the grid component, the system was a bit different and used controller/action to identify the filters. It had a few drawbacks and was abandoned in favor of a unique id but in case you need it here is <a href="https://devdocs.prestashop-project.org/1.7/development/components/grid/tutorials/work-with-search-form/in-1-7-5/">how to work with search form in 1.7.5</a>.</p>
 
 
@@ -30671,17 +30671,17 @@ It will also make your list action simpler as PrestaShop provides a parameter re
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163933"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163933"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163933"></script>
-    <script src="/js/jquery.sticky.js?1703163933"></script>
-    <script src="/js/featherlight.min.js?1703163933"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163933"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163933"></script>
-    <script src="/js/learn.js?1703163933"></script>
-    <script src="/js/hugo-learn.js?1703163933"></script>
+    <script src="/js/clipboard.min.js?1703164754"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164754"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164754"></script>
+    <script src="/js/jquery.sticky.js?1703164754"></script>
+    <script src="/js/featherlight.min.js?1703164754"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164754"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164754"></script>
+    <script src="/js/learn.js?1703164754"></script>
+    <script src="/js/hugo-learn.js?1703164754"></script>
     
-    <script src="/main.js?1703163933"></script>
+    <script src="/main.js?1703164754"></script>
     
     
     

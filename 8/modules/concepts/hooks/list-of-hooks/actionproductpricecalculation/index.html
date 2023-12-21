@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="This hook is called into the priceCalculation method to be able to override the price calculatio">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>actionProductPriceCalculation :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163919" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163919" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163919" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163919" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164742" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164742" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164742" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164742" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163919" rel="stylesheet">
+    <link href="/style.css?1703164742" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163919"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164742"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33184,34 +33184,34 @@
 </tbody>
 </table>
 
-<h2 id="call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file<a href="#call-of-the-hook-in-the-origin-file"></a></h2><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;actionProductPriceCalculation&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="s1">&#39;id_shop&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_shop</span><span class="p">,</span>
-    <span class="s1">&#39;id_product&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_product</span><span class="p">,</span>
-    <span class="s1">&#39;id_product_attribute&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_product_attribute</span><span class="p">,</span>
-    <span class="s1">&#39;id_customization&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_customization</span><span class="p">,</span>
-    <span class="s1">&#39;id_country&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_country</span><span class="p">,</span>
-    <span class="s1">&#39;id_state&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_state</span><span class="p">,</span>
-    <span class="s1">&#39;zip_code&#39;</span> <span class="o">=&gt;</span> <span class="nv">$zipcode</span><span class="p">,</span>
-    <span class="s1">&#39;id_currency&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_currency</span><span class="p">,</span>
-    <span class="s1">&#39;id_group&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_group</span><span class="p">,</span>
-    <span class="s1">&#39;id_cart&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_cart</span><span class="p">,</span>
-    <span class="s1">&#39;id_customer&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_customer</span><span class="p">,</span>
-    <span class="s1">&#39;use_customer_price&#39;</span> <span class="o">=&gt;</span> <span class="nv">$use_customer_price</span><span class="p">,</span>
-    <span class="s1">&#39;quantity&#39;</span> <span class="o">=&gt;</span> <span class="nv">$quantity</span><span class="p">,</span>
-    <span class="s1">&#39;real_quantity&#39;</span> <span class="o">=&gt;</span> <span class="nv">$real_quantity</span><span class="p">,</span>
-    <span class="s1">&#39;use_tax&#39;</span> <span class="o">=&gt;</span> <span class="nv">$use_tax</span><span class="p">,</span>
-    <span class="s1">&#39;decimals&#39;</span> <span class="o">=&gt;</span> <span class="nv">$decimals</span><span class="p">,</span>
-    <span class="s1">&#39;only_reduc&#39;</span> <span class="o">=&gt;</span> <span class="nv">$only_reduc</span><span class="p">,</span>
-    <span class="s1">&#39;use_reduc&#39;</span> <span class="o">=&gt;</span> <span class="nv">$use_reduc</span><span class="p">,</span>
-    <span class="s1">&#39;with_ecotax&#39;</span> <span class="o">=&gt;</span> <span class="nv">$with_ecotax</span><span class="p">,</span>
-    <span class="s1">&#39;specific_price&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$specific_price</span><span class="p">,</span>
-    <span class="s1">&#39;use_group_reduction&#39;</span> <span class="o">=&gt;</span> <span class="nv">$use_group_reduction</span><span class="p">,</span>
-    <span class="s1">&#39;address&#39;</span> <span class="o">=&gt;</span> <span class="nv">$address</span><span class="p">,</span>
-    <span class="s1">&#39;context&#39;</span> <span class="o">=&gt;</span> <span class="nv">$context</span><span class="p">,</span>
-    <span class="s1">&#39;specific_price_reduction&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$specific_price_reduction</span><span class="p">,</span>
-    <span class="s1">&#39;price&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$price</span><span class="p">,</span>
-<span class="p">]);</span>
-</code></pre></div>
+<h2 id="call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file<a href="#call-of-the-hook-in-the-origin-file"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;actionProductPriceCalculation&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_shop&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_shop</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_product&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_product</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_product_attribute&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_product_attribute</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_customization&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_customization</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_country&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_country</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_state&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_state</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;zip_code&#39;</span> <span class="o">=&gt;</span> <span class="nv">$zipcode</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_currency&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_currency</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_group&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_group</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_cart&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_cart</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_customer&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id_customer</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;use_customer_price&#39;</span> <span class="o">=&gt;</span> <span class="nv">$use_customer_price</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;quantity&#39;</span> <span class="o">=&gt;</span> <span class="nv">$quantity</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;real_quantity&#39;</span> <span class="o">=&gt;</span> <span class="nv">$real_quantity</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;use_tax&#39;</span> <span class="o">=&gt;</span> <span class="nv">$use_tax</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;decimals&#39;</span> <span class="o">=&gt;</span> <span class="nv">$decimals</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;only_reduc&#39;</span> <span class="o">=&gt;</span> <span class="nv">$only_reduc</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;use_reduc&#39;</span> <span class="o">=&gt;</span> <span class="nv">$use_reduc</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;with_ecotax&#39;</span> <span class="o">=&gt;</span> <span class="nv">$with_ecotax</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;specific_price&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$specific_price</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;use_group_reduction&#39;</span> <span class="o">=&gt;</span> <span class="nv">$use_group_reduction</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;address&#39;</span> <span class="o">=&gt;</span> <span class="nv">$address</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;context&#39;</span> <span class="o">=&gt;</span> <span class="nv">$context</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;specific_price_reduction&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$specific_price_reduction</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;price&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$price</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">]);</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33289,17 +33289,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163919"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163919"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163919"></script>
-    <script src="/js/jquery.sticky.js?1703163919"></script>
-    <script src="/js/featherlight.min.js?1703163919"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163919"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163919"></script>
-    <script src="/js/learn.js?1703163919"></script>
-    <script src="/js/hugo-learn.js?1703163919"></script>
+    <script src="/js/clipboard.min.js?1703164742"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164742"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164742"></script>
+    <script src="/js/jquery.sticky.js?1703164742"></script>
+    <script src="/js/featherlight.min.js?1703164742"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164742"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164742"></script>
+    <script src="/js/learn.js?1703164742"></script>
+    <script src="/js/hugo-learn.js?1703164742"></script>
     
-    <script src="/main.js?1703163919"></script>
+    <script src="/main.js?1703164742"></script>
     
     
     

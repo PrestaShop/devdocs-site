@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Image FAQ :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/faq/image/">
     
-    <link href="/css/font-awesome.min.css?1703163892" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163892" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163892" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163892" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164719" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164719" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164719" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164719" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163892" rel="stylesheet">
+    <link href="/style.css?1703164719" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163892"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164719"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30228,20 +30228,20 @@
 <p><strong>A:</strong> The limitation of the <a href="https://httpd.apache.org/docs/2.4/howto/htaccess.html">.htaccess</a> file prevents the use of more than 9 999 999 images because there is a limit of 9 back references ($1, $2, $3,&hellip; $9) in mod_rewrite.
 The $10 $11 etc back references are being interpreted as just $1.</p>
 <p>You can exceed this limitation by adding the needed rules in your .htaccess file:</p>
-<div class="highlight"><pre class="chroma"><code class="language-ini" data-lang="ini"><span class="na">RewriteCond %{HTTP_HOST} ^www.my-domain.com$</span>
-<span class="na">RewriteRule ^0([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/0/$1/$2/$3/$4/$5/$6/$7/0$1$2$3$4$5$6$7$8$9.jpg [L]</span>
-<span class="na">RewriteRule ^1([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/1/$1/$2/$3/$4/$5/$6/$7/1$1$2$3$4$5$6$7$8$9.jpg [L]</span>
-<span class="na">RewriteRule ^2([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/2/$1/$2/$3/$4/$5/$6/$7/2$1$2$3$4$5$6$7$8$9.jpg [L]</span>
-<span class="na">RewriteRule ^3([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/3/$1/$2/$3/$4/$5/$6/$7/3$1$2$3$4$5$6$7$8$9.jpg [L]</span>
-<span class="na">RewriteRule ^4([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/4/$1/$2/$3/$4/$5/$6/$7/4$1$2$3$4$5$6$7$8$9.jpg [L]</span>
-<span class="na">RewriteRule ^5([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/5/$1/$2/$3/$4/$5/$6/$7/5$1$2$3$4$5$6$7$8$9.jpg [L]</span>
-<span class="na">RewriteRule ^6([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/6/$1/$2/$3/$4/$5/$6/$7/6$1$2$3$4$5$6$7$8$9.jpg [L]</span>
-<span class="na">RewriteRule ^7([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/7/$1/$2/$3/$4/$5/$6/$7/7$1$2$3$4$5$6$7$8$9.jpg [L]</span>
-<span class="na">RewriteRule ^8([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/8/$1/$2/$3/$4/$5/$6/$7/8$1$2$3$4$5$6$7$8$9.jpg [L]</span>
-<span class="na">RewriteRule ^9([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/9/$1/$2/$3/$4/$5/$6/$7/9$1$2$3$4$5$6$7$8$9.jpg [L]</span>
-</code></pre></div><p>after</p>
-<div class="highlight"><pre class="chroma"><code class="language-ini" data-lang="ini"><span class="c1"># ~~end~~ Do not remove this comment, Prestashop will keep automatically the code outside this comment when .htaccess will be generated again</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">RewriteCond %{HTTP_HOST} ^www.my-domain.com$</span>
+</span></span><span class="line"><span class="cl"><span class="na">RewriteRule ^0([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/0/$1/$2/$3/$4/$5/$6/$7/0$1$2$3$4$5$6$7$8$9.jpg [L]</span>
+</span></span><span class="line"><span class="cl"><span class="na">RewriteRule ^1([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/1/$1/$2/$3/$4/$5/$6/$7/1$1$2$3$4$5$6$7$8$9.jpg [L]</span>
+</span></span><span class="line"><span class="cl"><span class="na">RewriteRule ^2([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/2/$1/$2/$3/$4/$5/$6/$7/2$1$2$3$4$5$6$7$8$9.jpg [L]</span>
+</span></span><span class="line"><span class="cl"><span class="na">RewriteRule ^3([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/3/$1/$2/$3/$4/$5/$6/$7/3$1$2$3$4$5$6$7$8$9.jpg [L]</span>
+</span></span><span class="line"><span class="cl"><span class="na">RewriteRule ^4([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/4/$1/$2/$3/$4/$5/$6/$7/4$1$2$3$4$5$6$7$8$9.jpg [L]</span>
+</span></span><span class="line"><span class="cl"><span class="na">RewriteRule ^5([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/5/$1/$2/$3/$4/$5/$6/$7/5$1$2$3$4$5$6$7$8$9.jpg [L]</span>
+</span></span><span class="line"><span class="cl"><span class="na">RewriteRule ^6([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/6/$1/$2/$3/$4/$5/$6/$7/6$1$2$3$4$5$6$7$8$9.jpg [L]</span>
+</span></span><span class="line"><span class="cl"><span class="na">RewriteRule ^7([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/7/$1/$2/$3/$4/$5/$6/$7/7$1$2$3$4$5$6$7$8$9.jpg [L]</span>
+</span></span><span class="line"><span class="cl"><span class="na">RewriteRule ^8([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/8/$1/$2/$3/$4/$5/$6/$7/8$1$2$3$4$5$6$7$8$9.jpg [L]</span>
+</span></span><span class="line"><span class="cl"><span class="na">RewriteRule ^9([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])([0-9])(\-[_a-zA-Z0-9-]*)?(-[0-9]+)?/.+\.jpg$ %{ENV:REWRITEBASE}img/p/9/$1/$2/$3/$4/$5/$6/$7/9$1$2$3$4$5$6$7$8$9.jpg [L]</span>
+</span></span></code></pre></div><p>after</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="c1"># ~~end~~ Do not remove this comment, Prestashop will keep automatically the code outside this comment when .htaccess will be generated again</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30319,17 +30319,17 @@ The $10 $11 etc back references are being interpreted as just $1.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163892"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163892"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163892"></script>
-    <script src="/js/jquery.sticky.js?1703163892"></script>
-    <script src="/js/featherlight.min.js?1703163892"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163892"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163892"></script>
-    <script src="/js/learn.js?1703163892"></script>
-    <script src="/js/hugo-learn.js?1703163892"></script>
+    <script src="/js/clipboard.min.js?1703164720"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164720"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164720"></script>
+    <script src="/js/jquery.sticky.js?1703164720"></script>
+    <script src="/js/featherlight.min.js?1703164720"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164720"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164720"></script>
+    <script src="/js/learn.js?1703164720"></script>
+    <script src="/js/hugo-learn.js?1703164720"></script>
     
-    <script src="/main.js?1703163892"></script>
+    <script src="/main.js?1703164720"></script>
     
     
     

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Testing access to the Webservice :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/webservice/tutorials/testing-access/">
     
-    <link href="/css/font-awesome.min.css?1703163899" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163899" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163899" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163899" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164725" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164725" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164725" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164725" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163899" rel="stylesheet">
+    <link href="/style.css?1703164725" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163899"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164725"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30291,10 +30291,10 @@
 
 
 <h3 id="using-an-authorization-header-recommended">Using an Authorization header (recommended)<a href="#using-an-authorization-header-recommended"></a></h3><p>The best way to authenticate your API calls is to use an <code>Authorization</code> header, this way you don&rsquo;t expose your API key directly but a <code>base64_encode</code> compute of your <code>user:password</code> couple. Although PrestaShop API only has a user with empty password, so in order to compute your authorization key you can do as follows:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$apiKey</span> <span class="o">=</span> <span class="sb">`UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX`</span><span class="p">;</span>
-<span class="nv">$authorizationKey</span> <span class="o">=</span> <span class="nx">base64_encode</span><span class="p">(</span><span class="nv">$apiKey</span> <span class="o">.</span> <span class="s1">&#39;:&#39;</span><span class="p">);</span> <span class="c1">// VUNDTExROU4yQVJTSFdDWExUNzRLVUtTU0szNEJGS1g6
-</span></code></pre></div><p>Then you can use this value in your request header:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$apiKey</span> <span class="o">=</span> <span class="sb">`UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$authorizationKey</span> <span class="o">=</span> <span class="nx">base64_encode</span><span class="p">(</span><span class="nv">$apiKey</span> <span class="o">.</span> <span class="s1">&#39;:&#39;</span><span class="p">);</span> <span class="c1">// VUNDTExROU4yQVJTSFdDWExUNzRLVUtTU0szNEJGS1g6
+</span></span></span></code></pre></div><p>Then you can use this value in your request header:</p>
 <table>
 <thead>
 <tr>
@@ -30315,28 +30315,28 @@
 
 
 <h2 id="available-resources">Available resources<a href="#available-resources"></a></h2><p>The <code>/api/</code> URL gives you the root of all the resources, in the form of an XML file. Here is an example of what you should see if you authorized full access to <code>addresses</code>, <code>images</code> and <code>products</code> resources:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;api</span> <span class="na">shopName=</span><span class="s">&#34;Prestashop&#34;</span><span class="nt">&gt;</span>
-        <span class="nt">&lt;addresses</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;description</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
-            The Customer, Brand and Customer addresses<span class="nt">&lt;/description&gt;</span>
-            <span class="nt">&lt;schema</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses?schema=blank&#34;</span> <span class="na">type=</span><span class="s">&#34;blank&#34;</span><span class="nt">/&gt;</span>
-            <span class="nt">&lt;schema</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses?schema=synopsis&#34;</span> <span class="na">type=</span><span class="s">&#34;synopsis&#34;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;/addresses&gt;</span>
-        <span class="nt">&lt;images</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/images&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;description</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/images&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
-            The images<span class="nt">&lt;/description&gt;</span>
-        <span class="nt">&lt;/images&gt;</span>
-        <span class="nt">&lt;products</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/products&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;description</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/products&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
-            The products<span class="nt">&lt;/description&gt;</span>
-            <span class="nt">&lt;schema</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/products?schema=blank&#34;</span> <span class="na">type=</span><span class="s">&#34;blank&#34;</span><span class="nt">/&gt;</span>
-            <span class="nt">&lt;schema</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/products?schema=synopsis&#34;</span> <span class="na">type=</span><span class="s">&#34;synopsis&#34;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;/products&gt;</span>
-    <span class="nt">&lt;/api&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;api</span> <span class="na">shopName=</span><span class="s">&#34;Prestashop&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;addresses</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;description</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            The Customer, Brand and Customer addresses<span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;schema</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses?schema=blank&#34;</span> <span class="na">type=</span><span class="s">&#34;blank&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;schema</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/addresses?schema=synopsis&#34;</span> <span class="na">type=</span><span class="s">&#34;synopsis&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/addresses&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;images</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/images&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;description</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/images&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            The images<span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/images&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;products</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/products&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;description</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/products&#34;</span> <span class="na">get=</span><span class="s">&#34;true&#34;</span> <span class="na">put=</span><span class="s">&#34;true&#34;</span> <span class="na">post=</span><span class="s">&#34;true&#34;</span> <span class="na">delete=</span><span class="s">&#34;true&#34;</span> <span class="na">head=</span><span class="s">&#34;true&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">            The products<span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;schema</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/products?schema=blank&#34;</span> <span class="na">type=</span><span class="s">&#34;blank&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;schema</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/products?schema=synopsis&#34;</span> <span class="na">type=</span><span class="s">&#34;synopsis&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/products&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/api&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <h2 id="resource-schemas">Resource schemas<a href="#resource-schemas"></a></h2><p>You can also see that each resource provides two links to access its schemas:</p>
 <ul>
 <li><strong>blank schema</strong> which you can use as a blank content to create a resource</li>
@@ -30345,64 +30345,64 @@
 <p>Let&rsquo;s see what they look like for the <code>address</code> resource.</p>
 
 <h3 id="blank-schema">Blank schema<a href="#blank-schema"></a></h3><p><code>/api/addresses?schema=blank</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;address&gt;</span>
-        <span class="nt">&lt;id&gt;&lt;/id&gt;</span>
-        <span class="nt">&lt;id_customer&gt;&lt;/id_customer&gt;</span>
-        <span class="nt">&lt;id_manufacturer&gt;&lt;/id_manufacturer&gt;</span>
-        <span class="nt">&lt;id_supplier&gt;&lt;/id_supplier&gt;</span>
-        <span class="nt">&lt;id_warehouse&gt;&lt;/id_warehouse&gt;</span>
-        <span class="nt">&lt;id_country&gt;&lt;/id_country&gt;</span>
-        <span class="nt">&lt;id_state&gt;&lt;/id_state&gt;</span>
-        <span class="nt">&lt;alias&gt;&lt;/alias&gt;</span>
-        <span class="nt">&lt;company&gt;&lt;/company&gt;</span>
-        <span class="nt">&lt;lastname&gt;&lt;/lastname&gt;</span>
-        <span class="nt">&lt;firstname&gt;&lt;/firstname&gt;</span>
-        <span class="nt">&lt;vat_number&gt;&lt;/vat_number&gt;</span>
-        <span class="nt">&lt;address1&gt;&lt;/address1&gt;</span>
-        <span class="nt">&lt;address2&gt;&lt;/address2&gt;</span>
-        <span class="nt">&lt;postcode&gt;&lt;/postcode&gt;</span>
-        <span class="nt">&lt;city&gt;&lt;/city&gt;</span>
-        <span class="nt">&lt;other&gt;&lt;/other&gt;</span>
-        <span class="nt">&lt;phone&gt;&lt;/phone&gt;</span>
-        <span class="nt">&lt;phone_mobile&gt;&lt;/phone_mobile&gt;</span>
-        <span class="nt">&lt;dni&gt;&lt;/dni&gt;</span>
-        <span class="nt">&lt;deleted&gt;&lt;/deleted&gt;</span>
-        <span class="nt">&lt;date_add&gt;&lt;/date_add&gt;</span>
-        <span class="nt">&lt;date_upd&gt;&lt;/date_upd&gt;</span>
-    <span class="nt">&lt;/address&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;address&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id&gt;&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_customer&gt;&lt;/id_customer&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_manufacturer&gt;&lt;/id_manufacturer&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_supplier&gt;&lt;/id_supplier&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_warehouse&gt;&lt;/id_warehouse&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_country&gt;&lt;/id_country&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_state&gt;&lt;/id_state&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;alias&gt;&lt;/alias&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;company&gt;&lt;/company&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;lastname&gt;&lt;/lastname&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;firstname&gt;&lt;/firstname&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;vat_number&gt;&lt;/vat_number&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;address1&gt;&lt;/address1&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;address2&gt;&lt;/address2&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;postcode&gt;&lt;/postcode&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;city&gt;&lt;/city&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;other&gt;&lt;/other&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;phone&gt;&lt;/phone&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;phone_mobile&gt;&lt;/phone_mobile&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;dni&gt;&lt;/dni&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;deleted&gt;&lt;/deleted&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;date_add&gt;&lt;/date_add&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;date_upd&gt;&lt;/date_upd&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/address&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <h3 id="synopsis-schema">Synopsis schema<a href="#synopsis-schema"></a></h3><p><code>/api/addresses?schema=synopsis</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;address&gt;</span>
-        <span class="nt">&lt;id_customer</span> <span class="na">format=</span><span class="s">&#34;isNullOrUnsignedId&#34;</span><span class="nt">&gt;&lt;/id_customer&gt;</span>
-        <span class="nt">&lt;id_manufacturer</span> <span class="na">format=</span><span class="s">&#34;isNullOrUnsignedId&#34;</span><span class="nt">&gt;&lt;/id_manufacturer&gt;</span>
-        <span class="nt">&lt;id_supplier</span> <span class="na">format=</span><span class="s">&#34;isNullOrUnsignedId&#34;</span><span class="nt">&gt;&lt;/id_supplier&gt;</span>
-        <span class="nt">&lt;id_warehouse</span> <span class="na">format=</span><span class="s">&#34;isNullOrUnsignedId&#34;</span><span class="nt">&gt;&lt;/id_warehouse&gt;</span>
-        <span class="nt">&lt;id_country</span> <span class="na">required=</span><span class="s">&#34;true&#34;</span> <span class="na">format=</span><span class="s">&#34;isUnsignedId&#34;</span><span class="nt">&gt;&lt;/id_country&gt;</span>
-        <span class="nt">&lt;id_state</span> <span class="na">format=</span><span class="s">&#34;isNullOrUnsignedId&#34;</span><span class="nt">&gt;&lt;/id_state&gt;</span>
-        <span class="nt">&lt;alias</span> <span class="na">required=</span><span class="s">&#34;true&#34;</span> <span class="na">maxSize=</span><span class="s">&#34;32&#34;</span> <span class="na">format=</span><span class="s">&#34;isGenericName&#34;</span><span class="nt">&gt;&lt;/alias&gt;</span>
-        <span class="nt">&lt;company</span> <span class="na">maxSize=</span><span class="s">&#34;255&#34;</span> <span class="na">format=</span><span class="s">&#34;isGenericName&#34;</span><span class="nt">&gt;&lt;/company&gt;</span>
-        <span class="nt">&lt;lastname</span> <span class="na">required=</span><span class="s">&#34;true&#34;</span> <span class="na">maxSize=</span><span class="s">&#34;255&#34;</span> <span class="na">format=</span><span class="s">&#34;isName&#34;</span><span class="nt">&gt;&lt;/lastname&gt;</span>
-        <span class="nt">&lt;firstname</span> <span class="na">required=</span><span class="s">&#34;true&#34;</span> <span class="na">maxSize=</span><span class="s">&#34;255&#34;</span> <span class="na">format=</span><span class="s">&#34;isName&#34;</span><span class="nt">&gt;&lt;/firstname&gt;</span>
-        <span class="nt">&lt;vat_number</span> <span class="na">format=</span><span class="s">&#34;isGenericName&#34;</span><span class="nt">&gt;&lt;/vat_number&gt;</span>
-        <span class="nt">&lt;address1</span> <span class="na">required=</span><span class="s">&#34;true&#34;</span> <span class="na">maxSize=</span><span class="s">&#34;128&#34;</span> <span class="na">format=</span><span class="s">&#34;isAddress&#34;</span><span class="nt">&gt;&lt;/address1&gt;</span>
-        <span class="nt">&lt;address2</span> <span class="na">maxSize=</span><span class="s">&#34;128&#34;</span> <span class="na">format=</span><span class="s">&#34;isAddress&#34;</span><span class="nt">&gt;&lt;/address2&gt;</span>
-        <span class="nt">&lt;postcode</span> <span class="na">maxSize=</span><span class="s">&#34;12&#34;</span> <span class="na">format=</span><span class="s">&#34;isPostCode&#34;</span><span class="nt">&gt;&lt;/postcode&gt;</span>
-        <span class="nt">&lt;city</span> <span class="na">required=</span><span class="s">&#34;true&#34;</span> <span class="na">maxSize=</span><span class="s">&#34;64&#34;</span> <span class="na">format=</span><span class="s">&#34;isCityName&#34;</span><span class="nt">&gt;&lt;/city&gt;</span>
-        <span class="nt">&lt;other</span> <span class="na">maxSize=</span><span class="s">&#34;300&#34;</span> <span class="na">format=</span><span class="s">&#34;isMessage&#34;</span><span class="nt">&gt;&lt;/other&gt;</span>
-        <span class="nt">&lt;phone</span> <span class="na">maxSize=</span><span class="s">&#34;32&#34;</span> <span class="na">format=</span><span class="s">&#34;isPhoneNumber&#34;</span><span class="nt">&gt;&lt;/phone&gt;</span>
-        <span class="nt">&lt;phone_mobile</span> <span class="na">maxSize=</span><span class="s">&#34;32&#34;</span> <span class="na">format=</span><span class="s">&#34;isPhoneNumber&#34;</span><span class="nt">&gt;&lt;/phone_mobile&gt;</span>
-        <span class="nt">&lt;dni</span> <span class="na">maxSize=</span><span class="s">&#34;16&#34;</span> <span class="na">format=</span><span class="s">&#34;isDniLite&#34;</span><span class="nt">&gt;&lt;/dni&gt;</span>
-        <span class="nt">&lt;deleted</span> <span class="na">format=</span><span class="s">&#34;isBool&#34;</span><span class="nt">&gt;&lt;/deleted&gt;</span>
-        <span class="nt">&lt;date_add</span> <span class="na">format=</span><span class="s">&#34;isDate&#34;</span><span class="nt">&gt;&lt;/date_add&gt;</span>
-        <span class="nt">&lt;date_upd</span> <span class="na">format=</span><span class="s">&#34;isDate&#34;</span><span class="nt">&gt;&lt;/date_upd&gt;</span>
-    <span class="nt">&lt;/address&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;address&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_customer</span> <span class="na">format=</span><span class="s">&#34;isNullOrUnsignedId&#34;</span><span class="nt">&gt;&lt;/id_customer&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_manufacturer</span> <span class="na">format=</span><span class="s">&#34;isNullOrUnsignedId&#34;</span><span class="nt">&gt;&lt;/id_manufacturer&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_supplier</span> <span class="na">format=</span><span class="s">&#34;isNullOrUnsignedId&#34;</span><span class="nt">&gt;&lt;/id_supplier&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_warehouse</span> <span class="na">format=</span><span class="s">&#34;isNullOrUnsignedId&#34;</span><span class="nt">&gt;&lt;/id_warehouse&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_country</span> <span class="na">required=</span><span class="s">&#34;true&#34;</span> <span class="na">format=</span><span class="s">&#34;isUnsignedId&#34;</span><span class="nt">&gt;&lt;/id_country&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_state</span> <span class="na">format=</span><span class="s">&#34;isNullOrUnsignedId&#34;</span><span class="nt">&gt;&lt;/id_state&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;alias</span> <span class="na">required=</span><span class="s">&#34;true&#34;</span> <span class="na">maxSize=</span><span class="s">&#34;32&#34;</span> <span class="na">format=</span><span class="s">&#34;isGenericName&#34;</span><span class="nt">&gt;&lt;/alias&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;company</span> <span class="na">maxSize=</span><span class="s">&#34;255&#34;</span> <span class="na">format=</span><span class="s">&#34;isGenericName&#34;</span><span class="nt">&gt;&lt;/company&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;lastname</span> <span class="na">required=</span><span class="s">&#34;true&#34;</span> <span class="na">maxSize=</span><span class="s">&#34;255&#34;</span> <span class="na">format=</span><span class="s">&#34;isName&#34;</span><span class="nt">&gt;&lt;/lastname&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;firstname</span> <span class="na">required=</span><span class="s">&#34;true&#34;</span> <span class="na">maxSize=</span><span class="s">&#34;255&#34;</span> <span class="na">format=</span><span class="s">&#34;isName&#34;</span><span class="nt">&gt;&lt;/firstname&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;vat_number</span> <span class="na">format=</span><span class="s">&#34;isGenericName&#34;</span><span class="nt">&gt;&lt;/vat_number&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;address1</span> <span class="na">required=</span><span class="s">&#34;true&#34;</span> <span class="na">maxSize=</span><span class="s">&#34;128&#34;</span> <span class="na">format=</span><span class="s">&#34;isAddress&#34;</span><span class="nt">&gt;&lt;/address1&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;address2</span> <span class="na">maxSize=</span><span class="s">&#34;128&#34;</span> <span class="na">format=</span><span class="s">&#34;isAddress&#34;</span><span class="nt">&gt;&lt;/address2&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;postcode</span> <span class="na">maxSize=</span><span class="s">&#34;12&#34;</span> <span class="na">format=</span><span class="s">&#34;isPostCode&#34;</span><span class="nt">&gt;&lt;/postcode&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;city</span> <span class="na">required=</span><span class="s">&#34;true&#34;</span> <span class="na">maxSize=</span><span class="s">&#34;64&#34;</span> <span class="na">format=</span><span class="s">&#34;isCityName&#34;</span><span class="nt">&gt;&lt;/city&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;other</span> <span class="na">maxSize=</span><span class="s">&#34;300&#34;</span> <span class="na">format=</span><span class="s">&#34;isMessage&#34;</span><span class="nt">&gt;&lt;/other&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;phone</span> <span class="na">maxSize=</span><span class="s">&#34;32&#34;</span> <span class="na">format=</span><span class="s">&#34;isPhoneNumber&#34;</span><span class="nt">&gt;&lt;/phone&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;phone_mobile</span> <span class="na">maxSize=</span><span class="s">&#34;32&#34;</span> <span class="na">format=</span><span class="s">&#34;isPhoneNumber&#34;</span><span class="nt">&gt;&lt;/phone_mobile&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;dni</span> <span class="na">maxSize=</span><span class="s">&#34;16&#34;</span> <span class="na">format=</span><span class="s">&#34;isDniLite&#34;</span><span class="nt">&gt;&lt;/dni&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;deleted</span> <span class="na">format=</span><span class="s">&#34;isBool&#34;</span><span class="nt">&gt;&lt;/deleted&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;date_add</span> <span class="na">format=</span><span class="s">&#34;isDate&#34;</span><span class="nt">&gt;&lt;/date_add&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;date_upd</span> <span class="na">format=</span><span class="s">&#34;isDate&#34;</span><span class="nt">&gt;&lt;/date_upd&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/address&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <h2 id="json-format">JSON format<a href="#json-format"></a></h2><p>The Webservices can also output JSON instead of XML. To enable JSON output you have two choices:</p>
 
 <h3 id="query-parameter">Query parameter<a href="#query-parameter"></a></h3><p>Add one of the following parameters to your query string:</p>
@@ -30411,19 +30411,19 @@
 <li><code>io_format=JSON</code></li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">https://UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX@example.com/api/?output_format=JSON
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">https://UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX@example.com/api/?output_format=JSON
+</span></span></code></pre></div>
 <h3 id="http-header">HTTP header<a href="#http-header"></a></h3><p>Add the one of the following headers to your HTTP request:</p>
 <ul>
 <li><code>Io-Format: JSON</code></li>
 <li><code>Output-Format: JSON</code></li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-http" data-lang="http"><span class="nf">GET</span> <span class="nn">/api/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="n">Host</span><span class="o">:</span> <span class="l">example.com</span>
-<span class="n">Output-Format</span><span class="o">:</span> <span class="l">JSON</span>
-<span class="n">Authorization</span><span class="o">:</span> <span class="l">Basic UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-http" data-lang="http"><span class="line"><span class="cl"><span class="nf">GET</span> <span class="nn">/api/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span></span><span class="line"><span class="cl"><span class="n">Host</span><span class="o">:</span> <span class="l">example.com</span>
+</span></span><span class="line"><span class="cl"><span class="n">Output-Format</span><span class="o">:</span> <span class="l">JSON</span>
+</span></span><span class="line"><span class="cl"><span class="n">Authorization</span><span class="o">:</span> <span class="l">Basic UCCLLQ9N2ARSHWCXLT74KUKSSK34BFKX</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30501,17 +30501,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163899"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163899"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163899"></script>
-    <script src="/js/jquery.sticky.js?1703163899"></script>
-    <script src="/js/featherlight.min.js?1703163899"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163899"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163899"></script>
-    <script src="/js/learn.js?1703163899"></script>
-    <script src="/js/hugo-learn.js?1703163899"></script>
+    <script src="/js/clipboard.min.js?1703164725"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164725"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164725"></script>
+    <script src="/js/jquery.sticky.js?1703164725"></script>
+    <script src="/js/featherlight.min.js?1703164725"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164725"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164725"></script>
+    <script src="/js/learn.js?1703164725"></script>
+    <script src="/js/hugo-learn.js?1703164725"></script>
     
-    <script src="/main.js?1703163899"></script>
+    <script src="/main.js?1703164725"></script>
     
     
     

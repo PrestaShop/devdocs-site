@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Database structure :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/database/structure/">
     
-    <link href="/css/font-awesome.min.css?1703163891" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163891" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163891" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163891" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164719" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164719" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164719" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164719" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163891" rel="stylesheet">
+    <link href="/style.css?1703164719" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163891"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164719"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30288,11 +30288,11 @@ file will be stored in the folder <code>/install/upgrade/sql/</code>.</p>
 <p>Its name is the PS version on which the change will be applied.</p>
 <p>For instance, here is the file <em><a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/install-dev/upgrade/sql/1.7.8.0.sql">1.7.8.0.sql</a></em>,
 used by shops upgrading to 1.7.8.0 or later:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="p">[...]</span><span class="w">
-</span><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_product</span><span class="o">`</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">`</span><span class="n">product_type</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;virtual&#34;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">is_virtual</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="cm">/* PHP:ps_1780_add_feature_flag_tab(); */</span><span class="p">;</span><span class="w">
-</span></code></pre></div><p>In there we can read the SQL queries to execute when upgrading to 1.7.8.0.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="p">[...]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">UPDATE</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_product</span><span class="o">`</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="o">`</span><span class="n">product_type</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&#34;virtual&#34;</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">is_virtual</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/* PHP:ps_1780_add_feature_flag_tab(); */</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>In there we can read the SQL queries to execute when upgrading to 1.7.8.0.
 Each of them alters the structure and/or modify the existing data.
 In case you have complex algorithms to run, you can call PHP code with the
 <code>PHP:</code> keyword.</p>
@@ -30300,13 +30300,13 @@ In case you have complex algorithms to run, you can call PHP code with the
 <code>/install/upgrade/php/</code> with a function in it. This file and function must have
 the same name as we saw in the SQL upgrade file.</p>
 <p>If we reuse the previous example, we will find the corresponding file <em><a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/install-dev/upgrade/php/ps_1780_add_feature_flag_tab.php">/install/upgrade/php/ps_1780_add_feature_flag_tab.php</a></em>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">function</span> <span class="nf">ps_1780_add_feature_flag_tab</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="c1">// Code inserting values in database
-</span><span class="c1"></span>  <span class="p">[</span><span class="o">...</span><span class="p">]</span>
-<span class="p">}</span>
-</code></pre></div><p>PrestaShop does not expect these functions to return anything. It will always
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">function</span> <span class="nf">ps_1780_add_feature_flag_tab</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Code inserting values in database
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>PrestaShop does not expect these functions to return anything. It will always
 consider it was run without failure.</p>
 
 <h3 id="applying-changes">Applying changes<a href="#applying-changes"></a></h3><p>Applying the changes on your database can be done:</p>
@@ -30320,8 +30320,8 @@ fitting between the configuration property <code>PS_VERSION_DB</code> and the co
 <code>_PS_INSTALL_VERSION_</code> defined in <code>install/install_version.php</code>.</p>
 <p>In the top of this page, we talked about entities being managed only by
 Doctrine. Applying the changes on the database is done with the following command:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">php bin/console prestashop:schema:update-without-foreign
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">php bin/console prestashop:schema:update-without-foreign
+</span></span></code></pre></div>
 <div class="notices note" >Use <code>php app/console</code> instead of <code>php bin/console</code> for versions prior to
 <span class="version-pill" title="New in PrestaShop 1.7.4">
 1.7.4
@@ -30405,17 +30405,17 @@ Doctrine. Applying the changes on the database is done with the following comman
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163892"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163892"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163892"></script>
-    <script src="/js/jquery.sticky.js?1703163892"></script>
-    <script src="/js/featherlight.min.js?1703163892"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163892"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163892"></script>
-    <script src="/js/learn.js?1703163892"></script>
-    <script src="/js/hugo-learn.js?1703163892"></script>
+    <script src="/js/clipboard.min.js?1703164719"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164719"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164719"></script>
+    <script src="/js/jquery.sticky.js?1703164719"></script>
+    <script src="/js/featherlight.min.js?1703164719"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164719"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164719"></script>
+    <script src="/js/learn.js?1703164719"></script>
+    <script src="/js/hugo-learn.js?1703164719"></script>
     
-    <script src="/main.js?1703163892"></script>
+    <script src="/main.js?1703164719"></script>
     
     
     

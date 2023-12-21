@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>KPI block in Admin pages :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163911" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163911" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163911" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163911" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164736" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164736" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164736" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164736" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163911" rel="stylesheet">
+    <link href="/style.css?1703164736" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163911"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164736"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33142,43 +33142,43 @@
 <li>
 <p>Define a KPI row factory service in <code>src/PrestaShopBundle/Resources/config/services/core/kpi.yml</code></p>
 <p>Example from translations page:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">prestashop.core.kpi_row.factory.translations_page</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShop\PrestaShop\Core\Kpi\Row\KpiRowFactory</span><span class="w">
-</span><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@prestashop.adapter.kpi.enabled_languages&#39;</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@prestashop.adapter.kpi.main_country&#39;</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@prestashop.adapter.kpi.translations&#39;</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">prestashop.core.kpi_row.factory.translations_page</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShop\PrestaShop\Core\Kpi\Row\KpiRowFactory</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.adapter.kpi.enabled_languages&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.adapter.kpi.main_country&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.adapter.kpi.translations&#39;</span><span class="w">
+</span></span></span></code></pre></div>
 <div class="notices note" >The KPI row factory accepts an unlimited number of arguments, each argument being a KPI that will be built into a KPI row.</div>
 
 </li>
 <li>
 <p>Build the KPI row in your controller&rsquo;s action and assign it to twig by returning it:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">showSettingsAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">// Create the KPI row factory service
-</span><span class="c1"></span>    <span class="nv">$kpiRowFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.kpi_row.factory.your_page&#39;</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="p">[</span>
-        <span class="c1">// Assign the built KPI row to the view
-</span><span class="c1"></span>        <span class="s1">&#39;kpiRow&#39;</span> <span class="o">=&gt;</span> <span class="nv">$kpiRowFactory</span><span class="o">-&gt;</span><span class="na">build</span><span class="p">(),</span>
-        <span class="o">...</span>
-    <span class="p">];</span>
-<span class="p">}</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">showSettingsAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Create the KPI row factory service
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$kpiRowFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.kpi_row.factory.your_page&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Assign the built KPI row to the view
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s1">&#39;kpiRow&#39;</span> <span class="o">=&gt;</span> <span class="nv">$kpiRowFactory</span><span class="o">-&gt;</span><span class="na">build</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
 <li>
 <p>The final step is to render the KPI row with Twig, using <code>renderKpiRow</code> method from <code>CommonController</code> and passing it to the previously assigned <code>kpiRow</code> variable:</p>
-<div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="c">{# This also works in Admin module controllers #}</span><span class="x">
-</span><span class="x"></span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">translations_kpis_row</span> <span class="cp">%}</span><span class="x">
-</span><span class="x">    &lt;div class=&#34;row&#34;&gt;
-</span><span class="x">        </span><span class="cp">{{</span> <span class="nv">render</span><span class="o">(</span><span class="nv">controller</span><span class="o">(</span>
-            <span class="s1">&#39;PrestaShopBundle:Admin\\Common:renderKpiRow&#39;</span><span class="o">,</span>
-            <span class="o">{</span> <span class="s1">&#39;kpiRow&#39;</span><span class="o">:</span> <span class="nv">kpiRow</span> <span class="o">}</span>
-        <span class="o">))</span> <span class="cp">}}</span><span class="x">
-</span><span class="x">    &lt;/div&gt;
-</span><span class="x"></span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x">
-</span></code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="c">{# This also works in Admin module controllers #}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">translations_kpis_row</span> <span class="cp">%}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;div class=&#34;row&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">        </span><span class="cp">{{</span> <span class="nv">render</span><span class="o">(</span><span class="nv">controller</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;PrestaShopBundle:Admin\\Common:renderKpiRow&#39;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">            <span class="o">{</span> <span class="s1">&#39;kpiRow&#39;</span><span class="o">:</span> <span class="nv">kpiRow</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">))</span> <span class="cp">}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;/div&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x">
+</span></span></span></code></pre></div></li>
 </ul>
 
 <h2 id="alter-an-existing-kpi-row">Alter an existing Kpi row<a href="#alter-an-existing-kpi-row"></a></h2>
@@ -33188,17 +33188,17 @@
 <p>A hook allows you to alter the list of an existing Kpi row of the Back Office.</p>
 <p>This hook is dynamic and is dispatched after the <em>Kpi row identifier</em>.</p>
 <p>For instance, with a Kpi row identified by &ldquo;foo&rdquo;:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// we are in a module
-</span><span class="c1"></span><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionFooKpiRowModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nx">var_dump</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;kpis&#39;</span><span class="p">]);</span> <span class="c1">// access the complete list
-</span><span class="c1"></span>
-    <span class="nx">unset</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;kpis&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// remove the first item
-</span><span class="c1"></span>
-    <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;kpis&#39;</span><span class="p">][]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YourOwnKpi</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// we are in a module
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionFooKpiRowModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">var_dump</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;kpis&#39;</span><span class="p">]);</span> <span class="c1">// access the complete list
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="nx">unset</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;kpis&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span> <span class="c1">// remove the first item
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;kpis&#39;</span><span class="p">][]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">YourOwnKpi</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33276,17 +33276,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163911"></script>
-    <script src="/js/jquery.sticky.js?1703163911"></script>
-    <script src="/js/featherlight.min.js?1703163911"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163911"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163911"></script>
-    <script src="/js/learn.js?1703163911"></script>
-    <script src="/js/hugo-learn.js?1703163911"></script>
+    <script src="/js/clipboard.min.js?1703164737"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164737"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164737"></script>
+    <script src="/js/jquery.sticky.js?1703164737"></script>
+    <script src="/js/featherlight.min.js?1703164737"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164737"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164737"></script>
+    <script src="/js/learn.js?1703164737"></script>
+    <script src="/js/hugo-learn.js?1703164737"></script>
     
-    <script src="/main.js?1703163911"></script>
+    <script src="/main.js?1703164737"></script>
     
     
     

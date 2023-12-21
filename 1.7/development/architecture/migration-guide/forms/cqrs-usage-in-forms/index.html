@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>CQRS usage in forms :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/architecture/migration-guide/forms/cqrs-usage-in-forms/">
     
-    <link href="/css/font-awesome.min.css?1703163888" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163888" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163888" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163888" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164716" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164716" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164716" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164716" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163888" rel="stylesheet">
+    <link href="/style.css?1703164716" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163888"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164716"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30324,168 +30324,168 @@
 <h2 id="usage-examples">Usage examples<a href="#usage-examples"></a></h2>
 <h3 id="using-commands">Using Commands<a href="#using-commands"></a></h3><p>In this example, we will be working with edition in a <em>Contact</em> CRUD Form.</p>
 <p>To get started, let&rsquo;s inject the <code>CommandBus</code> into our <a href="/1.7/development/architecture/migration-guide/forms/crud-forms/#form-data-handler">Form Data Handler</a>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_data_handler.yml</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">prestashop.core.form.identifiable_object.data_handler.contact_form_data_handler</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\ContactFormDataHandler&#39;</span><span class="w">
-</span><span class="w">  </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="s1">&#39;@prestashop.core.command_bus&#39;</span><span class="w">
-</span></code></pre></div><p>and in <code>ContactFormDataHandler</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\CommandBus\CommandBusInterface</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">ContactFormDataHandler</span> <span class="k">implements</span> <span class="nx">FormDataHandlerInterface</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var CommandBusInterface
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$commandBus</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param CommandBusInterface $commandBus
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CommandBusInterface</span> <span class="nv">$commandBus</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">commandBus</span> <span class="o">=</span> <span class="nv">$commandBus</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Right now the first step is completed – the Command Bus is injected in the Form Data Handler. Let&rsquo;s use it!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_data_handler.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">prestashop.core.form.identifiable_object.data_handler.contact_form_data_handler</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\ContactFormDataHandler&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s1">&#39;@prestashop.core.command_bus&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>and in <code>ContactFormDataHandler</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\CommandBus\CommandBusInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ContactFormDataHandler</span> <span class="k">implements</span> <span class="nx">FormDataHandlerInterface</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var CommandBusInterface
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$commandBus</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param CommandBusInterface $commandBus
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CommandBusInterface</span> <span class="nv">$commandBus</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">commandBus</span> <span class="o">=</span> <span class="nv">$commandBus</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Right now the first step is completed – the Command Bus is injected in the Form Data Handler. Let&rsquo;s use it!</p>
 <p>Instead of modifying the entity object directly in the <em>Form Data Handler&rsquo;s</em> <code>update()</code> method, we can delegate that task to a <code>Command</code>. All we have to do is create an instance of that command using the form&rsquo;s <code>$data</code> and then dispatch it using the <code>CommandBus</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\CommandBus\CommandBusInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Contact\Command\EditContactCommand</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Contact\Exception\ContactException</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Contact\ValueObject\ContactId</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">ContactFormDataHandler</span> <span class="k">implements</span> <span class="nx">FormDataHandlerInterface</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var CommandBusInterface
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$commandBus</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param CommandBusInterface $commandBus
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CommandBusInterface</span> <span class="nv">$commandBus</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">commandBus</span> <span class="o">=</span> <span class="nv">$commandBus</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     *
-</span><span class="sd">     * @throws ContactException
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">update</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$data</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$editContactCommand</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">EditContactCommand</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$id</span><span class="p">))</span>
-            <span class="o">-&gt;</span><span class="na">setLocalisedTitles</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">])</span>
-            <span class="o">-&gt;</span><span class="na">setEmail</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">])</span>
-            <span class="o">-&gt;</span><span class="na">setIsMessagesSavingEnabled</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;is_messages_saving_enabled&#39;</span><span class="p">])</span>
-            <span class="o">-&gt;</span><span class="na">setLocalisedDescription</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>
-            <span class="o">-&gt;</span><span class="na">setShopAssociation</span><span class="p">(</span><span class="nx">is_array</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;shop_association&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;shop_association&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="p">[])</span>
-        <span class="p">;</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">commandBus</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$editContactCommand</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>In the <code>update()</code> method, <code>EditContactCommand</code> is used to encapsulate the actual action of saving the form. After that, the Command Bus handles the given command (persisting the information).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\CommandBus\CommandBusInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Contact\Command\EditContactCommand</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Contact\Exception\ContactException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Contact\ValueObject\ContactId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ContactFormDataHandler</span> <span class="k">implements</span> <span class="nx">FormDataHandlerInterface</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var CommandBusInterface
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$commandBus</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param CommandBusInterface $commandBus
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CommandBusInterface</span> <span class="nv">$commandBus</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">commandBus</span> <span class="o">=</span> <span class="nv">$commandBus</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws ContactException
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">update</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$editContactCommand</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">EditContactCommand</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$id</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setLocalisedTitles</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setEmail</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;email&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setIsMessagesSavingEnabled</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;is_messages_saving_enabled&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setLocalisedDescription</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setShopAssociation</span><span class="p">(</span><span class="nx">is_array</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;shop_association&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;shop_association&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="p">[])</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">commandBus</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$editContactCommand</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>In the <code>update()</code> method, <code>EditContactCommand</code> is used to encapsulate the actual action of saving the form. After that, the Command Bus handles the given command (persisting the information).</p>
 
 <h4 id="retrieving-the-created-object-id">Retrieving the created object ID<a href="#retrieving-the-created-object-id"></a></h4><p>As a general rule, Commands Handlers return nothing. However, when creating a new object, the created object ID is usually determined by the database engine. How do we handle that?</p>
 <p>In this specific case, we allow Command Handlers to return the id of the newly created object after it&rsquo;s inserted into the database:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nv">$addContactCommand</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AddContactCommand</span><span class="p">(</span>
-        <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">],</span>
-        <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;is_messages_saving_enabled&#39;</span><span class="p">]</span>
-    <span class="p">);</span>
-    
-    <span class="nv">$contactId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">commandBus</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$addContactCommand</span><span class="p">);</span>
-    
-    <span class="k">return</span> <span class="nv">$contactId</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div><p>In this example, the Command Handler for <code>AddContactCommand</code> returns a <code>ContactId</code> value object that contains the contact ID.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$addContactCommand</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AddContactCommand</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;is_messages_saving_enabled&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nv">$contactId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">commandBus</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$addContactCommand</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$contactId</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>In this example, the Command Handler for <code>AddContactCommand</code> returns a <code>ContactId</code> value object that contains the contact ID.</p>
 
 <h3 id="using-queries">Using Queries<a href="#using-queries"></a></h3><p>In this example, we will be working with edition in a <em>Contact</em> CRUD Form.</p>
 <p>First, let&rsquo;s inject <code>QueryBus</code> instance into the <a href="/1.7/development/architecture/migration-guide/forms/crud-forms/#form-data-provider">Form Data Provider</a>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_data_provider.yml</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">prestashop.core.form.identifiable_object.data_provider.contact_form_data_provider</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\ContactFormDataProvider&#39;</span><span class="w">
-</span><span class="w">  </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="s1">&#39;@prestashop.core.query_bus&#39;</span><span class="w">
-</span></code></pre></div><p>and in <code>ContactFormDataProvider</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\CommandBus\CommandBusInterface</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">ContactFormDataProvider</span> <span class="k">implements</span> <span class="nx">FormDataProviderInterface</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var CommandBusInterface
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$queryBus</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param CommandBusInterface $queryBus
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CommandBusInterface</span> <span class="nv">$queryBus</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">queryBus</span> <span class="o">=</span> <span class="nv">$queryBus</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>The first step is completed – the Query Bus is injected in the Form Data Provider. Let&rsquo;s use it!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_data_provider.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">prestashop.core.form.identifiable_object.data_provider.contact_form_data_provider</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\ContactFormDataProvider&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s1">&#39;@prestashop.core.query_bus&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>and in <code>ContactFormDataProvider</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\CommandBus\CommandBusInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ContactFormDataProvider</span> <span class="k">implements</span> <span class="nx">FormDataProviderInterface</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var CommandBusInterface
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$queryBus</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param CommandBusInterface $queryBus
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CommandBusInterface</span> <span class="nv">$queryBus</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">queryBus</span> <span class="o">=</span> <span class="nv">$queryBus</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The first step is completed – the Query Bus is injected in the Form Data Provider. Let&rsquo;s use it!</p>
 <p>Instead of retrieving the data using an SQL query or retrieving the entity data using <code>ObjectModel</code> directly in the <em>Form Data Provider</em>&rsquo;s <code>getData()</code> method, we can delegate that task to a <code>Query</code>. All that we have to do is create an instance of the Query using provided <code>$id</code> and dispatch it using the <code>QueryBus</code>. The appropriate Handler will take care of retrieving the information we need and returning it in a structured form.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\CommandBus\CommandBusInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Contact\DTO\EditableContact</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Contact\Exception\ContactException</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Contact\Query\GetContactForEditing</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">ContactFormDataProvider</span> <span class="k">implements</span> <span class="nx">FormDataProviderInterface</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var CommandBusInterface
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$queryBus</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param CommandBusInterface $queryBus
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CommandBusInterface</span> <span class="nv">$queryBus</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">queryBus</span> <span class="o">=</span> <span class="nv">$queryBus</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     *
-</span><span class="sd">     * @throws ContactException
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getData</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="sd">/** @var EditableContact $editableContact */</span>
-        <span class="nv">$editableContact</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">queryBus</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="k">new</span> <span class="nx">GetContactForEditing</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">));</span>
-
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$editableContact</span><span class="o">-&gt;</span><span class="na">getLocalisedTitles</span><span class="p">(),</span>
-            <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="nv">$editableContact</span><span class="o">-&gt;</span><span class="na">getEmail</span><span class="p">(),</span>
-            <span class="s1">&#39;is_messages_saving_enabled&#39;</span> <span class="o">=&gt;</span> <span class="nv">$editableContact</span><span class="o">-&gt;</span><span class="na">isMessagesSavingEnabled</span><span class="p">(),</span>
-            <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$editableContact</span><span class="o">-&gt;</span><span class="na">getLocalisedDescription</span><span class="p">(),</span>
-            <span class="s1">&#39;shop_association&#39;</span> <span class="o">=&gt;</span> <span class="nv">$editableContact</span><span class="o">-&gt;</span><span class="na">getShopAssociation</span><span class="p">(),</span>
-        <span class="p">];</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>In the example above, the Handle to the <code>GetContactForEditing</code> query returns an instance of <code>EditableContact</code>, which is an immutable Data Transfer Object (DTO) containing all the information we need.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\CommandBus\CommandBusInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Contact\DTO\EditableContact</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Contact\Exception\ContactException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Contact\Query\GetContactForEditing</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ContactFormDataProvider</span> <span class="k">implements</span> <span class="nx">FormDataProviderInterface</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var CommandBusInterface
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$queryBus</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param CommandBusInterface $queryBus
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CommandBusInterface</span> <span class="nv">$queryBus</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">queryBus</span> <span class="o">=</span> <span class="nv">$queryBus</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws ContactException
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getData</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var EditableContact $editableContact */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$editableContact</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">queryBus</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="k">new</span> <span class="nx">GetContactForEditing</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$editableContact</span><span class="o">-&gt;</span><span class="na">getLocalisedTitles</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;email&#39;</span> <span class="o">=&gt;</span> <span class="nv">$editableContact</span><span class="o">-&gt;</span><span class="na">getEmail</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;is_messages_saving_enabled&#39;</span> <span class="o">=&gt;</span> <span class="nv">$editableContact</span><span class="o">-&gt;</span><span class="na">isMessagesSavingEnabled</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$editableContact</span><span class="o">-&gt;</span><span class="na">getLocalisedDescription</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;shop_association&#39;</span> <span class="o">=&gt;</span> <span class="nv">$editableContact</span><span class="o">-&gt;</span><span class="na">getShopAssociation</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>In the example above, the Handle to the <code>GetContactForEditing</code> query returns an instance of <code>EditableContact</code>, which is an immutable Data Transfer Object (DTO) containing all the information we need.</p>
 
 
 <footer class="article-footer">
@@ -30564,17 +30564,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163889"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163889"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163889"></script>
-    <script src="/js/jquery.sticky.js?1703163889"></script>
-    <script src="/js/featherlight.min.js?1703163889"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163889"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163889"></script>
-    <script src="/js/learn.js?1703163889"></script>
-    <script src="/js/hugo-learn.js?1703163889"></script>
+    <script src="/js/clipboard.min.js?1703164716"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164716"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164716"></script>
+    <script src="/js/jquery.sticky.js?1703164716"></script>
+    <script src="/js/featherlight.min.js?1703164716"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164716"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164716"></script>
+    <script src="/js/learn.js?1703164716"></script>
+    <script src="/js/hugo-learn.js?1703164716"></script>
     
-    <script src="/main.js?1703163889"></script>
+    <script src="/main.js?1703164716"></script>
     
     
     

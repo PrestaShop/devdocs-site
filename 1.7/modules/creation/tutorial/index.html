@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Tutorial: Creating your first module :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/creation/tutorial/">
     
-    <link href="/css/font-awesome.min.css?1703163894" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163894" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163894" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163894" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164721" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164721" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164721" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164721" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163894" rel="stylesheet">
+    <link href="/style.css?1703164721" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163894"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164721"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30280,11 +30280,11 @@
 <p>That is enough for a very basic module. Obviously, more files and folders can be added later, if needed.</p>
 
 <h2 id="the-constant-test">The constant test<a href="#the-constant-test"></a></h2><p>The main mymodule.php file must start with the following test:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">exit</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>This checks for the presence of an always-existing PrestaShop constant (its version number), and if it does not exist, it stops the module from loading. The sole purpose of this is to prevent malicious visitors to load this file directly.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This checks for the presence of an always-existing PrestaShop constant (its version number), and if it does not exist, it stops the module from loading. The sole purpose of this is to prevent malicious visitors to load this file directly.</p>
 <p>Note that, as required by PrestaShop&rsquo;s Coding Standards (see above), we do not use a closing PHP tag.</p>
 
 <h2 id="the-main-class">The main class<a href="#the-main-class"></a></h2><p>The main file must contain the module&rsquo;s main class.</p>
@@ -30292,56 +30292,56 @@
 <div class="notices tip" >If you need to add more classes later, we suggest writing one single class per file.</div>
 
 <p>That main class must bear the same name as the module and its folder, in <a href="https://en.wikipedia.org/wiki/CamelCase">CamelCase</a>. In our example: <code>MyModule</code>. Furthermore, that class must extend the <code>Module</code> class, in order to inherit all its methods and attributes.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">exit</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">class</span> <span class="nc">MyModule</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-<span class="p">}</span>
-</code></pre></div><p>It can just as well extend any class derived from Module, for specific needs: <code>PaymentModule</code>, <code>ModuleGridEngine</code>, <code>ModuleGraph</code>, etc.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyModule</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>It can just as well extend any class derived from Module, for specific needs: <code>PaymentModule</code>, <code>ModuleGridEngine</code>, <code>ModuleGraph</code>, etc.</p>
 <p>At this stage, if you place the module&rsquo;s folder on the <code>/modules</code> folder, the module can already be seen in the &ldquo;Module Catalog&rdquo; page in the back office, in the &ldquo;Other modules&rdquo; section – albeit with no real name nor thumbnail.</p>
 
 <h2 id="the-constructor-method">The constructor method<a href="#the-constructor-method"></a></h2><p>Now, let&rsquo;s create the constructor method of the module. Since the constructor is the first method to be called when the module is loaded by PrestaShop, this is the best place to set its details.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">exit</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">class</span> <span class="nc">MyModule</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;mymodule&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tab</span> <span class="o">=</span> <span class="s1">&#39;front_office_features&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="s1">&#39;Firstname Lastname&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">need_instance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ps_versions_compliancy</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.6.0&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7.9&#39;</span><span class="p">,</span>
-        <span class="p">];</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bootstrap</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
-
-        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">);</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">confirmUninstall</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Are you sure you want to uninstall?&#39;</span><span class="p">);</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">))</span> <span class="p">{</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">warning</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;No name provided&#39;</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s examine each line:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;mymodule&#39;</span><span class="p">;</span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tab</span> <span class="o">=</span> <span class="s1">&#39;front_office_features&#39;</span><span class="p">;</span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0&#39;</span><span class="p">;</span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="s1">&#39;Firstname Lastname&#39;</span><span class="p">;</span>
-</code></pre></div><p>This section assigns a handful of attributes to the class instance (<code>$this</code>):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyModule</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;mymodule&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tab</span> <span class="o">=</span> <span class="s1">&#39;front_office_features&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="s1">&#39;Firstname Lastname&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">need_instance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ps_versions_compliancy</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.6.0&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7.9&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bootstrap</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">confirmUninstall</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Are you sure you want to uninstall?&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">warning</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;No name provided&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Let&rsquo;s examine each line:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;mymodule&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tab</span> <span class="o">=</span> <span class="s1">&#39;front_office_features&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="s1">&#39;Firstname Lastname&#39;</span><span class="p">;</span>
+</span></span></code></pre></div><p>This section assigns a handful of attributes to the class instance (<code>$this</code>):</p>
 <ul>
 <li>The <code>name</code> attribute serves as an internal identifier (technical name). The value MUST be the same as the module&rsquo;s folder and main class file. Only lower case letters and numbers are accepted.</li>
 <li>The <code>tab</code> attribute contains the section that shall contain this module in the Module Manager section in the Back office (see <a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/module-class/#tab">list of available sections</a>). We choose <code>front_office_features</code> because our module will mostly have an impact on the front-end.</li>
@@ -30349,32 +30349,32 @@
 <li>The <code>author</code> attribute, as you can imagine contains the author&rsquo;s name. It is displayed as-is in the PrestaShop modules list.</li>
 </ul>
 <p>Let&rsquo;s continue with the next line in this block of code:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">need_instance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ps_versions_compliancy</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.6.0&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7.9&#39;</span>
-<span class="p">];</span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bootstrap</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
-</code></pre></div><p>This section handles the relationship with the module and its environment (namely, PrestaShop):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">need_instance</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ps_versions_compliancy</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.6.0&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7.9&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">bootstrap</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span></code></pre></div><p>This section handles the relationship with the module and its environment (namely, PrestaShop):</p>
 <ul>
 <li>The <code>need_instance</code> attribute Indicates whether to load the module&rsquo;s class when displaying the &ldquo;Modules&rdquo; page in the back office. If set at 0, the module will not be loaded, and therefore will spend less resources to generate the &ldquo;Modules&rdquo; page. If your module needs to display a warning message in the &ldquo;Modules&rdquo; page, then you must set this attribute to <code>1</code>.</li>
 <li>The <code>ps_versions_compliancy</code> attribute indicates which version of PrestaShop this module is compatible with. In the example above, we are defining the compatibility range between <code>1.6.0.0</code> and <code>1.7.9.99</code>.</li>
 <li>The <code>bootstrap</code> attribute indicates that the module&rsquo;s template files have been built with PrestaShop&rsquo;s bootstrap tools in mind.</li>
 </ul>
 <p>Next, we call the constructor method from the parent PHP class:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
-</code></pre></div><p>This will trigger a lot of actions from PrestaShop that you do not need to know about at this point.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
+</span></span></code></pre></div><p>This will trigger a lot of actions from PrestaShop that you do not need to know about at this point.</p>
 <p>This method call must be placed after the definition of <code>$this-&gt;name</code> variable and before any use of translation.</p>
 <p>The next section deals with text strings, which are encapsulated in PrestaShop&rsquo;s translation method, <code>l()</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">);</span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">);</span>
-
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">confirmUninstall</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Are you sure you want to uninstall?&#39;</span><span class="p">);</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">))</span> <span class="p">{</span>
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">warning</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;No name provided.&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>These lines respectively assign:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">confirmUninstall</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Are you sure you want to uninstall?&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">warning</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;No name provided.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>These lines respectively assign:</p>
 <ul>
 <li>A name for the module, which will be displayed in the back office&rsquo;s modules list.</li>
 <li>A description for the module, which will be displayed in the back office&rsquo;s modules list.</li>
@@ -30386,14 +30386,14 @@
 <p>You can install the module, but it does not do anything yet.</p>
 
 <h2 id="building-the-install-and-uninstall-methods">Building the install() and uninstall() methods<a href="#building-the-install-and-uninstall-methods"></a></h2><p>Some modules have more needs than just using PrestaShop&rsquo;s features in special ways. Your module might need to perform actions on installation, such as checking PrestaShop&rsquo;s settings or to registering its own settings in the database. Likewise, if you changed things in the database on installation, it is highly recommended to change them back (or remove them) when uninstalling the module.</p>
-<p>The <code>install()</code> and <code>uninstall()</code> methods make it possible to control what happens when the store administrator installs or uninstalls the module. They must be included in the main class' block of code (in our example, the <code>MyModule</code> class) – at the same level as the constructor method.</p>
+<p>The <code>install()</code> and <code>uninstall()</code> methods make it possible to control what happens when the store administrator installs or uninstalls the module. They must be included in the main class&rsquo; block of code (in our example, the <code>MyModule</code> class) – at the same level as the constructor method.</p>
 
 <h3 id="the-install-method">The install() method<a href="#the-install-method"></a></h3><p>Here is the bare minimum for the <code>install()</code> method:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div><p>In this first and extremely simplistic incarnation, this method does the minimum needed: return what&rsquo;s returned by the Module class' <code>install()</code> method, which returns either <code>true</code> if the module is correctly installed, or <code>false</code> otherwise. As it is, if we had not created that method, the superclass' method would have been called instead anyway, making the end result identical. Nevertheless, we must mention this method, because it will be very useful once we have to perform checks and actions during the module&rsquo;s installation process: creating SQL tables, copying files, creating configuration variables, etc.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>In this first and extremely simplistic incarnation, this method does the minimum needed: return what&rsquo;s returned by the Module class&rsquo; <code>install()</code> method, which returns either <code>true</code> if the module is correctly installed, or <code>false</code> otherwise. As it is, if we had not created that method, the superclass&rsquo; method would have been called instead anyway, making the end result identical. Nevertheless, we must mention this method, because it will be very useful once we have to perform checks and actions during the module&rsquo;s installation process: creating SQL tables, copying files, creating configuration variables, etc.</p>
 <p>There are many things you can do to expand the <code>install()</code> method to perform installation checks. In the following example, we perform the following tasks during installation:</p>
 <ul>
 <li>Check that the <a href="https://devdocs.prestashop-project.org/1.7/development/multistore/">Multistore feature</a> is enabled, and if so, set the current context to all shops on this installation of PrestaShop.</li>
@@ -30402,35 +30402,35 @@
 <li>Ensure that the module can be attached to the <code>displayHeader</code> hook.</li>
 <li>Ensure the value of the <code>MYMODULE_NAME</code> configuration setting can be set to &ldquo;my friend&rdquo;.</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">isFeatureActive</span><span class="p">())</span> <span class="p">{</span>
-        <span class="nx">Shop</span><span class="o">::</span><span class="na">setContext</span><span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_ALL</span><span class="p">);</span>
-    <span class="p">}</span>
-
-   <span class="k">return</span> <span class="p">(</span>
-        <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> 
-        <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;displayLeftColumn&#39;</span><span class="p">)</span>
-        <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;displayHeader&#39;</span><span class="p">)</span>
-        <span class="o">&amp;&amp;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;my friend&#39;</span><span class="p">)</span>
-    <span class="p">);</span> 
-<span class="p">}</span>
-</code></pre></div><p>If any of the lines in the testing block fails, the method returns <code>false</code> and the installation is aborted.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">isFeatureActive</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Shop</span><span class="o">::</span><span class="na">setContext</span><span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_ALL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;displayLeftColumn&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;displayHeader&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">&amp;&amp;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">,</span> <span class="s1">&#39;my friend&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>If any of the lines in the testing block fails, the method returns <code>false</code> and the installation is aborted.</p>
 
 <h3 id="the-uninstall-method">The uninstall() method<a href="#the-uninstall-method"></a></h3><p>The <code>uninstall()</code> method follow the same logic as <code>install()</code>. Here is the bare minimum implementation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div><p>Building on this foundation, we want an <code>uninstall()</code> method that would delete the data added to the database during the installation (<code>MYMODULE_NAME</code> configuration setting). This method would look like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="p">(</span>
-        <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">()</span> 
-        <span class="o">&amp;&amp;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">deleteByName</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">)</span>
-    <span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Building on this foundation, we want an <code>uninstall()</code> method that would delete the data added to the database during the installation (<code>MYMODULE_NAME</code> configuration setting). This method would look like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">&amp;&amp;</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">deleteByName</span><span class="p">(</span><span class="s1">&#39;MYMODULE_NAME&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="the-configuration-object">The Configuration object<a href="#the-configuration-object"></a></h2><p>As you can see, our three blocks of code (<code>__construct()</code>, <code>install()</code> and <code>uninstall()</code>) all make use of a new object, <code>Configuration</code>.</p>
 <p>This is a PrestaShop-specific object that allows to easily manage all the shop&rsquo;s settings. It stores its data on the <code>ps_configuration</code> database table.</p>
 <p>This is a very useful and easy-to-use object, and you will certainly use it in many situations. Most native modules use it too for their own settings.</p>
@@ -30439,10 +30439,10 @@
 
 
 <h2 id="the-shop-object">The Shop object<a href="#the-shop-object"></a></h2><p>The <code>install()</code> method also references this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">isFeatureActive</span><span class="p">())</span> <span class="p">{</span>
-    <span class="nx">Shop</span><span class="o">::</span><span class="na">setContext</span><span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_ALL</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>As said earlier, here we check if the Multistore feature is enabled, and if so, set the current execution context to &ldquo;all shops&rdquo;.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">isFeatureActive</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Shop</span><span class="o">::</span><span class="na">setContext</span><span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_ALL</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>As said earlier, here we check if the Multistore feature is enabled, and if so, set the current execution context to &ldquo;all shops&rdquo;.</p>
 <p>The Shop object helps you work with multistore. We will not dive in the specifics here, but will simply present the two methods that are used in this sample code:</p>
 <ul>
 <li><code>Shop::isFeatureActive()</code>: This simply checks whether the multistore feature is active or not, and if at least two stores are presently activated.</li>
@@ -30462,8 +30462,7 @@
 <ul>
 <li><a href="https://www.fatcow.com/free-icons">Facow&rsquo;s Farm Fresh Web Icons</a></li>
 <li><a href="https://iconarchive.com/show/danish-royalty-free-icons-by-jonas-rask.html">Danish Royalty Free</a></li>
-</ul>
-</div>
+</ul></div>
 
 
 <h2 id="installing-the-module">Installing the module<a href="#installing-the-module"></a></h2><p>You have two options to install a module: from the back office interface or using the Symfony Console component (CLI-base installation)</p>
@@ -30471,25 +30470,25 @@
 <h3 id="install-module-from-the-back-office-interface">Install module from the back office interface<a href="#install-module-from-the-back-office-interface"></a></h3><p>Now that all basics are in place, reload the back office&rsquo;s &ldquo;Module Catalog&rdquo; page, in the &ldquo;Front office features&rdquo; section, you should find your module. Install it (or reset it if it is already installed).</p>
 
 <h3 id="install-module-from-cli-using-the-symfony-console-component">Install module from CLI using the Symfony Console component<a href="#install-module-from-cli-using-the-symfony-console-component"></a></h3><p>Access your project&rsquo;s directory with a CLI, and run:</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">php bin/console prestashop:module install mymodule
-</code></pre></div><p>Where <code>mymodule</code> is your module&rsquo;s name.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">php bin/console prestashop:module install mymodule
+</span></span></code></pre></div><p>Where <code>mymodule</code> is your module&rsquo;s name.</p>
 <p>To uninstall the module, run the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">php bin/console prestashop:module uninstall mymodule
-</code></pre></div><p>For more informations, please read <a href="https://devdocs.prestashop-project.org/1.7/development/components/console/prestashop-module/">the reference of the ModuleCommand</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">php bin/console prestashop:module uninstall mymodule
+</span></span></code></pre></div><p>For more informations, please read <a href="https://devdocs.prestashop-project.org/1.7/development/components/console/prestashop-module/">the reference of the ModuleCommand</a></p>
 
 <h3 id="the-configxml-file">The config.xml file<a href="#the-configxml-file"></a></h3><p>During the module&rsquo;s installation, PrestaShop automatically creates a small <code>config.xml</code> file in the module&rsquo;s folder, which stores the module&rsquo;s information. You should be very careful when editing this file by hand.</p>
 
 <h2 id="keeping-things-secure">Keeping things secure<a href="#keeping-things-secure"></a></h2><p>Once your module is online, its files could be accessed by anyone from the Internet. Even if they cannot trigger anything but PHP errors, you might want to prevent this from happening.</p>
 <p>You can achieve this by adding an <code>index.php</code> file at the root of any module folder you create. Here is a suggestion for what to put in the file.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Expires: Mon, 26 Jul 1997 05:00:00 GMT&#39;</span><span class="p">);</span>
-<span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Last-Modified: &#39;</span> <span class="o">.</span> <span class="nx">gmdate</span><span class="p">(</span><span class="s1">&#39;D, d M Y H:i:s&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39; GMT&#39;</span><span class="p">);</span>
-<span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Cache-Control: no-store, no-cache, must-revalidate&#39;</span><span class="p">);</span>
-<span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Cache-Control: post-check=0, pre-check=0&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
-<span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Pragma: no-cache&#39;</span><span class="p">);</span>
-<span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Location: ../&#39;</span><span class="p">);</span>
-<span class="k">exit</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Expires: Mon, 26 Jul 1997 05:00:00 GMT&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Last-Modified: &#39;</span> <span class="o">.</span> <span class="nx">gmdate</span><span class="p">(</span><span class="s1">&#39;D, d M Y H:i:s&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39; GMT&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Cache-Control: no-store, no-cache, must-revalidate&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Cache-Control: post-check=0, pre-check=0&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Pragma: no-cache&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">header</span><span class="p">(</span><span class="s1">&#39;Location: ../&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">exit</span><span class="p">;</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30567,17 +30566,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163894"></script>
-    <script src="/js/jquery.sticky.js?1703163894"></script>
-    <script src="/js/featherlight.min.js?1703163894"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163894"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163894"></script>
-    <script src="/js/learn.js?1703163894"></script>
-    <script src="/js/hugo-learn.js?1703163894"></script>
+    <script src="/js/clipboard.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164721"></script>
+    <script src="/js/jquery.sticky.js?1703164721"></script>
+    <script src="/js/featherlight.min.js?1703164721"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164721"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164721"></script>
+    <script src="/js/learn.js?1703164721"></script>
+    <script src="/js/hugo-learn.js?1703164721"></script>
     
-    <script src="/main.js?1703163894"></script>
+    <script src="/main.js?1703164721"></script>
     
     
     

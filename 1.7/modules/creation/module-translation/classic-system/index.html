@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Classic translation system :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/creation/module-translation/classic-system/">
     
-    <link href="/css/font-awesome.min.css?1703163894" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163894" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163894" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163894" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164721" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164721" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164721" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164721" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163894" rel="stylesheet">
+    <link href="/style.css?1703164721" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163894"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164721"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30323,8 +30323,7 @@
 <ul>
 <li>If you plan on supporting only versions 1.7.6 and up, consider using the <a href="https://devdocs.prestashop-project.org/1.7/modules/creation/module-translation/new-system/">New translation system</a>.</li>
 <li>Modern (symfony-based) modules and native modules only support the new system.</li>
-</ul>
-</div>
+</ul></div>
 
 
 <h2 id="how-it-works">How it works<a href="#how-it-works"></a></h2><p>This system works in two steps.</p>
@@ -30360,43 +30359,43 @@
 <p>Now let&rsquo;s see some examples on how to use it.</p>
 
 <h4 id="modules-main-class">Module&rsquo;s main class<a href="#modules-main-class"></a></h4><p>When translating wordings in the module&rsquo;s main class, since it extends the <code>Module</code> class, you can simply call <code>$this-&gt;l()</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h4 id="module-controllers">Module controllers<a href="#module-controllers"></a></h4><p><code>ModuleAdminController</code> and <code>ModuleFrontController</code> can access the module instance via the <code>$this-&gt;module</code> property.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">MyModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">title</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My module title&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">title</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My module title&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h4 id="other-classes">Other classes<a href="#other-classes"></a></h4><p>Other classes will need to retrieve the module&rsquo;s instance somehow. We recommend passing it as a parameter in the constructor and storing it for later use.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">CustomModuleClass</span> 
-<span class="p">{</span>
-    <span class="k">private</span> <span class="nv">$module</span><span class="p">;</span>
-    
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span> <span class="o">=</span> <span class="nv">$module</span><span class="p">;</span>
-    <span class="p">}</span>
-    
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">text</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My text to translate&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>If you really need to, you can also retrieve a new instance of your module using <code>Module::getInstanceByName('mymodulename')</code>. This should be avoided though, as it&rsquo;s not a good practice.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CustomModuleClass</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$module</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span> <span class="o">=</span> <span class="nv">$module</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">text</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;My text to translate&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>If you really need to, you can also retrieve a new instance of your module using <code>Module::getInstanceByName('mymodulename')</code>. This should be avoided though, as it&rsquo;s not a good practice.</p>
 
 <h3 id="templates">Templates<a href="#templates"></a></h3><p>Wordings in Smarty .tpl files can be translated using the <code>{l}</code> function call, which Smarty will replace by the translation in the current language.</p>
 <p>This function accepts three parameters:</p>
@@ -30406,89 +30405,89 @@
 <li><code>sprintf</code> – Optional, it can be used to interpolate variables in your wording.</li>
 </ul>
 <p>For instance, translating the string &ldquo;Welcome to this page!&rdquo; can be done like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="nf">l</span> <span class="na">s</span><span class="o">=</span><span class="s1">&#39;Welcome to this page!&#39;</span> <span class="na">mod</span><span class="o">=</span><span class="s1">&#39;mymodule&#39;</span><span class="cp">}</span><span class="x">
-</span></code></pre></div><p>In our sample module, the <code>mymodule.tpl</code> file&hellip;</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{$base_dir}modules/mymodule/mymodule_page.php&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;Click this link&#34;</span><span class="p">&gt;</span>Click me!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-<span class="c">&lt;!-- Block mymodule --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;mymodule_block_left&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;block&#34;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Welcome!<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;block_content&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello,
-       {if isset($my_module_name) <span class="err">&amp;&amp;</span> $my_module_name}
-           {$my_module_name}
-       {else}
-           World
-       {/if}
-       !
-    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{$my_module_link}&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;Click this link&#34;</span><span class="p">&gt;</span>Click me!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="c">&lt;!-- /Block mymodule --&gt;</span>
-</code></pre></div><p>&hellip;becomes:</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{$base_dir}modules/mymodule/mymodule_page.php&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;{l s=&#39;Click this link&#39; mod=&#39;mymodule&#39;}&#34;</span><span class="p">&gt;</span>{l s=&#39;Click me!&#39; mod=&#39;mymodule&#39;}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-<span class="c">&lt;!-- Block mymodule --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;mymodule_block_left&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;block&#34;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>{l s=&#39;Welcome!&#39; mod=&#39;mymodule&#39;}<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;block_content&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{l s=&#39;Hello,&#39; mod=&#39;mymodule&#39;}
-       {if isset($my_module_name) <span class="err">&amp;&amp;</span> $my_module_name}
-           {$my_module_name}
-       {else}
-           {l s=&#39;World&#39; mod=&#39;mymodule&#39;}
-       {/if}
-       !
-    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{$my_module_link}&#34;</span>  <span class="na">title</span><span class="o">=</span><span class="s">&#34;{l s=&#39;Click this link&#39; mod=&#39;mymodule&#39;}&#34;</span><span class="p">&gt;</span>{l s=&#39;Click me!&#39; mod=&#39;mymodule&#39;}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="c">&lt;!-- /Block mymodule --&gt;</span>
-</code></pre></div><p>As you can see, the basis of template file translation is to enclose them like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">{l s=&#39;The string&#39; mod=&#39;name_of_the_module&#39;}
-</code></pre></div><p>Notice how the <code>mod</code> parameter is always provided. This parameter is mandatory for module translation in templates. It is used by PrestaShop to assert which module the string belongs to.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-smarty" data-lang="smarty"><span class="line"><span class="cl"><span class="cp">{</span><span class="nf">l</span> <span class="na">s</span><span class="o">=</span><span class="s1">&#39;Welcome to this page!&#39;</span> <span class="na">mod</span><span class="o">=</span><span class="s1">&#39;mymodule&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span></code></pre></div><p>In our sample module, the <code>mymodule.tpl</code> file&hellip;</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{$base_dir}modules/mymodule/mymodule_page.php&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;Click this link&#34;</span><span class="p">&gt;</span>Click me!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- Block mymodule --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;mymodule_block_left&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;block&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Welcome!<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;block_content&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hello,
+</span></span><span class="line"><span class="cl">       {if isset($my_module_name) <span class="err">&amp;&amp;</span> $my_module_name}
+</span></span><span class="line"><span class="cl">           {$my_module_name}
+</span></span><span class="line"><span class="cl">       {else}
+</span></span><span class="line"><span class="cl">           World
+</span></span><span class="line"><span class="cl">       {/if}
+</span></span><span class="line"><span class="cl">       !
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{$my_module_link}&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;Click this link&#34;</span><span class="p">&gt;</span>Click me!<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- /Block mymodule --&gt;</span>
+</span></span></code></pre></div><p>&hellip;becomes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{$base_dir}modules/mymodule/mymodule_page.php&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;{l s=&#39;Click this link&#39; mod=&#39;mymodule&#39;}&#34;</span><span class="p">&gt;</span>{l s=&#39;Click me!&#39; mod=&#39;mymodule&#39;}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- Block mymodule --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;mymodule_block_left&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;block&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>{l s=&#39;Welcome!&#39; mod=&#39;mymodule&#39;}<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;block_content&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>{l s=&#39;Hello,&#39; mod=&#39;mymodule&#39;}
+</span></span><span class="line"><span class="cl">       {if isset($my_module_name) <span class="err">&amp;&amp;</span> $my_module_name}
+</span></span><span class="line"><span class="cl">           {$my_module_name}
+</span></span><span class="line"><span class="cl">       {else}
+</span></span><span class="line"><span class="cl">           {l s=&#39;World&#39; mod=&#39;mymodule&#39;}
+</span></span><span class="line"><span class="cl">       {/if}
+</span></span><span class="line"><span class="cl">       !
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{$my_module_link}&#34;</span>  <span class="na">title</span><span class="o">=</span><span class="s">&#34;{l s=&#39;Click this link&#39; mod=&#39;mymodule&#39;}&#34;</span><span class="p">&gt;</span>{l s=&#39;Click me!&#39; mod=&#39;mymodule&#39;}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- /Block mymodule --&gt;</span>
+</span></span></code></pre></div><p>As you can see, the basis of template file translation is to enclose them like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{l s=&#39;The string&#39; mod=&#39;name_of_the_module&#39;}
+</span></span></code></pre></div><p>Notice how the <code>mod</code> parameter is always provided. This parameter is mandatory for module translation in templates. It is used by PrestaShop to assert which module the string belongs to.</p>
 
 <h3 id="variable-interpolation">Variable interpolation<a href="#variable-interpolation"></a></h3><p>The changes in <code>mymodule.tpl</code>&rsquo;s link and title texts are straightforward to understand. But consider this block:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">{l s=&#39;Hello,&#39; mod=&#39;mymodule&#39;}
-{if isset($my_module_name) &amp;&amp; $my_module_name}
-   {$my_module_name}
-{else}
-   {l s=&#39;World&#39; mod=&#39;mymodule&#39;}
-{/if}
-!
-</code></pre></div><p>Isn&rsquo;t there a better way to make this work?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{l s=&#39;Hello,&#39; mod=&#39;mymodule&#39;}
+</span></span><span class="line"><span class="cl">{if isset($my_module_name) &amp;&amp; $my_module_name}
+</span></span><span class="line"><span class="cl">   {$my_module_name}
+</span></span><span class="line"><span class="cl">{else}
+</span></span><span class="line"><span class="cl">   {l s=&#39;World&#39; mod=&#39;mymodule&#39;}
+</span></span><span class="line"><span class="cl">{/if}
+</span></span><span class="line"><span class="cl">!
+</span></span></code></pre></div><p>Isn&rsquo;t there a better way to make this work?</p>
 <p>We have two possible cases:</p>
 <ol>
 <li><code>&quot;Hello &quot; . $my_module_name . &quot;!&quot;</code></li>
 <li><code>&quot;Hello World!&quot;</code></li>
 </ol>
 <p>We can start improving this by keeping the first case, then replacing the variable content to &ldquo;World&rdquo; as needed:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">{if !isset($my_module_name) || !$my_module_name}
-  {capture name=&#39;my_module_tempvar&#39;}{l s=&#39;World&#39; mod=&#39;mymodule&#39;}{/capture}
-  {assign var=&#39;my_module_name&#39; value=$smarty.capture.my_module_tempvar}
-{/if}
-{l s=&#39;Hello,&#39; mod=&#39;mymodule&#39;} {$my_module_name}!
-</code></pre></div><p>This is a start! In this example, when <code>$my_module_name</code> is not defined, we capture the value of translating &ldquo;World&rdquo; and assign that value in <code>$my_module_name</code>. This way, we can simply display <code>$my_module_name</code> in any case.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">{</span><span class="k">if</span> <span class="o">!</span><span class="n">isset</span><span class="p">(</span><span class="o">$</span><span class="n">my_module_name</span><span class="p">)</span> <span class="o">||</span> <span class="o">!$</span><span class="n">my_module_name</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span><span class="n">capture</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_module_tempvar&#39;</span><span class="p">}{</span><span class="n">l</span> <span class="n">s</span><span class="o">=</span><span class="s1">&#39;World&#39;</span> <span class="n">mod</span><span class="o">=</span><span class="s1">&#39;mymodule&#39;</span><span class="p">}{</span><span class="o">/</span><span class="n">capture</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span><span class="n">assign</span> <span class="k">var</span><span class="o">=</span><span class="s1">&#39;my_module_name&#39;</span> <span class="n">value</span><span class="o">=$</span><span class="n">smarty</span><span class="o">.</span><span class="n">capture</span><span class="o">.</span><span class="n">my_module_tempvar</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="o">/</span><span class="k">if</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="n">l</span> <span class="n">s</span><span class="o">=</span><span class="s1">&#39;Hello,&#39;</span> <span class="n">mod</span><span class="o">=</span><span class="s1">&#39;mymodule&#39;</span><span class="p">}</span> <span class="p">{</span><span class="o">$</span><span class="n">my_module_name</span><span class="p">}</span><span class="o">!</span>
+</span></span></code></pre></div><p>This is a start! In this example, when <code>$my_module_name</code> is not defined, we capture the value of translating &ldquo;World&rdquo; and assign that value in <code>$my_module_name</code>. This way, we can simply display <code>$my_module_name</code> in any case.</p>
 <p>Now, when working in internationalization, it&rsquo;s better not to make assumptions regarding spacing and positioning of variables. For example, in French, there should be a non-breaking space before the exclamation mark (<code>!</code>), but not in other languages. How can we handle this?</p>
 <p>In PrestaShop, you can interpolate variables within your wordings using <a href="https://php.net/sprintf">sprintf replacement markers</a>, such as <code>%s</code> or <code>%1$s</code>. Using this feature, we could get rid of the explicit concatenation of &ldquo;Hello, &ldquo;, &ldquo;$my_module_name&rdquo; and &ldquo;!&rdquo;, and let it depend on the translated wording:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">{if !isset($my_module_name) || !$my_module_name}
-  {capture name=&#39;my_module_tempvar&#39;}{l s=&#39;World&#39; mod=&#39;mymodule&#39;}{/capture}
-  {assign var=&#39;my_module_name&#39; value=$smarty.capture.my_module_tempvar}
-{/if}
-{l s=&#39;Hello %s!&#39; sprintf=[$my_module_name] mod=&#39;mymodule&#39;}
-</code></pre></div><p>This way, since the variable replacement will happen <em>after</em> the wording is translated, we can have a wording in English like <code>Hello %s!</code>, being translated as <code>Bonjour %s !</code> in French.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="p">{</span><span class="k">if</span> <span class="o">!</span><span class="n">isset</span><span class="p">(</span><span class="o">$</span><span class="n">my_module_name</span><span class="p">)</span> <span class="o">||</span> <span class="o">!$</span><span class="n">my_module_name</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span><span class="n">capture</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;my_module_tempvar&#39;</span><span class="p">}{</span><span class="n">l</span> <span class="n">s</span><span class="o">=</span><span class="s1">&#39;World&#39;</span> <span class="n">mod</span><span class="o">=</span><span class="s1">&#39;mymodule&#39;</span><span class="p">}{</span><span class="o">/</span><span class="n">capture</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span><span class="n">assign</span> <span class="k">var</span><span class="o">=</span><span class="s1">&#39;my_module_name&#39;</span> <span class="n">value</span><span class="o">=$</span><span class="n">smarty</span><span class="o">.</span><span class="n">capture</span><span class="o">.</span><span class="n">my_module_tempvar</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="o">/</span><span class="k">if</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span><span class="n">l</span> <span class="n">s</span><span class="o">=</span><span class="s1">&#39;Hello </span><span class="si">%s</span><span class="s1">!&#39;</span> <span class="n">sprintf</span><span class="o">=</span><span class="p">[</span><span class="o">$</span><span class="n">my_module_name</span><span class="p">]</span> <span class="n">mod</span><span class="o">=</span><span class="s1">&#39;mymodule&#39;</span><span class="p">}</span>
+</span></span></code></pre></div><p>This way, since the variable replacement will happen <em>after</em> the wording is translated, we can have a wording in English like <code>Hello %s!</code>, being translated as <code>Bonjour %s !</code> in French.</p>
 
 <div class="notices tip" ><p><strong>There&rsquo;s no fixed &ldquo;special&rdquo; format for placeholders.</strong></p>
 <p>You can use sprintf markers like <code>%s</code> and <code>%d</code>, or replacement tokens like <code>[foo]</code> and <code>%bar%</code>. If you choose to use tokens, just remember to provide an associative array:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">sprintf=[&#39;[foo]&#39; =&gt; &#39;some replacement, &#39;%bar%&#39; =&gt; &#39;something else&#39;]
-</code></pre></div></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">sprintf=[&#39;[foo]&#39; =&gt; &#39;some replacement, &#39;%bar%&#39; =&gt; &#39;something else&#39;]
+</span></span></code></pre></div></div>
 
 
 <h4 id="interpolating-html">Interpolating HTML<a href="#interpolating-html"></a></h4><p>You may need to add HTML content in your translated string. Writing it directly in the string (original or translated) won&rsquo;t work, as the special characters would be escaped to avoid XSS security issues.</p>
@@ -30496,17 +30495,17 @@
 <p>Let&rsquo;s take an example with a link in a string, which can be tricky to do.
 The first solution that comes to mind would be to concatenate the translated strings with raw HTML code.
 But as we explained before, this solution is not recommended, because the words order could be different depending on the translation language.</p>
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="nf">l</span>
-  <span class="na">s</span><span class="o">=</span><span class="s1">&#39;If you want a category to appear in the menu of your shop, go to [modules-link]Modules &gt; Modules &amp; Services &gt; Installed modules.[/modules-link] Then, configure your menu module.&#39;</span>
-  <span class="na">sprintf</span><span class="o">=[</span>
-    <span class="s1">&#39;[modules-link]&#39;</span> <span class="o">=&gt;</span> <span class="s2">&#34;&lt;a href=\&#34;{$link-&gt;getAdminLink(&#39;AdminModules&#39;)}\&#34; target=\&#34;_blank\&#34;&gt;&#34;</span><span class="o">,</span>
-    <span class="s1">&#39;[/modules-link]&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&lt;/a&gt;&#39;</span>
-  <span class="o">]</span>
-  <span class="na">mod</span><span class="o">=</span><span class="s1">&#39;mymodule&#39;</span>
-<span class="cp">}</span><span class="x">
-</span></code></pre></div><p>Let&rsquo;s look at the resulting string:</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html">If you want a category to appear in the menu of your shop, go to <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;(...)&#34;</span> <span class="na">target</span><span class="o">=</span><span class="s">&#34;_blank&#34;</span><span class="p">&gt;</span>Modules <span class="ni">&amp;gt;</span> Modules <span class="ni">&amp;amp;</span> Services <span class="ni">&amp;gt;</span> Installed modules.<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span> Then, configure your menu module.
-</code></pre></div><p>Make sure to keep <code>[modules-link]</code> and <code>[/modules-link]</code> when translating the wording to other languages.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-smarty" data-lang="smarty"><span class="line"><span class="cl"><span class="cp">{</span><span class="nf">l</span>
+</span></span><span class="line"><span class="cl">  <span class="na">s</span><span class="o">=</span><span class="s1">&#39;If you want a category to appear in the menu of your shop, go to [modules-link]Modules &gt; Modules &amp; Services &gt; Installed modules.[/modules-link] Then, configure your menu module.&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="na">sprintf</span><span class="o">=[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;[modules-link]&#39;</span> <span class="o">=&gt;</span> <span class="s2">&#34;&lt;a href=\&#34;{$link-&gt;getAdminLink(&#39;AdminModules&#39;)}\&#34; target=\&#34;_blank\&#34;&gt;&#34;</span><span class="o">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;[/modules-link]&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&lt;/a&gt;&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">]</span>
+</span></span><span class="line"><span class="cl">  <span class="na">mod</span><span class="o">=</span><span class="s1">&#39;mymodule&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="cp">}</span><span class="x">
+</span></span></span></code></pre></div><p>Let&rsquo;s look at the resulting string:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">If you want a category to appear in the menu of your shop, go to <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;(...)&#34;</span> <span class="na">target</span><span class="o">=</span><span class="s">&#34;_blank&#34;</span><span class="p">&gt;</span>Modules <span class="ni">&amp;gt;</span> Modules <span class="ni">&amp;amp;</span> Services <span class="ni">&amp;gt;</span> Installed modules.<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span> Then, configure your menu module.
+</span></span></code></pre></div><p>Make sure to keep <code>[modules-link]</code> and <code>[/modules-link]</code> when translating the wording to other languages.</p>
 
 <h3 id="contextualization">Contextualization<a href="#contextualization"></a></h3><p>Sometimes the same wording would be translated differently when used in two different contexts. To allow translators to pick the best translation for each context, module developers can choose to contextualize wordings by specifying the file where it&rsquo;s used. When context is provided, translators can choose a different translation for each context.</p>
 <p>Although contextualization is optional, we strongly suggest to contextualize all your wordings.</p>
@@ -30515,11 +30514,11 @@ But as we explained before, this solution is not recommended, because the words 
 
 
 <h5 id="contextualize-translations-in-php-files">Contextualize translations in PHP files<a href="#contextualize-translations-in-php-files"></a></h5><p>Context is defined by setting the second parameter of <code>l()</code> to something of your choosing. By convention, we suggest using the name of the php file it&rsquo;s located in, like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// in SomeFile.php
-</span><span class="c1"></span>
-<span class="nv">$module</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Some wording&#39;</span><span class="p">,</span> <span class="s1">&#39;somefile&#39;</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// in SomeFile.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$module</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Some wording&#39;</span><span class="p">,</span> <span class="s1">&#39;somefile&#39;</span><span class="p">);</span>
+</span></span></code></pre></div>
 <div class="notices note" >When no context is provided, PrestaShop automatically sets it to your module&rsquo;s technical name</div>
 
 
@@ -30537,25 +30536,25 @@ But as we explained before, this solution is not recommended, because the words 
 <p>Once all strings for your module are correctly translated, click on either the &ldquo;Save and stay&rdquo; button or the &ldquo;Save&rdquo; button at the bottom of the list.</p>
 <p>PrestaShop then saves the translations in a file named using the <code>&lt;language_code&gt;.php</code> format and located in you module&rsquo;s <code>translations</code> directory (for instance, <code>/mymodule/translations/fr.php</code>).</p>
 <p>The translation file looks like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// fr.php
-</span><span class="c1"></span>
-<span class="k">global</span> <span class="nv">$_MODULE</span><span class="p">;</span>
-<span class="nv">$_MODULE</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
-<span class="nv">$_MODULE</span><span class="p">[</span><span class="s1">&#39;&lt;{mymodule}prestashop&gt;mymodule_2ddddc2a736e4128ce1cdfd22b041e7f&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Mon module&#39;</span><span class="p">;</span>
-<span class="nv">$_MODULE</span><span class="p">[</span><span class="s1">&#39;&lt;{mymodule}prestashop&gt;mymodule_d6968577f69f08c93c209bd8b6b3d4d5&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Description du module.&#39;</span><span class="p">;</span>
-<span class="nv">$_MODULE</span><span class="p">[</span><span class="s1">&#39;&lt;{mymodule}prestashop&gt;mymodule_533937acf0e84c92e787614bbb16a7a0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Êtes-vous certain de vouloir désinstaller ce module ? Vous perdrez tous vos réglages !&#39;</span><span class="p">;</span>
-<span class="nv">$_MODULE</span><span class="p">[</span><span class="s1">&#39;&lt;{mymodule}prestashop&gt;mymodule_0f40e8817b005044250943f57a21c5e7&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Aucun nom fourni&#39;</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// fr.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">global</span> <span class="nv">$_MODULE</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$_MODULE</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$_MODULE</span><span class="p">[</span><span class="s1">&#39;&lt;{mymodule}prestashop&gt;mymodule_2ddddc2a736e4128ce1cdfd22b041e7f&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Mon module&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$_MODULE</span><span class="p">[</span><span class="s1">&#39;&lt;{mymodule}prestashop&gt;mymodule_d6968577f69f08c93c209bd8b6b3d4d5&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Description du module.&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$_MODULE</span><span class="p">[</span><span class="s1">&#39;&lt;{mymodule}prestashop&gt;mymodule_533937acf0e84c92e787614bbb16a7a0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Êtes-vous certain de vouloir désinstaller ce module ? Vous perdrez tous vos réglages !&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$_MODULE</span><span class="p">[</span><span class="s1">&#39;&lt;{mymodule}prestashop&gt;mymodule_0f40e8817b005044250943f57a21c5e7&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Aucun nom fourni&#39;</span><span class="p">;</span>
+</span></span></code></pre></div>
 <div class="notices note" >This file shouldn&rsquo;t be modified manually! It is meant to be edited through the PrestaShop translation interface.</div>
 
 
 <h3 id="editing-a-dictionary-file-manually">Editing a dictionary file manually<a href="#editing-a-dictionary-file-manually"></a></h3><p>If for any reason you need to edit your dictionary file manually or create it from scratch, here&rsquo;s how.</p>
 <p>Dictionary files are essentially a list of key-values that match a representation of the original wording as it appears in the code, and its translation to a given language. The key stays the same across all translation dictionary files for a given module.</p>
 <p>Translation keys have a tricky syntax, which is constructed as follows:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$translationKey</span> <span class="o">=</span> <span class="nx">strtolower</span><span class="p">(</span><span class="s1">&#39;&lt;{&#39;</span> <span class="o">.</span> <span class="nv">$moduleName</span> <span class="o">.</span> <span class="s1">&#39;}prestashop&gt;&#39;</span> <span class="o">.</span> <span class="nv">$sourceFile</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;_&#39;</span> <span class="o">.</span> <span class="nv">$md5</span><span class="p">;</span>
-</code></pre></div><p>As you can see, there are three parameters:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$translationKey</span> <span class="o">=</span> <span class="nx">strtolower</span><span class="p">(</span><span class="s1">&#39;&lt;{&#39;</span> <span class="o">.</span> <span class="nv">$moduleName</span> <span class="o">.</span> <span class="s1">&#39;}prestashop&gt;&#39;</span> <span class="o">.</span> <span class="nv">$sourceFile</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;_&#39;</span> <span class="o">.</span> <span class="nv">$md5</span><span class="p">;</span>
+</span></span></code></pre></div><p>As you can see, there are three parameters:</p>
 <ol>
 <li>
 <p><code>$moduleName</code> – Your module&rsquo;s technical name, in lower case.</p>
@@ -30595,29 +30594,29 @@ But as we explained before, this solution is not recommended, because the words 
 </li>
 </ol>
 <p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// literal values will work
-</span><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Some wording&#39;</span><span class="p">,</span> <span class="s1">&#39;somecontext&#39;</span><span class="p">);</span>
-
-<span class="c1">// dynamic content can be injected using placeholders &amp; sprintf
-</span><span class="c1"></span><span class="nx">sprintf</span><span class="p">(</span>
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Some wording with %s&#39;</span><span class="p">,</span> <span class="s1">&#39;somecontext&#39;</span><span class="p">),</span>
-    <span class="nv">$dynamicContent</span>
-<span class="p">);</span>
-
-<span class="c1">// this won&#39;t work, the interpreter will ignore variables
-</span><span class="c1"></span><span class="nv">$wording</span> <span class="o">=</span> <span class="s1">&#39;Some wording&#39;</span><span class="p">;</span>
-<span class="nv">$context</span> <span class="o">=</span> <span class="s1">&#39;somecontext&#39;</span><span class="p">;</span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="nv">$wording</span><span class="p">,</span> <span class="nv">$context</span><span class="p">);</span>
-
-<span class="c1">// this will yield unexpected results
-</span><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Some &#39;</span><span class="o">.</span> <span class="nv">$var</span> <span class="o">.</span> <span class="s1">&#39; wording&#39;</span><span class="p">);</span>
-
-<span class="c1">// dynamic behavior, like aliasing the l() function, won&#39;t work well either
-</span><span class="c1"></span><span class="k">public</span> <span class="k">function</span> <span class="nf">translate</span><span class="p">(</span><span class="nv">$wording</span><span class="p">)</span> <span class="p">{</span>
-   <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="nv">$wording</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// literal values will work
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Some wording&#39;</span><span class="p">,</span> <span class="s1">&#39;somecontext&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// dynamic content can be injected using placeholders &amp; sprintf
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">sprintf</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Some wording with %s&#39;</span><span class="p">,</span> <span class="s1">&#39;somecontext&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$dynamicContent</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// this won&#39;t work, the interpreter will ignore variables
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$wording</span> <span class="o">=</span> <span class="s1">&#39;Some wording&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$context</span> <span class="o">=</span> <span class="s1">&#39;somecontext&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="nv">$wording</span><span class="p">,</span> <span class="nv">$context</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// this will yield unexpected results
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Some &#39;</span><span class="o">.</span> <span class="nv">$var</span> <span class="o">.</span> <span class="s1">&#39; wording&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// dynamic behavior, like aliasing the l() function, won&#39;t work well either
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">public</span> <span class="k">function</span> <span class="nf">translate</span><span class="p">(</span><span class="nv">$wording</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="nv">$wording</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="language-codes">Language codes<a href="#language-codes"></a></h3><p>The classic translation system identifies languages using a two-letter code referred to as &ldquo;Language code&rdquo; or &ldquo;ISO code&rdquo;, based on the ISO-619-1 standard (<a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes">see an unofficial list here</a>).</p>
 <p>Since this standard does not include regional language variants, like British English, Canadian French or Swiss German for example, PrestaShop supports them through nonstandard language codes (<code>gb</code>, <code>qc</code> and <code>dh</code> respectively).</p>
 <p>This historical choice is subject to debate because of the interoperability issues it raises. In order to fully address them, a future major version of PrestaShop will switch completely to <a href="https://en.wikipedia.org/wiki/IETF_language_tag">IETF language tags</a> for language identification. PrestaShop already uses them for some purposes.</p>
@@ -30700,17 +30699,17 @@ But as we explained before, this solution is not recommended, because the words 
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163894"></script>
-    <script src="/js/jquery.sticky.js?1703163894"></script>
-    <script src="/js/featherlight.min.js?1703163894"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163894"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163894"></script>
-    <script src="/js/learn.js?1703163894"></script>
-    <script src="/js/hugo-learn.js?1703163894"></script>
+    <script src="/js/clipboard.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164721"></script>
+    <script src="/js/jquery.sticky.js?1703164721"></script>
+    <script src="/js/featherlight.min.js?1703164721"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164721"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164721"></script>
+    <script src="/js/learn.js?1703164721"></script>
+    <script src="/js/hugo-learn.js?1703164721"></script>
     
-    <script src="/main.js?1703163894"></script>
+    <script src="/main.js?1703164721"></script>
     
     
     

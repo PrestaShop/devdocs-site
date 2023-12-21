@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Cookie :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163905" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163905" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163905" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163905" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164731" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164731" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164731" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164731" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163905" rel="stylesheet">
+    <link href="/style.css?1703164731" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163905"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164731"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33115,37 +33115,37 @@ It helps set, get, and delete data stored in the <code>cookie</code> storage.</p
 <h2 id="usage">Usage<a href="#usage"></a></h2>
 <h3 id="retrieve-a-cookie-instance">Retrieve a <code>Cookie</code> instance<a href="#retrieve-a-cookie-instance"></a></h3><p>A <code>Cookie</code> instance is available through <a href="/8/development/components/context/"><code>Context</code></a>.</p>
 <p>To get a <code>Context</code> instance from a <code>Controller</code> subclass or a <code>Module</code> subclass, the <code>Context</code> should be called with this shortcut:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span>
-</code></pre></div><p>From anywhere else, you can get the <code>Context</code> instance by calling:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span>
-</code></pre></div><p>Once retrieved a <code>Context</code> instance, simply access <code>Cookie</code> with:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$context</span><span class="o">-&gt;</span><span class="na">cookie</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span>
+</span></span></code></pre></div><p>From anywhere else, you can get the <code>Context</code> instance by calling:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span>
+</span></span></code></pre></div><p>Once retrieved a <code>Context</code> instance, simply access <code>Cookie</code> with:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$context</span><span class="o">-&gt;</span><span class="na">cookie</span>
+</span></span></code></pre></div>
 <h3 id="set-data-in-the-cookie">Set data in the <code>Cookie</code><a href="#set-data-in-the-cookie"></a></h3><p>To set a cookie key with the name <code>mycookie</code> and the value <code>myvalue</code>, do the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$cookie</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="p">;</span>
-<span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">mycookie</span> <span class="o">=</span> <span class="s1">&#39;myvalue&#39;</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cookie</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">mycookie</span> <span class="o">=</span> <span class="s1">&#39;myvalue&#39;</span><span class="p">;</span>
+</span></span></code></pre></div>
 <div class="notices note" >The <code>Cookie</code> component uses the <a href="https://www.php.net/manual/en/language.oop5.overloading.php#object.set">magic method <code>__set()</code></a> to allow setting values to the object like they were public properties.</div>
 
 
 <h3 id="get-data-in-the-cookie">Get data in the <code>Cookie</code><a href="#get-data-in-the-cookie"></a></h3><p>To get the cookie key with the name <code>mycookie</code>, do the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$cookie</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="p">;</span>
-<span class="nv">$myCookieValue</span> <span class="o">=</span> <span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">mycookie</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cookie</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$myCookieValue</span> <span class="o">=</span> <span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">mycookie</span><span class="p">;</span>
+</span></span></code></pre></div>
 <div class="notices note" >The <code>Cookie</code> component uses the <a href="https://www.php.net/manual/en/language.oop5.overloading.php#object.get">magic method <code>__get()</code></a> to allow getting values to the object like they were public properties.</div>
 
 
 <h3 id="test-if-a-cookie-key-exists-in-the-cookie">Test if a cookie key exists in the <code>Cookie</code><a href="#test-if-a-cookie-key-exists-in-the-cookie"></a></h3><p>To test if a given key exists in the cookie exists, do the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$cookie</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="p">;</span>
-<span class="nv">$cookieExists</span> <span class="o">=</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">mycookie</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cookie</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$cookieExists</span> <span class="o">=</span> <span class="nx">isset</span><span class="p">(</span><span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">mycookie</span><span class="p">);</span>
+</span></span></code></pre></div>
 <div class="notices note" >The <code>Cookie</code> component uses the <a href="https://www.php.net/manual/en/language.oop5.overloading.php#object.isset">magic method <code>__isset()</code></a> to allow testing for existence values in the object like they were public properties.</div>
 
 
 <h3 id="delete-data-in-the-cookie">Delete data in the <code>Cookie</code><a href="#delete-data-in-the-cookie"></a></h3><p>To delete the key with name <code>mycookie</code> from the PrestaShop&rsquo;s cookie, do the following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$cookie</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="p">;</span>
-<span class="nx">unset</span><span class="p">(</span><span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">mycookie</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$cookie</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">cookie</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">unset</span><span class="p">(</span><span class="nv">$cookie</span><span class="o">-&gt;</span><span class="na">mycookie</span><span class="p">);</span>
+</span></span></code></pre></div>
 <div class="notices note" >The <code>Cookie</code> component uses the <a href="https://www.php.net/manual/en/language.oop5.overloading.php#object.unset">magic method <code>__unset()</code></a> to allow unsetting values in the object like they were public properties.</div>
 
 
@@ -33575,17 +33575,17 @@ It helps set, get, and delete data stored in the <code>cookie</code> storage.</p
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163905"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163905"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163905"></script>
-    <script src="/js/jquery.sticky.js?1703163905"></script>
-    <script src="/js/featherlight.min.js?1703163905"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163905"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163905"></script>
-    <script src="/js/learn.js?1703163905"></script>
-    <script src="/js/hugo-learn.js?1703163905"></script>
+    <script src="/js/clipboard.min.js?1703164731"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164731"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164731"></script>
+    <script src="/js/jquery.sticky.js?1703164731"></script>
+    <script src="/js/featherlight.min.js?1703164731"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164731"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164731"></script>
+    <script src="/js/learn.js?1703164731"></script>
+    <script src="/js/hugo-learn.js?1703164731"></script>
     
-    <script src="/main.js?1703163905"></script>
+    <script src="/main.js?1703164731"></script>
     
     
     

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Symfony controllers &amp; routing :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163905" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163905" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163905" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163905" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164731" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164731" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164731" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164731" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163905" rel="stylesheet">
+    <link href="/style.css?1703164731" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163905"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164731"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33145,24 +33145,24 @@
 <p>Controllers are located in <code>src/PrestaShopBundle/Controller/Admin</code> folder. They are organized in sub-folders following the Back Office menu. For instance, the <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/PrestaShopBundle/Controller/Admin/Improve/International/TaxController.php">TaxController</a> is located in <code>src/PrestaShop/Controller/Admin/Improve/International</code>.
 Same applies to <strong>Improve</strong>,  <strong>Sell</strong> sections etc.</p>
 <p>This is how the directory tree of controllers should look like:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Controller/
-└── Admin
-    ├── Configure
-    │   ├── AdvancedParameters
-    │   └── ShopParameters
-    ├── Improve
-    │   ├── Design
-    │   ├── International
-    │   ├── Modules
-    │   ├── Payment
-    │   └── Shipping
-    └── Sell
-        ├── Catalog
-        ├── Customers
-        ├── CustomerService
-        ├── Orders
-        └── Stats
-</code></pre></div><p>Symfony Controllers should be thin by default and have only one responsibility: getting the HTTP Request from the client and returning an HTTP Response. This means that every business logic should be placed in dedicated classes outside the Controller:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Controller/
+</span></span><span class="line"><span class="cl">└── Admin
+</span></span><span class="line"><span class="cl">    ├── Configure
+</span></span><span class="line"><span class="cl">    │   ├── AdvancedParameters
+</span></span><span class="line"><span class="cl">    │   └── ShopParameters
+</span></span><span class="line"><span class="cl">    ├── Improve
+</span></span><span class="line"><span class="cl">    │   ├── Design
+</span></span><span class="line"><span class="cl">    │   ├── International
+</span></span><span class="line"><span class="cl">    │   ├── Modules
+</span></span><span class="line"><span class="cl">    │   ├── Payment
+</span></span><span class="line"><span class="cl">    │   └── Shipping
+</span></span><span class="line"><span class="cl">    └── Sell
+</span></span><span class="line"><span class="cl">        ├── Catalog
+</span></span><span class="line"><span class="cl">        ├── Customers
+</span></span><span class="line"><span class="cl">        ├── CustomerService
+</span></span><span class="line"><span class="cl">        ├── Orders
+</span></span><span class="line"><span class="cl">        └── Stats
+</span></span></code></pre></div><p>Symfony Controllers should be thin by default and have only one responsibility: getting the HTTP Request from the client and returning an HTTP Response. This means that every business logic should be placed in dedicated classes outside the Controller:</p>
 <ul>
 <li>Form management</li>
 <li>Database access</li>
@@ -33252,24 +33252,24 @@ Regarding the rendering of a Response, there is some data specific to PrestaShop
 <p>PrestaShop allows merchants to choose which actions (like CREATE, READ, UPDATE, DELETE) can be done by each user profile on each resource (like &ldquo;Product&rdquo;, &ldquo;User&rdquo;). In PrestaShop Back Office, most of these resources are managed by only one Controller, so rights are handled on a page-per-page basis instead of by resource.</p>
 <p>So if a logged user wants to manipulate a resource, he or she needs to have the correct rights on the appropriate controller. For instance, to be able to access the &ldquo;Product Catalog&rdquo; page the user need READ access, because showing the page requires &ldquo;reading&rdquo; the Product information. If the user wants to delete a product, (s)he needs DELETE rights.</p>
 <p>To enforce this security policy, you have to set up the adequate checks for each one of the actions of your controller. Policies are declared as <em>annotations</em> on top of every controller Action method:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Security\Annotation\AdminSecurity</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">SomeController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @AdminSecurity(
-</span><span class="sd">     *     &#34;is_granted([&#39;read&#39;, &#39;update&#39;, &#39;create&#39;, &#39;delete&#39;], request.get(&#39;_legacy_controller&#39;))&#34;,
-</span><span class="sd">     *     message=&#34;You do not have permission to update this.&#34;,
-</span><span class="sd">     *     redirectRoute=&#34;some_route_name&#34;
-</span><span class="sd">     * )
-</span><span class="sd">     *
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">fooAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span> <span class="p">{</span> 
-        <span class="c1">// action code
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Security\Annotation\AdminSecurity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SomeController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @AdminSecurity(
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *     &#34;is_granted([&#39;read&#39;, &#39;update&#39;, &#39;create&#39;, &#39;delete&#39;], request.get(&#39;_legacy_controller&#39;))&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *     message=&#34;You do not have permission to update this.&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *     redirectRoute=&#34;some_route_name&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * )
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">fooAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span> <span class="p">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="c1">// action code
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="access-rules-convention">Access rules convention<a href="#access-rules-convention"></a></h3><p>The following access rules must be enforced:</p>
 <ul>
 <li>indexAction requires READ permission and only this one</li>
@@ -33315,20 +33315,20 @@ If you use both <code>url</code> and <code>redirectRoute</code> at the same time
 <div class="notices tip" >The demo mode can be enabled by setting <code>_PS_MODE_DEMO_</code> to <code>true</code> in <code>config/defines.inc.php</code>.</div>
 
 <p>When an action needs to be restricted in Demo Mode, you can use the <code>DemoRestricted</code> annotation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Security\Annotation\DemoRestricted</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * @DemoRestricted(&#34;route_to_be_redirected&#34;,
-</span><span class="sd"> *     message=&#34;You can&#39;t do this when demo mode is enabled.&#34;,
-</span><span class="sd"> *     domain=&#34;Admin.Global&#34;
-</span><span class="sd"> * )
-</span><span class="sd"> *
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">fooAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// do something here  
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Security\Annotation\DemoRestricted</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @DemoRestricted(&#34;route_to_be_redirected&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *     message=&#34;You can&#39;t do this when demo mode is enabled.&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *     domain=&#34;Admin.Global&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * )
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">fooAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// do something here  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices tip" ><code>message</code> and <code>domain</code> are both optional.</div>
 
 
@@ -33341,94 +33341,94 @@ If you use both <code>url</code> and <code>redirectRoute</code> at the same time
 
 <p>Routes are declared in <code>src/PrestaShopBundle/Resources/config/admin</code> folder, following the menu organization.</p>
 <p>The routing is organized as follows:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">.
-├── admin
-│   ├── _common.yml
-│   ├── configure
-│   │   ├── advanced_parameters
-│   │   ├── _configure.yml
-│   │   └── shop_parameters
-│   ├── improve
-│   │   ├── design
-│   │   ├── _improve.yml
-│   │   ├── international
-│   │   ├── modules
-│   │   ├── payment
-│   │   └── shipping
-│   ├── _security.yml
-│   └── sell
-│       ├── catalog
-│       ├── orders
-│       ├── _sell.yml
-│       └── stocks.yml
-├── admin.yml
-├── api
-│   ├── attributes.yml
-│   ├── categories.yml
-│   ├── features.yml
-│   ├── i18n.yml
-│   ├── improve
-│   │   └── design
-│   ├── manufacturers.yml
-│   ├── stock_movements.yml
-│   ├── stocks.yml
-│   ├── suppliers.yml
-│   └── translations.yml
-└── api.yml
-</code></pre></div><p>Property <code>_legacy_controller</code> contains the old name of the related controller. The <code>_legacy_link</code> keeps a link between legacy urls and new ones (when going to a page using old link it will redirect to the new one instead).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── admin
+</span></span><span class="line"><span class="cl">│   ├── _common.yml
+</span></span><span class="line"><span class="cl">│   ├── configure
+</span></span><span class="line"><span class="cl">│   │   ├── advanced_parameters
+</span></span><span class="line"><span class="cl">│   │   ├── _configure.yml
+</span></span><span class="line"><span class="cl">│   │   └── shop_parameters
+</span></span><span class="line"><span class="cl">│   ├── improve
+</span></span><span class="line"><span class="cl">│   │   ├── design
+</span></span><span class="line"><span class="cl">│   │   ├── _improve.yml
+</span></span><span class="line"><span class="cl">│   │   ├── international
+</span></span><span class="line"><span class="cl">│   │   ├── modules
+</span></span><span class="line"><span class="cl">│   │   ├── payment
+</span></span><span class="line"><span class="cl">│   │   └── shipping
+</span></span><span class="line"><span class="cl">│   ├── _security.yml
+</span></span><span class="line"><span class="cl">│   └── sell
+</span></span><span class="line"><span class="cl">│       ├── catalog
+</span></span><span class="line"><span class="cl">│       ├── orders
+</span></span><span class="line"><span class="cl">│       ├── _sell.yml
+</span></span><span class="line"><span class="cl">│       └── stocks.yml
+</span></span><span class="line"><span class="cl">├── admin.yml
+</span></span><span class="line"><span class="cl">├── api
+</span></span><span class="line"><span class="cl">│   ├── attributes.yml
+</span></span><span class="line"><span class="cl">│   ├── categories.yml
+</span></span><span class="line"><span class="cl">│   ├── features.yml
+</span></span><span class="line"><span class="cl">│   ├── i18n.yml
+</span></span><span class="line"><span class="cl">│   ├── improve
+</span></span><span class="line"><span class="cl">│   │   └── design
+</span></span><span class="line"><span class="cl">│   ├── manufacturers.yml
+</span></span><span class="line"><span class="cl">│   ├── stock_movements.yml
+</span></span><span class="line"><span class="cl">│   ├── stocks.yml
+</span></span><span class="line"><span class="cl">│   ├── suppliers.yml
+</span></span><span class="line"><span class="cl">│   └── translations.yml
+</span></span><span class="line"><span class="cl">└── api.yml
+</span></span></code></pre></div><p>Property <code>_legacy_controller</code> contains the old name of the related controller. The <code>_legacy_link</code> keeps a link between legacy urls and new ones (when going to a page using old link it will redirect to the new one instead).</p>
 
 <div class="notices tip" >Property <code>_legacy_controller</code> allows to map a Symfony controller name to a legacy controller name. Many components in PrestaShop rely on a legacy controller name. Examples: <a href="#security">Security restrictions</a>, menu items management, or the collapsable help right sidebar.</div>
 
 <p>For example, this is how the &ldquo;Configure &gt; Advanced Parameters -&gt; System Information&rdquo; page route configuration looks like:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">admin_system_information</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">system_information</span><span class="w">
-</span><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
-</span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle\Controller\Admin\AdvancedParameters\SystemInformationController::indexAction&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminInformation</span><span class="w">
-</span><span class="w">        </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminInformation</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">admin_system_information</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">system_information</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle\Controller\Admin\AdvancedParameters\SystemInformationController::indexAction&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminInformation</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminInformation</span><span class="w">
+</span></span></span></code></pre></div>
 <div class="notices info" >PrestaShop uses YAML files for service declaration and routing</div>
 
 
-<h4 id="routing-configuration">Routing configuration<a href="#routing-configuration"></a></h4><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">route_name</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">some/url</span><span class="w">
-</span><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
-</span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle\Controller\Path\To\ControllerClass::{actionName}Action&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">LegacyController</span><span class="w">
-</span><span class="w">        </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span>{<span class="l">LegacyController}:{actionName}</span><span class="w">
-</span><span class="w">        
-</span><span class="w"></span><span class="c"># In some cases several controllers/actions are managed by the same migrated controller</span><span class="w">
-</span><span class="w"></span><span class="c"># You have the possibility to set an array as _legacy_link thus preventing you from defining alias routes</span><span class="w">
-</span><span class="w"></span><span class="nt">other_route_name</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">some/other/url</span><span class="w">
-</span><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
-</span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle\Controller\Path\To\Other\ControllerClass::{actionName}Action&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">LegacyController</span><span class="w">
-</span><span class="w">        </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- {<span class="l">LegacyController}:{actionName}</span><span class="w">
-</span><span class="w">            </span>- {<span class="l">LegacyController}:{aliasActionName}        </span><span class="w">
-</span></code></pre></div><p>The <code>actionName</code> part is optional for the <strong>index</strong> action (equivalent to <strong>list</strong>), therefore these three notations are equivalent:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">admin_emails</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/emails</span><span class="w">
-</span><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
-</span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle:Admin\Configure\AdvancedParameters\Email:index&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminEmails</span><span class="w">
-</span><span class="w">        </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="l">AdminEmails</span><span class="w">
-</span><span class="w">            </span>- <span class="l">AdminEmails:index</span><span class="w">
-</span><span class="w">            </span>- <span class="l">AdminEmails:list</span><span class="w">
-</span></code></pre></div>
+<h4 id="routing-configuration">Routing configuration<a href="#routing-configuration"></a></h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">route_name</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">some/url</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle\Controller\Path\To\ControllerClass::{actionName}Action&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">LegacyController</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span>{<span class="l">LegacyController}:{actionName}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># In some cases several controllers/actions are managed by the same migrated controller</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># You have the possibility to set an array as _legacy_link thus preventing you from defining alias routes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">other_route_name</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">some/other/url</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle\Controller\Path\To\Other\ControllerClass::{actionName}Action&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">LegacyController</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- {<span class="l">LegacyController}:{actionName}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- {<span class="l">LegacyController}:{aliasActionName}        </span><span class="w">
+</span></span></span></code></pre></div><p>The <code>actionName</code> part is optional for the <strong>index</strong> action (equivalent to <strong>list</strong>), therefore these three notations are equivalent:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">admin_emails</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/emails</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle:Admin\Configure\AdvancedParameters\Email:index&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminEmails</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">AdminEmails</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">AdminEmails:index</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">AdminEmails:list</span><span class="w">
+</span></span></span></code></pre></div>
 <h4 id="automatic-redirection">Automatic redirection<a href="#automatic-redirection"></a></h4><p>Finally some urls might have been generated manually or hard coded. To avoid losing these legacy urls a Symfony listener
 checks each call to the back office and tries to match it to a migrated url if it is found then the response is <em>automatically</em>
 redirected to the new migrated url.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">    admin/index.php?controller=AdminPaymentPreferences =&gt; Redirected to /admin/preferences
-    admin/index.php?controller=AdminPaymentPreferences&amp;action=update =&gt; Redirected to /admin/preferences/update
-    admin/index.php?controller=AdminPaymentPreferences&amp;action=export =&gt; No redirection, the legacy controller is called
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl">    <span class="n">admin</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">php</span><span class="err">?</span><span class="n">controller</span><span class="o">=</span><span class="n">AdminPaymentPreferences</span> <span class="o">=&gt;</span> <span class="n">Redirected</span> <span class="n">to</span> <span class="o">/</span><span class="n">admin</span><span class="o">/</span><span class="n">preferences</span>
+</span></span><span class="line"><span class="cl">    <span class="n">admin</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">php</span><span class="err">?</span><span class="n">controller</span><span class="o">=</span><span class="n">AdminPaymentPreferences</span><span class="o">&amp;</span><span class="n">action</span><span class="o">=</span><span class="n">update</span> <span class="o">=&gt;</span> <span class="n">Redirected</span> <span class="n">to</span> <span class="o">/</span><span class="n">admin</span><span class="o">/</span><span class="n">preferences</span><span class="o">/</span><span class="n">update</span>
+</span></span><span class="line"><span class="cl">    <span class="n">admin</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">php</span><span class="err">?</span><span class="n">controller</span><span class="o">=</span><span class="n">AdminPaymentPreferences</span><span class="o">&amp;</span><span class="n">action</span><span class="o">=</span><span class="k">export</span> <span class="o">=&gt;</span> <span class="n">No</span> <span class="n">redirection</span><span class="p">,</span> <span class="n">the</span> <span class="n">legacy</span> <span class="n">controller</span> <span class="n">is</span> <span class="n">called</span>
+</span></span></code></pre></div>
 <h3 id="javascript-generation">Javascript generation<a href="#javascript-generation"></a></h3><p>In order to avoid hardcoded links in JavaScript, Prestashop uses the <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/admin-dev/themes/new-theme/js/components/router.ts"><code>Router</code> component</a>.</p>
 
 
@@ -33508,17 +33508,17 @@ redirected to the new migrated url.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163905"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163905"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163905"></script>
-    <script src="/js/jquery.sticky.js?1703163905"></script>
-    <script src="/js/featherlight.min.js?1703163905"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163905"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163905"></script>
-    <script src="/js/learn.js?1703163905"></script>
-    <script src="/js/hugo-learn.js?1703163905"></script>
+    <script src="/js/clipboard.min.js?1703164731"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164731"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164731"></script>
+    <script src="/js/jquery.sticky.js?1703164731"></script>
+    <script src="/js/featherlight.min.js?1703164731"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164731"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164731"></script>
+    <script src="/js/learn.js?1703164731"></script>
+    <script src="/js/hugo-learn.js?1703164731"></script>
     
-    <script src="/main.js?1703163905"></script>
+    <script src="/main.js?1703164731"></script>
     
     
     

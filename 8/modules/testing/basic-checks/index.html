@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Basic checks :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163926" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163926" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163926" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163926" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164748" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164748" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164748" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164748" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163926" rel="stylesheet">
+    <link href="/style.css?1703164748" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163926"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164748"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33102,20 +33102,20 @@
 <h1 id="basic-checks">Basic checks<a href="#basic-checks"></a></h1>
 <h2 id="syntax-check">Syntax check<a href="#syntax-check"></a></h2><p>First of all, making sure your file is understood by PHP is a trivial but critical check.
 PHP provides a linter to verify a file can be run:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ php -l  &lt;file&gt;
-        Syntax check only <span class="o">(</span>lint<span class="o">)</span>
-</code></pre></div><p>The linter can be run on a whole project if a list of files to check is created. On a Linux bash, this command looks for all the PHP files (except in folders <code>vendor</code> and <code>tests</code>) then runs the linter on each of them:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">find . -type f -name <span class="s1">&#39;*.php&#39;</span> ! -path <span class="s2">&#34;./vendor/*&#34;</span> ! -path <span class="s2">&#34;./tests/*&#34;</span> -exec php -l -n <span class="o">{}</span> <span class="se">\;</span> <span class="p">|</span> <span class="o">(</span>! grep -v <span class="s2">&#34;No syntax errors detected&#34;</span><span class="o">)</span>
-</code></pre></div><p>The linter should be run with different PHP version that are compatible with your module.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ php -l  &lt;file&gt;
+</span></span><span class="line"><span class="cl">        Syntax check only <span class="o">(</span>lint<span class="o">)</span>
+</span></span></code></pre></div><p>The linter can be run on a whole project if a list of files to check is created. On a Linux bash, this command looks for all the PHP files (except in folders <code>vendor</code> and <code>tests</code>) then runs the linter on each of them:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">find . -type f -name <span class="s1">&#39;*.php&#39;</span> ! -path <span class="s2">&#34;./vendor/*&#34;</span> ! -path <span class="s2">&#34;./tests/*&#34;</span> -exec php -l -n <span class="o">{}</span> <span class="se">\;</span> <span class="p">|</span> <span class="o">(</span>! grep -v <span class="s2">&#34;No syntax errors detected&#34;</span><span class="o">)</span>
+</span></span></code></pre></div><p>The linter should be run with different PHP version that are compatible with your module.
 Let&rsquo;s consider this example, defining an empty array and dumping it:</p>
 <p><strong>test.php</strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$myVar</span> <span class="o">=</span> <span class="p">[];</span>
-<span class="nx">var_dump</span><span class="p">(</span><span class="nv">$myVar</span><span class="p">);</span>
-</code></pre></div><p>Running the linter on this file from PHP 5.4 would return <code>No syntax errors detected in test.php</code>, while PHP 5.3 displays the following error:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Parse error:  syntax error, unexpected &#39;[&#39; on line 3
-</code></pre></div><p>That&rsquo;s why the minimum and maximum compatible PHP versions should be used to check your code. Merchants may use a version that cannot run all
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$myVar</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nv">$myVar</span><span class="p">);</span>
+</span></span></code></pre></div><p>Running the linter on this file from PHP 5.4 would return <code>No syntax errors detected in test.php</code>, while PHP 5.3 displays the following error:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Parse error:  syntax error, unexpected &#39;[&#39; on line 3
+</span></span></code></pre></div><p>That&rsquo;s why the minimum and maximum compatible PHP versions should be used to check your code. Merchants may use a version that cannot run all
 the code written in your modules (i.e namespaces, traits, strict typing&hellip;).</p>
 <p>If some errors are reported by this tool, this gives you the opportunity :</p>
 <ul>
@@ -33126,12 +33126,12 @@ the code written in your modules (i.e namespaces, traits, strict typing&hellip;)
 <h2 id="coding-standards">Coding standards<a href="#coding-standards"></a></h2><p>Modules follows the same rules as the core. The <a href="https://devdocs.prestashop-project.org/8/development/coding-standards/">coding standards chapter</a> of this project provides more details about it.</p>
 <p>Following the same rules as the core requires the configuration file to be available in your project. These rules are distributed and maintained on a repository
 <code>prestashop/php-dev-tools</code> available on <a href="https://packagist.org/packages/prestashop/php-dev-tools">Packagist</a> which can be required via composer.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Install dependencies</span>
-composer require --dev prestashop/php-dev-tools
-
-<span class="c1"># Set up configuration files</span>
-php vendor/bin/prestashop-coding-standards cs-fixer:init
-</code></pre></div><p>These commands install and prepare your project for php-cs-fixer and the core standards. The commands have run successfully if a file <code>.php_cs.dist</code> exists in the root folder.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Install dependencies</span>
+</span></span><span class="line"><span class="cl">composer require --dev prestashop/php-dev-tools
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Set up configuration files</span>
+</span></span><span class="line"><span class="cl">php vendor/bin/prestashop-coding-standards cs-fixer:init
+</span></span></code></pre></div><p>These commands install and prepare your project for php-cs-fixer and the core standards. The commands have run successfully if a file <code>.php_cs.dist</code> exists in the root folder.</p>
 <p><a href="https://packagist.org/packages/friendsofphp/php-cs-fixer">PHP-CS-Fixer</a> is used to check the code style, and is automatically included in your project if you required <code>prestashop/php-dev-tools</code> by following the commands above.</p>
 <p>It provides two main features:</p>
 <ul>
@@ -33139,15 +33139,15 @@ php vendor/bin/prestashop-coding-standards cs-fixer:init
 <li>Reporting these errors without fixing them, useful in a continuous integration context (with <code>--dry-run</code>).</li>
 </ul>
 <p>Supposing it was installed via Composer, the command to run it is:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">php vendor/bin/php-cs-fixer fix <span class="o">[</span>--dry-run<span class="o">]</span>
-</code></pre></div><p>This example provides the output expected by this tool, here with a file requiring changes:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ php vendor/bin/php-cs-fixer fix --dry-run
-Loaded config PrestaShop coding standard from &#34;&lt;path_to_your_module&gt;/.php_cs.dist&#34;.
-Using cache file &#34;.php_cs.cache&#34;.
-   1) controllers/front/TheController.php
-
-Checked all files in 0.085 seconds, 12.000 MB memory used
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php vendor/bin/php-cs-fixer fix <span class="o">[</span>--dry-run<span class="o">]</span>
+</span></span></code></pre></div><p>This example provides the output expected by this tool, here with a file requiring changes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ php vendor/bin/php-cs-fixer fix --dry-run
+</span></span><span class="line"><span class="cl">Loaded config PrestaShop coding standard from &#34;&lt;path_to_your_module&gt;/.php_cs.dist&#34;.
+</span></span><span class="line"><span class="cl">Using cache file &#34;.php_cs.cache&#34;.
+</span></span><span class="line"><span class="cl">   1) controllers/front/TheController.php
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Checked all files in 0.085 seconds, 12.000 MB memory used
+</span></span></code></pre></div>
 <h2 id="license-headers">License headers<a href="#license-headers"></a></h2><p>When the extension is open-source, sharing the license is one important task.</p>
 <p><a href="https://github.com/PrestaShopCorp/header-stamp">Header-Stamp</a> is a tool that applies a header on all compatible files (PHP, JS&hellip;).
 In these headers, details can be found about the author, the license, the original year of publication.
@@ -33157,14 +33157,14 @@ One command will apply the license header to all your files, or update it as nec
 <h3 id="example">Example<a href="#example"></a></h3><p>In the following example, the AFL license is going to be applied on a module.</p>
 <p>The Header-Stamp package already includes an AFL template, so we can use that one. We also have a few folders that we will want to ignore: <code>vendor</code> (because libraries have their own license), <code>test</code>, and <code>_dev</code> (because they won&rsquo;t be part of the release package).</p>
 <p>To install and use the tool:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1"># Install header-stamp</span>
-composer require --dev prestashop/php-dev-tools
-
-<span class="c1"># Apply header block</span>
-php vendor/bin/header-stamp --license<span class="o">=</span>vendor/prestashop/header-stamp/assets/afl.txt --exclude<span class="o">=</span>vendor,tests,_dev
-</code></pre></div><p>To return the list of files that would be updated because their header block is missing or different from the one to apply, use the <code>--dry-run</code> parameter:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">php vendor/bin/header-stamp --license<span class="o">=</span>vendor/prestashop/header-stamp/assets/afl.txt --exclude<span class="o">=</span>vendor,tests,_dev --dry-run
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Install header-stamp</span>
+</span></span><span class="line"><span class="cl">composer require --dev prestashop/php-dev-tools
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Apply header block</span>
+</span></span><span class="line"><span class="cl">php vendor/bin/header-stamp --license<span class="o">=</span>vendor/prestashop/header-stamp/assets/afl.txt --exclude<span class="o">=</span>vendor,tests,_dev
+</span></span></code></pre></div><p>To return the list of files that would be updated because their header block is missing or different from the one to apply, use the <code>--dry-run</code> parameter:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php vendor/bin/header-stamp --license<span class="o">=</span>vendor/prestashop/header-stamp/assets/afl.txt --exclude<span class="o">=</span>vendor,tests,_dev --dry-run
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33242,17 +33242,17 @@ php vendor/bin/header-stamp --license<span class="o">=</span>vendor/prestashop/h
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163926"></script>
-    <script src="/js/jquery.sticky.js?1703163926"></script>
-    <script src="/js/featherlight.min.js?1703163926"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163926"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163926"></script>
-    <script src="/js/learn.js?1703163926"></script>
-    <script src="/js/hugo-learn.js?1703163926"></script>
+    <script src="/js/clipboard.min.js?1703164748"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164748"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164748"></script>
+    <script src="/js/jquery.sticky.js?1703164748"></script>
+    <script src="/js/featherlight.min.js?1703164748"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164748"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164748"></script>
+    <script src="/js/learn.js?1703164748"></script>
+    <script src="/js/hugo-learn.js?1703164748"></script>
     
-    <script src="/main.js?1703163926"></script>
+    <script src="/main.js?1703164748"></script>
     
     
     

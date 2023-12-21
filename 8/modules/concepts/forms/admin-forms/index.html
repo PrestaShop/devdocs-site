@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Alter Configuration Back Office forms :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163911" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163911" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163911" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163911" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164737" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164737" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164737" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164737" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163911" rel="stylesheet">
+    <link href="/style.css?1703164737" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163911"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164737"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33140,92 +33140,92 @@ In PrestaShop 1.6, a specific Form framework was created to help developers. In 
 
 <p>Let&rsquo;s see an example on how to add, populate, validate and persist a new form field in PrestaShop 1.7.</p>
 
-<h4 id="create-the-module-and-register-the-hooks">Create the module and register the hooks<a href="#create-the-module-and-register-the-hooks"></a></h4><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1"># /modules/module_name/module_name.php
-</span><span class="c1"></span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionAdministrationPageForm</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$hookParams</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nv">$formBuilder</span> <span class="o">=</span> <span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;form_builder&#39;</span><span class="p">];</span>
-    <span class="nv">$uploadQuotaForm</span> <span class="o">=</span> <span class="nv">$formBuilder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;upload_quota&#39;</span><span class="p">);</span>
-    <span class="nv">$uploadQuotaForm</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-        <span class="s1">&#39;description&#39;</span><span class="p">,</span> 
-        <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> 
-        <span class="p">[</span>
-            <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;A description&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Description&#39;</span>
-        <span class="p">]</span>
-    <span class="p">);</span>
-<span class="p">}</span>
-
-<span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionAdministrationPageSave</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$hookParams</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">// retrieve and validate the data
-</span><span class="c1"></span>    <span class="nx">dump</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;form_data&#39;</span><span class="p">][</span><span class="s1">&#39;upload_quota&#39;</span><span class="p">][</span><span class="s1">&#39;description&#39;</span><span class="p">]);</span>
-
-    <span class="c1">// if the data is invalid, populate `errors` array
-</span><span class="c1"></span>    <span class="nx">dump</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;errors&#39;</span><span class="p">]);</span>
-<span class="p">}</span>
-</code></pre></div><p>The form field should be available in the selected form, can be validated and persisted in the database if valid using the provided hooks. If you access the Administration page in Back Office, you should see the new form field:</p>
+<h4 id="create-the-module-and-register-the-hooks">Create the module and register the hooks<a href="#create-the-module-and-register-the-hooks"></a></h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># /modules/module_name/module_name.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionAdministrationPageForm</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$hookParams</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$formBuilder</span> <span class="o">=</span> <span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;form_builder&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$uploadQuotaForm</span> <span class="o">=</span> <span class="nv">$formBuilder</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;upload_quota&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$uploadQuotaForm</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;description&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">        <span class="nx">TextType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">        <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;A description&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Description&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionAdministrationPageSave</span><span class="p">(</span><span class="o">&amp;</span><span class="nv">$hookParams</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// retrieve and validate the data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">dump</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;form_data&#39;</span><span class="p">][</span><span class="s1">&#39;upload_quota&#39;</span><span class="p">][</span><span class="s1">&#39;description&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// if the data is invalid, populate `errors` array
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">dump</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;errors&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The form field should be available in the selected form, can be validated and persisted in the database if valid using the provided hooks. If you access the Administration page in Back Office, you should see the new form field:</p>
 <p><img src="../img/form-field.png" alt="form"></p>
 
 <h4 id="templating">Templating<a href="#templating"></a></h4><p>Of course, you can override every template to improve again the rendering of the form (the Back Office theme may be/will be improved in future versions)</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"># /modules/module_name/views/PrestaShop/Admin/AdvancedParameters/administration.html.twig
-{% block administration_form_upload_quota %}
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col&#34;</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card&#34;</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">h3</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-header&#34;</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;material-icons&#34;</span><span class="p">&gt;</span>file_upload<span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span> {{ &#39;Upload quota&#39;|trans }}
-            <span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-block&#34;</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-text&#34;</span><span class="p">&gt;</span>
-                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group&#34;</span><span class="p">&gt;</span>
-                        {{ ps.label_with_help((&#39;Maximum size for attached files&#39;|trans), (&#39;Set the maximum size allowed for attachment files (in megabytes). This value has to be lower or equal to the maximum file upload allotted by your server (currently: %size% MB).&#39;|trans({&#39;%size%&#39;: &#39;PS_ATTACHMENT_MAXIMUM_SIZE&#39;|configuration}, &#39;Admin.Advparameters.Help&#39;))) }}
-                        {{ form_errors(uploadQuotaForm.max_size_attached_files) }}
-                        {{ form_widget(uploadQuotaForm.max_size_attached_files) }}
-                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group&#34;</span><span class="p">&gt;</span>
-                        {{ ps.label_with_help((&#39;Maximum size for a downloadable product&#39;|trans), (&#39;Define the upload limit for a downloadable product (in megabytes). This value has to be lower or equal to the maximum file upload allotted by your server (currently: %size% MB).&#39;|trans({&#39;%size%&#39;: &#39;PS_LIMIT_UPLOAD_FILE_VALUE&#39;|configuration}, &#39;Admin.Advparameters.Help&#39;))) }}
-                        {{ form_errors(uploadQuotaForm.max_size_downloadable_product) }}
-                        {{ form_widget(uploadQuotaForm.max_size_downloadable_product) }}
-                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group&#34;</span><span class="p">&gt;</span>
-                        {{ ps.label_with_help((&#34;Maximum size for a product&#39;s image&#34;|trans), (&#39;Define the upload limit for an image (in megabytes). This value has to be lower or equal to the maximum file upload allotted by your server (currently: %size% MB).&#39;|trans({&#39;%size%&#39;: &#39;PS_LIMIT_UPLOAD_IMAGE_VALUE&#39;|configuration}, &#39;Admin.Advparameters.Help&#39;))) }}
-                        {{ form_errors(uploadQuotaForm.max_size_product_image) }}
-                        {{ form_widget(uploadQuotaForm.max_size_product_image) }}
-                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-                    {# Do what you need to do, I&#39;m really bad at designing pages ^o^ #}
-                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group&#34;</span><span class="p">&gt;</span>
-                        {{ form_label(uploadQuotaForm.description) }}
-                        {{ form_widget(uploadQuotaForm.description) }}
-                        {{ form_errors(uploadQuotaForm.description) }}
-                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-                    {{ form_rest(uploadQuotaForm) }}
-                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-footer&#34;</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;d-flex justify-content-end&#34;</span><span class="p">&gt;</span>
-                    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;btn btn-primary&#34;</span><span class="p">&gt;</span>{{ &#39;Save&#39;|trans({}, &#39;Admin.Actions&#39;) }}<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-{% endblock %}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"># /modules/module_name/views/PrestaShop/Admin/AdvancedParameters/administration.html.twig
+</span></span><span class="line"><span class="cl">{% block administration_form_upload_quota %}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">h3</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-header&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;material-icons&#34;</span><span class="p">&gt;</span>file_upload<span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span> {{ &#39;Upload quota&#39;|trans }}
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-block&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-text&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                        {{ ps.label_with_help((&#39;Maximum size for attached files&#39;|trans), (&#39;Set the maximum size allowed for attachment files (in megabytes). This value has to be lower or equal to the maximum file upload allotted by your server (currently: %size% MB).&#39;|trans({&#39;%size%&#39;: &#39;PS_ATTACHMENT_MAXIMUM_SIZE&#39;|configuration}, &#39;Admin.Advparameters.Help&#39;))) }}
+</span></span><span class="line"><span class="cl">                        {{ form_errors(uploadQuotaForm.max_size_attached_files) }}
+</span></span><span class="line"><span class="cl">                        {{ form_widget(uploadQuotaForm.max_size_attached_files) }}
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                        {{ ps.label_with_help((&#39;Maximum size for a downloadable product&#39;|trans), (&#39;Define the upload limit for a downloadable product (in megabytes). This value has to be lower or equal to the maximum file upload allotted by your server (currently: %size% MB).&#39;|trans({&#39;%size%&#39;: &#39;PS_LIMIT_UPLOAD_FILE_VALUE&#39;|configuration}, &#39;Admin.Advparameters.Help&#39;))) }}
+</span></span><span class="line"><span class="cl">                        {{ form_errors(uploadQuotaForm.max_size_downloadable_product) }}
+</span></span><span class="line"><span class="cl">                        {{ form_widget(uploadQuotaForm.max_size_downloadable_product) }}
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                        {{ ps.label_with_help((&#34;Maximum size for a product&#39;s image&#34;|trans), (&#39;Define the upload limit for an image (in megabytes). This value has to be lower or equal to the maximum file upload allotted by your server (currently: %size% MB).&#39;|trans({&#39;%size%&#39;: &#39;PS_LIMIT_UPLOAD_IMAGE_VALUE&#39;|configuration}, &#39;Admin.Advparameters.Help&#39;))) }}
+</span></span><span class="line"><span class="cl">                        {{ form_errors(uploadQuotaForm.max_size_product_image) }}
+</span></span><span class="line"><span class="cl">                        {{ form_widget(uploadQuotaForm.max_size_product_image) }}
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    {# Do what you need to do, I&#39;m really bad at designing pages ^o^ #}
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                        {{ form_label(uploadQuotaForm.description) }}
+</span></span><span class="line"><span class="cl">                        {{ form_widget(uploadQuotaForm.description) }}
+</span></span><span class="line"><span class="cl">                        {{ form_errors(uploadQuotaForm.description) }}
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                    {{ form_rest(uploadQuotaForm) }}
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;card-footer&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;d-flex justify-content-end&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;btn btn-primary&#34;</span><span class="p">&gt;</span>{{ &#39;Save&#39;|trans({}, &#39;Admin.Actions&#39;) }}<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">{% endblock %}
+</span></span></code></pre></div>
 <h4 id="handle-form-error-in-the-product-page-form">Handle form error in the product page form<a href="#handle-form-error-in-the-product-page-form"></a></h4><p>If we want to manage errors of the product page, adding text in controller-&gt;errors (like in the legacy controllers) is not working, we have to add your error in a specific syntax and return a json array of errors.</p>
 <p>Assuming we want to notify an error when validating the Product form on the field with the id <code>form_step6_myfield</code>, this is the correct method to display an error message to the user.</p>
 <p>In the hook (<code>actionProductUpdate</code>, <code>actionAdminProductsControllerSaveAfter</code>, &hellip;):</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// add error
-</span><span class="c1"></span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">errors</span><span class="p">[</span><span class="s1">&#39;step6_myfield&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Syntax error in field&#39;</span><span class="p">)];</span>
-
-<span class="c1">// return error 
-</span><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">errors</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">http_response_code</span><span class="p">(</span><span class="mi">400</span><span class="p">);</span>
-    <span class="k">die</span><span class="p">(</span><span class="nx">json_encode</span><span class="p">(</span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">errors</span><span class="p">));</span>
-<span class="p">}</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;form_step6_myfield&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;whatever&#34;</span> <span class="p">/&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// add error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">errors</span><span class="p">[</span><span class="s1">&#39;step6_myfield&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Syntax error in field&#39;</span><span class="p">)];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// return error 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">errors</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">http_response_code</span><span class="p">(</span><span class="mi">400</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">die</span><span class="p">(</span><span class="nx">json_encode</span><span class="p">(</span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">errors</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;form_step6_myfield&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;whatever&#34;</span> <span class="p">/&gt;</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33303,17 +33303,17 @@ In PrestaShop 1.6, a specific Form framework was created to help developers. In 
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163911"></script>
-    <script src="/js/jquery.sticky.js?1703163911"></script>
-    <script src="/js/featherlight.min.js?1703163911"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163911"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163911"></script>
-    <script src="/js/learn.js?1703163911"></script>
-    <script src="/js/hugo-learn.js?1703163911"></script>
+    <script src="/js/clipboard.min.js?1703164737"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164737"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164737"></script>
+    <script src="/js/jquery.sticky.js?1703164737"></script>
+    <script src="/js/featherlight.min.js?1703164737"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164737"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164737"></script>
+    <script src="/js/learn.js?1703164737"></script>
+    <script src="/js/hugo-learn.js?1703164737"></script>
     
-    <script src="/main.js?1703163911"></script>
+    <script src="/main.js?1703164737"></script>
     
     
     

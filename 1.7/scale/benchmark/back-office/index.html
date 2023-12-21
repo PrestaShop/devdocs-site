@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Back-Office Benchmark :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/scale/benchmark/back-office/">
     
-    <link href="/css/font-awesome.min.css?1703163895" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163895" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163895" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163895" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164722" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164722" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164722" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164722" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163895" rel="stylesheet">
+    <link href="/style.css?1703164722" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163895"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164722"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30307,8 +30307,8 @@ Backoffice benchmark is only possible starting with PrestaShop 1.7.4.0!</b></p>
 
 <h3 id="clone-the-repository">Clone the repository<a href="#clone-the-repository"></a></h3><p>To follow these instructions, you will use the following github repository:
 <strong><a href="https://github.com/PrestaShop/performance-project">PrestaShop performance project</a></strong></p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">git clone git@github.com:PrestaShop/performance-project.git
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone git@github.com:PrestaShop/performance-project.git
+</span></span></code></pre></div>
 <h3 id="shop-filled-with-fixtures">Shop filled with fixtures<a href="#shop-filled-with-fixtures"></a></h3><p>Benchmarks require a pre-populated shop. But this shop content has to be the same at each new bench in order to get reproducible results. PrestaShop ShopCreator project will help to generate fixtures, used during shop installation to populate the benched shop.</p>
 
 <h4 id="generate-fixtures">Generate fixtures<a href="#generate-fixtures"></a></h4><pre><code>cd performance-project
@@ -30350,20 +30350,20 @@ docker build -t prestashop-bench .
 <p>Your image is ready to use.</p>
 
 <h5 id="run-the-shop">Run the shop<a href="#run-the-shop"></a></h5><p>Run the shop with the following command:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">docker run \
--e FIXTURE_FOLDER=fixtures\
-	-e PS_DOMAIN=localhost:8080\
-	-e PS_FOLDER_ADMIN=admin1234\
-	-e PS_ERASE_DB=1 \
-	-e PS_CANONICAL_REDIRECT_DISABLE=1 \
-	-e DB_SERVER=host.docker.internal\
-	 -e DB_PORT=3306\
-	-e DB_NAME=prestashop_bench \
-	-e DB_USER=prestashop_bench \
-	-e DB_PASSWD=prestashop_bench \
-	-p 8080:80 \
-	prestashop-bench
-</code></pre></div><p>Installation can take several minutes, depending on the size of fixtures you set, and of course depending on the machine you run it on.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker run \
+</span></span><span class="line"><span class="cl">-e FIXTURE_FOLDER=fixtures\
+</span></span><span class="line"><span class="cl">	-e PS_DOMAIN=localhost:8080\
+</span></span><span class="line"><span class="cl">	-e PS_FOLDER_ADMIN=admin1234\
+</span></span><span class="line"><span class="cl">	-e PS_ERASE_DB=1 \
+</span></span><span class="line"><span class="cl">	-e PS_CANONICAL_REDIRECT_DISABLE=1 \
+</span></span><span class="line"><span class="cl">	-e DB_SERVER=host.docker.internal\
+</span></span><span class="line"><span class="cl">	 -e DB_PORT=3306\
+</span></span><span class="line"><span class="cl">	-e DB_NAME=prestashop_bench \
+</span></span><span class="line"><span class="cl">	-e DB_USER=prestashop_bench \
+</span></span><span class="line"><span class="cl">	-e DB_PASSWD=prestashop_bench \
+</span></span><span class="line"><span class="cl">	-p 8080:80 \
+</span></span><span class="line"><span class="cl">	prestashop-bench
+</span></span></code></pre></div><p>Installation can take several minutes, depending on the size of fixtures you set, and of course depending on the machine you run it on.</p>
 <p>Once it is done, you should access this shop from http://localhost:8080 on your browser.</p>
 
 <h5 id="hosting-customizations">Hosting customizations<a href="#hosting-customizations"></a></h5><p>The docker image above is used for this study purposes. It is deployed on several stacks detailed in Results.
@@ -30381,20 +30381,20 @@ cd benchmark/gatling
 </code></pre>
 
 <h4 id="run-gatling">Run Gatling<a href="#run-gatling"></a></h4><p>Provided Gatling run command accepts arguments such as user count, customer count, test duration.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">docker run -it --rm \
-		-v $dir/results:/opt/gatling/results \
-		-e JAVA_OPTS=&#34;-DusersCount=500
-			-DcustomersCount=20
-			-DadminsCount=0
-			-DrampDurationInSeconds=900
-			-DhttpBaseUrlFO=http://shop2.stack1.prestashop.net
-			-DhttpBaseUrlBO=http://shop2.stack1.prestashop.net/ps-admin
-			-DadminUser=demo@prestashop.com
-			-DadminPassword=prestashop&#34; \
-		--add-host=sandbox.prestashop.com:192.168.0.4 \
-		prestashop/performance-gatling \
-		-s LoadSimulation
-</code></pre></div><p>In the example above:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker run -it --rm \
+</span></span><span class="line"><span class="cl">		-v $dir/results:/opt/gatling/results \
+</span></span><span class="line"><span class="cl">		-e JAVA_OPTS=&#34;-DusersCount=500
+</span></span><span class="line"><span class="cl">			-DcustomersCount=20
+</span></span><span class="line"><span class="cl">			-DadminsCount=0
+</span></span><span class="line"><span class="cl">			-DrampDurationInSeconds=900
+</span></span><span class="line"><span class="cl">			-DhttpBaseUrlFO=http://shop2.stack1.prestashop.net
+</span></span><span class="line"><span class="cl">			-DhttpBaseUrlBO=http://shop2.stack1.prestashop.net/ps-admin
+</span></span><span class="line"><span class="cl">			-DadminUser=demo@prestashop.com
+</span></span><span class="line"><span class="cl">			-DadminPassword=prestashop&#34; \
+</span></span><span class="line"><span class="cl">		--add-host=sandbox.prestashop.com:192.168.0.4 \
+</span></span><span class="line"><span class="cl">		prestashop/performance-gatling \
+</span></span><span class="line"><span class="cl">		-s LoadSimulation
+</span></span></code></pre></div><p>In the example above:</p>
 <ul>
 <li>-v $dir/results:/opt/gatling/results
 mount result/ directory to get gatling results stored in it</li>
@@ -30419,8 +30419,8 @@ You could then write your own <code>batch.sh</code> to run multiple gatling benc
 <p><img src="https://i.imgur.com/devRwHF.png" alt="Gatling"></p>
 
 <h3 id="your-gatling-is-ready-to-be-run">Your Gatling is ready to be run<a href="#your-gatling-is-ready-to-be-run"></a></h3><p>Now let&rsquo;s test if our Gatling works well, so you can launch a sample test included natively in the project with the CLI:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">➜  ./bin/gatling.sh 
-</code></pre></div><p>And choose the simulation you want to run</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">➜  ./bin/gatling.sh 
+</span></span></code></pre></div><p>And choose the simulation you want to run</p>
 <p><img src="https://i.imgur.com/HQ5eCfZ.png" alt="Gatling"></p>
 <p>In my example I run &ldquo;[1] basic.BasicExempleSimulation&rdquo;
 <img src="https://i.imgur.com/nJdOPsB.png" alt="Gatling"></p>
@@ -30444,10 +30444,10 @@ If you want to test it you need to setup environment variable (SetEnv <em>TOKEN<
 <p>For example if you site is setup in
 /etc/apache2/sites-enabled/000-default.conf</p>
 <p>add the value</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">SetEnv _TOKEN_ disabled
-</code></pre></div><p>before</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt; /VirtualHost &gt;
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">SetEnv _TOKEN_ disabled
+</span></span></code></pre></div><p>before</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt; /VirtualHost &gt;
+</span></span></code></pre></div><blockquote>
 <p>Note:
 don&rsquo;t forget to restart your apache service!
 Now the token are disabled on your PrestaShop site Back-office, this mean that everyone who can log-in your Back-office could access to anypage from the url page.
@@ -30534,17 +30534,17 @@ If this is not the case, don&rsquo;t forget to restore it when you finish your p
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163895"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163895"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163895"></script>
-    <script src="/js/jquery.sticky.js?1703163895"></script>
-    <script src="/js/featherlight.min.js?1703163895"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163895"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163895"></script>
-    <script src="/js/learn.js?1703163895"></script>
-    <script src="/js/hugo-learn.js?1703163895"></script>
+    <script src="/js/clipboard.min.js?1703164722"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164722"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164722"></script>
+    <script src="/js/jquery.sticky.js?1703164722"></script>
+    <script src="/js/featherlight.min.js?1703164722"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164722"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164722"></script>
+    <script src="/js/learn.js?1703164722"></script>
+    <script src="/js/hugo-learn.js?1703164722"></script>
     
-    <script src="/main.js?1703163895"></script>
+    <script src="/main.js?1703164722"></script>
     
     
     

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Module base creation :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/sample-modules/order-pages-new-hooks/module-base/">
     
-    <link href="/css/font-awesome.min.css?1703163894" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163894" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163894" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163894" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164722" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164722" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164722" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164722" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163894" rel="stylesheet">
+    <link href="/style.css?1703164722" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163894"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164722"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30293,25 +30293,25 @@ For example, we might define a constant if one of our class and use it in
 including <code>require_once __DIR__.'/vendor/autoload.php';</code> before the main module class
 <code>demovieworderhooks</code> is defined.</div>
 
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;prestashop/demovieworderhooks&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;authors&#34;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Name Surname&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;email&#34;</span><span class="p">:</span> <span class="s2">&#34;author@email.com&#34;</span>
-        <span class="p">}</span>
-    <span class="p">],</span>
-    <span class="nt">&#34;autoload&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;psr-4&#34;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;PrestaShop\\Module\\DemoViewOrderHooks\\&#34;</span><span class="p">:</span> <span class="s2">&#34;src/&#34;</span>
-      <span class="p">},</span>
-      <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;prepend-autoloader&#34;</span><span class="p">:</span> <span class="kc">false</span>
-      <span class="p">},</span>
-      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;prestashop-module&#34;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Then run <code>composer install</code> on the terminal/command line inside <code>/modules/demovieworderhooks/</code> folder.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;prestashop/demovieworderhooks&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;authors&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Name Surname&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;email&#34;</span><span class="p">:</span> <span class="s2">&#34;author@email.com&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;autoload&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;psr-4&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;PrestaShop\\Module\\DemoViewOrderHooks\\&#34;</span><span class="p">:</span> <span class="s2">&#34;src/&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;prepend-autoloader&#34;</span><span class="p">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;prestashop-module&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Then run <code>composer install</code> on the terminal/command line inside <code>/modules/demovieworderhooks/</code> folder.
 Also run <code>composer dump-autoload</code> to re-generate the vendor/autoload.php file.
 If files were autoloaded successfully you should see something similar to
 <code>PrestaShop\\Module\\DemoViewOrderHooks\\' =&gt; array($baseDir . '/src')</code> in
@@ -30322,327 +30322,326 @@ flexible and maintainable. Create <code>FixturesInstaller</code> class inside <c
 folder to represent <code>Single responsibility principle</code>
 (<a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">https://en.wikipedia.org/wiki/Single_responsibility_principle</a>) responsible only for module
 fixtures data inserted to the database.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/**
-</span><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
-</span><span class="sd"> *
-</span><span class="sd"> * NOTICE OF LICENSE
-</span><span class="sd"> *
-</span><span class="sd"> * This source file is subject to the Academic Free License version 3.0
-</span><span class="sd"> * that is bundled with this package in the file LICENSE.md.
-</span><span class="sd"> * It is also available through the world-wide-web at this URL:
-</span><span class="sd"> * https://opensource.org/licenses/AFL-3.0
-</span><span class="sd"> * If you did not receive a copy of the license and are unable to
-</span><span class="sd"> * obtain it through the world-wide-web, please send an email
-</span><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
-</span><span class="sd"> *
-</span><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
-</span><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
-</span><span class="sd"> */</span>
-
-<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoViewOrderHooks\Install</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Db</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Order</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * Installs data fixtures for the module.
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">FixturesInstaller</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var Db
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$db</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Db</span> <span class="nv">$db</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span> <span class="o">=</span> <span class="nv">$db</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="nv">$orderIds</span> <span class="o">=</span> <span class="nx">Order</span><span class="o">::</span><span class="na">getOrdersIdByDate</span><span class="p">(</span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2100-01-01&#39;</span><span class="p">);</span>
-
-        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$orderIds</span> <span class="k">as</span> <span class="nv">$orderId</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">insertSignature</span><span class="p">(</span><span class="nv">$orderId</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">insertSignature</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$orderId</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="s1">&#39;order_signature&#39;</span><span class="p">,</span> <span class="p">[</span>
-            <span class="s1">&#39;id_order&#39;</span> <span class="o">=&gt;</span> <span class="nv">$orderId</span><span class="p">,</span>
-            <span class="s1">&#39;filename&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;john_doe.png&#39;</span><span class="p">,</span>
-        <span class="p">]);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Lets create <code>Installer</code> class inside <code>/demovieworderhooks/src/Install</code> folder structure.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * NOTICE OF LICENSE
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * This source file is subject to the Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * that is bundled with this package in the file LICENSE.md.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * It is also available through the world-wide-web at this URL:
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * https://opensource.org/licenses/AFL-3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * If you did not receive a copy of the license and are unable to
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * obtain it through the world-wide-web, please send an email
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoViewOrderHooks\Install</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Db</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Order</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Installs data fixtures for the module.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FixturesInstaller</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var Db
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$db</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Db</span> <span class="nv">$db</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span> <span class="o">=</span> <span class="nv">$db</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$orderIds</span> <span class="o">=</span> <span class="nx">Order</span><span class="o">::</span><span class="na">getOrdersIdByDate</span><span class="p">(</span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2100-01-01&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$orderIds</span> <span class="k">as</span> <span class="nv">$orderId</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">insertSignature</span><span class="p">(</span><span class="nv">$orderId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">insertSignature</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$orderId</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">db</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="s1">&#39;order_signature&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;id_order&#39;</span> <span class="o">=&gt;</span> <span class="nv">$orderId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;filename&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;john_doe.png&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Lets create <code>Installer</code> class inside <code>/demovieworderhooks/src/Install</code> folder structure.
 It is responsible only for module installation (hook registration, database creation,
 population database data). When it comes to database creation we use PrestaShop <code>DbCore</code> class
 functions because doctrine is not fully supported for modules installation at 1.7.7.0 release
 (<a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/doctrine/#creating-the-database)">https://devdocs.prestashop-project.org/1.7/modules/concepts/doctrine/#creating-the-database)</a>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/**
-</span><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
-</span><span class="sd"> *
-</span><span class="sd"> * NOTICE OF LICENSE
-</span><span class="sd"> *
-</span><span class="sd"> * This source file is subject to the Academic Free License version 3.0
-</span><span class="sd"> * that is bundled with this package in the file LICENSE.md.
-</span><span class="sd"> * It is also available through the world-wide-web at this URL:
-</span><span class="sd"> * https://opensource.org/licenses/AFL-3.0
-</span><span class="sd"> * If you did not receive a copy of the license and are unable to
-</span><span class="sd"> * obtain it through the world-wide-web, please send an email
-</span><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
-</span><span class="sd"> *
-</span><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
-</span><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
-</span><span class="sd"> */</span>
-
-<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoViewOrderHooks\Install</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Db</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Module</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * Class responsible for modifications needed during installation/uninstallation of the module.
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">Installer</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var FixturesInstaller
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$fixturesInstaller</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">FixturesInstaller</span> <span class="nv">$fixturesInstaller</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fixturesInstaller</span> <span class="o">=</span> <span class="nv">$fixturesInstaller</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Module&#39;s installation entry point.
-</span><span class="sd">     *
-</span><span class="sd">     * @param Module $module
-</span><span class="sd">     *
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHooks</span><span class="p">(</span><span class="nv">$module</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">installDatabase</span><span class="p">())</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fixturesInstaller</span><span class="o">-&gt;</span><span class="na">install</span><span class="p">();</span>
-
-        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Module&#39;s uninstallation entry point.
-</span><span class="sd">     *
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uninstallDatabase</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Install the database modifications required for this module.
-</span><span class="sd">     *
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">installDatabase</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
-    <span class="p">{</span>
-        <span class="nv">$queries</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;CREATE TABLE IF NOT EXISTS `&#39;</span><span class="o">.</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="s1">&#39;order_signature` (
-</span><span class="s1">              `id_signature` int(11) NOT NULL AUTO_INCREMENT,
-</span><span class="s1">              `id_order` int(11) NOT NULL,
-</span><span class="s1">              `filename` varchar(64) NOT NULL,
-</span><span class="s1">              PRIMARY KEY (`id_signature`),
-</span><span class="s1">              UNIQUE KEY (`id_order`)
-</span><span class="s1">            ) ENGINE=&#39;</span><span class="o">.</span><span class="nx">_MYSQL_ENGINE_</span><span class="o">.</span><span class="s1">&#39; DEFAULT CHARSET=utf8;&#39;</span><span class="p">,</span>
-        <span class="p">];</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">executeQueries</span><span class="p">(</span><span class="nv">$queries</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Uninstall database modifications.
-</span><span class="sd">     *
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">uninstallDatabase</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
-    <span class="p">{</span>
-        <span class="nv">$queries</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;DROP TABLE IF EXISTS `&#39;</span><span class="o">.</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="s1">&#39;order_signature`&#39;</span><span class="p">,</span>
-        <span class="p">];</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">executeQueries</span><span class="p">(</span><span class="nv">$queries</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Register hooks for the module.
-</span><span class="sd">     *
-</span><span class="sd">     * @param Module $module
-</span><span class="sd">     *
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">registerHooks</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
-    <span class="p">{</span>
-        <span class="c1">// Hooks available in the order view page.
-</span><span class="c1"></span>        <span class="nv">$hooks</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;displayBackOfficeOrderActions&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;displayAdminOrderTabLink&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;displayAdminOrderTabContent&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;displayAdminOrderMain&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;displayAdminOrderSide&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;displayAdminOrder&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;displayAdminOrderTop&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;actionGetAdminOrderButtons&#39;</span><span class="p">,</span>
-        <span class="p">];</span>
-
-        <span class="k">return</span> <span class="p">(</span><span class="nx">bool</span><span class="p">)</span> <span class="nv">$module</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nv">$hooks</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * A helper that executes multiple database queries.
-</span><span class="sd">     *
-</span><span class="sd">     * @param array $queries
-</span><span class="sd">     *
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">executeQueries</span><span class="p">(</span><span class="k">array</span> <span class="nv">$queries</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
-    <span class="p">{</span>
-        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$queries</span> <span class="k">as</span> <span class="nv">$query</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="nv">$query</span><span class="p">))</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-</code></pre></div><p>Then let&rsquo;s create <code>InstallerFactory</code> inside <code>/demovieworderhooks/src/Install</code> which will be used
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * NOTICE OF LICENSE
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * This source file is subject to the Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * that is bundled with this package in the file LICENSE.md.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * It is also available through the world-wide-web at this URL:
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * https://opensource.org/licenses/AFL-3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * If you did not receive a copy of the license and are unable to
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * obtain it through the world-wide-web, please send an email
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoViewOrderHooks\Install</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Db</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Module</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Class responsible for modifications needed during installation/uninstallation of the module.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Installer</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var FixturesInstaller
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$fixturesInstaller</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">FixturesInstaller</span> <span class="nv">$fixturesInstaller</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fixturesInstaller</span> <span class="o">=</span> <span class="nv">$fixturesInstaller</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Module&#39;s installation entry point.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param Module $module
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHooks</span><span class="p">(</span><span class="nv">$module</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">installDatabase</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fixturesInstaller</span><span class="o">-&gt;</span><span class="na">install</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Module&#39;s uninstallation entry point.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uninstallDatabase</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Install the database modifications required for this module.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">installDatabase</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$queries</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;CREATE TABLE IF NOT EXISTS `&#39;</span><span class="o">.</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="s1">&#39;order_signature` (
+</span></span></span><span class="line"><span class="cl"><span class="s1">              `id_signature` int(11) NOT NULL AUTO_INCREMENT,
+</span></span></span><span class="line"><span class="cl"><span class="s1">              `id_order` int(11) NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="s1">              `filename` varchar(64) NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="s1">              PRIMARY KEY (`id_signature`),
+</span></span></span><span class="line"><span class="cl"><span class="s1">              UNIQUE KEY (`id_order`)
+</span></span></span><span class="line"><span class="cl"><span class="s1">            ) ENGINE=&#39;</span><span class="o">.</span><span class="nx">_MYSQL_ENGINE_</span><span class="o">.</span><span class="s1">&#39; DEFAULT CHARSET=utf8;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">executeQueries</span><span class="p">(</span><span class="nv">$queries</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Uninstall database modifications.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">uninstallDatabase</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$queries</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;DROP TABLE IF EXISTS `&#39;</span><span class="o">.</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="s1">&#39;order_signature`&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">executeQueries</span><span class="p">(</span><span class="nv">$queries</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Register hooks for the module.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param Module $module
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">registerHooks</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Hooks available in the order view page.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$hooks</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;displayBackOfficeOrderActions&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;displayAdminOrderTabLink&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;displayAdminOrderTabContent&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;displayAdminOrderMain&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;displayAdminOrderSide&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;displayAdminOrder&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;displayAdminOrderTop&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;actionGetAdminOrderButtons&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="nx">bool</span><span class="p">)</span> <span class="nv">$module</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nv">$hooks</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * A helper that executes multiple database queries.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $queries
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">executeQueries</span><span class="p">(</span><span class="k">array</span> <span class="nv">$queries</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$queries</span> <span class="k">as</span> <span class="nv">$query</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="nv">$query</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Then let&rsquo;s create <code>InstallerFactory</code> inside <code>/demovieworderhooks/src/Install</code> which will be used
 to create <code>Installer</code> object. We call it factory because it deals with creating objects without
 having to specify the exact class of the object that will be created.
 More about factory design pattern: <a href="https://en.wikipedia.org/wiki/Factory_method_pattern">https://en.wikipedia.org/wiki/Factory_method_pattern</a></p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/**
-</span><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
-</span><span class="sd"> *
-</span><span class="sd"> * NOTICE OF LICENSE
-</span><span class="sd"> *
-</span><span class="sd"> * This source file is subject to the Academic Free License version 3.0
-</span><span class="sd"> * that is bundled with this package in the file LICENSE.md.
-</span><span class="sd"> * It is also available through the world-wide-web at this URL:
-</span><span class="sd"> * https://opensource.org/licenses/AFL-3.0
-</span><span class="sd"> * If you did not receive a copy of the license and are unable to
-</span><span class="sd"> * obtain it through the world-wide-web, please send an email
-</span><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
-</span><span class="sd"> *
-</span><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
-</span><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
-</span><span class="sd"> */</span>
-
-<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoViewOrderHooks\Install</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Db</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">InstallerFactory</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">create</span><span class="p">()</span><span class="o">:</span> <span class="nx">Installer</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="nx">Installer</span><span class="p">(</span>
-            <span class="k">new</span> <span class="nx">FixturesInstaller</span><span class="p">(</span><span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">())</span>
-        <span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s create main module file: <code>demovieworderhooks.php</code> inside the <code>modules/demovieworderhooks</code> folder.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * NOTICE OF LICENSE
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * This source file is subject to the Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * that is bundled with this package in the file LICENSE.md.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * It is also available through the world-wide-web at this URL:
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * https://opensource.org/licenses/AFL-3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * If you did not receive a copy of the license and are unable to
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * obtain it through the world-wide-web, please send an email
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoViewOrderHooks\Install</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Db</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">InstallerFactory</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">create</span><span class="p">()</span><span class="o">:</span> <span class="nx">Installer</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="nx">Installer</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="k">new</span> <span class="nx">FixturesInstaller</span><span class="p">(</span><span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Let&rsquo;s create main module file: <code>demovieworderhooks.php</code> inside the <code>modules/demovieworderhooks</code> folder.
 And create <code>DemoViewOrderHooks</code> class which extends the <code>Module</code> class:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/**
-</span><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
-</span><span class="sd"> *
-</span><span class="sd"> * NOTICE OF LICENSE
-</span><span class="sd"> *
-</span><span class="sd"> * This source file is subject to the Academic Free License version 3.0
-</span><span class="sd"> * that is bundled with this package in the file LICENSE.md.
-</span><span class="sd"> * It is also available through the world-wide-web at this URL:
-</span><span class="sd"> * https://opensource.org/licenses/AFL-3.0
-</span><span class="sd"> * If you did not receive a copy of the license and are unable to
-</span><span class="sd"> * obtain it through the world-wide-web, please send an email
-</span><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
-</span><span class="sd"> *
-</span><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
-</span><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
-</span><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
-</span><span class="sd"> */</span>
-
-<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">use</span> <span class="nx">PrestaShop\Module\DemoViewOrderHooks\Install\InstallerFactory</span><span class="p">;</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">exit</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="k">require_once</span> <span class="no">__DIR__</span><span class="o">.</span><span class="s1">&#39;/vendor/autoload.php&#39;</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">DemoViewOrderHooks</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;demovieworderhooks&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="s1">&#39;PrestaShop&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ps_versions_compliancy</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7.7.0&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="nx">_PS_VERSION_</span><span class="p">];</span>
-
-        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Demo view order hooks&#39;</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Demonstration of new hooks in PrestaShop 1.7.7 order view page&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">())</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="nv">$installer</span> <span class="o">=</span> <span class="nx">InstallerFactory</span><span class="o">::</span><span class="na">create</span><span class="p">();</span>
-
-        <span class="k">return</span> <span class="nv">$installer</span><span class="o">-&gt;</span><span class="na">install</span><span class="p">(</span><span class="nv">$this</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$installer</span> <span class="o">=</span> <span class="nx">InstallerFactory</span><span class="o">::</span><span class="na">create</span><span class="p">();</span>
-
-        <span class="k">return</span> <span class="nv">$installer</span><span class="o">-&gt;</span><span class="na">uninstall</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">();</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
-</code></pre></div><p>Now we can install the module through PrestaShop Back Office <code>Modules\Module Catalog</code>.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Copyright since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * NOTICE OF LICENSE
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * This source file is subject to the Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * that is bundled with this package in the file LICENSE.md.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * It is also available through the world-wide-web at this URL:
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * https://opensource.org/licenses/AFL-3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * If you did not receive a copy of the license and are unable to
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * obtain it through the world-wide-web, please send an email
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * to license@prestashop.com so we can send you a copy immediately.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @copyright Since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\Module\DemoViewOrderHooks\Install\InstallerFactory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">require_once</span> <span class="no">__DIR__</span><span class="o">.</span><span class="s1">&#39;/vendor/autoload.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DemoViewOrderHooks</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;demovieworderhooks&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="s1">&#39;PrestaShop&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ps_versions_compliancy</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7.7.0&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="nx">_PS_VERSION_</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Demo view order hooks&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Demonstration of new hooks in PrestaShop 1.7.7 order view page&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$installer</span> <span class="o">=</span> <span class="nx">InstallerFactory</span><span class="o">::</span><span class="na">create</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$installer</span><span class="o">-&gt;</span><span class="na">install</span><span class="p">(</span><span class="nv">$this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$installer</span> <span class="o">=</span> <span class="nx">InstallerFactory</span><span class="o">::</span><span class="na">create</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$installer</span><span class="o">-&gt;</span><span class="na">uninstall</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Now we can install the module through PrestaShop Back Office <code>Modules\Module Catalog</code>.
 In the search box type <code>Demo</code>, click <code>Enter</code> and then you should see the module with name
 <code>Demo view order hooks</code> suggested for Installation. Click <code>Install</code>, you should see the green box
 at the top right corner telling you about the success!</p>
@@ -30725,17 +30724,17 @@ at the top right corner telling you about the success!</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163895"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163895"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163895"></script>
-    <script src="/js/jquery.sticky.js?1703163895"></script>
-    <script src="/js/featherlight.min.js?1703163895"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163895"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163895"></script>
-    <script src="/js/learn.js?1703163895"></script>
-    <script src="/js/hugo-learn.js?1703163895"></script>
+    <script src="/js/clipboard.min.js?1703164722"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164722"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164722"></script>
+    <script src="/js/jquery.sticky.js?1703164722"></script>
+    <script src="/js/featherlight.min.js?1703164722"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164722"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164722"></script>
+    <script src="/js/learn.js?1703164722"></script>
+    <script src="/js/hugo-learn.js?1703164722"></script>
     
-    <script src="/main.js?1703163895"></script>
+    <script src="/main.js?1703164722"></script>
     
     
     

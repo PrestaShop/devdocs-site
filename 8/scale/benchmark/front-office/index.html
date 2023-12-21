@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Front-Office Benchmark :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163926" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163926" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163926" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163926" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164748" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164748" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164748" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164748" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163926" rel="stylesheet">
+    <link href="/style.css?1703164748" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163926"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164748"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33111,57 +33111,57 @@
 Try to always use the latest available version <a href="http://download.joedog.org/siege/siege-latest.tar.gz">HERE</a>.</p>
 
 <h3 id="setup-siege-configuration">Setup siege configuration<a href="#setup-siege-configuration"></a></h3><p>Create a txt file <code>url.txt</code> with various urls from your shop: (prepend with the domain of your shop)</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">http://localhost:8080/
-http://localhost:8080/panier
-http://localhost:8080/meilleures-ventes
-http://localhost:8080/nouveaux-produits
-http://localhost:8080/promotions
-http://localhost:8080/men/1-1-hummingbird-printed-t-shirt.html#/1-taille-s/8-couleur-blanc
-http://localhost:8080/accessories/3-mug-the-best-is-yet-to-come.html
-http://localhost:8080/3-clothes
-http://localhost:8080/6-accessories
-http://localhost:8080/3-clothes?q=Prix-€-28-34
-http://localhost:8080/magasins
-http://localhost:8080/fournisseur
-http://localhost:8080/recherche?controller=search&amp;s=sweater
-http://localhost:8080/2-accueil
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">http://localhost:8080/
+</span></span><span class="line"><span class="cl">http://localhost:8080/panier
+</span></span><span class="line"><span class="cl">http://localhost:8080/meilleures-ventes
+</span></span><span class="line"><span class="cl">http://localhost:8080/nouveaux-produits
+</span></span><span class="line"><span class="cl">http://localhost:8080/promotions
+</span></span><span class="line"><span class="cl">http://localhost:8080/men/1-1-hummingbird-printed-t-shirt.html#/1-taille-s/8-couleur-blanc
+</span></span><span class="line"><span class="cl">http://localhost:8080/accessories/3-mug-the-best-is-yet-to-come.html
+</span></span><span class="line"><span class="cl">http://localhost:8080/3-clothes
+</span></span><span class="line"><span class="cl">http://localhost:8080/6-accessories
+</span></span><span class="line"><span class="cl">http://localhost:8080/3-clothes?q=Prix-€-28-34
+</span></span><span class="line"><span class="cl">http://localhost:8080/magasins
+</span></span><span class="line"><span class="cl">http://localhost:8080/fournisseur
+</span></span><span class="line"><span class="cl">http://localhost:8080/recherche?controller=search&amp;s=sweater
+</span></span><span class="line"><span class="cl">http://localhost:8080/2-accueil
+</span></span></code></pre></div>
 <h3 id="run-the-siege-benchmark">Run the siege benchmark<a href="#run-the-siege-benchmark"></a></h3><p>Then run a siege benchmark using this file:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">siege -b -i -c 1 -t 20S --no-parser -f url.txt
-</code></pre></div><p>We will first warmup the cache by testing 1 time with 1 concurrent user, and then progressively
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">siege -b -i -c 1 -t 20S --no-parser -f url.txt
+</span></span></code></pre></div><p>We will first warmup the cache by testing 1 time with 1 concurrent user, and then progressively
 raise the number of concurrent users until the performances actually decreases.</p>
 <p>Raise the concurrent parameter (-c 1) to the number of concurrent users you want to test.</p>
 <p>Ex for 10 concurrent users without MySQL query cache:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">siege -b -i -c 10 -t 20S --no-parser -f url.txt  
-
-Lifting the server siege...
-Transactions:		         879 hits
-Availability:		      100.00 %
-Elapsed time:		       19.26 secs
-Data transferred:	       37.32 MB
-Response time:		        0.22 secs
-Transaction rate:	       45.64 trans/sec
-Throughput:		        1.94 MB/sec
-Concurrency:		        9.92
-Successful transactions:         879
-Failed transactions:	           0
-Longest transaction:	        0.68
-Shortest transaction:	        0.03
-</code></pre></div><p>With MySQL query cache enabled:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">Lifting the server siege...
-Transactions:		        1114 hits
-Availability:		      100.00 %
-Elapsed time:		       19.46 secs
-Data transferred:	       46.70 MB
-Response time:		        0.17 secs
-Transaction rate:	       57.25 trans/sec
-Throughput:		        2.40 MB/sec
-Concurrency:		        9.93
-Successful transactions:        1114
-Failed transactions:	           0
-Longest transaction:	        0.57
-Shortest transaction:	        0.02
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">siege -b -i -c 10 -t 20S --no-parser -f url.txt  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Lifting the server siege...
+</span></span><span class="line"><span class="cl">Transactions:		         879 hits
+</span></span><span class="line"><span class="cl">Availability:		      100.00 %
+</span></span><span class="line"><span class="cl">Elapsed time:		       19.26 secs
+</span></span><span class="line"><span class="cl">Data transferred:	       37.32 MB
+</span></span><span class="line"><span class="cl">Response time:		        0.22 secs
+</span></span><span class="line"><span class="cl">Transaction rate:	       45.64 trans/sec
+</span></span><span class="line"><span class="cl">Throughput:		        1.94 MB/sec
+</span></span><span class="line"><span class="cl">Concurrency:		        9.92
+</span></span><span class="line"><span class="cl">Successful transactions:         879
+</span></span><span class="line"><span class="cl">Failed transactions:	           0
+</span></span><span class="line"><span class="cl">Longest transaction:	        0.68
+</span></span><span class="line"><span class="cl">Shortest transaction:	        0.03
+</span></span></code></pre></div><p>With MySQL query cache enabled:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Lifting the server siege...
+</span></span><span class="line"><span class="cl">Transactions:		        1114 hits
+</span></span><span class="line"><span class="cl">Availability:		      100.00 %
+</span></span><span class="line"><span class="cl">Elapsed time:		       19.46 secs
+</span></span><span class="line"><span class="cl">Data transferred:	       46.70 MB
+</span></span><span class="line"><span class="cl">Response time:		        0.17 secs
+</span></span><span class="line"><span class="cl">Transaction rate:	       57.25 trans/sec
+</span></span><span class="line"><span class="cl">Throughput:		        2.40 MB/sec
+</span></span><span class="line"><span class="cl">Concurrency:		        9.93
+</span></span><span class="line"><span class="cl">Successful transactions:        1114
+</span></span><span class="line"><span class="cl">Failed transactions:	           0
+</span></span><span class="line"><span class="cl">Longest transaction:	        0.57
+</span></span><span class="line"><span class="cl">Shortest transaction:	        0.02
+</span></span></code></pre></div>
 <h3 id="interpret-the-results">Interpret the results<a href="#interpret-the-results"></a></h3><p>In the siege result output, here is the useful results:</p>
 
 <h5 id="transactions">Transactions<a href="#transactions"></a></h5><p>The total number of pages loaded during the benchmark. The higher the better.</p>
@@ -33254,17 +33254,17 @@ concurrent user setting.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163926"></script>
-    <script src="/js/jquery.sticky.js?1703163926"></script>
-    <script src="/js/featherlight.min.js?1703163926"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163926"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163926"></script>
-    <script src="/js/learn.js?1703163926"></script>
-    <script src="/js/hugo-learn.js?1703163926"></script>
+    <script src="/js/clipboard.min.js?1703164749"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164749"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164749"></script>
+    <script src="/js/jquery.sticky.js?1703164749"></script>
+    <script src="/js/featherlight.min.js?1703164749"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164749"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164749"></script>
+    <script src="/js/learn.js?1703164749"></script>
+    <script src="/js/hugo-learn.js?1703164749"></script>
     
-    <script src="/main.js?1703163926"></script>
+    <script src="/main.js?1703164749"></script>
     
     
     

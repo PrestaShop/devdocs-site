@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Hook tips :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163911" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163911" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163911" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163911" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164736" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164736" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164736" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164736" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163911" rel="stylesheet">
+    <link href="/style.css?1703164736" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163911"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164736"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33088,33 +33088,33 @@
 
 <h1 id="hook-tips">Hook tips<a href="#hook-tips"></a></h1><p>Let&rsquo;s say we need to add some javascript to the &lsquo;Order create&rsquo; BO page. So we use <code>hookActionAdminControllerSetMedia</code>.
 This hook is called on every BO page, so we need to filter the executions.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="s1">&#39;AdminOrders&#39;</span> <span class="o">===</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;controller&#39;</span><span class="p">))</span> <span class="p">{</span>
-    <span class="c1">// now we know we are only applying changes to admin order pages,
-</span><span class="c1"></span>    <span class="c1">// but we aren&#39;t yet sure if it&#39;s a order create or order view page
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>In case we are using Prestashop version lower than 1.7.7.0, then Order page is not yet migrated to Symfony framework and we can check if it has following query parameters:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;addorder&#39;</span><span class="p">))</span> <span class="p">{</span>
-    <span class="c1">// this way we know this is order create page
-</span><span class="c1"></span><span class="p">}</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;vieworder&#39;</span><span class="p">))</span> <span class="p">{</span>
-    <span class="c1">// this way we know this is order view page
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>If we are using Prestashop 1.7.7.0 or above, then Order page is already migrated to Symfony framework,
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="s1">&#39;AdminOrders&#39;</span> <span class="o">===</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;controller&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// now we know we are only applying changes to admin order pages,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// but we aren&#39;t yet sure if it&#39;s a order create or order view page
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>In case we are using Prestashop version lower than 1.7.7.0, then Order page is not yet migrated to Symfony framework and we can check if it has following query parameters:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;addorder&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// this way we know this is order create page
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;vieworder&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// this way we know this is order view page
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>If we are using Prestashop 1.7.7.0 or above, then Order page is already migrated to Symfony framework,
 meaning that each page has its own route and a dedicated <a href="https://symfony.com/doc/3.4/routing.html">action</a>,
 so one way to check which route we are in would be to extract it from request like following:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$currentRoute</span> <span class="o">=</span> <span class="nx">\PrestaShop\PrestaShop\Adapter\SymfonyContainer</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span>
-    <span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;request_stack&#39;</span><span class="p">)</span>
-    <span class="o">-&gt;</span><span class="na">getMasterRequest</span><span class="p">()</span>
-    <span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;_route&#39;</span><span class="p">)</span>
-<span class="p">;</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="s1">&#39;admin_orders_create&#39;</span> <span class="o">===</span> <span class="nv">$currentRoute</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// now we know for sure, that we are in order create page
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>Other methods are available. For example, thanks to <code>LegacyParametersConverter</code> which was introduced in 1.7.7.0, you can get controller action parameter using following approach:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$action</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">);</span>
-</code></pre></div><p>The configuration <code>legacy_params</code> for migrated page allows to link legacy parameters with new Symfony routes. If they are configured correctly, above mentioned code snippet should return &lsquo;addorder&rsquo;. So you can use the legacy parameters to check a Symfony page identity.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$currentRoute</span> <span class="o">=</span> <span class="nx">\PrestaShop\PrestaShop\Adapter\SymfonyContainer</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;request_stack&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">getMasterRequest</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;_route&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="s1">&#39;admin_orders_create&#39;</span> <span class="o">===</span> <span class="nv">$currentRoute</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// now we know for sure, that we are in order create page
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>Other methods are available. For example, thanks to <code>LegacyParametersConverter</code> which was introduced in 1.7.7.0, you can get controller action parameter using following approach:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$action</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>The configuration <code>legacy_params</code> for migrated page allows to link legacy parameters with new Symfony routes. If they are configured correctly, above mentioned code snippet should return &lsquo;addorder&rsquo;. So you can use the legacy parameters to check a Symfony page identity.</p>
 
 
 <footer class="article-footer">
@@ -33193,17 +33193,17 @@ so one way to check which route we are in would be to extract it from request li
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163911"></script>
-    <script src="/js/jquery.sticky.js?1703163911"></script>
-    <script src="/js/featherlight.min.js?1703163911"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163911"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163911"></script>
-    <script src="/js/learn.js?1703163911"></script>
-    <script src="/js/hugo-learn.js?1703163911"></script>
+    <script src="/js/clipboard.min.js?1703164736"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164736"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164736"></script>
+    <script src="/js/jquery.sticky.js?1703164736"></script>
+    <script src="/js/featherlight.min.js?1703164736"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164736"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164736"></script>
+    <script src="/js/learn.js?1703164736"></script>
+    <script src="/js/hugo-learn.js?1703164736"></script>
     
-    <script src="/main.js?1703163911"></script>
+    <script src="/main.js?1703164736"></script>
     
     
     

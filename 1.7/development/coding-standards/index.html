@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Coding standards :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/coding-standards/">
     
-    <link href="/css/font-awesome.min.css?1703163932" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163932" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163932" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163932" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164753" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164753" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164753" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164753" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163932" rel="stylesheet">
+    <link href="/style.css?1703164753" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163932"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164753"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -571,7 +571,7 @@
     
     
     <li data-nav-id="/1.7/development/coding-standards/" title="Coding standards" class="dd-item
-        parent
+        
         active currentPage
         
         
@@ -30286,16 +30286,16 @@
 
 <h3 id="making-your-code-follow-our-coding-standards">Making your code follow our coding standards<a href="#making-your-code-follow-our-coding-standards"></a></h3><p><a href="https://cs.symfony.com/">PHP CS Fixer</a> has been configured for the PrestaShop project to help developers to comply with these conventions.</p>
 <p>You can run it using the following command:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">php ./vendor/bin/php-cs-fixer fix
-</code></pre></div><p>The prestashop specific configuration file <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/.php_cs.dist">can be found here</a>. Also, you can also use the provided <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/.github/contrib/pre-commit">git pre-commit</a> sample in order to make sure you never forget to make your code compliant!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php ./vendor/bin/php-cs-fixer fix
+</span></span></code></pre></div><p>The prestashop specific configuration file <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/.php_cs.dist">can be found here</a>. Also, you can also use the provided <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/.github/contrib/pre-commit">git pre-commit</a> sample in order to make sure you never forget to make your code compliant!</p>
 
 <h3 id="documenting-types">Documenting types<a href="#documenting-types"></a></h3><p>Parameters and return values SHOULD be described using Phpdoc as <a href="https://phpstan.org/writing-php-code/phpdoc-types">documented by Phpstan</a>, especially when the type cannot be strictly defined using PHP types (e.g. collections, structs, mixed types).</p>
 <p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
-</span><span class="sd"> * @var string[] Collection of IETF language tag (eg. &#34;en-US&#34;)
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="nv">$locales</span><span class="p">;</span>
-</code></pre></div><p>Particular attention should be paid to documenting arrays and array structures:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @var string[] Collection of IETF language tag (eg. &#34;en-US&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="nv">$locales</span><span class="p">;</span>
+</span></span></code></pre></div><p>Particular attention should be paid to documenting arrays and array structures:</p>
 <ul>
 <li>Use the simplified syntax for collections, like <code>string[]</code> or <code>SomeType[]</code>.</li>
 <li>If the array&rsquo;s index is relevant (e.g., non-sequential), use the generics-style annotation, like <code>array&lt;int, string&gt;</code>.</li>
@@ -30308,62 +30308,62 @@
 
 <p>Starting on 1.7.7, all new PHP code should be strictly typed.</p>
 <p>This means that all new methods <strong>must</strong> specify a type for all parameters as well as the return type. Similarly, all new classes except interfaces must enforce type strictness via <code>declare</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/** 2007-2020 PrestaShop SA and Contributors... */</span>
-
-<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">Foo\Bar</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">MyClass</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">doStuff</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$bar</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-    <span class="p">}</span>   
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/** 2007-2020 PrestaShop SA and Contributors... */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Foo\Bar</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyClass</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">doStuff</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$foo</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$bar</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>   
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices note" ><strong>It&rsquo;s important to have all classes declare type strictness.</strong> Since PHP 7 is still inherently weakly typed, it&rsquo;s not enough to have your class declare type strictness to make it <em>enforce</em> type strictness. If the class consuming your code does not enforce type strictness as well, methods called by it will have their parameters silently <em>coerced</em> into the specified type instead of being type checked. <a href="https://dev.to/robdwaller/how-php-type-declarations-actually-work-1mm5">Read this article for more details and examples</a>.</div>
 
 
 <h3 id="deprecations">Deprecations<a href="#deprecations"></a></h3><p>Following <a href="https://symfony.com/doc/4.4/contributing/code/conventions.html#deprecating-code">Symfony conventions</a>, method and class deprecations in PrestaShop must be noted by adding the appropriate Phpdoc as well as a deprecation error:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">namespace</span> <span class="nx">PrestaShop\Awesome\Path</span><span class="p">;</span>
-
-<span class="o">@</span><span class="nx">trigger_error</span><span class="p">(</span>
-    <span class="nx">sprintf</span><span class="p">(</span>
-        <span class="s1">&#39;%s is deprecated since version 1.7.8.0 and will be removed in the next major version.&#39;</span><span class="p">,</span>
-        <span class="nx">MyClass</span><span class="o">::</span><span class="na">class</span>
-    <span class="p">),</span>
-    <span class="nx">E_USER_DEPRECATED</span>
-<span class="p">);</span>
-
-<span class="sd">/**
-</span><span class="sd"> * @deprecated Since 1.7.8.0 and will be removed in the next major.
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">MyClass</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @deprecated Since 1.7.6.0, use AnotherClass::someNewMethod() instead.
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">someOldMethod</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="o">@</span><span class="nx">trigger_error</span><span class="p">(</span>
-            <span class="nx">sprintf</span><span class="p">(</span>
-                <span class="s1">&#39;%s is deprecated since version 1.7.6.0. Use %s instead.&#39;</span><span class="p">,</span>
-                <span class="no">__METHOD__</span><span class="p">,</span>
-                <span class="nx">AnotherClass</span><span class="o">::</span><span class="na">class</span> <span class="o">.</span> <span class="s1">&#39;::someNewMethod()&#39;</span>
-            <span class="p">),</span>
-            <span class="nx">E_USER_DEPRECATED</span>
-        <span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>If you need to deprecate services, you can use the <code>deprecated</code> key for the service:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">    </span><span class="nt">awesome.path.myclass</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\Awesome\Path\MyClass&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">deprecated</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;The &#34;%service_id%&#34; service is deprecated since 1.7.8.0 and will be removed in next major.&#39;</span><span class="w">
-</span><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Awesome\Path</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">@</span><span class="nx">trigger_error</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sprintf</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;%s is deprecated since version 1.7.8.0 and will be removed in the next major version.&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">MyClass</span><span class="o">::</span><span class="na">class</span>
+</span></span><span class="line"><span class="cl">    <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">E_USER_DEPRECATED</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @deprecated Since 1.7.8.0 and will be removed in the next major.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyClass</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @deprecated Since 1.7.6.0, use AnotherClass::someNewMethod() instead.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">someOldMethod</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="o">@</span><span class="nx">trigger_error</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">sprintf</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;%s is deprecated since version 1.7.6.0. Use %s instead.&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="no">__METHOD__</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">AnotherClass</span><span class="o">::</span><span class="na">class</span> <span class="o">.</span> <span class="s1">&#39;::someNewMethod()&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">E_USER_DEPRECATED</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>If you need to deprecate services, you can use the <code>deprecated</code> key for the service:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w">    </span><span class="nt">awesome.path.myclass</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\Awesome\Path\MyClass&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">deprecated</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;The &#34;%service_id%&#34; service is deprecated since 1.7.8.0 and will be removed in next major.&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div>
 <h2 id="javascript-code-conventions">Javascript code conventions<a href="#javascript-code-conventions"></a></h2><p>Javascript files MUST follow the <a href="https://github.com/airbnb/javascript">Airbnb Javascript style guide</a>.</p>
 <p>Starting on 
 <span class="version-pill" title="New in PrestaShop 1.7.8">
@@ -30371,8 +30371,8 @@
 </span>
 
 , you can run the linter to help you comply with these coding standards:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">npm run lint-fix
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm run lint-fix
+</span></span></code></pre></div>
 <h2 id="html-css-sass-twig--smarty-code-conventions">HTML, CSS (Sass), Twig &amp; Smarty code conventions<a href="#html-css-sass-twig--smarty-code-conventions"></a></h2><p>HTML, CSS (Sass), Twig and Smarty files MUST follow the <a href="https://codeguide.co/">Mark Otto&rsquo;s coding standards</a>.
 Mark is the creator of the <a href="https://getbootstrap.com/">Bootstrap framework</a>.</p>
 <p>To help developers to comply with these conventions, <a href="https://stylelint.io/">Stylelint</a>, a stylesheet linter, has been configured in the PrestaShop project. You can find the configuration file <a href="https://github.com/PrestaShop/stylelint-config">on this repository</a>.</p>
@@ -30383,56 +30383,56 @@ Mark is the creator of the <a href="https://getbootstrap.com/">Bootstrap framewo
 </span>
 
 , you can run the linter like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">npm run scss-lint
-</code></pre></div><p>You can fix auto-fixable errors using this command:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">npm run scss-fix
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm run scss-lint
+</span></span></code></pre></div><p>You can fix auto-fixable errors using this command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm run scss-fix
+</span></span></code></pre></div>
 <h2 id="license-information">License information<a href="#license-information"></a></h2><p>All PrestaShop files MUST start with the PrestaShop license block:</p>
 
-<h3 id="core-files">Core files<a href="#core-files"></a></h3><div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="cm">/**
-</span><span class="cm"> * Copyright since 2007 PrestaShop SA and Contributors
-</span><span class="cm"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
-</span><span class="cm"> *
-</span><span class="cm"> * NOTICE OF LICENSE
-</span><span class="cm"> *
-</span><span class="cm"> * This source file is subject to the Open Software License (OSL 3.0)
-</span><span class="cm"> * that is bundled with this package in the file LICENSE.md.
-</span><span class="cm"> * It is also available through the world-wide-web at this URL:
-</span><span class="cm"> * https://opensource.org/licenses/OSL-3.0
-</span><span class="cm"> * If you did not receive a copy of the license and are unable to
-</span><span class="cm"> * obtain it through the world-wide-web, please send an email
-</span><span class="cm"> * to license@prestashop.com so we can send you a copy immediately.
-</span><span class="cm"> *
-</span><span class="cm"> * DISCLAIMER
-</span><span class="cm"> *
-</span><span class="cm"> * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-</span><span class="cm"> * versions in the future. If you wish to customize PrestaShop for your
-</span><span class="cm"> * needs please refer to https://devdocs.prestashop-project.org/ for more information.
-</span><span class="cm"> *
-</span><span class="cm"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
-</span><span class="cm"> * @copyright Since 2007 PrestaShop SA and Contributors
-</span><span class="cm"> * @license   https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
-</span><span class="cm"> */</span>
-</code></pre></div>
-<h3 id="module-files">Module files<a href="#module-files"></a></h3><div class="highlight"><pre class="chroma"><code class="language-go" data-lang="go"><span class="cm">/**
-</span><span class="cm"> * Copyright since 2007 PrestaShop SA and Contributors
-</span><span class="cm"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
-</span><span class="cm"> *
-</span><span class="cm"> * NOTICE OF LICENSE
-</span><span class="cm"> *
-</span><span class="cm"> * This source file is subject to the Academic Free License version 3.0
-</span><span class="cm"> * that is bundled with this package in the file LICENSE.md.
-</span><span class="cm"> * It is also available through the world-wide-web at this URL:
-</span><span class="cm"> * https://opensource.org/licenses/AFL-3.0
-</span><span class="cm"> * If you did not receive a copy of the license and are unable to
-</span><span class="cm"> * obtain it through the world-wide-web, please send an email
-</span><span class="cm"> * to license@prestashop.com so we can send you a copy immediately.
-</span><span class="cm"> *
-</span><span class="cm"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
-</span><span class="cm"> * @copyright Since 2007 PrestaShop SA and Contributors
-</span><span class="cm"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
-</span><span class="cm"> */</span>
-</code></pre></div>
+<h3 id="core-files">Core files<a href="#core-files"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Copyright since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * NOTICE OF LICENSE
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * This source file is subject to the Open Software License (OSL 3.0)
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * that is bundled with this package in the file LICENSE.md.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * It is also available through the world-wide-web at this URL:
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * https://opensource.org/licenses/OSL-3.0
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * If you did not receive a copy of the license and are unable to
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * obtain it through the world-wide-web, please send an email
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * to license@prestashop.com so we can send you a copy immediately.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * DISCLAIMER
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * versions in the future. If you wish to customize PrestaShop for your
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * needs please refer to https://devdocs.prestashop-project.org/ for more information.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @copyright Since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @license   https://opensource.org/licenses/OSL-3.0 Open Software License (OSL 3.0)
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span></code></pre></div>
+<h3 id="module-files">Module files<a href="#module-files"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * Copyright since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * PrestaShop is an International Registered Trademark &amp; Property of PrestaShop SA
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * NOTICE OF LICENSE
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * This source file is subject to the Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * that is bundled with this package in the file LICENSE.md.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * It is also available through the world-wide-web at this URL:
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * https://opensource.org/licenses/AFL-3.0
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * If you did not receive a copy of the license and are unable to
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * obtain it through the world-wide-web, please send an email
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * to license@prestashop.com so we can send you a copy immediately.
+</span></span></span><span class="line"><span class="cl"><span class="cm"> *
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @author    PrestaShop SA and Contributors &lt;contact@prestashop.com&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @copyright Since 2007 PrestaShop SA and Contributors
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License version 3.0
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span></code></pre></div>
 
 
 
@@ -30512,17 +30512,17 @@ Mark is the creator of the <a href="https://getbootstrap.com/">Bootstrap framewo
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163932"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163932"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163932"></script>
-    <script src="/js/jquery.sticky.js?1703163932"></script>
-    <script src="/js/featherlight.min.js?1703163932"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163932"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163932"></script>
-    <script src="/js/learn.js?1703163932"></script>
-    <script src="/js/hugo-learn.js?1703163932"></script>
+    <script src="/js/clipboard.min.js?1703164754"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164754"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164754"></script>
+    <script src="/js/jquery.sticky.js?1703164754"></script>
+    <script src="/js/featherlight.min.js?1703164754"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164754"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164754"></script>
+    <script src="/js/learn.js?1703164754"></script>
+    <script src="/js/hugo-learn.js?1703164754"></script>
     
-    <script src="/main.js?1703163932"></script>
+    <script src="/main.js?1703164754"></script>
     
     
     

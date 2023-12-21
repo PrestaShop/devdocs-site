@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Naming conventions :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/naming-conventions/">
     
-    <link href="/css/font-awesome.min.css?1703163933" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163933" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163933" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163933" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164754" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164754" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164754" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164754" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163933" rel="stylesheet">
+    <link href="/style.css?1703164754" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163933"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164754"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -603,7 +603,7 @@
     
     
     <li data-nav-id="/1.7/development/naming-conventions/" title="Naming conventions" class="dd-item
-        parent
+        
         active currentPage
         
         
@@ -30276,75 +30276,75 @@
 </li>
 </ul>
 <p>For a complete example see code below.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// CustomerController.php
-</span><span class="c1"></span>
-<span class="k">namespace</span> <span class="nx">PrestaShopBundle\Controller\Admin\Sell\Customer</span><span class="p">;</span>
-
-<span class="c1">// Controller name is prefixed with Customer in singular form
-</span><span class="c1"></span><span class="k">class</span> <span class="nc">CustomerController</span>
-<span class="p">{</span>
-    <span class="c1">// Index page which is opened when
-</span><span class="c1"></span>    <span class="c1">// user clicks &#34;Improve &gt; Sell &gt; Customers&#34; in side menu.
-</span><span class="c1"></span>    <span class="c1">// It shows list of customers and KPIs.
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
-    <span class="p">{</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Customer Edit page which is opened when
-</span><span class="c1"></span>    <span class="c1">// user clicks &#34;Edit&#34; action on selected customer.
-</span><span class="c1"></span>    <span class="c1">// It shows customer form with data that can be edited.
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">editAction</span><span class="p">(</span><span class="nv">$customerId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-    <span class="p">{</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Deletes given customer.
-</span><span class="c1"></span>    <span class="c1">// Does not show page, but returns flash message with redirect instead.
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">deleteAction</span><span class="p">(</span><span class="nv">$customerId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-    <span class="p">{</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Transforms guest customer (customer without password)
-</span><span class="c1"></span>    <span class="c1">// to customer with password.
-</span><span class="c1"></span>    <span class="c1">// Does not show page, but returns flash message with redirect instead.
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">transformGuestToCustomerAction</span><span class="p">(</span><span class="nv">$customerId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-    <span class="p">{</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Saves private note for customer, that can only be seen by admin in Back Office.
-</span><span class="c1"></span>    <span class="c1">// Does not show page, but returns flash message with redirect instead.
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">savePrivateNoteAction</span><span class="p">(</span><span class="nv">$customerId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-    <span class="p">{</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Toggle the status of given customer.
-</span><span class="c1"></span>    <span class="c1">// Does not show page, but returns flash message with redirect instead.
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">toggleStatusAction</span><span class="p">(</span><span class="nv">$customerId</span><span class="p">)</span>
-    <span class="p">{</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// CustomerController.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShopBundle\Controller\Admin\Sell\Customer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Controller name is prefixed with Customer in singular form
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">CustomerController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Index page which is opened when
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// user clicks &#34;Improve &gt; Sell &gt; Customers&#34; in side menu.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// It shows list of customers and KPIs.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Customer Edit page which is opened when
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// user clicks &#34;Edit&#34; action on selected customer.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// It shows customer form with data that can be edited.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">editAction</span><span class="p">(</span><span class="nv">$customerId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Deletes given customer.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// Does not show page, but returns flash message with redirect instead.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">deleteAction</span><span class="p">(</span><span class="nv">$customerId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Transforms guest customer (customer without password)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// to customer with password.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// Does not show page, but returns flash message with redirect instead.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">transformGuestToCustomerAction</span><span class="p">(</span><span class="nv">$customerId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Saves private note for customer, that can only be seen by admin in Back Office.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// Does not show page, but returns flash message with redirect instead.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">savePrivateNoteAction</span><span class="p">(</span><span class="nv">$customerId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Toggle the status of given customer.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// Does not show page, but returns flash message with redirect instead.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">toggleStatusAction</span><span class="p">(</span><span class="nv">$customerId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="templates">Templates<a href="#templates"></a></h2><p>PrestaShop templates follow these naming conventions:</p>
 <ul>
 <li>A template&rsquo;s name should match its controller&rsquo;s action name without the &ldquo;action&rdquo; suffix. For example, if you have <code>CustomerController:viewAction()</code> action, then your template name should be <code>view.html.twig</code>.</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// CustomerController.php
-</span><span class="c1"></span>
-<span class="k">namespace</span> <span class="nx">PrestaShopBundle\Controller\Admin\Sell\Customer</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span> <span class="k">as</span> <span class="nx">AbstractAdminController</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">CustomerController</span> <span class="k">extends</span> <span class="nx">AbstractAdminController</span>
-<span class="p">{</span>
-    <span class="c1">// Our action name is &#34;view&#34;, thus our
-</span><span class="c1"></span>    <span class="c1">// template name is &#34;view.html.twig&#34;.
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">viewAction</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Sell/Customer/view.html.twig&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>For a typical CRUD page, you should have these template names:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// CustomerController.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShopBundle\Controller\Admin\Sell\Customer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span> <span class="k">as</span> <span class="nx">AbstractAdminController</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CustomerController</span> <span class="k">extends</span> <span class="nx">AbstractAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Our action name is &#34;view&#34;, thus our
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// template name is &#34;view.html.twig&#34;.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">viewAction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Sell/Customer/view.html.twig&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>For a typical CRUD page, you should have these template names:</p>
 <ul>
 <li><code>index.html.twig</code></li>
 <li><code>create.html.twig</code></li>
@@ -30369,64 +30369,64 @@
 <li>Delete route is <code>admin_customers_delete</code>, with URL <code>/customers/{customerId}/delete</code> and responds to <code>POST</code> method.</li>
 </ul>
 <p>Example of implementation for Customer routes:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># src/PrestaShopBundle/Resources/config/routing/admin/sell/customer/_customer.yml</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">_catalog</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">resource</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;customers.yml&#34;</span><span class="w">
-</span><span class="w">  </span><span class="c"># route urls defined in &#34;customers.yml&#34; file will be prefixed with &#34;/customers&#34;</span><span class="w">
-</span><span class="w">  </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l">/customers/</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># src/PrestaShopBundle/Resources/config/routing/admin/sell/customer/customers.yml</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">admin_customers_index</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
-</span><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
-</span><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin/Sell/Customer/Customer:index</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">admin_customers_edit</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/{customerId}/edit</span><span class="w">
-</span><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET, POST]</span><span class="w">
-</span><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin/Sell/Customer/Customer:edit</span><span class="w">
-</span><span class="w">  </span><span class="nt">requirements</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">customerId</span><span class="p">:</span><span class="w"> </span><span class="l">\d+</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">admin_customers_transform_guest_to_customer</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/{customerId}/transform-guest-to-customer</span><span class="w">
-</span><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">POST]</span><span class="w">
-</span><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin/Sell/Customer/Customer:transformGuestToCustomer</span><span class="w">
-</span><span class="w">  </span><span class="nt">requirements</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">customerId</span><span class="p">:</span><span class="w"> </span><span class="l">\d+</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># src/PrestaShopBundle/Resources/config/routing/admin/sell/customer/_customer.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">_catalog</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">resource</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;customers.yml&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># route urls defined in &#34;customers.yml&#34; file will be prefixed with &#34;/customers&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l">/customers/</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># src/PrestaShopBundle/Resources/config/routing/admin/sell/customer/customers.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">admin_customers_index</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin/Sell/Customer/Customer:index</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">admin_customers_edit</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/{customerId}/edit</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET, POST]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin/Sell/Customer/Customer:edit</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">requirements</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">customerId</span><span class="p">:</span><span class="w"> </span><span class="l">\d+</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">admin_customers_transform_guest_to_customer</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/{customerId}/transform-guest-to-customer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">POST]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin/Sell/Customer/Customer:transformGuestToCustomer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">requirements</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">customerId</span><span class="p">:</span><span class="w"> </span><span class="l">\d+</span><span class="w">
+</span></span></span></code></pre></div>
 <h2 id="service-ids">Service ids<a href="#service-ids"></a></h2><p>Service ids should follow the fully-qualified class name of the registered class. See example below.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// src/Core/Payment/PaymentOptionFormDecorator.php
-</span><span class="c1"></span>
-<span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Payment</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">PaymentOptionFormDecorator</span>
-<span class="p">{</span>
-  <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="c"># service id follows fully-qualified class name</span><span class="w">
-</span><span class="w">  </span><span class="nt">prestashop.core.payment.payment_option_form_decorator</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Payment\PaymentOptionFormDecorator&#39;</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// src/Core/Payment/PaymentOptionFormDecorator.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Payment</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">PaymentOptionFormDecorator</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># service id follows fully-qualified class name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prestashop.core.payment.payment_option_form_decorator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Payment\PaymentOptionFormDecorator&#39;</span><span class="w">
+</span></span></span></code></pre></div>
 <h3 id="named-arguments">Named arguments<a href="#named-arguments"></a></h3><p><strong>Do NOT</strong> use &ldquo;named argument&rdquo; syntax in service declaration:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="c"># Good</span><span class="w">
-</span><span class="w">  </span><span class="nt">foo_bar</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Foo\Bar&#39;</span><span class="w">
-</span><span class="w">      </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;baz&#39;</span><span class="w">
-</span><span class="w">  </span><span class="c"># Wrong</span><span class="w">
-</span><span class="w">  </span><span class="nt">wrong_foo_bar</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Foo\Bar&#39;</span><span class="w">
-</span><span class="w">      </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="nt">$baz</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;baz&#39;</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># Good</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">foo_bar</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Foo\Bar&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;baz&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># Wrong</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">wrong_foo_bar</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Foo\Bar&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">$baz</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;baz&#39;</span><span class="w">
+</span></span></span></code></pre></div>
 <h2 id="grid">Grid<a href="#grid"></a></h2><p>PrestaShop comes with a lot of Grids (Products, Customers, Orders &amp; etc) and keeping consistency between them is very important, thats why it follows these naming conventions:</p>
 <ul>
 <li>Grid ids should be in lowercase and written in <code>snake_case</code></li>
@@ -30434,7 +30434,7 @@
 
 <h2 id="modules">Modules<a href="#modules"></a></h2><ul>
 <li>Module names should contain only lower case and numbers.</li>
-<li><a href="/1.7/development/native-modules/">Native modules</a>' names must be prefixed with &ldquo;ps_&rdquo; (e.g. <code>ps_linklist</code>).</li>
+<li><a href="/1.7/development/native-modules/">Native modules</a>&rsquo; names must be prefixed with &ldquo;ps_&rdquo; (e.g. <code>ps_linklist</code>).</li>
 </ul>
 
 
@@ -30516,17 +30516,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163933"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163933"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163933"></script>
-    <script src="/js/jquery.sticky.js?1703163933"></script>
-    <script src="/js/featherlight.min.js?1703163933"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163933"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163933"></script>
-    <script src="/js/learn.js?1703163933"></script>
-    <script src="/js/hugo-learn.js?1703163933"></script>
+    <script src="/js/clipboard.min.js?1703164755"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164755"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164755"></script>
+    <script src="/js/jquery.sticky.js?1703164755"></script>
+    <script src="/js/featherlight.min.js?1703164755"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164755"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164755"></script>
+    <script src="/js/learn.js?1703164755"></script>
+    <script src="/js/hugo-learn.js?1703164755"></script>
     
-    <script src="/main.js?1703163933"></script>
+    <script src="/main.js?1703164755"></script>
     
     
     

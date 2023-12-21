@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>CQRS - Commands and Queries :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163901" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163901" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163901" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163901" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164728" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164728" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164728" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164728" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163901" rel="stylesheet">
+    <link href="/style.css?1703164728" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163901"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164728"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33166,9 +33166,9 @@
 <li>A <code>CommandHandler</code> SHOULD NOT return anything on success, and SHOULD throw a typed <code>Exception</code> on failure. The &ldquo;no return on success&rdquo; rule can be broken only when creating entities.</li>
 <li>A <code>CommandHandler</code> MUST implement an interface containing a single public method like this:</li>
 </ol>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">NameOfTheCommand</span> <span class="nv">$command</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">NameOfTheCommand</span> <span class="nv">$command</span><span class="p">);</span>
+</span></span></code></pre></div>
 <h3 id="query-and-queryhandler-principles">Query and QueryHandler principles<a href="#query-and-queryhandler-principles"></a></h3><ol>
 <li>Data retrieval SHOULD always go through a <code>Query</code>.</li>
 <li>A <code>Query</code> describes a <strong>single</strong> data query. It DOES NOT perform it.</li>
@@ -33180,14 +33180,14 @@
 <li>A <code>QueryHandler</code> SHOULD return data objects that make sense to the domain, and SHOULD NOT leak internal objects.</li>
 <li>A <code>QueryHandler</code> MUST implement an interface containing a single public method and a typed return like this:</li>
 </ol>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="sd">/**
-</span><span class="sd"> * @param NameOfTheQuery $query
-</span><span class="sd"> *
-</span><span class="sd"> * @return TypeOfReturn
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">NameOfTheQuery</span> <span class="nv">$query</span><span class="p">)</span><span class="o">:</span> <span class="nx">TypeOfReturn</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @param NameOfTheQuery $query
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @return TypeOfReturn
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">NameOfTheQuery</span> <span class="nv">$query</span><span class="p">)</span><span class="o">:</span> <span class="nx">TypeOfReturn</span><span class="p">;</span>
+</span></span></code></pre></div>
 <h2 id="command-and-query-buses">Command and Query buses<a href="#command-and-query-buses"></a></h2><p>Command bus is a pattern used to map <code>Commands</code> and <code>Queries</code> to <code>CommandHandlers</code> and <code>QueryHandlers</code>. PrestaShop defines it&rsquo;s own <code>CommandBusInterface</code> and implements it using <a href="https://tactician.thephpleague.com/">Tactician command bus library</a>.</p>
 <p>PrestaShop uses 2 commands buses:</p>
 <ol>
@@ -33285,17 +33285,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163902"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163902"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163902"></script>
-    <script src="/js/jquery.sticky.js?1703163902"></script>
-    <script src="/js/featherlight.min.js?1703163902"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163902"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163902"></script>
-    <script src="/js/learn.js?1703163902"></script>
-    <script src="/js/hugo-learn.js?1703163902"></script>
+    <script src="/js/clipboard.min.js?1703164728"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164728"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164728"></script>
+    <script src="/js/jquery.sticky.js?1703164728"></script>
+    <script src="/js/featherlight.min.js?1703164728"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164728"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164728"></script>
+    <script src="/js/learn.js?1703164728"></script>
+    <script src="/js/hugo-learn.js?1703164728"></script>
     
-    <script src="/main.js?1703163902"></script>
+    <script src="/main.js?1703164728"></script>
     
     
     

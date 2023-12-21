@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>The Grid component :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/grid/">
     
-    <link href="/css/font-awesome.min.css?1703163932" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163932" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163932" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163932" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164754" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164754" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164754" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164754" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163932" rel="stylesheet">
+    <link href="/style.css?1703164754" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163932"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164754"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -4303,7 +4303,7 @@
     
     
     <li data-nav-id="/1.7/development/components/grid/" title="The Grid component" class="dd-item
-        parent
+        
         active currentPage
         
         isParent
@@ -4316,7 +4316,7 @@
           
 
           
-            <i class="fa fa-angle-up"></i>
+            <i class="fa fa-angle-down"></i>
           
       </a>
       
@@ -30326,71 +30326,71 @@ that you can use to create Grid definitions.</p>
 as it allows you to define your structure, but takes care of the definition creation.</div>
 
 <p>To create a new grid definition, we will use <code>AbstractGridDefinitionFactory</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Definition\Factory</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Definition\Factory\AbstractGridDefinitionFactory</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\ColumnCollection</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\Type\DataColumn</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">ProductGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractGridDefinitionFactory</span>
-<span class="p">{</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="s1">&#39;products&#39;</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getName</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Products&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Advparameters.Feature&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getColumns</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ColumnCollection</span><span class="p">())</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">DataColumn</span><span class="p">(</span><span class="s1">&#39;id_product&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Global&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_product&#39;</span><span class="p">,</span>
-                <span class="p">])</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">DataColumn</span><span class="p">(</span><span class="s1">&#39;reference&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Reference&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Advparameters.Feature&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;reference&#39;</span><span class="p">,</span>
-                <span class="p">])</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">DataColumn</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Advparameters.Feature&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span>
-                <span class="p">])</span>
-            <span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>We have just created a basic Grid Definition factory in which we defined our Grid&rsquo;s id <code>products</code>, translatable
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Definition\Factory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Definition\Factory\AbstractGridDefinitionFactory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\ColumnCollection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Column\Type\DataColumn</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ProductGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractGridDefinitionFactory</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;products&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getName</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Products&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Advparameters.Feature&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getColumns</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ColumnCollection</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">DataColumn</span><span class="p">(</span><span class="s1">&#39;id_product&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Global&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_product&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">DataColumn</span><span class="p">(</span><span class="s1">&#39;reference&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Reference&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Advparameters.Feature&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;reference&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">DataColumn</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Advparameters.Feature&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>We have just created a basic Grid Definition factory in which we defined our Grid&rsquo;s id <code>products</code>, translatable
 name <code>Products</code> and 3 data columns.</p>
 
 <div class="notices note" >It is <em>recommended</em> to keep your name translatable. To make that easy,
 <code>AbstractGridDefinitionFactory</code> provides access to the translator via the <code>trans()</code> method.</div>
 
 <p>Finally, register your Grid definition factory as a service.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">prestashop.core.grid.definition.factory.product_grid_definition_factory</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\Definition\Factory\ProductGridDefinitionFactory&#39;</span><span class="w">
-</span><span class="w">    </span><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.grid.definition.factory.abstract_grid_definition&#39;</span><span class="w">
-</span><span class="w">    </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></div><p>Most of the time you won&rsquo;t be creating Grid Definitions by yourself but delegating this task to other services,
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">prestashop.core.grid.definition.factory.product_grid_definition_factory</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\Definition\Factory\ProductGridDefinitionFactory&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.grid.definition.factory.abstract_grid_definition&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div><p>Most of the time you won&rsquo;t be creating Grid Definitions by yourself but delegating this task to other services,
 but in case you need to create a Grid Definition by hand, here&rsquo;s how you can do that.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$productsGridDefinitionFactory</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.definition.factory.product_grid_definition_factory&#39;</span><span class="p">);</span>
-<span class="nv">$productsGridDefinition</span> <span class="o">=</span> <span class="nv">$productsGridDefinitionFactory</span><span class="o">-&gt;</span><span class="na">getDefinition</span><span class="p">();</span>
-
-<span class="c1">// you can access all information that was defined
-</span><span class="c1"></span><span class="nv">$productsGridDefinition</span><span class="o">-&gt;</span><span class="na">getColumns</span><span class="p">();</span> <span class="c1">// collection of defined columns
-</span><span class="c1"></span><span class="nv">$productsGridDefinition</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span> <span class="c1">// &#34;Products&#34;
-</span><span class="c1"></span><span class="nv">$productsGridDefinition</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">();</span> <span class="c1">// &#34;products&#34;
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$productsGridDefinitionFactory</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.definition.factory.product_grid_definition_factory&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$productsGridDefinition</span> <span class="o">=</span> <span class="nv">$productsGridDefinitionFactory</span><span class="o">-&gt;</span><span class="na">getDefinition</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// you can access all information that was defined
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$productsGridDefinition</span><span class="o">-&gt;</span><span class="na">getColumns</span><span class="p">();</span> <span class="c1">// collection of defined columns
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$productsGridDefinition</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">();</span> <span class="c1">// &#34;Products&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$productsGridDefinition</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">();</span> <span class="c1">// &#34;products&#34;
+</span></span></span></code></pre></div>
 <h2 id="search-criteria">Search Criteria<a href="#search-criteria"></a></h2><p>In the Grid component, Search Criteria is used for Grid&rsquo;s data sorting, paginating &amp; filtering. Search Criteria
 can be loaded from the database, URL query or anywhere else.</p>
 
@@ -30403,28 +30403,28 @@ In PrestaShop, the <a href="#">Filters component</a> is used to resolve Search C
 
 <h3 id="creating-search-criteria">Creating Search Criteria<a href="#creating-search-criteria"></a></h3><p>Even though most of the time Search Criteria will be created using the <a href="#">Filters component</a>, you can still
 create it manually. Grid provides a simple implementation for it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria</span><span class="p">;</span>
-
-<span class="nv">$filters</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;id_product&#39;</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mug&#39;</span><span class="p">,</span>
-<span class="p">];</span>
-
-<span class="nv">$searchCriteria</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SearchCriteria</span><span class="p">(</span>
-    <span class="nv">$filters</span><span class="p">,</span>
-    <span class="s1">&#39;id_product&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;asc&#39;</span><span class="p">,</span>
-    <span class="mi">0</span><span class="p">,</span>
-    <span class="mi">10</span>
-<span class="p">);</span>
-
-<span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getFilters</span><span class="p">();</span>  <span class="c1">// $filters array
-</span><span class="c1"></span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getOrderBy</span><span class="p">();</span>  <span class="c1">// &#34;id_product&#34;
-</span><span class="c1"></span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getOrderWay</span><span class="p">();</span> <span class="c1">// &#34;asc&#34;
-</span><span class="c1"></span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getOffset</span><span class="p">();</span>   <span class="c1">// 0
-</span><span class="c1"></span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getLimit</span><span class="p">();</span>    <span class="c1">// 10
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$filters</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_product&#39;</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mug&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$searchCriteria</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SearchCriteria</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$filters</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_product&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;asc&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getFilters</span><span class="p">();</span>  <span class="c1">// $filters array
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getOrderBy</span><span class="p">();</span>  <span class="c1">// &#34;id_product&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getOrderWay</span><span class="p">();</span> <span class="c1">// &#34;asc&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getOffset</span><span class="p">();</span>   <span class="c1">// 0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getLimit</span><span class="p">();</span>    <span class="c1">// 10
+</span></span></span></code></pre></div>
 <div class="notices note" >The class <code>PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria</code> is only available since
 <span class="version-pill" title="New in PrestaShop 1.7.6">
 1.7.6
@@ -30432,22 +30432,22 @@ create it manually. Grid provides a simple implementation for it.</p>
 
 <p>When creating Search Criteria you can skip some or all of its data. If you set both <code>orderWay</code> and <code>orderBy</code> to <code>null</code>
 it will disable sorting. If you set both <code>offset</code> and <code>limit</code> to <code>null</code> it will disable pagination.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria</span><span class="p">;</span>
-
-<span class="c1">// sorting, pagination and filtering are disabled with this search criteria
-</span><span class="c1"></span><span class="nv">$emptySearchCriteria</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SearchCriteria</span><span class="p">();</span>
-
-<span class="c1">// only pagination is set
-</span><span class="c1">// that means sorting (and filters as it&#39;s an empty array) will be disabled for search criteria
-</span><span class="c1"></span><span class="nv">$emptySortingSearchCriteria</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SearchCriteria</span><span class="p">(</span>
-    <span class="p">[],</span>
-    <span class="k">null</span><span class="p">,</span>
-    <span class="k">null</span><span class="p">,</span>
-    <span class="mi">2</span><span class="p">,</span>
-    <span class="mi">10</span>
-<span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteria</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// sorting, pagination and filtering are disabled with this search criteria
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$emptySearchCriteria</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SearchCriteria</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// only pagination is set
+</span></span></span><span class="line"><span class="cl"><span class="c1">// that means sorting (and filters as it&#39;s an empty array) will be disabled for search criteria
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$emptySortingSearchCriteria</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SearchCriteria</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">    <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span></code></pre></div>
 <h2 id="grid-data">Grid Data<a href="#grid-data"></a></h2><p>The final part of the Grid component is data. Grid Data is stored in <code>PrestaShop\PrestaShop\Core\Grid\Data\GridData</code>.</p>
 
 <h3 id="creating-grid-data">Creating Grid Data<a href="#creating-grid-data"></a></h3><p>The Grid component does not create Grid Data directly but instead relies on <code>PrestaShop\PrestaShop\Core\Grid\Data\Factory\GridDataFactoryInterface</code>.
@@ -30460,122 +30460,122 @@ to implement <code>DoctrineQueryBuilderInterface</code> which will be used by th
 <div class="notices info" >When implementing <code>DoctrineQueryBuilderInterface</code> it is recommended to use <code>PrestaShop\PrestaShop\Core\Grid\Query\AbstractDoctrineQueryBuilder</code>
 as it provides access to the Doctrine <code>Connection</code> and database tables prefix.</div>
 
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Query\AbstractDoctrineQueryBuilder</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Doctrine\DBAL\Connection</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteriaInterface</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">ProductQueryBuilder</span> <span class="k">extends</span> <span class="nx">AbstractDoctrineQueryBuilder</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var int
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$contextLangId</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @var int
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$contextShopId</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param Connection $connection
-</span><span class="sd">     * @param string $dbPrefix
-</span><span class="sd">     * @param int $contextLangId
-</span><span class="sd">     * @param int $contextShopId
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Connection</span> <span class="nv">$connection</span><span class="p">,</span> <span class="nv">$dbPrefix</span><span class="p">,</span> <span class="nv">$contextLangId</span><span class="p">,</span> <span class="nv">$contextShopId</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="nv">$connection</span><span class="p">,</span> <span class="nv">$dbPrefix</span><span class="p">);</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contextLangId</span> <span class="o">=</span> <span class="nv">$contextLangId</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contextShopId</span> <span class="o">=</span> <span class="nv">$contextShopId</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Get Search query builder returns a QueryBuilder that is used to fetch filtered, sorted and paginated data from the database.
-</span><span class="c1"></span>    <span class="c1">// This query builder is also used to get the SQL query that was executed.
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getSearchQueryBuilder</span><span class="p">(</span><span class="nx">SearchCriteriaInterface</span> <span class="nv">$searchCriteria</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$qb</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getBaseQuery</span><span class="p">();</span>
-        <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;p.id_product, p.reference, pl.name&#39;</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span>
-                <span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getOrderBy</span><span class="p">(),</span>
-                <span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getOrderWay</span><span class="p">()</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">setFirstResult</span><span class="p">(</span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getOffset</span><span class="p">())</span>
-            <span class="o">-&gt;</span><span class="na">setMaxResults</span><span class="p">(</span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getLimit</span><span class="p">());</span>
-    
-        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getFilters</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$filterName</span> <span class="o">=&gt;</span> <span class="nv">$filterValue</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;id_product&#39;</span> <span class="o">===</span> <span class="nv">$filterName</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">andWhere</span><span class="p">(</span><span class="s2">&#34;p.id_product = :</span><span class="si">$filterName</span><span class="s2">&#34;</span><span class="p">);</span>
-                <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="nv">$filterName</span><span class="p">,</span> <span class="nv">$filterValue</span><span class="p">);</span>
-
-                <span class="k">continue</span><span class="p">;</span>
-            <span class="p">}</span>
-
-            <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">andWhere</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">$filterName</span><span class="s2"> LIKE :</span><span class="si">$filterName</span><span class="s2">&#34;</span><span class="p">);</span>
-            <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="nv">$filterName</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="o">.</span><span class="nv">$filterValue</span><span class="o">.</span><span class="s1">&#39;%&#39;</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="nv">$qb</span><span class="p">;</span>
-    <span class="p">}</span>
-    
-    <span class="c1">// Get Count query builder that is used to get the total count of all records (products)
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getCountQueryBuilder</span><span class="p">(</span><span class="nx">SearchCriteriaInterface</span> <span class="nv">$searchCriteria</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$qb</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getBaseQuery</span><span class="p">();</span>
-        <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;COUNT(p.id_product)&#39;</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="nv">$qb</span><span class="p">;</span>
-    <span class="p">}</span>
-    
-    <span class="c1">// Base query can be used for both Search and Count query builders
-</span><span class="c1"></span>    <span class="k">private</span> <span class="k">function</span> <span class="nf">getBaseQuery</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">connection</span>
-            <span class="o">-&gt;</span><span class="na">createQueryBuilder</span><span class="p">()</span>
-            <span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbPrefix</span><span class="o">.</span><span class="s1">&#39;product&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">leftJoin</span><span class="p">(</span>
-                <span class="s1">&#39;p&#39;</span><span class="p">,</span>
-                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbPrefix</span><span class="o">.</span><span class="s1">&#39;product_lang&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;pl&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;p.id_product = pl.id_product AND pl.id_lang = :context_lang_id AND pl.id_shop = :context_shop_id&#39;</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;context_lang_id&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contextLangId</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;context_shop_id&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contextShopId</span><span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Once the Query builder is done, the last step is to register it as a service and configure your <code>DoctrineGridDataFactory</code> to use it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># Register ProductQueryBuilder</span><span class="w">
-</span><span class="w"></span><span class="nt">prestashop.core.grid.query.product_query_builder</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\Query\ProductQueryBuilder&#39;</span><span class="w">
-</span><span class="w">    </span><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.grid.abstract_query_builder&#39;</span><span class="w">
-</span><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s2">&#34;@=service(&#39;prestashop.adapter.legacy.context&#39;).getContext().language.id&#34;</span><span class="w">
-</span><span class="w">        </span>- <span class="s2">&#34;@=service(&#39;prestashop.adapter.legacy.context&#39;).getContext().shop.id&#34;</span><span class="w">
-</span><span class="w">    </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">    
-</span><span class="w"></span><span class="c"># Configure our Grid Data factory to use the query builder that we registered above</span><span class="w">
-</span><span class="w"></span><span class="nt">prestashop.core.grid.data.factory.product_data_factory</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\Data\Factory\DoctrineGridDataFactory&#39;</span><span class="w">
-</span><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.query.product_query_builder&#39;</span><span class="w"> </span><span class="c"># service id of our query builder</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.hook.dispatcher&#39;</span><span class="w"> </span><span class="c"># every doctrine query builder needs the hook dispatcher</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.query.doctrine_query_parser&#39;</span><span class="w"> </span><span class="c"># parser to get the raw SQL query</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;products&#39;</span><span class="w"> </span><span class="c"># this should match your grid id, in our case it&#39;s &#34;products&#34;</span><span class="w">
-</span></code></pre></div><p>That&rsquo;s it! Now we can use our Grid Data factory together with Search Criteria to get sorted, paginated and
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Query\AbstractDoctrineQueryBuilder</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\DBAL\Connection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteriaInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ProductQueryBuilder</span> <span class="k">extends</span> <span class="nx">AbstractDoctrineQueryBuilder</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var int
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$contextLangId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var int
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$contextShopId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param Connection $connection
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $dbPrefix
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int $contextLangId
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int $contextShopId
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Connection</span> <span class="nv">$connection</span><span class="p">,</span> <span class="nv">$dbPrefix</span><span class="p">,</span> <span class="nv">$contextLangId</span><span class="p">,</span> <span class="nv">$contextShopId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="nv">$connection</span><span class="p">,</span> <span class="nv">$dbPrefix</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contextLangId</span> <span class="o">=</span> <span class="nv">$contextLangId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contextShopId</span> <span class="o">=</span> <span class="nv">$contextShopId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Get Search query builder returns a QueryBuilder that is used to fetch filtered, sorted and paginated data from the database.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// This query builder is also used to get the SQL query that was executed.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getSearchQueryBuilder</span><span class="p">(</span><span class="nx">SearchCriteriaInterface</span> <span class="nv">$searchCriteria</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$qb</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getBaseQuery</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;p.id_product, p.reference, pl.name&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getOrderBy</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getOrderWay</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setFirstResult</span><span class="p">(</span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getOffset</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setMaxResults</span><span class="p">(</span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getLimit</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$searchCriteria</span><span class="o">-&gt;</span><span class="na">getFilters</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$filterName</span> <span class="o">=&gt;</span> <span class="nv">$filterValue</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;id_product&#39;</span> <span class="o">===</span> <span class="nv">$filterName</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">andWhere</span><span class="p">(</span><span class="s2">&#34;p.id_product = :</span><span class="si">$filterName</span><span class="s2">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="nv">$filterName</span><span class="p">,</span> <span class="nv">$filterValue</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                <span class="k">continue</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">andWhere</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">$filterName</span><span class="s2"> LIKE :</span><span class="si">$filterName</span><span class="s2">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="nv">$filterName</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="o">.</span><span class="nv">$filterValue</span><span class="o">.</span><span class="s1">&#39;%&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$qb</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// Get Count query builder that is used to get the total count of all records (products)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">getCountQueryBuilder</span><span class="p">(</span><span class="nx">SearchCriteriaInterface</span> <span class="nv">$searchCriteria</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$qb</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getBaseQuery</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$qb</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s1">&#39;COUNT(p.id_product)&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$qb</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// Base query can be used for both Search and Count query builders
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">private</span> <span class="k">function</span> <span class="nf">getBaseQuery</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">connection</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">createQueryBuilder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbPrefix</span><span class="o">.</span><span class="s1">&#39;product&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">leftJoin</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;p&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbPrefix</span><span class="o">.</span><span class="s1">&#39;product_lang&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;pl&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;p.id_product = pl.id_product AND pl.id_lang = :context_lang_id AND pl.id_shop = :context_shop_id&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;context_lang_id&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contextLangId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setParameter</span><span class="p">(</span><span class="s1">&#39;context_shop_id&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contextShopId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Once the Query builder is done, the last step is to register it as a service and configure your <code>DoctrineGridDataFactory</code> to use it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Register ProductQueryBuilder</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">prestashop.core.grid.query.product_query_builder</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\Query\ProductQueryBuilder&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">parent</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.grid.abstract_query_builder&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;@=service(&#39;prestashop.adapter.legacy.context&#39;).getContext().language.id&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;@=service(&#39;prestashop.adapter.legacy.context&#39;).getContext().shop.id&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Configure our Grid Data factory to use the query builder that we registered above</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">prestashop.core.grid.data.factory.product_data_factory</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\Data\Factory\DoctrineGridDataFactory&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.query.product_query_builder&#39;</span><span class="w"> </span><span class="c"># service id of our query builder</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.hook.dispatcher&#39;</span><span class="w"> </span><span class="c"># every doctrine query builder needs the hook dispatcher</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.query.doctrine_query_parser&#39;</span><span class="w"> </span><span class="c"># parser to get the raw SQL query</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;products&#39;</span><span class="w"> </span><span class="c"># this should match your grid id, in our case it&#39;s &#34;products&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>That&rsquo;s it! Now we can use our Grid Data factory together with Search Criteria to get sorted, paginated and
 filtered data for our Grid.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$searchCriteria</span> <span class="o">=</span> <span class="o">...</span>
-
-<span class="sd">/** PrestaShop\PrestaShop\Core\Grid\Data\Factory\GridDataFactoryInterface $productGridDataFactory */</span>
-<span class="nv">$productGridDataFactory</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.data.factory.product_data_factory&#39;</span><span class="p">);</span>
-<span class="nv">$productGridData</span> <span class="o">=</span> <span class="nv">$productDataFactory</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">(</span><span class="nv">$searchCriteria</span><span class="p">);</span>
-
-<span class="nv">$productGridData</span><span class="o">-&gt;</span><span class="na">getRecords</span><span class="p">();</span> <span class="c1">// returns RecordCollection that contains products data
-</span><span class="c1"></span><span class="nv">$productGridData</span><span class="o">-&gt;</span><span class="na">getRecordsTotal</span><span class="p">();</span> <span class="c1">// returns the total count of products
-</span><span class="c1"></span><span class="nv">$productGridData</span><span class="o">-&gt;</span><span class="na">getQuery</span><span class="p">();</span> <span class="c1">// get the last executed query that was used to get RecordCollection
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$searchCriteria</span> <span class="o">=</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/** PrestaShop\PrestaShop\Core\Grid\Data\Factory\GridDataFactoryInterface $productGridDataFactory */</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$productGridDataFactory</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.data.factory.product_data_factory&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$productGridData</span> <span class="o">=</span> <span class="nv">$productDataFactory</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">(</span><span class="nv">$searchCriteria</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$productGridData</span><span class="o">-&gt;</span><span class="na">getRecords</span><span class="p">();</span> <span class="c1">// returns RecordCollection that contains products data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$productGridData</span><span class="o">-&gt;</span><span class="na">getRecordsTotal</span><span class="p">();</span> <span class="c1">// returns the total count of products
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$productGridData</span><span class="o">-&gt;</span><span class="na">getQuery</span><span class="p">();</span> <span class="c1">// get the last executed query that was used to get RecordCollection
+</span></span></span></code></pre></div>
 <h2 id="working-with-grid">Working with Grid<a href="#working-with-grid"></a></h2><p>We already know how to create and use Grid Definitions and Grid Data factories. Now it&rsquo;s time to combine those services
 to create our Grid!</p>
 
@@ -30586,44 +30586,44 @@ whose primary job is to create a Grid.</p>
 your own Grid factory in some rare cases.</div>
 
 <p>Let&rsquo;s configure a <code>GridFactory</code> with our Grid Definition and Grid Data factory.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># Configure Grid factory to use services we have implemented</span><span class="w">
-</span><span class="w"></span><span class="nt">prestashop.core.grid.product_grid_factory</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\GridFactory&#39;</span><span class="w">
-</span><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.definition.factory.product_grid_definition_factory&#39;</span><span class="w"> </span><span class="c"># our definition factory</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.data.factory.product_data_factory&#39;</span><span class="w">              </span><span class="c"># our data factory</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.filter.form_factory&#39;</span><span class="w">                            </span><span class="c"># core service needed by grid factory</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.hook.dispatcher&#39;</span><span class="w">                                     </span><span class="c"># core service needed by grid factory</span><span class="w">
-</span></code></pre></div><p>And we are done! Let&rsquo;s see how to use it and render it in the page.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Configure Grid factory to use services we have implemented</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">prestashop.core.grid.product_grid_factory</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\GridFactory&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.definition.factory.product_grid_definition_factory&#39;</span><span class="w"> </span><span class="c"># our definition factory</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.data.factory.product_data_factory&#39;</span><span class="w">              </span><span class="c"># our data factory</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.filter.form_factory&#39;</span><span class="w">                            </span><span class="c"># core service needed by grid factory</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.hook.dispatcher&#39;</span><span class="w">                                     </span><span class="c"># core service needed by grid factory</span><span class="w">
+</span></span></span></code></pre></div><p>And we are done! Let&rsquo;s see how to use it and render it in the page.</p>
 
 <h3 id="rendering-grid">Rendering Grid<a href="#rendering-grid"></a></h3><p>In Back Office controllers, you can use the Grid Factory to create a Grid and render it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">ProductController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @return Response
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$searchCriteria</span> <span class="o">=</span> <span class="o">...</span>
-    
-        <span class="nv">$productGridFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.product_grid_factory&#39;</span><span class="p">);</span>
-        <span class="nv">$productGrid</span> <span class="o">=</span> <span class="nv">$productGridFactory</span><span class="o">-&gt;</span><span class="na">getGrid</span><span class="p">(</span><span class="nv">$searchCriteria</span><span class="p">);</span>
-        
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Product/products.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
-            <span class="c1">// $this-&gt;presentGrid() is a helper method provided by FrameworkBundleAdminController
-</span><span class="c1"></span>            <span class="s1">&#39;productsGrid&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">presentGrid</span><span class="p">(</span><span class="nv">$productGrid</span><span class="p">),</span>
-        <span class="p">]);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>To see the Grid in your page you have to include its template, which is provided by PrestaShop.</p>
-<div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="c">{# @PrestaShop/Admin/Product/products.html.twig #}</span><span class="x">
-</span><span class="x">
-</span><span class="x"></span><span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;@PrestaShop/Admin/Common/Grid/grid_panel.html.twig&#39;</span> <span class="nv">with</span> <span class="o">{</span><span class="s1">&#39;grid&#39;</span><span class="o">:</span> <span class="nv">productsGrid</span><span class="o">}</span> <span class="cp">%}</span><span class="x">
-</span></code></pre></div><p>It is possible to include the provided template and modify some parts of it, or you can create your own template to render the Grid.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ProductController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return Response
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$searchCriteria</span> <span class="o">=</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">        <span class="nv">$productGridFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.product_grid_factory&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productGrid</span> <span class="o">=</span> <span class="nv">$productGridFactory</span><span class="o">-&gt;</span><span class="na">getGrid</span><span class="p">(</span><span class="nv">$searchCriteria</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Product/products.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// $this-&gt;presentGrid() is a helper method provided by FrameworkBundleAdminController
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;productsGrid&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">presentGrid</span><span class="p">(</span><span class="nv">$productGrid</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>To see the Grid in your page you have to include its template, which is provided by PrestaShop.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="c">{# @PrestaShop/Admin/Product/products.html.twig #}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{%</span> <span class="k">include</span> <span class="s1">&#39;@PrestaShop/Admin/Common/Grid/grid_panel.html.twig&#39;</span> <span class="nv">with</span> <span class="o">{</span><span class="s1">&#39;grid&#39;</span><span class="o">:</span> <span class="nv">productsGrid</span><span class="o">}</span> <span class="cp">%}</span><span class="x">
+</span></span></span></code></pre></div><p>It is possible to include the provided template and modify some parts of it, or you can create your own template to render the Grid.</p>
 
 <h2 id="workflows">Workflows<a href="#workflows"></a></h2>
 <h3 id="main-workflow">Main workflow<a href="#main-workflow"></a></h3><figure><img src="../img/grid_workflow.svg"/><figcaption>
@@ -30824,17 +30824,17 @@ your own Grid factory in some rare cases.</div>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163932"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163932"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163932"></script>
-    <script src="/js/jquery.sticky.js?1703163932"></script>
-    <script src="/js/featherlight.min.js?1703163932"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163932"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163932"></script>
-    <script src="/js/learn.js?1703163932"></script>
-    <script src="/js/hugo-learn.js?1703163932"></script>
+    <script src="/js/clipboard.min.js?1703164754"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164754"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164754"></script>
+    <script src="/js/jquery.sticky.js?1703164754"></script>
+    <script src="/js/featherlight.min.js?1703164754"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164754"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164754"></script>
+    <script src="/js/learn.js?1703164754"></script>
+    <script src="/js/hugo-learn.js?1703164754"></script>
     
-    <script src="/main.js?1703163932"></script>
+    <script src="/main.js?1703164754"></script>
     
     
     

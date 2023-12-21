@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Installing a local environment :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163884" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163884" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163884" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163884" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164711" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164711" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164711" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164711" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163884" rel="stylesheet">
+    <link href="/style.css?1703164711" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163884"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164711"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30293,17 +30293,17 @@
 <p>To install LAMP on your computer follow these steps (tested on Debian Buster).</p>
 <ul>
 <li>Update your system
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">apt update
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt update
+</span></span></code></pre></div></li>
 <li>Install MySQL
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">apt install default-mysql-server default-mysql-client
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install default-mysql-server default-mysql-client
+</span></span></code></pre></div></li>
 <li>Install Apache server
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">apt install apache2
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install apache2
+</span></span></code></pre></div></li>
 <li>Install PHP
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">apt install libapache2-mod-php7.3 php7.3 php7.3-common php7.3-curl php7.3-gd php7.3-imagick php7.3-mbstring php7.3-mysql php7.3-json php7.3-xsl php7.3-intl php7.3-zip
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install libapache2-mod-php7.3 php7.3 php7.3-common php7.3-curl php7.3-gd php7.3-imagick php7.3-mbstring php7.3-mysql php7.3-json php7.3-xsl php7.3-intl php7.3-zip
+</span></span></code></pre></div></li>
 </ul>
 
 <h2 id="creating-a-database-for-your-shop">Creating a database for your shop<a href="#creating-a-database-for-your-shop"></a></h2><p>If you are installing PrestaShop on a web server, then you must create the database and give access to a privileged user.
@@ -30321,21 +30321,21 @@ You will need this user&rsquo;s credentials to configure PrestaShop during the i
 <h3 id="from-the-command-line">From the command line<a href="#from-the-command-line"></a></h3><p>The database must be created with 4-Byte UTF-8 encoding (<code>utf8mb4_general_ci</code>).
 For information on installation and configuring MySQL see the <a href="https://dev.mysql.com/doc/refman/5.6/en/">MySQL 5.6 documentation</a>.
 Connect as root to your MySql server. In this example our root user is called <code>adminusername</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ mysql -u adminusername -p
-</code></pre></div><p>Create the database and give it a name like &ldquo;prestashop&rdquo;:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">&gt; CREATE DATABASE prestashop COLLATE utf8mb4_general_ci<span class="p">;</span>
-</code></pre></div><p>Grant privileges to that database to a new user (the one that PrestaShop will use to connect to the database). Let&rsquo;s call it &ldquo;prestashopuser&rdquo;.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">&gt; CREATE USER <span class="s2">&#34;prestashopuser&#34;</span>@<span class="s2">&#34;hostname&#34;</span> IDENTIFIED BY <span class="s2">&#34;somepassword&#34;</span><span class="p">;</span>
-&gt; GRANT ALL PRIVILEGES ON prestashop.* TO <span class="s2">&#34;prestashopuser&#34;</span>@<span class="s2">&#34;hostname&#34;</span><span class="p">;</span>
-</code></pre></div><p>In the example above,</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ mysql -u adminusername -p
+</span></span></code></pre></div><p>Create the database and give it a name like &ldquo;prestashop&rdquo;:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt; CREATE DATABASE prestashop COLLATE utf8mb4_general_ci<span class="p">;</span>
+</span></span></code></pre></div><p>Grant privileges to that database to a new user (the one that PrestaShop will use to connect to the database). Let&rsquo;s call it &ldquo;prestashopuser&rdquo;.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt; CREATE USER <span class="s2">&#34;prestashopuser&#34;</span>@<span class="s2">&#34;hostname&#34;</span> IDENTIFIED BY <span class="s2">&#34;somepassword&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">&gt; GRANT ALL PRIVILEGES ON prestashop.* TO <span class="s2">&#34;prestashopuser&#34;</span>@<span class="s2">&#34;hostname&#34;</span><span class="p">;</span>
+</span></span></code></pre></div><p>In the example above,</p>
 <ul>
 <li><code>prestashop</code> is the name of the new database</li>
 <li><code>hostname</code> is usually localhost (<code>127.0.0.1</code> or <code>localhost</code>), if you don&rsquo;t know the value, check with a system administrator</li>
 <li><code>somepassword</code> must be a strong password and of course, only known by you</li>
 </ul>
 <p>Finally, flush privileges:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">&gt; FLUSH PRIVILEGES<span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt; FLUSH PRIVILEGES<span class="p">;</span>
+</span></span></code></pre></div>
 <h2 id="downloading-prestashop">Downloading PrestaShop<a href="#downloading-prestashop"></a></h2><p>The source code of PrestaShop is hosted on the <a href="https://github.com/PrestaShop/PrestaShop/">Official PrestaShop GitHub Repository</a>.</p>
 <p>You can find all the released versions of PrestaShop here: <a href="https://github.com/PrestaShop/PrestaShop/releases">PrestaShop releases</a>.</p>
 <p>Nightly releases of PrestaShop are also generated daily. Their details can be found on a <a href="https://console.cloud.google.com/storage/browser/prestashop-core-nightly">public Google Cloud storage</a>.</p>
@@ -30385,16 +30385,16 @@ Connect as root to your MySql server. In this example our root user is called <c
 
 
 <h3 id="php-dependencies">PHP dependencies<a href="#php-dependencies"></a></h3><p>Use <a href="https://getcomposer.org/download/">composer</a> to download the project&rsquo;s dependencies:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /path/to/prestashop
-composer install
-<span class="c1"># or alternatively, since 1.7.8:</span>
-make composer
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /path/to/prestashop
+</span></span><span class="line"><span class="cl">composer install
+</span></span><span class="line"><span class="cl"><span class="c1"># or alternatively, since 1.7.8:</span>
+</span></span><span class="line"><span class="cl">make composer
+</span></span></code></pre></div>
 <h3 id="javascript-and-css-dependencies">JavaScript and CSS dependencies<a href="#javascript-and-css-dependencies"></a></h3><p>PrestaShop uses NPM to manage dependencies and <a href="https://webpack.js.org/">Webpack</a> to compile them into static assets.
 You only need NodeJS 8.x (12.x maximum <a href="https://nodejs.org/">get it here</a>), NPM will take care of it all.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /path/to/prestashop
-make assets
-</code></pre></div><p>Alternatively, you can <a href="https://devdocs.prestashop-project.org/1.7/development/compile-assets/">compile assets</a> manually.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> /path/to/prestashop
+</span></span><span class="line"><span class="cl">make assets
+</span></span></code></pre></div><p>Alternatively, you can <a href="https://devdocs.prestashop-project.org/1.7/development/compile-assets/">compile assets</a> manually.</p>
 
 <h2 id="setting-up-file-rights">Setting up file rights<a href="#setting-up-file-rights"></a></h2><p>PrestaShop needs recursive write permissions on several directories:</p>
 <ul>
@@ -30415,10 +30415,10 @@ make assets
 <li>./var</li>
 </ul>
 <p>You can set up the appropriate permissions using this command:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ chmod -R +w admin-dev/autoupgrade app/config app/logs app/Resources/translations cache config download img log mails modules themes translations upload var
-</code></pre></div><p>If you do not have some of the folders above, please create them before changing permissions. For example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ mkdir log app/logs
-</code></pre></div><p>To ease up your life on a development environment, we suggest to make Apache run with your own user and group.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ chmod -R +w admin-dev/autoupgrade app/config app/logs app/Resources/translations cache config download img log mails modules themes translations upload var
+</span></span></code></pre></div><p>If you do not have some of the folders above, please create them before changing permissions. For example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ mkdir log app/logs
+</span></span></code></pre></div><p>To ease up your life on a development environment, we suggest to make Apache run with your own user and group.</p>
 
 <div class="notices warning" ><b>Never do that in production!</b> Carefully change permissions folder by folder instead.</div>
 
@@ -30512,17 +30512,17 @@ make assets
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163884"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163884"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163884"></script>
-    <script src="/js/jquery.sticky.js?1703163884"></script>
-    <script src="/js/featherlight.min.js?1703163884"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163884"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163884"></script>
-    <script src="/js/learn.js?1703163884"></script>
-    <script src="/js/hugo-learn.js?1703163884"></script>
+    <script src="/js/clipboard.min.js?1703164711"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164711"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164711"></script>
+    <script src="/js/jquery.sticky.js?1703164711"></script>
+    <script src="/js/featherlight.min.js?1703164711"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164711"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164711"></script>
+    <script src="/js/learn.js?1703164711"></script>
+    <script src="/js/hugo-learn.js?1703164711"></script>
     
-    <script src="/main.js?1703163884"></script>
+    <script src="/main.js?1703164711"></script>
     
     
     

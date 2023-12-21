@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="This hook allows you to modify delivery option list">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>actionFilterDeliveryOptionList :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163916" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163916" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163916" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163916" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164740" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164740" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164740" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164740" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163916" rel="stylesheet">
+    <link href="/style.css?1703164740" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163916"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164740"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33186,18 +33186,18 @@
 </tbody>
 </table>
 
-<h2 id="parameters-details">Parameters details<a href="#parameters-details"></a></h2><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">    <span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="p">[</span>
-        <span class="s1">&#39;delivery_option_list&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="k">array</span><span class="p">)</span> <span class="o">&amp;</span><span class="nv">$delivery_option_list</span><span class="p">,</span>
-    <span class="p">]</span>
-</code></pre></div>
-<h2 id="call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file<a href="#call-of-the-hook-in-the-origin-file"></a></h2><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span>
-    <span class="s1">&#39;actionFilterDeliveryOptionList&#39;</span><span class="p">,</span>
-    <span class="p">[</span>
-        <span class="s1">&#39;delivery_option_list&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$delivery_option_list</span><span class="p">,</span>
-    <span class="p">]</span>
-<span class="p">)</span>
-</code></pre></div>
+<h2 id="parameters-details">Parameters details<a href="#parameters-details"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;delivery_option_list&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="k">array</span><span class="p">)</span> <span class="o">&amp;</span><span class="nv">$delivery_option_list</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span></code></pre></div>
+<h2 id="call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file<a href="#call-of-the-hook-in-the-origin-file"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;actionFilterDeliveryOptionList&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;delivery_option_list&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$delivery_option_list</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span></code></pre></div>
 <h2 id="example-implementation">Example implementation<a href="#example-implementation"></a></h2><p>For example :</p>
 <ul>
 <li>a module can decide to display or not a certain carrier depending on the customer group</li>
@@ -33205,25 +33205,25 @@
 <li>a module can decide to display or not a carrier according to the date?</li>
 </ul>
 <p>In this example, we disable the express delivery carrier on saturdays and sundays because our delivery promise of 24 hours cannot be satisfied:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">MyCarrierConditionDisablerModule</span> <span class="k">extends</span> <span class="nx">Module</span> 
-<span class="p">{</span>
-        
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;actionFilterDeliveryOptionList&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCustomFilterDeliveryOptionList</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$deliveryOptionList</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;delivery_option_list&#39;</span><span class="p">];</span>
-        
-        <span class="k">if</span><span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="nx">date</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="mi">6</span> <span class="o">==</span> <span class="nx">date</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)){</span> <span class="c1">// sundays or saturdays
-</span><span class="c1"></span>            <span class="c1">// find carrier in $deliveryOptionList, and remove it
-</span><span class="c1"></span>        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyCarrierConditionDisablerModule</span> <span class="k">extends</span> <span class="nx">Module</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;actionFilterDeliveryOptionList&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCustomFilterDeliveryOptionList</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$deliveryOptionList</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;delivery_option_list&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="nx">date</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="mi">6</span> <span class="o">==</span> <span class="nx">date</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)){</span> <span class="c1">// sundays or saturdays
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// find carrier in $deliveryOptionList, and remove it
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33301,17 +33301,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163916"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163916"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163916"></script>
-    <script src="/js/jquery.sticky.js?1703163916"></script>
-    <script src="/js/featherlight.min.js?1703163916"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163916"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163916"></script>
-    <script src="/js/learn.js?1703163916"></script>
-    <script src="/js/hugo-learn.js?1703163916"></script>
+    <script src="/js/clipboard.min.js?1703164740"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164740"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164740"></script>
+    <script src="/js/jquery.sticky.js?1703164740"></script>
+    <script src="/js/featherlight.min.js?1703164740"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164740"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164740"></script>
+    <script src="/js/learn.js?1703164740"></script>
+    <script src="/js/hugo-learn.js?1703164740"></script>
     
-    <script src="/main.js?1703163916"></script>
+    <script src="/main.js?1703164740"></script>
     
     
     

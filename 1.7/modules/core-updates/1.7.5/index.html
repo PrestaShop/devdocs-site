@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Changes in PrestaShop 1.7.5 :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163894" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163894" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163894" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163894" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164721" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164721" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164721" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164721" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163894" rel="stylesheet">
+    <link href="/style.css?1703164721" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163894"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164721"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30281,26 +30281,26 @@
 </tbody>
 </table>
 <p>Applying an <code>(array)</code> cast is valid only when you have a <code>ObjectModel</code> instance, for instance <code>Product</code>. Otherwise, you already have an array-compliant variable.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">hookdisplayFooterProduct</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="cm">/*
-</span><span class="cm">     * Depending on the PrestaShop you run, the $product type won&#39;t be the same.
-</span><span class="cm">     * On PrestaShop 1.7, it can be directly used as an array.
-</span><span class="cm">     * 
-</span><span class="cm">     * However, if the module is also compatible with PrestaShop 1.6, 1.5...
-</span><span class="cm">     * an ObjectModel class will be returned.
-</span><span class="cm">     * Casting it as an array *in this specific situation* will allow to cover all cases.
-</span><span class="cm">     */</span>
-    <span class="nv">$product</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;product&#39;</span><span class="p">];</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nv">$product</span> <span class="nx">instanceof</span> <span class="nx">Product</span> <span class="cm">/* or ObjectModel */</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$product</span> <span class="o">=</span> <span class="p">(</span><span class="k">array</span><span class="p">)</span> <span class="nv">$product</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="c1">// Getting product details.
-</span><span class="c1"></span>    <span class="k">echo</span> <span class="nv">$product</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
-<span class="p">}</span>
-</code></pre></div><p><strong>Links:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookdisplayFooterProduct</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Depending on the PrestaShop you run, the $product type won&#39;t be the same.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * On PrestaShop 1.7, it can be directly used as an array.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * 
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * However, if the module is also compatible with PrestaShop 1.6, 1.5...
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * an ObjectModel class will be returned.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Casting it as an array *in this specific situation* will allow to cover all cases.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$product</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;product&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$product</span> <span class="nx">instanceof</span> <span class="nx">Product</span> <span class="cm">/* or ObjectModel */</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$product</span> <span class="o">=</span> <span class="p">(</span><span class="k">array</span><span class="p">)</span> <span class="nv">$product</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Getting product details.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">echo</span> <span class="nv">$product</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>Links:</strong></p>
 <ul>
 <li><a href="https://github.com/PrestaShop/ps_googleanalytics/pull/14/files">Related issue on module Google Analytics (GitHub)</a></li>
 </ul>
@@ -30308,16 +30308,16 @@
 <h2 id="automated-link-generation">Automated link generation<a href="#automated-link-generation"></a></h2><p>PrestaShop now automatically converts links generated by <code>Link::getAdminLink()</code> calls into links to the newly migrated Symfony pages. This means that if you used this method somewhere in your modules to link to a page that has since been migrated, PrestaShop will automatically &ldquo;upgrade&rdquo; it so that it points to the new Symfony-style URL.</p>
 <p>With this change, module developers no longer need to update their links each time a page is migrated. However in many places the method is not used with URL parameters as arguments, and parameters are concatenated as a string after the <code>getAdminLink</code> call instead. This can result in wrong conversion use cases, so you might need to refactor the way you use this method.</p>
 <p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="c1">// Code compliant from PrestaShop 1.5 to 1.7.4
-</span><span class="c1"></span>    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminOrders&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;&amp;amp;id_order={$order-&gt;id|intval}&amp;amp;vieworder&#39;</span><span class="p">;</span>
-
-    <span class="c1">// Recommended code from PrestaShop 1.7.5
-</span><span class="c1"></span>    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminOrders&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;id_customer&#39;</span> <span class="o">=&gt;</span> <span class="nv">$customer</span><span class="o">-&gt;</span><span class="na">id</span><span class="o">|</span><span class="nx">intval</span><span class="p">,</span> <span class="s1">&#39;viewcustomer&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]);</span>
-
-    <span class="c1">// If you need to be compatible from 1.5 to the latest 1.7 version, then you can combine both styles
-</span><span class="c1"></span>    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminOrders&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;id_customer&#39;</span> <span class="o">=&gt;</span> <span class="nv">$customer</span><span class="o">-&gt;</span><span class="na">id</span><span class="o">|</span><span class="nx">intval</span><span class="p">,</span> <span class="s1">&#39;viewcustomer&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">])</span> <span class="o">.</span> <span class="s1">&#39;&amp;amp;id_order={$order-&gt;id|intval}&amp;amp;vieworder&#39;</span><span class="p">;</span>
-</code></pre></div><p>Although this won&rsquo;t be a problem for legacy controllers, if it&rsquo;s not used properly, the generated link won&rsquo;t work anymore once the page is migrated to Symfony. We recommend refactoring your calls to <code>getAdminLink</code> beforehand.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Code compliant from PrestaShop 1.5 to 1.7.4
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminOrders&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;&amp;amp;id_order={$order-&gt;id|intval}&amp;amp;vieworder&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// Recommended code from PrestaShop 1.7.5
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminOrders&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;id_customer&#39;</span> <span class="o">=&gt;</span> <span class="nv">$customer</span><span class="o">-&gt;</span><span class="na">id</span><span class="o">|</span><span class="nx">intval</span><span class="p">,</span> <span class="s1">&#39;viewcustomer&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// If you need to be compatible from 1.5 to the latest 1.7 version, then you can combine both styles
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminOrders&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;id_customer&#39;</span> <span class="o">=&gt;</span> <span class="nv">$customer</span><span class="o">-&gt;</span><span class="na">id</span><span class="o">|</span><span class="nx">intval</span><span class="p">,</span> <span class="s1">&#39;viewcustomer&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">])</span> <span class="o">.</span> <span class="s1">&#39;&amp;amp;id_order={$order-&gt;id|intval}&amp;amp;vieworder&#39;</span><span class="p">;</span>
+</span></span></code></pre></div><p>Although this won&rsquo;t be a problem for legacy controllers, if it&rsquo;s not used properly, the generated link won&rsquo;t work anymore once the page is migrated to Symfony. We recommend refactoring your calls to <code>getAdminLink</code> beforehand.</p>
 <p>You can find more details about this new feature in the <a href="https://devdocs.prestashop-project.org/1.7/development/architecture/migration-guide/controller-routing/#the-legacy-link-property">Controller and Routing</a> page.</p>
 
 
@@ -30397,17 +30397,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163894"></script>
-    <script src="/js/jquery.sticky.js?1703163894"></script>
-    <script src="/js/featherlight.min.js?1703163894"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163894"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163894"></script>
-    <script src="/js/learn.js?1703163894"></script>
-    <script src="/js/hugo-learn.js?1703163894"></script>
+    <script src="/js/clipboard.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164721"></script>
+    <script src="/js/jquery.sticky.js?1703164721"></script>
+    <script src="/js/featherlight.min.js?1703164721"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164721"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164721"></script>
+    <script src="/js/learn.js?1703164721"></script>
+    <script src="/js/hugo-learn.js?1703164721"></script>
     
-    <script src="/main.js?1703163894"></script>
+    <script src="/main.js?1703164721"></script>
     
     
     

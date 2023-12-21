@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to use Row Actions :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163909" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163909" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163909" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163909" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164735" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164735" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164735" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164735" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163909" rel="stylesheet">
+    <link href="/style.css?1703164735" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163909"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164735"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33158,63 +33158,63 @@
 <li>Delete;</li>
 </ul>
 <p>See code example from the Core below:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span> <span class="c1">// src/Core/Grid/Definition/Factory/CategoryGridDefinitionFactory.php
-</span><span class="c1"></span>
-<span class="k">final</span> <span class="k">class</span> <span class="nc">CategoryGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractFilterableGridDefinitionFactory</span>
-<span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>
-    <span class="sd">/**
-</span><span class="sd">     * @return RowActionCollection
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">getRowActions</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">RowActionCollection</span><span class="p">())</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-                <span class="p">(</span><span class="k">new</span> <span class="nx">LinkRowAction</span><span class="p">(</span><span class="s1">&#39;view&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;View&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;zoom_in&#39;</span><span class="p">)</span>
-                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_categories_index&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;route_param_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;categoryId&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;route_param_field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_category&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;accessibility_checker&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">categoryForViewAccessibilityChecker</span><span class="p">,</span>
-                    <span class="c1">// Thanks to this option a click on the row will have the same effect as this action
-</span><span class="c1"></span>                    <span class="s1">&#39;clickable_row&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-                <span class="p">])</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-                <span class="p">(</span><span class="k">new</span> <span class="nx">LinkRowAction</span><span class="p">(</span><span class="s1">&#39;edit&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Edit&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;edit&#39;</span><span class="p">)</span>
-                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_categories_edit&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;route_param_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;categoryId&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;route_param_field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_category&#39;</span><span class="p">,</span>
-                    <span class="c1">// A grid usually has only one click action, categories are a special case because the view
-</span><span class="c1"></span>                    <span class="c1">// action may be filtered via the accessibility_checker option, in which case the edit action
-</span><span class="c1"></span>                    <span class="c1">// will be used The order is important then as the first row action is used by default
-</span><span class="c1"></span>                    <span class="s1">&#39;clickable_row&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-                <span class="p">])</span>
-            <span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">SubmitRowAction</span><span class="p">(</span><span class="s1">&#39;delete&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Delete&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;delete&#39;</span><span class="p">)</span>
-                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;method&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_categories_delete&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;route_param_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;categoryId&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;route_param_field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_category&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;confirm_message&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span>
-                        <span class="s1">&#39;Delete selected item?&#39;</span><span class="p">,</span>
-                        <span class="p">[],</span>
-                        <span class="s1">&#39;Admin.Notifications.Warning&#39;</span>
-                    <span class="p">),</span>
-                <span class="p">])</span>
-            <span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>As shown above, Grid stores Row actions using a <code>RowActionCollection</code> object. This means that every action needed for Grid must be added to <code>RowActionCollection</code> using <code>add()</code> method.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span> <span class="c1">// src/Core/Grid/Definition/Factory/CategoryGridDefinitionFactory.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">CategoryGridDefinitionFactory</span> <span class="k">extends</span> <span class="nx">AbstractFilterableGridDefinitionFactory</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return RowActionCollection
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">getRowActions</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">RowActionCollection</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="k">new</span> <span class="nx">LinkRowAction</span><span class="p">(</span><span class="s1">&#39;view&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;View&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;zoom_in&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_categories_index&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route_param_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;categoryId&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route_param_field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_category&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;accessibility_checker&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">categoryForViewAccessibilityChecker</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// Thanks to this option a click on the row will have the same effect as this action
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="s1">&#39;clickable_row&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="p">(</span><span class="k">new</span> <span class="nx">LinkRowAction</span><span class="p">(</span><span class="s1">&#39;edit&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Edit&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;edit&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_categories_edit&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route_param_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;categoryId&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route_param_field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_category&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// A grid usually has only one click action, categories are a special case because the view
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="c1">// action may be filtered via the accessibility_checker option, in which case the edit action
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="c1">// will be used The order is important then as the first row action is used by default
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="s1">&#39;clickable_row&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">SubmitRowAction</span><span class="p">(</span><span class="s1">&#39;delete&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Delete&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;delete&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;method&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;DELETE&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_categories_delete&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route_param_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;categoryId&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route_param_field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_category&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;confirm_message&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;Delete selected item?&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;Admin.Notifications.Warning&#39;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>As shown above, Grid stores Row actions using a <code>RowActionCollection</code> object. This means that every action needed for Grid must be added to <code>RowActionCollection</code> using <code>add()</code> method.
 You&rsquo;ll find the list of existing actions in the documentation.</p>
 
 <h2 id="how-to-add-row-actions-to-a-grid-using-a-module">How to add Row actions to a Grid using a module?<a href="#how-to-add-row-actions-to-a-grid-using-a-module"></a></h2><p>You can add additional actions to any Grid by hooking to the Grid workflow. You have to follow these steps:</p>
@@ -33222,96 +33222,96 @@ You&rsquo;ll find the list of existing actions in the documentation.</p>
 <li>Register hook <code>action{gridId}GridDefinitionModifier</code> where <code>{gridId}</code> is Grid id (e.g. <code>customer</code> for Customers grid, this means that hook name would be <code>actionCustomerGridDefinitionModifier</code>).</li>
 <li>Implement hook method in your module:</li>
 </ol>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/mymodule/mymodule.php
-</span><span class="c1"></span>
-<span class="k">class</span> <span class="nc">Mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>
-    <span class="sd">/**
-</span><span class="sd">     * Use hook to add Row action for subscribing customer to newsletter
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCustomerGridDefinitionModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="sd">/** @var \PrestaShop\PrestaShop\Core\Grid\Definition\GridDefinition */</span>
-        <span class="nv">$gridDefinition</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;definition&#39;</span><span class="p">];</span>
-
-        <span class="nv">$gridDefinition</span><span class="o">-&gt;</span><span class="na">getGridActions</span><span class="p">()</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">SubmitRowAction</span><span class="p">(</span><span class="s1">&#39;subscribe&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Subscribe&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
-                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;mail&#39;</span><span class="p">)</span>
-                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
-                    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_customer_subscribe&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;route_param_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;customerId&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;route_param_field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_customer&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;confirm_message&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span>
-                        <span class="s1">&#39;Subscribe to newsletter?&#39;</span><span class="p">,</span>
-                        <span class="p">[],</span>
-                        <span class="s1">&#39;Admin.Notifications.Warning&#39;</span>
-                    <span class="p">),</span>
-                <span class="p">])</span>
-            <span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Now you should be able to see new action available into the Customers grid!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/mymodule/mymodule.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Use hook to add Row action for subscribing customer to newsletter
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionCustomerGridDefinitionModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var \PrestaShop\PrestaShop\Core\Grid\Definition\GridDefinition */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$gridDefinition</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;definition&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$gridDefinition</span><span class="o">-&gt;</span><span class="na">getGridActions</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">((</span><span class="k">new</span> <span class="nx">SubmitRowAction</span><span class="p">(</span><span class="s1">&#39;subscribe&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setName</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Subscribe&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Actions&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setIcon</span><span class="p">(</span><span class="s1">&#39;mail&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">setOptions</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_customer_subscribe&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route_param_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;customerId&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;route_param_field&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_customer&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;confirm_message&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;Subscribe to newsletter?&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;Admin.Notifications.Warning&#39;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Now you should be able to see new action available into the Customers grid!</p>
 
 <h2 id="how-to-create-custom-row-action">How to create custom Row action?<a href="#how-to-create-custom-row-action"></a></h2><p>PrestaShop already comes with a bunch of actions that are available for use in your Grids or for extending PrestaShop grids.
 However, in some use cases you may find that the existing actions do not fit your needs.</p>
 <p>Luckily, there is a solution, you can create and register your own custom actions.</p>
 <p>First, you need to create a Grid action itself:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/mymodule/src/Grid/Action/Type/
-</span><span class="c1"></span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Action\AbstractRowAction</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * It extends AbstractRowAction,
-</span><span class="sd"> * but you can also implement \PrestaShop\PrestaShop\Core\Grid\Action\RowActionInterface 
-</span><span class="sd"> * if for some reason you want to avoid using the abstract class
-</span><span class="sd"> */</span> 
-<span class="k">final</span> <span class="k">class</span> <span class="nc">MySpecificRowAction</span> <span class="k">extends</span> <span class="nx">AbstractRowAction</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getType</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="s1">&#39;my_specific&#39;</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     */</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">configureOptions</span><span class="p">(</span><span class="nx">OptionsResolver</span> <span class="nv">$resolver</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="sd">/**
-</span><span class="sd">         * options passed to the resolver will be available in the Grid Row action
-</span><span class="sd">         * and also in the template responsible of rendering the action.
-</span><span class="sd">         */</span>
-        <span class="nv">$resolver</span>
-            <span class="o">-&gt;</span><span class="na">setRequired</span><span class="p">([</span>
-                <span class="s1">&#39;route&#39;</span><span class="p">,</span>
-            <span class="p">])</span>
-            <span class="o">-&gt;</span><span class="na">setDefaults</span><span class="p">([</span>
-                <span class="s1">&#39;route_params&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
-            <span class="p">])</span>
-            <span class="o">-&gt;</span><span class="na">setAllowedTypes</span><span class="p">(</span><span class="s1">&#39;route&#39;</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">setAllowedTypes</span><span class="p">(</span><span class="s1">&#39;route_params&#39;</span><span class="p">,</span> <span class="s1">&#39;array&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Then you need to create template so it can render nicely in your grid.</p>
-<div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="c">{# mymodule/views/PrestaShop/Admin/Common/Grid/Actions/Row/my_specific.html.twig #}</span><span class="x">
-</span><span class="x">
-</span><span class="x"></span><span class="c">{# This button should be used with LinkRowActionExtension grid extension in Javascript #}</span><span class="x">
-</span><span class="x">
-</span><span class="x">&lt;a class=&#34;</span><span class="cp">{{</span> <span class="nv">class</span> <span class="cp">}}</span><span class="x">&#34;
-</span><span class="x">   href=&#34;</span><span class="cp">{{</span> <span class="nv">path</span><span class="o">(</span><span class="nv">action.options.route</span><span class="o">,</span> <span class="nv">action.options.route_params</span> <span class="o">)</span> <span class="cp">}}</span><span class="x">&#34;
-</span><span class="x">&gt;
-</span><span class="x">    </span><span class="cp">{{</span> <span class="nv">action.name</span> <span class="cp">}}</span><span class="x">
-</span><span class="x">&lt;/a&gt;
-</span></code></pre></div><p>Last thing is to add your newly created Row action to Grid&rsquo;s <code>RowActionCollection</code> and then it should be available in your Grid!</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/mymodule/src/Grid/Action/Type/
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Action\AbstractRowAction</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * It extends AbstractRowAction,
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * but you can also implement \PrestaShop\PrestaShop\Core\Grid\Action\RowActionInterface 
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * if for some reason you want to avoid using the abstract class
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span> 
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">MySpecificRowAction</span> <span class="k">extends</span> <span class="nx">AbstractRowAction</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getType</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;my_specific&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">configureOptions</span><span class="p">(</span><span class="nx">OptionsResolver</span> <span class="nv">$resolver</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">         * options passed to the resolver will be available in the Grid Row action
+</span></span></span><span class="line"><span class="cl"><span class="sd">         * and also in the template responsible of rendering the action.
+</span></span></span><span class="line"><span class="cl"><span class="sd">         */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$resolver</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setRequired</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;route&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setDefaults</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;route_params&#39;</span> <span class="o">=&gt;</span> <span class="p">[],</span>
+</span></span><span class="line"><span class="cl">            <span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setAllowedTypes</span><span class="p">(</span><span class="s1">&#39;route&#39;</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setAllowedTypes</span><span class="p">(</span><span class="s1">&#39;route_params&#39;</span><span class="p">,</span> <span class="s1">&#39;array&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Then you need to create template so it can render nicely in your grid.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="c">{# mymodule/views/PrestaShop/Admin/Common/Grid/Actions/Row/my_specific.html.twig #}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="c">{# This button should be used with LinkRowActionExtension grid extension in Javascript #}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">&lt;a class=&#34;</span><span class="cp">{{</span> <span class="nv">class</span> <span class="cp">}}</span><span class="x">&#34;
+</span></span></span><span class="line"><span class="cl"><span class="x">   href=&#34;</span><span class="cp">{{</span> <span class="nv">path</span><span class="o">(</span><span class="nv">action.options.route</span><span class="o">,</span> <span class="nv">action.options.route_params</span> <span class="o">)</span> <span class="cp">}}</span><span class="x">&#34;
+</span></span></span><span class="line"><span class="cl"><span class="x">&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">    </span><span class="cp">{{</span> <span class="nv">action.name</span> <span class="cp">}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">&lt;/a&gt;
+</span></span></span></code></pre></div><p>Last thing is to add your newly created Row action to Grid&rsquo;s <code>RowActionCollection</code> and then it should be available in your Grid!</p>
 
 
 <footer class="article-footer">
@@ -33390,17 +33390,17 @@ However, in some use cases you may find that the existing actions do not fit you
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163909"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163909"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163909"></script>
-    <script src="/js/jquery.sticky.js?1703163909"></script>
-    <script src="/js/featherlight.min.js?1703163909"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163909"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163909"></script>
-    <script src="/js/learn.js?1703163909"></script>
-    <script src="/js/hugo-learn.js?1703163909"></script>
+    <script src="/js/clipboard.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164735"></script>
+    <script src="/js/jquery.sticky.js?1703164735"></script>
+    <script src="/js/featherlight.min.js?1703164735"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164735"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164735"></script>
+    <script src="/js/learn.js?1703164735"></script>
+    <script src="/js/hugo-learn.js?1703164735"></script>
     
-    <script src="/main.js?1703163909"></script>
+    <script src="/main.js?1703164735"></script>
     
     
     

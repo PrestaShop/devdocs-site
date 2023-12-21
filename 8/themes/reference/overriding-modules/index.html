@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Overriding modules :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163928" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163928" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163928" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163928" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164750" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164750" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164750" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164750" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163928" rel="stylesheet">
+    <link href="/style.css?1703164750" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163928"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164750"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33099,63 +33099,63 @@
 
 
 <h1 id="overriding-modules">Overriding modules<a href="#overriding-modules"></a></h1><p>When you write a theme, you often need to override the templates and assets coming from a module so that they match your theme&rsquo;s specific markup needs.
-Themes can override modules' assets (CSS and JavaScript only) by placing the corresponding file at a specific location.</p>
+Themes can override modules&rsquo; assets (CSS and JavaScript only) by placing the corresponding file at a specific location.</p>
 <p>All module overriding code goes to the <code>modules</code> directory (in your module&rsquo;s own directory).</p>
 
 <div class="notices note" >If your asset override is empty, PrestaShop will load nothing (neither the module one nor your override). This is useful
 if you want to fully remove this module style and add your own to your compiled <code>theme.css</code>.</div>
 
 <p>Examples in this page are based on this sample module directory structure:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">.
-├── css
-│   ├── external-lib.css
-│   └── style.css
-├── js
-│   └── app.js
-├── moduledemo.php
-└── views
-    └── templates
-        └── front
-            ├── included-template.tpl
-            └── moduledemo.tpl
-
-5 directories, 6 files
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── css
+</span></span><span class="line"><span class="cl">│   ├── external-lib.css
+</span></span><span class="line"><span class="cl">│   └── style.css
+</span></span><span class="line"><span class="cl">├── js
+</span></span><span class="line"><span class="cl">│   └── app.js
+</span></span><span class="line"><span class="cl">├── moduledemo.php
+</span></span><span class="line"><span class="cl">└── views
+</span></span><span class="line"><span class="cl">    └── templates
+</span></span><span class="line"><span class="cl">        └── front
+</span></span><span class="line"><span class="cl">            ├── included-template.tpl
+</span></span><span class="line"><span class="cl">            └── moduledemo.tpl
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">5 directories, 6 files
+</span></span></code></pre></div>
 <h2 id="overriding-templates-and-assets">Overriding templates and assets<a href="#overriding-templates-and-assets"></a></h2><p>Here are the folder paths to create in order to override templates and assets:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">.
-└── modules
-    ├── css
-    │   ├── external-lib.css
-    │   └── style.css
-    ├── js
-    │   └── app.js
-    └── views
-        └── templates
-            └── front
-                ├── included-template.tpl
-                └── moduledemo.tpl
-
-6 directories, 5 files
-</code></pre></div><p>Compared to what was needed in PrestaShop 1.6, it is much simpler:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">.
-├── css
-│   └── modules
-│       └── css
-│           ├── external-lib.css
-│           └── style.css
-├── js
-│   └── modules
-│       └── js
-│           └── app.js
-└── modules
-    └── views
-        └── templates
-            └── front
-                ├── included-template.tpl
-                └── moduledemo.tpl
-
-10 directories, 5 files
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">└── modules
+</span></span><span class="line"><span class="cl">    ├── css
+</span></span><span class="line"><span class="cl">    │   ├── external-lib.css
+</span></span><span class="line"><span class="cl">    │   └── style.css
+</span></span><span class="line"><span class="cl">    ├── js
+</span></span><span class="line"><span class="cl">    │   └── app.js
+</span></span><span class="line"><span class="cl">    └── views
+</span></span><span class="line"><span class="cl">        └── templates
+</span></span><span class="line"><span class="cl">            └── front
+</span></span><span class="line"><span class="cl">                ├── included-template.tpl
+</span></span><span class="line"><span class="cl">                └── moduledemo.tpl
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">6 directories, 5 files
+</span></span></code></pre></div><p>Compared to what was needed in PrestaShop 1.6, it is much simpler:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── css
+</span></span><span class="line"><span class="cl">│   └── modules
+</span></span><span class="line"><span class="cl">│       └── css
+</span></span><span class="line"><span class="cl">│           ├── external-lib.css
+</span></span><span class="line"><span class="cl">│           └── style.css
+</span></span><span class="line"><span class="cl">├── js
+</span></span><span class="line"><span class="cl">│   └── modules
+</span></span><span class="line"><span class="cl">│       └── js
+</span></span><span class="line"><span class="cl">│           └── app.js
+</span></span><span class="line"><span class="cl">└── modules
+</span></span><span class="line"><span class="cl">    └── views
+</span></span><span class="line"><span class="cl">        └── templates
+</span></span><span class="line"><span class="cl">            └── front
+</span></span><span class="line"><span class="cl">                ├── included-template.tpl
+</span></span><span class="line"><span class="cl">                └── moduledemo.tpl
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">10 directories, 5 files
+</span></span></code></pre></div>
 <h2 id="overriding-with-the-include-method">Overriding with the &lsquo;include&rsquo; method<a href="#overriding-with-the-include-method"></a></h2><p>There is one very important issue that you should be aware of.
 When loading a template file (for instance &lsquo;moduledemo.tpl&rsquo;), PrestaShop will look for overriding first, in the following order:</p>
 <ol>
@@ -33164,40 +33164,40 @@ When loading a template file (for instance &lsquo;moduledemo.tpl&rsquo;), Presta
 </ol>
 <p>But if your <code>moduledemo.tpl</code> file includes the <code>included-template.tpl</code> file, you will have to override &lsquo;included-template.tpl&rsquo; as well, even if you don&rsquo;t want to modify it (nor to edit the path). This means that every file that an overridden file includes needs to be copy-pasted as-is in order for your override to work properly.</p>
 <p>The issue goes both ways: if you want to modify the <code>included-template.tpl</code> file, you will have to override the <code>moduledemo.tpl</code> file that includes it.</p>
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;./included-template.tpl&#39;</span><span class="cp">}</span><span class="x">
-</span></code></pre></div><p>PrestaShop 1.7 introduced a way to include files in module templates. By using this method, all the expected rules will be followed:</p>
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;module:MODULE_NAME/views/templates/front/included-template.tpl&#39;</span><span class="cp">}</span><span class="x">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-smarty" data-lang="smarty"><span class="line"><span class="cl"><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;./included-template.tpl&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span></code></pre></div><p>PrestaShop 1.7 introduced a way to include files in module templates. By using this method, all the expected rules will be followed:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-smarty" data-lang="smarty"><span class="line"><span class="cl"><span class="cp">{</span><span class="nf">include</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;module:MODULE_NAME/views/templates/front/included-template.tpl&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span></code></pre></div>
 <h2 id="smartydev-helps-you-debug">SmartyDev helps you debug!<a href="#smartydev-helps-you-debug"></a></h2><p>PrestaShop 1.7 also introduced our own SmartyDev tool, a Smarty extension which allows you to see the template&rsquo;s name within your generated HTML markup. This will help debugging a lot, especially because of template override.</p>
 <p>Here an example of generated markup with SmartyDev activated:</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html">[...]
-      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://prestashop.ps/en/&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;dropdown-item&#34;</span><span class="p">&gt;</span>English<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="c">&lt;!-- end /var/www/html/PrestaShop/themes/classic/modules/ps_languageselector/ps_languageselector.tpl --&gt;</span>
-
-<span class="c">&lt;!-- begin /var/www/html/PrestaShop/themes/classic/modules/ps_customersignin/ps_customersignin.tpl --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;user-info&#34;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;logout hidden-sm-down&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://prestashop.ps/en/?mylogout=&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;nofollow&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;material-icons&#34;</span><span class="p">&gt;</span><span class="ni">&amp;#xE7FF;</span><span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
-    Sign out
-  <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;account&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://prestashop.ps/en/my-account&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;View my customer account&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;nofollow&#34;</span> <span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;material-icons hidden-md-up logged&#34;</span><span class="p">&gt;</span><span class="ni">&amp;#xE7FF;</span><span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;hidden-sm-down&#34;</span><span class="p">&gt;</span>Julien Bourdeau<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-<span class="c">&lt;!-- end /var/www/html/PrestaShop/themes/classic/modules/ps_customersignin/ps_customersignin.tpl --&gt;</span>
-
-<span class="c">&lt;!-- begin /var/www/html/PrestaShop/themes/classic/modules/ps_shoppingcart/ps_shoppingcart.tpl --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;blockcart cart-preview &#34;</span> <span class="na">data-refresh-url</span><span class="o">=</span><span class="s">&#34;http://prestashop.ps/en/module/ps_shoppingcart/ajax&#34;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;header&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;material-icons shopping-cart&#34;</span><span class="p">&gt;</span>shopping_cart<span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
-
-[...]
-</code></pre></div><p>To use it, simply set the <code>_PS_MODE_DEV_</code> constant to <code>true</code> in your installation&rsquo;s <code>/config/defines.inc.php</code> file: add the <code>define('_PS_MODE_DEV_', true);</code> line to that file in order to turn the PrestaShop Developer Mode on, which features SmartyDev.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">[...]
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://prestashop.ps/en/&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;dropdown-item&#34;</span><span class="p">&gt;</span>English<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- end /var/www/html/PrestaShop/themes/classic/modules/ps_languageselector/ps_languageselector.tpl --&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- begin /var/www/html/PrestaShop/themes/classic/modules/ps_customersignin/ps_customersignin.tpl --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;user-info&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;logout hidden-sm-down&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://prestashop.ps/en/?mylogout=&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;nofollow&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;material-icons&#34;</span><span class="p">&gt;</span><span class="ni">&amp;#xE7FF;</span><span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    Sign out
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">a</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;account&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;http://prestashop.ps/en/my-account&#34;</span> <span class="na">title</span><span class="o">=</span><span class="s">&#34;View my customer account&#34;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;nofollow&#34;</span> <span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;material-icons hidden-md-up logged&#34;</span><span class="p">&gt;</span><span class="ni">&amp;#xE7FF;</span><span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;hidden-sm-down&#34;</span><span class="p">&gt;</span>Julien Bourdeau<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- end /var/www/html/PrestaShop/themes/classic/modules/ps_customersignin/ps_customersignin.tpl --&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c">&lt;!-- begin /var/www/html/PrestaShop/themes/classic/modules/ps_shoppingcart/ps_shoppingcart.tpl --&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;blockcart cart-preview &#34;</span> <span class="na">data-refresh-url</span><span class="o">=</span><span class="s">&#34;http://prestashop.ps/en/module/ps_shoppingcart/ajax&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;header&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;material-icons shopping-cart&#34;</span><span class="p">&gt;</span>shopping_cart<span class="p">&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[...]
+</span></span></code></pre></div><p>To use it, simply set the <code>_PS_MODE_DEV_</code> constant to <code>true</code> in your installation&rsquo;s <code>/config/defines.inc.php</code> file: add the <code>define('_PS_MODE_DEV_', true);</code> line to that file in order to turn the PrestaShop Developer Mode on, which features SmartyDev.</p>
 
 
 <footer class="article-footer">
@@ -33276,17 +33276,17 @@ When loading a template file (for instance &lsquo;moduledemo.tpl&rsquo;), Presta
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163928"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163928"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163928"></script>
-    <script src="/js/jquery.sticky.js?1703163928"></script>
-    <script src="/js/featherlight.min.js?1703163928"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163928"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163928"></script>
-    <script src="/js/learn.js?1703163928"></script>
-    <script src="/js/hugo-learn.js?1703163928"></script>
+    <script src="/js/clipboard.min.js?1703164750"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164750"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164750"></script>
+    <script src="/js/jquery.sticky.js?1703164750"></script>
+    <script src="/js/featherlight.min.js?1703164750"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164750"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164750"></script>
+    <script src="/js/learn.js?1703164750"></script>
+    <script src="/js/hugo-learn.js?1703164750"></script>
     
-    <script src="/main.js?1703163928"></script>
+    <script src="/main.js?1703164750"></script>
     
     
     

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Asset management :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163938" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163938" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163938" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163938" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164759" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164759" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164759" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164759" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163938" rel="stylesheet">
+    <link href="/style.css?1703164759" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163938"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164759"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -10940,7 +10940,7 @@
     
     
     <li data-nav-id="/8/themes/getting-started/asset-management/" title="Asset management" class="dd-item
-        parent
+        
         active currentPage
         
         isParent
@@ -10953,7 +10953,7 @@
           
 
           
-            <i class="fa fa-angle-up"></i>
+            <i class="fa fa-angle-down"></i>
           
       </a>
       
@@ -33300,111 +33300,111 @@ in the <a href="/8/themes/reference/templates/head/">template section</a>.</p>
 <h3 id="registering-in-themes">Registering in themes<a href="#registering-in-themes"></a></h3><p>By now you probably understood that this <code>theme.yml</code> file became the heart of PrestaShop themes.</p>
 <p>To register assets, create a new <code>assets</code> key at the top level of your <code>theme.yml</code>, and register your files according to your needs. Page identifiers are based on the <code>php_self</code> property of each controller (<a href="https://github.com/PrestaShop/PrestaShop/blob/b2ba1c2ecd627e23993c9356165e0d1e842a2faa/controllers/front/ProductController.php#L35">example</a>)</p>
 <p>For example, if you want to add an external library on each page and a custom library on the Product page:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">assets</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">css</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">product</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">product-extra-style</span><span class="w">
-</span><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">assets/css/product.css</span><span class="w">
-</span><span class="w">        </span><span class="nt">media</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
-</span><span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="m">100</span><span class="w">
-</span><span class="w">  </span><span class="nt">js</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">all</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">this-cool-lib</span><span class="w">
-</span><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">assets/js/external-lib.js</span><span class="w">
-</span><span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
-</span><span class="w">        </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l">bottom</span><span class="w">
-</span><span class="w">    </span><span class="nt">product</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">product-custom-lib</span><span class="w">
-</span><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">assets/js/product.js</span><span class="w">
-</span><span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
-</span><span class="w">        </span><span class="nt">attribute</span><span class="p">:</span><span class="w"> </span><span class="l">async</span><span class="w">
-</span></code></pre></div><p>In addition, if you want to include a library hosted in a different server you can use the following syntax:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">assets</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">css</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">all</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">custom-cdn-css</span><span class="w">
-</span><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">//cdn-url.com/external-lib.css</span><span class="w">
-</span><span class="w">        </span><span class="nt">media</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
-</span><span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
-</span><span class="w">        </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l">remote</span><span class="w">
-</span><span class="w">  </span><span class="nt">js</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">all</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">custom-cdn-js</span><span class="w">
-</span><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">//cdn-url.com/external-lib.js</span><span class="w">
-</span><span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
-</span><span class="w">        </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l">remote</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">assets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">css</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">product</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">product-extra-style</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">assets/css/product.css</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">media</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="m">100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">js</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">all</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">this-cool-lib</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">assets/js/external-lib.js</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="m">30</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">position</span><span class="p">:</span><span class="w"> </span><span class="l">bottom</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">product</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">product-custom-lib</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">assets/js/product.js</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">attribute</span><span class="p">:</span><span class="w"> </span><span class="l">async</span><span class="w">
+</span></span></span></code></pre></div><p>In addition, if you want to include a library hosted in a different server you can use the following syntax:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">assets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">css</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">all</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">custom-cdn-css</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">//cdn-url.com/external-lib.css</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">media</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l">remote</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">js</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">all</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">custom-cdn-js</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">//cdn-url.com/external-lib.js</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">priority</span><span class="p">:</span><span class="w"> </span><span class="m">200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l">remote</span><span class="w">
+</span></span></span></code></pre></div>
 <h3 id="registering-in-modules">Registering in modules<a href="#registering-in-modules"></a></h3><p>When developing a PrestaShop module, you may want to add specific styles for your templates. The best way is to use the <code>registerStylesheet</code> and <code>registerJavascript</code> methods provided by the parent <code>FrontController</code> class.</p>
 
 <div class="notices note" >If you&rsquo;re developing a custom module that only works on your themes, don&rsquo;t put any style or JavaScript code inside the module: put it in the theme&rsquo;s files instead (<code>theme.js</code> and <code>theme.css</code>).</div>
 
 
 <h4 id="with-a-front-controller-module">With a front controller module<a href="#with-a-front-controller-module"></a></h4><p>If you develop a front controller, simply extend the <code>setMedia()</code> method. For instance:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">setMedia</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">parent</span><span class="o">::</span><span class="na">setMedia</span><span class="p">();</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;product&#39;</span> <span class="o">===</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">php_self</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerStylesheet</span><span class="p">(</span>
-            <span class="s1">&#39;module-modulename-style&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;modules/&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/css/modulename.css&#39;</span><span class="p">,</span>
-            <span class="p">[</span>
-              <span class="s1">&#39;media&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">200</span><span class="p">,</span>
-              <span class="s1">&#39;version&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;release-2021-11&#39;</span>
-            <span class="p">]</span>
-        <span class="p">);</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerJavascript</span><span class="p">(</span>
-            <span class="s1">&#39;module-modulename-simple-lib&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;modules/&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/js/lib/simple-lib.js&#39;</span><span class="p">,</span>
-            <span class="p">[</span>
-              <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">200</span><span class="p">,</span>
-              <span class="s1">&#39;attributes&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;async&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;version&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;release-2021-11&#39;</span>
-            <span class="p">]</span>
-        <span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">setMedia</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">parent</span><span class="o">::</span><span class="na">setMedia</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;product&#39;</span> <span class="o">===</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">php_self</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerStylesheet</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;module-modulename-style&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;modules/&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/css/modulename.css&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">              <span class="s1">&#39;media&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">200</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="s1">&#39;version&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;release-2021-11&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerJavascript</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;module-modulename-simple-lib&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;modules/&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/js/lib/simple-lib.js&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">              <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">200</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="s1">&#39;attributes&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;async&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="s1">&#39;version&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;release-2021-11&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h4 id="without-a-front-controller-module">Without a front controller module<a href="#without-a-front-controller-module"></a></h4><p>If you only have your module&rsquo;s class, register your code on the <code>actionFrontControllerSetMedia</code> hook, and add your asset on the go inside the hook:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionFrontControllerSetMedia</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">// Only on the product page
-</span><span class="c1"></span>    <span class="c1">// You could also check if the current controller is an instance of the one you want to target
-</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;product&#39;</span> <span class="nx">instanceof</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">php_self</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">registerStylesheet</span><span class="p">(</span>
-            <span class="s1">&#39;module-&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;-style&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;modules/&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/css/modulename.css&#39;</span><span class="p">,</span>
-            <span class="p">[</span>
-              <span class="s1">&#39;media&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
-              <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">200</span><span class="p">,</span>
-            <span class="p">]</span>
-        <span class="p">);</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">registerJavascript</span><span class="p">(</span>
-            <span class="s1">&#39;module-&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;-simple-lib&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;modules/&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/js/lib/simple-lib.js&#39;</span><span class="p">,</span>
-            <span class="p">[</span>
-              <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">200</span><span class="p">,</span>
-              <span class="s1">&#39;attributes&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;async&#39;</span><span class="p">,</span>
-            <span class="p">]</span>
-        <span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="c1">// On every page
-</span><span class="c1"></span>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">registerJavascript</span><span class="p">(</span>
-        <span class="s1">&#39;module-&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;-js&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;modules/&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/ga.js&#39;</span><span class="p">,</span>
-        <span class="p">[</span>
-          <span class="s1">&#39;position&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;head&#39;</span><span class="p">,</span>
-          <span class="s1">&#39;inline&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-          <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
-          <span class="s1">&#39;version&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;release-2021-10&#39;</span>
-        <span class="p">]</span>
-    <span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionFrontControllerSetMedia</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Only on the product page
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// You could also check if the current controller is an instance of the one you want to target
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;product&#39;</span> <span class="nx">instanceof</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">php_self</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">registerStylesheet</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;module-&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;-style&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;modules/&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/css/modulename.css&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">              <span class="s1">&#39;media&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">200</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">registerJavascript</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;module-&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;-simple-lib&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;modules/&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/js/lib/simple-lib.js&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">              <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">200</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="s1">&#39;attributes&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;async&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// On every page
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">registerJavascript</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;module-&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;-js&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;modules/&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/ga.js&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;position&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;head&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;inline&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;version&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;release-2021-10&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="unregistering">Unregistering<a href="#unregistering"></a></h2><p>You can unregister assets! That&rsquo;s the whole point of an <code>id</code>. For example if you want to improve your theme/module&rsquo;s compatibility with a module, you can unregister its assets and handle them yourself.</p>
 <p>Let&rsquo;s say you want to be fully compatible with a popular navigation module. You could create a template override of course, but you could also remove the style that comes with it and bundle your specific style in your <code>theme.css</code> (since it&rsquo;s loaded on every page).</p>
 <p>To unregister an assets, you need to know its ID.</p>
@@ -33414,21 +33414,21 @@ in the <a href="/8/themes/reference/templates/head/">template section</a>.</p>
 <p>It works for both JavaScript and CSS assets.</p>
 
 <h3 id="in-modules">In modules<a href="#in-modules"></a></h3><p>Both <code>unregisterJavascript</code> and <code>unregisterStylesheet</code> methods take only one argument: the unique ID of the resource you want to remove.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// In a front controller
-</span><span class="c1"></span><span class="k">public</span> <span class="k">function</span> <span class="nf">setMedia</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">parent</span><span class="o">::</span><span class="na">setMedia</span><span class="p">();</span>
-
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">unregisterJavascript</span><span class="p">(</span><span class="s1">&#39;the-identifier&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="c1">// In a module class
-</span><span class="c1"></span><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionFrontControllerSetMedia</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">unregisterJavascript</span><span class="p">(</span><span class="s1">&#39;the-identifier&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// In a front controller
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">public</span> <span class="k">function</span> <span class="nf">setMedia</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">parent</span><span class="o">::</span><span class="na">setMedia</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">unregisterJavascript</span><span class="p">(</span><span class="s1">&#39;the-identifier&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// In a module class
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionFrontControllerSetMedia</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">controller</span><span class="o">-&gt;</span><span class="na">unregisterJavascript</span><span class="p">(</span><span class="s1">&#39;the-identifier&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 
 
@@ -33508,17 +33508,17 @@ in the <a href="/8/themes/reference/templates/head/">template section</a>.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163938"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163938"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163938"></script>
-    <script src="/js/jquery.sticky.js?1703163938"></script>
-    <script src="/js/featherlight.min.js?1703163938"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163938"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163938"></script>
-    <script src="/js/learn.js?1703163938"></script>
-    <script src="/js/hugo-learn.js?1703163938"></script>
+    <script src="/js/clipboard.min.js?1703164759"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164759"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164759"></script>
+    <script src="/js/jquery.sticky.js?1703164759"></script>
+    <script src="/js/featherlight.min.js?1703164759"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164759"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164759"></script>
+    <script src="/js/learn.js?1703164759"></script>
+    <script src="/js/hugo-learn.js?1703164759"></script>
     
-    <script src="/main.js?1703163938"></script>
+    <script src="/main.js?1703164759"></script>
     
     
     

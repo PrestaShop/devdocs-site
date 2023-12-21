@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>HelperForm :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163909" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163909" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163909" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163909" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164735" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164735" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164735" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164735" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163909" rel="stylesheet">
+    <link href="/style.css?1703164735" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163909"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164735"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33144,45 +33144,45 @@
 </div>
 
 <h2 id="basic-usage">Basic usage<a href="#basic-usage"></a></h2><p>Removing all the optional fields, this is how to build a basic HelperForm element:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$helper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HelperForm</span><span class="p">();</span>
-<span class="nv">$form</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span>
-        <span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">&#39;legend&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>       
-                <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Edit carrier&#39;</span><span class="p">),</span>       
-                <span class="s1">&#39;icon&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;icon-cogs&#39;</span>   
-            <span class="p">],</span>   
-            <span class="s1">&#39;input&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>       
-                <span class="p">[</span>           
-                    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shipping_method&#39;</span><span class="p">,</span>
-                <span class="p">],</span>
-            <span class="p">],</span>
-            <span class="s1">&#39;submit&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Save&#39;</span><span class="p">),</span>       
-                <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;btn btn-default pull-right&#39;</span>   
-            <span class="p">],</span>
-        <span class="p">],</span>
-    <span class="p">],</span>
-<span class="p">];</span>
-<span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">generateForm</span><span class="p">(</span><span class="nv">$form</span><span class="p">);</span>
-</code></pre></div><p>This specific code generates this HTML code:</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;configuration_form&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span><span class="p">&gt;</span>
-   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;panel&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;fieldset_0&#34;</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;panel-heading&#34;</span><span class="p">&gt;</span>
-         <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;icon-cogs&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>Edit carrier
-      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-wrapper&#34;</span><span class="p">&gt;</span>
-         <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group&#34;</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;shipping_method&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;shipping_method&#34;</span><span class="p">&gt;</span>
-         <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;panel-footer&#34;</span><span class="p">&gt;</span>
-         <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;btn btn-default pull-right&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;Save&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;_form_submit_btn&#34;</span><span class="p">&gt;</span>
-      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-</code></pre></div><p>To learn more about the <code>$form</code> array structure, read the <a href="#form-declaration">Form declaration section</a> below.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$helper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HelperForm</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$form</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;legend&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>       
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Edit carrier&#39;</span><span class="p">),</span>       
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;icon&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;icon-cogs&#39;</span>   
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>   
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;input&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>       
+</span></span><span class="line"><span class="cl">                <span class="p">[</span>           
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shipping_method&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;submit&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Save&#39;</span><span class="p">),</span>       
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;btn btn-default pull-right&#39;</span>   
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">generateForm</span><span class="p">(</span><span class="nv">$form</span><span class="p">);</span>
+</span></span></code></pre></div><p>This specific code generates this HTML code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;configuration_form&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;post&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;panel&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;fieldset_0&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;panel-heading&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;icon-cogs&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>Edit carrier
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-wrapper&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;form-group&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;shipping_method&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;shipping_method&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;panel-footer&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">         <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;btn btn-default pull-right&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;Save&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;_form_submit_btn&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>To learn more about the <code>$form</code> array structure, read the <a href="#form-declaration">Form declaration section</a> below.</p>
 
 <h2 id="attributes">Attributes<a href="#attributes"></a></h2><dl>
 <dt><code>$allow_employee_form_lang: int</code></dt>
@@ -33242,82 +33242,82 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
 </dl>
 
 <h2 id="form-declaration">Form declaration<a href="#form-declaration"></a></h2><p>The form declaration follows a precise schema. At its root, it&rsquo;s a collection of form sections, also referred to as &ldquo;fieldsets&rdquo;. Each form section contains exactly one &ldquo;form&rdquo; declaration, like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$form</span> <span class="o">=</span> <span class="p">[</span>
-   <span class="nv">$firstSectionId</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$firstSectionDeclaration</span><span class="p">],</span>
-   <span class="nv">$secondSectionId</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$secondSectionDeclaration</span><span class="p">],</span>
-   <span class="c1">// ...more sections
-</span><span class="c1"></span><span class="p">];</span>
-</code></pre></div><p>It&rsquo;s usually not necessary to set up identifiers for the forms sections, and most forms will only have one section, like so:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$form</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span><span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$formDeclaration</span><span class="p">]</span>
-<span class="p">];</span>
-</code></pre></div><p><code>$formDeclaration</code> is an array containing several properties, explained below.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$form</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">   <span class="nv">$firstSectionId</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$firstSectionDeclaration</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">   <span class="nv">$secondSectionId</span> <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$secondSectionDeclaration</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// ...more sections
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">];</span>
+</span></span></code></pre></div><p>It&rsquo;s usually not necessary to set up identifiers for the forms sections, and most forms will only have one section, like so:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$form</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$formDeclaration</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span></code></pre></div><p><code>$formDeclaration</code> is an array containing several properties, explained below.</p>
 
 <h3 id="section-heading">Section heading<a href="#section-heading"></a></h3><p>The <code>legend</code> property lets you configure the form&rsquo;s heading.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$formDeclaration</span><span class="p">[</span><span class="s1">&#39;legend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;icon&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;icon-cogs&#39;</span><span class="p">,</span>                <span class="c1">// Icon to display next to the tile
-</span><span class="c1"></span>    <span class="s1">&#39;image&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;//url/image.png&#39;</span><span class="p">,</span>          <span class="c1">// URL of an image that will be displayed next to the title
-</span><span class="c1"></span>    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Edit carrier&#39;</span><span class="p">),</span>   <span class="c1">// (Required) Title for this form section.
-</span><span class="c1"></span><span class="p">];</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$formDeclaration</span><span class="p">[</span><span class="s1">&#39;legend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;icon&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;icon-cogs&#39;</span><span class="p">,</span>                <span class="c1">// Icon to display next to the tile
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;image&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;//url/image.png&#39;</span><span class="p">,</span>          <span class="c1">// URL of an image that will be displayed next to the title
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Edit carrier&#39;</span><span class="p">),</span>   <span class="c1">// (Required) Title for this form section.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">];</span>
+</span></span></code></pre></div>
 <h3 id="messages">Messages<a href="#messages"></a></h3><p>You can display different messages at the top of the form by declaring the appropriate property.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$formDeclaration</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;This form is used for doing foo bar&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;warning&#39;</span>     <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Warning: dangerous stuff ahead!&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;succcess&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Form saved!&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;error&#39;</span>       <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Oops, something went wrong.&#39;</span><span class="p">),</span>
-<span class="p">];</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$formDeclaration</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;description&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;This form is used for doing foo bar&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;warning&#39;</span>     <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Warning: dangerous stuff ahead!&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;succcess&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Form saved!&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;error&#39;</span>       <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Oops, something went wrong.&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span></code></pre></div>
 <h3 id="buttons">Buttons<a href="#buttons"></a></h3><p>You can add a submit button to the form by setting the <code>submit</code> property.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$formDeclaration</span><span class="p">[</span><span class="s1">&#39;submit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;send&#39;</span><span class="p">,</span>        <span class="c1">// If not defined, this will take the value of &#34;{$table}_form_submit_btn&#34;
-</span><span class="c1"></span>    <span class="s1">&#39;icon&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;icon-save&#39;</span><span class="p">,</span> <span class="c1">// Icon to show
-</span><span class="c1"></span>    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;send&#39;</span><span class="p">,</span>      <span class="c1">// If not defined, this will take the value of the $submit_action property
-</span><span class="c1"></span>    <span class="s1">&#39;stay&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>       <span class="c1">// If true, this will append &#34;AndStay&#34; to the name
-</span><span class="c1"></span>    <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>         <span class="c1">// CSS class to add
-</span><span class="c1"></span>    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Save&#39;</span><span class="p">,</span>     <span class="c1">// Button label
-</span><span class="c1"></span><span class="p">];</span>
-</code></pre></div><p>To add a reset button, declare the <code>reset</code> property. It has most of the same values as <code>submit</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$formDeclaration</span><span class="p">[</span><span class="s1">&#39;reset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;reset&#39;</span><span class="p">,</span>        <span class="c1">// If not defined, this will take the value of &#34;{$table}_form_reset_btn&#34;
-</span><span class="c1"></span>    <span class="s1">&#39;icon&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;icon-reset&#39;</span><span class="p">,</span> <span class="c1">// Icon to show, if any
-</span><span class="c1"></span>    <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>          <span class="c1">// CSS class to add
-</span><span class="c1"></span>    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Reset&#39;</span><span class="p">,</span>     <span class="c1">// Button label
-</span><span class="c1"></span><span class="p">];</span>
-</code></pre></div><p>It&rsquo;s possible to add any number of supplementary buttons, by declaring the <code>buttons</code> array:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$formDeclaration</span><span class="p">[</span><span class="s1">&#39;buttons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span>
-        <span class="s1">&#39;href&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;//url&#39;</span><span class="p">,</span>          <span class="c1">// If this is set, the button will be an &lt;a&gt; tag
-</span><span class="c1"></span>        <span class="s1">&#39;js&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;someFunction()&#39;</span><span class="p">,</span> <span class="c1">// Javascript to execute on click
-</span><span class="c1"></span>        <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>              <span class="c1">// CSS class to add
-</span><span class="c1"></span>        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span>         <span class="c1">// Button type
-</span><span class="c1"></span>        <span class="s1">&#39;id&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;mybutton&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mybutton&#39;</span><span class="p">,</span>       <span class="c1">// If not defined, this will take the value of &#34;submitOptions{$table}&#34;
-</span><span class="c1"></span>        <span class="s1">&#39;icon&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;icon-foo&#39;</span><span class="p">,</span>       <span class="c1">// Icon to show, if any
-</span><span class="c1"></span>        <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Do stuff&#39;</span><span class="p">,</span>      <span class="c1">// Button label
-</span><span class="c1"></span>    <span class="p">],</span>
-    <span class="p">[</span>
-        <span class="c1">// more buttons
-</span><span class="c1"></span>    <span class="p">]</span>
-<span class="p">];</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$formDeclaration</span><span class="p">[</span><span class="s1">&#39;submit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;send&#39;</span><span class="p">,</span>        <span class="c1">// If not defined, this will take the value of &#34;{$table}_form_submit_btn&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;icon&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;icon-save&#39;</span><span class="p">,</span> <span class="c1">// Icon to show
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;send&#39;</span><span class="p">,</span>      <span class="c1">// If not defined, this will take the value of the $submit_action property
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;stay&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>       <span class="c1">// If true, this will append &#34;AndStay&#34; to the name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>         <span class="c1">// CSS class to add
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Save&#39;</span><span class="p">,</span>     <span class="c1">// Button label
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">];</span>
+</span></span></code></pre></div><p>To add a reset button, declare the <code>reset</code> property. It has most of the same values as <code>submit</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$formDeclaration</span><span class="p">[</span><span class="s1">&#39;reset&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;reset&#39;</span><span class="p">,</span>        <span class="c1">// If not defined, this will take the value of &#34;{$table}_form_reset_btn&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;icon&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;icon-reset&#39;</span><span class="p">,</span> <span class="c1">// Icon to show, if any
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>          <span class="c1">// CSS class to add
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Reset&#39;</span><span class="p">,</span>     <span class="c1">// Button label
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">];</span>
+</span></span></code></pre></div><p>It&rsquo;s possible to add any number of supplementary buttons, by declaring the <code>buttons</code> array:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$formDeclaration</span><span class="p">[</span><span class="s1">&#39;buttons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;href&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;//url&#39;</span><span class="p">,</span>          <span class="c1">// If this is set, the button will be an &lt;a&gt; tag
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s1">&#39;js&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;someFunction()&#39;</span><span class="p">,</span> <span class="c1">// Javascript to execute on click
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s1">&#39;class&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>              <span class="c1">// CSS class to add
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span>         <span class="c1">// Button type
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s1">&#39;id&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;mybutton&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;mybutton&#39;</span><span class="p">,</span>       <span class="c1">// If not defined, this will take the value of &#34;submitOptions{$table}&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s1">&#39;icon&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;icon-foo&#39;</span><span class="p">,</span>       <span class="c1">// Icon to show, if any
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Do stuff&#39;</span><span class="p">,</span>      <span class="c1">// Button label
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// more buttons
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span></code></pre></div>
 <div class="notices note" >All buttons are added at the bottom of the form&rsquo;s section. Each section may have its own submit button, but all sections are part of the same form.</div>
 
 
 <h3 id="fields">Fields<a href="#fields"></a></h3><p>The <code>input</code> property takes an array that defines the form&rsquo;s structure. Using the various offered possibilities, you can build just about any type of form, and be assured that it will comply with PrestaShop&rsquo;s style and form processing.</p>
 <p>You can use as many element arrays as necessary for your form, one after the other.</p>
 <p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$formDeclaration</span><span class="p">[</span><span class="s1">&#39;input&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[</span>
-        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;my_field&#39;</span><span class="p">,</span>
-        <span class="c1">// ...more properties    
-</span><span class="c1"></span>    <span class="p">],</span>
-    <span class="p">[</span>
-        <span class="c1">// ...another field
-</span><span class="c1"></span>    <span class="p">],</span>
-<span class="p">]</span>
-</code></pre></div><p>Each field definition has different properties, depending on the chosen type.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$formDeclaration</span><span class="p">[</span><span class="s1">&#39;input&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;my_field&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...more properties    
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...another field
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></div><p>Each field definition has different properties, depending on the chosen type.</p>
 <dl>
 <dt><code>$type: string</code> (required)</dt>
 <dd>Input type. Can be one of the following:<br>
@@ -33341,98 +33341,98 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
 </dl>
 
 <h4 id="text-input">Text input<a href="#text-input"></a></h4><p>Here is how to generate a basic <code>&lt;input&gt;</code> element:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
-  <span class="s1">&#39;type&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>                             <span class="c1">// This is a regular &lt;input&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;label&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">),</span>                   <span class="c1">// The &lt;label&gt; for this &lt;input&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;name&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span>                             <span class="c1">// The content of the &#39;id&#39; attribute of the &lt;input&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;class&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;lg&#39;</span><span class="p">,</span>                                <span class="c1">// The content of the &#39;class&#39; attribute of the &lt;input&gt; tag. To set the size of the element, use these: sm, md, lg, xl, or xxl.
-</span><span class="c1"></span>  <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>                               <span class="c1">// If set to true, this option must be set.
-</span><span class="c1"></span>  <span class="s1">&#39;desc&#39;</span>     <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Please enter your name.&#39;</span><span class="p">)</span> <span class="c1">// A help text, displayed right next to the &lt;input&gt; tag.
-</span><span class="c1"></span><span class="p">),</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;type&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>                             <span class="c1">// This is a regular &lt;input&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;label&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Name&#39;</span><span class="p">),</span>                   <span class="c1">// The &lt;label&gt; for this &lt;input&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;name&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span>                             <span class="c1">// The content of the &#39;id&#39; attribute of the &lt;input&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;class&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;lg&#39;</span><span class="p">,</span>                                <span class="c1">// The content of the &#39;class&#39; attribute of the &lt;input&gt; tag. To set the size of the element, use these: sm, md, lg, xl, or xxl.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>                               <span class="c1">// If set to true, this option must be set.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;desc&#39;</span>     <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Please enter your name.&#39;</span><span class="p">)</span> <span class="c1">// A help text, displayed right next to the &lt;input&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">),</span>
+</span></span></code></pre></div>
 <h4 id="select">Select<a href="#select"></a></h4><p>Here is how to generate a <code>&lt;select&gt;</code> element:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
-  <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;select&#39;</span><span class="p">,</span>                              <span class="c1">// This is a &lt;select&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Shipping method:&#39;</span><span class="p">),</span>         <span class="c1">// The &lt;label&gt; for this &lt;select&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;desc&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Choose a shipping method&#39;</span><span class="p">),</span>  <span class="c1">// A help text, displayed right next to the &lt;select&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shipping_method&#39;</span><span class="p">,</span>                     <span class="c1">// The content of the &#39;id&#39; attribute of the &lt;select&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>                              <span class="c1">// If set to true, this option must be set.
-</span><span class="c1"></span>  <span class="s1">&#39;options&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-    <span class="s1">&#39;query&#39;</span> <span class="o">=&gt;</span> <span class="nv">$options</span><span class="p">,</span>                           <span class="c1">// $options contains the data itself.
-</span><span class="c1"></span>    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_option&#39;</span><span class="p">,</span>                           <span class="c1">// The value of the &#39;id&#39; key must be the same as the key for &#39;value&#39; attribute of the &lt;option&gt; tag in each $options sub-array.
-</span><span class="c1"></span>    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;name&#39;</span>                               <span class="c1">// The value of the &#39;name&#39; key must be the same as the key for the text content of the &lt;option&gt; tag in each $options sub-array.
-</span><span class="c1"></span>  <span class="p">)</span>
-<span class="p">),</span>
-</code></pre></div><p>The content of the select is stored in the <code>$options</code> variable, which is an array of arrays. It must contain two keys: id and name.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;select&#39;</span><span class="p">,</span>                              <span class="c1">// This is a &lt;select&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Shipping method:&#39;</span><span class="p">),</span>         <span class="c1">// The &lt;label&gt; for this &lt;select&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;desc&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Choose a shipping method&#39;</span><span class="p">),</span>  <span class="c1">// A help text, displayed right next to the &lt;select&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shipping_method&#39;</span><span class="p">,</span>                     <span class="c1">// The content of the &#39;id&#39; attribute of the &lt;select&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>                              <span class="c1">// If set to true, this option must be set.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;options&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;query&#39;</span> <span class="o">=&gt;</span> <span class="nv">$options</span><span class="p">,</span>                           <span class="c1">// $options contains the data itself.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_option&#39;</span><span class="p">,</span>                           <span class="c1">// The value of the &#39;id&#39; key must be the same as the key for &#39;value&#39; attribute of the &lt;option&gt; tag in each $options sub-array.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;name&#39;</span>                               <span class="c1">// The value of the &#39;name&#39; key must be the same as the key for the text content of the &lt;option&gt; tag in each $options sub-array.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">),</span>
+</span></span></code></pre></div><p>The content of the select is stored in the <code>$options</code> variable, which is an array of arrays. It must contain two keys: id and name.</p>
 <p><code>$options</code> can take this value:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-  <span class="k">array</span><span class="p">(</span>
-    <span class="s1">&#39;id_option&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>       <span class="c1">// The value of the &#39;value&#39; attribute of the &lt;option&gt; tag.
-</span><span class="c1"></span>    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Method 1&#39;</span>    <span class="c1">// The value of the text content of the  &lt;option&gt; tag.
-</span><span class="c1"></span>  <span class="p">),</span>
-  <span class="k">array</span><span class="p">(</span>
-    <span class="s1">&#39;id_option&#39;</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Method 2&#39;</span>
-  <span class="p">),</span>
-<span class="p">);</span>
-</code></pre></div><p>&hellip;but of course, you would be better off generating such an array of arrays yourself, from the data stored in PrestaShop. For instance, here is how to display a gender (social title) selector:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="nx">Gender</span><span class="o">::</span><span class="na">getGenders</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">language</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$gender</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="nv">$options</span><span class="p">[]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-    <span class="s2">&#34;id&#34;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$gender</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">,</span>
-    <span class="s2">&#34;name&#34;</span> <span class="o">=&gt;</span> <span class="nv">$gender</span><span class="o">-&gt;</span><span class="na">name</span>
-  <span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_option&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>       <span class="c1">// The value of the &#39;value&#39; attribute of the &lt;option&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Method 1&#39;</span>    <span class="c1">// The value of the text content of the  &lt;option&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">),</span>
+</span></span><span class="line"><span class="cl">  <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id_option&#39;</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Method 2&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span></code></pre></div><p>&hellip;but of course, you would be better off generating such an array of arrays yourself, from the data stored in PrestaShop. For instance, here is how to display a gender (social title) selector:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nx">Gender</span><span class="o">::</span><span class="na">getGenders</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">language</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$gender</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$options</span><span class="p">[]</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;id&#34;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$gender</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;name&#34;</span> <span class="o">=&gt;</span> <span class="nv">$gender</span><span class="o">-&gt;</span><span class="na">name</span>
+</span></span><span class="line"><span class="cl">  <span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h4 id="checkbox">Checkbox<a href="#checkbox"></a></h4><p>Here is how to generate a <code>&lt;input&gt;</code> of type &ldquo;checkbox&rdquo;:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
-  <span class="s1">&#39;type&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;checkbox&#39;</span><span class="p">,</span>                   <span class="c1">// This is an &lt;input type=&#34;checkbox&#34;&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;label&#39;</span>   <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Options&#39;</span><span class="p">),</span>          <span class="c1">// The &lt;label&gt; for this &lt;input&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;desc&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Choose options.&#39;</span><span class="p">),</span>  <span class="c1">// A help text, displayed right next to the &lt;input&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;name&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;options&#39;</span><span class="p">,</span>                    <span class="c1">// The content of the &#39;id&#39; attribute of the &lt;input&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;values&#39;</span>  <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-    <span class="s1">&#39;query&#39;</span> <span class="o">=&gt;</span> <span class="nv">$options</span><span class="p">,</span>                     <span class="c1">// $options contains the data itself.
-</span><span class="c1"></span>    <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;id_option&#39;</span><span class="p">,</span>                  <span class="c1">// The value of the &#39;id&#39; key must be the same as the key
-</span><span class="c1"></span>                                             <span class="c1">// for the &#39;value&#39; attribute of the &lt;option&gt; tag in each $options sub-array.
-</span><span class="c1"></span>    <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;name&#39;</span>                        <span class="c1">// The value of the &#39;name&#39; key must be the same as the key
-</span><span class="c1"></span>                                             <span class="c1">// for the text content of the &lt;option&gt; tag in each $options sub-array.
-</span><span class="c1"></span>  <span class="s1">&#39;expand&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>                         <span class="c1">// You can hide the checkboxes when there are too many.
-</span><span class="c1"></span>                                             
-    <span class="s1">&#39;print_total&#39;</span> <span class="o">=&gt;</span> <span class="nx">count</span><span class="p">(</span><span class="nv">$options</span><span class="p">),</span>        <span class="c1">// A button appears with the number of options it hides.
-</span><span class="c1"></span>    <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;show&#39;</span><span class="p">,</span>                     <span class="c1">// &#39;show&#39; will show by default, whereas &#39;hide&#39; will do the opposite.
-</span><span class="c1"></span>    <span class="s1">&#39;show&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;text&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;show&#39;</span><span class="p">),</span> <span class="s1">&#39;icon&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;plus-sign-alt&#39;</span><span class="p">),</span>
-    <span class="s1">&#39;hide&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;text&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;hide&#39;</span><span class="p">),</span> <span class="s1">&#39;icon&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;minus-sign-alt&#39;</span><span class="p">)</span>
-  <span class="p">),</span>
-<span class="p">),</span>
-</code></pre></div><p>Just as for a selector input, check boxes take an array of arrays as the value of $options.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;type&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;checkbox&#39;</span><span class="p">,</span>                   <span class="c1">// This is an &lt;input type=&#34;checkbox&#34;&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;label&#39;</span>   <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Options&#39;</span><span class="p">),</span>          <span class="c1">// The &lt;label&gt; for this &lt;input&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;desc&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Choose options.&#39;</span><span class="p">),</span>  <span class="c1">// A help text, displayed right next to the &lt;input&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;name&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;options&#39;</span><span class="p">,</span>                    <span class="c1">// The content of the &#39;id&#39; attribute of the &lt;input&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;values&#39;</span>  <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;query&#39;</span> <span class="o">=&gt;</span> <span class="nv">$options</span><span class="p">,</span>                     <span class="c1">// $options contains the data itself.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;id_option&#39;</span><span class="p">,</span>                  <span class="c1">// The value of the &#39;id&#39; key must be the same as the key
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                             <span class="c1">// for the &#39;value&#39; attribute of the &lt;option&gt; tag in each $options sub-array.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;name&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;name&#39;</span>                        <span class="c1">// The value of the &#39;name&#39; key must be the same as the key
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                             <span class="c1">// for the text content of the &lt;option&gt; tag in each $options sub-array.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;expand&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>                         <span class="c1">// You can hide the checkboxes when there are too many.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                             
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;print_total&#39;</span> <span class="o">=&gt;</span> <span class="nx">count</span><span class="p">(</span><span class="nv">$options</span><span class="p">),</span>        <span class="c1">// A button appears with the number of options it hides.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;default&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;show&#39;</span><span class="p">,</span>                     <span class="c1">// &#39;show&#39; will show by default, whereas &#39;hide&#39; will do the opposite.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="s1">&#39;show&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;text&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;show&#39;</span><span class="p">),</span> <span class="s1">&#39;icon&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;plus-sign-alt&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;hide&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;text&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;hide&#39;</span><span class="p">),</span> <span class="s1">&#39;icon&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;minus-sign-alt&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">),</span>
+</span></span></code></pre></div><p>Just as for a selector input, check boxes take an array of arrays as the value of $options.</p>
 
 <h4 id="radio-button">Radio button<a href="#radio-button"></a></h4><p>Here is how to generate a <code>&lt;input&gt;</code> of type &ldquo;radio&rdquo;:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">array</span><span class="p">(</span>
-  <span class="s1">&#39;type&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;radio&#39;</span><span class="p">,</span>                               <span class="c1">// This is an &lt;input type=&#34;checkbox&#34;&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;label&#39;</span>     <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Enable this option&#39;</span><span class="p">),</span>        <span class="c1">// The &lt;label&gt; for this &lt;input&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;desc&#39;</span>      <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Are you a customer too?&#39;</span><span class="p">),</span>   <span class="c1">// A help text, displayed right next to the &lt;input&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;name&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;active&#39;</span><span class="p">,</span>                              <span class="c1">// The content of the &#39;id&#39; attribute of the &lt;input&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;required&#39;</span>  <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>                                  <span class="c1">// If set to true, this option must be set.
-</span><span class="c1"></span>  <span class="s1">&#39;class&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;t&#39;</span><span class="p">,</span>                                   <span class="c1">// The content of the &#39;class&#39; attribute of the &lt;label&gt; tag for the &lt;input&gt; tag.
-</span><span class="c1"></span>  <span class="s1">&#39;is_bool&#39;</span>   <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>                                  <span class="c1">// If set to true, this means you want to display a yes/no or true/false option.
-</span><span class="c1"></span>                                                        <span class="c1">// The CSS styling will therefore use green mark for the option value &#39;1&#39;, and a red mark for value &#39;2&#39;.
-</span><span class="c1"></span>                                                        <span class="c1">// If set to false, this means there can be more than two radio buttons,
-</span><span class="c1"></span>                                                        <span class="c1">// and the option label text will be displayed instead of marks.
-</span><span class="c1"></span>  <span class="s1">&#39;values&#39;</span>    <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>                                 <span class="c1">// $values contains the data itself.
-</span><span class="c1"></span>    <span class="k">array</span><span class="p">(</span>
-      <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;active_on&#39;</span><span class="p">,</span>                           <span class="c1">// The content of the &#39;id&#39; attribute of the &lt;input&gt; tag, and of the &#39;for&#39; attribute for the &lt;label&gt; tag.
-</span><span class="c1"></span>      <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>                                     <span class="c1">// The content of the &#39;value&#39; attribute of the &lt;input&gt; tag.   
-</span><span class="c1"></span>      <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Enabled&#39;</span><span class="p">)</span>                    <span class="c1">// The &lt;label&gt; for this radio button.
-</span><span class="c1"></span>    <span class="p">),</span>
-    <span class="k">array</span><span class="p">(</span>
-      <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;active_off&#39;</span><span class="p">,</span>
-      <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Disabled&#39;</span><span class="p">)</span>
-    <span class="p">)</span>
-  <span class="p">),</span>
-<span class="p">),</span>
-</code></pre></div><p>Note that you have to use the &ldquo;t&rdquo; CSS class on your labels in order to have the proper styling (but you can redefine that class using the &ldquo;class&rdquo; variable).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">  <span class="s1">&#39;type&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;radio&#39;</span><span class="p">,</span>                               <span class="c1">// This is an &lt;input type=&#34;checkbox&#34;&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;label&#39;</span>     <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Enable this option&#39;</span><span class="p">),</span>        <span class="c1">// The &lt;label&gt; for this &lt;input&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;desc&#39;</span>      <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Are you a customer too?&#39;</span><span class="p">),</span>   <span class="c1">// A help text, displayed right next to the &lt;input&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;name&#39;</span>      <span class="o">=&gt;</span> <span class="s1">&#39;active&#39;</span><span class="p">,</span>                              <span class="c1">// The content of the &#39;id&#39; attribute of the &lt;input&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;required&#39;</span>  <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>                                  <span class="c1">// If set to true, this option must be set.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;class&#39;</span>     <span class="o">=&gt;</span> <span class="s1">&#39;t&#39;</span><span class="p">,</span>                                   <span class="c1">// The content of the &#39;class&#39; attribute of the &lt;label&gt; tag for the &lt;input&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;is_bool&#39;</span>   <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>                                  <span class="c1">// If set to true, this means you want to display a yes/no or true/false option.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                        <span class="c1">// The CSS styling will therefore use green mark for the option value &#39;1&#39;, and a red mark for value &#39;2&#39;.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                        <span class="c1">// If set to false, this means there can be more than two radio buttons,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                                                        <span class="c1">// and the option label text will be displayed instead of marks.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="s1">&#39;values&#39;</span>    <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>                                 <span class="c1">// $values contains the data itself.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;active_on&#39;</span><span class="p">,</span>                           <span class="c1">// The content of the &#39;id&#39; attribute of the &lt;input&gt; tag, and of the &#39;for&#39; attribute for the &lt;label&gt; tag.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">,</span>                                     <span class="c1">// The content of the &#39;value&#39; attribute of the &lt;input&gt; tag.   
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Enabled&#39;</span><span class="p">)</span>                    <span class="c1">// The &lt;label&gt; for this radio button.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;active_off&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;value&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Disabled&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">),</span>
+</span></span></code></pre></div><p>Note that you have to use the &ldquo;t&rdquo; CSS class on your labels in order to have the proper styling (but you can redefine that class using the &ldquo;class&rdquo; variable).</p>
 
 <h4 id="other-html-elements">Other HTML elements<a href="#other-html-elements"></a></h4><p>The type variable of the element declaration makes it possible to generate just about any kind of <code>&lt;input&gt;</code> element: <code>text</code>, <code>select</code>, <code>textarea</code>, <code>radio</code>, <code>checkbox</code>, <code>file</code> and many others! See the list of available types <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input">here</a>.</p>
 <p>You can also use some PrestaShop specific: <code>shop</code>, <code>asso_shop</code>, <code>free</code>, <code>color</code>. Try them out!</p>
@@ -33445,35 +33445,35 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
 <li>then a <a href="https://github.com/PrestaShop/contactform/blob/v4.4.1/contactform.php#L190"><code>HelperForm</code> is instantiated</a>,</li>
 <li>finally the html content is <a href="https://github.com/PrestaShop/contactform/blob/v4.4.1/contactform.php#L203">generated and returned</a>.</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
-</span><span class="sd"> * @return string
-</span><span class="sd">*/</span>
-<span class="k">protected</span> <span class="k">function</span> <span class="nf">renderForm</span><span class="p">()</span>
-<span class="p">{</span>
-   <span class="nv">$form</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="c1">// ... form declaration as described on this page
-</span><span class="c1"></span>      <span class="c1">// refer to https://github.com/PrestaShop/contactform/blob/v4.4.1/contactform.php#L120-L189
-</span><span class="c1"></span>      <span class="c1">// for complete implementation
-</span><span class="c1"></span>   <span class="p">];</span>
-
-   <span class="nv">$helper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HelperForm</span><span class="p">();</span>
-   <span class="c1">// HelperForm settings, refer to https://github.com/PrestaShop/contactform/blob/v4.4.1/contactform.php#L190-L201
-</span><span class="c1"></span>   <span class="c1">// for complete implementation
-</span><span class="c1"></span>
-   <span class="k">return</span> <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">generateForm</span><span class="p">([</span><span class="nv">$form</span><span class="p">]);</span>
-<span class="p">}</span>
-</code></pre></div><p>Then, in the <code>getContent()</code> method of this module, the <code>renderForm()</code> method is called:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
-</span><span class="sd"> * @return string
-</span><span class="sd">   */</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span>
-<span class="p">{</span>
-   <span class="c1">// ...
-</span><span class="c1"></span>   <span class="nv">$html</span> <span class="o">.=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">renderForm</span><span class="p">();</span>
-   <span class="c1">// ...
-</span><span class="c1"></span>   <span class="k">return</span> <span class="nv">$html</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @return string
+</span></span></span><span class="line"><span class="cl"><span class="sd">*/</span>
+</span></span><span class="line"><span class="cl"><span class="k">protected</span> <span class="k">function</span> <span class="nf">renderForm</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nv">$form</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">// ... form declaration as described on this page
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// refer to https://github.com/PrestaShop/contactform/blob/v4.4.1/contactform.php#L120-L189
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="c1">// for complete implementation
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nv">$helper</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HelperForm</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// HelperForm settings, refer to https://github.com/PrestaShop/contactform/blob/v4.4.1/contactform.php#L190-L201
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="c1">// for complete implementation
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">   <span class="k">return</span> <span class="nv">$helper</span><span class="o">-&gt;</span><span class="na">generateForm</span><span class="p">([</span><span class="nv">$form</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Then, in the <code>getContent()</code> method of this module, the <code>renderForm()</code> method is called:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @return string
+</span></span></span><span class="line"><span class="cl"><span class="sd">   */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="nv">$html</span> <span class="o">.=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">renderForm</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">   <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>   <span class="k">return</span> <span class="nv">$html</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33551,17 +33551,17 @@ The expected structure is: <code>array&lt;int, array{id_lang: int, iso_code: str
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163910"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163910"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163910"></script>
-    <script src="/js/jquery.sticky.js?1703163910"></script>
-    <script src="/js/featherlight.min.js?1703163910"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163910"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163910"></script>
-    <script src="/js/learn.js?1703163910"></script>
-    <script src="/js/hugo-learn.js?1703163910"></script>
+    <script src="/js/clipboard.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164735"></script>
+    <script src="/js/jquery.sticky.js?1703164735"></script>
+    <script src="/js/featherlight.min.js?1703164735"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164735"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164735"></script>
+    <script src="/js/learn.js?1703164735"></script>
+    <script src="/js/hugo-learn.js?1703164735"></script>
     
-    <script src="/main.js?1703163910"></script>
+    <script src="/main.js?1703164735"></script>
     
     
     

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>prestashop:config :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163905" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163905" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163905" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163905" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164732" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164732" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164732" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164732" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163905" rel="stylesheet">
+    <link href="/style.css?1703164732" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163905"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164732"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33127,38 +33127,38 @@
 <h1 id="prestashopconfig"><code>prestashop:config</code><a href="#prestashopconfig"></a></h1>
 <h2 id="description">Description<a href="#description"></a></h2><p>Manage shop configuration settings via command line</p>
 
-<h2 id="help">Help<a href="#help"></a></h2><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ bin/console prestashop:config --help
-Description:
-  Manage your configuration via command line
-
-Usage:
-  prestashop:config [options] [--] &lt;action&gt; &lt;key&gt;
-
-Arguments:
-  action                         Action to execute (Allowed actions: get / set / remove).
-  key                            Configuration key. like PS_LANG_DEFAULT
-
-Options:
-  -l, --lang=LANG                in this language. this can be either language id or ISO 3166-2 alpha-2 (en, fr, fi...)
-  -g, --shopGroupId=SHOPGROUPID  in this shop group (if no shop group or shop options are given defaults to allShops)
-  -s, --shopId=SHOPID            in this shop (if no shop group or shop options are given defaults to allShops)
-  -h, --help                     Display this help message
-  -q, --quiet                    Do not output any message
-  -V, --version                  Display this application version
-      --ansi                     Force ANSI output
-      --no-ansi                  Disable ANSI output
-  -n, --no-interaction           Do not ask any interactive question
-  -e, --env=ENV                  The Environment name. [default: &#34;dev&#34;]
-      --no-debug                 Switches off debug mode.
-  -val, --value=VALUE            value to set
-  -v|vv|vvv, --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
-</code></pre></div>
+<h2 id="help">Help<a href="#help"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ bin/console prestashop:config --help
+</span></span><span class="line"><span class="cl">Description:
+</span></span><span class="line"><span class="cl">  Manage your configuration via command line
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">  prestashop:config [options] [--] &lt;action&gt; &lt;key&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Arguments:
+</span></span><span class="line"><span class="cl">  action                         Action to execute (Allowed actions: get / set / remove).
+</span></span><span class="line"><span class="cl">  key                            Configuration key. like PS_LANG_DEFAULT
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">  -l, --lang=LANG                in this language. this can be either language id or ISO 3166-2 alpha-2 (en, fr, fi...)
+</span></span><span class="line"><span class="cl">  -g, --shopGroupId=SHOPGROUPID  in this shop group (if no shop group or shop options are given defaults to allShops)
+</span></span><span class="line"><span class="cl">  -s, --shopId=SHOPID            in this shop (if no shop group or shop options are given defaults to allShops)
+</span></span><span class="line"><span class="cl">  -h, --help                     Display this help message
+</span></span><span class="line"><span class="cl">  -q, --quiet                    Do not output any message
+</span></span><span class="line"><span class="cl">  -V, --version                  Display this application version
+</span></span><span class="line"><span class="cl">      --ansi                     Force ANSI output
+</span></span><span class="line"><span class="cl">      --no-ansi                  Disable ANSI output
+</span></span><span class="line"><span class="cl">  -n, --no-interaction           Do not ask any interactive question
+</span></span><span class="line"><span class="cl">  -e, --env=ENV                  The Environment name. [default: &#34;dev&#34;]
+</span></span><span class="line"><span class="cl">      --no-debug                 Switches off debug mode.
+</span></span><span class="line"><span class="cl">  -val, --value=VALUE            value to set
+</span></span><span class="line"><span class="cl">  -v|vv|vvv, --verbose           Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+</span></span></code></pre></div>
 <h2 id="examples">Examples<a href="#examples"></a></h2>
-<h3 id="set-smtp-settings-to-use-mailcatcher">Set smtp settings to use mailcatcher<a href="#set-smtp-settings-to-use-mailcatcher"></a></h3><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">$ bin/console prestashop:config <span class="nb">set</span> PS_MAIL_SERVER --value <span class="s2">&#34;my-mailcatcher-container-name&#34;</span>
-<span class="nv">PS_MAIL_SERVER</span><span class="o">=</span><span class="s2">&#34;my-mailcatcher-container-name&#34;</span>
-$ bin/console prestashop:config <span class="nb">set</span> PS_MAIL_SMTP_PORT --value <span class="m">1025</span>
-<span class="nv">PS_MAIL_SMTP_PORT</span><span class="o">=</span><span class="s2">&#34;1025&#34;</span>
-</code></pre></div>
+<h3 id="set-smtp-settings-to-use-mailcatcher">Set smtp settings to use mailcatcher<a href="#set-smtp-settings-to-use-mailcatcher"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ bin/console prestashop:config <span class="nb">set</span> PS_MAIL_SERVER --value <span class="s2">&#34;my-mailcatcher-container-name&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">PS_MAIL_SERVER</span><span class="o">=</span><span class="s2">&#34;my-mailcatcher-container-name&#34;</span>
+</span></span><span class="line"><span class="cl">$ bin/console prestashop:config <span class="nb">set</span> PS_MAIL_SMTP_PORT --value <span class="m">1025</span>
+</span></span><span class="line"><span class="cl"><span class="nv">PS_MAIL_SMTP_PORT</span><span class="o">=</span><span class="s2">&#34;1025&#34;</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33236,17 +33236,17 @@ $ bin/console prestashop:config <span class="nb">set</span> PS_MAIL_SMTP_PORT --
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163906"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163906"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163906"></script>
-    <script src="/js/jquery.sticky.js?1703163906"></script>
-    <script src="/js/featherlight.min.js?1703163906"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163906"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163906"></script>
-    <script src="/js/learn.js?1703163906"></script>
-    <script src="/js/hugo-learn.js?1703163906"></script>
+    <script src="/js/clipboard.min.js?1703164732"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164732"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164732"></script>
+    <script src="/js/jquery.sticky.js?1703164732"></script>
+    <script src="/js/featherlight.min.js?1703164732"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164732"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164732"></script>
+    <script src="/js/learn.js?1703164732"></script>
+    <script src="/js/hugo-learn.js?1703164732"></script>
     
-    <script src="/main.js?1703163906"></script>
+    <script src="/main.js?1703164732"></script>
     
     
     

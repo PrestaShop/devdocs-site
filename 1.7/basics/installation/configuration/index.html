@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Configuration :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163884" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163884" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163884" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163884" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164711" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164711" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164711" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164711" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163884" rel="stylesheet">
+    <link href="/style.css?1703164711" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163884"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164711"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30277,10 +30277,10 @@
 
 <h2 id="displaying-error-messages">Displaying error messages<a href="#displaying-error-messages"></a></h2><p>PrestaShop’s default settings prevent the customer to see any server error message or any debugging code.</p>
 <p>You, on the other hand, need this information in order to correct any potential mistake in your code. To that end, open the <code>/config/defines.inc.php</code> file, and edit it to set <code>_PS_MODE_DEV_</code> to <code>true</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="cm">/* Debug only */</span>
-<span class="nx">define</span><span class="p">(</span><span class="s1">&#39;_PS_MODE_DEV_&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
-</code></pre></div><p>You can also enable developer mode directly from your back-office, go to the “Performance” page under the “Advanced parameters” menu and change the following setting: &ldquo;Debug mode&rdquo; to &ldquo;Yes&rdquo;. Don&rsquo;t forget to disable developer mode as soon as you have finished debugging your code.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="cm">/* Debug only */</span>
+</span></span><span class="line"><span class="cl"><span class="nx">define</span><span class="p">(</span><span class="s1">&#39;_PS_MODE_DEV_&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+</span></span></code></pre></div><p>You can also enable developer mode directly from your back-office, go to the “Performance” page under the “Advanced parameters” menu and change the following setting: &ldquo;Debug mode&rdquo; to &ldquo;Yes&rdquo;. Don&rsquo;t forget to disable developer mode as soon as you have finished debugging your code.</p>
 
 <h2 id="using-the-dump-function">Using the dump() function<a href="#using-the-dump-function"></a></h2><p>PrestaShop used to have custom debug functions available for developers: <code>p($variable)</code> and <code>d($variable)</code>. They were used to display the content of a variable, and were really a wrapper around the well-known <code>print_r()</code> method. On top of that, PrestaShop had the <code>ppp()</code> and <code>ddd()</code> functions, which were respectively the aliases of <code>p()</code> and <code>d()</code>; and the various <code>fd()</code>, <code>epr()</code> and <code>dieObject()</code> functions.</p>
 <p>All of this has changed with PrestaShop 1.7: we now rely solely on <a href="https://symfony.com/doc/current/components/var_dumper.html#the-dump-function">Symfony VarDumper&rsquo;s dump()</a> function. You can now rely on a single function instead of having multiple debug functions. The dump() function is very powerful, and is always available on output (even without <code>die()</code>). Moreover, you can use it in your console scripts because this function also has a formatter in CLI mode.</p>
@@ -30328,10 +30328,10 @@
 
 <h2 id="disable-the-back-office-token-protection">Disable the Back-Office token protection<a href="#disable-the-back-office-token-protection"></a></h2><p>Back-Office pages require the use of a token. If needed, this protection can be disabled using an environment variable:</p>
 
-<h3 id="apache-with-mod_headers">Apache with mod_headers<a href="#apache-with-mod_headers"></a></h3><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">SetEnv _TOKEN_ disabled
-</code></pre></div>
-<h3 id="nginx-with-ngx_http_headers_module">Nginx with ngx_http_headers_module<a href="#nginx-with-ngx_http_headers_module"></a></h3><div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">add_header _TOKEN_ disabled<span class="p">;</span>
-</code></pre></div>
+<h3 id="apache-with-mod_headers">Apache with mod_headers<a href="#apache-with-mod_headers"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">SetEnv _TOKEN_ disabled
+</span></span></code></pre></div>
+<h3 id="nginx-with-ngx_http_headers_module">Nginx with ngx_http_headers_module<a href="#nginx-with-ngx_http_headers_module"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">add_header _TOKEN_ disabled<span class="p">;</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30409,17 +30409,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163884"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163884"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163884"></script>
-    <script src="/js/jquery.sticky.js?1703163884"></script>
-    <script src="/js/featherlight.min.js?1703163884"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163884"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163884"></script>
-    <script src="/js/learn.js?1703163884"></script>
-    <script src="/js/hugo-learn.js?1703163884"></script>
+    <script src="/js/clipboard.min.js?1703164711"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164711"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164711"></script>
+    <script src="/js/jquery.sticky.js?1703164711"></script>
+    <script src="/js/featherlight.min.js?1703164711"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164711"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164711"></script>
+    <script src="/js/learn.js?1703164711"></script>
+    <script src="/js/hugo-learn.js?1703164711"></script>
     
-    <script src="/main.js?1703163884"></script>
+    <script src="/main.js?1703164711"></script>
     
     
     

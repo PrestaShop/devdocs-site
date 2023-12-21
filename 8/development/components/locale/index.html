@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>The Locale component :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163905" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163905" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163905" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163905" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164731" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164731" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164731" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164731" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163905" rel="stylesheet">
+    <link href="/style.css?1703164731" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163905"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164731"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33119,25 +33119,25 @@
 <h2 id="formatnumber-method">formatNumber() method<a href="#formatnumber-method"></a></h2><p>This method receives one parameter <code>$number</code> as <code>int</code>, <code>float</code> or <code>string</code>. It returns a formatted number, as a <code>string</code>, taking the <code>NumberSpecification</code> used by the locale, set during its initialization.</p>
 
 <h3 id="example-of-use">example of use<a href="#example-of-use"></a></h3><p>With a <code>en-US</code> locale,</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$number</span> <span class="o">=</span> <span class="mf">1234.56</span><span class="p">;</span>
-
-<span class="nx">var_dump</span><span class="p">(</span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCurrentLocale</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">formatNumber</span><span class="p">(</span><span class="nv">$number</span><span class="p">));</span>
-</code></pre></div><p>Will dump:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nx">string</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="s2">&#34;1,234.56&#34;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$number</span> <span class="o">=</span> <span class="mf">1234.56</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCurrentLocale</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">formatNumber</span><span class="p">(</span><span class="nv">$number</span><span class="p">));</span>
+</span></span></code></pre></div><p>Will dump:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">string</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="s2">&#34;1,234.56&#34;</span>
+</span></span></code></pre></div>
 <h2 id="formatprice-method">formatPrice() method<a href="#formatprice-method"></a></h2><p>This method receives two parameters, the first one <code>$number</code> as  <code>int</code>, <code>float</code> or <code>string</code>, and the second one <code>$currencyCode</code> as <code>string</code>. It returns a formatted price, as a <code>string</code>, taking the matching <code>PriceSpecification</code> identified by the <code>$currencyCode</code>.</p>
 
 <h3 id="example-of-use-1">example of use<a href="#example-of-use-1"></a></h3><p>With a <code>en-US</code> locale, and a <code>GBP</code> currency code:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$price</span> <span class="o">=</span> <span class="mf">1234.56</span><span class="p">;</span>
-
-<span class="nx">var_dump</span><span class="p">(</span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCurrentLocale</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">formatPrice</span><span class="p">(</span><span class="nv">$price</span><span class="p">,</span> <span class="s1">&#39;GBP&#39;</span><span class="p">));</span>
-<span class="c1">// string(10) &#34;£1,234.56&#34;
-</span></code></pre></div><p>With a <code>en-US</code> locale, and a <code>EUR</code> currency code,</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$price</span> <span class="o">=</span> <span class="mf">1234.56</span><span class="p">;</span>
-
-<span class="nx">var_dump</span><span class="p">(</span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCurrentLocale</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">formatPrice</span><span class="p">(</span><span class="nv">$price</span><span class="p">,</span> <span class="s1">&#39;EUR&#39;</span><span class="p">));</span>
-<span class="c1">// string(10) &#34;€1,234.56&#34;
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$price</span> <span class="o">=</span> <span class="mf">1234.56</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCurrentLocale</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">formatPrice</span><span class="p">(</span><span class="nv">$price</span><span class="p">,</span> <span class="s1">&#39;GBP&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// string(10) &#34;£1,234.56&#34;
+</span></span></span></code></pre></div><p>With a <code>en-US</code> locale, and a <code>EUR</code> currency code,</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$price</span> <span class="o">=</span> <span class="mf">1234.56</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">var_dump</span><span class="p">(</span><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCurrentLocale</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">formatPrice</span><span class="p">(</span><span class="nv">$price</span><span class="p">,</span> <span class="s1">&#39;EUR&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// string(10) &#34;€1,234.56&#34;
+</span></span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33215,17 +33215,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163905"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163905"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163905"></script>
-    <script src="/js/jquery.sticky.js?1703163905"></script>
-    <script src="/js/featherlight.min.js?1703163905"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163905"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163905"></script>
-    <script src="/js/learn.js?1703163905"></script>
-    <script src="/js/hugo-learn.js?1703163905"></script>
+    <script src="/js/clipboard.min.js?1703164732"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164732"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164732"></script>
+    <script src="/js/jquery.sticky.js?1703164732"></script>
+    <script src="/js/featherlight.min.js?1703164732"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164732"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164732"></script>
+    <script src="/js/learn.js?1703164732"></script>
+    <script src="/js/hugo-learn.js?1703164732"></script>
     
-    <script src="/main.js?1703163905"></script>
+    <script src="/main.js?1703164732"></script>
     
     
     

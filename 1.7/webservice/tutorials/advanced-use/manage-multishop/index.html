@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Manage Multishop :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/webservice/tutorials/advanced-use/manage-multishop/">
     
-    <link href="/css/font-awesome.min.css?1703163899" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163899" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163899" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163899" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164725" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164725" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164725" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164725" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163899" rel="stylesheet">
+    <link href="/style.css?1703164725" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163899"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164725"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30325,99 +30325,99 @@
 </table>
 
 <h2 id="create-shop">Create shop<a href="#create-shop"></a></h2><p>You can refer to the tutorial explaining how to <a href="/1.7/webservice/tutorials/prestashop-webservice-lib/create-resource/">create a resource</a> or <a href="/1.7/webservice/tutorials/prestashop-webservice-lib/update-resource/">update a resource</a> to add/update a <code>shop</code>. It also will need a <code>shop_url</code> otherwise using its <code>id_shop</code> will result in a redirection by the API.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./vendor/autoload.php&#39;</span><span class="p">);</span>
-
-<span class="nv">$webServiceUrl</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/&#39;</span><span class="p">;</span>
-<span class="nv">$webServiceKey</span> <span class="o">=</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">;</span>
-<span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="nv">$webServiceUrl</span><span class="p">,</span> <span class="nv">$webServiceKey</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
-
-<span class="c1">// Check shop presence
-</span><span class="c1"></span><span class="nv">$shopName</span> <span class="o">=</span> <span class="s1">&#39;Additional shop&#39;</span><span class="p">;</span>
-<span class="nv">$searchedShop</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shops&#39;</span><span class="p">,</span> <span class="s1">&#39;filter[name]&#39;</span> <span class="o">=&gt;</span> <span class="nv">$shopName</span><span class="p">]);</span>
-<span class="nv">$shopId</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
-<span class="k">if</span> <span class="p">(</span><span class="nv">$searchedShop</span><span class="o">-&gt;</span><span class="na">shops</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nv">$shopId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$searchedShop</span><span class="o">-&gt;</span><span class="na">shops</span><span class="o">-&gt;</span><span class="na">shop</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="p">()[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
-    <span class="k">echo</span> <span class="s1">&#39;Shop already exists&#39;</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-    <span class="k">die</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="c1">// Create shop
-</span><span class="c1"></span><span class="nv">$blankXml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;url&#39;</span> <span class="o">=&gt;</span> <span class="nv">$webServiceUrl</span> <span class="o">.</span> <span class="s1">&#39;api/shops?schema=blank&#39;</span><span class="p">]);</span>
-<span class="nv">$shopXml</span> <span class="o">=</span> <span class="nv">$blankXml</span><span class="o">-&gt;</span><span class="na">shop</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-<span class="nv">$shopXml</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;Additional shop&#39;</span><span class="p">;</span>
-<span class="nv">$shopXml</span><span class="o">-&gt;</span><span class="na">id_shop_group</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// Default shop group
-</span><span class="c1"></span><span class="nv">$shopXml</span><span class="o">-&gt;</span><span class="na">id_category</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// Default category Root
-</span><span class="c1"></span><span class="nv">$shopXml</span><span class="o">-&gt;</span><span class="na">theme_name</span> <span class="o">=</span> <span class="s1">&#39;classic&#39;</span><span class="p">;</span>
-<span class="nv">$shopXml</span><span class="o">-&gt;</span><span class="na">active</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-
-<span class="nv">$createdShop</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shops&#39;</span><span class="p">,</span> <span class="s1">&#39;postXml&#39;</span> <span class="o">=&gt;</span> <span class="nv">$blankXml</span><span class="o">-&gt;</span><span class="na">asXML</span><span class="p">()]);</span>
-<span class="nv">$shopId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$createdShop</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
-<span class="k">echo</span> <span class="s1">&#39;Successfully created shop &#39;</span> <span class="o">.</span> <span class="nv">$shopId</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-
-<span class="c1">// Create shop url
-</span><span class="c1"></span><span class="nv">$blankXml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;url&#39;</span> <span class="o">=&gt;</span> <span class="nv">$webServiceUrl</span> <span class="o">.</span> <span class="s1">&#39;api/shop_urls?schema=blank&#39;</span><span class="p">]);</span>
-<span class="nv">$shopUrlXml</span> <span class="o">=</span> <span class="nv">$blankXml</span><span class="o">-&gt;</span><span class="na">shop_url</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-<span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">id_shop</span> <span class="o">=</span> <span class="nv">$shopId</span><span class="p">;</span>
-<span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">active</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">main</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">domain</span> <span class="o">=</span> <span class="s1">&#39;example.com&#39;</span><span class="p">;</span>
-<span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">domain_ssl</span> <span class="o">=</span> <span class="s1">&#39;example.com&#39;</span><span class="p">;</span>
-<span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">physical_uri</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="p">;</span>
-<span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">virtual_uri</span> <span class="o">=</span> <span class="s1">&#39;/additional&#39;</span><span class="p">;</span>
-
-<span class="nv">$createdShopUrl</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shop_urls&#39;</span><span class="p">,</span> <span class="s1">&#39;postXml&#39;</span> <span class="o">=&gt;</span> <span class="nv">$blankXml</span><span class="o">-&gt;</span><span class="na">asXML</span><span class="p">()]);</span>
-<span class="nv">$shopUrlId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$createdShopUrl</span><span class="o">-&gt;</span><span class="na">shop_url</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
-<span class="k">echo</span> <span class="s1">&#39;Successfully created shop url &#39;</span> <span class="o">.</span> <span class="nv">$shopUrlId</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./vendor/autoload.php&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$webServiceUrl</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$webServiceKey</span> <span class="o">=</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="nv">$webServiceUrl</span><span class="p">,</span> <span class="nv">$webServiceKey</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Check shop presence
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$shopName</span> <span class="o">=</span> <span class="s1">&#39;Additional shop&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$searchedShop</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shops&#39;</span><span class="p">,</span> <span class="s1">&#39;filter[name]&#39;</span> <span class="o">=&gt;</span> <span class="nv">$shopName</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopId</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$searchedShop</span><span class="o">-&gt;</span><span class="na">shops</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$shopId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$searchedShop</span><span class="o">-&gt;</span><span class="na">shops</span><span class="o">-&gt;</span><span class="na">shop</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="p">()[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s1">&#39;Shop already exists&#39;</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">die</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Create shop
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$blankXml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;url&#39;</span> <span class="o">=&gt;</span> <span class="nv">$webServiceUrl</span> <span class="o">.</span> <span class="s1">&#39;api/shops?schema=blank&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopXml</span> <span class="o">=</span> <span class="nv">$blankXml</span><span class="o">-&gt;</span><span class="na">shop</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopXml</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;Additional shop&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopXml</span><span class="o">-&gt;</span><span class="na">id_shop_group</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// Default shop group
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$shopXml</span><span class="o">-&gt;</span><span class="na">id_category</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">// Default category Root
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$shopXml</span><span class="o">-&gt;</span><span class="na">theme_name</span> <span class="o">=</span> <span class="s1">&#39;classic&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopXml</span><span class="o">-&gt;</span><span class="na">active</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$createdShop</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shops&#39;</span><span class="p">,</span> <span class="s1">&#39;postXml&#39;</span> <span class="o">=&gt;</span> <span class="nv">$blankXml</span><span class="o">-&gt;</span><span class="na">asXML</span><span class="p">()]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$createdShop</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s1">&#39;Successfully created shop &#39;</span> <span class="o">.</span> <span class="nv">$shopId</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Create shop url
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$blankXml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;url&#39;</span> <span class="o">=&gt;</span> <span class="nv">$webServiceUrl</span> <span class="o">.</span> <span class="s1">&#39;api/shop_urls?schema=blank&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopUrlXml</span> <span class="o">=</span> <span class="nv">$blankXml</span><span class="o">-&gt;</span><span class="na">shop_url</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">id_shop</span> <span class="o">=</span> <span class="nv">$shopId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">active</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">main</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">domain</span> <span class="o">=</span> <span class="s1">&#39;example.com&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">domain_ssl</span> <span class="o">=</span> <span class="s1">&#39;example.com&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">physical_uri</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopUrlXml</span><span class="o">-&gt;</span><span class="na">virtual_uri</span> <span class="o">=</span> <span class="s1">&#39;/additional&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$createdShopUrl</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">add</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shop_urls&#39;</span><span class="p">,</span> <span class="s1">&#39;postXml&#39;</span> <span class="o">=&gt;</span> <span class="nv">$blankXml</span><span class="o">-&gt;</span><span class="na">asXML</span><span class="p">()]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopUrlId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$createdShopUrl</span><span class="o">-&gt;</span><span class="na">shop_url</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s1">&#39;Successfully created shop url &#39;</span> <span class="o">.</span> <span class="nv">$shopUrlId</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span></code></pre></div>
 <h2 id="update-your-webservice-key-permissions">Update your webservice key permissions<a href="#update-your-webservice-key-permissions"></a></h2><p>At this point if you still use the same webservice key it will probably not have the permission to edit this new shop, you can edit your webservice key in the BackOffice and associate it with your new shop.</p>
 
 <h2 id="associate-content-to-shop">Associate content to shop<a href="#associate-content-to-shop"></a></h2><p>A new shop has no content associated at first, so you have to assign each content you want in your shop one by one. There is no association API, however we can use the update API by sending the same content and specifying the <code>id_shop</code> parameter, this will update the association without changing the resource content.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./vendor/autoload.php&#39;</span><span class="p">);</span>
-
-<span class="nv">$webServiceUrl</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/&#39;</span><span class="p">;</span>
-<span class="nv">$webServiceKey</span> <span class="o">=</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">;</span>
-<span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="nv">$webServiceUrl</span><span class="p">,</span> <span class="nv">$webServiceKey</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
-
-<span class="nv">$shopName</span> <span class="o">=</span> <span class="s1">&#39;Additional shop&#39;</span><span class="p">;</span>
-
-<span class="nv">$searchedShop</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shops&#39;</span><span class="p">,</span> <span class="s1">&#39;filter[name]&#39;</span> <span class="o">=&gt;</span> <span class="nv">$shopName</span><span class="p">]);</span>
-<span class="nv">$shopId</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
-<span class="k">if</span> <span class="p">(</span><span class="nv">$searchedShop</span><span class="o">-&gt;</span><span class="na">shops</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nv">$shopId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$searchedShop</span><span class="o">-&gt;</span><span class="na">shops</span><span class="o">-&gt;</span><span class="na">shop</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="p">()[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="s1">&#39;No shop found: &#39;</span> <span class="o">.</span> <span class="nv">$shopName</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="nv">$copiedResources</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;content_management_system&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;contacts&#39;</span><span class="p">,</span>
-<span class="p">];</span>
-
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$copiedResources</span> <span class="k">as</span> <span class="nv">$resourceName</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="s1">&#39;Start cloning &#39;</span> <span class="o">.</span> <span class="nv">$resourceName</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-    <span class="c1">// List all resources
-</span><span class="c1"></span>    <span class="nv">$listXml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="nv">$resourceName</span><span class="p">]);</span>
-    <span class="nv">$resourceNodes</span> <span class="o">=</span> <span class="nv">$listXml</span><span class="o">-&gt;</span><span class="nv">$resourceName</span><span class="o">-&gt;</span><span class="na">children</span><span class="p">();</span>
-    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$resourceNodes</span> <span class="k">as</span> <span class="nv">$listNode</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Get single resource
-</span><span class="c1"></span>        <span class="nv">$resourceId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$listNode</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="p">()[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
-        <span class="nv">$resourceXml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="nv">$resourceName</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$resourceId</span><span class="p">]);</span>
-
-        <span class="k">try</span> <span class="p">{</span>
-            <span class="c1">// Update resource with same content but shop ID defined, this will update the association without changing the resource content
-</span><span class="c1"></span>            <span class="nv">$updatedResource</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">edit</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="nv">$resourceName</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$resourceId</span><span class="p">,</span> <span class="s1">&#39;putXml&#39;</span> <span class="o">=&gt;</span> <span class="nv">$resourceXml</span><span class="o">-&gt;</span><span class="na">asXML</span><span class="p">(),</span> <span class="s1">&#39;id_shop&#39;</span> <span class="o">=&gt;</span> <span class="nv">$shopId</span><span class="p">]);</span>
-            <span class="k">echo</span> <span class="nx">sprintf</span><span class="p">(</span><span class="s1">&#39;Successfully copied resource %s[%s] to shop %s&#39;</span><span class="p">,</span> <span class="nv">$resourceName</span><span class="p">,</span> <span class="nv">$resourceId</span><span class="p">,</span> <span class="nv">$shopId</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">echo</span> <span class="nx">sprintf</span><span class="p">(</span><span class="s1">&#39;Error cloning %s[%s] to shop %s: &#39;</span><span class="p">,</span> <span class="nv">$resourceName</span><span class="p">,</span> <span class="nv">$resourceId</span><span class="p">,</span> <span class="nv">$shopId</span><span class="p">)</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./vendor/autoload.php&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$webServiceUrl</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$webServiceKey</span> <span class="o">=</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="nv">$webServiceUrl</span><span class="p">,</span> <span class="nv">$webServiceKey</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$shopName</span> <span class="o">=</span> <span class="s1">&#39;Additional shop&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$searchedShop</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;shops&#39;</span><span class="p">,</span> <span class="s1">&#39;filter[name]&#39;</span> <span class="o">=&gt;</span> <span class="nv">$shopName</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$shopId</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$searchedShop</span><span class="o">-&gt;</span><span class="na">shops</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$shopId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$searchedShop</span><span class="o">-&gt;</span><span class="na">shops</span><span class="o">-&gt;</span><span class="na">shop</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="p">()[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s1">&#39;No shop found: &#39;</span> <span class="o">.</span> <span class="nv">$shopName</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$copiedResources</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;content_management_system&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;contacts&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$copiedResources</span> <span class="k">as</span> <span class="nv">$resourceName</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s1">&#39;Start cloning &#39;</span> <span class="o">.</span> <span class="nv">$resourceName</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// List all resources
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$listXml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="nv">$resourceName</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$resourceNodes</span> <span class="o">=</span> <span class="nv">$listXml</span><span class="o">-&gt;</span><span class="nv">$resourceName</span><span class="o">-&gt;</span><span class="na">children</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">foreach</span> <span class="p">(</span><span class="nv">$resourceNodes</span> <span class="k">as</span> <span class="nv">$listNode</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Get single resource
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$resourceId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$listNode</span><span class="o">-&gt;</span><span class="na">attributes</span><span class="p">()[</span><span class="s1">&#39;id&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$resourceXml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="nv">$resourceName</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$resourceId</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// Update resource with same content but shop ID defined, this will update the association without changing the resource content
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$updatedResource</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">edit</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="nv">$resourceName</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$resourceId</span><span class="p">,</span> <span class="s1">&#39;putXml&#39;</span> <span class="o">=&gt;</span> <span class="nv">$resourceXml</span><span class="o">-&gt;</span><span class="na">asXML</span><span class="p">(),</span> <span class="s1">&#39;id_shop&#39;</span> <span class="o">=&gt;</span> <span class="nv">$shopId</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">echo</span> <span class="nx">sprintf</span><span class="p">(</span><span class="s1">&#39;Successfully copied resource %s[%s] to shop %s&#39;</span><span class="p">,</span> <span class="nv">$resourceName</span><span class="p">,</span> <span class="nv">$resourceId</span><span class="p">,</span> <span class="nv">$shopId</span><span class="p">)</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">echo</span> <span class="nx">sprintf</span><span class="p">(</span><span class="s1">&#39;Error cloning %s[%s] to shop %s: &#39;</span><span class="p">,</span> <span class="nv">$resourceName</span><span class="p">,</span> <span class="nv">$resourceId</span><span class="p">,</span> <span class="nv">$shopId</span><span class="p">)</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices warning" >This example voluntarily deals with a simple resource that doesn&rsquo;t have complicated relationships or special webservice fields, this way we can use the API result as an XML input directly. Some more complex resources (categories, products, &hellip;) are not as straightforward, and you&rsquo;ll need to use a less generic code to clean the extra fields or copy them into a <strong>blank schema</strong>.</div>
 
 
@@ -30498,17 +30498,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163899"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163899"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163899"></script>
-    <script src="/js/jquery.sticky.js?1703163899"></script>
-    <script src="/js/featherlight.min.js?1703163899"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163899"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163899"></script>
-    <script src="/js/learn.js?1703163899"></script>
-    <script src="/js/hugo-learn.js?1703163899"></script>
+    <script src="/js/clipboard.min.js?1703164725"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164725"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164725"></script>
+    <script src="/js/jquery.sticky.js?1703164725"></script>
+    <script src="/js/featherlight.min.js?1703164725"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164725"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164725"></script>
+    <script src="/js/learn.js?1703164725"></script>
+    <script src="/js/hugo-learn.js?1703164725"></script>
     
-    <script src="/main.js?1703163899"></script>
+    <script src="/main.js?1703164725"></script>
     
     
     

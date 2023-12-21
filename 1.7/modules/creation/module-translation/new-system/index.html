@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>New translation system :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/creation/module-translation/new-system/">
     
-    <link href="/css/font-awesome.min.css?1703163894" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163894" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163894" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163894" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164721" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164721" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164721" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164721" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163894" rel="stylesheet">
+    <link href="/style.css?1703164721" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163894"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164721"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30350,8 +30350,8 @@
 
 <h3 id="translation-domain">Translation domain<a href="#translation-domain"></a></h3><p>An important part of the new translation system is <strong>Translation Domains</strong>, which replaces the classic system&rsquo;s <a href="https://devdocs.prestashop-project.org/1.7/modules/creation/module-translation/new-system/#contextualization">contextualization</a>. In the new translation system, all wordings must be linked to at least one translation domain.</p>
 <p>While the Core and Native modules have clearly defined <a href="https://devdocs.prestashop-project.org/1.7/development/internationalization/translation/translation-domains/#understanding-the-domains-structure">translation domain naming scheme</a>, non-native modules must respect a specific naming convention:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Modules.Nameofthemodule.Specificpart
-</code></pre></div><p>Translation Domain names are always made of three parts, separated by dots:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Modules.Nameofthemodule.Specificpart
+</span></span></code></pre></div><p>Translation Domain names are always made of three parts, separated by dots:</p>
 <ol>
 <li>
 <p>The first part must always be <strong>&ldquo;Modules&rdquo;</strong></p>
@@ -30432,71 +30432,71 @@ Make sure that the technical name of your module does not contain contains under
 <p>Now let&rsquo;s see some examples on how to use it.</p>
 
 <h4 id="modules-main-class">Module&rsquo;s main class<a href="#modules-main-class"></a></h4><p>When translating wordings in the module&rsquo;s main class, since it extends the <code>Module</code> class, you can simply call <code>$this-&gt;trans()</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// file: mymodule.php
-</span><span class="c1"></span>
-<span class="k">class</span> <span class="nc">mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Mymodule&#39;</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Mymodule&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Since the module is called MyModule, the translation domain should be <code>Modules.Mymodule.Mymodule</code>. The third part matches the file name, which is also &ldquo;mymodule&rdquo;.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// file: mymodule.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;My module&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Mymodule&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Description of my module.&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Mymodule&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Since the module is called MyModule, the translation domain should be <code>Modules.Mymodule.Mymodule</code>. The third part matches the file name, which is also &ldquo;mymodule&rdquo;.</p>
 
 <h4 id="module-controllers">Module controllers<a href="#module-controllers"></a></h4><p><code>ModuleAdminController</code> and <code>ModuleFrontController</code> can access the module instance via the <code>$this-&gt;module</code> property.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// file: controllers/front/something.php
-</span><span class="c1"></span>
-<span class="k">class</span> <span class="nc">MymoduleSomethingModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">title</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;My module title&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Something&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Symfony controllers work exactly the same as the Core&rsquo;s. Just use <code>$this-&gt;trans</code> method.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// file: controllers/front/something.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MymoduleSomethingModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">initContent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">title</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;My module title&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Something&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Symfony controllers work exactly the same as the Core&rsquo;s. Just use <code>$this-&gt;trans</code> method.</p>
 
 <div class="notices warning" >Be aware that in symfony controllers, the second and third arguments have been swapped to make <code>$replacements</code> optional.</div>
 
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">namespace</span> <span class="nx">PrestaShop\Module\MyModule</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">SomeAdminController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">someAction</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">text</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Some text being translated&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\MyModule</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SomeAdminController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">someAction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">text</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Some text being translated&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h4 id="other-classes">Other classes<a href="#other-classes"></a></h4><p>Other classes will need to retrieve the module&rsquo;s instance somehow. We recommend passing it as a parameter in the constructor and storing it for later use.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">CustomModuleClass</span> 
-<span class="p">{</span>
-    <span class="k">private</span> <span class="nv">$module</span><span class="p">;</span>
-    
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span> <span class="o">=</span> <span class="nv">$module</span>
-    <span class="p">}</span>
-    
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">text</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;My text to translate&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Custommoduleclass&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>If you really need to, you can also retrieve a new instance of your module using <code>Module::getInstanceByName('mymodulename')</code>. This should be avoided though, as it&rsquo;s not a good practice.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CustomModuleClass</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$module</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span> <span class="o">=</span> <span class="nv">$module</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">foo</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">text</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">module</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;My text to translate&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Custommoduleclass&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>If you really need to, you can also retrieve a new instance of your module using <code>Module::getInstanceByName('mymodulename')</code>. This should be avoided though, as it&rsquo;s not a good practice.</p>
 
 <h3 id="templates">Templates<a href="#templates"></a></h3>
 <h4 id="twig-files">Twig files<a href="#twig-files"></a></h4><p>Wordings in Twig .twig files can be translated using the <code>trans</code> filter. It works similarly as the <code>trans()</code> method described above for PHP files:</p>
-<div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="c">{# file: something.twig #}</span><span class="x">
-</span><span class="x">
-</span><span class="x"></span><span class="cp">{{</span> <span class="s1">&#39;Welcome to this page!&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
-</span></code></pre></div><p>The first parameter can be used to replace tokens in your wording after it&rsquo;s translated:</p>
-<div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="cp">{{</span> <span class="s1">&#39;Hello %username%!&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({</span><span class="s1">&#39;%username%&#39;</span><span class="o">:</span> <span class="s1">&#39;John&#39;</span><span class="o">},</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="c">{# file: something.twig #}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{{</span> <span class="s1">&#39;Welcome to this page!&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
+</span></span></span></code></pre></div><p>The first parameter can be used to replace tokens in your wording after it&rsquo;s translated:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="cp">{{</span> <span class="s1">&#39;Hello %username%!&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({</span><span class="s1">&#39;%username%&#39;</span><span class="o">:</span> <span class="s1">&#39;John&#39;</span><span class="o">},</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
+</span></span></span></code></pre></div>
 <h4 id="smarty-files">Smarty files<a href="#smarty-files"></a></h4><p>Wordings in Smarty .tpl files can be translated using the <code>{l}</code> function call, which Smarty will replace by the translation in the current language.</p>
 <p>This function accepts three parameters:</p>
 <ul>
@@ -30505,19 +30505,19 @@ Make sure that the technical name of your module does not contain contains under
 <li><code>sprintf</code> – Optional, it can be used to interpolate variables in your wording.</li>
 </ul>
 <p>For instance, translating the string &ldquo;Welcome to this page!&rdquo; can be done like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="c">* file: somefile.tpl *</span><span class="cp">}</span><span class="x">
-</span><span class="x">
-</span><span class="x"></span><span class="cp">{</span><span class="nf">l</span> <span class="na">s</span><span class="o">=</span><span class="s1">&#39;Welcome to this page!&#39;</span> <span class="na">d</span><span class="o">=</span><span class="s1">&#39;Modules.Mymodule.Somefile&#39;</span><span class="cp">}</span><span class="x">
-</span></code></pre></div><p>You can replace placeholders in your translated wordings using the <code>sprintf</code> parameter:</p>
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="nf">l</span> <span class="na">s</span><span class="o">=</span><span class="s1">&#39;Hello %username%!&#39;</span> <span class="na">sprintf</span><span class="o">=[</span><span class="s1">&#39;%username%&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;John&#39;</span><span class="o">]</span> <span class="na">d</span><span class="o">=</span><span class="s1">&#39;Modules.Mymodule.Somefile&#39;</span><span class="cp">}</span><span class="x">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-smarty" data-lang="smarty"><span class="line"><span class="cl"><span class="cp">{</span><span class="c">* file: somefile.tpl *</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{</span><span class="nf">l</span> <span class="na">s</span><span class="o">=</span><span class="s1">&#39;Welcome to this page!&#39;</span> <span class="na">d</span><span class="o">=</span><span class="s1">&#39;Modules.Mymodule.Somefile&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span></code></pre></div><p>You can replace placeholders in your translated wordings using the <code>sprintf</code> parameter:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-smarty" data-lang="smarty"><span class="line"><span class="cl"><span class="cp">{</span><span class="nf">l</span> <span class="na">s</span><span class="o">=</span><span class="s1">&#39;Hello %username%!&#39;</span> <span class="na">sprintf</span><span class="o">=[</span><span class="s1">&#39;%username%&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;John&#39;</span><span class="o">]</span> <span class="na">d</span><span class="o">=</span><span class="s1">&#39;Modules.Mymodule.Somefile&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span></code></pre></div>
 <h2 id="translating-your-module">Translating your module<a href="#translating-your-module"></a></h2><p>Modules must opt-in to become translatable using the new Back Office translation interface. This can be done by declaring the following function on your module&rsquo;s main class:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">isUsingNewTranslationSystem</span><span class="p">()</span>
-<span class="p">{</span>
-    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div><p>After this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">isUsingNewTranslationSystem</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>After this:</p>
 <ol>
 <li>Go to the &ldquo;Translations&rdquo; page under the &ldquo;International&rdquo; menu,</li>
 <li>In the &ldquo;Modify translations&rdquo; section, find the &ldquo;Type of translation&rdquo; drop-down and select &ldquo;Installed modules translations&rdquo;,</li>
@@ -30538,30 +30538,30 @@ Make sure that the technical name of your module does not contain contains under
 </li>
 </ol>
 <p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// literal values will work
-</span><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Some wording&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Something&#39;</span><span class="p">);</span>
-
-<span class="c1">// dynamic content can be injected using placeholders &amp; replacements
-</span><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Some wording with %foo%&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;%foo%&#39;</span> <span class="o">=&gt;</span> <span class="nv">$dynamicContent</span><span class="p">],</span> <span class="s1">&#39;Modules.Mymodule.Bar&#39;</span><span class="p">);</span>
-
-<span class="c1">// this won&#39;t work, the interpreter will ignore variables
-</span><span class="c1"></span><span class="nv">$wording</span> <span class="o">=</span> <span class="s1">&#39;Some wording&#39;</span><span class="p">;</span>
-<span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;Modules.Mymodule.Foo&#39;</span><span class="p">;</span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="nv">$wording</span><span class="p">,</span> <span class="p">[],</span> <span class="nv">$domain</span><span class="p">);</span>
-
-<span class="c1">// this will yield unexpected results
-</span><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Some &#39;</span><span class="o">.</span> <span class="nv">$var</span> <span class="o">.</span> <span class="s1">&#39; wording&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Foo&#39;</span><span class="p">);</span>
-
-<span class="c1">// dynamic behavior, like aliasing the trans() function, won&#39;t work well either
-</span><span class="c1"></span><span class="k">function</span> <span class="nf">translate</span><span class="p">(</span><span class="nv">$wording</span><span class="p">)</span> <span class="p">{</span>
-   <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="nv">$wording</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Foo&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>In Twig files, you can use <code>trans_default_domain</code> to set up your default domain. Keep in mind this works on a per-file basis:</p>
-<div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="cp">{%</span> <span class="k">trans_default_domain</span> <span class="s1">&#39;Modules.Mymodule.Foo&#39;</span> <span class="cp">%}</span><span class="x">
-</span><span class="x"></span><span class="cp">{{</span> <span class="s1">&#39;Hello world&#39;</span><span class="o">|</span><span class="nf">trans</span> <span class="cp">}}</span><span class="x">
-</span><span class="x"></span><span class="cp">{{</span> <span class="s1">&#39;Something else&#39;</span><span class="o">|</span><span class="nf">trans</span> <span class="cp">}}</span><span class="x">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// literal values will work
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Some wording&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Something&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// dynamic content can be injected using placeholders &amp; replacements
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Some wording with %foo%&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;%foo%&#39;</span> <span class="o">=&gt;</span> <span class="nv">$dynamicContent</span><span class="p">],</span> <span class="s1">&#39;Modules.Mymodule.Bar&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// this won&#39;t work, the interpreter will ignore variables
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$wording</span> <span class="o">=</span> <span class="s1">&#39;Some wording&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$domain</span> <span class="o">=</span> <span class="s1">&#39;Modules.Mymodule.Foo&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="nv">$wording</span><span class="p">,</span> <span class="p">[],</span> <span class="nv">$domain</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// this will yield unexpected results
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Some &#39;</span><span class="o">.</span> <span class="nv">$var</span> <span class="o">.</span> <span class="s1">&#39; wording&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Foo&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// dynamic behavior, like aliasing the trans() function, won&#39;t work well either
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">function</span> <span class="nf">translate</span><span class="p">(</span><span class="nv">$wording</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="nv">$wording</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Foo&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>In Twig files, you can use <code>trans_default_domain</code> to set up your default domain. Keep in mind this works on a per-file basis:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="cp">{%</span> <span class="k">trans_default_domain</span> <span class="s1">&#39;Modules.Mymodule.Foo&#39;</span> <span class="cp">%}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{{</span> <span class="s1">&#39;Hello world&#39;</span><span class="o">|</span><span class="nf">trans</span> <span class="cp">}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{{</span> <span class="s1">&#39;Something else&#39;</span><span class="o">|</span><span class="nf">trans</span> <span class="cp">}}</span><span class="x">
+</span></span></span></code></pre></div>
 <h2 id="distributing-your-translations">Distributing your translations<a href="#distributing-your-translations"></a></h2>
 <h3 id="exporting-translations">Exporting translations<a href="#exporting-translations"></a></h3>
 <div class="magic-version-pill" data-version="1.7.8" data-title="New in PrestaShop 1.7.8"></div>
@@ -30583,16 +30583,16 @@ Make sure that the technical name of your module does not contain contains under
 </li>
 </ol>
 <p>You can distribute the downloaded dictionaries by placing the extracted files in your module&rsquo;s <code>translations</code> folder, like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">.
-└── mymodule/
-    └── translations/
-        ├── fr-FR/
-        │   ├── ModulesMymoduleFoo.fr-FR.xlf
-        │   └── ModulesMymoduleBar.fr-FR.xlf
-        └── en-US/
-            ├── ModulesMymoduleFoo.en-US.xlf
-            └── ModulesMymoduleBar.en-US.xlf
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">└── mymodule/
+</span></span><span class="line"><span class="cl">    └── translations/
+</span></span><span class="line"><span class="cl">        ├── fr-FR/
+</span></span><span class="line"><span class="cl">        │   ├── ModulesMymoduleFoo.fr-FR.xlf
+</span></span><span class="line"><span class="cl">        │   └── ModulesMymoduleBar.fr-FR.xlf
+</span></span><span class="line"><span class="cl">        └── en-US/
+</span></span><span class="line"><span class="cl">            ├── ModulesMymoduleFoo.en-US.xlf
+</span></span><span class="line"><span class="cl">            └── ModulesMymoduleBar.en-US.xlf
+</span></span></code></pre></div>
 <div class="notices warning" >Note that these files will only work with PrestaShop 1.7.8 and over. If you need to ensure compatibility with previous versions, read below.</div>
 
 
@@ -30676,17 +30676,17 @@ Make sure that the technical name of your module does not contain contains under
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163894"></script>
-    <script src="/js/jquery.sticky.js?1703163894"></script>
-    <script src="/js/featherlight.min.js?1703163894"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163894"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163894"></script>
-    <script src="/js/learn.js?1703163894"></script>
-    <script src="/js/hugo-learn.js?1703163894"></script>
+    <script src="/js/clipboard.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164721"></script>
+    <script src="/js/jquery.sticky.js?1703164721"></script>
+    <script src="/js/featherlight.min.js?1703164721"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164721"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164721"></script>
+    <script src="/js/learn.js?1703164721"></script>
+    <script src="/js/hugo-learn.js?1703164721"></script>
     
-    <script src="/main.js?1703163894"></script>
+    <script src="/main.js?1703164721"></script>
     
     
     

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Register a new hook :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/hook/register-new-hook/">
     
-    <link href="/css/font-awesome.min.css?1703163891" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163891" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163891" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163891" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164719" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164719" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164719" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164719" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163891" rel="stylesheet">
+    <link href="/style.css?1703164719" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163891"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164719"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30283,51 +30283,51 @@
 </ul>
 
 <h2 id="dispatching-hooks">Dispatching hooks<a href="#dispatching-hooks"></a></h2><p>Most of the time, you will dispatch the hook using an instance of <code>HookDispatcher</code>. It can be retrieved from the service container and/or injected, as it&rsquo;s done for example in Form Handlers:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">final</span> <span class="k">class</span> <span class="nc">FormHandler</span> <span class="k">extends</span> <span class="nx">AbstractFormHandler</span>
-<span class="p">{</span>
-    <span class="cm">/* [...] */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getForm</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$formBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formFactory</span><span class="o">-&gt;</span><span class="na">createBuilder</span><span class="p">()</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="nx">GeneralType</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;upload_quota&#39;</span><span class="p">,</span> <span class="nx">UploadQuotaType</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;notifications&#39;</span><span class="p">,</span> <span class="nx">NotificationsType</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">setData</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formDataProvider</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">())</span>
-        <span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hookDispatcher</span><span class="o">-&gt;</span><span class="na">dispatchWithParameters</span><span class="p">(</span>
-            <span class="s1">&#39;displayAdministrationPageForm&#39;</span><span class="p">,</span>
-            <span class="p">[</span><span class="s1">&#39;form_builder&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$formBuilder</span><span class="p">]</span>
-        <span class="p">);</span>
-        <span class="k">return</span> <span class="nv">$formBuilder</span><span class="o">-&gt;</span><span class="na">setData</span><span class="p">(</span><span class="nv">$formBuilder</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
-    <span class="p">}</span>
-    <span class="cm">/* [...] */</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">FormHandler</span> <span class="k">extends</span> <span class="nx">AbstractFormHandler</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* [...] */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getForm</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$formBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formFactory</span><span class="o">-&gt;</span><span class="na">createBuilder</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;general&#39;</span><span class="p">,</span> <span class="nx">GeneralType</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;upload_quota&#39;</span><span class="p">,</span> <span class="nx">UploadQuotaType</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;notifications&#39;</span><span class="p">,</span> <span class="nx">NotificationsType</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setData</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">formDataProvider</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hookDispatcher</span><span class="o">-&gt;</span><span class="na">dispatchWithParameters</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;displayAdministrationPageForm&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span><span class="s1">&#39;form_builder&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$formBuilder</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$formBuilder</span><span class="o">-&gt;</span><span class="na">setData</span><span class="p">(</span><span class="nv">$formBuilder</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* [...] */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="hooks-definition-file">Hooks definition file<a href="#hooks-definition-file"></a></h2><p>During the installation, hooks listed in the <code>install-dev/data/xml/hook.xml</code> file are stored on database and made available in PrestaShop. Even if this step is not a requirement – hooks can be declared from templates or generated dynamically – it&rsquo;s a good practice to do it. Also, every hook registered in Database will be displayed in the Hook debugger, so it will help the developer figure out which hooks are available.</p>
 <p>Each hook has a name, a title and a definition. They are identified by an additional id attribute in XML, which is the same as its name.</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;entity_hook&gt;</span>
-  <span class="nt">&lt;fields</span> <span class="na">id=</span><span class="s">&#34;name&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&#34;name&#34;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&#34;title&#34;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&#34;description&#34;</span><span class="nt">/&gt;</span>
-  <span class="nt">&lt;/fields&gt;</span>
-  <span class="nt">&lt;entities&gt;</span>
-    <span class="nt">&lt;hook</span> <span class="na">id=</span><span class="s">&#34;...&#34;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name&gt;</span>...<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;title&gt;</span>...<span class="nt">&lt;/title&gt;</span>
-      <span class="nt">&lt;description&gt;</span>...<span class="nt">&lt;/description&gt;</span>
-    <span class="nt">&lt;/hook&gt;</span>
-    <span class="nt">&lt;hook</span> <span class="na">id=</span><span class="s">&#34;actionMaintenancePageFormSave&#34;</span><span class="nt">&gt;</span>
-      <span class="nt">&lt;name&gt;</span>actionMaintenancePageFormSave<span class="nt">&lt;/name&gt;</span>
-      <span class="nt">&lt;title&gt;</span>Processing Maintenance page form<span class="nt">&lt;/title&gt;</span>
-      <span class="nt">&lt;description&gt;</span>This hook is called when the Maintenance Page form is processed<span class="nt">&lt;/description&gt;</span>
-    <span class="nt">&lt;/hook&gt;</span>
-  <span class="nt">&lt;/entities&gt;</span>
-<span class="nt">&lt;/entity_hook&gt;</span>
-<span class="nt">&lt;/xml&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;entity_hook&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;fields</span> <span class="na">id=</span><span class="s">&#34;name&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&#34;name&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&#34;title&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;field</span> <span class="na">name=</span><span class="s">&#34;description&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/fields&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;entities&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;hook</span> <span class="na">id=</span><span class="s">&#34;...&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;name&gt;</span>...<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;title&gt;</span>...<span class="nt">&lt;/title&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;description&gt;</span>...<span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/hook&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;hook</span> <span class="na">id=</span><span class="s">&#34;actionMaintenancePageFormSave&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;name&gt;</span>actionMaintenancePageFormSave<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;title&gt;</span>Processing Maintenance page form<span class="nt">&lt;/title&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;description&gt;</span>This hook is called when the Maintenance Page form is processed<span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/hook&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&lt;/entities&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/entity_hook&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/xml&gt;</span>
+</span></span></code></pre></div>
 <div class="notices tip" >Always add new hooks at the bottom of the list, as hooks are registered sequentially.</div>
 
 
@@ -30336,10 +30336,10 @@
 <div class="notices tip" >This process is explained here: <a href="https://devdocs.prestashop-project.org/1.7/development/database/structure/#structure-and-content-upgrades">Structure and content upgrades</a></div>
 
 <p>Then add the corresponding SQL commands to add new hooks:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">INSERT</span><span class="w"> </span><span class="k">IGNORE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_hook</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id_hook</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">title</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">description</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="k">position</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w">
-</span><span class="w">  </span><span class="p">(</span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;displayAdministrationPageForm&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Manage Administration Page form fields&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook adds, update or remove fields of the Administration Page form&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">),</span><span class="w">
-</span><span class="w">  </span><span class="p">(</span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;actionMaintenancePageFormSave&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Processing Maintenance page form&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook is called when the Maintenance Page form is processed&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">);</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">IGNORE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_hook</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">id_hook</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">title</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">description</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="k">position</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">(</span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;displayAdministrationPageForm&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Manage Administration Page form fields&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook adds, update or remove fields of the Administration Page form&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">(</span><span class="k">NULL</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;actionMaintenancePageFormSave&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Processing Maintenance page form&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook is called when the Maintenance Page form is processed&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30417,17 +30417,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163892"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163892"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163892"></script>
-    <script src="/js/jquery.sticky.js?1703163892"></script>
-    <script src="/js/featherlight.min.js?1703163892"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163892"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163892"></script>
-    <script src="/js/learn.js?1703163892"></script>
-    <script src="/js/hugo-learn.js?1703163892"></script>
+    <script src="/js/clipboard.min.js?1703164719"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164719"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164719"></script>
+    <script src="/js/jquery.sticky.js?1703164719"></script>
+    <script src="/js/featherlight.min.js?1703164719"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164719"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164719"></script>
+    <script src="/js/learn.js?1703164719"></script>
+    <script src="/js/hugo-learn.js?1703164719"></script>
     
-    <script src="/main.js?1703163892"></script>
+    <script src="/main.js?1703164719"></script>
     
     
     

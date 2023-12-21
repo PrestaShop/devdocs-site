@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Generate a Symfony route :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/concepts/controllers/admin-controllers/route-generation/">
     
-    <link href="/css/font-awesome.min.css?1703163893" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163893" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163893" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163893" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164720" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164720" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164720" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164720" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163893" rel="stylesheet">
+    <link href="/style.css?1703164720" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163893"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164720"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30317,83 +30317,83 @@
 <div class="magic-version-pill" data-version="1.7.0" data-title="New in PrestaShop 1.7.0"></div>
 
 
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">Link</span><span class="p">;</span>
-
-<span class="c1">// Generate url with Symfony route
-</span><span class="c1"></span><span class="nv">$symfonyUrl</span> <span class="o">=</span> <span class="nx">Link</span><span class="o">::</span><span class="na">getUrlSmarty</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;entity&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;sf&#39;</span><span class="p">,</span> <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_product_catalog&#39;</span><span class="p">));</span>
-
-<span class="c1">// Generate url with Symfony route and arguments
-</span><span class="c1"></span><span class="nv">$symfonyUrl</span> <span class="o">=</span> <span class="nx">Link</span><span class="o">::</span><span class="na">getUrlSmarty</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
-    <span class="s1">&#39;entity&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;sf&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_product_unit_action&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;sf-params&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;delete&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">42</span><span class="p">,</span>
-    <span class="p">)</span>
-<span class="p">));</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Link</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Generate url with Symfony route
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$symfonyUrl</span> <span class="o">=</span> <span class="nx">Link</span><span class="o">::</span><span class="na">getUrlSmarty</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">&#39;entity&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;sf&#39;</span><span class="p">,</span> <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_product_catalog&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Generate url with Symfony route and arguments
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$symfonyUrl</span> <span class="o">=</span> <span class="nx">Link</span><span class="o">::</span><span class="na">getUrlSmarty</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;entity&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;sf&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_product_unit_action&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;sf-params&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;delete&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">42</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">));</span>
+</span></span></code></pre></div>
 <h4 id="using-router-via-link-getadminlink">Using router via $link-&gt;getAdminLink<a href="#using-router-via-link-getadminlink"></a></h4>
 <div class="magic-version-pill" data-version="1.7.5" data-title="New in PrestaShop 1.7.5"></div>
 
 
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">Context</span><span class="p">;</span>
-
-<span class="nv">$link</span> <span class="o">=</span> <span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">link</span><span class="p">;</span>
-
-<span class="c1">// Generate url with Symfony route (first argument is the legacy controller, even though it should be ignored)
-</span><span class="c1"></span><span class="nv">$symfonyUrl</span> <span class="o">=</span> <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminProducts&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_product_catalog&#39;</span><span class="p">));</span>
-
-<span class="c1">// Generate url with Symfony route and arguments
-</span><span class="c1"></span><span class="nv">$symfonyUrl</span> <span class="o">=</span> <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminProducts&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
-    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_product_unit_action&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;delete&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">42</span><span class="p">,</span>
-<span class="p">));</span>
-</code></pre></div><p>Not every developer use the <code>getAdminLink</code> method the same way, therefore the <code>_legacy_link</code> is able to recognize different
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Context</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$link</span> <span class="o">=</span> <span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">link</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Generate url with Symfony route (first argument is the legacy controller, even though it should be ignored)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$symfonyUrl</span> <span class="o">=</span> <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminProducts&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_product_catalog&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Generate url with Symfony route and arguments
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$symfonyUrl</span> <span class="o">=</span> <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminProducts&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;route&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_product_unit_action&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;delete&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">42</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">));</span>
+</span></span></code></pre></div><p>Not every developer use the <code>getAdminLink</code> method the same way, therefore the <code>_legacy_link</code> is able to recognize different
 uses of this method, for example via an <code>action</code> parameter (e.g: <code>?controller=AdminEmails&amp;action=export</code>).</p>
 <p>But sometimes urls simply insert the action name as a parameter (e.g: <code>?controller=AdminPaymentPreferences&amp;update</code>). As
 long as the actions have been migrated and correctly set up they will be successfully converted.</p>
 <p>Given this configuration:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">admin_payment_preferences</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/preferences</span><span class="w">
-</span><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
-</span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin\Improve\Payment\PaymentPreferences:index</span><span class="w">
-</span><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminPaymentPreferences</span><span class="w">
-</span><span class="w">        </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminPaymentPreferences</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">admin_payment_preferences_process</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/preferences/update</span><span class="w">
-</span><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">POST]</span><span class="w">
-</span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin\Improve\Payment\PaymentPreferences:processForm</span><span class="w">
-</span><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminPaymentPreferences</span><span class="w">
-</span><span class="w">        </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminPaymentPreferences:update</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="nv">$link</span> <span class="o">=</span> <span class="k">New</span> <span class="nx">Link</span><span class="p">();</span>
-
-    <span class="c1">//These calls will return /preferences
-</span><span class="c1"></span>    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">);</span> 
-    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;list&#39;</span><span class="p">]);</span>
-    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;index&#39;</span><span class="p">]);</span>
-
-    <span class="c1">//These calls will return /preferences/update
-</span><span class="c1"></span>    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;update&#39;</span><span class="p">]);</span>
-    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;update&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">]);</span> <span class="o">=&gt;</span>
-    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;update&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">]);</span> <span class="o">=&gt;</span>
-    
-    <span class="c1">//This call will return ?controller=AdminPaymentPreferences&amp;action=export
-</span><span class="c1"></span>    <span class="c1">//because the export action has not been migrated yet
-</span><span class="c1"></span>    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;export&#39;</span><span class="p">]);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">admin_payment_preferences</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/preferences</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin\Improve\Payment\PaymentPreferences:index</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminPaymentPreferences</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminPaymentPreferences</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">admin_payment_preferences_process</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/preferences/update</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">POST]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="l">PrestaShopBundle:Admin\Improve\Payment\PaymentPreferences:processForm</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminPaymentPreferences</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="l">AdminPaymentPreferences:update</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$link</span> <span class="o">=</span> <span class="k">New</span> <span class="nx">Link</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//These calls will return /preferences
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;list&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;index&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//These calls will return /preferences/update
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;update&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;update&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">]);</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;update&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;&#39;</span><span class="p">]);</span> <span class="o">=&gt;</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">//This call will return ?controller=AdminPaymentPreferences&amp;action=export
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//because the export action has not been migrated yet
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">,</span> <span class="k">true</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;export&#39;</span><span class="p">]);</span>
+</span></span></code></pre></div>
 <div class="notices warning" ><p><strong>Be careful, Link is sometimes misused</strong></p>
 <p>Some examples have been found where urls are generated by a mix of <code>getAdminLink</code> and concatenating parameters:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="nv">$link</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Link</span><span class="p">();</span>
-    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;?action=update&#39;</span><span class="p">;</span>
-</code></pre></div><p>This <strong>won&rsquo;t work</strong> because the parameters will be appended to the index url.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$link</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Link</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$link</span><span class="o">-&gt;</span><span class="na">getAdminLink</span><span class="p">(</span><span class="s1">&#39;AdminPaymentPreferences&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;?action=update&#39;</span><span class="p">;</span>
+</span></span></code></pre></div><p>This <strong>won&rsquo;t work</strong> because the parameters will be appended to the index url.
 You should be <strong>extra careful</strong> about these misused code and replace it according to the minimum PrestaShop version you are targeting:</p>
 <ul>
 <li>If the controller has already been migrated in your minimum supported version, use the <code>Router</code> service directly with the appropriate route name and parameters.</li>
@@ -30409,28 +30409,28 @@ You should be <strong>extra careful</strong> about these misused code and replac
 
 <div class="notices note" ><p>Remember that <code>_legacy_link</code> is only available since <strong>1.7.5</strong> version of PrestaShop, for older versions you need to update the <code>Link</code>
 class to manage routing conversion.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="c1">// classes/Link.php, in getAdminLink()
-</span><span class="c1"></span>    <span class="nv">$routes</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;AdminModulesSf&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_module_manage&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;AdminStockManagement&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_stock_overview&#39;</span><span class="p">,</span>
-        <span class="c1">//...
-</span><span class="c1"></span>        <span class="s1">&#39;LegacyController&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;migrated_route&#39;</span><span class="p">,</span>
-    <span class="p">);</span>
-</code></pre></div><p>This will only work for <strong>one route/one controller</strong> the association by action does not work before <strong>1.7.5</strong>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// classes/Link.php, in getAdminLink()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$routes</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;AdminModulesSf&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_module_manage&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;AdminStockManagement&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_stock_overview&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s1">&#39;LegacyController&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;migrated_route&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>
+</span></span></code></pre></div><p>This will only work for <strong>one route/one controller</strong> the association by action does not work before <strong>1.7.5</strong>.</p>
 </div>
 
 
 <h4 id="javascript-routes">Javascript routes<a href="#javascript-routes"></a></h4><p>In order to generate a symfony route in javascript, you can use the <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/admin-dev/themes/new-theme/js/components/router.js"><code>Router</code> component</a>.</p>
 <p>You can use it like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">import Router from &#39;@components/router&#39;;
-
-this.router = new Router();
-const route = this.router.generate(&#39;my_route&#39;, {parameters});
-</code></pre></div><p>It however uses a computed file that you might need to recompute if you modified some route settings.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">import</span> <span class="n">Router</span> <span class="n">from</span> <span class="s1">&#39;@components/router&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">this</span><span class="o">.</span><span class="n">router</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Router</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="n">route</span> <span class="o">=</span> <span class="n">this</span><span class="o">.</span><span class="n">router</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="s1">&#39;my_route&#39;</span><span class="p">,</span> <span class="p">{</span><span class="n">parameters</span><span class="p">});</span>
+</span></span></code></pre></div><p>It however uses a computed file that you might need to recompute if you modified some route settings.</p>
 <p>You can recompute it using this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">php bin/console fos:js-routing:dump --format=json
-</code></pre></div><p>And put it in <code>admin-dev/themes/new-theme/js/fos_js_routes.json</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">php bin/console fos:js-routing:dump --format=json
+</span></span></code></pre></div><p>And put it in <code>admin-dev/themes/new-theme/js/fos_js_routes.json</code></p>
 
 <div class="notices " >It is important that route is exposed (has the option <code>exposed: true</code> in route configuration), else javascript router will not be able to reach it.</div>
 
@@ -30512,17 +30512,17 @@ const route = this.router.generate(&#39;my_route&#39;, {parameters});
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163893"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163893"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163893"></script>
-    <script src="/js/jquery.sticky.js?1703163893"></script>
-    <script src="/js/featherlight.min.js?1703163893"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163893"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163893"></script>
-    <script src="/js/learn.js?1703163893"></script>
-    <script src="/js/hugo-learn.js?1703163893"></script>
+    <script src="/js/clipboard.min.js?1703164720"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164720"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164720"></script>
+    <script src="/js/jquery.sticky.js?1703164720"></script>
+    <script src="/js/featherlight.min.js?1703164720"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164720"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164720"></script>
+    <script src="/js/learn.js?1703164720"></script>
+    <script src="/js/hugo-learn.js?1703164720"></script>
     
-    <script src="/main.js?1703163893"></script>
+    <script src="/main.js?1703164720"></script>
     
     
     

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Behat testing :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/architecture/migration-guide/testing/behat/">
     
-    <link href="/css/font-awesome.min.css?1703163888" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163888" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163888" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163888" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164716" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164716" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164716" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164716" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163888" rel="stylesheet">
+    <link href="/style.css?1703164716" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163888"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164716"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30327,20 +30327,20 @@
 <div class="notices tip" >Before continuing, <strong>please read the official <code>behat</code> documentation</strong> about the <a href="https://docs.behat.org/en/latest/user_guide/features_scenarios.html">features and scenarios</a>.</div>
 
 <p>In PrestaShop all <code>*.feature</code> files are placed in <a href="https://github.com/PrestaShop/PrestaShop/tree/1.7.8.0/tests/Integration/Behaviour/Features/Scenario">.tests/Integration/Behaviour/Features/Scenario</a>. Each feature is placed in a dedicated directory organized by <code>domain</code> (or even a <code>subdomain</code> if necessary). These feature files contains text that describes the testing scenarios in a user-friendly manner, each of them must start with a keyword <code>Feature</code> and have a one or multiple scenarios starting with a keyword <code>Scenario</code>. For example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Feature: Update product status from BO (Back Office)
-  As an employee I must be able to update product status (enable/disable)
-
-  Scenario: I update standard product status
-    Given I add product &#34;product1&#34; with following information:
-      | name[en-US] | Values list poster nr. 1 (paper) |
-      | type        | standard                         |
-    And product product1 type should be standard
-    And product &#34;product1&#34; should be disabled
-    When I enable product &#34;product1&#34;
-    Then product &#34;product1&#34; should be enabled
-    When I disable product &#34;product1&#34;
-    Then product &#34;product1&#34; should be disabled
-</code></pre></div><p>As you can see, we state the <code>given</code> information, then we describe the action and finally the assertion. These scenarios should be easy to understand even for non-technical people. So when writing one, try to avoid the technical keywords and make it as user-friendly as possible.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Feature: Update product status from BO (Back Office)
+</span></span><span class="line"><span class="cl">  As an employee I must be able to update product status (enable/disable)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  Scenario: I update standard product status
+</span></span><span class="line"><span class="cl">    Given I add product &#34;product1&#34; with following information:
+</span></span><span class="line"><span class="cl">      | name[en-US] | Values list poster nr. 1 (paper) |
+</span></span><span class="line"><span class="cl">      | type        | standard                         |
+</span></span><span class="line"><span class="cl">    And product product1 type should be standard
+</span></span><span class="line"><span class="cl">    And product &#34;product1&#34; should be disabled
+</span></span><span class="line"><span class="cl">    When I enable product &#34;product1&#34;
+</span></span><span class="line"><span class="cl">    Then product &#34;product1&#34; should be enabled
+</span></span><span class="line"><span class="cl">    When I disable product &#34;product1&#34;
+</span></span><span class="line"><span class="cl">    Then product &#34;product1&#34; should be disabled
+</span></span></code></pre></div><p>As you can see, we state the <code>given</code> information, then we describe the action and finally the assertion. These scenarios should be easy to understand even for non-technical people. So when writing one, try to avoid the technical keywords and make it as user-friendly as possible.</p>
 
 <div class="notices tip" >There is also a keyword <code>Background</code>, which allows running certain code before each scenario. See more <a href="https://docs.behat.org/en/latest/user_guide/writing_scenarios.html#user-guide-writing-scenarios-backgrounds">here</a>.</div>
 
@@ -30355,89 +30355,87 @@
 <div class="notices " >The <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/tests/Integration/Behaviour/Features/Context/Domain/AbstractDomainFeatureContext.php"><code>AbstractDomainFeatureContext</code></a> contains some commonly used helper methods, and it implements the <code>Behat\Behat\Context</code> which is necessary for these tests to work.</div>
 
 <p>This is how the context looks like:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">OrderFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractDomainFeatureContext</span>
-<span class="p">{</span>
-<span class="c1">//    ...
-</span><span class="c1"></span>    <span class="sd">/**
-</span><span class="sd">     * @Given I add order :orderReference with the following details:
-</span><span class="sd">     *
-</span><span class="sd">     * @param string $orderReference
-</span><span class="sd">     * @param TableNode $table
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">addOrderWithTheFollowingDetails</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$orderReference</span><span class="p">,</span> <span class="nx">TableNode</span> <span class="nv">$table</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$testCaseData</span> <span class="o">=</span> <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">getRowsHash</span><span class="p">();</span>
-
-        <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mapAddOrderFromBackOfficeData</span><span class="p">(</span><span class="nv">$testCaseData</span><span class="p">);</span>
-
-        <span class="sd">/** @var OrderId $orderId */</span>
-        <span class="nv">$orderId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getCommandBus</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span>
-            <span class="k">new</span> <span class="nx">AddOrderFromBackOfficeCommand</span><span class="p">(</span>
-                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;cartId&#39;</span><span class="p">],</span>
-                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;employeeId&#39;</span><span class="p">],</span>
-                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;orderMessage&#39;</span><span class="p">],</span>
-                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;paymentModuleName&#39;</span><span class="p">],</span>
-                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;orderStateId&#39;</span><span class="p">]</span>
-            <span class="p">)</span>
-        <span class="p">);</span>
-
-        <span class="nx">SharedStorage</span><span class="o">::</span><span class="na">getStorage</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nv">$orderReference</span><span class="p">,</span> <span class="nv">$orderId</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">());</span>
-    <span class="p">}</span>
-    
-<span class="c1">//    ...
-</span><span class="c1"></span>
-</code></pre></div><p>As you can see in example, the string <code>@Given I add order :orderReference with the following details:</code> maps this method to related line in <code>*.feature</code> file. The <code>:orderReference</code> acts as a variable which actually is the <code>id</code> of the order, that is saved into the <a href="#shared-storage"><code>SharedStorage</code></a>. The <code>TableNode $table</code> is a specific argument, you can read about it <a href="https://behat.org/en/latest/user_guide/writing_scenarios.html#tables">here</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">OrderFeatureContext</span> <span class="k">extends</span> <span class="nx">AbstractDomainFeatureContext</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">//    ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @Given I add order :orderReference with the following details:
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $orderReference
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param TableNode $table
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">addOrderWithTheFollowingDetails</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$orderReference</span><span class="p">,</span> <span class="nx">TableNode</span> <span class="nv">$table</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$testCaseData</span> <span class="o">=</span> <span class="nv">$table</span><span class="o">-&gt;</span><span class="na">getRowsHash</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mapAddOrderFromBackOfficeData</span><span class="p">(</span><span class="nv">$testCaseData</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var OrderId $orderId */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$orderId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getCommandBus</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="k">new</span> <span class="nx">AddOrderFromBackOfficeCommand</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;cartId&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;employeeId&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;orderMessage&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;paymentModuleName&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$data</span><span class="p">[</span><span class="s1">&#39;orderStateId&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">SharedStorage</span><span class="o">::</span><span class="na">getStorage</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="nv">$orderReference</span><span class="p">,</span> <span class="nv">$orderId</span><span class="o">-&gt;</span><span class="na">getValue</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl"><span class="c1">//    ...
+</span></span></span></code></pre></div><p>As you can see in example, the string <code>@Given I add order :orderReference with the following details:</code> maps this method to related line in <code>*.feature</code> file. The <code>:orderReference</code> acts as a variable which actually is the <code>id</code> of the order, that is saved into the <a href="#shared-storage"><code>SharedStorage</code></a>. The <code>TableNode $table</code> is a specific argument, you can read about it <a href="https://behat.org/en/latest/user_guide/writing_scenarios.html#tables">here</a>.</p>
 
 <h2 id="shared-storage">Shared storage<a href="#shared-storage"></a></h2><p>The <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/tests/Integration/Behaviour/Features/Context/SharedStorage.php">SharedStorage</a> is responsible for holding certain values in memory which are shared across the feature. The most common usage example is the <code>id</code> reference - we specify a certain keyword e.g. <code>product1</code> before creating it, and once the command returns the auto-incremented value, we set it in shared storage like this <code>SharedStorage::getStorage()-&gt;set($orderReference, $orderId-&gt;getValue());</code>. In upcoming scenarios we can reuse this reference to get the record, something like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getProductForEditing</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$reference</span><span class="p">)</span><span class="o">:</span> <span class="nx">ProductForEditing</span>
-    <span class="p">{</span>
-        <span class="nv">$productId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getSharedStorage</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$reference</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getQueryBus</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="k">new</span> <span class="nx">GetProductForEditing</span><span class="p">(</span>
-            <span class="nv">$productId</span>
-        <span class="p">));</span>
-    <span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">getProductForEditing</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$reference</span><span class="p">)</span><span class="o">:</span> <span class="nx">ProductForEditing</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productId</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getSharedStorage</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nv">$reference</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getQueryBus</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="k">new</span> <span class="nx">GetProductForEditing</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$productId</span>
+</span></span><span class="line"><span class="cl">        <span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="hooks">Hooks<a href="#hooks"></a></h2><p>Behats allow you to use <a href="https://docs.behat.org/en/v2.5/guides/3.hooks.html#hooks">hooks</a>. You can find some usages in <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/tests/Integration/Behaviour/Features/Context/CommonFeatureContext.php">CommonFeatureContext</a>. You can use these hooked methods by tagging them before the <code>Feature</code> (or before <code>Scenario</code> depending on the hook type), like this (<a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/tests/Integration/Behaviour/Features/Context/Domain/Product/AddProductFeatureContext.php">add_product.feature</a>
 ):</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@clear-cache-before-feature
-@clear-cache-after-feature
-Feature: Add basic product from Back Office (BO)
-  As a BO user
-  I need to be able to add new product with basic information from the BO
-
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@clear-cache-before-feature
+</span></span><span class="line"><span class="cl">@clear-cache-after-feature
+</span></span><span class="line"><span class="cl">Feature: Add basic product from Back Office (BO)
+</span></span><span class="line"><span class="cl">  As a BO user
+</span></span><span class="line"><span class="cl">  I need to be able to add new product with basic information from the BO
+</span></span></code></pre></div>
 <div class="notices tip" ><p>You can also tag specific <code>features</code> if you want to run only them with a <code>--tags</code> filter. For example, if you add following tag in your Feature:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">@add
-Feature: Add basic product from Back Office (BO)
-  As a BO user
-  I need to be able to add new product with basic information from the BO
-    ...
-</code></pre></div><p>Then you can run only this feature by following command <code>./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml -s product --tags add</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">@add
+</span></span><span class="line"><span class="cl">Feature: Add basic product from Back Office (BO)
+</span></span><span class="line"><span class="cl">  As a BO user
+</span></span><span class="line"><span class="cl">  I need to be able to add new product with basic information from the BO
+</span></span><span class="line"><span class="cl">    ...
+</span></span></code></pre></div><p>Then you can run only this feature by following command <code>./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml -s product --tags add</code></p>
 </div>
 
 
 <h2 id="behatyml">behat.yml<a href="#behatyml"></a></h2><p>When you have already created features and contexts it is time to map them with the test suite. The mapping is done in the behat.yml configuration file. It looks like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">default</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">suites</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">customer</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span><span class="nt">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span>- <span class="l">%paths.base%/Features/Scenario/Customer</span><span class="w">
-</span><span class="w">            </span><span class="nt">contexts</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CommonFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CustomerManagerFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\Domain\CustomerFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CustomerFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\Configuration\CommonConfigurationFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Transform\StringToBoolTransformContext</span><span class="w">
-</span><span class="w">        </span><span class="nt">category</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span><span class="nt">paths</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span>- <span class="l">%paths.base%/Features/Scenario/Category</span><span class="w">
-</span><span class="w">            </span><span class="nt">contexts</span><span class="p">:</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CommonFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CategoryFeatureContext</span><span class="w">
-</span><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\Domain\CategoryFeatureContext</span><span class="w">
-</span></code></pre></div><p>As you can see, you have to define the <code>suite</code>, the <code>path</code> to features, and all the necessary <code>contexts</code>. According to the example, when you run the following: <code>./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml -s customer</code> - all the <code>*.feature</code> files from <code>tests/Integration/Behaviour/Features/Scenario/Customer</code> directory will be used to execute the related methods in all the provided contexts.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">default</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">suites</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">customer</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">%paths.base%/Features/Scenario/Customer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">contexts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CommonFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CustomerManagerFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\Domain\CustomerFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CustomerFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\Configuration\CommonConfigurationFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Transform\StringToBoolTransformContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">category</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">%paths.base%/Features/Scenario/Category</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">contexts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CommonFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\CategoryFeatureContext</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span>- <span class="l">Tests\Integration\Behaviour\Features\Context\Domain\CategoryFeatureContext</span><span class="w">
+</span></span></span></code></pre></div><p>As you can see, you have to define the <code>suite</code>, the <code>path</code> to features, and all the necessary <code>contexts</code>. According to the example, when you run the following: <code>./vendor/bin/behat -c tests/Integration/Behaviour/behat.yml -s customer</code> - all the <code>*.feature</code> files from <code>tests/Integration/Behaviour/Features/Scenario/Customer</code> directory will be used to execute the related methods in all the provided contexts.</p>
 
 
 <footer class="article-footer">
@@ -30516,17 +30514,17 @@ Feature: Add basic product from Back Office (BO)
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163889"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163889"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163889"></script>
-    <script src="/js/jquery.sticky.js?1703163889"></script>
-    <script src="/js/featherlight.min.js?1703163889"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163889"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163889"></script>
-    <script src="/js/learn.js?1703163889"></script>
-    <script src="/js/hugo-learn.js?1703163889"></script>
+    <script src="/js/clipboard.min.js?1703164716"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164716"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164716"></script>
+    <script src="/js/jquery.sticky.js?1703164716"></script>
+    <script src="/js/featherlight.min.js?1703164716"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164716"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164716"></script>
+    <script src="/js/learn.js?1703164716"></script>
+    <script src="/js/hugo-learn.js?1703164716"></script>
     
-    <script src="/main.js?1703163889"></script>
+    <script src="/main.js?1703164716"></script>
     
     
     

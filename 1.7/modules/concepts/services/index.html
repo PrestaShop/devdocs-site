@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Services :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/concepts/services/">
     
-    <link href="/css/font-awesome.min.css?1703163934" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163934" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163934" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163934" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164755" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164755" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164755" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164755" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163934" rel="stylesheet">
+    <link href="/style.css?1703164755" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163934"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164755"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -7193,7 +7193,7 @@
     
     
     <li data-nav-id="/1.7/modules/concepts/services/" title="Services" class="dd-item
-        parent
+        
         active currentPage
         
         
@@ -30305,67 +30305,67 @@
 <a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/composer/">A dedicated chapter</a> is available to learn more about Composer and to set it up.</p>
 
 <h4 id="define-your-service">Define your service<a href="#define-your-service"></a></h4><p>At first you will need to create a class for your service of course:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/yourmodule/src/YourService.php
-</span><span class="c1"></span><span class="k">namespace</span> <span class="nx">YourCompany\YourModule</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Symfony\Component\Translation\TranslatorInterface</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">YourService</span> <span class="p">{</span>
-    <span class="sd">/** @var TranslatorInterface */</span>
-    <span class="k">private</span> <span class="nv">$translator</span><span class="p">;</span>
-
-    <span class="sd">/** @var string */</span>
-    <span class="k">private</span> <span class="nv">$customMessage</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param string $customMessage
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
-        <span class="nx">TranslatorInterface</span> <span class="nv">$translator</span><span class="p">,</span>
-        <span class="nv">$customMessage</span>
-    <span class="p">)</span> <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">translator</span> <span class="o">=</span> <span class="nv">$translator</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">customMessage</span> <span class="o">=</span> <span class="nv">$customMessage</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return string
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTranslatedCustomMessage</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">translator</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">customMessage</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.YourModule&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Now that your namespace is setup, you can define your services in the <code>config/services.yml</code> file of your module.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c"># yourmodule/config/services.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">_defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span><span class="nt">your_company.your_module.your_service</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">YourCompany\YourModule\YourService</span><span class="w">
-</span><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="s2">&#34;@translator&#34;</span><span class="w">
-</span><span class="w">      </span>- <span class="s2">&#34;My custom message&#34;</span><span class="w">
-</span></code></pre></div><p>This will then allow you to get your service from the Symfony container, like in your modern controllers:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/yourmodule/src/Controller/DemoController.php
-</span><span class="c1"></span><span class="k">namespace</span> <span class="nx">YourCompany\YourModule\Controller</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">DemoController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">demoAction</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$yourService</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;your_company.your_module.your_service&#39;</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/yourmodule/templates/admin/demo.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
-            <span class="s1">&#39;customMessage&#39;</span> <span class="o">=&gt;</span> <span class="nv">$yourService</span><span class="o">-&gt;</span><span class="na">getTranslatedCustomMessage</span><span class="p">(),</span>
-        <span class="p">]);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/yourmodule/src/YourService.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">namespace</span> <span class="nx">YourCompany\YourModule</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Translation\TranslatorInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">YourService</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/** @var TranslatorInterface */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$translator</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/** @var string */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$customMessage</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $customMessage
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">TranslatorInterface</span> <span class="nv">$translator</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$customMessage</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">translator</span> <span class="o">=</span> <span class="nv">$translator</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">customMessage</span> <span class="o">=</span> <span class="nv">$customMessage</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTranslatedCustomMessage</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">translator</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">customMessage</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.YourModule&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Now that your namespace is setup, you can define your services in the <code>config/services.yml</code> file of your module.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># yourmodule/config/services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">_defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">your_company.your_module.your_service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">YourCompany\YourModule\YourService</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;@translator&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;My custom message&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>This will then allow you to get your service from the Symfony container, like in your modern controllers:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/yourmodule/src/Controller/DemoController.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">namespace</span> <span class="nx">YourCompany\YourModule\Controller</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DemoController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">demoAction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$yourService</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;your_company.your_module.your_service&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/yourmodule/templates/admin/demo.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;customMessage&#39;</span> <span class="o">=&gt;</span> <span class="nv">$yourService</span><span class="o">-&gt;</span><span class="na">getTranslatedCustomMessage</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices tip" >If you need more details about dependency injection and how services work in the Symfony environment we recommend you to read
 their documentation about the <a href="https://symfony.com/doc/3.4/service_container.html">Service Container</a>.</div>
 
@@ -30376,16 +30376,16 @@ their documentation about the <a href="https://symfony.com/doc/3.4/service_conta
 
 <h4 id="override-the-service">Override the service<a href="#override-the-service"></a></h4><p>When you choose to override a service, this means that you <em>replace the service by another one</em>. The previous service is not usable anymore. Every other part of the code where this service is used will use the new version.</p>
 <p>To do it: you declare your new service using the old service name. So if you want to override the service <code>prestashop.core.b2b.b2b_feature</code> with your own implementation, you write in <code>config/services.yml</code> :</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w">  </span><span class="nt">prestashop.core.b2b.b2b_feature</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;YourCompany\YourModule\YourService&#39;</span><span class="w">
-</span></code></pre></div><p>That&rsquo;s done. The service registered under the name <code>prestashop.core.b2b.b2b_feature</code> is now your service. The previous <code>prestashop.core.b2b.b2b_feature</code> is gone.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prestashop.core.b2b.b2b_feature</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;YourCompany\YourModule\YourService&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>That&rsquo;s done. The service registered under the name <code>prestashop.core.b2b.b2b_feature</code> is now your service. The previous <code>prestashop.core.b2b.b2b_feature</code> is gone.</p>
 
 <h4 id="decorate-the-service">Decorate the service<a href="#decorate-the-service"></a></h4><p>When you choose to decorate a service, this means that you <em>make everybody use your service but you keep the old service available</em>. The previous service has been given a new name and can still be used. Every other part of the code where this service was used will use the new version.</p>
 <p>To do it: you declare your new service using the &lsquo;decorates&rsquo; keyword. So if you want to decorate the service <code>prestashop.core.b2b.b2b_feature</code> with your own implementation, you write in <code>config/services.yml</code> :</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="w"> </span><span class="nt">mymodule.my_own_b2b_feature_service</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;YourCompany\YourModule\YourService&#39;</span><span class="w">
-</span><span class="w">    </span><span class="nt">decorates</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.b2b.b2b_feature&#39;</span><span class="w">
-</span></code></pre></div><p>That&rsquo;s done. The service registered under the name <code>mymodule.my_own_b2b_feature_service</code> is now your service. The previous <code>prestashop.core.b2b.b2b_feature</code> implementation is still available under the name <code>mymodule.my_own_b2b_feature_service.inner</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w"> </span><span class="nt">mymodule.my_own_b2b_feature_service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;YourCompany\YourModule\YourService&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">decorates</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.b2b.b2b_feature&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>That&rsquo;s done. The service registered under the name <code>mymodule.my_own_b2b_feature_service</code> is now your service. The previous <code>prestashop.core.b2b.b2b_feature</code> implementation is still available under the name <code>mymodule.my_own_b2b_feature_service.inner</code>.</p>
 <p>This means that in your container you can access 3 services now:</p>
 <ul>
 <li><code>mymodule.my_own_b2b_feature_service</code> your service</li>
@@ -30398,63 +30398,63 @@ their documentation about the <a href="https://symfony.com/doc/3.4/service_conta
 <li>you want to use the old service in the implementation of the new service</li>
 </ul>
 <p>Indeed sometimes what you want is to modify a small part of the behavior of a class. So why replace it entirely ? You can reuse the existing behavior and modify only the needed part:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/yourmodule/src/YourService.php
-</span><span class="c1"></span><span class="k">namespace</span> <span class="nx">YourCompany\YourModule</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">YourService</span> <span class="p">{</span>
-
-    <span class="k">private</span> <span class="nv">$decoratedService</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param DecoratedService $decoratedService
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$decoratedService</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">decoratedService</span> <span class="o">=</span> <span class="nv">$decoratedService</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * We want to modify the behavior of the function getTranslatedCustomMessage
-</span><span class="sd">     * without replacing the whole DecoratedService implementation
-</span><span class="sd">     *
-</span><span class="sd">     * @return string
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTranslatedCustomMessage</span><span class="p">()</span> <span class="p">{</span>
-
-        <span class="nv">$unmodifiedOutput</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">decoratedService</span><span class="o">-&gt;</span><span class="na">getTranslatedCustomMessage</span><span class="p">();</span>
-
-        <span class="nv">$modifiedOutput</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">modifyTheOutput</span><span class="p">(</span><span class="nv">$unmodifiedOutput</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="nv">$modifiedOutput</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>This is only possible with service decoration, not service override, because the previous service is still available.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/yourmodule/src/YourService.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">namespace</span> <span class="nx">YourCompany\YourModule</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">YourService</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$decoratedService</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param DecoratedService $decoratedService
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$decoratedService</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">decoratedService</span> <span class="o">=</span> <span class="nv">$decoratedService</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * We want to modify the behavior of the function getTranslatedCustomMessage
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * without replacing the whole DecoratedService implementation
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTranslatedCustomMessage</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$unmodifiedOutput</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">decoratedService</span><span class="o">-&gt;</span><span class="na">getTranslatedCustomMessage</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$modifiedOutput</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">modifyTheOutput</span><span class="p">(</span><span class="nv">$unmodifiedOutput</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$modifiedOutput</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This is only possible with service decoration, not service override, because the previous service is still available.</p>
 
 <h4 id="finding-the-right-service">Finding the right service<a href="#finding-the-right-service"></a></h4><p>The Symfony command <code>php ./bin/console debug:container</code> will provide you with a list of all the registered services.</p>
 
 <h4 id="maintaining-compatibility">Maintaining compatibility<a href="#maintaining-compatibility"></a></h4><p>What happens, however, if the service you have overriden or decorated is used somewhere else ? You have to make sure your modifications are still compatible with this place in order not to break any existing behavior.</p>
 <p>Even worse: what if another part of the code especially requires this class, like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="sd">/**
-</span><span class="sd">     * @param ASpecificClass $service
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">ASpecificClass</span> <span class="nv">$service</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// ...
-</span><span class="c1"></span>    <span class="p">}</span>
-</code></pre></div><p>Here, this constructor will crash if you provide something else than an instance of <code>ASpecificClass</code> to it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param ASpecificClass $service
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">ASpecificClass</span> <span class="nv">$service</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span></code></pre></div><p>Here, this constructor will crash if you provide something else than an instance of <code>ASpecificClass</code> to it.</p>
 <p>In order to avoid this crash, 2 options are available:</p>
 <p>PrestaShop classes rely more and more on <a href="https://www.php.net/manual/en/language.oop5.interfaces.php">interfaces</a>. So if this code has been built with the idea of customization/extension in mind, instead of <code>public function __construct(ASpecificClass $service)</code> you should have:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="sd">/**
-</span><span class="sd">     * @param MyInterface $service
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">MyInterface</span> <span class="nv">$service</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// ...
-</span><span class="c1"></span>    <span class="p">}</span>
-</code></pre></div><p>Your new service, which overrides or decorates the previous service, only needs to <code>implement</code> the interface to be compatible with it.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param MyInterface $service
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">MyInterface</span> <span class="nv">$service</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span></code></pre></div><p>Your new service, which overrides or decorates the previous service, only needs to <code>implement</code> the interface to be compatible with it.</p>
 <p>If however no interface was used here, you probably need to <code>extend</code> the previous class, <code>ASpecificClass</code>, instead.</p>
 <p>As you can see, interfaces lay the ground for easy extension and customization, that is why we use them more and more in the Core codebase and we recommend you use them as well !</p>
 
@@ -30475,48 +30475,48 @@ files in sub folders:</p>
 </ul>
 
 <h3 id="accessing-your-services">Accessing your services<a href="#accessing-your-services"></a></h3><p>You can then access your services from any legacy controllers (in which the container is automatically injected):</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/yourmodule/controllers/front/Demo.php
-</span><span class="c1"></span><span class="k">class</span> <span class="nc">YourModuleDemoModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span> <span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">display</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="o">...</span>
-        <span class="nv">$yourService</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;your_company.your_module.front.your_service&#39;</span><span class="p">);</span>
-        <span class="o">...</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/yourmodule/controllers/admin/demo.php
-</span><span class="c1">// Legacy controllers have no namespace
-</span><span class="c1"></span><span class="k">class</span> <span class="nc">YourModuleDemoModuleAdminController</span> <span class="k">extends</span> <span class="nx">ModuleAdminController</span> <span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">display</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="o">...</span>
-        <span class="nv">$yourService</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;your_company.your_module.admin.your_service&#39;</span><span class="p">);</span>
-        <span class="o">...</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>But you can also access them from your module, to display its content or in hooks:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/yourmodule/yourmodule.php
-</span><span class="c1"></span><span class="k">class</span> <span class="nc">yourmodule</span> <span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="o">...</span>
-        <span class="c1">// The controller here is the ADMIN one so only admin services are accessible
-</span><span class="c1"></span>        <span class="nv">$yourService</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;your_company.your_module.admin.your_service&#39;</span><span class="p">);</span>
-        <span class="o">...</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayFooterProduct</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="o">...</span>
-        <span class="c1">// The controller here is the FRONT one so only front services are accessible
-</span><span class="c1"></span>        <span class="nv">$yourService</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;your_company.your_module.front.your_service&#39;</span><span class="p">);</span>
-        <span class="o">...</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/yourmodule/controllers/front/Demo.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">YourModuleDemoModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">display</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$yourService</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;your_company.your_module.front.your_service&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/yourmodule/controllers/admin/demo.php
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Legacy controllers have no namespace
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">YourModuleDemoModuleAdminController</span> <span class="k">extends</span> <span class="nx">ModuleAdminController</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">display</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$yourService</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;your_company.your_module.admin.your_service&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>But you can also access them from your module, to display its content or in hooks:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/yourmodule/yourmodule.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">class</span> <span class="nc">yourmodule</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// The controller here is the ADMIN one so only admin services are accessible
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$yourService</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;your_company.your_module.admin.your_service&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookDisplayFooterProduct</span><span class="p">(</span><span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// The controller here is the FRONT one so only front services are accessible
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$yourService</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;your_company.your_module.front.your_service&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="environments">Environments<a href="#environments"></a></h3><p>Keep in mind that the legacy container is a light version of the full Symfony container so you won&rsquo;t have access to all the
 Symfony components. But you will be able to use the <strong>Doctrine</strong> service as well as a few few core services from PrestaShop.</p>
 <p>For more details about available services you can check in <code>&lt;PS_ROOT_DIR&gt;/config/services/</code> folder which services are available
@@ -30561,29 +30561,29 @@ in admin or front. Be careful and always keep in mind in which context/environme
 (a Doctrine repository is a good example). You could easily define the same services in both environment but it&rsquo;s very modular and can
 create errors in case of modifications.</p>
 <p>An easy trick is to create a common definition file which will then be included by each environment:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># yourmodule/config/common.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">_defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span><span class="nt">your_company.your_module.common.open_service</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">YourCompany\YourModule\YourService</span><span class="w">
-</span><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="s1">&#39;@your_company.your_module.common.open_dependency&#39;</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span><span class="nt">your_company.your_module.common.open_dependency</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">YourCompany\YourModule\YourServiceDependency</span><span class="w">
-</span></code></pre></div><p>Then you can include this file in the environment you wish (front, admin, Symfony);</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># yourmodule/config/services.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">imports</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- {<span class="w"> </span><span class="nt">resource</span><span class="p">:</span><span class="w"> </span><span class="l">./common.yml }</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># yourmodule/config/admin/services.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">imports</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- {<span class="w"> </span><span class="nt">resource</span><span class="p">:</span><span class="w"> </span><span class="l">../common.yml }</span><span class="w">
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># yourmodule/config/front/services.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">imports</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- {<span class="w"> </span><span class="nt">resource</span><span class="p">:</span><span class="w"> </span><span class="l">../common.yml }</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># yourmodule/config/common.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">_defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">your_company.your_module.common.open_service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">YourCompany\YourModule\YourService</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;@your_company.your_module.common.open_dependency&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">your_company.your_module.common.open_dependency</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">YourCompany\YourModule\YourServiceDependency</span><span class="w">
+</span></span></span></code></pre></div><p>Then you can include this file in the environment you wish (front, admin, Symfony);</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># yourmodule/config/services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">imports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- {<span class="w"> </span><span class="nt">resource</span><span class="p">:</span><span class="w"> </span><span class="l">./common.yml }</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># yourmodule/config/admin/services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">imports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- {<span class="w"> </span><span class="nt">resource</span><span class="p">:</span><span class="w"> </span><span class="l">../common.yml }</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># yourmodule/config/front/services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">imports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- {<span class="w"> </span><span class="nt">resource</span><span class="p">:</span><span class="w"> </span><span class="l">../common.yml }</span><span class="w">
+</span></span></span></code></pre></div>
 
 
 
@@ -30663,17 +30663,17 @@ create errors in case of modifications.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163934"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163934"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163934"></script>
-    <script src="/js/jquery.sticky.js?1703163934"></script>
-    <script src="/js/featherlight.min.js?1703163934"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163934"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163934"></script>
-    <script src="/js/learn.js?1703163934"></script>
-    <script src="/js/hugo-learn.js?1703163934"></script>
+    <script src="/js/clipboard.min.js?1703164755"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164755"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164755"></script>
+    <script src="/js/jquery.sticky.js?1703164755"></script>
+    <script src="/js/featherlight.min.js?1703164755"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164755"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164755"></script>
+    <script src="/js/learn.js?1703164755"></script>
+    <script src="/js/hugo-learn.js?1703164755"></script>
     
-    <script src="/main.js?1703163934"></script>
+    <script src="/main.js?1703164755"></script>
     
     
     

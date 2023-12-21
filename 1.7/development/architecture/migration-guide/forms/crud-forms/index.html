@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>CRUD Forms :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/architecture/migration-guide/forms/crud-forms/">
     
-    <link href="/css/font-awesome.min.css?1703163888" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163888" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163888" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163888" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164716" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164716" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164716" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164716" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163888" rel="stylesheet">
+    <link href="/style.css?1703164716" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163888"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164716"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30347,60 +30347,60 @@
 <pre><code>\PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\FormDataProviderInterface 
 </code></pre>
 <p>In the example below, you can see a <code>ContactFormDataProvider</code> that queries the database (in this case, using <code>ObjectModel</code>) to retrieve data when a specific identifiable object id (in this case, <code>Contact</code>) is given, and that returns static data with defaults to use when creating a new element.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Contact</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">ContactFormDataProvider</span> <span class="k">implements</span> <span class="nx">FormDataProviderInterface</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * Get form data for given object with given id.
-</span><span class="sd">     *
-</span><span class="sd">     * @param int $id
-</span><span class="sd">     *
-</span><span class="sd">     * @return mixed
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getData</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$contactObjectModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contact</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">);</span>
-        
-        <span class="c1">// check that the element exists in db
-</span><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$contactObjectModel</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">PrestaShopObjectNotFoundException</span><span class="p">(</span><span class="s1">&#39;Object not found&#39;</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$contactObjectModel</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">,</span>
-        <span class="p">];</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Get default form data.
-</span><span class="sd">     *
-</span><span class="sd">     * @return mixed
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getDefaultData</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;service&#39;</span><span class="p">,</span>
-        <span class="p">];</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Contact</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ContactFormDataProvider</span> <span class="k">implements</span> <span class="nx">FormDataProviderInterface</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Get form data for given object with given id.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int $id
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return mixed
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getData</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$contactObjectModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contact</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1">// check that the element exists in db
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$contactObjectModel</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="nx">PrestaShopObjectNotFoundException</span><span class="p">(</span><span class="s1">&#39;Object not found&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$contactObjectModel</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Get default form data.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return mixed
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getDefaultData</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;service&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices note" ><p><strong>This example has been simplified for practical reasons.</strong></p>
 <p>The core actually uses the CQRS pattern to retrieve data, instead of <code>ObjectModel</code>. For more information, have a look at our recommended approach on <a href="/1.7/development/architecture/migration-guide/forms/cqrs-usage-in-forms/">how to use CQRS in forms</a>.</p>
 </div>
 
 <p>Don&rsquo;t forget to register your class as a service, you will need it to use it with the <a href="#form-builder">Form builder</a>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_data_provider.yml</span><span class="w">
-</span><span class="w">
-</span><span class="w">  </span><span class="nt">prestashop.core.form.identifiable_object.data_provider.contact_form_data_provider</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\ContactFormDataProvider&#39;</span><span class="w">
-</span></code></pre></div><p>Note: if you use the above snippet of code outside of the <code>PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider</code> namespace, like in a module, you need to import the classes that come from this namespace.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_data_provider.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prestashop.core.form.identifiable_object.data_provider.contact_form_data_provider</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\ContactFormDataProvider&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>Note: if you use the above snippet of code outside of the <code>PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider</code> namespace, like in a module, you need to import the classes that come from this namespace.</p>
 <p>Example</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\FormDataProviderInterface</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\FormDataProviderInterface</span><span class="p">;</span>
+</span></span></code></pre></div>
 <h2 id="form-builder">Form Builder<a href="#form-builder"></a></h2><p>The <em>Form Builder</em> is used by controllers to build the form that will be shown to users.</p>
 
 <div class="notices tip" ><p><strong>PrestaShop provides a default implementation for this object.</strong></p>
@@ -30418,46 +30418,46 @@
 </div>
 
 <h3 id="using-the-form-builder">Using the Form Builder<a href="#using-the-form-builder"></a></h3><p>In most cases, you can simply reuse the default implementation. All you need to do is declare it as a service and configure it for your form&rsquo;s needs, by specifying the appropriate <a href="/1.7/development/architecture/migration-guide/forms/#form-types">Form type</a> and <a href="#form-data-provider">Form data provider</a>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_builder.yml</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">prestashop.core.form.identifiable_object.builder.contact_form_builder</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Builder\FormBuilder&#39;</span><span class="w">
-</span><span class="w">  </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.form.builder.form_builder_factory:create&#39;</span><span class="w">
-</span><span class="w">  </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="s1">&#39;PrestaShopBundle\Form\Admin\Configure\ShopParameters\Contact\ContactType&#39;</span><span class="w">
-</span><span class="w">    </span>- <span class="s1">&#39;@prestashop.core.form.identifiable_object.data_provider.contact_form_data_provider&#39;</span><span class="w">
-</span></code></pre></div><p>In the example above, we are declaring a specific service for this form based on PrestaShop&rsquo;s implementation of the Form Builder:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_builder.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">prestashop.core.form.identifiable_object.builder.contact_form_builder</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Builder\FormBuilder&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.form.builder.form_builder_factory:create&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s1">&#39;PrestaShopBundle\Form\Admin\Configure\ShopParameters\Contact\ContactType&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s1">&#39;@prestashop.core.form.identifiable_object.data_provider.contact_form_data_provider&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>In the example above, we are declaring a specific service for this form based on PrestaShop&rsquo;s implementation of the Form Builder:</p>
 <pre><code>PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Builder\FormBuilder
 </code></pre>
 <p>&hellip;which is instantiated using the base factory:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">prestashop.core.form.builder.form_builder_factory:create
-</code></pre></div><p>&hellip;using two specific arguments:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">prestashop.core.form.builder.form_builder_factory:create
+</span></span></code></pre></div><p>&hellip;using two specific arguments:</p>
 <ul>
 <li>The <strong>Form Type</strong>&rsquo;s class name</li>
 <li>The <strong>Form Data Provider</strong>&rsquo;s service name, that we declared previously.</li>
 </ul>
 <p>Finally, use it in your controller:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">createAction</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nv">$contactFormBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.builder.contact_form_builder&#39;</span><span class="p">);</span>
-    <span class="nv">$contactForm</span> <span class="o">=</span> <span class="nv">$contactFormBuilder</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span> <span class="c1">// no id as the element does not exist yet
-</span><span class="c1"></span>
-    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Configure/ShopParameters/Contact/Contacts/create.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
-        <span class="s1">&#39;contactForm&#39;</span> <span class="o">=&gt;</span> <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">createView</span><span class="p">(),</span>
-    <span class="p">]);</span>
-<span class="p">}</span>
-
-<span class="k">public</span> <span class="k">function</span> <span class="nf">editAction</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nv">$contactFormBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.builder.contact_form_builder&#39;</span><span class="p">);</span>
-    <span class="nv">$contactForm</span> <span class="o">=</span> <span class="nv">$contactFormBuilder</span><span class="o">-&gt;</span><span class="na">getFormFor</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Configure/ShopParameters/Contact/Contacts/edit.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
-        <span class="s1">&#39;contactForm&#39;</span> <span class="o">=&gt;</span> <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">createView</span><span class="p">(),</span>
-    <span class="p">]);</span>
-<span class="p">}</span>
-</code></pre></div><p>Form that is rendered following PretaShop&rsquo;s UI kit should look like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">createAction</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$contactFormBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.builder.contact_form_builder&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$contactForm</span> <span class="o">=</span> <span class="nv">$contactFormBuilder</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span> <span class="c1">// no id as the element does not exist yet
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Configure/ShopParameters/Contact/Contacts/create.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;contactForm&#39;</span> <span class="o">=&gt;</span> <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">createView</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">editAction</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$contactFormBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.builder.contact_form_builder&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$contactForm</span> <span class="o">=</span> <span class="nv">$contactFormBuilder</span><span class="o">-&gt;</span><span class="na">getFormFor</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Configure/ShopParameters/Contact/Contacts/edit.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;contactForm&#39;</span> <span class="o">=&gt;</span> <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">createView</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Form that is rendered following PretaShop&rsquo;s UI kit should look like this:</p>
 <figure><img src="../img/contact-form-rendered.png"/><figcaption>
             <h4>Result of form builder</h4>
         </figcaption>
@@ -30478,56 +30478,56 @@
 <pre><code>\PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\FormDataHandlerInterface
 </code></pre>
 <p>In the example below, you can see a <code>ContactFormDataHandler</code> that uses <code>ObjectModel</code> to create and update an instance of <code>Contact</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler</span><span class="p">;</span>
-
-<span class="k">final</span> <span class="k">class</span> <span class="nc">ContactFormDataHandler</span> <span class="k">implements</span> <span class="nx">FormDataHandlerInterface</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * Create object from form data.
-</span><span class="sd">     *
-</span><span class="sd">     * @param array $data
-</span><span class="sd">     *
-</span><span class="sd">     * @return mixed
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$contactObjectModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contact</span><span class="p">();</span>
-        <span class="c1">// add data to object model
-</span><span class="c1"></span>        <span class="c1">// ...
-</span><span class="c1"></span>        <span class="nv">$contactObjectModel</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
-
-        <span class="k">return</span> <span class="nv">$contactObjectModel</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Update object with form data.
-</span><span class="sd">     *
-</span><span class="sd">     * @param int $id
-</span><span class="sd">     * @param array $data
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">update</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$data</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$contactObjectModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contact</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
-        <span class="c1">// update data to object model
-</span><span class="c1"></span>        <span class="c1">// ...
-</span><span class="c1"></span>        <span class="nv">$contactObjectModel</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ContactFormDataHandler</span> <span class="k">implements</span> <span class="nx">FormDataHandlerInterface</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Create object from form data.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $data
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return mixed
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">create</span><span class="p">(</span><span class="k">array</span> <span class="nv">$data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$contactObjectModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contact</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// add data to object model
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$contactObjectModel</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$contactObjectModel</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Update object with form data.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int $id
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $data
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">update</span><span class="p">(</span><span class="nv">$id</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$contactObjectModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contact</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// update data to object model
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$contactObjectModel</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices note" ><p><strong>This example has been simplified for practical reasons.</strong></p>
 <p>The core actually uses the CQRS pattern to retrieve data, instead of <code>ObjectModel</code>. For more information, have a look at our recommended approach on <a href="/1.7/development/architecture/migration-guide/forms/cqrs-usage-in-forms/">how to use CQRS in forms</a>.</p>
 </div>
 
 <p>Don&rsquo;t forget to register your Form Data Handler as a service, you will need it to use it with your <a href="#form-handler">Form Handler</a>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_data_handler.yml</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">prestashop.core.form.identifiable_object.data_handler.contact_form_data_handler</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\ContactFormDataHandler&#39;</span><span class="w">
-</span></code></pre></div><p>Note: if you use the above snippet of code outside of the <code>PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler</code> namespace, like in a module, you need to import the classes that come from this namespace.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_data_handler.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">prestashop.core.form.identifiable_object.data_handler.contact_form_data_handler</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\ContactFormDataHandler&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>Note: if you use the above snippet of code outside of the <code>PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler</code> namespace, like in a module, you need to import the classes that come from this namespace.</p>
 <p>Example</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\FormDataHandlerInterface</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\FormDataHandlerInterface</span><span class="p">;</span>
+</span></span></code></pre></div>
 <h2 id="form-handler">Form Handler<a href="#form-handler"></a></h2><p>The <em>Form Handler</em> is in charge of validating, enriching and saving submitted form data, using the provided <a href="#form-data-handler">Form Data Handler</a>.</p>
 
 <div class="notices tip" ><p><strong>PrestaShop provides a default implementation for this object.</strong></p>
@@ -30556,94 +30556,94 @@
 </div>
 
 <h3 id="using-the-form-handler">Using the Form Handler<a href="#using-the-form-handler"></a></h3><p>Much like with the <a href="#form-builder">Form Builder</a>, in most cases you can reuse the default implementation by declaring it as a service and configuring it according to your form&rsquo;s needs:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_handler.yml</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">prestashop.core.form.identifiable_object.handler.contact_form_handler</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Handler\FormHandler&#39;</span><span class="w">
-</span><span class="w">  </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.form.identifiable_object.handler.form_handler_factory:create&#39;</span><span class="w">
-</span><span class="w">  </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="s1">&#39;@prestashop.core.form.identifiable_object.data_handler.contact_form_data_handler&#39;</span><span class="w">
-</span></code></pre></div><p>In the example above, we are declaring a specific service for this form handler, based on PrestaShop&rsquo;s implementation of the Form Handler:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Handler\FormHandler
-</code></pre></div><p>&hellip;which is instantiated using the base factory:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">prestashop.core.form.identifiable_object.handler.form_handler_factory:create
-</code></pre></div><p>&hellip;using the <strong>Form Data Handler</strong> that we declared previouly.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c">#src/PrestaShopBundle/Resources/config/services/core/form/form_handler.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">prestashop.core.form.identifiable_object.handler.contact_form_handler</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Handler\FormHandler&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">factory</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.form.identifiable_object.handler.form_handler_factory:create&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s1">&#39;@prestashop.core.form.identifiable_object.data_handler.contact_form_data_handler&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>In the example above, we are declaring a specific service for this form handler, based on PrestaShop&rsquo;s implementation of the Form Handler:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Handler\FormHandler
+</span></span></code></pre></div><p>&hellip;which is instantiated using the base factory:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">prestashop.core.form.identifiable_object.handler.form_handler_factory:create
+</span></span></code></pre></div><p>&hellip;using the <strong>Form Data Handler</strong> that we declared previouly.</p>
 <p>Finally, you can use it in your controller like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">createAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nv">$contactFormBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.builder.contact_form_builder&#39;</span><span class="p">);</span>
-    <span class="nv">$contactForm</span> <span class="o">=</span> <span class="nv">$contactFormBuilder</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
-    
-    <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">handleRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
-
-    <span class="nv">$contactFormHandler</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.handler.contact_form_handler&#39;</span><span class="p">);</span>
-    <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$contactFormHandler</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$contactForm</span><span class="p">);</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="o">!==</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">getIdentifiableObjectId</span><span class="p">())</span> <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Successful creation.&#39;</span><span class="p">,</span> <span class="s1">&#39;Admin.Notifications.Success&#39;</span><span class="p">));</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_contacts_index&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-    
-    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Configure/ShopParameters/Contact/Contacts/create.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
-        <span class="s1">&#39;contactForm&#39;</span> <span class="o">=&gt;</span> <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">createView</span><span class="p">(),</span>
-    <span class="p">]);</span>
-<span class="p">}</span>
-
-<span class="k">public</span> <span class="k">function</span> <span class="nf">editAction</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nv">$contactFormBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.builder.contact_form_builder&#39;</span><span class="p">);</span>
-    <span class="c1">// we use getFormFor() instead of getForm() since we now have an id
-</span><span class="c1"></span>    <span class="nv">$contactForm</span> <span class="o">=</span> <span class="nv">$contactFormBuilder</span><span class="o">-&gt;</span><span class="na">getFormFor</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">);</span>
-
-    <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">handleRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
-
-    <span class="nv">$contactFormHandler</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.handler.contact_form_handler&#39;</span><span class="p">);</span>
-    <span class="c1">// we use handleFor() instead of handle() since we now have an id
-</span><span class="c1"></span>    <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$contactFormHandler</span><span class="o">-&gt;</span><span class="na">handleFor</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">,</span> <span class="nv">$contactForm</span><span class="p">);</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">isSubmitted</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">())</span> <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Successful update.&#39;</span><span class="p">,</span> <span class="s1">&#39;Admin.Notifications.Success&#39;</span><span class="p">));</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_contacts_index&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Configure/ShopParameters/Contact/Contacts/edit.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
-        <span class="s1">&#39;contactForm&#39;</span> <span class="o">=&gt;</span> <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">createView</span><span class="p">(),</span>
-    <span class="p">]);</span>
-<span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s analyze the <code>create</code> flow in the example above.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">createAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$contactFormBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.builder.contact_form_builder&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$contactForm</span> <span class="o">=</span> <span class="nv">$contactFormBuilder</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">handleRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$contactFormHandler</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.handler.contact_form_handler&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$contactFormHandler</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$contactForm</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="o">!==</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">getIdentifiableObjectId</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Successful creation.&#39;</span><span class="p">,</span> <span class="s1">&#39;Admin.Notifications.Success&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_contacts_index&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Configure/ShopParameters/Contact/Contacts/create.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;contactForm&#39;</span> <span class="o">=&gt;</span> <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">createView</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">editAction</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$contactFormBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.builder.contact_form_builder&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// we use getFormFor() instead of getForm() since we now have an id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$contactForm</span> <span class="o">=</span> <span class="nv">$contactFormBuilder</span><span class="o">-&gt;</span><span class="na">getFormFor</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">handleRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$contactFormHandler</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.handler.contact_form_handler&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// we use handleFor() instead of handle() since we now have an id
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$contactFormHandler</span><span class="o">-&gt;</span><span class="na">handleFor</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">,</span> <span class="nv">$contactForm</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span><span class="o">-&gt;</span><span class="na">isSubmitted</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Successful update.&#39;</span><span class="p">,</span> <span class="s1">&#39;Admin.Notifications.Success&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_contacts_index&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Configure/ShopParameters/Contact/Contacts/edit.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;contactForm&#39;</span> <span class="o">=&gt;</span> <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">createView</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Let&rsquo;s analyze the <code>create</code> flow in the example above.</p>
 <p>First, we create the form using the FormBuilder:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$contactFormBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.builder.contact_form_builder&#39;</span><span class="p">);</span>
-<span class="nv">$contactForm</span> <span class="o">=</span> <span class="nv">$contactFormBuilder</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
-</code></pre></div><p>Then, we merge the form&rsquo;s data with the one from the <code>Request</code> (if submitted):</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">handleRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
-</code></pre></div><p>Afterwards, we process the form (this will save the form in case it was sent, and do nothing otherwise), and save the result of the process for further analysis:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$contactFormHandler</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.handler.contact_form_handler&#39;</span><span class="p">);</span>
-<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$contactFormHandler</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$contactForm</span><span class="p">);</span>
-</code></pre></div><p>Now, if the form was actually saved and everything went well, we can show a success message and redirect to the listing page:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="o">!==</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">getIdentifiableObjectId</span><span class="p">())</span> <span class="p">{</span>
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Successful creation.&#39;</span><span class="p">,</span> <span class="s1">&#39;Admin.Notifications.Success&#39;</span><span class="p">));</span>
-
-    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_contacts_index&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>Finally, if the form wasn&rsquo;t submit or if something went wrong, we just show the form.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Configure/ShopParameters/Contact/Contacts/create.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="s1">&#39;contactForm&#39;</span> <span class="o">=&gt;</span> <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">createView</span><span class="p">(),</span>
-<span class="p">]);</span>
-</code></pre></div><p>The <code>edit</code> flow works exactly the same, with minimal changes:</p>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">-$contactFormBuilder-&gt;getForm();
-</span><span class="gd"></span><span class="gi">+$contactFormBuilder-&gt;getFormFor($contactId);
-</span></code></pre></div><p>and</p>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">-$contactFormHandler-&gt;handle($contactForm);
-</span><span class="gd"></span><span class="gi">+$contactFormHandler-&gt;handleFor($contactId, $contactForm);
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$contactFormBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.builder.contact_form_builder&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$contactForm</span> <span class="o">=</span> <span class="nv">$contactFormBuilder</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
+</span></span></code></pre></div><p>Then, we merge the form&rsquo;s data with the one from the <code>Request</code> (if submitted):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">handleRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
+</span></span></code></pre></div><p>Afterwards, we process the form (this will save the form in case it was sent, and do nothing otherwise), and save the result of the process for further analysis:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$contactFormHandler</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.handler.contact_form_handler&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$result</span> <span class="o">=</span> <span class="nv">$contactFormHandler</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$contactForm</span><span class="p">);</span>
+</span></span></code></pre></div><p>Now, if the form was actually saved and everything went well, we can show a success message and redirect to the listing page:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="o">!==</span> <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">getIdentifiableObjectId</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Successful creation.&#39;</span><span class="p">,</span> <span class="s1">&#39;Admin.Notifications.Success&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_contacts_index&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Finally, if the form wasn&rsquo;t submit or if something went wrong, we just show the form.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Configure/ShopParameters/Contact/Contacts/create.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;contactForm&#39;</span> <span class="o">=&gt;</span> <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">createView</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl"><span class="p">]);</span>
+</span></span></code></pre></div><p>The <code>edit</code> flow works exactly the same, with minimal changes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">-$contactFormBuilder-&gt;getForm();
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+$contactFormBuilder-&gt;getFormFor($contactId);
+</span></span></span></code></pre></div><p>and</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">-$contactFormHandler-&gt;handle($contactForm);
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+$contactFormHandler-&gt;handleFor($contactId, $contactForm);
+</span></span></span></code></pre></div>
 <div class="notices note" ><p><strong>This example has been simplified for practical reasons.</strong></p>
 <p>The core actually uses CQRS to handle data persistence, which raises a <code>DomainException</code> in case of a constraint error (for example, if the identifiable object you are trying to edit doesn&rsquo;t exist). This is handled in the controller by wrapping the code in a try-catch block, then flashing an error message accordingly.</p>
 <p>For more details, check out the <a href="https://github.com/PrestaShop/PrestaShop/blob/1.7.8.0/src/PrestaShopBundle/Controller/Admin/Configure/ShopParameters/ContactsController.php">ContactsController source code on GitHub</a>.</p>
@@ -30734,17 +30734,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163889"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163889"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163889"></script>
-    <script src="/js/jquery.sticky.js?1703163889"></script>
-    <script src="/js/featherlight.min.js?1703163889"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163889"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163889"></script>
-    <script src="/js/learn.js?1703163889"></script>
-    <script src="/js/hugo-learn.js?1703163889"></script>
+    <script src="/js/clipboard.min.js?1703164716"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164716"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164716"></script>
+    <script src="/js/jquery.sticky.js?1703164716"></script>
+    <script src="/js/featherlight.min.js?1703164716"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164716"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164716"></script>
+    <script src="/js/learn.js?1703164716"></script>
+    <script src="/js/hugo-learn.js?1703164716"></script>
     
-    <script src="/main.js?1703163889"></script>
+    <script src="/main.js?1703164716"></script>
     
     
     

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Adding module links in the back-office side menu :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163911" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163911" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163911" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163911" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164737" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164737" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164737" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164737" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163911" rel="stylesheet">
+    <link href="/style.css?1703164737" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163911"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164737"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33261,21 +33261,21 @@
 <h2 id="how-to-specify-the-menu-label">How to specify the menu label<a href="#how-to-specify-the-menu-label"></a></h2><p>By default, your tab will be displayed in the menu with its class name. If you want to use a different label, you can set the <code>name</code> property. This label can be translated in two ways.</p>
 
 <h3 id="option-1-use-the-same-label-for-all-languages">Option 1: Use the same label for all languages<a href="#option-1-use-the-same-label-for-all-languages"></a></h3><p>If you want to add the same name to all available and active languages available on the shop, just set the ‘name’ key with a single string:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="nv">$tabs</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">[</span>
-            <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Merchant Expertise&#39;</span><span class="p">,</span> <span class="c1">// One name for all langs
-</span><span class="c1"></span>            <span class="s1">&#39;class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AdminGamification&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;visible&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-            <span class="s1">&#39;parent_class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;ShopParameters&#39;</span><span class="p">,</span>
-        <span class="p">],</span>
-    <span class="p">];</span>
-    
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$tabs</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Merchant Expertise&#39;</span><span class="p">,</span> <span class="c1">// One name for all langs
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AdminGamification&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;visible&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;parent_class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;ShopParameters&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="option-2-use-a-different-name-for-each-language">Option 2: Use a different name for each language<a href="#option-2-use-a-different-name-for-each-language"></a></h3>
 <h4 id="since-prestashop-178">Since PrestaShop 1.7.8<a href="#since-prestashop-178"></a></h4><p>Since 
 <span class="version-pill" title="New in PrestaShop 1.7.8">
@@ -33283,44 +33283,44 @@
 </span>
 
  you can declare a <code>wording</code> and <code>wording_domain</code> to leverage the translation system. This will allow the menu to be translated automatically using either the provided translation catalogues or the translation interface.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="nv">$tabs</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">[</span>
-            <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Merchant Expertise&#39;</span><span class="p">,</span> <span class="c1">// Fallback when the translation is unavailable
-</span><span class="c1"></span>            <span class="s1">&#39;class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AdminGamification&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;parent_class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;ShopParameters&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;wording&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Merchant Expertise&#39;</span><span class="p">,</span> <span class="c1">// Translation key
-</span><span class="c1"></span>            <span class="s1">&#39;wording_domain&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Modules.Gamification.Admin&#39;</span><span class="p">,</span> <span class="c1">// Translation domain
-</span><span class="c1"></span>        <span class="p">],</span>
-    <span class="p">];</span>
-
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$tabs</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Merchant Expertise&#39;</span><span class="p">,</span> <span class="c1">// Fallback when the translation is unavailable
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AdminGamification&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;parent_class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;ShopParameters&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;wording&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Merchant Expertise&#39;</span><span class="p">,</span> <span class="c1">// Translation key
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;wording_domain&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Modules.Gamification.Admin&#39;</span><span class="p">,</span> <span class="c1">// Translation domain
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div>
 <h4 id="alternative---declare-your-translations">Alternative - declare your translations<a href="#alternative---declare-your-translations"></a></h4><p>In previous PrestaShop versions, <code>wording</code> and <code>wording_domain</code> will be ignored. In that case, you will have to provide translations for every language upfront.</p>
 <p>You can add your translations per locale (ex.: <code>fr-FR</code>) or per language (ex.: <code>fr</code>) – both are valid.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="nv">$tabs</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">[</span>
-            <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                <span class="s1">&#39;en&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Merchant Expertise&#39;</span><span class="p">,</span> <span class="c1">// Fallback value
-</span><span class="c1"></span>                <span class="s1">&#39;fr&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Expertise PrestaShop&#39;</span><span class="p">,</span>
-                <span class="o">...</span>
-            <span class="p">],</span>
-            <span class="s1">&#39;class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AdminGamification&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;parent_class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;ShopParameters&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;wording&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Merchant Expertise&#39;</span><span class="p">,</span> <span class="c1">// Ignored in PS &lt; 1.7.8
-</span><span class="c1"></span>            <span class="s1">&#39;wording_domain&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Modules.Gamification.Admin&#39;</span><span class="p">,</span> <span class="c1">// Ignored in PS &lt; 1.7.8
-</span><span class="c1"></span>        <span class="p">],</span>
-    <span class="p">];</span>
-
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">mymodule</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$tabs</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;en&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Merchant Expertise&#39;</span><span class="p">,</span> <span class="c1">// Fallback value
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="s1">&#39;fr&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Expertise PrestaShop&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="o">...</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AdminGamification&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;parent_class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;ShopParameters&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;wording&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Merchant Expertise&#39;</span><span class="p">,</span> <span class="c1">// Ignored in PS &lt; 1.7.8
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="s1">&#39;wording_domain&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Modules.Gamification.Admin&#39;</span><span class="p">,</span> <span class="c1">// Ignored in PS &lt; 1.7.8
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices tip" ><strong>Ordering is important</strong>.
 If the user&rsquo;s language is not found in your translated names, the first value in the array will be used as fallback.
 Hence, we advise you to define the English value first.</div>
@@ -33483,92 +33483,92 @@ They are automatically added to the <code>SUPER_ADMIN</code> group, and the grou
 based on legacy controllers identified through their class names. But you can still trick it using the <code>_legacy_link</code> property
 in the routing (more details about this feature in the <a href="https://devdocs.prestashop-project.org/8/development/architecture/migration-guide/controller-routing/#the-legacy-link-property">Controller and Routing</a> page).</p>
 <p>Let&rsquo;s assume you already defined your Symfony route:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># modules/your-module/config/routes.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">your_route_name</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">your-module/demo</span><span class="w">
-</span><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
-</span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModule\Controller\DemoController::demoAction&#39;</span><span class="w">
-</span></code></pre></div><p>What you need to do then is add the <code>_legacy_controller</code> and <code>_legacy_link</code> parameters:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># modules/your-module/config/routes.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">your_route_name</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">your-module/demo</span><span class="w">
-</span><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
-</span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModule\Controller\DemoController::demoAction&#39;</span><span class="w">
-</span><span class="w">      </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModuleDemoController&#39;</span><span class="w">
-</span><span class="w">      </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModuleDemoController&#39;</span><span class="w">
-</span></code></pre></div><p>So now any call in the menu system to <code>Link::getAdminLink('MyModuleDemoController')'</code> will return your controller url <code>your-module/demo</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># modules/your-module/config/routes.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">your_route_name</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">your-module/demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModule\Controller\DemoController::demoAction&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>What you need to do then is add the <code>_legacy_controller</code> and <code>_legacy_link</code> parameters:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># modules/your-module/config/routes.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">your_route_name</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">your-module/demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModule\Controller\DemoController::demoAction&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModuleDemoController&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">_legacy_link</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModuleDemoController&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>So now any call in the menu system to <code>Link::getAdminLink('MyModuleDemoController')'</code> will return your controller url <code>your-module/demo</code>
 But since the <code>MyModuleDemoController</code> class actually doesn&rsquo;t exist, the automatic tab registration based on the <code>$tabs</code> property won&rsquo;t work.
 So you need to insert your tab manually during your module installation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">Language</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">Example_module_mailtheme</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span>
-            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">installTab</span><span class="p">()</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">()</span>
-            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uninstallTab</span><span class="p">()</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">enable</span><span class="p">(</span><span class="nv">$force_all</span> <span class="o">=</span> <span class="k">false</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">enable</span><span class="p">(</span><span class="nv">$force_all</span><span class="p">)</span>
-            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">installTab</span><span class="p">()</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">disable</span><span class="p">(</span><span class="nv">$force_all</span> <span class="o">=</span> <span class="k">false</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">disable</span><span class="p">(</span><span class="nv">$force_all</span><span class="p">)</span>
-            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uninstallTab</span><span class="p">()</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">installTab</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$tabId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Tab</span><span class="o">::</span><span class="na">getIdFromClassName</span><span class="p">(</span><span class="s1">&#39;MyModuleDemoController&#39;</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$tabId</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$tabId</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="nv">$tab</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tab</span><span class="p">(</span><span class="nv">$tabId</span><span class="p">);</span>
-        <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">active</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">class_name</span> <span class="o">=</span> <span class="s1">&#39;MyModuleDemoController&#39;</span><span class="p">;</span>
-        <span class="c1">// Only since 1.7.7, you can define a route name
-</span><span class="c1"></span>        <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">route_name</span> <span class="o">=</span> <span class="s1">&#39;admin_my_symfony_routing&#39;</span><span class="p">;</span>
-        <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
-        <span class="k">foreach</span> <span class="p">(</span><span class="nx">Language</span><span class="o">::</span><span class="na">getLanguages</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$lang</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">[</span><span class="nv">$lang</span><span class="p">[</span><span class="s1">&#39;id_lang&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;My Module Demo&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(),</span> <span class="s1">&#39;Modules.MyModule.Admin&#39;</span><span class="p">,</span> <span class="nv">$lang</span><span class="p">[</span><span class="s1">&#39;locale&#39;</span><span class="p">]);</span>
-        <span class="p">}</span>
-        <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">id_parent</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Tab</span><span class="o">::</span><span class="na">getIdFromClassName</span><span class="p">(</span><span class="s1">&#39;ShopParameters&#39;</span><span class="p">);</span>
-        <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">module</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
-
-        <span class="k">return</span> <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">uninstallTab</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$tabId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Tab</span><span class="o">::</span><span class="na">getIdFromClassName</span><span class="p">(</span><span class="s1">&#39;MyModuleDemoController&#39;</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$tabId</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="nv">$tab</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tab</span><span class="p">(</span><span class="nv">$tabId</span><span class="p">);</span>
-
-        <span class="k">return</span> <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>And now you have your menu link directing to your Symfony controller with a nice url.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Language</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Example_module_mailtheme</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">installTab</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uninstallTab</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">enable</span><span class="p">(</span><span class="nv">$force_all</span> <span class="o">=</span> <span class="k">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">enable</span><span class="p">(</span><span class="nv">$force_all</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">installTab</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">disable</span><span class="p">(</span><span class="nv">$force_all</span> <span class="o">=</span> <span class="k">false</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">disable</span><span class="p">(</span><span class="nv">$force_all</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uninstallTab</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">installTab</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$tabId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Tab</span><span class="o">::</span><span class="na">getIdFromClassName</span><span class="p">(</span><span class="s1">&#39;MyModuleDemoController&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$tabId</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$tabId</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$tab</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tab</span><span class="p">(</span><span class="nv">$tabId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">active</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">class_name</span> <span class="o">=</span> <span class="s1">&#39;MyModuleDemoController&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Only since 1.7.7, you can define a route name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">route_name</span> <span class="o">=</span> <span class="s1">&#39;admin_my_symfony_routing&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">foreach</span> <span class="p">(</span><span class="nx">Language</span><span class="o">::</span><span class="na">getLanguages</span><span class="p">()</span> <span class="k">as</span> <span class="nv">$lang</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">[</span><span class="nv">$lang</span><span class="p">[</span><span class="s1">&#39;id_lang&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;My Module Demo&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(),</span> <span class="s1">&#39;Modules.MyModule.Admin&#39;</span><span class="p">,</span> <span class="nv">$lang</span><span class="p">[</span><span class="s1">&#39;locale&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">id_parent</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Tab</span><span class="o">::</span><span class="na">getIdFromClassName</span><span class="p">(</span><span class="s1">&#39;ShopParameters&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">module</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">uninstallTab</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$tabId</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Tab</span><span class="o">::</span><span class="na">getIdFromClassName</span><span class="p">(</span><span class="s1">&#39;MyModuleDemoController&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$tabId</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$tab</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tab</span><span class="p">(</span><span class="nv">$tabId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$tab</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>And now you have your menu link directing to your Symfony controller with a nice url.</p>
 
 <h3 id="automatic-tab-registration">Automatic tab registration<a href="#automatic-tab-registration"></a></h3>
 <div class="magic-version-pill" data-version="1.7.7" data-title="New in PrestaShop 1.7.7"></div>
@@ -33576,71 +33576,71 @@ So you need to insert your tab manually during your module installation:</p>
 
 <p>Modern controllers can also be registered via the <code>$tabs</code> property. You don&rsquo;t need to manually create the Tab object in this case, and you can take full advantage of the Symfony routing (no need for <code>_legacy_link</code>).</p>
 <p>Here is an example with a Symfony controller (example comes from the <a href="https://github.com/PrestaShop/ps_linklist">ps_linklist</a> module). Nothing specific in this controller but notice the security annotation <code>@AdminSecurity</code> that uses <code>request.get('_legacy_controller')</code> which will make the link between this controller and the routing configuration.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// yourmodule/src/Controller/Admin/Improve/Design
-</span><span class="c1"></span>
-<span class="k">namespace</span> <span class="nx">PrestaShop\Module\LinkList\Controller\Admin\Improve\Design</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Security\Annotation\AdminSecurity</span><span class="p">;</span>
-<span class="c1">// (...)
-</span><span class="c1"></span>
-<span class="sd">/**
-</span><span class="sd"> * Class LinkBlockController.
-</span><span class="sd"> *
-</span><span class="sd"> * @ModuleActivated(moduleName=&#34;ps_linklist&#34;, redirectRoute=&#34;admin_module_manage&#34;)
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">LinkBlockController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @AdminSecurity(&#34;is_granted(&#39;read&#39;, request.get(&#39;_legacy_controller&#39;))&#34;, message=&#34;Access denied.&#34;)
-</span><span class="sd">     *
-</span><span class="sd">     * @param Request $request
-</span><span class="sd">     *
-</span><span class="sd">     * @return Response
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">listAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// (...)
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Now here is the routing configuration. We can see the <code>_legacy_controller</code> option is present with a value of <code>AdminLinkWidget</code>. This will be used for the <code>AdminSecurity</code> annotation, but also as our Tab&rsquo;s <strong>class_name</strong>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># yourmodule/config/routes.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">admin_link_block_list</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/link-widget/list</span><span class="w">
-</span><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
-</span><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\Module\LinkList\Controller\Admin\Improve\Design\LinkBlockController::listAction&#39;</span><span class="w">
-</span><span class="w">    </span><span class="c"># _legacy_controller is used to manage permissions</span><span class="w">
-</span><span class="w">    </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminLinkWidget</span><span class="w">
-</span><span class="w">    </span><span class="c"># No need for _legacy_link in this case</span><span class="w">
-</span></code></pre></div><p>Finally, here is the <code>$tabs</code> property used for automatic registration. It still requires a <code>class_name</code> field: it will be used to create the default <code>AUTHORIZATION_ROLES</code> related to this <strong>class_name</strong>, and later to check for those permissions.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// yourmodule/ps_linklist.php
-</span><span class="c1"></span><span class="k">use</span> <span class="nx">Language</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">Ps_Linklist</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span> <span class="p">{</span>
-        <span class="c1">// ...
-</span><span class="c1"></span>        <span class="nv">$tabNames</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">foreach</span> <span class="p">(</span><span class="nx">Language</span><span class="o">::</span><span class="na">getLanguages</span><span class="p">(</span><span class="k">true</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$lang</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$tabNames</span><span class="p">[</span><span class="nv">$lang</span><span class="p">[</span><span class="s1">&#39;locale&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Link List&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(),</span> <span class="s1">&#39;Modules.Linklist.Admin&#39;</span><span class="p">,</span> <span class="nv">$lang</span><span class="p">[</span><span class="s1">&#39;locale&#39;</span><span class="p">]);</span>
-        <span class="p">}</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tabs</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">[</span>
-                <span class="s1">&#39;route_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_link_block_list&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AdminLinkWidget&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;visible&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-                <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$tabNames</span><span class="p">,</span>
-                <span class="s1">&#39;parent_class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AdminParentThemes&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;wording&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Link List&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;wording_domain&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Modules.Linklist.Admin&#39;</span>
-            <span class="p">],</span>
-        <span class="p">];</span>
-        <span class="c1">// ...
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// yourmodule/src/Controller/Admin/Improve/Design
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\LinkList\Controller\Admin\Improve\Design</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Security\Annotation\AdminSecurity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// (...)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Class LinkBlockController.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> *
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @ModuleActivated(moduleName=&#34;ps_linklist&#34;, redirectRoute=&#34;admin_module_manage&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">LinkBlockController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @AdminSecurity(&#34;is_granted(&#39;read&#39;, request.get(&#39;_legacy_controller&#39;))&#34;, message=&#34;Access denied.&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param Request $request
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return Response
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">listAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// (...)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Now here is the routing configuration. We can see the <code>_legacy_controller</code> option is present with a value of <code>AdminLinkWidget</code>. This will be used for the <code>AdminSecurity</code> annotation, but also as our Tab&rsquo;s <strong>class_name</strong>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># yourmodule/config/routes.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">admin_link_block_list</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/link-widget/list</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\Module\LinkList\Controller\Admin\Improve\Design\LinkBlockController::listAction&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># _legacy_controller is used to manage permissions</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">_legacy_controller</span><span class="p">:</span><span class="w"> </span><span class="l">AdminLinkWidget</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># No need for _legacy_link in this case</span><span class="w">
+</span></span></span></code></pre></div><p>Finally, here is the <code>$tabs</code> property used for automatic registration. It still requires a <code>class_name</code> field: it will be used to create the default <code>AUTHORIZATION_ROLES</code> related to this <strong>class_name</strong>, and later to check for those permissions.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// yourmodule/ps_linklist.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">use</span> <span class="nx">Language</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Ps_Linklist</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$tabNames</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">foreach</span> <span class="p">(</span><span class="nx">Language</span><span class="o">::</span><span class="na">getLanguages</span><span class="p">(</span><span class="k">true</span><span class="p">)</span> <span class="k">as</span> <span class="nv">$lang</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$tabNames</span><span class="p">[</span><span class="nv">$lang</span><span class="p">[</span><span class="s1">&#39;locale&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Link List&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(),</span> <span class="s1">&#39;Modules.Linklist.Admin&#39;</span><span class="p">,</span> <span class="nv">$lang</span><span class="p">[</span><span class="s1">&#39;locale&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tabs</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;route_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;admin_link_block_list&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AdminLinkWidget&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;visible&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$tabNames</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;parent_class_name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;AdminParentThemes&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;wording&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Link List&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;wording_domain&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Modules.Linklist.Admin&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices note" ><p><strong>Hidden Tabs</strong></p>
 <p>Since 1.7.7, when you create a Symfony route with the <code>_legacy_controller</code> if no visible Tab has been created an invisible one is automatically created so the permissions will be correctly handled.</p>
 </div>
@@ -33723,17 +33723,17 @@ So you need to insert your tab manually during your module installation:</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163911"></script>
-    <script src="/js/jquery.sticky.js?1703163911"></script>
-    <script src="/js/featherlight.min.js?1703163911"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163911"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163911"></script>
-    <script src="/js/learn.js?1703163911"></script>
-    <script src="/js/hugo-learn.js?1703163911"></script>
+    <script src="/js/clipboard.min.js?1703164737"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164737"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164737"></script>
+    <script src="/js/jquery.sticky.js?1703164737"></script>
+    <script src="/js/featherlight.min.js?1703164737"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164737"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164737"></script>
+    <script src="/js/learn.js?1703164737"></script>
+    <script src="/js/hugo-learn.js?1703164737"></script>
     
-    <script src="/main.js?1703163911"></script>
+    <script src="/main.js?1703164737"></script>
     
     
     

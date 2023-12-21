@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Retrieve a resource :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163931" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163931" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163931" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163931" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164753" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164753" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164753" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164753" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163931" rel="stylesheet">
+    <link href="/style.css?1703164753" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163931"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164753"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33123,14 +33123,14 @@
 
 
 <h1 id="retrieve-a-resource">Retrieve a resource<a href="#retrieve-a-resource"></a></h1><p>Now that we have retrieved a list of resources let&rsquo;s see how to access the details of one resource in particular. In the XML list you can see that each individual resource as a unique ID that you can use to get its details:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;customers&gt;</span>
-        <span class="nt">&lt;customer</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/customers/1&#34;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;customer</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/customers/2&#34;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/customers&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><p>We are going to use the same <code>get()</code> method but provide an additional <code>id</code> parameter</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;customers&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;customer</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/customers/1&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;customer</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/customers/2&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/customers&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div><p>We are going to use the same <code>get()</code> method but provide an additional <code>id</code> parameter</p>
 <table>
 <thead>
 <tr>
@@ -33150,78 +33150,78 @@
 </tbody>
 </table>
 
-<h2 id="using-prestashopwebserviceget">Using PrestaShopWebservice::get<a href="#using-prestashopwebserviceget"></a></h2><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">try</span> <span class="p">{</span>
-    <span class="c1">// creating webservice access
-</span><span class="c1"></span>    <span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="s1">&#39;http://example.com/&#39;</span><span class="p">,</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
- 
-    <span class="c1">// call to retrieve customer with ID 2
-</span><span class="c1"></span>    <span class="nv">$xml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span>
-        <span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;customers&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="c1">// Here we use hard coded value but of course you could get this ID from a request parameter or anywhere else
-</span><span class="c1"></span>    <span class="p">]);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$ex</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Shows a message related to the error
-</span><span class="c1"></span>    <span class="k">echo</span> <span class="s1">&#39;Other error: &lt;br /&gt;&#39;</span> <span class="o">.</span> <span class="nv">$ex</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
+<h2 id="using-prestashopwebserviceget">Using PrestaShopWebservice::get<a href="#using-prestashopwebserviceget"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// creating webservice access
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="s1">&#39;http://example.com/&#39;</span><span class="p">,</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl">    <span class="c1">// call to retrieve customer with ID 2
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$xml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;customers&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="c1">// Here we use hard coded value but of course you could get this ID from a request parameter or anywhere else
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$ex</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Shows a message related to the error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">echo</span> <span class="s1">&#39;Other error: &lt;br /&gt;&#39;</span> <span class="o">.</span> <span class="nv">$ex</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="returned-data">Returned data<a href="#returned-data"></a></h2><p>You will receive the same xml as if you request <a href="http://example.com/api/customers/1">http://example.com/api/customers/1</a> in your browser:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;customer&gt;</span>
-        <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[2]]&gt;</span><span class="nt">&lt;/id&gt;</span>
-        <span class="nt">&lt;id_default_group</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/groups/3&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[3]]&gt;</span><span class="nt">&lt;/id_default_group&gt;</span>
-        <span class="nt">&lt;id_lang</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/languages/1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_lang&gt;</span>
-        <span class="nt">&lt;newsletter_date_add&gt;</span><span class="cp">&lt;![CDATA[2013-12-13 08:19:15]]&gt;</span><span class="nt">&lt;/newsletter_date_add&gt;</span>
-        <span class="nt">&lt;ip_registration_newsletter&gt;&lt;/ip_registration_newsletter&gt;</span>
-        <span class="nt">&lt;last_passwd_gen&gt;</span><span class="cp">&lt;![CDATA[2020-04-09 13:31:19]]&gt;</span><span class="nt">&lt;/last_passwd_gen&gt;</span>
-        <span class="nt">&lt;secure_key&gt;</span><span class="cp">&lt;![CDATA[86b9ae3ec67dd49122e3a574fc131af4]]&gt;</span><span class="nt">&lt;/secure_key&gt;</span>
-        <span class="nt">&lt;deleted&gt;</span><span class="cp">&lt;![CDATA[0]]&gt;</span><span class="nt">&lt;/deleted&gt;</span>
-        <span class="nt">&lt;passwd&gt;</span><span class="cp">&lt;![CDATA[33bdf9cf5657bf97149906b83ea3c6ed]]&gt;</span><span class="nt">&lt;/passwd&gt;</span>
-        <span class="nt">&lt;lastname&gt;</span><span class="cp">&lt;![CDATA[DOE]]&gt;</span><span class="nt">&lt;/lastname&gt;</span>
-        <span class="nt">&lt;firstname&gt;</span><span class="cp">&lt;![CDATA[John]]&gt;</span><span class="nt">&lt;/firstname&gt;</span>
-        <span class="nt">&lt;email&gt;</span><span class="cp">&lt;![CDATA[pub@prestashop.com]]&gt;</span><span class="nt">&lt;/email&gt;</span>
-        <span class="nt">&lt;id_gender&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_gender&gt;</span>
-        <span class="nt">&lt;birthday&gt;</span><span class="cp">&lt;![CDATA[1970-01-15]]&gt;</span><span class="nt">&lt;/birthday&gt;</span>
-        <span class="nt">&lt;newsletter&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/newsletter&gt;</span>
-        <span class="nt">&lt;optin&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/optin&gt;</span>
-        <span class="nt">&lt;website&gt;&lt;/website&gt;</span>
-        <span class="nt">&lt;company&gt;&lt;/company&gt;</span>
-        <span class="nt">&lt;siret&gt;&lt;/siret&gt;</span>
-        <span class="nt">&lt;ape&gt;&lt;/ape&gt;</span>
-        <span class="nt">&lt;outstanding_allow_amount&gt;</span><span class="cp">&lt;![CDATA[0.000000]]&gt;</span><span class="nt">&lt;/outstanding_allow_amount&gt;</span>
-        <span class="nt">&lt;show_public_prices&gt;</span><span class="cp">&lt;![CDATA[0]]&gt;</span><span class="nt">&lt;/show_public_prices&gt;</span>
-        <span class="nt">&lt;id_risk&gt;</span><span class="cp">&lt;![CDATA[0]]&gt;</span><span class="nt">&lt;/id_risk&gt;</span>
-        <span class="nt">&lt;max_payment_days&gt;</span><span class="cp">&lt;![CDATA[0]]&gt;</span><span class="nt">&lt;/max_payment_days&gt;</span>
-        <span class="nt">&lt;active&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/active&gt;</span>
-        <span class="nt">&lt;note&gt;&lt;/note&gt;</span>
-        <span class="nt">&lt;is_guest&gt;</span><span class="cp">&lt;![CDATA[0]]&gt;</span><span class="nt">&lt;/is_guest&gt;</span>
-        <span class="nt">&lt;id_shop&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_shop&gt;</span>
-        <span class="nt">&lt;id_shop_group&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_shop_group&gt;</span>
-        <span class="nt">&lt;date_add&gt;</span><span class="cp">&lt;![CDATA[2020-04-09 19:31:19]]&gt;</span><span class="nt">&lt;/date_add&gt;</span>
-        <span class="nt">&lt;date_upd&gt;</span><span class="cp">&lt;![CDATA[2020-04-09 19:31:19]]&gt;</span><span class="nt">&lt;/date_upd&gt;</span>
-        <span class="nt">&lt;reset_password_token&gt;&lt;/reset_password_token&gt;</span>
-        <span class="nt">&lt;reset_password_validity&gt;</span><span class="cp">&lt;![CDATA[0000-00-00 00:00:00]]&gt;</span><span class="nt">&lt;/reset_password_validity&gt;</span>
-        <span class="nt">&lt;associations&gt;</span>
-            <span class="nt">&lt;groups</span> <span class="na">nodeType=</span><span class="s">&#34;group&#34;</span> <span class="na">api=</span><span class="s">&#34;groups&#34;</span><span class="nt">&gt;</span>
-                <span class="nt">&lt;group</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/groups/3&#34;</span><span class="nt">&gt;</span>
-                    <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[3]]&gt;</span><span class="nt">&lt;/id&gt;</span>
-                <span class="nt">&lt;/group&gt;</span>
-            <span class="nt">&lt;/groups&gt;</span>
-        <span class="nt">&lt;/associations&gt;</span>
-    <span class="nt">&lt;/customer&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;customer&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[2]]&gt;</span><span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_default_group</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/groups/3&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[3]]&gt;</span><span class="nt">&lt;/id_default_group&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_lang</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/languages/1&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_lang&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;newsletter_date_add&gt;</span><span class="cp">&lt;![CDATA[2013-12-13 08:19:15]]&gt;</span><span class="nt">&lt;/newsletter_date_add&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;ip_registration_newsletter&gt;&lt;/ip_registration_newsletter&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;last_passwd_gen&gt;</span><span class="cp">&lt;![CDATA[2020-04-09 13:31:19]]&gt;</span><span class="nt">&lt;/last_passwd_gen&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;secure_key&gt;</span><span class="cp">&lt;![CDATA[86b9ae3ec67dd49122e3a574fc131af4]]&gt;</span><span class="nt">&lt;/secure_key&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;deleted&gt;</span><span class="cp">&lt;![CDATA[0]]&gt;</span><span class="nt">&lt;/deleted&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;passwd&gt;</span><span class="cp">&lt;![CDATA[33bdf9cf5657bf97149906b83ea3c6ed]]&gt;</span><span class="nt">&lt;/passwd&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;lastname&gt;</span><span class="cp">&lt;![CDATA[DOE]]&gt;</span><span class="nt">&lt;/lastname&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;firstname&gt;</span><span class="cp">&lt;![CDATA[John]]&gt;</span><span class="nt">&lt;/firstname&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;email&gt;</span><span class="cp">&lt;![CDATA[pub@prestashop.com]]&gt;</span><span class="nt">&lt;/email&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_gender&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_gender&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;birthday&gt;</span><span class="cp">&lt;![CDATA[1970-01-15]]&gt;</span><span class="nt">&lt;/birthday&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;newsletter&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/newsletter&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;optin&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/optin&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;website&gt;&lt;/website&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;company&gt;&lt;/company&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;siret&gt;&lt;/siret&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;ape&gt;&lt;/ape&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;outstanding_allow_amount&gt;</span><span class="cp">&lt;![CDATA[0.000000]]&gt;</span><span class="nt">&lt;/outstanding_allow_amount&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;show_public_prices&gt;</span><span class="cp">&lt;![CDATA[0]]&gt;</span><span class="nt">&lt;/show_public_prices&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_risk&gt;</span><span class="cp">&lt;![CDATA[0]]&gt;</span><span class="nt">&lt;/id_risk&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;max_payment_days&gt;</span><span class="cp">&lt;![CDATA[0]]&gt;</span><span class="nt">&lt;/max_payment_days&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;active&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/active&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;note&gt;&lt;/note&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;is_guest&gt;</span><span class="cp">&lt;![CDATA[0]]&gt;</span><span class="nt">&lt;/is_guest&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_shop&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_shop&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;id_shop_group&gt;</span><span class="cp">&lt;![CDATA[1]]&gt;</span><span class="nt">&lt;/id_shop_group&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;date_add&gt;</span><span class="cp">&lt;![CDATA[2020-04-09 19:31:19]]&gt;</span><span class="nt">&lt;/date_add&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;date_upd&gt;</span><span class="cp">&lt;![CDATA[2020-04-09 19:31:19]]&gt;</span><span class="nt">&lt;/date_upd&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;reset_password_token&gt;&lt;/reset_password_token&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;reset_password_validity&gt;</span><span class="cp">&lt;![CDATA[0000-00-00 00:00:00]]&gt;</span><span class="nt">&lt;/reset_password_validity&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;associations&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;groups</span> <span class="na">nodeType=</span><span class="s">&#34;group&#34;</span> <span class="na">api=</span><span class="s">&#34;groups&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;group</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/groups/3&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&lt;id&gt;</span><span class="cp">&lt;![CDATA[3]]&gt;</span><span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;/group&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/groups&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/associations&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/customer&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div>
 <h2 id="access-resource-fields">Access resource fields<a href="#access-resource-fields"></a></h2><p>You can now loop through this XML object to get each customer field value, or access specific fields individually</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$customerFields</span> <span class="o">=</span> <span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">customer</span><span class="o">-&gt;</span><span class="na">children</span><span class="p">();</span>
-<span class="nv">$firstName</span> <span class="o">=</span> <span class="nv">$customerFields</span><span class="o">-&gt;</span><span class="na">firstname</span><span class="p">;</span>
-<span class="nv">$lastName</span> <span class="o">=</span> <span class="nv">$customerFields</span><span class="o">-&gt;</span><span class="na">lastname</span><span class="p">;</span>
-<span class="k">echo</span> <span class="s1">&#39;Details for &#39;</span><span class="o">.</span> <span class="nv">$firstName</span> <span class="o">.</span> <span class="s1">&#39; &#39;</span> <span class="o">.</span> <span class="nv">$lastName</span> <span class="o">.</span> <span class="nx">PHP_EOL</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-<span class="k">foreach</span> <span class="p">(</span><span class="nv">$customerFields</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="nv">$key</span> <span class="o">.</span> <span class="s1">&#39;: &#39;</span> <span class="o">.</span> <span class="nv">$value</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$customerFields</span> <span class="o">=</span> <span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">customer</span><span class="o">-&gt;</span><span class="na">children</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$firstName</span> <span class="o">=</span> <span class="nv">$customerFields</span><span class="o">-&gt;</span><span class="na">firstname</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$lastName</span> <span class="o">=</span> <span class="nv">$customerFields</span><span class="o">-&gt;</span><span class="na">lastname</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s1">&#39;Details for &#39;</span><span class="o">.</span> <span class="nv">$firstName</span> <span class="o">.</span> <span class="s1">&#39; &#39;</span> <span class="o">.</span> <span class="nv">$lastName</span> <span class="o">.</span> <span class="nx">PHP_EOL</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">foreach</span> <span class="p">(</span><span class="nv">$customerFields</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="nv">$key</span> <span class="o">.</span> <span class="s1">&#39;: &#39;</span> <span class="o">.</span> <span class="nv">$value</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33299,17 +33299,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163931"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163931"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163931"></script>
-    <script src="/js/jquery.sticky.js?1703163931"></script>
-    <script src="/js/featherlight.min.js?1703163931"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163931"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163931"></script>
-    <script src="/js/learn.js?1703163931"></script>
-    <script src="/js/hugo-learn.js?1703163931"></script>
+    <script src="/js/clipboard.min.js?1703164753"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164753"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164753"></script>
+    <script src="/js/jquery.sticky.js?1703164753"></script>
+    <script src="/js/featherlight.min.js?1703164753"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164753"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164753"></script>
+    <script src="/js/learn.js?1703164753"></script>
+    <script src="/js/hugo-learn.js?1703164753"></script>
     
-    <script src="/main.js?1703163931"></script>
+    <script src="/main.js?1703164753"></script>
     
     
     

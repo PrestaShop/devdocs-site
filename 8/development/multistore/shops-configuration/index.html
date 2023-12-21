@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Shops configuration :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163937" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163937" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163937" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163937" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164757" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164757" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164757" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164757" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163937" rel="stylesheet">
+    <link href="/style.css?1703164757" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163937"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164757"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -7278,7 +7278,7 @@
     
     
     <li data-nav-id="/8/development/multistore/shops-configuration/" title="Shops configuration" class="dd-item
-        parent
+        
         active currentPage
         
         
@@ -33119,33 +33119,33 @@
 
 <h2 id="usage">Usage<a href="#usage"></a></h2><p>In order to fetch a configuration value in multistore context, you will need the legacy configuration adapter service <code>prestashop.adapter.legacy.configuration</code> and a ShopConstraint instance <code>PrestaShop\PrestaShop\Core\Domain\Shop\ValueObject\ShopConstraint</code>.</p>
 <p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Shop\ValueObject\ShopConstraint</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">MyController</span>
-<span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">myAction</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="c1">// ...
-</span><span class="c1"></span>
-        <span class="c1">// Get the legacy configuration adapter service
-</span><span class="c1"></span>        <span class="nv">$configuration</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.adapter.legacy.configuration&#39;</span><span class="p">);</span>
-
-        <span class="c1">// Instantiate a ShopConstraint value object
-</span><span class="c1"></span>        <span class="nv">$shopConstraint</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ShopConstraint</span><span class="p">(</span>
-            <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$order</span><span class="o">-&gt;</span><span class="na">id_shop</span><span class="p">,</span>
-            <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$order</span><span class="o">-&gt;</span><span class="na">id_shop_group</span>
-        <span class="p">);</span>
-
-        <span class="c1">// Get the needed configuration value, passing your ShopConstraint object as a third parameter
-</span><span class="c1"></span>        <span class="nv">$roundType</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_ROUND_TYPE&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$shopConstraint</span><span class="p">);</span>
-
-        <span class="c1">// ...
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Shop\ValueObject\ShopConstraint</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">myAction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Get the legacy configuration adapter service
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$configuration</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.adapter.legacy.configuration&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Instantiate a ShopConstraint value object
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$shopConstraint</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ShopConstraint</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$order</span><span class="o">-&gt;</span><span class="na">id_shop</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$order</span><span class="o">-&gt;</span><span class="na">id_shop_group</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Get the needed configuration value, passing your ShopConstraint object as a third parameter
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$roundType</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$configuration</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;PS_ROUND_TYPE&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$shopConstraint</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices note" >Note that the ShopConstraint VO is not solely dedicated to being used with the configuration service. If you write a method/function that should have different behaviors depending on a given shop / shop group, then using the ShopConstraint VO is a good idea.</div>
 
 
@@ -33270,17 +33270,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163937"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163937"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163937"></script>
-    <script src="/js/jquery.sticky.js?1703163937"></script>
-    <script src="/js/featherlight.min.js?1703163937"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163937"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163937"></script>
-    <script src="/js/learn.js?1703163937"></script>
-    <script src="/js/hugo-learn.js?1703163937"></script>
+    <script src="/js/clipboard.min.js?1703164758"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164758"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164758"></script>
+    <script src="/js/jquery.sticky.js?1703164758"></script>
+    <script src="/js/featherlight.min.js?1703164758"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164758"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164758"></script>
+    <script src="/js/learn.js?1703164758"></script>
+    <script src="/js/hugo-learn.js?1703164758"></script>
     
-    <script src="/main.js?1703163937"></script>
+    <script src="/main.js?1703164758"></script>
     
     
     

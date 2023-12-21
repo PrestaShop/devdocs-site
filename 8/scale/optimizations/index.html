@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Optimize your PrestaShop :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163926" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163926" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163926" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163926" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164748" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164748" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164748" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164748" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163926" rel="stylesheet">
+    <link href="/style.css?1703164748" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163926"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164748"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33105,8 +33105,7 @@
 <li>benchmark</li>
 <li>make a change</li>
 <li>repeat</li>
-</ul>
-</div>
+</ul></div>
 
 
 <h2 id="finding-your-bottlenecks">Finding your bottleneck(s)<a href="#finding-your-bottlenecks"></a></h2><p>Performance tuning can be a tricky thing, there are plenty of factors that can slow down an application.</p>
@@ -33124,62 +33123,62 @@ of concurrent users you want to simulate during the bench.</p>
 <div class="notices note" >Note this PHP configuration should be used on Production environments only.</div>
 
 <p>Use the following settings to optimize the performances:</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">[Date]
-date.timezone = UTC
-
-[Session]
-session.auto_start = Off
-
-[PHP]
-short_open_tag = Off
-display_errors = Off
-
-magic_quotes_gpc = off
-; Increase this value if you are able to do it
-memory_limit = 512M
-max_execution_time = 300
-max_input_time = 300
-upload_max_filesize = 20M
-post_max_size = 22M
-; Increase this value if you work with products with a lot of combinations
-max_input_vars = 20000
-allow_url_fopen = on
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[Date]
+</span></span><span class="line"><span class="cl">date.timezone = UTC
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[Session]
+</span></span><span class="line"><span class="cl">session.auto_start = Off
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">[PHP]
+</span></span><span class="line"><span class="cl">short_open_tag = Off
+</span></span><span class="line"><span class="cl">display_errors = Off
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">magic_quotes_gpc = off
+</span></span><span class="line"><span class="cl">; Increase this value if you are able to do it
+</span></span><span class="line"><span class="cl">memory_limit = 512M
+</span></span><span class="line"><span class="cl">max_execution_time = 300
+</span></span><span class="line"><span class="cl">max_input_time = 300
+</span></span><span class="line"><span class="cl">upload_max_filesize = 20M
+</span></span><span class="line"><span class="cl">post_max_size = 22M
+</span></span><span class="line"><span class="cl">; Increase this value if you work with products with a lot of combinations
+</span></span><span class="line"><span class="cl">max_input_vars = 20000
+</span></span><span class="line"><span class="cl">allow_url_fopen = on
+</span></span></code></pre></div>
 <h3 id="2-php--file-system">2) PHP &amp; File system<a href="#2-php--file-system"></a></h3><p>It is well known that PHP does not manage file systems very well.</p>
 <p>That&rsquo;s why there are plenty of useful tuning options to avoid accessing the file system constantly.</p>
 
 <h4 id="realpath_cache">realpath_cache<a href="#realpath_cache"></a></h4><p>At each file access, by default, PHP will first check that the file is still there, causing plenty of <code>lstat</code> system calls. Potentially thousands.</p>
 <p>PHP provides an option to store this information in cache, so that it can avoid repeating those system calls constantly:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">[PHP]
-realpath_cache_size = 4096K
-realpath_cache_ttl = 600
-</code></pre></div><p>Keep in mind that this configuration is NOT compatible with other parameters, such as <code>open_basedir</code> and <code>safe_mode</code> directives.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[PHP]
+</span></span><span class="line"><span class="cl">realpath_cache_size = 4096K
+</span></span><span class="line"><span class="cl">realpath_cache_ttl = 600
+</span></span></code></pre></div><p>Keep in mind that this configuration is NOT compatible with other parameters, such as <code>open_basedir</code> and <code>safe_mode</code> directives.</p>
 <p>Finally, if you&rsquo;re using a NAS or any other network storage solution to store your files (in case of horizontal scaling, for example), it is <strong>highly recommended</strong> to enable this setting.</p>
 
-<h4 id="opcache">opcache<a href="#opcache"></a></h4><p>Because file system tuning is a never ending story, not only you can cache the files' path, but also its contents.</p>
+<h4 id="opcache">opcache<a href="#opcache"></a></h4><p>Because file system tuning is a never ending story, not only you can cache the files&rsquo; path, but also its contents.</p>
 <p>Good news is, OPCache will not only store your PHP files in memory, but it will store their bytecode, meaning the already compiled application, in a shared memory, available to all the application&rsquo;s calls:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">[opcache]
-opcache.enable=1
-opcache.enable_cli=0
-opcache.memory_consumption=256
-opcache.interned_strings_buffer=32
-opcache.max_accelerated_files=16229
-opcache.max_wasted_percentage=10
-opcache.revalidate_freq=10
-opcache.fast_shutdown=1
-opcache.enable_file_override=0
-opcache.max_file_size=0
-</code></pre></div><p>If you can manage it, here are few options you could configure:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">opcache.validate_timestamps=0
-opcache.revalidate_path=0
-</code></pre></div><p>Keep in mind if you deactivate <code>validate_timestamps</code> OPCache will never update your code unless you let it know explicitly (either through internal functions or by restarting the web server).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">[opcache]
+</span></span><span class="line"><span class="cl">opcache.enable=1
+</span></span><span class="line"><span class="cl">opcache.enable_cli=0
+</span></span><span class="line"><span class="cl">opcache.memory_consumption=256
+</span></span><span class="line"><span class="cl">opcache.interned_strings_buffer=32
+</span></span><span class="line"><span class="cl">opcache.max_accelerated_files=16229
+</span></span><span class="line"><span class="cl">opcache.max_wasted_percentage=10
+</span></span><span class="line"><span class="cl">opcache.revalidate_freq=10
+</span></span><span class="line"><span class="cl">opcache.fast_shutdown=1
+</span></span><span class="line"><span class="cl">opcache.enable_file_override=0
+</span></span><span class="line"><span class="cl">opcache.max_file_size=0
+</span></span></code></pre></div><p>If you can manage it, here are few options you could configure:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">opcache.validate_timestamps=0
+</span></span><span class="line"><span class="cl">opcache.revalidate_path=0
+</span></span></code></pre></div><p>Keep in mind if you deactivate <code>validate_timestamps</code> OPCache will never update your code unless you let it know explicitly (either through internal functions or by restarting the web server).</p>
 <p>Also, your favorite ecommerce project made sure it&rsquo;s fully compatible with OPCache.</p>
 <p>Isn&rsquo;t it nice?</p>
 
 <h3 id="3-composer-autoloading-optimizations">3) Composer (Autoloading optimizations)<a href="#3-composer-autoloading-optimizations"></a></h3><p>The class loader used while developing the application is optimized to find new and changed classes. On production servers, PHP files should never change, unless a new application version is deployed. That&rsquo;s why you can optimize Composer&rsquo;s autoloader to scan the entire application once and build a &ldquo;class map&rdquo;, which is a big array of all the classes locations, stored in <code>vendor/composer/autoload_classmap.php</code>.</p>
 <p>Execute this command to generate the class map (and make it part of your deployment process):</p>
-<div class="highlight"><pre class="chroma"><code class="language-text" data-lang="text">composer dump-autoload --optimize --no-dev --classmap-authoritative
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">composer dump-autoload --optimize --no-dev --classmap-authoritative
+</span></span></code></pre></div><ul>
 <li><code>--optimize</code>: dumps every PSR-0 and PSR-4 compatible class used in your application;</li>
 <li><code>--no-dev</code>: excludes the classes that are only needed in the development environment (e.g. tests);</li>
 <li><code>--classmap-authoritative</code>: prevents Composer from scanning the file system for classes that are not found in the class map.</li>
@@ -33189,14 +33188,14 @@ opcache.revalidate_path=0
 
 
 <h3 id="4-apache-settings">4) Apache Settings<a href="#4-apache-settings"></a></h3><p>If you&rsquo;re using PHP-FPM, you should be able to use Apache mpm_event. Using the following configuration (to set in the mpm_event.conf file) should allow you to test up to 400 concurrent users:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">   ServerLimit             16
-   MaxClients              400
-   StartServers            3
-   ThreadLimit             64
-   ThreadsPerChild         25
-   MaxRequestWorkers       400
-   MaxConnectionsPerChild  0
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">   ServerLimit             16
+</span></span><span class="line"><span class="cl">   MaxClients              400
+</span></span><span class="line"><span class="cl">   StartServers            3
+</span></span><span class="line"><span class="cl">   ThreadLimit             64
+</span></span><span class="line"><span class="cl">   ThreadsPerChild         25
+</span></span><span class="line"><span class="cl">   MaxRequestWorkers       400
+</span></span><span class="line"><span class="cl">   MaxConnectionsPerChild  0
+</span></span></code></pre></div>
 <h3 id="5-mysqlmariadb-settings">5) MySQL/MariaDB Settings<a href="#5-mysqlmariadb-settings"></a></h3><p>Though we’re discussing it just now, MySQL tuning is just as important.</p>
 <p>Our intention here is to optimize the instance’s throughput by adding caches.</p>
 <p>As for PHP, it allows the service to work as much as possible in memory and avoid disk access, hence reducing latency.</p>
@@ -33204,33 +33203,32 @@ opcache.revalidate_path=0
 <h4 id="caching">Caching<a href="#caching"></a></h4><p>These parameters allow better cache information for further reuse, first by enabling it, then by increasing its size.
 Again, the idea is to keep the query results in memory rather than looking them up to the (higher latency) hard drive.</p>
 <p>As always, these values should be adjusted to your own environment, you probably won’t need a <code>host_cache_size</code> of 1000.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">query_cache_limit = 128K 
-query_cache_size = 32M
-query_cache_type = ON
-table_open_cache = 4000
-thread_cache_size = 80
-host_cache_size=1000
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">query_cache_limit = 128K 
+</span></span><span class="line"><span class="cl">query_cache_size = 32M
+</span></span><span class="line"><span class="cl">query_cache_type = ON
+</span></span><span class="line"><span class="cl">table_open_cache = 4000
+</span></span><span class="line"><span class="cl">thread_cache_size = 80
+</span></span><span class="line"><span class="cl">host_cache_size=1000
+</span></span></code></pre></div>
 <h4 id="buffering">Buffering<a href="#buffering"></a></h4><p>Buffering is almost another word for caching.</p>
 <p>So we work here with the memory area that holds cached data for InnoDB tables, indexes, and other auxiliary buffers, etc..</p>
 <p>Again, these options should be adapted to your shop.</p>
 <p>Setting up the <code>innodb_buffer_pool_size</code> to 1G may be too much for your SQL instance, just make sure you have enough memory according to the value you configure.</p>
 <p>The important thing is, if possible, to set <code>innodb_buffer_pool_size</code> to a greater value than your database size.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">read_buffer_size			= 2M 
-read_rnd_buffer_size		= 1M
-join_buffer_size			= 2M 
-sort_buffer_size 			= 2M
-innodb_buffer_pool_size 	= 1G
-
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">read_buffer_size			= 2M 
+</span></span><span class="line"><span class="cl">read_rnd_buffer_size		= 1M
+</span></span><span class="line"><span class="cl">join_buffer_size			= 2M 
+</span></span><span class="line"><span class="cl">sort_buffer_size 			= 2M
+</span></span><span class="line"><span class="cl">innodb_buffer_pool_size 	= 1G
+</span></span></code></pre></div>
 <h4 id="other-parameters">Other parameters<a href="#other-parameters"></a></h4><p>Some other parameters to increase the MySQL performance, such as disabling the performance schema (used for monitoring), memory tables and enhancing GROUP BY queries.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">performance_schema = OFF
-max_heap_table_size = 32M
-tmp_table_size = 32M
-</code></pre></div><p>Before launching the benchmark, and after importing the data, it&rsquo;s always great to launch an ANALYZE TABLE on all your
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">performance_schema = OFF
+</span></span><span class="line"><span class="cl">max_heap_table_size = 32M
+</span></span><span class="line"><span class="cl">tmp_table_size = 32M
+</span></span></code></pre></div><p>Before launching the benchmark, and after importing the data, it&rsquo;s always great to launch an ANALYZE TABLE on all your
 database by running on your server:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">mysqlcheck -a -A -uroot -pyour_password
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mysqlcheck -a -A -uroot -pyour_password
+</span></span></code></pre></div>
 <h3 id="6-use-a-cdn">6) Use a CDN<a href="#6-use-a-cdn"></a></h3><p>A CDN (Content Delivery Network) is a kind of proxy that will cache your static files and serve them instead of your own server.</p>
 <p>Hence, a CDN will reduce drastically the amount of hits made to your server.</p>
 <p>There are plenty of CDN providers, <a href="https://www.cloudflare.com">Cloudflare</a> is a good and free one. You can use as well to minify your page or to easily enable SSL on your site.</p>
@@ -33251,16 +33249,16 @@ central memcached server host (not localhost!)</li>
 <ul>
 <li>Run your shop in production mode by setting <code>_PS_MODE_DEV_</code> to <code>false</code>.</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">if (!defined(&#39;_PS_MODE_DEV_&#39;)) {
-    define(&#39;_PS_MODE_DEV_&#39;, false);
-}
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">if (!defined(&#39;_PS_MODE_DEV_&#39;)) {
+</span></span><span class="line"><span class="cl">    define(&#39;_PS_MODE_DEV_&#39;, false);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div><ul>
 <li>Disable the profiler by setting <code>_PS_DEBUG_PROFILING_</code> to <code>false</code>.</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">if (!defined(&#39;_PS_DEBUG_PROFILING_&#39;)) {
-    define(&#39;_PS_DEBUG_PROFILING_&#39;, false);
-}
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">if (!defined(&#39;_PS_DEBUG_PROFILING_&#39;)) {
+</span></span><span class="line"><span class="cl">    define(&#39;_PS_DEBUG_PROFILING_&#39;, false);
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></div>
 <h3 id="8-prestashop-database-cleaning">8) PrestaShop database cleaning<a href="#8-prestashop-database-cleaning"></a></h3><p>See <a href="https://devdocs.prestashop-project.org/8/scale/taking-care/">the Taking Care of PrestaShop page section</a>.</p>
 
 <h3 id="9-modules-optimization">9) Modules optimization<a href="#9-modules-optimization"></a></h3><p>PrestaShop can be optimized, but the other systems running on it should be optimized too! Some modules can slow your shop down especially if they are hooked on critical Front Office pages. You should benchmark and profile the modules installed on your shop as they are not always fine-tuned for optimization.</p>
@@ -33352,17 +33350,17 @@ central memcached server host (not localhost!)</li>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163926"></script>
-    <script src="/js/jquery.sticky.js?1703163926"></script>
-    <script src="/js/featherlight.min.js?1703163926"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163926"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163926"></script>
-    <script src="/js/learn.js?1703163926"></script>
-    <script src="/js/hugo-learn.js?1703163926"></script>
+    <script src="/js/clipboard.min.js?1703164748"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164748"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164748"></script>
+    <script src="/js/jquery.sticky.js?1703164748"></script>
+    <script src="/js/featherlight.min.js?1703164748"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164748"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164748"></script>
+    <script src="/js/learn.js?1703164748"></script>
+    <script src="/js/hugo-learn.js?1703164748"></script>
     
-    <script src="/main.js?1703163926"></script>
+    <script src="/main.js?1703164748"></script>
     
     
     

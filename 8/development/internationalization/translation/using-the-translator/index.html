@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Using the Translator to translate wordings :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163910" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163910" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163910" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163910" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164736" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164736" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164736" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164736" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163910" rel="stylesheet">
+    <link href="/style.css?1703164736" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163910"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164736"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33129,9 +33129,9 @@
 
 
 <h2 id="php-files">PHP files<a href="#php-files"></a></h2><p>To translate wordings in PHP files, you first need an instance of the <code>Translator</code> service (explained below). Then, you can use the <code>trans()</code> method to translate your wording:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">echo</span> <span class="nv">$translator</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;This product is no longer available.&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Shop.Notifications.Error&#39;</span><span class="p">);</span>
-</code></pre></div><p>The <code>trans()</code> method takes three arguments:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="nv">$translator</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;This product is no longer available.&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Shop.Notifications.Error&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>The <code>trans()</code> method takes three arguments:</p>
 <ol>
 <li><code>$id</code> – The wording you want to translate. Keep in mind that it has to be <em>exactly</em> the same as the one in the default catalogue, or the translation won&rsquo;t work.</li>
 <li><code>$parameters</code> – An array of replacements, if any. (<a href="https://symfony.com/doc/4.4/components/translation/usage.html#component-translation-placeholders">Learn more about translation placeholders</a>).</li>
@@ -33142,65 +33142,65 @@
 
 
 <h3 id="inside-controllers">Inside controllers<a href="#inside-controllers"></a></h3><p>Controllers include a helper method named <code>trans()</code> that calls the translator internally:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// legacy controllers
-</span><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;This product is no longer available.&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Shop.Notifications.Error&#39;</span><span class="p">);</span>
-
-<span class="c1">// Symfony-based controllers (FrameworkBundleAdminController)
-</span><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;This product is no longer available.&#39;</span><span class="p">,</span> <span class="s1">&#39;Shop.Notifications.Error&#39;</span><span class="p">,</span> <span class="p">[]);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// legacy controllers
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;This product is no longer available.&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Shop.Notifications.Error&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Symfony-based controllers (FrameworkBundleAdminController)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;This product is no longer available.&#39;</span><span class="p">,</span> <span class="s1">&#39;Shop.Notifications.Error&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+</span></span></code></pre></div>
 <h3 id="outside-controllers">Outside controllers<a href="#outside-controllers"></a></h3><p>If you are outside a controller, and after careful consideration you think you absolutely need some stuff translated, then you can add it as a dependency of your class:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// SomeService.php
-</span><span class="c1"></span>
-<span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Foo\Bar</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Symfony\Component\Translation\TranslatorInterface</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">SomeService</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="nv">$translator</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">TranslatorInterface</span> <span class="nv">$translator</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">translator</span> <span class="o">=</span> <span class="nv">$translator</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Then, inject it into your service using the Dependency Container:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># services.yml</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="nt">prestashop.core.foo.bar.some_service</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Foo\Bar\SomeService&#39;</span><span class="w">
-</span><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s1">&#39;@translator&#39;</span><span class="w">
-</span></code></pre></div><p>And finally, use the translator at will:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// SomeService.php
-</span><span class="c1"></span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">translator</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;This product is no longer available.&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Shop.Notifications.Error&#39;</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// SomeService.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Foo\Bar</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Translation\TranslatorInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SomeService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$translator</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">TranslatorInterface</span> <span class="nv">$translator</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">translator</span> <span class="o">=</span> <span class="nv">$translator</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Then, inject it into your service using the Dependency Container:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">prestashop.core.foo.bar.some_service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Foo\Bar\SomeService&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@translator&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>And finally, use the translator at will:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// SomeService.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">translator</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;This product is no longer available.&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Shop.Notifications.Error&#39;</span><span class="p">);</span>
+</span></span></code></pre></div>
 <h2 id="smarty-templates">Smarty templates<a href="#smarty-templates"></a></h2><p>In <code>.tpl</code> files, use the <code>l</code> (lower case &ldquo;L&rdquo;) macro:</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>{l s=&#39;This product is no longer available.&#39; d=&#39;Shop.Notifications.Error&#39;}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div><p>If you have have replacements to peform in your wording, then there are two options:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>{l s=&#39;This product is no longer available.&#39; d=&#39;Shop.Notifications.Error&#39;}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>If you have have replacements to peform in your wording, then there are two options:</p>
 <ol>
 <li>
 <p>Anonymous placeholders (eg. <code>%s</code>)</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>{l s=&#39;List of products by supplier %s&#39; sprintf=[$supplier.name] d=&#39;Shop.Theme.Catalog&#39;}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>{l s=&#39;List of products by supplier %s&#39; sprintf=[$supplier.name] d=&#39;Shop.Theme.Catalog&#39;}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></div></li>
 <li>
 <p>Named placeholders (eg. <code>%my_placeholder%</code>)</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>{l s=&#39;There are %products_count% items in your cart.&#39; sprintf=[&#39;%products_count%&#39; =&gt; $cart.products_count] d=&#39;Shop.Theme.Checkout&#39;}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>{l s=&#39;There are %products_count% items in your cart.&#39; sprintf=[&#39;%products_count%&#39; =&gt; $cart.products_count] d=&#39;Shop.Theme.Checkout&#39;}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></span></code></pre></div></li>
 </ol>
 <p><strong>Note:</strong> The <code>l</code> macro does not support escaping the strings for javascript. Instead you can assign the translation to a variable and escape it afterwards:</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html">{assign var=&#39;translatedString&#39; value={l s=&#39;Text containing single quote&#39; d=&#39;Modules.Mymodule.Shop&#39;}}
-<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="kd">var</span> <span class="nx">text</span><span class="o">=</span><span class="s1">&#39;{$translatedString|escape:&#39;</span><span class="nx">javascript</span><span class="s1">&#39;}&#39;</span><span class="p">;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{assign var=&#39;translatedString&#39; value={l s=&#39;Text containing single quote&#39; d=&#39;Modules.Mymodule.Shop&#39;}}
+</span></span><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="kd">var</span> <span class="nx">text</span><span class="o">=</span><span class="s1">&#39;{$translatedString|escape:&#39;</span><span class="nx">javascript</span><span class="s1">&#39;}&#39;</span><span class="p">;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div>
 <h2 id="twig-templates">Twig templates<a href="#twig-templates"></a></h2><p>In <code>.twig</code> files, you can use the <code>trans</code> filter from Twig:</p>
-<div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="x">&lt;div&gt;</span><span class="cp">{{</span> <span class="s1">&#39;This product is no longer available.&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;Shop.Notifications.Error&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/div&gt;
-</span></code></pre></div><p>You can also use named placeholders:</p>
-<div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="x">&lt;div&gt;</span><span class="cp">{{</span> <span class="s1">&#39;There are %products_count% items in your cart.&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({</span><span class="s1">&#39;%products_count%&#39;</span><span class="o">:</span> <span class="nv">cart.products_count</span><span class="o">},</span> <span class="s1">&#39;Shop.Theme.Checkout&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/div&gt;
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="x">&lt;div&gt;</span><span class="cp">{{</span> <span class="s1">&#39;This product is no longer available.&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;Shop.Notifications.Error&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/div&gt;
+</span></span></span></code></pre></div><p>You can also use named placeholders:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="x">&lt;div&gt;</span><span class="cp">{{</span> <span class="s1">&#39;There are %products_count% items in your cart.&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({</span><span class="s1">&#39;%products_count%&#39;</span><span class="o">:</span> <span class="nv">cart.products_count</span><span class="o">},</span> <span class="s1">&#39;Shop.Theme.Checkout&#39;</span><span class="o">)</span> <span class="cp">}}</span><span class="x">&lt;/div&gt;
+</span></span></span></code></pre></div>
 <div class="notices note" >For information on more advanced Twig translation features, head on to the <a href="https://symfony.com/doc/4.4/translation.html#twig-templates">Symfony translator component&rsquo;s documentation</a>.</div>
 
 
@@ -33281,17 +33281,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163910"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163910"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163910"></script>
-    <script src="/js/jquery.sticky.js?1703163910"></script>
-    <script src="/js/featherlight.min.js?1703163910"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163910"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163910"></script>
-    <script src="/js/learn.js?1703163910"></script>
-    <script src="/js/hugo-learn.js?1703163910"></script>
+    <script src="/js/clipboard.min.js?1703164736"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164736"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164736"></script>
+    <script src="/js/jquery.sticky.js?1703164736"></script>
+    <script src="/js/featherlight.min.js?1703164736"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164736"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164736"></script>
+    <script src="/js/learn.js?1703164736"></script>
+    <script src="/js/hugo-learn.js?1703164736"></script>
     
-    <script src="/main.js?1703163910"></script>
+    <script src="/main.js?1703164736"></script>
     
     
     

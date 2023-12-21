@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Setup library :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163931" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163931" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163931" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163931" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164753" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164753" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164753" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164753" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163931" rel="stylesheet">
+    <link href="/style.css?1703164753" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163931"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164753"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33138,37 +33138,37 @@
 </ul>
 
 <h3 id="installing-with-composer">Installing with Composer<a href="#installing-with-composer"></a></h3><p>If you are starting a new project you can init your composer project along with the dependency:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">composer init --require<span class="o">=</span><span class="s2">&#34;prestashop/prestashop-webservice-lib:dev-master&#34;</span> -n
-composer install
-</code></pre></div><p>Or if you already have an existing project simply add the dependency:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">composer require prestashop/prestashop-webservice-lib
-</code></pre></div><p>The library is not PSR compliant and has no namespace therefore you need to update your <code>composer.json</code> file to include the class in your <code>autoload</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-    <span class="nt">&#34;require&#34;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;prestashop/prestashop-webservice-lib&#34;</span><span class="p">:</span> <span class="s2">&#34;dev-master&#34;</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;autoload&#34;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;files&#34;</span><span class="p">:</span> <span class="p">[</span>
-            <span class="s2">&#34;vendor/prestashop/prestashop-webservice-lib/PSWebServiceLibrary.php&#34;</span>
-        <span class="p">]</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>And regenerate your <code>autoload</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">composer dump-autoload
-</code></pre></div><p>Then you can use the library with Composer&rsquo;s autoloading:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./vendor/autoload.php&#39;</span><span class="p">);</span>
-
-<span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">composer init --require<span class="o">=</span><span class="s2">&#34;prestashop/prestashop-webservice-lib:dev-master&#34;</span> -n
+</span></span><span class="line"><span class="cl">composer install
+</span></span></code></pre></div><p>Or if you already have an existing project simply add the dependency:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">composer require prestashop/prestashop-webservice-lib
+</span></span></code></pre></div><p>The library is not PSR compliant and has no namespace therefore you need to update your <code>composer.json</code> file to include the class in your <code>autoload</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;require&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;prestashop/prestashop-webservice-lib&#34;</span><span class="p">:</span> <span class="s2">&#34;dev-master&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;autoload&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;files&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;vendor/prestashop/prestashop-webservice-lib/PSWebServiceLibrary.php&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>And regenerate your <code>autoload</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">composer dump-autoload
+</span></span></code></pre></div><p>Then you can use the library with Composer&rsquo;s autoloading:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./vendor/autoload.php&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+</span></span></code></pre></div>
 <h3 id="manual-install">Manual install<a href="#manual-install"></a></h3><p>If you don&rsquo;t use composer you can download the <a href="https://github.com/PrestaShop/PrestaShop-webservice-lib/archive/master.zip">library archive</a> and extract it where you need.
 You will then need to manually load the <code>PSWebServiceLibrary</code> in your PHP script or application:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./PSWebServiceLibrary.php&#39;</span><span class="p">);</span>
-
-<span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;./PSWebServiceLibrary.php&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="o">...</span><span class="p">);</span>
+</span></span></code></pre></div>
 <h2 id="accessing-the-webservice">Accessing the webservice<a href="#accessing-the-webservice"></a></h2>
 <h3 id="create-your-client">Create your client<a href="#create-your-client"></a></h3><p>First, you must create an instance of the <code>PrestaShopWebservice</code> object, which takes 3 parameters in its constructor:</p>
 <ul>
@@ -33176,9 +33176,9 @@ You will then need to manually load the <code>PSWebServiceLibrary</code> in your
 <li>The authentication key (ex: ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT).</li>
 <li>A boolean value, indicating whether the Webservice must use its debug mode.</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="s1">&#39;http://example.com/&#39;</span><span class="p">,</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
-</code></pre></div><p>Once the instance is created you can access the following methods:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="s1">&#39;http://example.com/&#39;</span><span class="p">,</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</span></span></code></pre></div><p>Once the instance is created you can access the following methods:</p>
 <table>
 <thead>
 <tr>
@@ -33217,18 +33217,18 @@ You will then need to manually load the <code>PSWebServiceLibrary</code> in your
 <h3 id="handling-errors">Handling errors<a href="#handling-errors"></a></h3><p>It is essential that you understand how to handle errors with the webservice library. By implementing error-catch method early, you will more easily detect issues, and be able to correct them on the go.</p>
 <p>Error handling with the webservice library is done using PHP exceptions. If you do not know about them, you should <a href="http://php.net/manual/en/language.exceptions.php">read about it</a>, as exceptions are an essential part of good coding practices.</p>
 <p>The error handling is done within a <code>try...catch</code> block, with the webservice instantiation and execution being done in the <code>try</code> section, the <code>catch</code> one containing the error handling code. There are many types of exception that exist you can catch specific ones which allows you to deal with each error case accordingly, the webservice library uses <code>PrestaShopWebserviceException</code> so you can catch this one only to deal with errors related to webservice.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">try</span> <span class="p">{</span>
-    <span class="c1">// creating webservice access
-</span><span class="c1"></span>    <span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="s1">&#39;http://example.com/&#39;</span><span class="p">,</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
-
-    <span class="c1">// call to retrieve all customers
-</span><span class="c1"></span>    <span class="nv">$xml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;customers&#39;</span><span class="p">]);</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$ex</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Shows a message related to the error
-</span><span class="c1"></span>    <span class="k">echo</span> <span class="s1">&#39;Other error: &lt;br /&gt;&#39;</span> <span class="o">.</span> <span class="nv">$ex</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// creating webservice access
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="s1">&#39;http://example.com/&#39;</span><span class="p">,</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// call to retrieve all customers
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$xml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;customers&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$ex</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Shows a message related to the error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">echo</span> <span class="s1">&#39;Other error: &lt;br /&gt;&#39;</span> <span class="o">.</span> <span class="nv">$ex</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -33306,17 +33306,17 @@ You will then need to manually load the <code>PSWebServiceLibrary</code> in your
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163932"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163932"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163932"></script>
-    <script src="/js/jquery.sticky.js?1703163932"></script>
-    <script src="/js/featherlight.min.js?1703163932"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163932"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163932"></script>
-    <script src="/js/learn.js?1703163932"></script>
-    <script src="/js/hugo-learn.js?1703163932"></script>
+    <script src="/js/clipboard.min.js?1703164753"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164753"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164753"></script>
+    <script src="/js/jquery.sticky.js?1703164753"></script>
+    <script src="/js/featherlight.min.js?1703164753"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164753"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164753"></script>
+    <script src="/js/learn.js?1703164753"></script>
+    <script src="/js/hugo-learn.js?1703164753"></script>
     
-    <script src="/main.js?1703163932"></script>
+    <script src="/main.js?1703164753"></script>
     
     
     

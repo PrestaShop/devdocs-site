@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Configuration forms :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/multistore/configuration-forms/">
     
-    <link href="/css/font-awesome.min.css?1703163933" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163933" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163933" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163933" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164754" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164754" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164754" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164754" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163933" rel="stylesheet">
+    <link href="/style.css?1703164754" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163933"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164754"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -5909,7 +5909,7 @@
     
     
     <li data-nav-id="/1.7/development/multistore/configuration-forms/" title="Configuration forms" class="dd-item
-        parent
+        
         active currentPage
         
         
@@ -30285,45 +30285,45 @@
 
 <p>A Symfony form extension called <code>MultistoreConfigurationTypeExtension</code> has been created in order to make it easy to add multistore checkboxes to a configuration form.</p>
 <p>In order to extend this form extension, your Symfony form type must implement a <code>getParent()</code> method returning <code>MultistoreConfigurationType::class</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     *
-</span><span class="sd">     * @see MultistoreConfigurationTypeExtension
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getParent</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">MultistoreConfigurationType</span><span class="o">::</span><span class="na">class</span><span class="p">;</span>
-    <span class="p">}</span>
-</code></pre></div><p>Then for each form element that should have its multistore checkbox, you must add a <code>multistore_configuration_key</code> option, with the configuration key to which it should be attached as a value:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">MyFormType</span> <span class="k">extends</span> <span class="nx">TranslatorAwareType</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">buildForm</span><span class="p">(</span><span class="nx">FormBuilderInterface</span> <span class="nv">$builder</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$options</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$builder</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
-                <span class="s1">&#39;my_field&#39;</span><span class="p">,</span>
-                <span class="nx">SwitchType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
-                <span class="p">[</span>
-                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-                    <span class="c1">// Here we add the multistore_configuration_key option with the configuration key it is linked to.
-</span><span class="c1"></span>                    <span class="s1">&#39;multistore_configuration_key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;THE_CONFIGURATION_KEY&#39;</span><span class="p">,</span>
-                    <span class="c1">// ...
-</span><span class="c1"></span>                <span class="p">]</span>
-            <span class="p">)</span>
-        <span class="c1">// ...
-</span></code></pre></div><p>Last but not least, you must make the frontend aware of these state modifications, you need to add the <code>MultistoreConfigField</code> in your javascript:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nb">window</span><span class="p">.</span><span class="nx">prestashop</span><span class="p">.</span><span class="nx">component</span><span class="p">.</span><span class="nx">initComponents</span><span class="p">(</span>
-    <span class="p">[</span>
-        <span class="s1">&#39;MultistoreConfigField&#39;</span><span class="p">,</span>
-    <span class="p">],</span>
-<span class="p">);</span>
-</code></pre></div><p>Doing this will have several effects:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @see MultistoreConfigurationTypeExtension
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getParent</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">MultistoreConfigurationType</span><span class="o">::</span><span class="na">class</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>Then for each form element that should have its multistore checkbox, you must add a <code>multistore_configuration_key</code> option, with the configuration key to which it should be attached as a value:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyFormType</span> <span class="k">extends</span> <span class="nx">TranslatorAwareType</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">buildForm</span><span class="p">(</span><span class="nx">FormBuilderInterface</span> <span class="nv">$builder</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$options</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$builder</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;my_field&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">SwitchType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// Here we add the multistore_configuration_key option with the configuration key it is linked to.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                    <span class="s1">&#39;multistore_configuration_key&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;THE_CONFIGURATION_KEY&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span></code></pre></div><p>Last but not least, you must make the frontend aware of these state modifications, you need to add the <code>MultistoreConfigField</code> in your javascript:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nb">window</span><span class="p">.</span><span class="nx">prestashop</span><span class="p">.</span><span class="nx">component</span><span class="p">.</span><span class="nx">initComponents</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;MultistoreConfigField&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span></code></pre></div><p>Doing this will have several effects:</p>
 <ul>
 <li>Each field having the <code>multistore_configuration_key</code> option will have a multistore checkbox on its left and a multistore dropdown on its right;</li>
 <li>Checkboxes will automatically be checked or not depending on the configuration for the current shop context;</li>
@@ -30341,40 +30341,40 @@
 <ul>
 <li><strong><code>getShopConstraint()</code>:</strong> this will give you a ShopConstraint object reflecting the current context or null</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">getShopConstraint</span><span class="p">()</span><span class="o">:</span> <span class="o">?</span><span class="nx">ShopConstraint</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">getShopConstraint</span><span class="p">()</span><span class="o">:</span> <span class="o">?</span><span class="nx">ShopConstraint</span>
+</span></span></code></pre></div><ul>
 <li><strong><code>updateConfigurationValue()</code>:</strong> this will save or delete the configuration value for the given configuration key, and is aware of the multistore checkbox and the current shop context. Note that this helper method is fully compatible with not-multistore fields.</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">updateConfigurationValue</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$configurationKey</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$fieldName</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$input</span><span class="p">,</span> <span class="o">?</span><span class="nx">ShopConstraint</span> <span class="nv">$shopConstraint</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$options</span> <span class="o">=</span> <span class="p">[])</span><span class="o">:</span> <span class="nx">void</span>
-</code></pre></div><p>As an example, see how it is used in the <code>MaintenanceConfiguration</code> class</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="sd">/**
-</span><span class="sd"> * This class loads and saves data configuration for the Maintenance page.
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">MaintenanceConfiguration</span> <span class="k">extends</span> <span class="nx">AbstractMultistoreConfiguration</span>
-<span class="p">{</span>
-
-    <span class="c1">// .... data loading doesn&#39;t change
-</span><span class="c1"></span>
-
-    <span class="sd">/**
-</span><span class="sd">     * {@inheritdoc}
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">updateConfiguration</span><span class="p">(</span><span class="k">array</span> <span class="nv">$configurationInputValues</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$shopConstraint</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getShopConstraint</span><span class="p">();</span>
-
-        <span class="c1">// note that $configurationInputValues is an associative array where keys are field names and values are field values, it&#39;s the data coming from the form
-</span><span class="c1"></span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">updateConfigurationValue</span><span class="p">(</span><span class="s1">&#39;PS_SHOP_ENABLE&#39;</span><span class="p">,</span> <span class="s1">&#39;enable_shop&#39;</span><span class="p">,</span> <span class="nv">$configurationInputValues</span><span class="p">,</span> <span class="nv">$shopConstraint</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">updateConfigurationValue</span><span class="p">(</span><span class="s1">&#39;PS_MAINTENANCE_IP&#39;</span><span class="p">,</span> <span class="s1">&#39;maintenance_ip&#39;</span><span class="p">,</span> <span class="nv">$configurationInputValues</span><span class="p">,</span> <span class="nv">$shopConstraint</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">updateConfigurationValue</span><span class="p">(</span><span class="s1">&#39;PS_MAINTENANCE_TEXT&#39;</span><span class="p">,</span> <span class="s1">&#39;maintenance_text&#39;</span><span class="p">,</span> <span class="nv">$configurationInputValues</span><span class="p">,</span> <span class="nv">$shopConstraint</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;html&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">]);</span>
-
-        <span class="k">return</span> <span class="p">[];</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>As you can see, by using these two helper methods you can easily store your configuration values in a multistore context.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">updateConfigurationValue</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$configurationKey</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$fieldName</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$input</span><span class="p">,</span> <span class="o">?</span><span class="nx">ShopConstraint</span> <span class="nv">$shopConstraint</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$options</span> <span class="o">=</span> <span class="p">[])</span><span class="o">:</span> <span class="nx">void</span>
+</span></span></code></pre></div><p>As an example, see how it is used in the <code>MaintenanceConfiguration</code> class</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * This class loads and saves data configuration for the Maintenance page.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MaintenanceConfiguration</span> <span class="k">extends</span> <span class="nx">AbstractMultistoreConfiguration</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// .... data loading doesn&#39;t change
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * {@inheritdoc}
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">updateConfiguration</span><span class="p">(</span><span class="k">array</span> <span class="nv">$configurationInputValues</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$shopConstraint</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getShopConstraint</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// note that $configurationInputValues is an associative array where keys are field names and values are field values, it&#39;s the data coming from the form
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">updateConfigurationValue</span><span class="p">(</span><span class="s1">&#39;PS_SHOP_ENABLE&#39;</span><span class="p">,</span> <span class="s1">&#39;enable_shop&#39;</span><span class="p">,</span> <span class="nv">$configurationInputValues</span><span class="p">,</span> <span class="nv">$shopConstraint</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">updateConfigurationValue</span><span class="p">(</span><span class="s1">&#39;PS_MAINTENANCE_IP&#39;</span><span class="p">,</span> <span class="s1">&#39;maintenance_ip&#39;</span><span class="p">,</span> <span class="nv">$configurationInputValues</span><span class="p">,</span> <span class="nv">$shopConstraint</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">updateConfigurationValue</span><span class="p">(</span><span class="s1">&#39;PS_MAINTENANCE_TEXT&#39;</span><span class="p">,</span> <span class="s1">&#39;maintenance_text&#39;</span><span class="p">,</span> <span class="nv">$configurationInputValues</span><span class="p">,</span> <span class="nv">$shopConstraint</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;html&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>As you can see, by using these two helper methods you can easily store your configuration values in a multistore context.</p>
 
 
 
@@ -30455,17 +30455,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163933"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163933"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163933"></script>
-    <script src="/js/jquery.sticky.js?1703163933"></script>
-    <script src="/js/featherlight.min.js?1703163933"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163933"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163933"></script>
-    <script src="/js/learn.js?1703163933"></script>
-    <script src="/js/hugo-learn.js?1703163933"></script>
+    <script src="/js/clipboard.min.js?1703164754"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164754"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164754"></script>
+    <script src="/js/jquery.sticky.js?1703164754"></script>
+    <script src="/js/featherlight.min.js?1703164754"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164754"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164754"></script>
+    <script src="/js/learn.js?1703164754"></script>
+    <script src="/js/hugo-learn.js?1703164754"></script>
     
-    <script src="/main.js?1703163933"></script>
+    <script src="/main.js?1703164754"></script>
     
     
     

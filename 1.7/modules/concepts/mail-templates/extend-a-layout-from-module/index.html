@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to extend a layout in a theme from a module :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/concepts/mail-templates/extend-a-layout-from-module/">
     
-    <link href="/css/font-awesome.min.css?1703163894" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163894" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163894" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163894" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164721" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164721" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164721" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164721" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163894" rel="stylesheet">
+    <link href="/style.css?1703164721" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163894"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164721"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30276,94 +30276,94 @@
 
 <h1 id="how-to-extend-a-layout-in-a-theme-from-a-module">How to extend a layout in a theme from a module<a href="#how-to-extend-a-layout-in-a-theme-from-a-module"></a></h1><p>Sometimes you may want to use the provided email theme but you would like to add some information or change the header/footer. One of the advantages of new theme layouts is that they use Twig so you can take advantage of its extension and blocks features.</p>
 
-<h2 id="layout">Layout<a href="#layout"></a></h2><div class="highlight"><pre class="chroma"><code class="language-twig" data-lang="twig"><span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;@MailThemes/modern/core/order_conf.html.twig&#39;</span> <span class="cp">%}</span><span class="x">
-</span><span class="x">
-</span><span class="x"></span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span><span class="x">
-</span><span class="x">  </span><span class="cp">{{</span> <span class="nb">parent</span><span class="o">()</span> <span class="cp">}}</span><span class="x">
-</span><span class="x">  &lt;table width=&#34;100%&#34;&gt;
-</span><span class="x">    &lt;tr&gt;
-</span><span class="x">      &lt;td align=&#34;center&#34; class=&#34;titleblock&#34; style=&#34;border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; direction: ltr; font-size: 0px; padding: 0 50px; text-align: center; vertical-align: top;&#34;&gt;
-</span><span class="x">        &lt;div  style=&#34;font-family:Open sans, arial, sans-serif;font-size:14px;line-height:25px;text-align:left;color:#555454;&#34;&gt;
-</span><span class="x">          </span><span class="cp">{{</span> <span class="s1">&#39;Thank you for purchasing this product on our store. Feel free to leave us a review if you are happy of this product:&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;EmailsBody&#39;</span><span class="o">,</span> <span class="nv">locale</span><span class="o">)|</span><span class="nf">raw</span> <span class="cp">}}</span><span class="x">
-</span><span class="x">          &lt;a href=&#34;{shop_url}/post_review&#34;&gt;</span><span class="cp">{{</span> <span class="s1">&#39;Post a review&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;EmailsBody&#39;</span><span class="o">,</span> <span class="nv">locale</span><span class="o">)|</span><span class="nf">raw</span> <span class="cp">}}</span><span class="x">&lt;/a&gt;
-</span><span class="x">        &lt;/font&gt;
-</span><span class="x">      &lt;/td&gt;
-</span><span class="x">    &lt;/tr&gt;
-</span><span class="x">  &lt;/table&gt;
-</span><span class="x"></span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x">
-</span></code></pre></div>
+<h2 id="layout">Layout<a href="#layout"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;@MailThemes/modern/core/order_conf.html.twig&#39;</span> <span class="cp">%}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{%</span> <span class="k">block</span> <span class="nv">content</span> <span class="cp">%}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">  </span><span class="cp">{{</span> <span class="nb">parent</span><span class="o">()</span> <span class="cp">}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">  &lt;table width=&#34;100%&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;tr&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">      &lt;td align=&#34;center&#34; class=&#34;titleblock&#34; style=&#34;border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; direction: ltr; font-size: 0px; padding: 0 50px; text-align: center; vertical-align: top;&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">        &lt;div  style=&#34;font-family:Open sans, arial, sans-serif;font-size:14px;line-height:25px;text-align:left;color:#555454;&#34;&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">          </span><span class="cp">{{</span> <span class="s1">&#39;Thank you for purchasing this product on our store. Feel free to leave us a review if you are happy of this product:&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;EmailsBody&#39;</span><span class="o">,</span> <span class="nv">locale</span><span class="o">)|</span><span class="nf">raw</span> <span class="cp">}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">          &lt;a href=&#34;{shop_url}/post_review&#34;&gt;</span><span class="cp">{{</span> <span class="s1">&#39;Post a review&#39;</span><span class="o">|</span><span class="nf">trans</span><span class="o">({},</span> <span class="s1">&#39;EmailsBody&#39;</span><span class="o">,</span> <span class="nv">locale</span><span class="o">)|</span><span class="nf">raw</span> <span class="cp">}}</span><span class="x">&lt;/a&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">        &lt;/font&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">      &lt;/td&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">    &lt;/tr&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x">  &lt;/table&gt;
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x">
+</span></span></span></code></pre></div>
 <h2 id="using-the-hook">Using the hook<a href="#using-the-hook"></a></h2><p>Now you need to add your layout to the theme&rsquo;s layout collection, in order to do so you will use
 the <code>actionListMailThemes</code> hook.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\Layout\LayoutInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeCatalogInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeCollectionInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeInterface</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">MyEmailThemeModule</span> <span class="k">extends</span> <span class="nx">Module</span> 
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span> 
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span>
-            <span class="c1">// This class constant contains &#39;actionListMailThemes&#39;
-</span><span class="c1"></span>            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span> 
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">()</span>
-            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">unregisterHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">enable</span><span class="p">()</span> 
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">enable</span><span class="p">()</span>
-            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">disable</span><span class="p">()</span> 
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">disable</span><span class="p">()</span>
-            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">unregisterHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
-        <span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param array $hookParams
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionListMailThemes</span><span class="p">(</span><span class="k">array</span> <span class="nv">$hookParams</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;mailThemes&#39;</span><span class="p">]))</span> <span class="p">{</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="sd">/** @var ThemeCollectionInterface $themes */</span>
-        <span class="nv">$themes</span> <span class="o">=</span> <span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;mailThemes&#39;</span><span class="p">];</span>
-        <span class="nv">$theme</span> <span class="o">=</span> <span class="nv">$themes</span><span class="o">-&gt;</span><span class="na">getByName</span><span class="p">(</span><span class="s1">&#39;modern&#39;</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$theme</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="c1">// First parameter is the layout name, second one is the module name (empty value matches the core layouts)
-</span><span class="c1"></span>        <span class="nv">$orderConfLayout</span> <span class="o">=</span> <span class="nv">$theme</span><span class="o">-&gt;</span><span class="na">getLayouts</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getLayout</span><span class="p">(</span><span class="s1">&#39;order_conf&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="o">===</span> <span class="nv">$orderConfLayout</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="c1">//The layout collection extends from ArrayCollection so it has more feature than it seems..
-</span><span class="c1"></span>        <span class="c1">//It allows to REPLACE the existing layout easily
-</span><span class="c1"></span>        <span class="nv">$orderIndex</span> <span class="o">=</span> <span class="nv">$theme</span><span class="o">-&gt;</span><span class="na">getLayouts</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">indexOf</span><span class="p">(</span><span class="nv">$orderConfLayout</span><span class="p">);</span>
-        <span class="nv">$theme</span><span class="o">-&gt;</span><span class="na">getLayouts</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">offsetSet</span><span class="p">(</span><span class="nv">$orderIndex</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Layout</span><span class="p">(</span>
-            <span class="nv">$orderConfLayout</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">(),</span>
-            <span class="no">__DIR__</span> <span class="o">.</span> <span class="s1">&#39;/mails/layouts/order_conf.html.twig&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;&#39;</span>
-        <span class="p">));</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>You can then go to the &ldquo;Design &gt; Email Theme&rdquo; page and preview the <code>modern</code> <strong>order_conf</strong> layout.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\Layout\LayoutInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeCatalogInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeCollectionInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\MailTemplate\ThemeInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyEmailThemeModule</span> <span class="k">extends</span> <span class="nx">Module</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// This class constant contains &#39;actionListMailThemes&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">unregisterHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">enable</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">enable</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">disable</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">disable</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">unregisterHook</span><span class="p">(</span><span class="nx">ThemeCatalogInterface</span><span class="o">::</span><span class="na">LIST_MAIL_THEMES_HOOK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $hookParams
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionListMailThemes</span><span class="p">(</span><span class="k">array</span> <span class="nv">$hookParams</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;mailThemes&#39;</span><span class="p">]))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var ThemeCollectionInterface $themes */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$themes</span> <span class="o">=</span> <span class="nv">$hookParams</span><span class="p">[</span><span class="s1">&#39;mailThemes&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$theme</span> <span class="o">=</span> <span class="nv">$themes</span><span class="o">-&gt;</span><span class="na">getByName</span><span class="p">(</span><span class="s1">&#39;modern&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$theme</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// First parameter is the layout name, second one is the module name (empty value matches the core layouts)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$orderConfLayout</span> <span class="o">=</span> <span class="nv">$theme</span><span class="o">-&gt;</span><span class="na">getLayouts</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getLayout</span><span class="p">(</span><span class="s1">&#39;order_conf&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="k">null</span> <span class="o">===</span> <span class="nv">$orderConfLayout</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//The layout collection extends from ArrayCollection so it has more feature than it seems..
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//It allows to REPLACE the existing layout easily
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$orderIndex</span> <span class="o">=</span> <span class="nv">$theme</span><span class="o">-&gt;</span><span class="na">getLayouts</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">indexOf</span><span class="p">(</span><span class="nv">$orderConfLayout</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$theme</span><span class="o">-&gt;</span><span class="na">getLayouts</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">offsetSet</span><span class="p">(</span><span class="nv">$orderIndex</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Layout</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$orderConfLayout</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="no">__DIR__</span> <span class="o">.</span> <span class="s1">&#39;/mails/layouts/order_conf.html.twig&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>You can then go to the &ldquo;Design &gt; Email Theme&rdquo; page and preview the <code>modern</code> <strong>order_conf</strong> layout.</p>
 <figure><img src="../img/extended_order_conf_layout.png"/><figcaption>
             <h4>Your order_conf layout has been extended&#39; layout list</h4>
         </figcaption>
@@ -30447,17 +30447,17 @@ the <code>actionListMailThemes</code> hook.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163894"></script>
-    <script src="/js/jquery.sticky.js?1703163894"></script>
-    <script src="/js/featherlight.min.js?1703163894"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163894"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163894"></script>
-    <script src="/js/learn.js?1703163894"></script>
-    <script src="/js/hugo-learn.js?1703163894"></script>
+    <script src="/js/clipboard.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164721"></script>
+    <script src="/js/jquery.sticky.js?1703164721"></script>
+    <script src="/js/featherlight.min.js?1703164721"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164721"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164721"></script>
+    <script src="/js/learn.js?1703164721"></script>
+    <script src="/js/hugo-learn.js?1703164721"></script>
     
-    <script src="/main.js?1703163894"></script>
+    <script src="/main.js?1703164721"></script>
     
     
     

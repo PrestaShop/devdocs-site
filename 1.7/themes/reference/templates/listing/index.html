@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Listing pages :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/themes/reference/templates/listing/">
     
-    <link href="/css/font-awesome.min.css?1703163896" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163896" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163896" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163896" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164723" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164723" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164723" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164723" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163896" rel="stylesheet">
+    <link href="/style.css?1703164723" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163896"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164723"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30310,24 +30310,24 @@ end javascript is only used to replace the content of HTML placeholders.</p>
 
 <h3 id="how-to-update-the-view">How to update the view<a href="#how-to-update-the-view"></a></h3><p>PrestaShop will emit JavaScript events to let you know what to do something.</p>
 <p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">import</span> <span class="nx">$</span> <span class="nx">from</span> <span class="s1">&#39;jquery&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="nx">prestashop</span> <span class="nx">from</span> <span class="s1">&#39;prestashop&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="s1">&#39;velocity-animate&#39;</span><span class="p">;</span>
-
-<span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">prestashop</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;updateProductList&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">updateProductListDOM</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
-  <span class="p">});</span>
-<span class="p">});</span>
-
-<span class="kd">function</span> <span class="nx">updateProductListDOM</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#search_filters&#39;</span><span class="p">).</span><span class="nx">replaceWith</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">rendered_facets</span><span class="p">);</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#js-active-search-filters&#39;</span><span class="p">).</span><span class="nx">replaceWith</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">rendered_active_filters</span><span class="p">);</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#js-product-list-top&#39;</span><span class="p">).</span><span class="nx">replaceWith</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">rendered_products_top</span><span class="p">);</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#js-product-list&#39;</span><span class="p">).</span><span class="nx">replaceWith</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">rendered_products</span><span class="p">);</span>
-  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#js-product-list-bottom&#39;</span><span class="p">).</span><span class="nx">replaceWith</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">rendered_products_bottom</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">$</span> <span class="nx">from</span> <span class="s1">&#39;jquery&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="nx">prestashop</span> <span class="nx">from</span> <span class="s1">&#39;prestashop&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">import</span> <span class="s1">&#39;velocity-animate&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">).</span><span class="nx">ready</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">prestashop</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;updateProductList&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">updateProductListDOM</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">updateProductListDOM</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#search_filters&#39;</span><span class="p">).</span><span class="nx">replaceWith</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">rendered_facets</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#js-active-search-filters&#39;</span><span class="p">).</span><span class="nx">replaceWith</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">rendered_active_filters</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#js-product-list-top&#39;</span><span class="p">).</span><span class="nx">replaceWith</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">rendered_products_top</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#js-product-list&#39;</span><span class="p">).</span><span class="nx">replaceWith</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">rendered_products</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#js-product-list-bottom&#39;</span><span class="p">).</span><span class="nx">replaceWith</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">rendered_products_bottom</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30405,17 +30405,17 @@ end javascript is only used to replace the content of HTML placeholders.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163896"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163896"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163896"></script>
-    <script src="/js/jquery.sticky.js?1703163896"></script>
-    <script src="/js/featherlight.min.js?1703163896"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163896"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163896"></script>
-    <script src="/js/learn.js?1703163896"></script>
-    <script src="/js/hugo-learn.js?1703163896"></script>
+    <script src="/js/clipboard.min.js?1703164723"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164723"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164723"></script>
+    <script src="/js/jquery.sticky.js?1703164723"></script>
+    <script src="/js/featherlight.min.js?1703164723"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164723"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164723"></script>
+    <script src="/js/learn.js?1703164723"></script>
+    <script src="/js/hugo-learn.js?1703164723"></script>
     
-    <script src="/main.js?1703163896"></script>
+    <script src="/main.js?1703164723"></script>
     
     
     

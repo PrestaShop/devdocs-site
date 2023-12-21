@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Image management :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/webservice/tutorials/advanced-use/image-management/">
     
-    <link href="/css/font-awesome.min.css?1703163899" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163899" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163899" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163899" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164725" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164725" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164725" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164725" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163899" rel="stylesheet">
+    <link href="/style.css?1703164725" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163899"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164725"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30343,35 +30343,35 @@
 
 
 <h2 id="the-image-format">The image format<a href="#the-image-format"></a></h2><p>Except for the general shop images, all the images API will return the same kind of format:</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;image_types&gt;</span>
-        <span class="nt">&lt;image_type</span> <span class="na">id=</span><span class="s">&#34;5&#34;</span> <span class="na">name=</span><span class="s">&#34;large_default&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/image_types/5&#34;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;image_type</span> <span class="na">id=</span><span class="s">&#34;3&#34;</span> <span class="na">name=</span><span class="s">&#34;medium_default&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/image_types/3&#34;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;image_type</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span> <span class="na">name=</span><span class="s">&#34;small_default&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/image_types/2&#34;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/image_types&gt;</span>
-    <span class="nt">&lt;images&gt;</span>
-        <span class="nt">&lt;image</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/images/manufacturers/2&#34;</span><span class="nt">/&gt;</span>
-        <span class="nt">&lt;image</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/images/manufacturers/1&#34;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/images&gt;</span>
-<span class="nt">&lt;/prestashop&gt;</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;prestashop</span> <span class="na">xmlns:xlink=</span><span class="s">&#34;http://www.w3.org/1999/xlink&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;image_types&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;image_type</span> <span class="na">id=</span><span class="s">&#34;5&#34;</span> <span class="na">name=</span><span class="s">&#34;large_default&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/image_types/5&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;image_type</span> <span class="na">id=</span><span class="s">&#34;3&#34;</span> <span class="na">name=</span><span class="s">&#34;medium_default&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/image_types/3&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;image_type</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span> <span class="na">name=</span><span class="s">&#34;small_default&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/image_types/2&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/image_types&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;images&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;image</span> <span class="na">id=</span><span class="s">&#34;2&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/images/manufacturers/2&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;image</span> <span class="na">id=</span><span class="s">&#34;1&#34;</span> <span class="na">xlink:href=</span><span class="s">&#34;http://example.com/api/images/manufacturers/1&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/images&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/prestashop&gt;</span>
+</span></span></code></pre></div><ul>
 <li>a list of <strong>image types</strong> related to the resource; each one defines the expected image size for each resource (in this example we can see that manufacturers have three image sizes: small, medium and large)</li>
 <li>a list of images for this kind of resource</li>
 </ul>
 
 <h3 id="using-webservice-lib">Using webservice lib<a href="#using-webservice-lib"></a></h3><p>You can get the information about a specific resource&rsquo;s images using our Webservice library:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">try</span> <span class="p">{</span>
-    <span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="s1">&#39;http://example.com/&#39;</span><span class="p">,</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
-
-    <span class="nv">$xml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;images/products&#39;</span><span class="p">]);</span>
-    <span class="nv">$imageTypes</span> <span class="o">=</span> <span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">image_types</span><span class="o">-&gt;</span><span class="na">children</span><span class="p">();</span>
-    <span class="nv">$images</span> <span class="o">=</span> <span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">images</span><span class="o">-&gt;</span><span class="na">children</span><span class="p">();</span>
-<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="s1">&#39;Error:&#39;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$webService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PrestaShopWebservice</span><span class="p">(</span><span class="s1">&#39;http://example.com/&#39;</span><span class="p">,</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">,</span> <span class="k">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$xml</span> <span class="o">=</span> <span class="nv">$webService</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">([</span><span class="s1">&#39;resource&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;images/products&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$imageTypes</span> <span class="o">=</span> <span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">image_types</span><span class="o">-&gt;</span><span class="na">children</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$images</span> <span class="o">=</span> <span class="nv">$xml</span><span class="o">-&gt;</span><span class="na">images</span><span class="o">-&gt;</span><span class="na">children</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PrestaShopWebserviceException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s1">&#39;Error:&#39;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="get-image">GET image<a href="#get-image"></a></h2><p>The GET image API allows you to request an image associated to a resource. The response is the image itself.</p>
 
 <h3 id="default-behaviour">Default behaviour<a href="#default-behaviour"></a></h3><p>For most resources the url format is as follows: <code>/api/images/{resource}/{resource_id}</code>. You can use an additional parameter by appending the image format <code>/api/images/{resource}/{resource_id}/{image_type}</code>. In both cases, placeholders are:</p>
@@ -30392,83 +30392,83 @@
 
 <p>Only one image is posted to the API, this image will then be resized into all the formats associated to the resource.</p>
 
-<h3 id="using-an-html-form">Using an HTML form<a href="#using-an-html-form"></a></h3><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&#34;multipart/form-data&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;http://ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT@example.com/api/images/products/1&#34;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">fieldset</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">legend</span><span class="p">&gt;</span>Add image for products No 1<span class="p">&lt;/</span><span class="nt">legend</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;file&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;image&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;Execute&#34;</span><span class="p">&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">fieldset</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-</code></pre></div>
+<h3 id="using-an-html-form">Using an HTML form<a href="#using-an-html-form"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&#34;multipart/form-data&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;http://ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT@example.com/api/images/products/1&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">fieldset</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">legend</span><span class="p">&gt;</span>Add image for products No 1<span class="p">&lt;/</span><span class="nt">legend</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;file&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;image&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;Execute&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">fieldset</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span></code></pre></div>
 <h3 id="using-curl">Using cURL<a href="#using-curl"></a></h3><p>To create a new image we are going to use the <code>/images/products</code> API. We won&rsquo;t use the <code>PrestaShopWebservice</code> class here, but a cURL request.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$urlImage</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/api/images/products/10/&#39;</span><span class="p">;</span>
-<span class="nv">$key</span>  <span class="o">=</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">;</span>
-
-<span class="c1">//Here you set the path to the image you need to upload
-</span><span class="c1"></span><span class="nv">$image_path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/the/image.jpg&#39;</span><span class="p">;</span>
-<span class="nv">$image_mime</span> <span class="o">=</span> <span class="s1">&#39;image/jpg&#39;</span><span class="p">;</span>
-
-<span class="nv">$args</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CurlFile</span><span class="p">(</span><span class="nv">$image_path</span><span class="p">,</span> <span class="nv">$image_mime</span><span class="p">);</span>
-
-<span class="nv">$ch</span> <span class="o">=</span> <span class="nx">curl_init</span><span class="p">();</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_HEADER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLINFO_HEADER_OUT</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nv">$urlImage</span><span class="p">);</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_POST</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_USERPWD</span><span class="p">,</span> <span class="nv">$key</span><span class="o">.</span><span class="s1">&#39;:&#39;</span><span class="p">);</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nv">$args</span><span class="p">);</span>
-<span class="nv">$result</span> <span class="o">=</span> <span class="nx">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
-<span class="nv">$httpCode</span> <span class="o">=</span> <span class="nx">curl_getinfo</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLINFO_HTTP_CODE</span><span class="p">);</span>
-<span class="nx">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="mi">200</span> <span class="o">==</span> <span class="nv">$httpCode</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="s1">&#39;Product image was successfully created.&#39;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$urlImage</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/api/images/products/10/&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$key</span>  <span class="o">=</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//Here you set the path to the image you need to upload
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$image_path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/the/image.jpg&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$image_mime</span> <span class="o">=</span> <span class="s1">&#39;image/jpg&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$args</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CurlFile</span><span class="p">(</span><span class="nv">$image_path</span><span class="p">,</span> <span class="nv">$image_mime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$ch</span> <span class="o">=</span> <span class="nx">curl_init</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_HEADER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLINFO_HEADER_OUT</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nv">$urlImage</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_POST</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_USERPWD</span><span class="p">,</span> <span class="nv">$key</span><span class="o">.</span><span class="s1">&#39;:&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nv">$args</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$result</span> <span class="o">=</span> <span class="nx">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$httpCode</span> <span class="o">=</span> <span class="nx">curl_getinfo</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLINFO_HTTP_CODE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="mi">200</span> <span class="o">==</span> <span class="nv">$httpCode</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s1">&#39;Product image was successfully created.&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="update-the-image-of-a-resource">Update the image of a resource<a href="#update-the-image-of-a-resource"></a></h2>
 <div class="notices info" >It&rsquo;s almost the same principle as adding an image except the API expects a PUT method. Since not all clients can handle this HTTP method, we can add a parameter <code>ps_method</code> in the URL to simulate it (recommended workaround).</div>
 
 
-<h3 id="using-an-html-form-1">Using an HTML form<a href="#using-an-html-form-1"></a></h3><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;http://ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT@example.com/api/images/categories/2&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&#34;multipart/form-data&#34;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">fieldset</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">legend</span><span class="p">&gt;</span>Update category image 2<span class="p">&lt;/</span><span class="nt">legend</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;ps_method&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;PUT&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;hidden&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;image&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;file&#34;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;Execute&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p">&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">fieldset</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-</code></pre></div>
-<h3 id="using-curl-1">Using cURL<a href="#using-curl-1"></a></h3><div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="c1">// DON&#39;T FORGET to add the ps_method parameter
-</span><span class="c1"></span><span class="nv">$urlImage</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/api/images/categories/2/?ps_method=PUT&#39;</span><span class="p">;</span>
-<span class="nv">$key</span>  <span class="o">=</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">;</span>
-
-<span class="c1">//Here you set the path to the image you need to upload
-</span><span class="c1"></span><span class="nv">$image_path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/the/image.jpg&#39;</span><span class="p">;</span>
-<span class="nv">$image_mime</span> <span class="o">=</span> <span class="s1">&#39;image/jpg&#39;</span><span class="p">;</span>
-
-<span class="nv">$args</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CurlFile</span><span class="p">(</span><span class="nv">$image_path</span><span class="p">,</span> <span class="nv">$image_mime</span><span class="p">);</span>
-
-<span class="nv">$ch</span> <span class="o">=</span> <span class="nx">curl_init</span><span class="p">();</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_HEADER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLINFO_HEADER_OUT</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nv">$urlImage</span><span class="p">);</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_POST</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_USERPWD</span><span class="p">,</span> <span class="nv">$key</span><span class="o">.</span><span class="s1">&#39;:&#39;</span><span class="p">);</span>
-<span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nv">$args</span><span class="p">);</span>
-<span class="nv">$result</span> <span class="o">=</span> <span class="nx">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
-<span class="nv">$httpCode</span> <span class="o">=</span> <span class="nx">curl_getinfo</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLINFO_HTTP_CODE</span><span class="p">);</span>
-<span class="nx">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
-
-<span class="k">if</span> <span class="p">(</span><span class="mi">200</span> <span class="o">==</span> <span class="nv">$httpCode</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">echo</span> <span class="s1">&#39;Category image was successfully updated.&#39;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
+<h3 id="using-an-html-form-1">Using an HTML form<a href="#using-an-html-form-1"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&#34;http://ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT@example.com/api/images/categories/2&#34;</span> <span class="na">method</span><span class="o">=</span><span class="s">&#34;POST&#34;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&#34;multipart/form-data&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;</span><span class="nt">fieldset</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">legend</span><span class="p">&gt;</span>Update category image 2<span class="p">&lt;/</span><span class="nt">legend</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;ps_method&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;PUT&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;hidden&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;image&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;file&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;Execute&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">&lt;/</span><span class="nt">fieldset</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+</span></span></code></pre></div>
+<h3 id="using-curl-1">Using cURL<a href="#using-curl-1"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// DON&#39;T FORGET to add the ps_method parameter
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$urlImage</span> <span class="o">=</span> <span class="s1">&#39;http://example.com/api/images/categories/2/?ps_method=PUT&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$key</span>  <span class="o">=</span> <span class="s1">&#39;ZR92FNY5UFRERNI3O9Z5QDHWKTP3YIIT&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//Here you set the path to the image you need to upload
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$image_path</span> <span class="o">=</span> <span class="s1">&#39;/path/to/the/image.jpg&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$image_mime</span> <span class="o">=</span> <span class="s1">&#39;image/jpg&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$args</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CurlFile</span><span class="p">(</span><span class="nv">$image_path</span><span class="p">,</span> <span class="nv">$image_mime</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">$ch</span> <span class="o">=</span> <span class="nx">curl_init</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_HEADER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLINFO_HEADER_OUT</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nv">$urlImage</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_POST</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_USERPWD</span><span class="p">,</span> <span class="nv">$key</span><span class="o">.</span><span class="s1">&#39;:&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLOPT_POSTFIELDS</span><span class="p">,</span> <span class="nv">$args</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$result</span> <span class="o">=</span> <span class="nx">curl_exec</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$httpCode</span> <span class="o">=</span> <span class="nx">curl_getinfo</span><span class="p">(</span><span class="nv">$ch</span><span class="p">,</span> <span class="nx">CURLINFO_HTTP_CODE</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">curl_close</span><span class="p">(</span><span class="nv">$ch</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="mi">200</span> <span class="o">==</span> <span class="nv">$httpCode</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">echo</span> <span class="s1">&#39;Category image was successfully updated.&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30546,17 +30546,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163899"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163899"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163899"></script>
-    <script src="/js/jquery.sticky.js?1703163899"></script>
-    <script src="/js/featherlight.min.js?1703163899"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163899"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163899"></script>
-    <script src="/js/learn.js?1703163899"></script>
-    <script src="/js/hugo-learn.js?1703163899"></script>
+    <script src="/js/clipboard.min.js?1703164725"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164725"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164725"></script>
+    <script src="/js/jquery.sticky.js?1703164725"></script>
+    <script src="/js/featherlight.min.js?1703164725"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164725"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164725"></script>
+    <script src="/js/learn.js?1703164725"></script>
+    <script src="/js/hugo-learn.js?1703164725"></script>
     
-    <script src="/main.js?1703163899"></script>
+    <script src="/main.js?1703164725"></script>
     
     
     

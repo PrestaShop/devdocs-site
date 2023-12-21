@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to migrate your current shop (1.7.x) to PrestaShop 8.0">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to migrate to PrestaShop 8 :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163900" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163900" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163900" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163900" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164726" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164726" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164726" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164726" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163900" rel="stylesheet">
+    <link href="/style.css?1703164726" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163900"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164726"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33219,16 +33219,16 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 <h6 id="personalized-export-from-custom-sql-requests">Personalized export from custom SQL requests<a href="#personalized-export-from-custom-sql-requests"></a></h6><p>We explained how to export all your tables to make sure you keep as much data as possible.</p>
 <p>If you get your data from another CMS or prefer to proceed with your own method, you can run a custom SQL query to get all the information you need. This option is useful if you plan to import your data with the import feature of PrestaShop.</p>
 <p>As an example here is a SQL request to get the main product details, along with the texts corresponding to the first language of the first shop:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">ps_product</span><span class="o">`</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="o">`</span><span class="n">ps_product_lang</span><span class="o">`</span><span class="w"> </span><span class="n">pl</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_product</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_shop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_product</span><span class="w">
-</span></code></pre></div><p>If the result fits your needs, you can export it with the “export” button available at the bottom of the page.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="o">*</span><span class="p">,</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="o">`</span><span class="n">ps_product</span><span class="o">`</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="o">`</span><span class="n">ps_product_lang</span><span class="o">`</span><span class="w"> </span><span class="n">pl</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">id_product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_product</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_lang</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_shop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">pl</span><span class="p">.</span><span class="n">id_product</span><span class="w">
+</span></span></span></code></pre></div><p>If the result fits your needs, you can export it with the “export” button available at the bottom of the page.</p>
 <figure><img src="../img/migration-phpmyadmin-export-custom-sql.png"/>
 </figure>
 
 
 <h5 id="mysqldump">mysqldump<a href="#mysqldump"></a></h5><p>If you used <code>mysqldump</code> for your backups, there is also an option for extracting your data in CSV files, as described in the <a href="https://dev.mysql.com/doc/refman/8.0/en/mysqldump-delimited-text.html">documentation</a>. However, our tests have shown that method is far from being easy.</p>
 <p>Example for exporting the table ps_product:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">mysqldump --host<span class="o">=</span>dbhost --port<span class="o">=</span><span class="m">3307</span> --user<span class="o">=</span>root --password --tab<span class="o">=</span>/var/lib/mysql-files --fields-enclosed-by<span class="o">=</span><span class="se">\&#34;</span> --fields-terminated-by<span class="o">=</span><span class="se">\;</span> dbname ps_product
-</code></pre></div><p>Several notes about <code>mysqldump</code> with CSV files:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mysqldump --host<span class="o">=</span>dbhost --port<span class="o">=</span><span class="m">3307</span> --user<span class="o">=</span>root --password --tab<span class="o">=</span>/var/lib/mysql-files --fields-enclosed-by<span class="o">=</span><span class="se">\&#34;</span> --fields-terminated-by<span class="o">=</span><span class="se">\;</span> dbname ps_product
+</span></span></code></pre></div><p>Several notes about <code>mysqldump</code> with CSV files:</p>
 <ul>
 <li>Make sure you set the option <code>--fields-terminated-by</code> with the separators you want</li>
 <li>The header containing column names is missing from the .txt file and have to be manually inserted</li>
@@ -33240,8 +33240,8 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 </figure>
 
 <p>Look at the SQL file provided with the TXT file, or run a DESCRIBE of the table.</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">dbname</span><span class="p">.</span><span class="n">ps_product</span><span class="p">;</span><span class="w">
-</span></code></pre></div><p>You should expect the following result before proceeding to the next table:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">dbname</span><span class="p">.</span><span class="n">ps_product</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div><p>You should expect the following result before proceeding to the next table:</p>
 <figure><img src="../img/migration-mysqldump-export-with-header-csv.png"/><figcaption>
             <h4>CSV from mysqldump with header</h4>
         </figcaption>
@@ -33251,21 +33251,21 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 <li>You can rename the generated .txt files with the .csv extension to avoid confusion.</li>
 <li>If you are connected to a remote MySQL server: switching on CSV export will write on the remote filesystem and not on the client one. That’s why writing on a nonexistent or disallowed folder may trigger this error:</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-txt" data-lang="txt">mysqldump: Got error: 1290: The MySQL server is running with the --secure-file-priv option so it cannot execute this statement when executing &#39;SELECT INTO OUTFILE&#39;
-</code></pre></div><p>If you want to know in which folder you can export the files, run the SQL request:</p>
-<div class="highlight"><pre class="chroma"><code class="language-sql" data-lang="sql"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;secure_file_priv&#34;</span><span class="p">;</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">mysqldump: Got error: 1290: The MySQL server is running with the --secure-file-priv option so it cannot execute this statement when executing &#39;SELECT INTO OUTFILE&#39;
+</span></span></code></pre></div><p>If you want to know in which folder you can export the files, run the SQL request:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="n">mysql</span><span class="o">&gt;</span><span class="w"> </span><span class="k">SHOW</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s2">&#34;secure_file_priv&#34;</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></div>
 <h3 id="updating-the-data">Updating the data<a href="#updating-the-data"></a></h3>
 <h4 id="get-changes-between-source-and-destination-databases">Get changes between source and destination databases<a href="#get-changes-between-source-and-destination-databases"></a></h4><p>Now you have retrieved your data from the production shop, you have to adapt it to the new structure before inserting it on your new database.</p>
 <p>An efficient way to get the changes is getting a database structure diff between the 2 running shops. MySQL provides another tool for this called <a href="https://docs.oracle.com/cd/E17952_01/mysql-utilities-1.5-en/mysqldiff.html">mysqldiff</a>.</p>
 <p>Note this utility may be not immediately available on your environment, even if you have the mysql client installed. For instance on Ubuntu, an additional package needs to be installed:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">apt install mysql-utilities
-</code></pre></div><p>This tool can be run anywhere, as long as you can access both servers &amp; databases. The basic use of this command requires the following parameters:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">mysqldiff --server1<span class="o">=</span>user:pass@host:port:socket --server2<span class="o">=</span>user:pass@host:port:socket db3:db4
-</code></pre></div><p>You need to provide the credentials to your MySQL servers. If the source and the destination databases are on the same server, the <code>--server2</code> parameter can be omitted. <code>db3</code> and <code>db4</code> are respectively the source and the destination databases of your data.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt install mysql-utilities
+</span></span></code></pre></div><p>This tool can be run anywhere, as long as you can access both servers &amp; databases. The basic use of this command requires the following parameters:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mysqldiff --server1<span class="o">=</span>user:pass@host:port:socket --server2<span class="o">=</span>user:pass@host:port:socket db3:db4
+</span></span></code></pre></div><p>You need to provide the credentials to your MySQL servers. If the source and the destination databases are on the same server, the <code>--server2</code> parameter can be omitted. <code>db3</code> and <code>db4</code> are respectively the source and the destination databases of your data.</p>
 <p>Getting the structure diff will require additional options, as provided in this example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">mysqldiff --server1<span class="o">=</span>root:xxxx@127.0.0.1:3307 --changes-for<span class="o">=</span>server1 --skip-table-options --force prestashop16:prestashop
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mysqldiff --server1<span class="o">=</span>root:xxxx@127.0.0.1:3307 --changes-for<span class="o">=</span>server1 --skip-table-options --force prestashop16:prestashop
+</span></span></code></pre></div><ul>
 <li>All our databases are on the same server, that’s why only <code>--server1</code> is provided,</li>
 <li>We want to know what are the changes to apply on the 1.6 version to fit the 1.7 structure, so we need <code>--changes-for=server1</code></li>
 <li>We only need structure changes. <code>--skip-table-options</code> removes diff about autoincrement etc.</li>
@@ -33289,15 +33289,15 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 <li>The Entity (folder src/PrestaShopBundle/Entity).</li>
 </ul>
 <p>Example with the table cart:</p>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">--- `prestashop16`.`ps_cart`
-</span><span class="gd"></span><span class="gi">+++ `prestashop`.`ps_cart`
-</span><span class="gi"></span><span class="gu">@@ -18,6 +18,7 @@
-</span><span class="gu"></span>   `allow_seperated_package` tinyint(1) unsigned NOT NULL DEFAULT &#39;0&#39;,
-   `date_add` datetime NOT NULL,
-   `date_upd` datetime NOT NULL,
-<span class="gi">+  `checkout_session_data` mediumtext,
-</span><span class="gi"></span>[...]
-</code></pre></div><p><strong>Before:</strong>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">--- `prestashop16`.`ps_cart`
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+++ `prestashop`.`ps_cart`
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span><span class="gu">@@ -18,6 +18,7 @@
+</span></span></span><span class="line"><span class="cl"><span class="gu"></span>   `allow_seperated_package` tinyint(1) unsigned NOT NULL DEFAULT &#39;0&#39;,
+</span></span><span class="line"><span class="cl">   `date_add` datetime NOT NULL,
+</span></span><span class="line"><span class="cl">   `date_upd` datetime NOT NULL,
+</span></span><span class="line"><span class="cl"><span class="gi">+  `checkout_session_data` mediumtext,
+</span></span></span><span class="line"><span class="cl"><span class="gi"></span>[...]
+</span></span></code></pre></div><p><strong>Before:</strong>
 <figure><img src="../img/migration-update-new-header-before.png"/><figcaption>
             <h4>CSV before column addition</h4>
         </figcaption>
@@ -33312,36 +33312,36 @@ You will get a Zip file instead, containing one CSV file for each table.</p>
 <p>In this example the new column <code>checkout_session_data</code> has no default value and the existing data on our PrestaShop displays an empty column. As the column allows null values, we keep all rows empty.</p>
 
 <h5 id="column-has-the-same-type-but-not-the-same-size">Column has the same type, but not the same size<a href="#column-has-the-same-type-but-not-the-same-size"></a></h5><p>Example with address:</p>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">- `lastname` varchar(32) NOT NULL,
-</span><span class="gd"></span><span class="gi">+ `lastname` varchar(255) NOT NULL,
-</span></code></pre></div><p>If a column keeps its type but only increases its size, it does not require any change on your side. The new version offers more room to your text before being truncated.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">- `lastname` varchar(32) NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+ `lastname` varchar(255) NOT NULL,
+</span></span></span></code></pre></div><p>If a column keeps its type but only increases its size, it does not require any change on your side. The new version offers more room to your text before being truncated.</p>
 <p>You will probably notice the same change on your table keys:</p>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">- `id_attribute_group` int(10) unsigned NOT NULL,
-</span><span class="gd"></span><span class="gi">+ `id_attribute_group` int(11) NOT NULL,
-</span></code></pre></div><p>This change does not imply anything on your side. This is a preliminary work for building relations between our tables.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">- `id_attribute_group` int(10) unsigned NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+ `id_attribute_group` int(11) NOT NULL,
+</span></span></span></code></pre></div><p>This change does not imply anything on your side. This is a preliminary work for building relations between our tables.</p>
 
 <h5 id="column-removed">Column removed<a href="#column-removed"></a></h5><p>This kind of change is easier than adding a column.</p>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">-  `scenes` tinyint(1) NOT NULL DEFAULT &#39;1&#39;,
-</span></code></pre></div><p>Open the related CSV, remove the column and save.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">-  `scenes` tinyint(1) NOT NULL DEFAULT &#39;1&#39;,
+</span></span></span></code></pre></div><p>Open the related CSV, remove the column and save.</p>
 <p>However keep in mind in some cases the column may have been moved to another table. If this occurs, you will have to move the content of your column to another CSV.</p>
 <p>An example is available for the table <PREFIX><strong>store</strong>, some columns have been moved to the table <PREFIX><strong>store_lang</strong> to allow localized data to be used. Data needs to be moved to a new CSV, and duplicated as many time as you have languages installed on your shop.</p>
 
-<h5 id="default-value-disappeared">Default value disappeared<a href="#default-value-disappeared"></a></h5><div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">- `position` int(10) unsigned NOT NULL DEFAULT &#39;0&#39;,
-</span><span class="gd"></span><span class="gi">+ `position` int(11) NOT NULL,
-</span></code></pre></div><p>Here again, nothing to worry about, as there is no change needed on your data. The default value is now managed by the ORM. However, if the previous version did not show <code>NOT NULL</code>, this could require you to add a default value on the empty rows.</p>
+<h5 id="default-value-disappeared">Default value disappeared<a href="#default-value-disappeared"></a></h5><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">- `position` int(10) unsigned NOT NULL DEFAULT &#39;0&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+ `position` int(11) NOT NULL,
+</span></span></span></code></pre></div><p>Here again, nothing to worry about, as there is no change needed on your data. The default value is now managed by the ORM. However, if the previous version did not show <code>NOT NULL</code>, this could require you to add a default value on the empty rows.</p>
 
 <h5 id="primary-key--unique-index-updates">Primary key / unique index updates<a href="#primary-key--unique-index-updates"></a></h5><p>If the primary key or one unique key on a table evolves / is added, the import of your existing data can fail if it doesn’t respect the new unicity rules.</p>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">-  PRIMARY KEY (`id_feature`,`id_product`),
-</span><span class="gd"></span><span class="gi">+  PRIMARY KEY (`id_feature`,`id_product`,`id_feature_value`),
-</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gi">+  UNIQUE KEY `name_UNIQUE` (`name`),
-</span></code></pre></div><p>If you see this kind of diff, check that you do not have the same group of values more than once. Is is more likely to happen if a column is removed from a column group, or if a key is added.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">-  PRIMARY KEY (`id_feature`,`id_product`),
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+  PRIMARY KEY (`id_feature`,`id_product`,`id_feature_value`),
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gi">+  UNIQUE KEY `name_UNIQUE` (`name`),
+</span></span></span></code></pre></div><p>If you see this kind of diff, check that you do not have the same group of values more than once. Is is more likely to happen if a column is removed from a column group, or if a key is added.</p>
 
 <h5 id="redirection-for-disabled-products">Redirection for disabled products<a href="#redirection-for-disabled-products"></a></h5><p>This change is specific to the table product.</p>
-<div class="highlight"><pre class="chroma"><code class="language-diff" data-lang="diff"><span class="gd">- `redirect_type` enum(&#39;&#39;,&#39;404&#39;,&#39;301&#39;,&#39;302&#39;) NOT NULL DEFAULT &#39;&#39;,
-</span><span class="gd">- `id_product_redirected` int(10) unsigned NOT NULL DEFAULT &#39;0&#39;,
-</span><span class="gd"></span><span class="gi">+ `redirect_type` enum(&#39;&#39;,&#39;404&#39;,&#39;301-product&#39;,&#39;302-product&#39;,&#39;301-category&#39;,&#39;302-category&#39;) NOT NULL DEFAULT &#39;&#39;,
-</span><span class="gi">+ `id_type_redirected` int(10) unsigned NOT NULL DEFAULT &#39;0&#39;,
-</span></code></pre></div><p>When a product is disabled, the merchant can choose to which other page customers will be redirected to if they try to access it.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-diff" data-lang="diff"><span class="line"><span class="cl"><span class="gd">- `redirect_type` enum(&#39;&#39;,&#39;404&#39;,&#39;301&#39;,&#39;302&#39;) NOT NULL DEFAULT &#39;&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="gd">- `id_product_redirected` int(10) unsigned NOT NULL DEFAULT &#39;0&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+ `redirect_type` enum(&#39;&#39;,&#39;404&#39;,&#39;301-product&#39;,&#39;302-product&#39;,&#39;301-category&#39;,&#39;302-category&#39;) NOT NULL DEFAULT &#39;&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="gi">+ `id_type_redirected` int(10) unsigned NOT NULL DEFAULT &#39;0&#39;,
+</span></span></span></code></pre></div><p>When a product is disabled, the merchant can choose to which other page customers will be redirected to if they try to access it.
 On PrestaShop 1.7 the number of options has increased, and a redirection to a category page is now possible.</p>
 <p>For data coming from PrestaShop 1.6, existing redirections must be updated.</p>
 <ul>
@@ -33720,17 +33720,17 @@ Basically, the web-service in another interface for object models, themselves in
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163900"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163900"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163900"></script>
-    <script src="/js/jquery.sticky.js?1703163900"></script>
-    <script src="/js/featherlight.min.js?1703163900"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163900"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163900"></script>
-    <script src="/js/learn.js?1703163900"></script>
-    <script src="/js/hugo-learn.js?1703163900"></script>
+    <script src="/js/clipboard.min.js?1703164726"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164726"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164726"></script>
+    <script src="/js/jquery.sticky.js?1703164726"></script>
+    <script src="/js/featherlight.min.js?1703164726"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164726"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164726"></script>
+    <script src="/js/learn.js?1703164726"></script>
+    <script src="/js/hugo-learn.js?1703164726"></script>
     
-    <script src="/main.js?1703163900"></script>
+    <script src="/main.js?1703164726"></script>
     
     
     

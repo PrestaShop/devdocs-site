@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Doctrine :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/concepts/doctrine/">
     
-    <link href="/css/font-awesome.min.css?1703163934" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163934" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163934" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163934" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164755" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164755" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164755" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164755" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163934" rel="stylesheet">
+    <link href="/style.css?1703164755" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163934"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164755"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -7086,7 +7086,7 @@
     
     
     <li data-nav-id="/1.7/modules/concepts/doctrine/" title="Doctrine" class="dd-item
-        parent
+        
         active currentPage
         
         isParent
@@ -7099,7 +7099,7 @@
           
 
           
-            <i class="fa fa-angle-up"></i>
+            <i class="fa fa-angle-down"></i>
           
       </a>
       
@@ -30295,187 +30295,187 @@ modules.</p>
 about namespace setup in <a href="https://devdocs.prestashop-project.org/1.7/modules/concepts/services/#setup-composer">Setup composer</a> page.</p>
 
 <h2 id="define-an-entity">Define an Entity<a href="#define-an-entity"></a></h2><p>Here is a simple example of a <code>ProductComment</code> entity:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/yourmodule/src/Entity/ProductComment.php
-</span><span class="c1"></span><span class="k">namespace</span> <span class="nx">YourCompany\YourModule\Entity</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Doctrine\Common\Collections\ArrayCollection</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Doctrine\ORM\Mapping</span> <span class="k">as</span> <span class="nx">ORM</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * @ORM\Table()
-</span><span class="sd"> * @ORM\Entity()
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">ProductComment</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var int
-</span><span class="sd">     *
-</span><span class="sd">     * @ORM\Id
-</span><span class="sd">     * @ORM\Column(name=&#34;id_product_comment&#34;, type=&#34;integer&#34;)
-</span><span class="sd">     * @ORM\GeneratedValue(strategy=&#34;AUTO&#34;)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$id</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @var int
-</span><span class="sd">     *
-</span><span class="sd">     * @ORM\Column(name=&#34;id_product&#34;, type=&#34;integer&#34;)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$productId</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @var string
-</span><span class="sd">     *
-</span><span class="sd">     * @ORM\Column(name=&#34;customer_name&#34;, type=&#34;string&#34;, length=64)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$customerName</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @var string
-</span><span class="sd">     *
-</span><span class="sd">     * @ORM\Column(name=&#34;title&#34;, type=&#34;string&#34;, length=64)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$title</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @var string
-</span><span class="sd">     *
-</span><span class="sd">     * @ORM\Column(name=&#34;content&#34;, type=&#34;text&#34;)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$content</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @var int
-</span><span class="sd">     *
-</span><span class="sd">     * @ORM\Column(name=&#34;grade&#34;, type=&#34;integer&#34;)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$grade</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return int
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return int
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getProductId</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">productId</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param int $productId
-</span><span class="sd">     *
-</span><span class="sd">     * @return ProductComment
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setProductId</span><span class="p">(</span><span class="nv">$productId</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">productId</span> <span class="o">=</span> <span class="nv">$productId</span><span class="p">;</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return string
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getCustomerName</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">customerName</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param string $customerName
-</span><span class="sd">     *
-</span><span class="sd">     * @return ProductComment
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setCustomerName</span><span class="p">(</span><span class="nv">$customerName</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">customerName</span> <span class="o">=</span> <span class="nv">$customerName</span><span class="p">;</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return string
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTitle</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">title</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param string $title
-</span><span class="sd">     *
-</span><span class="sd">     * @return ProductComment
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setTitle</span><span class="p">(</span><span class="nv">$title</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">title</span> <span class="o">=</span> <span class="nv">$title</span><span class="p">;</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return string
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param string $content
-</span><span class="sd">     *
-</span><span class="sd">     * @return ProductComment
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setContent</span><span class="p">(</span><span class="nv">$content</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span> <span class="o">=</span> <span class="nv">$content</span><span class="p">;</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return int
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getGrade</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">grade</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param int $grade
-</span><span class="sd">     *
-</span><span class="sd">     * @return ProductComment
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setGrade</span><span class="p">(</span><span class="nv">$grade</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">grade</span> <span class="o">=</span> <span class="nv">$grade</span><span class="p">;</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return array
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">toArray</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">[</span>
-            <span class="s1">&#39;id_product&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getProductId</span><span class="p">(),</span>
-            <span class="s1">&#39;id_product_comment&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">(),</span>
-            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getTitle</span><span class="p">(),</span>
-            <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getContent</span><span class="p">(),</span>
-            <span class="s1">&#39;customer_name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getCustomerName</span><span class="p">(),</span>
-            <span class="s1">&#39;grade&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getGrade</span><span class="p">(),</span>
-        <span class="p">];</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/yourmodule/src/Entity/ProductComment.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">namespace</span> <span class="nx">YourCompany\YourModule\Entity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\Common\Collections\ArrayCollection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\ORM\Mapping</span> <span class="k">as</span> <span class="nx">ORM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @ORM\Table()
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @ORM\Entity()
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ProductComment</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var int
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Id
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(name=&#34;id_product_comment&#34;, type=&#34;integer&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\GeneratedValue(strategy=&#34;AUTO&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var int
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(name=&#34;id_product&#34;, type=&#34;integer&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$productId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(name=&#34;customer_name&#34;, type=&#34;string&#34;, length=64)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$customerName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(name=&#34;title&#34;, type=&#34;string&#34;, length=64)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$title</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(name=&#34;content&#34;, type=&#34;text&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var int
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(name=&#34;grade&#34;, type=&#34;integer&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$grade</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return int
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return int
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getProductId</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">productId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int $productId
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return ProductComment
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setProductId</span><span class="p">(</span><span class="nv">$productId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">productId</span> <span class="o">=</span> <span class="nv">$productId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getCustomerName</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">customerName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $customerName
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return ProductComment
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setCustomerName</span><span class="p">(</span><span class="nv">$customerName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">customerName</span> <span class="o">=</span> <span class="nv">$customerName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getTitle</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">title</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $title
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return ProductComment
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setTitle</span><span class="p">(</span><span class="nv">$title</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">title</span> <span class="o">=</span> <span class="nv">$title</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getContent</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $content
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return ProductComment
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setContent</span><span class="p">(</span><span class="nv">$content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">content</span> <span class="o">=</span> <span class="nv">$content</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return int
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getGrade</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">grade</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int $grade
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return ProductComment
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setGrade</span><span class="p">(</span><span class="nv">$grade</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">grade</span> <span class="o">=</span> <span class="nv">$grade</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return array
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">toArray</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;id_product&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getProductId</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;id_product_comment&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;title&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getTitle</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;content&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getContent</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;customer_name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getCustomerName</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;grade&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getGrade</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="creating-the-database">Creating the database<a href="#creating-the-database"></a></h2><p>Although Doctrine includes a few tools including a command to help you build your database we <strong>strongly warn about NOT
 using them</strong>, they automatically include lots of foreign keys which are <strong>not compatible</strong> with the PrestaShop database
 structure.</p>
@@ -30513,81 +30513,81 @@ clean the foreign key statements (unless you are <strong>ABSOLUTELY</strong> sur
 <h2 id="using-doctrine">Using Doctrine<a href="#using-doctrine"></a></h2>
 <h3 id="saving-an-entity">Saving an Entity<a href="#saving-an-entity"></a></h3><p>Now that your Entity is managed and your database structure is up to date you can start creating/updating data in your database.
 Here is an example in a legacy controller:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/yourmodule/controllers/front/PostComment.php
-</span><span class="c1"></span><span class="k">use</span> <span class="nx">YourCompany\YourModule\Entity\ProductComment</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Doctrine\ORM\EntityManagerInterface</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">YourModulePostCommentModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">display</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$id_product</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;id_product&#39;</span><span class="p">);</span>
-        <span class="nv">$comment_title</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;comment_title&#39;</span><span class="p">);</span>
-        <span class="nv">$comment_content</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;comment_content&#39;</span><span class="p">);</span>
-        <span class="nv">$customer_name</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;customer_name&#39;</span><span class="p">);</span>
-        <span class="nv">$grade</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;grade&#39;</span><span class="p">);</span>
-
-        <span class="sd">/** @var EntityManagerInterface $entityManager */</span>
-        <span class="nv">$entityManager</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;doctrine.orm.entity_manager&#39;</span><span class="p">);</span>
-
-        <span class="c1">//Create product comment
-</span><span class="c1"></span>        <span class="nv">$productComment</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ProductComment</span><span class="p">();</span>
-        <span class="nv">$productComment</span>
-            <span class="o">-&gt;</span><span class="na">setProductId</span><span class="p">(</span><span class="nv">$id_product</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">setTitle</span><span class="p">(</span><span class="nv">$comment_title</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">setContent</span><span class="p">(</span><span class="nv">$comment_content</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">setCustomerName</span><span class="p">(</span><span class="nv">$customer_name</span><span class="p">)</span>
-            <span class="o">-&gt;</span><span class="na">setGrade</span><span class="p">(</span><span class="nv">$grade</span><span class="p">)</span>
-        <span class="p">;</span>
-        <span class="c1">//This call adds the entity to the EntityManager scope (now it knows the entity exists)
-</span><span class="c1"></span>        <span class="nv">$entityManager</span><span class="o">-&gt;</span><span class="na">persist</span><span class="p">(</span><span class="nv">$productComment</span><span class="p">);</span>
-
-        <span class="c1">//This call validates all previous modification (modified/persisted entities)
-</span><span class="c1"></span>        <span class="c1">//This is when the database queries are performed
-</span><span class="c1"></span>        <span class="nv">$entityManager</span><span class="o">-&gt;</span><span class="na">flush</span><span class="p">();</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ajaxRender</span><span class="p">(</span><span class="nx">json_encode</span><span class="p">([</span>
-            <span class="s1">&#39;success&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-            <span class="s1">&#39;product_comment&#39;</span> <span class="o">=&gt;</span> <span class="nv">$productComment</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">(),</span>
-        <span class="p">]));</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/yourmodule/controllers/front/PostComment.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">use</span> <span class="nx">YourCompany\YourModule\Entity\ProductComment</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\ORM\EntityManagerInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">YourModulePostCommentModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">display</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$id_product</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;id_product&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$comment_title</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;comment_title&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$comment_content</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;comment_content&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$customer_name</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;customer_name&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$grade</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;grade&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var EntityManagerInterface $entityManager */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$entityManager</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;doctrine.orm.entity_manager&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//Create product comment
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$productComment</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ProductComment</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productComment</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setProductId</span><span class="p">(</span><span class="nv">$id_product</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setTitle</span><span class="p">(</span><span class="nv">$comment_title</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setContent</span><span class="p">(</span><span class="nv">$comment_content</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setCustomerName</span><span class="p">(</span><span class="nv">$customer_name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">setGrade</span><span class="p">(</span><span class="nv">$grade</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//This call adds the entity to the EntityManager scope (now it knows the entity exists)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$entityManager</span><span class="o">-&gt;</span><span class="na">persist</span><span class="p">(</span><span class="nv">$productComment</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">//This call validates all previous modification (modified/persisted entities)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">//This is when the database queries are performed
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$entityManager</span><span class="o">-&gt;</span><span class="na">flush</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ajaxRender</span><span class="p">(</span><span class="nx">json_encode</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;success&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;product_comment&#39;</span> <span class="o">=&gt;</span> <span class="nv">$productComment</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="fetching-your-entities">Fetching your Entities<a href="#fetching-your-entities"></a></h3><p>An Entity repository is the service that will allow you to fetch your entities from the database. Doctrine already offers
 some generic repository, and what&rsquo;s more? You don&rsquo;t even need to create it yourself you simply get it via the entity manager.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/yourmodule/controllers/front/ListComments.php
-</span><span class="c1"></span><span class="k">use</span> <span class="nx">YourCompany\YourModule\Entity\ProductComment</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Doctrine\ORM\EntityManagerInterface</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">YourModuleListCommentsModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">display</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$id_product</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;id_product&#39;</span><span class="p">);</span>
-
-        <span class="sd">/** @var EntityManagerInterface $entityManager */</span>
-        <span class="nv">$entityManager</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;doctrine.orm.entity_manager&#39;</span><span class="p">);</span>
-        <span class="nv">$productCommentRepository</span> <span class="o">=</span> <span class="nv">$entityManager</span><span class="o">-&gt;</span><span class="na">getRepository</span><span class="p">(</span><span class="nx">ProductComment</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
-
-        <span class="cm">/*
-</span><span class="cm">        ** The repository has automatic methods available, it is able to creating query conditions
-</span><span class="cm">        ** based on the name of the function you used. An equivalent way to make this call could be:
-</span><span class="cm">        **
-</span><span class="cm">        ** $productComments = $productCommentRepository-&gt;findBy([&#39;productId&#39; =&gt; $id_product]);
-</span><span class="cm">        */</span>
-        <span class="nv">$productComments</span> <span class="o">=</span> <span class="nv">$productCommentRepository</span><span class="o">-&gt;</span><span class="na">findByProductId</span><span class="p">(</span><span class="nv">$id_product</span><span class="p">);</span>
-
-        <span class="nv">$serializedComments</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$productComments</span> <span class="k">as</span> <span class="nv">$productComment</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$serializedComments</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$productComment</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">();</span>
-        <span class="p">}</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ajaxRender</span><span class="p">(</span><span class="nx">json_encode</span><span class="p">(</span><span class="nv">$serializedComments</span><span class="p">));</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>If you need more information about how to use an entity repository you can read the <a href="https://symfony.com/doc/3.4/doctrine.html#fetching-objects-from-the-database">Symfony documentation</a>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/yourmodule/controllers/front/ListComments.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">use</span> <span class="nx">YourCompany\YourModule\Entity\ProductComment</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\ORM\EntityManagerInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">YourModuleListCommentsModuleFrontController</span> <span class="k">extends</span> <span class="nx">ModuleFrontController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">display</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$id_product</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getValue</span><span class="p">(</span><span class="s1">&#39;id_product&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var EntityManagerInterface $entityManager */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$entityManager</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;doctrine.orm.entity_manager&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productCommentRepository</span> <span class="o">=</span> <span class="nv">$entityManager</span><span class="o">-&gt;</span><span class="na">getRepository</span><span class="p">(</span><span class="nx">ProductComment</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">        ** The repository has automatic methods available, it is able to creating query conditions
+</span></span></span><span class="line"><span class="cl"><span class="cm">        ** based on the name of the function you used. An equivalent way to make this call could be:
+</span></span></span><span class="line"><span class="cl"><span class="cm">        **
+</span></span></span><span class="line"><span class="cl"><span class="cm">        ** $productComments = $productCommentRepository-&gt;findBy([&#39;productId&#39; =&gt; $id_product]);
+</span></span></span><span class="line"><span class="cl"><span class="cm">        */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productComments</span> <span class="o">=</span> <span class="nv">$productCommentRepository</span><span class="o">-&gt;</span><span class="na">findByProductId</span><span class="p">(</span><span class="nv">$id_product</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$serializedComments</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$productComments</span> <span class="k">as</span> <span class="nv">$productComment</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$serializedComments</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$productComment</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ajaxRender</span><span class="p">(</span><span class="nx">json_encode</span><span class="p">(</span><span class="nv">$serializedComments</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>If you need more information about how to use an entity repository you can read the <a href="https://symfony.com/doc/3.4/doctrine.html#fetching-objects-from-the-database">Symfony documentation</a>
 where you will also find examples for more advanced queries (with more conditions, joins, &hellip;).</p>
 
 <h2 id="example">Example<a href="#example"></a></h2><p>If you want a more advanced example you can have a look at the <a href="https://github.com/PrestaShop/productcomments/">ProductComments module</a>,
@@ -30675,17 +30675,17 @@ between Entities.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163934"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163934"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163934"></script>
-    <script src="/js/jquery.sticky.js?1703163934"></script>
-    <script src="/js/featherlight.min.js?1703163934"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163934"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163934"></script>
-    <script src="/js/learn.js?1703163934"></script>
-    <script src="/js/hugo-learn.js?1703163934"></script>
+    <script src="/js/clipboard.min.js?1703164755"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164755"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164755"></script>
+    <script src="/js/jquery.sticky.js?1703164755"></script>
+    <script src="/js/featherlight.min.js?1703164755"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164755"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164755"></script>
+    <script src="/js/learn.js?1703164755"></script>
+    <script src="/js/hugo-learn.js?1703164755"></script>
     
-    <script src="/main.js?1703163934"></script>
+    <script src="/main.js?1703164755"></script>
     
     
     

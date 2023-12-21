@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Multistore :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163911" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163911" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163911" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163911" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164736" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164736" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164736" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164736" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163911" rel="stylesheet">
+    <link href="/style.css?1703164736" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163911"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164736"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33113,61 +33113,61 @@
 <p>In order to achieve that, the name of the image must be stored in a configuration variable. The default image is then replaced on the fly with the store-specific image.</p>
 <p>Let&rsquo;s explore how the Blockadvertising module does it. Using this module, you can upload an image to be displayed on the front office of the store, serving as an advertisement to any link you might want. The module was built to make use of the multistore feature: depending on the selected store or store group in the multistore menu, the user can assign the uploaded image to a given store context or store group context.</p>
 <p>Here is how it saves a submitted file depending on the store:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Saving only the main portion of the uploaded file&#39;s name, without the file extension.
-</span><span class="c1"></span><span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span>
-    <span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">,</span>
-    <span class="nx">substr</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;adv_img&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="nx">strrpos</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;adv_img&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-<span class="p">);</span>
-                 
-<span class="c1">// Setting the image&#39;s name with a name contextual to the shop context.
-</span><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">=</span> <span class="s1">&#39;advertising&#39;</span><span class="p">;</span>
-
-<span class="c1">// Creating two versions of the image name, depending on the store context:
-</span><span class="c1">// If the context is the current group, use the image named &#39;advertising-g&#39;
-</span><span class="c1">// If the context is the current store, use the image named &#39;advertising-s&#39;
-</span><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span> <span class="o">==</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_GROUP</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">=</span> <span class="s1">&#39;advertising&#39;</span><span class="o">.</span><span class="s1">&#39;-g&#39;</span><span class="o">.</span><span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopGroupID</span><span class="p">();</span>
-<span class="p">}</span>
-<span class="k">elseif</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span> <span class="o">==</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_SHOP</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">=</span> <span class="s1">&#39;advertising&#39;</span><span class="o">.</span><span class="s1">&#39;-s&#39;</span><span class="o">.</span><span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopID</span><span class="p">();</span>
-<span class="p">}</span>
-
-<span class="c1">// Copying the image in the module directory with its new contextual name.
-</span><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">move_uploaded_file</span><span class="p">(</span>
-    <span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;adv_img&#39;</span><span class="p">][</span><span class="s1">&#39;tmp_name&#39;</span><span class="p">],</span>
-    <span class="nx">_PS_MODULE_DIR_</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span><span class="o">.</span><span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">))</span>
-<span class="p">)</span> <span class="p">{</span>
-    <span class="nv">$errors</span> <span class="o">.=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;File upload error.&#39;</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>And here is how it decides which image to display, depending on the current store:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="c1">// Setting the main name of the image.
-</span><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">=</span> <span class="s1">&#39;advertising&#39;</span><span class="p">;</span>
-
-<span class="c1">// Setting the contextual name of the file, depending on the context.
-</span><span class="c1"></span><span class="k">if</span> <span class="p">(</span>
-    <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span> <span class="o">==</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_GROUP</span>  <span class="o">||</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span> <span class="o">==</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_SHOP</span><span class="p">)</span>
-    <span class="o">&amp;&amp;</span> <span class="nx">file_exists</span><span class="p">(</span>
-        <span class="nx">_PS_MODULE_DIR_</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">.</span> <span class="s1">&#39;/&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">.</span> <span class="s1">&#39;-g&#39;</span>
-        <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopGroupID</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;.&#39;</span>
-        <span class="o">.</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">)</span>
-    <span class="p">)</span>
-<span class="p">)</span> <span class="p">{</span>
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">.=</span> <span class="s1">&#39;-g&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopGroupID</span><span class="p">();</span>
-<span class="p">}</span>
-<span class="k">if</span> <span class="p">(</span>
-    <span class="nx">Shop</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span> <span class="o">==</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_SHOP</span>
-    <span class="o">&amp;&amp;</span> <span class="nx">file_exists</span><span class="p">(</span>
-        <span class="nx">_PS_MODULE_DIR_</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">.</span> <span class="s1">&#39;/&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">.</span> <span class="s1">&#39;-s&#39;</span>
-        <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopID</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;.&#39;</span> 
-        <span class="o">.</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">)</span>
-    <span class="p">)</span>
-<span class="p">)</span> <span class="p">{</span>
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">.=</span> <span class="s1">&#39;-s&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopID</span><span class="p">();</span>
-<span class="p">}</span>
-<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_img</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getMediaServer</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">)</span>
-    <span class="o">.</span> <span class="nx">_MODULE_DIR_</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">.</span> <span class="s1">&#39;/&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">.</span> <span class="s1">&#39;.&#39;</span> 
-    <span class="o">.</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// Saving only the main portion of the uploaded file&#39;s name, without the file extension.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">substr</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;adv_img&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="nx">strrpos</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;adv_img&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                 
+</span></span><span class="line"><span class="cl"><span class="c1">// Setting the image&#39;s name with a name contextual to the shop context.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">=</span> <span class="s1">&#39;advertising&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Creating two versions of the image name, depending on the store context:
+</span></span></span><span class="line"><span class="cl"><span class="c1">// If the context is the current group, use the image named &#39;advertising-g&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1">// If the context is the current store, use the image named &#39;advertising-s&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span> <span class="o">==</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_GROUP</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">=</span> <span class="s1">&#39;advertising&#39;</span><span class="o">.</span><span class="s1">&#39;-g&#39;</span><span class="o">.</span><span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopGroupID</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">elseif</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span> <span class="o">==</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_SHOP</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">=</span> <span class="s1">&#39;advertising&#39;</span><span class="o">.</span><span class="s1">&#39;-s&#39;</span><span class="o">.</span><span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopID</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Copying the image in the module directory with its new contextual name.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">move_uploaded_file</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;adv_img&#39;</span><span class="p">][</span><span class="s1">&#39;tmp_name&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">_PS_MODULE_DIR_</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span><span class="o">.</span><span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$errors</span> <span class="o">.=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;File upload error.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>And here is how it decides which image to display, depending on the current store:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// Setting the main name of the image.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">=</span> <span class="s1">&#39;advertising&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Setting the contextual name of the file, depending on the context.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span> <span class="o">==</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_GROUP</span>  <span class="o">||</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span> <span class="o">==</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_SHOP</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> <span class="nx">file_exists</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">_PS_MODULE_DIR_</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">.</span> <span class="s1">&#39;/&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">.</span> <span class="s1">&#39;-g&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopGroupID</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;.&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">.=</span> <span class="s1">&#39;-g&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopGroupID</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Shop</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span> <span class="o">==</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_SHOP</span>
+</span></span><span class="line"><span class="cl">    <span class="o">&amp;&amp;</span> <span class="nx">file_exists</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">_PS_MODULE_DIR_</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">.</span> <span class="s1">&#39;/&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">.</span> <span class="s1">&#39;-s&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopID</span><span class="p">()</span> <span class="o">.</span> <span class="s1">&#39;.&#39;</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">.</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">.=</span> <span class="s1">&#39;-s&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopID</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_img</span> <span class="o">=</span> <span class="nx">Tools</span><span class="o">::</span><span class="na">getMediaServer</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">.</span> <span class="nx">_MODULE_DIR_</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">.</span> <span class="s1">&#39;/&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">.</span> <span class="s1">&#39;.&#39;</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">.</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">);</span>
+</span></span></code></pre></div>
 <h2 id="building-database-tables-that-support-multistore">Building database tables that support multistore<a href="#building-database-tables-that-support-multistore"></a></h2><p>There can be several scenarios:</p>
 <ul>
 <li>The object/entity exists in some stores, but not in all of them: you should use an associative table, and handle it using <code>id_group_shop</code>.</li>
@@ -33183,29 +33183,29 @@
 <li><code>$alias</code>: is used to set the table alias to which the <code>WHERE</code> clause should be applied.</li>
 </ul>
 <p>For instance, this query retrieves visitor connections from a given shop:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;SELECT date_add, COUNT(`date_add`) as total
-</span><span class="s1"> FROM `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;connections`
-</span><span class="s1"> WHERE 1 &#39;</span> <span class="o">.</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">addSqlRestriction</span><span class="p">();</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="s1">&#39;SELECT date_add, COUNT(`date_add`) as total
+</span></span></span><span class="line"><span class="cl"><span class="s1"> FROM `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;connections`
+</span></span></span><span class="line"><span class="cl"><span class="s1"> WHERE 1 &#39;</span> <span class="o">.</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">addSqlRestriction</span><span class="p">();</span>
+</span></span></code></pre></div>
 <h3 id="object-in-all-stores">Object in all stores<a href="#object-in-all-stores"></a></h3><p>The method to use is <code>Shop::addSqlAssociation($table, $alias, $inner_join = true, $on = null, $force_not_default = false)</code>.</p>
 <p>It makes it possible to add a <code>JOIN</code> clause to the SQL query, joining a table and its associated table in multistore mode.</p>
 <p>For instance, this query automatically associates the<code> _DB_PREFIX_ . 'product_shop'</code> table to the <code>_DB_PREFIX_ . 'product'</code> table using the <code>p</code> alias:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;SELECT wp.`id_product`
-</span><span class="s1"> FROM `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;wishlist_product` wp
-</span><span class="s1"> LEFT JOIN `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;product` p ON p.`id_product` = wp.`id_product`
-</span><span class="s1"> &#39;</span> <span class="o">.</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">addSqlAssociation</span><span class="p">(</span><span class="s1">&#39;product&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">);</span>
-</code></pre></div><p>This way, the joint between the information from the product and the current store&rsquo;s context is applied.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="s1">&#39;SELECT wp.`id_product`
+</span></span></span><span class="line"><span class="cl"><span class="s1"> FROM `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;wishlist_product` wp
+</span></span></span><span class="line"><span class="cl"><span class="s1"> LEFT JOIN `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;product` p ON p.`id_product` = wp.`id_product`
+</span></span></span><span class="line"><span class="cl"><span class="s1"> &#39;</span> <span class="o">.</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">addSqlAssociation</span><span class="p">(</span><span class="s1">&#39;product&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>This way, the joint between the information from the product and the current store&rsquo;s context is applied.</p>
 
 <h3 id="different-language-in-every-store">Different language in every store<a href="#different-language-in-every-store"></a></h3><p>The method to use is <code>Shop::addSqlRestrictionOnLang($alias = null, $id_shop = null)</code>.</p>
 <p>It makes it possible to add a restriction on id_shop for a multishop language table.</p>
 <p>For instance, this query automatically associates the<code> _DB_PREFIX_ . 'product_lang'</code> table to the <code>_DB_PREFIX_ . 'wishlist_product'</code> table using the <code>pl</code> alias:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;SELECT wp.`id_product`
-</span><span class="s1"> FROM `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;wishlist_product` wp
-</span><span class="s1"> LEFT JOIN `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;product` p ON p.`id_product` = wp.`id_product`
-</span><span class="s1"> &#39;</span> <span class="o">.</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">addSqlAssociation</span><span class="p">(</span><span class="s1">&#39;product&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;
-</span><span class="s1"> LEFT JOIN `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;product_lang` pl ON pl.`id_product` = wp.`id_product`&#39;</span> <span class="o">.</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">addSqlRestrictionOnLang</span><span class="p">(</span><span class="s1">&#39;pl&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;
-</span><span class="s1"> WHERE pl.`id_lang` = &#39;</span> <span class="o">.</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$id_lang</span><span class="p">;</span>
-</code></pre></div><p>This way, the joint between the language information of the product and the current store language is applied.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="s1">&#39;SELECT wp.`id_product`
+</span></span></span><span class="line"><span class="cl"><span class="s1"> FROM `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;wishlist_product` wp
+</span></span></span><span class="line"><span class="cl"><span class="s1"> LEFT JOIN `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;product` p ON p.`id_product` = wp.`id_product`
+</span></span></span><span class="line"><span class="cl"><span class="s1"> &#39;</span> <span class="o">.</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">addSqlAssociation</span><span class="p">(</span><span class="s1">&#39;product&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1"> LEFT JOIN `&#39;</span> <span class="o">.</span> <span class="nx">_DB_PREFIX_</span> <span class="o">.</span> <span class="s1">&#39;product_lang` pl ON pl.`id_product` = wp.`id_product`&#39;</span> <span class="o">.</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">addSqlRestrictionOnLang</span><span class="p">(</span><span class="s1">&#39;pl&#39;</span><span class="p">)</span> <span class="o">.</span> <span class="s1">&#39;
+</span></span></span><span class="line"><span class="cl"><span class="s1"> WHERE pl.`id_lang` = &#39;</span> <span class="o">.</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$id_lang</span><span class="p">;</span>
+</span></span></code></pre></div><p>This way, the joint between the language information of the product and the current store language is applied.</p>
 
 
 <footer class="article-footer">
@@ -33284,17 +33284,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163911"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163911"></script>
-    <script src="/js/jquery.sticky.js?1703163911"></script>
-    <script src="/js/featherlight.min.js?1703163911"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163911"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163911"></script>
-    <script src="/js/learn.js?1703163911"></script>
-    <script src="/js/hugo-learn.js?1703163911"></script>
+    <script src="/js/clipboard.min.js?1703164736"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164736"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164736"></script>
+    <script src="/js/jquery.sticky.js?1703164736"></script>
+    <script src="/js/featherlight.min.js?1703164736"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164736"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164736"></script>
+    <script src="/js/learn.js?1703164736"></script>
+    <script src="/js/hugo-learn.js?1703164736"></script>
     
-    <script src="/main.js?1703163911"></script>
+    <script src="/main.js?1703164736"></script>
     
     
     

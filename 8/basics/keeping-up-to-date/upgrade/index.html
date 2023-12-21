@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Everything you need to know to upgrade your PrestaShop to the latest version">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to upgrade PrestaShop :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163900" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163900" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163900" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163900" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164726" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164726" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164726" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164726" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163900" rel="stylesheet">
+    <link href="/style.css?1703164726" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163900"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164726"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33136,13 +33136,13 @@ mechanism from the upgrade assistant module.</p>
 
 <h3 id="release-download">Release download<a href="#release-download"></a></h3><p>The first step is to download the latest version on <a href="https://github.com/PrestaShop/PrestaShop/releases">https://github.com/PrestaShop/PrestaShop/releases</a>.</p>
 <p>Download can also be done in command line, as done here with the version 8.0.2:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">wget -O prestashop-upgrade.zip https://github.com/PrestaShop/PrestaShop/releases/download/8.0.2/prestashop_8.0.2.zip
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -O prestashop-upgrade.zip https://github.com/PrestaShop/PrestaShop/releases/download/8.0.2/prestashop_8.0.2.zip
+</span></span></code></pre></div>
 <h3 id="archive-extraction">Archive extraction<a href="#archive-extraction"></a></h3><p>Extract the files from the archive with a tool like 7zip</p>
 <p>Note starting from PrestaShop 1.7.0.0, the release package contains a zip file itself, which must be extracted as well.</p>
 <p>On a Linux terminal, you can use the command `unzip`:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">unzip prestashop-upgrade.zip <span class="o">&amp;&amp;</span> unzip prestashop.zip
-</code></pre></div><p>Once you have the folders like <code>classes/</code>, <code>modules/</code>, <code>themes/</code>, etc. you may go on the next step.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">unzip prestashop-upgrade.zip <span class="o">&amp;&amp;</span> unzip prestashop.zip
+</span></span></code></pre></div><p>Once you have the folders like <code>classes/</code>, <code>modules/</code>, <code>themes/</code>, etc. you may go on the next step.</p>
 
 <h3 id="sample-files-cleanup">Sample files cleanup<a href="#sample-files-cleanup"></a></h3><p>Avoid overwrite the production resources (images, conf &hellip;) with the default data. These folders can be removed from the new release:</p>
 <ul>
@@ -33169,16 +33169,16 @@ That way, you can make sure everything is working right before allowing your cus
 
 <div class="notices warning" ><p><strong>Note about <code>vendor</code> folder</strong>: Previous upgrades of PrestaShop 1.7 showed that conflicts may occur when merging the new vendor/ folder with the old one.
 To avoid this problem, we recommend to delete this folder in the existing shop before copying the new one.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">rm -rf vendor/
-</code></pre></div></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -rf vendor/
+</span></span></code></pre></div></div>
 
 <p>On Windows, copy the new folder content and paste it in your shop folder.
 You will get warnings that files already exists in the destination folder. Choose “overwrite” to continue.</p>
 <p>On linux, the copy can be done in your terminal:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">cp -R &lt;path_to_the_new_release&gt;/* &lt;path_to_the_current_shop&gt;/
-</code></pre></div><p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">cp -R ~/Downloads/prestashop/* /var/www/html/
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp -R &lt;path_to_the_new_release&gt;/* &lt;path_to_the_current_shop&gt;/
+</span></span></code></pre></div><p>Example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp -R ~/Downloads/prestashop/* /var/www/html/
+</span></span></code></pre></div>
 <h3 id="database-upgrade">Database upgrade<a href="#database-upgrade"></a></h3><p>Once the files have been copied, your shop database is ready to be upgraded.</p>
 
 <div class="notices note" >Some web hosting providers gives you two user accounts to access your database. One with full privileges the other for using in scripts with limited rights. To be able to use this Database upgrade script you have to use the account with full privileges.</div>
@@ -33186,8 +33186,8 @@ You will get warnings that files already exists in the destination folder. Choos
 <p>All the changes to apply have been defined in the <code>install</code> folder, running them can be done with a specific PHP script.</p>
 <p>When you’re ready, run the file <code>upgrade/upgrade.php</code> from the <code>autoupgrade</code> module.</p>
 <p>This can be done with a browser, by reaching the address <code>http://&lt;shop_domain&gt;/modules/autoupgrade/upgrade/upgrade.php</code>, or from your <code>CLI</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">php modules/autoupgrade/upgrade/upgrade.php
-</code></pre></div><p>In both cases, an XML log will be displayed. The result can be found in the attribute <code>result</code> of the first tag <code>&lt;action&gt;</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php modules/autoupgrade/upgrade/upgrade.php
+</span></span></code></pre></div><p>In both cases, an XML log will be displayed. The result can be found in the attribute <code>result</code> of the first tag <code>&lt;action&gt;</code>:</p>
 <ul>
 <li><code>ok</code> if updates have been found and executed</li>
 <li><code>error</code> if something went wrong</li>
@@ -33195,13 +33195,13 @@ You will get warnings that files already exists in the destination folder. Choos
 </ul>
 
 <h4 id="execution-log">Execution log<a href="#execution-log"></a></h4><p>When the upgrade script found some upgrades to apply, the SQL queries run will be listed along their respective result.</p>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span><span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;ok&#34;</span> <span class="na">id=</span><span class="s">&#34;&#34;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;info&#34;</span> <span class="na">id=</span><span class="s">&#34;1.7.0.5&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[[OK] PHP 1.7.0.5 : /* PHP:ps_update_tabs(); */]]&gt;</span><span class="nt">&lt;/action&gt;</span>
-<span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;info&#34;</span> <span class="na">id=</span><span class="s">&#34;1.7.0.5&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[[OK] SQL 1.7.0.5 : ALTER TABLE `ps_currency` MODIFY `name` varchar(64) NOT NULL]]&gt;</span><span class="nt">&lt;/action&gt;</span>
-<span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;info&#34;</span> <span class="na">id=</span><span class="s">&#34;1.7.1.0&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[[OK] SQL 1.7.1.0 : SET SESSION sql_mode = &#39;&#39;]]&gt;</span><span class="nt">&lt;/action&gt;</span>
-<span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;info&#34;</span> <span class="na">id=</span><span class="s">&#34;1.7.1.0&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[[OK] SQL 1.7.1.0 : SET NAMES &#39;utf8&#39;]]&gt;</span><span class="nt">&lt;/action&gt;</span>
-[...]
-</code></pre></div><p>You can double check that each action is marked as “OK”. If not, additional details will be shown after the request, which can help you fix the issue and re-execute the request manually on your database. In some cases, you may need to restore your database backup and start over.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span><span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;ok&#34;</span> <span class="na">id=</span><span class="s">&#34;&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;info&#34;</span> <span class="na">id=</span><span class="s">&#34;1.7.0.5&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[[OK] PHP 1.7.0.5 : /* PHP:ps_update_tabs(); */]]&gt;</span><span class="nt">&lt;/action&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;info&#34;</span> <span class="na">id=</span><span class="s">&#34;1.7.0.5&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[[OK] SQL 1.7.0.5 : ALTER TABLE `ps_currency` MODIFY `name` varchar(64) NOT NULL]]&gt;</span><span class="nt">&lt;/action&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;info&#34;</span> <span class="na">id=</span><span class="s">&#34;1.7.1.0&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[[OK] SQL 1.7.1.0 : SET SESSION sql_mode = &#39;&#39;]]&gt;</span><span class="nt">&lt;/action&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;info&#34;</span> <span class="na">id=</span><span class="s">&#34;1.7.1.0&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[[OK] SQL 1.7.1.0 : SET NAMES &#39;utf8&#39;]]&gt;</span><span class="nt">&lt;/action&gt;</span>
+</span></span><span class="line"><span class="cl">[...]
+</span></span></code></pre></div><p>You can double check that each action is marked as “OK”. If not, additional details will be shown after the request, which can help you fix the issue and re-execute the request manually on your database. In some cases, you may need to restore your database backup and start over.</p>
 
 <h4 id="error-codes">Error codes<a href="#error-codes"></a></h4><p>An error code can also be displayed. Each code is related to a message described here:</p>
 <ul>
@@ -33313,17 +33313,17 @@ You will get warnings that files already exists in the destination folder. Choos
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163900"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163900"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163900"></script>
-    <script src="/js/jquery.sticky.js?1703163900"></script>
-    <script src="/js/featherlight.min.js?1703163900"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163900"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163900"></script>
-    <script src="/js/learn.js?1703163900"></script>
-    <script src="/js/hugo-learn.js?1703163900"></script>
+    <script src="/js/clipboard.min.js?1703164726"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164726"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164726"></script>
+    <script src="/js/jquery.sticky.js?1703164726"></script>
+    <script src="/js/featherlight.min.js?1703164726"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164726"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164726"></script>
+    <script src="/js/learn.js?1703164726"></script>
+    <script src="/js/hugo-learn.js?1703164726"></script>
     
-    <script src="/main.js?1703163900"></script>
+    <script src="/main.js?1703164726"></script>
     
     
     

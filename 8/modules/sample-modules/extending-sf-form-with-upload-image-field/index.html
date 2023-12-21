@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Extending Symfony form with upload image field :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163926" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163926" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163926" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163926" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164748" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164748" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164748" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164748" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163926" rel="stylesheet">
+    <link href="/style.css?1703164748" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163926"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164748"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33126,536 +33126,536 @@ practices such as SOLID principles to make our code as supported as possible !</
 </ul>
 
 <h3 id="main-module-class">Main module class<a href="#main-module-class"></a></h3><p>Let&rsquo;s create main module class <code>DemoExtendSymfonyForm2</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// since this module is compatible with PS 1.7.7 and later, we
-</span><span class="c1">// can use PHP7 strict types because PHP5 support has been dropped for PS 1.7.7
-</span><span class="c1"></span><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="c1">// use statements
-</span><span class="c1"></span>
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
-    <span class="k">exit</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="c1">// needed as use Composer to autoload this module
-</span><span class="c1"></span><span class="k">require_once</span> <span class="no">__DIR__</span><span class="o">.</span><span class="s1">&#39;/vendor/autoload.php&#39;</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * Class demoextendsymfonyform
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">DemoExtendSymfonyForm2</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="k">const</span> <span class="no">SUPPLIER_EXTRA_IMAGE_PATH</span> <span class="o">=</span> <span class="s1">&#39;/img/su/&#39;</span><span class="p">;</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;demoextendsymfonyform2&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="s1">&#39;PrestaShop&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ps_versions_compliancy</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7.7.0&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="nx">_PS_VERSION_</span><span class="p">];</span>
-
-        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
-
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Demo Symfony Forms #2&#39;</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span>
-            <span class="s1">&#39;Demonstration of how to add an image upload field inside the Symfony form&#39;</span>
-        <span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s create Installer class responsible for hooks registration and database management:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Install</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Db</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Module</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * Class Installer
-</span><span class="sd"> * @package PrestaShop\Module\DemoExtendSymfonyForm\Install
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">Installer</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * Module&#39;s installation entry point.
-</span><span class="sd">     *
-</span><span class="sd">     * @param Module $module
-</span><span class="sd">     *
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHooks</span><span class="p">(</span><span class="nv">$module</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">installDatabase</span><span class="p">())</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Module&#39;s uninstallation entry point.
-</span><span class="sd">     *
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uninstallDatabase</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Install the database modifications required for this module.
-</span><span class="sd">     *
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">installDatabase</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
-    <span class="p">{</span>
-        <span class="nv">$queries</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;CREATE TABLE IF NOT EXISTS `&#39;</span><span class="o">.</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="s1">&#39;supplier_extra_image` (
-</span><span class="s1">              `id_extra_image` int(11) NOT NULL AUTO_INCREMENT,
-</span><span class="s1">              `id_supplier` int(11) NOT NULL,
-</span><span class="s1">              `image_name` varchar(64) NOT NULL,
-</span><span class="s1">              PRIMARY KEY (`id_extra_image`)
-</span><span class="s1">            ) ENGINE=&#39;</span><span class="o">.</span><span class="nx">_MYSQL_ENGINE_</span><span class="o">.</span><span class="s1">&#39; DEFAULT CHARSET=utf8;&#39;</span><span class="p">,</span>
-        <span class="p">];</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">executeQueries</span><span class="p">(</span><span class="nv">$queries</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Uninstall database modifications.
-</span><span class="sd">     *
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">uninstallDatabase</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
-    <span class="p">{</span>
-        <span class="nv">$queries</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;DROP TABLE IF EXISTS `&#39;</span><span class="o">.</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="s1">&#39;supplier_extra_image`&#39;</span><span class="p">,</span>
-        <span class="p">];</span>
-
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">executeQueries</span><span class="p">(</span><span class="nv">$queries</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Register hooks for the module.
-</span><span class="sd">     *
-</span><span class="sd">     * @param Module $module
-</span><span class="sd">     *
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">registerHooks</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
-    <span class="p">{</span>
-        <span class="nv">$hooks</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s1">&#39;actionSupplierFormBuilderModifier&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;actionAfterCreateSupplierFormHandler&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;actionAfterUpdateSupplierFormHandler&#39;</span><span class="p">,</span>
-        <span class="p">];</span>
-
-        <span class="k">return</span> <span class="p">(</span><span class="nx">bool</span><span class="p">)</span> <span class="nv">$module</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nv">$hooks</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * A helper that executes multiple database queries.
-</span><span class="sd">     *
-</span><span class="sd">     * @param array $queries
-</span><span class="sd">     *
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">executeQueries</span><span class="p">(</span><span class="k">array</span> <span class="nv">$queries</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
-    <span class="p">{</span>
-        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$queries</span> <span class="k">as</span> <span class="nv">$query</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="nv">$query</span><span class="p">))</span> <span class="p">{</span>
-                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s use <code>Installer</code> class inside the main module class by adding code snippet
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// since this module is compatible with PS 1.7.7 and later, we
+</span></span></span><span class="line"><span class="cl"><span class="c1">// can use PHP7 strict types because PHP5 support has been dropped for PS 1.7.7
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// use statements
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">defined</span><span class="p">(</span><span class="s1">&#39;_PS_VERSION_&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">exit</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// needed as use Composer to autoload this module
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">require_once</span> <span class="no">__DIR__</span><span class="o">.</span><span class="s1">&#39;/vendor/autoload.php&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Class demoextendsymfonyform
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DemoExtendSymfonyForm2</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">const</span> <span class="no">SUPPLIER_EXTRA_IMAGE_PATH</span> <span class="o">=</span> <span class="s1">&#39;/img/su/&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">=</span> <span class="s1">&#39;demoextendsymfonyform2&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">author</span> <span class="o">=</span> <span class="s1">&#39;PrestaShop&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">version</span> <span class="o">=</span> <span class="s1">&#39;1.0.0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">ps_versions_compliancy</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;min&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;1.7.7.0&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span> <span class="o">=&gt;</span> <span class="nx">_PS_VERSION_</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">displayName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;Demo Symfony Forms #2&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">description</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;Demonstration of how to add an image upload field inside the Symfony form&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Let&rsquo;s create Installer class responsible for hooks registration and database management:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Install</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Db</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Module</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Class Installer
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @package PrestaShop\Module\DemoExtendSymfonyForm\Install
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Installer</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Module&#39;s installation entry point.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param Module $module
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHooks</span><span class="p">(</span><span class="nv">$module</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">installDatabase</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Module&#39;s uninstallation entry point.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uninstallDatabase</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Install the database modifications required for this module.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">installDatabase</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$queries</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;CREATE TABLE IF NOT EXISTS `&#39;</span><span class="o">.</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="s1">&#39;supplier_extra_image` (
+</span></span></span><span class="line"><span class="cl"><span class="s1">              `id_extra_image` int(11) NOT NULL AUTO_INCREMENT,
+</span></span></span><span class="line"><span class="cl"><span class="s1">              `id_supplier` int(11) NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="s1">              `image_name` varchar(64) NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="s1">              PRIMARY KEY (`id_extra_image`)
+</span></span></span><span class="line"><span class="cl"><span class="s1">            ) ENGINE=&#39;</span><span class="o">.</span><span class="nx">_MYSQL_ENGINE_</span><span class="o">.</span><span class="s1">&#39; DEFAULT CHARSET=utf8;&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">executeQueries</span><span class="p">(</span><span class="nv">$queries</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Uninstall database modifications.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">uninstallDatabase</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$queries</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;DROP TABLE IF EXISTS `&#39;</span><span class="o">.</span><span class="nx">_DB_PREFIX_</span><span class="o">.</span><span class="s1">&#39;supplier_extra_image`&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">executeQueries</span><span class="p">(</span><span class="nv">$queries</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Register hooks for the module.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param Module $module
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">registerHooks</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$module</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$hooks</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;actionSupplierFormBuilderModifier&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;actionAfterCreateSupplierFormHandler&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;actionAfterUpdateSupplierFormHandler&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span><span class="nx">bool</span><span class="p">)</span> <span class="nv">$module</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nv">$hooks</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * A helper that executes multiple database queries.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $queries
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">executeQueries</span><span class="p">(</span><span class="k">array</span> <span class="nv">$queries</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$queries</span> <span class="k">as</span> <span class="nv">$query</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Db</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">(</span><span class="nv">$query</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Let&rsquo;s use <code>Installer</code> class inside the main module class by adding code snippet
 below to <code>DemoExtendSymfonyForm2</code> class.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">use</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Install\Installer</span><span class="p">;</span>
-<span class="p">[</span><span class="o">...</span><span class="p">]</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">())</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="nv">$installer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Installer</span><span class="p">();</span>
-
-        <span class="k">return</span> <span class="nv">$installer</span><span class="o">-&gt;</span><span class="na">install</span><span class="p">(</span><span class="nv">$this</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return bool
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="nv">$installer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Installer</span><span class="p">();</span>
-
-        <span class="k">return</span> <span class="nv">$installer</span><span class="o">-&gt;</span><span class="na">uninstall</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">();</span>
-    <span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s create <code>SupplierExtraImage</code> entity class. We use <a href="/8/modules/concepts/doctrine/">Doctrine</a> which is available for PrestaShop modules since version 1.7.6.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Entity</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Doctrine\ORM\Mapping</span> <span class="k">as</span> <span class="nx">ORM</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * @ORM\Table()
-</span><span class="sd"> * @ORM\Entity(repositoryClass=&#34;PrestaShop\Module\DemoExtendSymfonyForm\Repository\SupplierExtraImageRepository&#34;)
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">SupplierExtraImage</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @var int
-</span><span class="sd">     *
-</span><span class="sd">     * @ORM\Id
-</span><span class="sd">     * @ORM\Column(name=&#34;id_extra_image&#34;, type=&#34;integer&#34;)
-</span><span class="sd">     * @ORM\GeneratedValue(strategy=&#34;AUTO&#34;)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$id</span><span class="p">;</span>
-
-
-    <span class="sd">/**
-</span><span class="sd">     * @ORM\Column(name=&#34;id_supplier&#34;, type=&#34;integer&#34;)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$supplierId</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @var string
-</span><span class="sd">     *
-</span><span class="sd">     * @ORM\Column(type=&#34;string&#34;)
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="nv">$imageName</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return int
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span><span class="o">:</span> <span class="nx">int</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param int $id
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setId</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$id</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">id</span> <span class="o">=</span> <span class="nv">$id</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return mixed
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getSupplierId</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">supplierId</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param mixed $supplierId
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setSupplierId</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">supplierId</span> <span class="o">=</span> <span class="nv">$supplierId</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @return string
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">getImageName</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">imageName</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param string $imageName
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">setImageName</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$imageName</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">imageName</span> <span class="o">=</span> <span class="nv">$imageName</span><span class="p">;</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s create <code>SupplierExtraImageRepository</code> class:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Repository</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Doctrine\ORM\EntityRepository</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Entity\SupplierExtraImage</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * Class SupplierExtraImageRepository
-</span><span class="sd"> * @package PrestaShop\Module\DemoExtendSymfonyForm\Repository
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">SupplierExtraImageRepository</span> <span class="k">extends</span> <span class="nx">EntityRepository</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @param $supplierId
-</span><span class="sd">     * @param $imageName
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">upsertSupplierImageName</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">,</span> <span class="nv">$imageName</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="sd">/** @var SupplierExtraImage $supplierExtraImage */</span>
-        <span class="nv">$supplierExtraImage</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">findOneBy</span><span class="p">([</span><span class="s1">&#39;supplierId&#39;</span> <span class="o">=&gt;</span> <span class="nv">$supplierId</span><span class="p">]);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$supplierExtraImage</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$supplierExtraImage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SupplierExtraImage</span><span class="p">();</span>
-            <span class="nv">$supplierExtraImage</span><span class="o">-&gt;</span><span class="na">setSupplierId</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="nv">$supplierExtraImage</span><span class="o">-&gt;</span><span class="na">setImageName</span><span class="p">(</span><span class="nv">$imageName</span><span class="p">);</span>
-
-        <span class="nv">$em</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEntityManager</span><span class="p">();</span>
-        <span class="nv">$em</span><span class="o">-&gt;</span><span class="na">persist</span><span class="p">(</span><span class="nv">$supplierExtraImage</span><span class="p">);</span>
-        <span class="nv">$em</span><span class="o">-&gt;</span><span class="na">flush</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param SupplierExtraImage $supplierExtraImage
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">deleteExtraImage</span><span class="p">(</span><span class="nx">SupplierExtraImage</span> <span class="nv">$supplierExtraImage</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$em</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEntityManager</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$supplierExtraImage</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$em</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="nv">$supplierExtraImage</span><span class="p">);</span>
-            <span class="nv">$em</span><span class="o">-&gt;</span><span class="na">flush</span><span class="p">();</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s create hook <code>hookActionSupplierFormBuilderModifier</code> function inside Main module class.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Install\Installer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$installer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Installer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$installer</span><span class="o">-&gt;</span><span class="na">install</span><span class="p">(</span><span class="nv">$this</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return bool
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">uninstall</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$installer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Installer</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$installer</span><span class="o">-&gt;</span><span class="na">uninstall</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="k">parent</span><span class="o">::</span><span class="na">uninstall</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>Let&rsquo;s create <code>SupplierExtraImage</code> entity class. We use <a href="/8/modules/concepts/doctrine/">Doctrine</a> which is available for PrestaShop modules since version 1.7.6.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Entity</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\ORM\Mapping</span> <span class="k">as</span> <span class="nx">ORM</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @ORM\Table()
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @ORM\Entity(repositoryClass=&#34;PrestaShop\Module\DemoExtendSymfonyForm\Repository\SupplierExtraImageRepository&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SupplierExtraImage</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var int
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Id
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(name=&#34;id_extra_image&#34;, type=&#34;integer&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\GeneratedValue(strategy=&#34;AUTO&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(name=&#34;id_supplier&#34;, type=&#34;integer&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$supplierId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @ORM\Column(type=&#34;string&#34;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$imageName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return int
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getId</span><span class="p">()</span><span class="o">:</span> <span class="nx">int</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int $id
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setId</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$id</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">id</span> <span class="o">=</span> <span class="nv">$id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return mixed
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getSupplierId</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">supplierId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param mixed $supplierId
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setSupplierId</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">supplierId</span> <span class="o">=</span> <span class="nv">$supplierId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getImageName</span><span class="p">()</span><span class="o">:</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">imageName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param string $imageName
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">setImageName</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$imageName</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">imageName</span> <span class="o">=</span> <span class="nv">$imageName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Let&rsquo;s create <code>SupplierExtraImageRepository</code> class:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Repository</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\ORM\EntityRepository</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Entity\SupplierExtraImage</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Class SupplierExtraImageRepository
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @package PrestaShop\Module\DemoExtendSymfonyForm\Repository
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SupplierExtraImageRepository</span> <span class="k">extends</span> <span class="nx">EntityRepository</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param $supplierId
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param $imageName
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">upsertSupplierImageName</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">,</span> <span class="nv">$imageName</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var SupplierExtraImage $supplierExtraImage */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$supplierExtraImage</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">findOneBy</span><span class="p">([</span><span class="s1">&#39;supplierId&#39;</span> <span class="o">=&gt;</span> <span class="nv">$supplierId</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$supplierExtraImage</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$supplierExtraImage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SupplierExtraImage</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$supplierExtraImage</span><span class="o">-&gt;</span><span class="na">setSupplierId</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$supplierExtraImage</span><span class="o">-&gt;</span><span class="na">setImageName</span><span class="p">(</span><span class="nv">$imageName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$em</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEntityManager</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$em</span><span class="o">-&gt;</span><span class="na">persist</span><span class="p">(</span><span class="nv">$supplierExtraImage</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$em</span><span class="o">-&gt;</span><span class="na">flush</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param SupplierExtraImage $supplierExtraImage
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">deleteExtraImage</span><span class="p">(</span><span class="nx">SupplierExtraImage</span> <span class="nv">$supplierExtraImage</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$em</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getEntityManager</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$supplierExtraImage</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$em</span><span class="o">-&gt;</span><span class="na">remove</span><span class="p">(</span><span class="nv">$supplierExtraImage</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$em</span><span class="o">-&gt;</span><span class="na">flush</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Let&rsquo;s create hook <code>hookActionSupplierFormBuilderModifier</code> function inside Main module class.
 This is a hook available for <a href="/8/modules/sample-modules/grid-and-identifiable-object-form-hooks-usage/">CRUD forms</a> in PrestaShop Symfony pages.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="sd">/**
-</span><span class="sd">     * @param array $params
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionSupplierFormBuilderModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="sd">/** @var SupplierExtraImageRepository $supplierExtraImageRepository */</span>
-        <span class="nv">$supplierExtraImageRepository</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span>
-            <span class="s1">&#39;prestashop.module.demoextendsymfonyform.repository.supplier_extra_image_repository&#39;</span>
-        <span class="p">);</span>
-
-        <span class="nv">$translator</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getTranslator</span><span class="p">();</span>
-        <span class="sd">/** @var FormBuilderInterface $formBuilder */</span>
-        <span class="nv">$formBuilder</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;form_builder&#39;</span><span class="p">];</span>
-        <span class="c1">// we add to the Symfony form an `upload_image_file` field that will be used by BO user to upload image files
-</span><span class="c1"></span>        <span class="nv">$formBuilder</span>
-            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;upload_image_file&#39;</span><span class="p">,</span> <span class="nx">FileType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="p">[</span>
-                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$translator</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Upload image file&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.DemoExtendSymfonyForm&#39;</span><span class="p">),</span>
-                <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
-            <span class="p">]);</span>
-
-        <span class="sd">/** @var SupplierExtraImage $supplierExtraImage */</span>
-        <span class="nv">$supplierExtraImage</span> <span class="o">=</span> <span class="nv">$supplierExtraImageRepository</span><span class="o">-&gt;</span><span class="na">findOneBy</span><span class="p">([</span><span class="s1">&#39;supplierId&#39;</span> <span class="o">=&gt;</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]]);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$supplierExtraImage</span> <span class="o">&amp;&amp;</span> <span class="nx">file_exists</span><span class="p">(</span><span class="nx">_PS_SUPP_IMG_DIR_</span> <span class="o">.</span> <span class="nv">$supplierExtraImage</span><span class="o">-&gt;</span><span class="na">getImageName</span><span class="p">()))</span> <span class="p">{</span>
-            <span class="c1">// When an image is already registered for this supplier, we add to the Symfony an
-</span><span class="c1"></span>            <span class="c1">// &#39;image_file&#39; to provide a preview input to BO user and also provide a &#34;delete button&#34;
-</span><span class="c1"></span>            <span class="nv">$formBuilder</span>
-                <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;image_file&#39;</span><span class="p">,</span> <span class="nx">CustomContentType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="p">[</span>
-                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
-                    <span class="s1">&#39;template&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;@Modules/demoextendsymfonyform2/src/View/upload_image.html.twig&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-                        <span class="s1">&#39;supplierId&#39;</span> <span class="o">=&gt;</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
-                        <span class="s1">&#39;imageUrl&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">SUPPLIER_EXTRA_IMAGE_PATH</span> <span class="o">.</span> <span class="nv">$supplierExtraImage</span><span class="o">-&gt;</span><span class="na">getImageName</span><span class="p">(),</span>
-                    <span class="p">],</span>
-                <span class="p">]);</span>
-        <span class="p">}</span>
-
-    <span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s create <code>SupplierExtraImageUploader</code> class:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
-
-<span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Uploader</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Entity\SupplierExtraImage</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Repository\SupplierExtraImageRepository</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Image\Uploader\Exception\ImageOptimizationException</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Image\Uploader\Exception\ImageUploadException</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Image\Uploader\Exception\MemoryLimitException</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Image\Uploader\Exception\UploadedImageConstraintException</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Image\Uploader\ImageUploaderInterface</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\File\UploadedFile</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * Class SupplierExtraImageUploader
-</span><span class="sd"> * @package PrestaShop\Module\DemoExtendSymfonyForm\Uploader
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">SupplierExtraImageUploader</span> <span class="k">implements</span> <span class="nx">ImageUploaderInterface</span>
-<span class="p">{</span>
-    <span class="sd">/** @var SupplierExtraImageRepository */</span>
-    <span class="k">private</span> <span class="nv">$supplierExtraImageRepository</span><span class="p">;</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param SupplierExtraImageRepository $supplierExtraImageRepository
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">SupplierExtraImageRepository</span> <span class="nv">$supplierExtraImageRepository</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">supplierExtraImageRepository</span> <span class="o">=</span> <span class="nv">$supplierExtraImageRepository</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * @param int $supplierId
-</span><span class="sd">     * @param UploadedFile $image
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">upload</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">,</span> <span class="nx">UploadedFile</span> <span class="nv">$image</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">checkImageIsAllowedForUpload</span><span class="p">(</span><span class="nv">$image</span><span class="p">);</span>
-        <span class="nv">$tempImageName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">createTemporaryImage</span><span class="p">(</span><span class="nv">$image</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">deleteOldImage</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">);</span>
-
-        <span class="nv">$originalImageName</span> <span class="o">=</span> <span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getClientOriginalName</span><span class="p">();</span>
-        <span class="nv">$destination</span> <span class="o">=</span> <span class="nx">_PS_SUPP_IMG_DIR_</span> <span class="o">.</span> <span class="nv">$originalImageName</span><span class="p">;</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uploadFromTemp</span><span class="p">(</span><span class="nv">$tempImageName</span><span class="p">,</span> <span class="nv">$destination</span><span class="p">);</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">supplierExtraImageRepository</span><span class="o">-&gt;</span><span class="na">upsertSupplierImageName</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">,</span> <span class="nv">$originalImageName</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Creates temporary image from uploaded file
-</span><span class="sd">     *
-</span><span class="sd">     * @param UploadedFile $image
-</span><span class="sd">     *
-</span><span class="sd">     * @throws ImageUploadException
-</span><span class="sd">     *
-</span><span class="sd">     * @return string
-</span><span class="sd">     */</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">createTemporaryImage</span><span class="p">(</span><span class="nx">UploadedFile</span> <span class="nv">$image</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$temporaryImageName</span> <span class="o">=</span> <span class="nx">tempnam</span><span class="p">(</span><span class="nx">_PS_TMP_IMG_DIR_</span><span class="p">,</span> <span class="s1">&#39;PS&#39;</span><span class="p">);</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$temporaryImageName</span> <span class="o">||</span> <span class="o">!</span><span class="nx">move_uploaded_file</span><span class="p">(</span><span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getPathname</span><span class="p">(),</span> <span class="nv">$temporaryImageName</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">ImageUploadException</span><span class="p">(</span><span class="s1">&#39;Failed to create temporary image file&#39;</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="nv">$temporaryImageName</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Uploads resized image from temporary folder to image destination
-</span><span class="sd">     *
-</span><span class="sd">     * @param $temporaryImageName
-</span><span class="sd">     * @param $destination
-</span><span class="sd">     *
-</span><span class="sd">     * @throws ImageOptimizationException
-</span><span class="sd">     * @throws MemoryLimitException
-</span><span class="sd">     */</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">uploadFromTemp</span><span class="p">(</span><span class="nv">$temporaryImageName</span><span class="p">,</span> <span class="nv">$destination</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">\ImageManager</span><span class="o">::</span><span class="na">checkImageMemoryLimit</span><span class="p">(</span><span class="nv">$temporaryImageName</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">MemoryLimitException</span><span class="p">(</span><span class="s1">&#39;Cannot upload image due to memory restrictions&#39;</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">\ImageManager</span><span class="o">::</span><span class="na">resize</span><span class="p">(</span><span class="nv">$temporaryImageName</span><span class="p">,</span> <span class="nv">$destination</span><span class="p">))</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">ImageOptimizationException</span><span class="p">(</span>
-                <span class="s1">&#39;An error occurred while uploading the image. Check your directory permissions.&#39;</span>
-            <span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="nx">unlink</span><span class="p">(</span><span class="nv">$temporaryImageName</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Deletes old image
-</span><span class="sd">     *
-</span><span class="sd">     * @param $supplierId
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">deleteOldImage</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="sd">/** @var SupplierExtraImage $supplierExtraImage */</span>
-        <span class="nv">$supplierExtraImage</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">supplierExtraImageRepository</span><span class="o">-&gt;</span><span class="na">findOneBy</span><span class="p">([</span><span class="s1">&#39;supplierId&#39;</span> <span class="o">=&gt;</span> <span class="nv">$supplierId</span><span class="p">]);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$supplierExtraImage</span> <span class="o">&amp;&amp;</span> <span class="nx">file_exists</span><span class="p">(</span><span class="nx">_PS_SUPP_IMG_DIR_</span> <span class="o">.</span> <span class="nv">$supplierExtraImage</span><span class="o">-&gt;</span><span class="na">getImageName</span><span class="p">()))</span> <span class="p">{</span>
-            <span class="nx">unlink</span><span class="p">(</span><span class="nx">_PS_SUPP_IMG_DIR_</span> <span class="o">.</span> <span class="nv">$supplierExtraImage</span><span class="o">-&gt;</span><span class="na">getImageName</span><span class="p">());</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="sd">/**
-</span><span class="sd">     * Check if image is allowed to be uploaded.
-</span><span class="sd">     *
-</span><span class="sd">     * @param UploadedFile $image
-</span><span class="sd">     *
-</span><span class="sd">     * @throws UploadedImageConstraintException
-</span><span class="sd">     */</span>
-    <span class="k">protected</span> <span class="k">function</span> <span class="nf">checkImageIsAllowedForUpload</span><span class="p">(</span><span class="nx">UploadedFile</span> <span class="nv">$image</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$maxFileSize</span> <span class="o">=</span> <span class="nx">\Tools</span><span class="o">::</span><span class="na">getMaxUploadSize</span><span class="p">();</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$maxFileSize</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getSize</span><span class="p">()</span> <span class="o">&gt;</span> <span class="nv">$maxFileSize</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">UploadedImageConstraintException</span><span class="p">(</span>
-                <span class="nx">sprintf</span><span class="p">(</span>
-                   <span class="s1">&#39;Max file size allowed is &#34;%s&#34; bytes. Uploaded image size is &#34;%s&#34;.&#39;</span><span class="p">,</span> 
-                    <span class="nv">$maxFileSize</span><span class="p">,</span> <span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getSize</span><span class="p">()</span>
-                <span class="p">),</span> 
-                <span class="nx">UploadedImageConstraintException</span><span class="o">::</span><span class="na">EXCEEDED_SIZE</span>
-            <span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">\ImageManager</span><span class="o">::</span><span class="na">isRealImage</span><span class="p">(</span><span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getPathname</span><span class="p">(),</span> <span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getClientMimeType</span><span class="p">())</span>
-            <span class="o">||</span> <span class="o">!</span><span class="nx">\ImageManager</span><span class="o">::</span><span class="na">isCorrectImageFileExt</span><span class="p">(</span><span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getClientOriginalName</span><span class="p">())</span>
-            <span class="o">||</span> <span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/\%00/&#39;</span><span class="p">,</span> <span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getClientOriginalName</span><span class="p">())</span> <span class="c1">// prevent null byte injection
-</span><span class="c1"></span>        <span class="p">)</span> <span class="p">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="nx">UploadedImageConstraintException</span><span class="p">(</span>
-                <span class="nx">sprintf</span><span class="p">(</span>
-                    <span class="s1">&#39;Image format &#34;%s&#34;, not recognized, allowed formats are: .gif, .jpg, .png&#39;</span><span class="p">,</span> 
-                    <span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getClientOriginalExtension</span><span class="p">()</span>
-                <span class="p">),</span>
-                <span class="nx">UploadedImageConstraintException</span><span class="o">::</span><span class="na">UNRECOGNIZED_FORMAT</span>
-            <span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-<span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s create hook <code>hookActionAfterUpdateSupplierFormHandler</code> inside main module class:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="sd">/**
-</span><span class="sd">     * @param array $params
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionAfterUpdateSupplierFormHandler</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uploadImage</span><span class="p">(</span><span class="nv">$params</span><span class="p">);</span>
-    <span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s create one more hook <code>hookActionAfterCreateSupplierFormHandler</code> inside main module class:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="sd">/**
-</span><span class="sd">     * @param array $params
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionAfterCreateSupplierFormHandler</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uploadImage</span><span class="p">(</span><span class="nv">$params</span><span class="p">);</span>
-    <span class="p">}</span>
-</code></pre></div><p>Let&rsquo;s add <code>UploadImage</code> function to main class:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="sd">/**
-</span><span class="sd">     * @param array $params
-</span><span class="sd">     */</span>
-    <span class="k">private</span> <span class="k">function</span> <span class="nf">uploadImage</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
-    <span class="p">{</span>
-        <span class="sd">/** @var ImageUploaderInterface $supplierExtraImageUploader */</span>
-        <span class="nv">$supplierExtraImageUploader</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span>
-            <span class="s1">&#39;prestashop.module.demoextendsymfonyform.uploader.supplier_extra_image_uploader&#39;</span>
-        <span class="p">);</span>
-
-        <span class="sd">/** @var UploadedFile $uploadedFile */</span>
-        <span class="nv">$uploadedFile</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;form_data&#39;</span><span class="p">][</span><span class="s1">&#39;upload_image_file&#39;</span><span class="p">];</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="nv">$uploadedFile</span> <span class="nx">instanceof</span> <span class="nx">UploadedFile</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nv">$supplierExtraImageUploader</span><span class="o">-&gt;</span><span class="na">upload</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="nv">$uploadedFile</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $params
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionSupplierFormBuilderModifier</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var SupplierExtraImageRepository $supplierExtraImageRepository */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$supplierExtraImageRepository</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;prestashop.module.demoextendsymfonyform.repository.supplier_extra_image_repository&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$translator</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getTranslator</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var FormBuilderInterface $formBuilder */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$formBuilder</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;form_builder&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// we add to the Symfony form an `upload_image_file` field that will be used by BO user to upload image files
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$formBuilder</span>
+</span></span><span class="line"><span class="cl">            <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;upload_image_file&#39;</span><span class="p">,</span> <span class="nx">FileType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;label&#39;</span> <span class="o">=&gt;</span> <span class="nv">$translator</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Upload image file&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.DemoExtendSymfonyForm&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var SupplierExtraImage $supplierExtraImage */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$supplierExtraImage</span> <span class="o">=</span> <span class="nv">$supplierExtraImageRepository</span><span class="o">-&gt;</span><span class="na">findOneBy</span><span class="p">([</span><span class="s1">&#39;supplierId&#39;</span> <span class="o">=&gt;</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]]);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$supplierExtraImage</span> <span class="o">&amp;&amp;</span> <span class="nx">file_exists</span><span class="p">(</span><span class="nx">_PS_SUPP_IMG_DIR_</span> <span class="o">.</span> <span class="nv">$supplierExtraImage</span><span class="o">-&gt;</span><span class="na">getImageName</span><span class="p">()))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// When an image is already registered for this supplier, we add to the Symfony an
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="c1">// &#39;image_file&#39; to provide a preview input to BO user and also provide a &#34;delete button&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$formBuilder</span>
+</span></span><span class="line"><span class="cl">                <span class="o">-&gt;</span><span class="na">add</span><span class="p">(</span><span class="s1">&#39;image_file&#39;</span><span class="p">,</span> <span class="nx">CustomContentType</span><span class="o">::</span><span class="na">class</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;template&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;@Modules/demoextendsymfonyform2/src/View/upload_image.html.twig&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;supplierId&#39;</span> <span class="o">=&gt;</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">                        <span class="s1">&#39;imageUrl&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">SUPPLIER_EXTRA_IMAGE_PATH</span> <span class="o">.</span> <span class="nv">$supplierExtraImage</span><span class="o">-&gt;</span><span class="na">getImageName</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">                <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>Let&rsquo;s create <code>SupplierExtraImageUploader</code> class:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Uploader</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Entity\SupplierExtraImage</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\Module\DemoExtendSymfonyForm\Repository\SupplierExtraImageRepository</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Image\Uploader\Exception\ImageOptimizationException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Image\Uploader\Exception\ImageUploadException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Image\Uploader\Exception\MemoryLimitException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Image\Uploader\Exception\UploadedImageConstraintException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Image\Uploader\ImageUploaderInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\File\UploadedFile</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Class SupplierExtraImageUploader
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * @package PrestaShop\Module\DemoExtendSymfonyForm\Uploader
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SupplierExtraImageUploader</span> <span class="k">implements</span> <span class="nx">ImageUploaderInterface</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/** @var SupplierExtraImageRepository */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$supplierExtraImageRepository</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param SupplierExtraImageRepository $supplierExtraImageRepository
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">SupplierExtraImageRepository</span> <span class="nv">$supplierExtraImageRepository</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">supplierExtraImageRepository</span> <span class="o">=</span> <span class="nv">$supplierExtraImageRepository</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int $supplierId
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param UploadedFile $image
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">upload</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">,</span> <span class="nx">UploadedFile</span> <span class="nv">$image</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">checkImageIsAllowedForUpload</span><span class="p">(</span><span class="nv">$image</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$tempImageName</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">createTemporaryImage</span><span class="p">(</span><span class="nv">$image</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">deleteOldImage</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$originalImageName</span> <span class="o">=</span> <span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getClientOriginalName</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$destination</span> <span class="o">=</span> <span class="nx">_PS_SUPP_IMG_DIR_</span> <span class="o">.</span> <span class="nv">$originalImageName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uploadFromTemp</span><span class="p">(</span><span class="nv">$tempImageName</span><span class="p">,</span> <span class="nv">$destination</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">supplierExtraImageRepository</span><span class="o">-&gt;</span><span class="na">upsertSupplierImageName</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">,</span> <span class="nv">$originalImageName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Creates temporary image from uploaded file
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param UploadedFile $image
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws ImageUploadException
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return string
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">createTemporaryImage</span><span class="p">(</span><span class="nx">UploadedFile</span> <span class="nv">$image</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$temporaryImageName</span> <span class="o">=</span> <span class="nx">tempnam</span><span class="p">(</span><span class="nx">_PS_TMP_IMG_DIR_</span><span class="p">,</span> <span class="s1">&#39;PS&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$temporaryImageName</span> <span class="o">||</span> <span class="o">!</span><span class="nx">move_uploaded_file</span><span class="p">(</span><span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getPathname</span><span class="p">(),</span> <span class="nv">$temporaryImageName</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="nx">ImageUploadException</span><span class="p">(</span><span class="s1">&#39;Failed to create temporary image file&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$temporaryImageName</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Uploads resized image from temporary folder to image destination
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param $temporaryImageName
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param $destination
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws ImageOptimizationException
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws MemoryLimitException
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">uploadFromTemp</span><span class="p">(</span><span class="nv">$temporaryImageName</span><span class="p">,</span> <span class="nv">$destination</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">\ImageManager</span><span class="o">::</span><span class="na">checkImageMemoryLimit</span><span class="p">(</span><span class="nv">$temporaryImageName</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="nx">MemoryLimitException</span><span class="p">(</span><span class="s1">&#39;Cannot upload image due to memory restrictions&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">\ImageManager</span><span class="o">::</span><span class="na">resize</span><span class="p">(</span><span class="nv">$temporaryImageName</span><span class="p">,</span> <span class="nv">$destination</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="nx">ImageOptimizationException</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;An error occurred while uploading the image. Check your directory permissions.&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nx">unlink</span><span class="p">(</span><span class="nv">$temporaryImageName</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Deletes old image
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param $supplierId
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">deleteOldImage</span><span class="p">(</span><span class="nv">$supplierId</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var SupplierExtraImage $supplierExtraImage */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$supplierExtraImage</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">supplierExtraImageRepository</span><span class="o">-&gt;</span><span class="na">findOneBy</span><span class="p">([</span><span class="s1">&#39;supplierId&#39;</span> <span class="o">=&gt;</span> <span class="nv">$supplierId</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$supplierExtraImage</span> <span class="o">&amp;&amp;</span> <span class="nx">file_exists</span><span class="p">(</span><span class="nx">_PS_SUPP_IMG_DIR_</span> <span class="o">.</span> <span class="nv">$supplierExtraImage</span><span class="o">-&gt;</span><span class="na">getImageName</span><span class="p">()))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">unlink</span><span class="p">(</span><span class="nx">_PS_SUPP_IMG_DIR_</span> <span class="o">.</span> <span class="nv">$supplierExtraImage</span><span class="o">-&gt;</span><span class="na">getImageName</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Check if image is allowed to be uploaded.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param UploadedFile $image
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws UploadedImageConstraintException
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="k">function</span> <span class="nf">checkImageIsAllowedForUpload</span><span class="p">(</span><span class="nx">UploadedFile</span> <span class="nv">$image</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$maxFileSize</span> <span class="o">=</span> <span class="nx">\Tools</span><span class="o">::</span><span class="na">getMaxUploadSize</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$maxFileSize</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getSize</span><span class="p">()</span> <span class="o">&gt;</span> <span class="nv">$maxFileSize</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="nx">UploadedImageConstraintException</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">sprintf</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                   <span class="s1">&#39;Max file size allowed is &#34;%s&#34; bytes. Uploaded image size is &#34;%s&#34;.&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                    <span class="nv">$maxFileSize</span><span class="p">,</span> <span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getSize</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                <span class="p">),</span> 
+</span></span><span class="line"><span class="cl">                <span class="nx">UploadedImageConstraintException</span><span class="o">::</span><span class="na">EXCEEDED_SIZE</span>
+</span></span><span class="line"><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">\ImageManager</span><span class="o">::</span><span class="na">isRealImage</span><span class="p">(</span><span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getPathname</span><span class="p">(),</span> <span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getClientMimeType</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="o">||</span> <span class="o">!</span><span class="nx">\ImageManager</span><span class="o">::</span><span class="na">isCorrectImageFileExt</span><span class="p">(</span><span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getClientOriginalName</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            <span class="o">||</span> <span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/\%00/&#39;</span><span class="p">,</span> <span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getClientOriginalName</span><span class="p">())</span> <span class="c1">// prevent null byte injection
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="nx">UploadedImageConstraintException</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">sprintf</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="s1">&#39;Image format &#34;%s&#34;, not recognized, allowed formats are: .gif, .jpg, .png&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">                    <span class="nv">$image</span><span class="o">-&gt;</span><span class="na">getClientOriginalExtension</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                <span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">UploadedImageConstraintException</span><span class="o">::</span><span class="na">UNRECOGNIZED_FORMAT</span>
+</span></span><span class="line"><span class="cl">            <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Let&rsquo;s create hook <code>hookActionAfterUpdateSupplierFormHandler</code> inside main module class:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $params
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionAfterUpdateSupplierFormHandler</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uploadImage</span><span class="p">(</span><span class="nv">$params</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>Let&rsquo;s create one more hook <code>hookActionAfterCreateSupplierFormHandler</code> inside main module class:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $params
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionAfterCreateSupplierFormHandler</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">uploadImage</span><span class="p">(</span><span class="nv">$params</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>Let&rsquo;s add <code>UploadImage</code> function to main class:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param array $params
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">uploadImage</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var ImageUploaderInterface $supplierExtraImageUploader */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$supplierExtraImageUploader</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;prestashop.module.demoextendsymfonyform.uploader.supplier_extra_image_uploader&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="sd">/** @var UploadedFile $uploadedFile */</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$uploadedFile</span> <span class="o">=</span> <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;form_data&#39;</span><span class="p">][</span><span class="s1">&#39;upload_image_file&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nv">$uploadedFile</span> <span class="nx">instanceof</span> <span class="nx">UploadedFile</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$supplierExtraImageUploader</span><span class="o">-&gt;</span><span class="na">upload</span><span class="p">(</span><span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="nv">$uploadedFile</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices note" >You can find the ready solution in PrestaShop example-modules GitHub repository:
 <a href="https://github.com/PrestaShop/example-modules/tree/master/demoextendsymfonyform2">https://github.com/PrestaShop/example-modules/tree/master/demoextendsymfonyform2</a></div>
 
@@ -33737,17 +33737,17 @@ This is a hook available for <a href="/8/modules/sample-modules/grid-and-identif
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163926"></script>
-    <script src="/js/jquery.sticky.js?1703163926"></script>
-    <script src="/js/featherlight.min.js?1703163926"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163926"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163926"></script>
-    <script src="/js/learn.js?1703163926"></script>
-    <script src="/js/hugo-learn.js?1703163926"></script>
+    <script src="/js/clipboard.min.js?1703164748"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164748"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164748"></script>
+    <script src="/js/jquery.sticky.js?1703164748"></script>
+    <script src="/js/featherlight.min.js?1703164748"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164748"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164748"></script>
+    <script src="/js/learn.js?1703164748"></script>
+    <script src="/js/hugo-learn.js?1703164748"></script>
     
-    <script src="/main.js?1703163926"></script>
+    <script src="/main.js?1703164748"></script>
     
     
     

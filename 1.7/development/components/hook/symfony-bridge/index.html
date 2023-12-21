@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Symfony bridge for hooks :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/hook/symfony-bridge/">
     
-    <link href="/css/font-awesome.min.css?1703163891" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163891" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163891" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163891" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164719" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164719" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164719" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164719" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163891" rel="stylesheet">
+    <link href="/style.css?1703164719" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163891"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164719"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30292,8 +30292,8 @@
 <p>For example, if module with <code>id_module</code> 267 has subscribed to hook with <code>id_hook</code> 82, <code>LegacyHookSubscriber</code> will create a subscription <code>call_82_267</code>.</p>
 
 <h2 id="dispatching">Dispatching<a href="#dispatching"></a></h2><p>In Symfony-powered pages, to dispatch hook one must use the HookDispatcher:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hookDispatcher</span><span class="o">-&gt;</span><span class="na">dispatchWithParameters</span><span class="p">(</span><span class="s2">&#34;actionModifyForm&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;form_builder&#39;</span> <span class="o">=&gt;</span> <span class="nv">$formBuilder</span><span class="p">]);</span>
-</code></pre></div><p>The HookDispatcher will act as standard dispatcher and call the eligible event listeners and subscribers, including LegacyHookSubscriber.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">hookDispatcher</span><span class="o">-&gt;</span><span class="na">dispatchWithParameters</span><span class="p">(</span><span class="s2">&#34;actionModifyForm&#34;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;form_builder&#39;</span> <span class="o">=&gt;</span> <span class="nv">$formBuilder</span><span class="p">]);</span>
+</span></span></code></pre></div><p>The HookDispatcher will act as standard dispatcher and call the eligible event listeners and subscribers, including LegacyHookSubscriber.</p>
 <p>Using a dedicated magic method <code>__call()</code>, the <code>LegacyHookSubscriber</code> will parse the called method (ex: <code>call_82_267</code>) to retrieve the appropriate hook and module (using their respective IDs) and trigger the related <code>Hook::exec()</code> call with the appropriate parameters.</p>
 
 <h2 id="to-sum-up">To sum up<a href="#to-sum-up"></a></h2><p>When a hook is dispatched inside Symfony-powered controllers, <code>HookDispatcher</code> dispatches the hook similarly to a regular Symfony event; this event is being listened to by <code>LegacyHookSubscriber</code> who will then trigger the related <code>Hook::exec()</code> call.</p>
@@ -30375,17 +30375,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163892"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163892"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163892"></script>
-    <script src="/js/jquery.sticky.js?1703163892"></script>
-    <script src="/js/featherlight.min.js?1703163892"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163892"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163892"></script>
-    <script src="/js/learn.js?1703163892"></script>
-    <script src="/js/hugo-learn.js?1703163892"></script>
+    <script src="/js/clipboard.min.js?1703164719"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164719"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164719"></script>
+    <script src="/js/jquery.sticky.js?1703164719"></script>
+    <script src="/js/featherlight.min.js?1703164719"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164719"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164719"></script>
+    <script src="/js/learn.js?1703164719"></script>
+    <script src="/js/hugo-learn.js?1703164719"></script>
     
-    <script src="/main.js?1703163892"></script>
+    <script src="/main.js?1703164719"></script>
     
     
     

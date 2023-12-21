@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Changes in PrestaShop 1.7.6 :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163894" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163894" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163894" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163894" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164721" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164721" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164721" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164721" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163894" rel="stylesheet">
+    <link href="/style.css?1703164721" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163894"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164721"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30255,28 +30255,28 @@
 <h1 id="notable-changes-in-prestashop-176">Notable changes in PrestaShop 1.7.6<a href="#notable-changes-in-prestashop-176"></a></h1>
 <h2 id="cldr">CLDR<a href="#cldr"></a></h2><p>The CLDR is a component responsible of displaying data such as the date &amp; time, prices depending on a given language. It was reworked during several versions of PrestaShop 1.7, and will be enabled with 1.7.6. The previous one has been removed, and trying to use it will end to an exception.</p>
 <p>A new variable is now available in the <code>Context</code> when going through a controller:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">class</span> <span class="nc">ContextCore</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * Current locale instance.
-</span><span class="sd">     *
-</span><span class="sd">     * @var PrestaShop\PrestaShop\Core\Localization\Locale
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="nv">$currentLocale</span><span class="p">;</span>
-
-    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
-<span class="p">}</span>
-</code></pre></div><p>This property is the link to format properly a number:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">currentLocale</span><span class="o">-&gt;</span><span class="na">formatNumber</span><span class="p">(</span><span class="mf">123.45</span><span class="p">);</span>
-</code></pre></div><p>or a price:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">currentLocale</span><span class="o">-&gt;</span><span class="na">formatPrice</span><span class="p">(</span><span class="mf">123.45</span><span class="p">,</span> <span class="s1">&#39;EUR&#39;</span><span class="p">);</span>
-</code></pre></div><p>Remember that you can retrieve the contextual currency code as follows:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">currency</span><span class="o">-&gt;</span><span class="na">iso_code</span><span class="p">;</span> <span class="c1">// returns &#39;EUR&#39; for Euro, &#39;USD&#39; for US dollars, ...
-</span></code></pre></div><p>Also, note that <code>Tools::displayNumber(...)</code> and<code>Tools::displayPrice(...)</code> work as before, although deprecated.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">ContextCore</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Current locale instance.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @var PrestaShop\PrestaShop\Core\Localization\Locale
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nv">$currentLocale</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This property is the link to format properly a number:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">currentLocale</span><span class="o">-&gt;</span><span class="na">formatNumber</span><span class="p">(</span><span class="mf">123.45</span><span class="p">);</span>
+</span></span></code></pre></div><p>or a price:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">currentLocale</span><span class="o">-&gt;</span><span class="na">formatPrice</span><span class="p">(</span><span class="mf">123.45</span><span class="p">,</span> <span class="s1">&#39;EUR&#39;</span><span class="p">);</span>
+</span></span></code></pre></div><p>Remember that you can retrieve the contextual currency code as follows:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Context</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">currency</span><span class="o">-&gt;</span><span class="na">iso_code</span><span class="p">;</span> <span class="c1">// returns &#39;EUR&#39; for Euro, &#39;USD&#39; for US dollars, ...
+</span></span></span></code></pre></div><p>Also, note that <code>Tools::displayNumber(...)</code> and<code>Tools::displayPrice(...)</code> work as before, although deprecated.</p>
 <p>The summary of removed elements is the following:</p>
 <ul>
 <li>The IcanBoogie/CLDR library has been removed in favor of the new native implementation.</li>
@@ -30417,17 +30417,17 @@ PhpExcel (no longer supported) has been replaced by PHPSpreadsheet – (<a href=
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163894"></script>
-    <script src="/js/jquery.sticky.js?1703163894"></script>
-    <script src="/js/featherlight.min.js?1703163894"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163894"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163894"></script>
-    <script src="/js/learn.js?1703163894"></script>
-    <script src="/js/hugo-learn.js?1703163894"></script>
+    <script src="/js/clipboard.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164721"></script>
+    <script src="/js/jquery.sticky.js?1703164721"></script>
+    <script src="/js/featherlight.min.js?1703164721"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164721"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164721"></script>
+    <script src="/js/learn.js?1703164721"></script>
+    <script src="/js/hugo-learn.js?1703164721"></script>
     
-    <script src="/main.js?1703163894"></script>
+    <script src="/main.js?1703164721"></script>
     
     
     

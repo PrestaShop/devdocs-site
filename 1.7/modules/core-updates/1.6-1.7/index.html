@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Make PrestaShop 1.6 modules compatible with 1.7 :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163894" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163894" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163894" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163894" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164721" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164721" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164721" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164721" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163894" rel="stylesheet">
+    <link href="/style.css?1703164721" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163894"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164721"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30259,20 +30259,20 @@
 <h2 id="module-front-controllers">Module front controllers<a href="#module-front-controllers"></a></h2><p>There are several changes to templating in your module front controllers.</p>
 
 <h3 id="getting-a-proper-template-for-a-page">Getting a proper template for a page<a href="#getting-a-proper-template-for-a-page"></a></h3><p>In order to display content properly in your <code>ModuleFrontController</code> files, you need to change the way you link to your template file in your <code>initContent</code> method:</p>
-<div class="highlight"><pre class="chroma"><code class="language-patch" data-lang="patch"><span class="gd">- $this-&gt;setTemplate(&#39;views/templates/front/template.tpl&#39;);
-</span><span class="gd"></span><span class="gi">+ $this-&gt;setTemplate(&#39;module:yourmodule/views/templates/front/template.tpl&#39;);
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-patch" data-lang="patch"><span class="line"><span class="cl"><span class="gd">- $this-&gt;setTemplate(&#39;views/templates/front/template.tpl&#39;);
+</span></span></span><span class="line"><span class="cl"><span class="gd"></span><span class="gi">+ $this-&gt;setTemplate(&#39;module:yourmodule/views/templates/front/template.tpl&#39;);
+</span></span></span></code></pre></div>
 <h3 id="basic-structure-of-a-module-front-page-template">Basic structure of a module front page template<a href="#basic-structure-of-a-module-front-page-template"></a></h3><p>If you want your module to display an entire page with your own content, the basic structure of your <code>.tpl</code> file looks like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-smarty" data-lang="smarty"><span class="cp">{</span><span class="nf">extends</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;page.tpl&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">
-</span><span class="x"></span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;page_header_container&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">Title of the page
-</span><span class="x"></span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
-</span><span class="x">
-</span><span class="x"></span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;page_content&#39;</span><span class="cp">}</span><span class="x">
-</span><span class="x">Content of the page
-</span><span class="x"></span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
-</span></code></pre></div><p><a href="https://devdocs.prestashop-project.org/1.7/themes/reference/template-inheritance/">Template inheritance</a> is powerful mechanism available from v1.7 of PrestaShop.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-smarty" data-lang="smarty"><span class="line"><span class="cl"><span class="cp">{</span><span class="nf">extends</span> <span class="na">file</span><span class="o">=</span><span class="s1">&#39;page.tpl&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;page_header_container&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">Title of the page
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{</span><span class="nf">block</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;page_content&#39;</span><span class="cp">}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">Content of the page
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{</span><span class="nf">/block</span><span class="cp">}</span><span class="x">
+</span></span></span></code></pre></div><p><a href="https://devdocs.prestashop-project.org/1.7/themes/reference/template-inheritance/">Template inheritance</a> is powerful mechanism available from v1.7 of PrestaShop.</p>
 <p>More informations about front office and templating are available <a href="https://devdocs.prestashop-project.org/1.7/modules/creation/displaying-content-in-front-office/#embedding-a-template-in-the-theme">here</a> and <a href="https://devdocs.prestashop-project.org/1.7/themes/">here</a>.</p>
 
 
@@ -30352,17 +30352,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163894"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163894"></script>
-    <script src="/js/jquery.sticky.js?1703163894"></script>
-    <script src="/js/featherlight.min.js?1703163894"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163894"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163894"></script>
-    <script src="/js/learn.js?1703163894"></script>
-    <script src="/js/hugo-learn.js?1703163894"></script>
+    <script src="/js/clipboard.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164721"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164721"></script>
+    <script src="/js/jquery.sticky.js?1703164721"></script>
+    <script src="/js/featherlight.min.js?1703164721"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164721"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164721"></script>
+    <script src="/js/learn.js?1703164721"></script>
+    <script src="/js/hugo-learn.js?1703164721"></script>
     
-    <script src="/main.js?1703163894"></script>
+    <script src="/main.js?1703164721"></script>
     
     
     

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Data Transfer Objects :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/architecture/domain/data-transfer-objects/">
     
-    <link href="/css/font-awesome.min.css?1703163886" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163886" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163886" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163886" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164713" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164713" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164713" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164713" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163886" rel="stylesheet">
+    <link href="/style.css?1703164713" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163886"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164713"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30289,35 +30289,35 @@
 </ul>
 
 <h2 id="examples-of-data-transfer-objects-in-prestashop">Examples of Data Transfer Objects in PrestaShop<a href="#examples-of-data-transfer-objects-in-prestashop"></a></h2><p>PrestaShop extensively uses DTOs in it&rsquo;s <code>QueryHandlers</code> (you can learn more about it in <a href="https://devdocs.prestashop-project.org/1.7/development/architecture/domain/cqrs/">CQRS section</a>). As an example, you can take a look at <code>GetCustomerForEditingHandlerInterface</code> below.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span> 
-<span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Customer\QueryHandler</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Customer\QueryResult\EditableCustomer</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Customer\Query\GetCustomerForEditing</span><span class="p">;</span>
-
-<span class="k">interface</span> <span class="nx">GetCustomerForEditingHandlerInterface</span>
-<span class="p">{</span>
-    <span class="sd">/**
-</span><span class="sd">     * @param GetCustomerForEditing $query
-</span><span class="sd">     *
-</span><span class="sd">     * Handler returns EditableCustomer DTO instead of unstructured array,
-</span><span class="sd">     * thus allowing developer to know exactly what data can be accessed.
-</span><span class="sd">     *
-</span><span class="sd">     * @return EditableCustomer
-</span><span class="sd">     */</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">GetCustomerForEditing</span> <span class="nv">$query</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div><p>Now imagine you are using implementation of <code>GetCustomerForEditingHandlerInterface</code> handler in your code.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Customer\QueryResult\EditableCustomer</span><span class="p">;</span>
-
-<span class="sd">/** EditableCustomer $editableCustomer */</span>
-<span class="nv">$editableCustomer</span> <span class="o">=</span> <span class="nv">$handler</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
-
-<span class="c1">// You don&#39;t need to add additional assertions to see if customer&#39;s first name exists
-</span><span class="c1">// as DTO explicity provides you it via getter method.
-</span><span class="c1"></span><span class="nv">$editableCustomer</span><span class="o">-&gt;</span><span class="na">getFirstName</span><span class="p">();</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span> 
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Customer\QueryHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Customer\QueryResult\EditableCustomer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Customer\Query\GetCustomerForEditing</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">interface</span> <span class="nx">GetCustomerForEditingHandlerInterface</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param GetCustomerForEditing $query
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Handler returns EditableCustomer DTO instead of unstructured array,
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * thus allowing developer to know exactly what data can be accessed.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     *
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return EditableCustomer
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">GetCustomerForEditing</span> <span class="nv">$query</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Now imagine you are using implementation of <code>GetCustomerForEditingHandlerInterface</code> handler in your code.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Customer\QueryResult\EditableCustomer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/** EditableCustomer $editableCustomer */</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$editableCustomer</span> <span class="o">=</span> <span class="nv">$handler</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// You don&#39;t need to add additional assertions to see if customer&#39;s first name exists
+</span></span></span><span class="line"><span class="cl"><span class="c1">// as DTO explicity provides you it via getter method.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$editableCustomer</span><span class="o">-&gt;</span><span class="na">getFirstName</span><span class="p">();</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30395,17 +30395,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163886"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163886"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163886"></script>
-    <script src="/js/jquery.sticky.js?1703163886"></script>
-    <script src="/js/featherlight.min.js?1703163886"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163886"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163886"></script>
-    <script src="/js/learn.js?1703163886"></script>
-    <script src="/js/hugo-learn.js?1703163886"></script>
+    <script src="/js/clipboard.min.js?1703164713"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164713"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164713"></script>
+    <script src="/js/jquery.sticky.js?1703164713"></script>
+    <script src="/js/featherlight.min.js?1703164713"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164713"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164713"></script>
+    <script src="/js/learn.js?1703164713"></script>
+    <script src="/js/hugo-learn.js?1703164713"></script>
     
-    <script src="/main.js?1703163886"></script>
+    <script src="/main.js?1703164713"></script>
     
     
     

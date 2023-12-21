@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to customize the Grid templates :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/grid/tutorials/customize-templates/">
     
-    <link href="/css/font-awesome.min.css?1703163891" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163891" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163891" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163891" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164718" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164718" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164718" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164718" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163891" rel="stylesheet">
+    <link href="/style.css?1703164718" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163891"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164718"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30329,25 +30329,25 @@ to customize how a grid, a row or a specific column is rendered.</p>
 
 
 <h3 id="how-it-works-under-the-hood">How it works under the hood?<a href="#how-it-works-under-the-hood"></a></h3><p>Each element of the Grid have its own Twig template:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Grid
-├── Actions
-│   ├── Bulk
-│   ├── Grid
-│   └── Row
-├── Blocks
-│   ├── bulk_actions.html.twig
-│   ├── bulk_actions_select_all.html.twig
-│   ├── EmptyState
-│   ├── grid_actions.html.twig
-│   ├── pagination.html.twig
-│   ├── Table
-│   └── table.html.twig
-├── Columns
-│   ├── Content
-│   └── Header
-├── grid.html.twig
-└── grid_panel.html.twig
-</code></pre></div><p>Let&rsquo;s detail every part of this architecture:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Grid
+</span></span><span class="line"><span class="cl">├── Actions
+</span></span><span class="line"><span class="cl">│   ├── Bulk
+</span></span><span class="line"><span class="cl">│   ├── Grid
+</span></span><span class="line"><span class="cl">│   └── Row
+</span></span><span class="line"><span class="cl">├── Blocks
+</span></span><span class="line"><span class="cl">│   ├── bulk_actions.html.twig
+</span></span><span class="line"><span class="cl">│   ├── bulk_actions_select_all.html.twig
+</span></span><span class="line"><span class="cl">│   ├── EmptyState
+</span></span><span class="line"><span class="cl">│   ├── grid_actions.html.twig
+</span></span><span class="line"><span class="cl">│   ├── pagination.html.twig
+</span></span><span class="line"><span class="cl">│   ├── Table
+</span></span><span class="line"><span class="cl">│   └── table.html.twig
+</span></span><span class="line"><span class="cl">├── Columns
+</span></span><span class="line"><span class="cl">│   ├── Content
+</span></span><span class="line"><span class="cl">│   └── Header
+</span></span><span class="line"><span class="cl">├── grid.html.twig
+</span></span><span class="line"><span class="cl">└── grid_panel.html.twig
+</span></span></code></pre></div><p>Let&rsquo;s detail every part of this architecture:</p>
 
 <h3 id="grid-actions-templating">Grid Actions templating<a href="#grid-actions-templating"></a></h3><p>Grid actions templates are responsible of the rendering of all the Grid actions:</p>
 <ul>
@@ -30356,44 +30356,44 @@ to customize how a grid, a row or a specific column is rendered.</p>
 <li>The <strong>Row</strong> actions;</li>
 </ul>
 <p>Structure of grid blocks in PrestaShop 1.7.6 version:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Actions
-├── Bulk
-│   ├── delete_categories.html.twig
-│   ├── delete_customers.html.twig
-│   └── submit.html.twig
-├── Grid
-│   ├── link.html.twig
-│   ├── simple.html.twig
-│   └── submit.html.twig
-└── Row
-    ├── delete_category.html.twig
-    ├── delete_customer.html.twig
-    ├── link.html.twig
-    └── submit.html.twig
-</code></pre></div><p>As you can see, every action defined at any Grid Level (Bulk, Grid or Row) will be rendered using its own template.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Actions
+</span></span><span class="line"><span class="cl">├── Bulk
+</span></span><span class="line"><span class="cl">│   ├── delete_categories.html.twig
+</span></span><span class="line"><span class="cl">│   ├── delete_customers.html.twig
+</span></span><span class="line"><span class="cl">│   └── submit.html.twig
+</span></span><span class="line"><span class="cl">├── Grid
+</span></span><span class="line"><span class="cl">│   ├── link.html.twig
+</span></span><span class="line"><span class="cl">│   ├── simple.html.twig
+</span></span><span class="line"><span class="cl">│   └── submit.html.twig
+</span></span><span class="line"><span class="cl">└── Row
+</span></span><span class="line"><span class="cl">    ├── delete_category.html.twig
+</span></span><span class="line"><span class="cl">    ├── delete_customer.html.twig
+</span></span><span class="line"><span class="cl">    ├── link.html.twig
+</span></span><span class="line"><span class="cl">    └── submit.html.twig
+</span></span></code></pre></div><p>As you can see, every action defined at any Grid Level (Bulk, Grid or Row) will be rendered using its own template.</p>
 <p>Like we are already able to do with the main Back Office templates, in modules you can define and override existing templates and adapt them to your needs.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">your-module/
-    ├── ...
-    ├── your-module.php
-    └── views/PrestaShop/Admin/Common/Grid/Blocks/Table/filters_row.html.twig
-    # Override of the filters row template
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">your-module/
+</span></span><span class="line"><span class="cl">    ├── ...
+</span></span><span class="line"><span class="cl">    ├── your-module.php
+</span></span><span class="line"><span class="cl">    └── views/PrestaShop/Admin/Common/Grid/Blocks/Table/filters_row.html.twig
+</span></span><span class="line"><span class="cl">    # Override of the filters row template
+</span></span></code></pre></div>
 <h2 id="the-grid-blocks">The Grid Blocks<a href="#the-grid-blocks"></a></h2><p>In this folder, you will retrieve most of the reusable blocks of the Grid component.</p>
 <p>Structure of grid actions in PrestaShop 1.7.6 version:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Blocks
-├── bulk_actions.html.twig
-├── bulk_actions_select_all.html.twig
-├── EmptyState
-│   ├── _default.html.twig
-│   └── supplier.html.twig
-├── grid_actions.html.twig
-├── pagination.html.twig
-├── Table
-│   ├── empty_row.html.twig
-│   ├── filters_row.html.twig
-│   └── headers_row.html.twig
-└── table.html.twig
-</code></pre></div><p>The templates have meaningful names so you will spot the reponsibility
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Blocks
+</span></span><span class="line"><span class="cl">├── bulk_actions.html.twig
+</span></span><span class="line"><span class="cl">├── bulk_actions_select_all.html.twig
+</span></span><span class="line"><span class="cl">├── EmptyState
+</span></span><span class="line"><span class="cl">│   ├── _default.html.twig
+</span></span><span class="line"><span class="cl">│   └── supplier.html.twig
+</span></span><span class="line"><span class="cl">├── grid_actions.html.twig
+</span></span><span class="line"><span class="cl">├── pagination.html.twig
+</span></span><span class="line"><span class="cl">├── Table
+</span></span><span class="line"><span class="cl">│   ├── empty_row.html.twig
+</span></span><span class="line"><span class="cl">│   ├── filters_row.html.twig
+</span></span><span class="line"><span class="cl">│   └── headers_row.html.twig
+</span></span><span class="line"><span class="cl">└── table.html.twig
+</span></span></code></pre></div><p>The templates have meaningful names so you will spot the reponsibility
 of most of them:</p>
 <ul>
 <li>The <strong>bulk actions</strong> templates are responsible of the rendering of the parent container of the bulk action templates;</li>
@@ -30409,27 +30409,27 @@ of most of them:</p>
 <h2 id="the-columns-contents-and-headers">The Columns Contents and Headers<a href="#the-columns-contents-and-headers"></a></h2><p>Most of the time, you want to customize the rendering of the columns. While we can re-order add or delete columns using hooks, the Twig layer allows you to alter the rendering of a column at Shop, Grid or even Column level.</p>
 <p>It&rsquo;s not a surprise that you will retrieve a template named after the available Column Types provided by the Core of PrestaShop! The Twig layer relies on the information sent by the Grid presenter to select the right Twig template to be rendered and to push the right information.</p>
 <p>This is the content of this folder:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Columns
-├── Content
-│   ├── action.html.twig
-│   ├── badge.html.twig
-│   ├── bulk_action.html.twig
-│   ├── category_position.html.twig
-│   ├── data.html.twig
-│   ├── date_time.html.twig
-│   ├── employee_name_with_avatar.html.twig
-│   ├── image.html.twig
-│   ├── link.html.twig
-│   ├── position_handle.html.twig
-│   ├── position.html.twig
-│   ├── severity_level.html.twig
-│   └── toggle.html.twig
-└── Header
-    └── Content
-        ├── action.html.twig
-        ├── default.html.twig
-        └── position_handle.html.twig
-</code></pre></div><p>The templates of this folder are splitted into two subfolders:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Columns
+</span></span><span class="line"><span class="cl">├── Content
+</span></span><span class="line"><span class="cl">│   ├── action.html.twig
+</span></span><span class="line"><span class="cl">│   ├── badge.html.twig
+</span></span><span class="line"><span class="cl">│   ├── bulk_action.html.twig
+</span></span><span class="line"><span class="cl">│   ├── category_position.html.twig
+</span></span><span class="line"><span class="cl">│   ├── data.html.twig
+</span></span><span class="line"><span class="cl">│   ├── date_time.html.twig
+</span></span><span class="line"><span class="cl">│   ├── employee_name_with_avatar.html.twig
+</span></span><span class="line"><span class="cl">│   ├── image.html.twig
+</span></span><span class="line"><span class="cl">│   ├── link.html.twig
+</span></span><span class="line"><span class="cl">│   ├── position_handle.html.twig
+</span></span><span class="line"><span class="cl">│   ├── position.html.twig
+</span></span><span class="line"><span class="cl">│   ├── severity_level.html.twig
+</span></span><span class="line"><span class="cl">│   └── toggle.html.twig
+</span></span><span class="line"><span class="cl">└── Header
+</span></span><span class="line"><span class="cl">    └── Content
+</span></span><span class="line"><span class="cl">        ├── action.html.twig
+</span></span><span class="line"><span class="cl">        ├── default.html.twig
+</span></span><span class="line"><span class="cl">        └── position_handle.html.twig
+</span></span></code></pre></div><p>The templates of this folder are splitted into two subfolders:</p>
 <ul>
 <li><strong>Content</strong>: contains the template for each type of Column;</li>
 <li><strong>Header/Content</strong>: contains the template for each type of Column Header (in the current context, the column table header);</li>
@@ -30520,17 +30520,17 @@ There is a simple rule to guess which template will be rendered: <code>{grid_id}
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163891"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163891"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163891"></script>
-    <script src="/js/jquery.sticky.js?1703163891"></script>
-    <script src="/js/featherlight.min.js?1703163891"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163891"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163891"></script>
-    <script src="/js/learn.js?1703163891"></script>
-    <script src="/js/hugo-learn.js?1703163891"></script>
+    <script src="/js/clipboard.min.js?1703164718"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164718"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164718"></script>
+    <script src="/js/jquery.sticky.js?1703164718"></script>
+    <script src="/js/featherlight.min.js?1703164718"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164718"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164718"></script>
+    <script src="/js/learn.js?1703164718"></script>
+    <script src="/js/hugo-learn.js?1703164718"></script>
     
-    <script src="/main.js?1703163891"></script>
+    <script src="/main.js?1703164718"></script>
     
     
     

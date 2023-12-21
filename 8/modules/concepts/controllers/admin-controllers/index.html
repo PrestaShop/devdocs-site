@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Admin controllers :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163937" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163937" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163937" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163937" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164758" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164758" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164758" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164758" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163937" rel="stylesheet">
+    <link href="/style.css?1703164758" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163937"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164758"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -9432,7 +9432,7 @@
     
     
     <li data-nav-id="/8/modules/concepts/controllers/admin-controllers/" title="Admin controllers" class="dd-item
-        parent
+        
         active currentPage
         
         isParent
@@ -9445,7 +9445,7 @@
           
 
           
-            <i class="fa fa-angle-up"></i>
+            <i class="fa fa-angle-down"></i>
           
       </a>
       
@@ -33152,56 +33152,56 @@
 <h1 id="create-admin-module-controllers">Create Admin module controllers<a href="#create-admin-module-controllers"></a></h1><p>Using modern pages, you will have access to the PrestaShop debug toolbar, the service container, Twig and Doctrine, among others. For your views, the PrestaShop UI Kit is available, built on top of Bootstrap 4 and ensuring your views are consistent with the PrestaShop Back Office.</p>
 
 <h2 id="how-to-declare-a-new-controller">How to declare a new Controller<a href="#how-to-declare-a-new-controller"></a></h2><p>Somewhere in your module declare a new class that will act as a Controller:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/your-module/src/Controller/DemoController.php
-</span><span class="c1"></span>
-<span class="k">namespace</span> <span class="nx">MyModule\Controller</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Doctrine\Common\Cache\CacheProvider</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">DemoController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
-<span class="p">{</span>
-    <span class="k">private</span> <span class="nv">$cache</span><span class="p">;</span>
-       
-    <span class="c1">// you can use symfony DI to inject services
-</span><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CacheProvider</span> <span class="nv">$cache</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cache</span> <span class="o">=</span> <span class="nv">$cache</span><span class="p">;</span>
-    <span class="p">}</span>
-    
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">demoAction</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/your-module/templates/admin/demo.html.twig&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>If you want Symfony Dependency Injection to inject services into your controller, you need to use specific YAML service declaration:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="c"># The name of the service must match the full namespace class</span><span class="w">
-</span><span class="w">  </span><span class="nt">MyModule\Controller\DemoController</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">MyModule\Controller\DemoController</span><span class="w">
-</span><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="s1">&#39;@doctrine.cache.provider&#39;</span><span class="w">
-</span></code></pre></div><p>You can also retrieve services with the container available in symfony controllers -&gt;</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/your-module/src/Controller/DemoController.php
-</span><span class="c1"></span>
-<span class="k">namespace</span> <span class="nx">MyModule\Controller</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">Doctrine\Common\Cache\CacheProvider</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">DemoController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">demoAction</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="c1">// you can also retrieve services directly from the container
-</span><span class="c1"></span>        <span class="nv">$cache</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;doctrine.cache&#39;</span><span class="p">);</span>
-        
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/your-module/templates/admin/demo.html.twig&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>You have access to the Container, to Twig as rendering engine, the Doctrine ORM, everything from Symfony framework ecosystem.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/your-module/src/Controller/DemoController.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">MyModule\Controller</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\Common\Cache\CacheProvider</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DemoController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$cache</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">       
+</span></span><span class="line"><span class="cl">    <span class="c1">// you can use symfony DI to inject services
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CacheProvider</span> <span class="nv">$cache</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cache</span> <span class="o">=</span> <span class="nv">$cache</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">demoAction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/your-module/templates/admin/demo.html.twig&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>If you want Symfony Dependency Injection to inject services into your controller, you need to use specific YAML service declaration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># The name of the service must match the full namespace class</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">MyModule\Controller\DemoController</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">MyModule\Controller\DemoController</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;@doctrine.cache.provider&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>You can also retrieve services with the container available in symfony controllers -&gt;</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/your-module/src/Controller/DemoController.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">MyModule\Controller</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\Common\Cache\CacheProvider</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DemoController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">demoAction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// you can also retrieve services directly from the container
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$cache</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;doctrine.cache&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/your-module/templates/admin/demo.html.twig&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>You have access to the Container, to Twig as rendering engine, the Doctrine ORM, everything from Symfony framework ecosystem.
 Note that you must return a <code>Response</code> object, but this can be a <code>JsonResponse</code> if you plan to make a single page application (or &ldquo;SPA&rdquo;).</p>
 
 <div class="notices note" >This controller works exactly the same as the Core Back Office ones.</div>
@@ -33211,29 +33211,29 @@ Note that you must return a <code>Response</code> object, but this can be a <cod
 <h4 id="example-using-psr-4-namespacing">Example using PSR-4 namespacing<a href="#example-using-psr-4-namespacing"></a></h4><ol>
 <li>
 <p>Use namespace for your Controller file</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// modules/your-module/src/Controller/DemoController.php
-</span><span class="c1"></span>
-<span class="k">namespace</span> <span class="nx">MyModule\Controller</span><span class="p">;</span>
-
-<span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span><span class="p">;</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// modules/your-module/src/Controller/DemoController.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">MyModule\Controller</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span><span class="p">;</span>
+</span></span></code></pre></div></li>
 <li>
 <p>Configure composer to autoload this namespace</p>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
-  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;you/your-module&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;...&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;autoload&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;psr-4&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;MyModule\\Controller\\&#34;</span><span class="p">:</span> <span class="s2">&#34;src/Controller/&#34;</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;prepend-autoloader&#34;</span><span class="p">:</span> <span class="kc">false</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;prestashop-module&#34;</span>
-<span class="p">}</span>
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;you/your-module&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;...&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;autoload&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;psr-4&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;MyModule\\Controller\\&#34;</span><span class="p">:</span> <span class="s2">&#34;src/Controller/&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;prepend-autoloader&#34;</span><span class="p">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;prestashop-module&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
 </ol>
 <p>You should run <code>composer dumpautoload</code> console command from where your module&rsquo;s composer.json file is located.</p>
 <p>If you do not have &ldquo;composer&rdquo; you can search for it. Composer is available on <a href="https://getcomposer.org/doc/00-intro.md">any operating system</a>.</p>
@@ -33241,13 +33241,13 @@ Note that you must return a <code>Response</code> object, but this can be a <cod
 
 <h2 id="how-to-map-an-action-of-your-controller-to-a-uri">How to map an action of your controller to a URI<a href="#how-to-map-an-action-of-your-controller-to-a-uri"></a></h2><p>This is really simple (and very well documented in Symfony&rsquo;s <a href="https://symfony.com/doc/4.4/routing.html">Routing component documentation</a>):</p>
 <p>For instance:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># modules/your-module/config/routes.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">your_route_name</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">your-module/demo</span><span class="w">
-</span><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
-</span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModule\Controller\DemoController::demoAction&#39;</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># modules/your-module/config/routes.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">your_route_name</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">your-module/demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModule\Controller\DemoController::demoAction&#39;</span><span class="w">
+</span></span></span></code></pre></div>
 <div class="notices tip" >Any callable can be used to populate the <code>_controller</code> attribute, you don&rsquo;t even need to create your own controller! You could even use a public function from your module main class. Even so, we strongly suggest using a controller.</div>
 
 
@@ -33259,31 +33259,31 @@ Since Symfony 4.1 the bundle notation is going to be deprecated: <a href="https:
 <p>This is because all module routes are, by default, prefixed with <code>/modules</code>.</p>
 
 <h3 id="disabling-the-prefix">Disabling the prefix<a href="#disabling-the-prefix"></a></h3><p>If however you need or wish your route not to be prefixed, you can use the <code>_disable_module_prefix</code> route option to disable the prefix.</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># modules/your-module/config/routes.yml</span><span class="w">
-</span><span class="w"></span><span class="nt">your_route_name</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">your-module/demo</span><span class="w">
-</span><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
-</span><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModule\Controller\DemoController::demoAction&#39;</span><span class="w">
-</span><span class="w">      </span><span class="nt">_disable_module_prefix</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># modules/your-module/config/routes.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">your_route_name</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">your-module/demo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;MyModule\Controller\DemoController::demoAction&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">_disable_module_prefix</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div>
 <h3 id="generating-the-uri-of-a-back-office-controller-inside-a-module">Generating the URI of a back-office controller inside a module<a href="#generating-the-uri-of-a-back-office-controller-inside-a-module"></a></h3><p>Valid URIs required a security token.</p>
 <p>In order to generate the valid URI of a controller you created from inside the main module class, you need to get the Symfony router. The router will build the URI using <code>generate</code> with the route name, as in the below example.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php">    <span class="o">&lt;?</span><span class="nx">php</span>
-    <span class="c1"># modules/my-module/my-module.php
-</span><span class="c1"></span>
-    <span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Adapter\SymfonyContainer</span><span class="p">;</span>
-
-    <span class="k">class</span> <span class="nc">MyModule</span> <span class="k">extends</span> <span class="nx">Module</span>
-    <span class="p">{</span>
-        <span class="k">protected</span> <span class="k">function</span> <span class="nf">generateControllerURI</span><span class="p">()</span>
-        <span class="p">{</span>
-               <span class="nv">$router</span> <span class="o">=</span> <span class="nx">SymfonyContainer</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;router&#39;</span><span class="p">);</span>
-
-               <span class="k">return</span> <span class="nv">$router</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">(</span><span class="s1">&#39;my_route_name&#39;</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># modules/my-module/my-module.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Adapter\SymfonyContainer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">class</span> <span class="nc">MyModule</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">protected</span> <span class="k">function</span> <span class="nf">generateControllerURI</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">               <span class="nv">$router</span> <span class="o">=</span> <span class="nx">SymfonyContainer</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;router&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">               <span class="k">return</span> <span class="nv">$router</span><span class="o">-&gt;</span><span class="na">generate</span><span class="p">(</span><span class="s1">&#39;my_route_name&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="secure-your-controller">Secure your controller<a href="#secure-your-controller"></a></h2><p>It is safer to define permissions required to use your controller, this can be configured using the <code>@AdminSecurity</code> annotation and some configuration in your routing file. You can read this documentation if you need more details about <a href="https://devdocs.prestashop-project.org/1.7/development/architecture/migration-guide/controller-routing/#security">Controller Security</a>.</p>
 
 
@@ -33365,17 +33365,17 @@ Since Symfony 4.1 the bundle notation is going to be deprecated: <a href="https:
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163937"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163937"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163937"></script>
-    <script src="/js/jquery.sticky.js?1703163937"></script>
-    <script src="/js/featherlight.min.js?1703163937"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163937"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163937"></script>
-    <script src="/js/learn.js?1703163937"></script>
-    <script src="/js/hugo-learn.js?1703163937"></script>
+    <script src="/js/clipboard.min.js?1703164758"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164758"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164758"></script>
+    <script src="/js/jquery.sticky.js?1703164758"></script>
+    <script src="/js/featherlight.min.js?1703164758"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164758"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164758"></script>
+    <script src="/js/learn.js?1703164758"></script>
+    <script src="/js/hugo-learn.js?1703164758"></script>
     
-    <script src="/main.js?1703163937"></script>
+    <script src="/main.js?1703164758"></script>
     
     
     

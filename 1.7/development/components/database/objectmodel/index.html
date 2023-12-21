@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>ObjectModel class :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/components/database/objectmodel/">
     
-    <link href="/css/font-awesome.min.css?1703163889" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163889" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163889" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163889" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164717" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164717" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164717" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164717" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163889" rel="stylesheet">
+    <link href="/style.css?1703164717" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163889"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164717"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30284,61 +30284,61 @@
 
 <h2 id="defining-the-model">Defining the model<a href="#defining-the-model"></a></h2><p>You must use the <code>$definition</code> static variable in order to define the model.</p>
 <p>For instance:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="sd">/**
-</span><span class="sd"> * Example from the CMS model (CMSCore)
-</span><span class="sd"> */</span>
-<span class="k">public</span> <span class="k">static</span> <span class="nv">$definition</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s1">&#39;table&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;cms&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;primary&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_cms&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;multilang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-    <span class="s1">&#39;fields&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-        <span class="s1">&#39;id_cms_category&#39;</span>  <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_INT</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isUnsignedInt&#39;</span><span class="p">],</span>
-        <span class="s1">&#39;position&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_INT</span><span class="p">],</span>
-        <span class="s1">&#39;active&#39;</span>           <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_BOOL</span><span class="p">],</span>
-
-        <span class="c1">// Language fields
-</span><span class="c1"></span>        <span class="s1">&#39;meta_description&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span>
-            <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-            <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isGenericName&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">255</span>
-        <span class="p">],</span>
-        <span class="s1">&#39;meta_keywords&#39;</span>    <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span>
-            <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-            <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isGenericName&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">255</span>
-        <span class="p">],</span>
-        <span class="s1">&#39;meta_title&#39;</span>       <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span>
-            <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-            <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isGenericName&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-            <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">128</span>
-        <span class="p">],</span>
-        <span class="s1">&#39;link_rewrite&#39;</span>     <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span>
-            <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-            <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isLinkRewrite&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-            <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">128</span>
-        <span class="p">],</span>
-        <span class="s1">&#39;content&#39;</span>          <span class="o">=&gt;</span> <span class="p">[</span>
-            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_HTML</span><span class="p">,</span>
-            <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
-            <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isString&#39;</span><span class="p">,</span>
-            <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">3999999999999</span>
-        <span class="p">],</span>
-    <span class="p">)</span>
-<span class="p">];</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Example from the CMS model (CMSCore)
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">static</span> <span class="nv">$definition</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;table&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;cms&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;primary&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;id_cms&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;multilang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;fields&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;id_cms_category&#39;</span>  <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_INT</span><span class="p">,</span> <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isUnsignedInt&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;position&#39;</span>         <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_INT</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;active&#39;</span>           <span class="o">=&gt;</span> <span class="p">[</span><span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_BOOL</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Language fields
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="s1">&#39;meta_description&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isGenericName&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">255</span>
+</span></span><span class="line"><span class="cl">        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;meta_keywords&#39;</span>    <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isGenericName&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">255</span>
+</span></span><span class="line"><span class="cl">        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;meta_title&#39;</span>       <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isGenericName&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">128</span>
+</span></span><span class="line"><span class="cl">        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;link_rewrite&#39;</span>     <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_STRING</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isLinkRewrite&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;required&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">128</span>
+</span></span><span class="line"><span class="cl">        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;content&#39;</span>          <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;type&#39;</span> <span class="o">=&gt;</span> <span class="nx">self</span><span class="o">::</span><span class="na">TYPE_HTML</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;lang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;validate&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;isString&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;size&#39;</span> <span class="o">=&gt;</span> <span class="mi">3999999999999</span>
+</span></span><span class="line"><span class="cl">        <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">];</span>
+</span></span></code></pre></div>
 <h2 id="multiple-stores-andor-languages">Multiple stores and/or languages<a href="#multiple-stores-andor-languages"></a></h2><p>In order to retrieve an object in many languages:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;multilang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span>
-</code></pre></div><p>In order to retrieve an object depending on the current store:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;multishop&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span>
-</code></pre></div><p>In order to retrieve an object which depends on the current store, and in many languages:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="s1">&#39;multilang_shop&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="s1">&#39;multilang&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span>
+</span></span></code></pre></div><p>In order to retrieve an object depending on the current store:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="s1">&#39;multishop&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span>
+</span></span></code></pre></div><p>In order to retrieve an object which depends on the current store, and in many languages:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="s1">&#39;multilang_shop&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span>
+</span></span></code></pre></div>
 <h2 id="main-methods">Main methods<a href="#main-methods"></a></h2><div class="function-definition">
 <dl>
 <dt>__construct($id = NULL, $id_lang = NULL)</dt>
@@ -30375,16 +30375,16 @@
 </figure>
 
 <p>As an example, this is how you can retrieve information about a product when we delete it from the database:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">use</span> <span class="nx">Product</span><span class="p">;</span>
-<span class="c1">// In a module
-</span><span class="c1"></span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionObjectProductDeleteAfter</span><span class="p">(</span><span class="nx">Product</span> <span class="nv">$product</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="nx">PrestaShopLogger</span><span class="o">::</span><span class="na">addLog</span><span class="p">(</span>
-        <span class="nx">sprintf</span><span class="p">(</span><span class="s1">&#39;Product with id %s was deleted with success&#39;</span><span class="p">,</span> <span class="nv">$product</span><span class="o">-&gt;</span><span class="na">id_product</span><span class="p">)</span>
-    <span class="p">);</span>    
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Product</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// In a module
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionObjectProductDeleteAfter</span><span class="p">(</span><span class="nx">Product</span> <span class="nv">$product</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">PrestaShopLogger</span><span class="o">::</span><span class="na">addLog</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">sprintf</span><span class="p">(</span><span class="s1">&#39;Product with id %s was deleted with success&#39;</span><span class="p">,</span> <span class="nv">$product</span><span class="o">-&gt;</span><span class="na">id_product</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">);</span>    
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30462,17 +30462,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163890"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163890"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163890"></script>
-    <script src="/js/jquery.sticky.js?1703163890"></script>
-    <script src="/js/featherlight.min.js?1703163890"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163890"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163890"></script>
-    <script src="/js/learn.js?1703163890"></script>
-    <script src="/js/hugo-learn.js?1703163890"></script>
+    <script src="/js/clipboard.min.js?1703164717"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164717"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164717"></script>
+    <script src="/js/jquery.sticky.js?1703164717"></script>
+    <script src="/js/featherlight.min.js?1703164717"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164717"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164717"></script>
+    <script src="/js/learn.js?1703164717"></script>
+    <script src="/js/hugo-learn.js?1703164717"></script>
     
-    <script src="/main.js?1703163890"></script>
+    <script src="/main.js?1703164717"></script>
     
     
     

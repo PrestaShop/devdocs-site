@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to create your own UI tests :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163927" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163927" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163927" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163927" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164749" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164749" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164749" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164749" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163927" rel="stylesheet">
+    <link href="/style.css?1703164749" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163927"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164749"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33159,15 +33159,15 @@
 <p>Methods inside a page class <strong>CANNOT USE</strong> the <code>expect</code> keyword or any kind of asserting function, since their sole purpose is to interact with the page they’re linked with. They don’t validate anything per se, they just expose functionalities.
 To validate a behavior in your test logic, your methods can return booleans, integers (number of lines, elements, etc), strings, objects&hellip; It’s up to you.</p>
 <p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js">   <span class="cm">/**
-</span><span class="cm">   * Get order status
-</span><span class="cm">   * @param page {Page} Browser tab
-</span><span class="cm">   * @return {Promise&lt;string&gt;}
-</span><span class="cm">   */</span>
-  <span class="kr">async</span> <span class="nx">getOrderStatus</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getTextContent</span><span class="p">(</span><span class="nx">page</span><span class="p">,</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">orderStatusesSelect</span><span class="si">}</span><span class="sb"> option[selected=&#39;selected&#39;]`</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
-  <span class="p">}</span>
-</code></pre></div><p>This method returns the text content of the selected option in the Status <code>select</code> element in the Orders page.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl">   <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * Get order status
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @param page {Page} Browser tab
+</span></span></span><span class="line"><span class="cl"><span class="cm">   * @return {Promise&lt;string&gt;}
+</span></span></span><span class="line"><span class="cl"><span class="cm">   */</span>
+</span></span><span class="line"><span class="cl">  <span class="kr">async</span> <span class="nx">getOrderStatus</span><span class="p">(</span><span class="nx">page</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getTextContent</span><span class="p">(</span><span class="nx">page</span><span class="p">,</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">orderStatusesSelect</span><span class="si">}</span><span class="sb"> option[selected=&#39;selected&#39;]`</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></div><p>This method returns the text content of the selected option in the Status <code>select</code> element in the Orders page.</p>
 
 <h3 id="selectors">Selectors<a href="#selectors"></a></h3><p>Selectors are used on every page and are stored as attributes of the class. They should be named following this convention: <strong>nameType</strong> in <code>camelCase</code>, with <code>name</code> being the distinctive information about the element and <code>type</code> being its type (see below).</p>
 <p>For example, a button used to submit the main form in the order page should be named: <code>submitMainFormButton</code>.</p>
@@ -33220,27 +33220,27 @@ This approach has one goal : to have the same browser’s configuration everywhe
 
 <h3 id="require-pages">Require pages<a href="#require-pages"></a></h3><p>In each and every test, we <code>require</code> the pages that will be needed. The initialization is done when you require the class (no need to use the <code>new</code> keyword).</p>
 <p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// For test &#39;Filter Customer&#39;
-</span><span class="c1"></span><span class="kr">const</span> <span class="nx">dashboardPage</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@pages/BO/dashboard&#39;</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">customersPage</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@pages/BO/customers&#39;</span><span class="p">);</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// For test &#39;Filter Customer&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">dashboardPage</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@pages/BO/dashboard&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">customersPage</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;@pages/BO/customers&#39;</span><span class="p">);</span>
+</span></span></code></pre></div>
 <h3 id="expect">Expect<a href="#expect"></a></h3><p>We use the <code>expect</code> keyword from the <a href="https://www.chaijs.com/api/bdd/">Chai library</a>. This allows us to write assertions in a much more readable way. You can use whatever way to assert you want/need. Don’t forget that you can use the second argument of <code>expect</code> to log out a better error message when your assertion fails.</p>
 <p>Example :</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">Const</span> <span class="nx">isCustomerConnected</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">foLoginPage</span><span class="p">.</span><span class="nx">isCustomerConnected</span><span class="p">(</span><span class="nx">page</span><span class="p">);</span>
-<span class="kr">await</span> <span class="nx">expect</span><span class="p">(</span><span class="nx">isCustomerConnected</span><span class="p">,</span> <span class="s1">&#39;Customer is disconnected in FO&#39;</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="kc">true</span><span class="p">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">Const</span> <span class="nx">isCustomerConnected</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">foLoginPage</span><span class="p">.</span><span class="nx">isCustomerConnected</span><span class="p">(</span><span class="nx">page</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">await</span> <span class="nx">expect</span><span class="p">(</span><span class="nx">isCustomerConnected</span><span class="p">,</span> <span class="s1">&#39;Customer is disconnected in FO&#39;</span><span class="p">).</span><span class="nx">to</span><span class="p">.</span><span class="nx">be</span><span class="p">.</span><span class="kc">true</span><span class="p">;</span>
+</span></span></code></pre></div>
 <h3 id="test-identifier">Test identifier<a href="#test-identifier"></a></h3><p>Our team thinks it’s very important to be able to follow how tests results evolve, so it’s been decided to add a unique identifier to every step in the test.</p>
 <p>Why? To be able to identify each and every test and compare from one report to another, to know how the results change.</p>
 <p>For example, you could have 10 failed tests one day, and 10 the day after. How do you know if it’s the same 10 tests failing, or another distribution (for example, 5 tests fixed, 5 other tests failing)? With this system we can calculate the trend and show it on the Nightly Board.</p>
 <p>We first create a base context for each and every test file, and then we make a call to the function <code>addContextItem</code> with the unique value for this step, inside the test file.</p>
 <p>Example :</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// From test : UI/campaigns/functional/BO/04_customers/01_customers/07_helpCard.js
-</span><span class="c1"></span><span class="kr">const</span> <span class="nx">baseContext</span> <span class="o">=</span> <span class="s1">&#39;functional_BO_customers_customers_helpCard&#39;</span><span class="p">;</span>
-<span class="c1">// And inside each `it`, we make a call
-</span><span class="c1">// For example, in the “Go To Customer’s Page” step we will have :
-</span><span class="c1"></span><span class="nx">testContext</span><span class="p">.</span><span class="nx">addContextItem</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s1">&#39;testIdentifier&#39;</span><span class="p">,</span> <span class="s1">&#39;goToCustomersPage&#39;</span><span class="p">,</span> <span class="nx">baseContext</span><span class="p">);</span>
-<span class="c1">// In the report, the final identifier will look like this: ‘functional_BO_customers_customers_filterAndQuickEditCustomers_goToCustomersPage’
-</span></code></pre></div><p>Be careful, identifiers <strong>must be unique</strong> through the whole campaign ! We have a dedicated Github Action to help us find duplicates, so if you submit a PR we&rsquo;ll see it directly.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// From test : UI/campaigns/functional/BO/04_customers/01_customers/07_helpCard.js
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kr">const</span> <span class="nx">baseContext</span> <span class="o">=</span> <span class="s1">&#39;functional_BO_customers_customers_helpCard&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// And inside each `it`, we make a call
+</span></span></span><span class="line"><span class="cl"><span class="c1">// For example, in the “Go To Customer’s Page” step we will have :
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">testContext</span><span class="p">.</span><span class="nx">addContextItem</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s1">&#39;testIdentifier&#39;</span><span class="p">,</span> <span class="s1">&#39;goToCustomersPage&#39;</span><span class="p">,</span> <span class="nx">baseContext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// In the report, the final identifier will look like this: ‘functional_BO_customers_customers_filterAndQuickEditCustomers_goToCustomersPage’
+</span></span></span></code></pre></div><p>Be careful, identifiers <strong>must be unique</strong> through the whole campaign ! We have a dedicated Github Action to help us find duplicates, so if you submit a PR we&rsquo;ll see it directly.</p>
 
 <h3 id="cleaning-behind">Cleaning behind<a href="#cleaning-behind"></a></h3><p>You must be able to launch a test independently, as well as in a whole campaign. That means :</p>
 <ul>
@@ -33336,17 +33336,17 @@ This helps us make sure we’re testing with randomized sets of data and coverin
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163927"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163927"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163927"></script>
-    <script src="/js/jquery.sticky.js?1703163927"></script>
-    <script src="/js/featherlight.min.js?1703163927"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163927"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163927"></script>
-    <script src="/js/learn.js?1703163927"></script>
-    <script src="/js/hugo-learn.js?1703163927"></script>
+    <script src="/js/clipboard.min.js?1703164749"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164749"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164749"></script>
+    <script src="/js/jquery.sticky.js?1703164749"></script>
+    <script src="/js/featherlight.min.js?1703164749"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164749"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164749"></script>
+    <script src="/js/learn.js?1703164749"></script>
+    <script src="/js/hugo-learn.js?1703164749"></script>
     
-    <script src="/main.js?1703163927"></script>
+    <script src="/main.js?1703164749"></script>
     
     
     

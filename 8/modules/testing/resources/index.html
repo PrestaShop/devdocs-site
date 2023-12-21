@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Testing Resources :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163926" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163926" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163926" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163926" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164748" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164748" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164748" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164748" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163926" rel="stylesheet">
+    <link href="/style.css?1703164748" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163926"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164748"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33128,16 +33128,15 @@ If you&rsquo;re confident with using it, we created several images for easier de
 
 
 <p>Managing your modules was only possible from the administration interface. Continuous integration of modules may require preliminary steps like their installation, that&rsquo;s why we added a simple way to manage them in command line.</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">php bin/console prestashop:module --help
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Usage:
-  prestashop:module &lt;action&gt; &lt;module name&gt; [&lt;file path&gt;]
-
-Arguments:
-  action                Action to execute (Allowed actions: install / uninstall / enable / disable / enable_mobile / disable_mobile / reset / upgrade / configure).
-  module name           Module on which the action will be executed
-  file path             YML file path for configuration
-
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php bin/console prestashop:module --help
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">  prestashop:module &lt;action&gt; &lt;module name&gt; [&lt;file path&gt;]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Arguments:
+</span></span><span class="line"><span class="cl">  action                Action to execute (Allowed actions: install / uninstall / enable / disable / enable_mobile / disable_mobile / reset / upgrade / configure).
+</span></span><span class="line"><span class="cl">  module name           Module on which the action will be executed
+</span></span><span class="line"><span class="cl">  file path             YML file path for configuration
+</span></span></code></pre></div>
 <div class="notices note" >Use <code>php app/console</code> instead of <code>php bin/console</code> for versions prior to
 <span class="version-pill" title="New in PrestaShop 1.7.4">
 1.7.4
@@ -33156,8 +33155,8 @@ Arguments:
 <li>upgrade</li>
 </ul>
 <p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">php bin/console prestashop:module install paypal
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">php bin/console prestashop:module install paypal
+</span></span></code></pre></div>
 <div class="notices note" >Use <code>php app/console</code> instead of <code>php bin/console</code> for versions prior
 <span class="version-pill" title="New in PrestaShop 1.7.4">
 1.7.4
@@ -33170,8 +33169,8 @@ Arguments:
 <p>This feature is intended for developers wishing to test their modules after an installation without having to pass the configuration screen, or a PrestaShop agency who has a generic configuration to set on every shops.
 With only one command, we expect a module to be totally functional for tests or production.</p>
 <p>If we reuse the previous command, we could expect something like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">php bin/console prestashop:module configure &lt;module name&gt; [&lt;YML file path&gt;]
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">php bin/console prestashop:module configure &lt;module name&gt; [&lt;YML file path&gt;]
+</span></span></code></pre></div>
 <div class="notices note" >Use <code>php app/console</code> instead of <code>php bin/console</code> for versions prior
 <span class="version-pill" title="New in PrestaShop 1.7.4">
 1.7.4
@@ -33182,48 +33181,48 @@ With only one command, we expect a module to be totally functional for tests or 
 
 <h4 id="format-supported">Format supported<a href="#format-supported"></a></h4><p>We are going to make it simple and allow only file extension: yaml.</p>
 <p>Example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="c"># This file is an example of data configuration which can be applied to a module</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Data to be updated in Configuration table</span><span class="w">
-</span><span class="w"></span><span class="nt">configuration</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">update</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="c"># Option 1: having a pair key/value</span><span class="w">
-</span><span class="w">        </span><span class="nt">PAYPAL_SANDBOX</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">        </span><span class="nt">PAYPAL_API_CARD</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
-</span><span class="w">        </span><span class="c"># Option 2: use &#34;value&#34; subkey. Will allow to use additional keys later</span><span class="w">
-</span><span class="w">        </span><span class="nt">PAYPAL_SANDBOX</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">            </span><span class="nt">multilang</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span><span class="w">        </span><span class="c"># Question: how to handle multi lang values ?</span><span class="w">
-</span><span class="w">    </span><span class="nt">delete</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="s2">&#34;PAYPAL_ONBOARDING&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># SQL files to execute</span><span class="w">
-</span><span class="w"></span><span class="nt">sql</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;path/to/file1.sql&#34;</span><span class="w">
-</span><span class="w">    </span><span class="c"># But key is optional</span><span class="w">
-</span><span class="w">    </span>- <span class="s2">&#34;path/to/file2.sql&#34;</span><span class="w">
-</span><span class="w">    </span>- <span class="s2">&#34;sql/default-config.sql&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># File to copy from local disk or website</span><span class="w">
-</span><span class="w"></span><span class="nt">files</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/path/to/source/file.txt&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/module/path/docs/file.txt&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://www.domain.wow/uri/of/file&#34;</span><span class="w">
-</span><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/module/path/docs/another_file.txt&#34;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c"># Fox complex configuration data, allow PHP code to be executed</span><span class="w">
-</span><span class="w"></span><span class="nt">php</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span>- <span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;path/to/file.php&#34;</span><span class="w">
-</span><span class="w">       </span><span class="c"># Must have a class which implements interface PrestaShop\PrestaShop\Adapter\Module\Configuration\ModuleComplexConfigurationInterface</span><span class="w">
-</span><span class="w">      </span><span class="nt">params</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="nt">myParam1</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">        </span>- <span class="nt">oneArrayParam</span><span class="p">:</span><span class="w">
-</span><span class="w">            </span>- <span class="s2">&#34;value1&#34;</span><span class="w">
-</span><span class="w">            </span>- <span class="s2">&#34;value2&#34;</span><span class="w">
-</span><span class="w">            </span>- <span class="nt">withSpecificKey</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;value3&#34;</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># This file is an example of data configuration which can be applied to a module</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Data to be updated in Configuration table</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">configuration</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">update</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># Option 1: having a pair key/value</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">PAYPAL_SANDBOX</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">PAYPAL_API_CARD</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># Option 2: use &#34;value&#34; subkey. Will allow to use additional keys later</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">PAYPAL_SANDBOX</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">multilang</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># Question: how to handle multi lang values ?</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">delete</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s2">&#34;PAYPAL_ONBOARDING&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># SQL files to execute</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">sql</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;path/to/file1.sql&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># But key is optional</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;path/to/file2.sql&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s2">&#34;sql/default-config.sql&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># File to copy from local disk or website</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/path/to/source/file.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/module/path/docs/file.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://www.domain.wow/uri/of/file&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/module/path/docs/another_file.txt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Fox complex configuration data, allow PHP code to be executed</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">php</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;path/to/file.php&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">       </span><span class="c"># Must have a class which implements interface PrestaShop\PrestaShop\Adapter\Module\Configuration\ModuleComplexConfigurationInterface</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">params</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">myParam1</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">oneArrayParam</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s2">&#34;value1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="s2">&#34;value2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">withSpecificKey</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;value3&#34;</span><span class="w">
+</span></span></span></code></pre></div>
 <h2 id="core-functional-tests">Core Functional tests<a href="#core-functional-tests"></a></h2><p>PrestaShop provides its own test suite, running with <a href="https://playwright.dev">Playwright</a>. It covers the features of PrestaShop and grows each time a bug is resolved or a feature is added.</p>
 <p>These tests are launched every time a change is suggested to the core, but you can also run them with your module installed. This will ensure your module code does not break a critical feature of the core.</p>
 <p>This section will be completed when these tests are available on a dedicated repository. In the meantime, you can already reach them on GitHub, in the <a href="https://github.com/PrestaShop/PrestaShop/tree/8.0.x/tests/UI">tests/UI</a> of PrestaShop files.</p>
@@ -33305,17 +33304,17 @@ With only one command, we expect a module to be totally functional for tests or 
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163926"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163926"></script>
-    <script src="/js/jquery.sticky.js?1703163926"></script>
-    <script src="/js/featherlight.min.js?1703163926"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163926"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163926"></script>
-    <script src="/js/learn.js?1703163926"></script>
-    <script src="/js/hugo-learn.js?1703163926"></script>
+    <script src="/js/clipboard.min.js?1703164748"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164748"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164748"></script>
+    <script src="/js/jquery.sticky.js?1703164748"></script>
+    <script src="/js/featherlight.min.js?1703164748"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164748"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164748"></script>
+    <script src="/js/learn.js?1703164748"></script>
+    <script src="/js/hugo-learn.js?1703164748"></script>
     
-    <script src="/main.js?1703163926"></script>
+    <script src="/main.js?1703164748"></script>
     
     
     

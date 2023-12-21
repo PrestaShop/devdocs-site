@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Value Objects :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/architecture/domain/value_objects/">
     
-    <link href="/css/font-awesome.min.css?1703163886" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163886" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163886" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163886" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164713" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164713" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164713" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164713" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163886" rel="stylesheet">
+    <link href="/style.css?1703164713" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163886"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164713"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30290,38 +30290,38 @@
 </ul>
 
 <h2 id="examples-of-value-objects-in-prestashop">Examples of Value Objects in PrestaShop<a href="#examples-of-value-objects-in-prestashop"></a></h2><p>As an example, we can take a look at <code>PrestaShop\PrestaShop\Core\Domain\Currency\ValueObject\ExchangeRate</code> value object. <code>ExchangeRate</code> is used to pass currency exchange rate between different parts of system.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Currency\ValueObject\ExchangeRate</span><span class="p">;</span>
-
-<span class="c1">// ExchangeRate has VO has rules to protect.
-</span><span class="c1">// In this case, ExchangeRate validates that it&#39;s value cannot be 0 or less.
-</span><span class="c1">// If we were to create ExchangeRate with value of -1,
-</span><span class="c1">// then CurrencyConstraintException would be thrown.
-</span><span class="c1"></span>
-<span class="nv">$exchangeRate</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ExchangeRate</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// throws exception, because exchange rate value is not within boundaries
-</span><span class="c1"></span>
-<span class="c1">// However, if ExchangeRate value is within allowed boundaries,
-</span><span class="c1">// then it will successfully produce us new instance of ExchangeRate.
-</span><span class="c1"></span>
-<span class="nv">$exchangeRate</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ExchangeRate</span><span class="p">(</span><span class="mf">1.25</span><span class="p">);</span> <span class="c1">// this would work, since 1.25 is a valid exchange rate value
-</span></code></pre></div><p>Another good side effect of using value objects in your code is that it helps you avoid unnecesarry assertions.</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Currency\ValueObject\ExchangeRate</span><span class="p">;</span>
-
-<span class="k">class</span> <span class="nc">MyService</span>
-<span class="p">{</span>
-    <span class="c1">// ...
-</span><span class="c1"></span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">calculate</span><span class="p">(</span><span class="nx">ExchangeRate</span> <span class="nv">$rate</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="c1">// you don&#39;t need to make additional assertions here (e.g. null !== $rate)
-</span><span class="c1"></span>        <span class="c1">// since you can trust that ExchangeRate contains valid value
-</span><span class="c1"></span>        <span class="c1">// as it was created somewhere in the system.
-</span><span class="c1"></span>
-        <span class="c1">// ... do some calculation with $rate
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Currency\ValueObject\ExchangeRate</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// ExchangeRate has VO has rules to protect.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// In this case, ExchangeRate validates that it&#39;s value cannot be 0 or less.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// If we were to create ExchangeRate with value of -1,
+</span></span></span><span class="line"><span class="cl"><span class="c1">// then CurrencyConstraintException would be thrown.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$exchangeRate</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ExchangeRate</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// throws exception, because exchange rate value is not within boundaries
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// However, if ExchangeRate value is within allowed boundaries,
+</span></span></span><span class="line"><span class="cl"><span class="c1">// then it will successfully produce us new instance of ExchangeRate.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nv">$exchangeRate</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ExchangeRate</span><span class="p">(</span><span class="mf">1.25</span><span class="p">);</span> <span class="c1">// this would work, since 1.25 is a valid exchange rate value
+</span></span></span></code></pre></div><p>Another good side effect of using value objects in your code is that it helps you avoid unnecesarry assertions.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Currency\ValueObject\ExchangeRate</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyService</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">calculate</span><span class="p">(</span><span class="nx">ExchangeRate</span> <span class="nv">$rate</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// you don&#39;t need to make additional assertions here (e.g. null !== $rate)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// since you can trust that ExchangeRate contains valid value
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// as it was created somewhere in the system.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ... do some calculation with $rate
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30399,17 +30399,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163886"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163886"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163886"></script>
-    <script src="/js/jquery.sticky.js?1703163886"></script>
-    <script src="/js/featherlight.min.js?1703163886"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163886"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163886"></script>
-    <script src="/js/learn.js?1703163886"></script>
-    <script src="/js/hugo-learn.js?1703163886"></script>
+    <script src="/js/clipboard.min.js?1703164713"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164713"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164713"></script>
+    <script src="/js/jquery.sticky.js?1703164713"></script>
+    <script src="/js/featherlight.min.js?1703164713"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164713"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164713"></script>
+    <script src="/js/learn.js?1703164713"></script>
+    <script src="/js/hugo-learn.js?1703164713"></script>
     
-    <script src="/main.js?1703163886"></script>
+    <script src="/main.js?1703164713"></script>
     
     
     

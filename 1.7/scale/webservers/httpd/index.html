@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Optimize your Apache httpd configuration :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/scale/webservers/httpd/">
     
-    <link href="/css/font-awesome.min.css?1703163895" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163895" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163895" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163895" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164722" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164722" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164722" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164722" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163895" rel="stylesheet">
+    <link href="/style.css?1703164722" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163895"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164722"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30258,50 +30258,50 @@
 <h2 id="enabling-compression">Enabling compression<a href="#enabling-compression"></a></h2><p>As you may be aware of, most of the file transiting from the webserver (with the notable exception of pictures) are text based.</p>
 <p>And text files are the most efficient to compress. Though disabled by default, enabling compression is a really quick way to reduce transit and speed up your website up to 80%!</p>
 <p>First, make sure the deflate module is activated in your httpd configuration file:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">LoadModule deflate_module modules/mod_deflate.so
-</code></pre></div><p>Then, you can add the following section to you main httpd configuration file:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;IfModule deflate_module&gt;
-  AddOutputFilterByType DEFLATE text/plain
-  AddOutputFilterByType DEFLATE text/css
-  AddOutputFilterByType DEFLATE application/json application/x-javascript  text/javascript application/javascript text/js
-  AddOutputFilterByType DEFLATE text/xml application/xml application/xml+rss text/javascript application/javascript
-  AddOutputFilterByType DEFLATE image/svg+xml
-&lt;/IfModule&gt;
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">LoadModule deflate_module modules/mod_deflate.so
+</span></span></code></pre></div><p>Then, you can add the following section to you main httpd configuration file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;IfModule deflate_module&gt;
+</span></span><span class="line"><span class="cl">  AddOutputFilterByType DEFLATE text/plain
+</span></span><span class="line"><span class="cl">  AddOutputFilterByType DEFLATE text/css
+</span></span><span class="line"><span class="cl">  AddOutputFilterByType DEFLATE application/json application/x-javascript  text/javascript application/javascript text/js
+</span></span><span class="line"><span class="cl">  AddOutputFilterByType DEFLATE text/xml application/xml application/xml+rss text/javascript application/javascript
+</span></span><span class="line"><span class="cl">  AddOutputFilterByType DEFLATE image/svg+xml
+</span></span><span class="line"><span class="cl">&lt;/IfModule&gt;
+</span></span></code></pre></div>
 <h2 id="enabling-browser-caching">Enabling browser caching<a href="#enabling-browser-caching"></a></h2><p>By default, browser locally store website assets in order to avoid fetching them again next time you visit the same page.</p>
 <p>Each browser has its own mecanics about this but the webserver can provide cache control and expiration dates through headers when responding.</p>
 <p>Again, this allows to both speed up the page loads and avoid unnecessary traffic</p>
 
-<h3 id="cache-control">Cache Control<a href="#cache-control"></a></h3><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">LoadModule headers_module modules/mod_headers.so
-</code></pre></div><p>Then you can add the following configuration parameters:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;IfModule mod_headers.c&gt;
- &lt;FilesMatch &#34;\.(ico|jpe?g|png|gif|css|woff2)$&#34;&gt;
-   Header set Cache-Control &#34;max-age=2592000, public&#34;
- &lt;/FilesMatch&gt;
-&lt;/IfModule&gt;
-</code></pre></div>
+<h3 id="cache-control">Cache Control<a href="#cache-control"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">LoadModule headers_module modules/mod_headers.so
+</span></span></code></pre></div><p>Then you can add the following configuration parameters:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;IfModule mod_headers.c&gt;
+</span></span><span class="line"><span class="cl"> &lt;FilesMatch &#34;\.(ico|jpe?g|png|gif|css|woff2)$&#34;&gt;
+</span></span><span class="line"><span class="cl">   Header set Cache-Control &#34;max-age=2592000, public&#34;
+</span></span><span class="line"><span class="cl"> &lt;/FilesMatch&gt;
+</span></span><span class="line"><span class="cl">&lt;/IfModule&gt;
+</span></span></code></pre></div>
 <h3 id="expire">Expire<a href="#expire"></a></h3><p>Easy as well for httpd, just make sure that the expire module is enabled:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">LoadModule expires_module modules/mod_expires.so
-</code></pre></div><p>And then set your own parameters:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">&lt;IfModule mod_expires.c&gt;
-  AddType application/x-font-woff .woff
-  AddType image/svg+xml .svg
-
-  ExpiresActive On
-
-  ExpiresDefault &#34;access plus 7200 seconds&#34;
-  ExpiresByType image/jpg &#34;access plus 1 month&#34;
-  ExpiresByType image/jpeg &#34;access plus 1 month&#34;
-  ExpiresByType image/gif &#34;access plus 1 month&#34;
-  ExpiresByType image/png &#34;access plus 1 month&#34;
-  ExpiresByType image/x-icon &#34;access plus 1 month&#34;
-  ExpiresByType application/x-font-woff &#34;access plus 1 month&#34;
-  &lt;FilesMatch \.php$&gt;
-    # Do not allow PHP scripts to be cached unless they explicitly send cache headers themselves.
-    ExpiresActive Off
-  &lt;/FilesMatch&gt;
-&lt;/IfModule&gt;
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">LoadModule expires_module modules/mod_expires.so
+</span></span></code></pre></div><p>And then set your own parameters:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">&lt;IfModule mod_expires.c&gt;
+</span></span><span class="line"><span class="cl">  AddType application/x-font-woff .woff
+</span></span><span class="line"><span class="cl">  AddType image/svg+xml .svg
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  ExpiresActive On
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  ExpiresDefault &#34;access plus 7200 seconds&#34;
+</span></span><span class="line"><span class="cl">  ExpiresByType image/jpg &#34;access plus 1 month&#34;
+</span></span><span class="line"><span class="cl">  ExpiresByType image/jpeg &#34;access plus 1 month&#34;
+</span></span><span class="line"><span class="cl">  ExpiresByType image/gif &#34;access plus 1 month&#34;
+</span></span><span class="line"><span class="cl">  ExpiresByType image/png &#34;access plus 1 month&#34;
+</span></span><span class="line"><span class="cl">  ExpiresByType image/x-icon &#34;access plus 1 month&#34;
+</span></span><span class="line"><span class="cl">  ExpiresByType application/x-font-woff &#34;access plus 1 month&#34;
+</span></span><span class="line"><span class="cl">  &lt;FilesMatch \.php$&gt;
+</span></span><span class="line"><span class="cl">    # Do not allow PHP scripts to be cached unless they explicitly send cache headers themselves.
+</span></span><span class="line"><span class="cl">    ExpiresActive Off
+</span></span><span class="line"><span class="cl">  &lt;/FilesMatch&gt;
+</span></span><span class="line"><span class="cl">&lt;/IfModule&gt;
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30379,17 +30379,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163895"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163895"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163895"></script>
-    <script src="/js/jquery.sticky.js?1703163895"></script>
-    <script src="/js/featherlight.min.js?1703163895"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163895"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163895"></script>
-    <script src="/js/learn.js?1703163895"></script>
-    <script src="/js/hugo-learn.js?1703163895"></script>
+    <script src="/js/clipboard.min.js?1703164722"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164722"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164722"></script>
+    <script src="/js/jquery.sticky.js?1703164722"></script>
+    <script src="/js/featherlight.min.js?1703164722"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164722"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164722"></script>
+    <script src="/js/learn.js?1703164722"></script>
+    <script src="/js/hugo-learn.js?1703164722"></script>
     
-    <script src="/main.js?1703163895"></script>
+    <script src="/main.js?1703164722"></script>
     
     
     

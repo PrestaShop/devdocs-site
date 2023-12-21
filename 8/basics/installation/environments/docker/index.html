@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Installing PrestaShop with Docker :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163899" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163899" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163899" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163899" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164726" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164726" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164726" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164726" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163899" rel="stylesheet">
+    <link href="/style.css?1703164726" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163899"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164726"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33186,35 +33186,35 @@ Note: WSL2 should be a better option when running Docker.</div>
 <li>Development and testing friendly images with tooling: PrestaShop Flashlight.</li>
 </ul>
 
-<h3 id="create-the-docker-composeyml-manifest">Create the docker-compose.yml manifest<a href="#create-the-docker-composeyml-manifest"></a></h3><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
-</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">mysql</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
-</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql:5.7</span><span class="w">
-</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
-</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
-</span><span class="w">      </span><span class="nt">MYSQL_DATABASE</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
-</span><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="l">prestashop_network</span><span class="w">
-</span><span class="w">  </span><span class="nt">prestashop</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
-</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/prestashop:latest</span><span class="w"> </span><span class="c"># Latest stable version of the PrestaShop, to see all available images go to ...</span><span class="w">
-</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
-</span><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="l">mysql</span><span class="w">
-</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="m">8080</span><span class="p">:</span><span class="m">80</span><span class="w">
-</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">DB_SERVER</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
-</span><span class="w">      </span><span class="nt">DB_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
-</span><span class="w">      </span><span class="nt">DB_USER</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
-</span><span class="w">      </span><span class="nt">DB_PASSWD</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
-</span><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="l">prestashop_network</span><span class="w">
-</span><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">prestashop_network</span><span class="p">:</span><span class="w">
-</span></code></pre></div>
+<h3 id="create-the-docker-composeyml-manifest">Create the docker-compose.yml manifest<a href="#create-the-docker-composeyml-manifest"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mysql</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql:5.7</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_DATABASE</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">prestashop_network</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prestashop</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/prestashop:latest</span><span class="w"> </span><span class="c"># Latest stable version of the PrestaShop, to see all available images go to ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">8080</span><span class="p">:</span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">DB_SERVER</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">DB_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">DB_USER</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">DB_PASSWD</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">prestashop_network</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">prestashop_network</span><span class="p">:</span><span class="w">
+</span></span></span></code></pre></div>
 <div class="notices info" >When using an M1-chip Mac, you may need to add: <code>platform: linux/x86_64</code> on each container declaration.</div>
 
 
@@ -33223,41 +33223,41 @@ Note: WSL2 should be a better option when running Docker.</div>
 
 <p>You can automatically install PrestaShop (and add test data) without having to use the installation assistant when creating your Docker Compose stack.</p>
 <p>To achieve this, you need to set those environment variables in your PrestaShop container declaration in your  <code>docker-compose.yml</code> file:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">PS_INSTALL_AUTO</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w"></span><span class="nt">PS_DOMAIN</span><span class="p">:</span><span class="w"> </span><span class="l">localhost:8080</span><span class="w">
-</span></code></pre></div><p>Then run <code>docker compose up</code> in your terminal, wait a few minutes, and you will be able to access a PrestaShop instance on <code>http://localhost:8080</code> with the front office containing the demo products and <code>http://localhost:8080/admin</code> for the back office.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">PS_INSTALL_AUTO</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">PS_DOMAIN</span><span class="p">:</span><span class="w"> </span><span class="l">localhost:8080</span><span class="w">
+</span></span></span></code></pre></div><p>Then run <code>docker compose up</code> in your terminal, wait a few minutes, and you will be able to access a PrestaShop instance on <code>http://localhost:8080</code> with the front office containing the demo products and <code>http://localhost:8080/admin</code> for the back office.</p>
 <p>Complete docker-compose.yml manifest for reference:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
-</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">mysql</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
-</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql:5.7</span><span class="w">
-</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
-</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
-</span><span class="w">      </span><span class="nt">MYSQL_DATABASE</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
-</span><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="l">prestashop_network</span><span class="w">
-</span><span class="w">  </span><span class="nt">prestashop</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
-</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/prestashop:latest</span><span class="w">
-</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
-</span><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="l">mysql</span><span class="w">
-</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="m">8080</span><span class="p">:</span><span class="m">80</span><span class="w">
-</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">DB_SERVER</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
-</span><span class="w">      </span><span class="nt">DB_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
-</span><span class="w">      </span><span class="nt">DB_USER</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
-</span><span class="w">      </span><span class="nt">DB_PASSWD</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
-</span><span class="w">      </span><span class="nt">PS_INSTALL_AUTO</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">      </span><span class="nt">PS_DOMAIN</span><span class="p">:</span><span class="w"> </span><span class="l">localhost:8080</span><span class="w">
-</span><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="l">prestashop_network</span><span class="w">
-</span><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">prestashop_network</span><span class="p">:</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mysql</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql:5.7</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_DATABASE</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">prestashop_network</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prestashop</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/prestashop:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">8080</span><span class="p">:</span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">DB_SERVER</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">DB_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">DB_USER</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">DB_PASSWD</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">PS_INSTALL_AUTO</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">PS_DOMAIN</span><span class="p">:</span><span class="w"> </span><span class="l">localhost:8080</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">prestashop_network</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">prestashop_network</span><span class="p">:</span><span class="w">
+</span></span></span></code></pre></div>
 <h3 id="manually-install-prestashop-with-installation-assistant-and-begin-testing">Manually install PrestaShop with Installation Assistant, and begin testing<a href="#manually-install-prestashop-with-installation-assistant-and-begin-testing"></a></h3><p>To manually install PrestaShop using the Installation Assistant, don&rsquo;t set the environment variables <code>PS_DEMO_MODE</code> and <code>PS_INSTALL_AUTO</code>.</p>
 <p>In the directory where the docker compose.yml file is located, do the following:</p>
 <ul>
@@ -33280,144 +33280,144 @@ Note: WSL2 should be a better option when running Docker.</div>
 <h4 id="installation-assistant-and-admin-urls">Installation assistant and admin URLs<a href="#installation-assistant-and-admin-urls"></a></h4>
 <div class="notices note" ><p>It is a grood practice to change <code>install/</code> and <code>admin/</code> directory names.</p>
 <p>To achieve this, specify the two following environment variables in your PrestaShop container declaration:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">PS_FOLDER_ADMIN: admin4577
-PS_FOLDER_INSTALL: install4577
-</code></pre></div><p>In this example, we set them to <code>admin4577</code> and <code>install4577</code>. When installing PrestaShop with Docker for the first time, you need to access <code>https://localhost:8080/install4577</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">PS_FOLDER_ADMIN: admin4577
+</span></span><span class="line"><span class="cl">PS_FOLDER_INSTALL: install4577
+</span></span></code></pre></div><p>In this example, we set them to <code>admin4577</code> and <code>install4577</code>. When installing PrestaShop with Docker for the first time, you need to access <code>https://localhost:8080/install4577</code>.</p>
 </div>
 
 
 <div class="notices info" ><p>If you did not change the <code>install/</code> or <code>admin/</code> directory names, after installation, you need to manually delete the install directory in your container, and change the admin directory name.
 To do this, please run:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">docker exec -i prestashop rm -rf install
-docker exec -i prestashop mv admin admin_xxx
-</code></pre></div><p>After running these scripts, your back office will be at <code>https://localhost:8080/admin_xxx</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker exec -i prestashop rm -rf install
+</span></span><span class="line"><span class="cl">docker exec -i prestashop mv admin admin_xxx
+</span></span></code></pre></div><p>After running these scripts, your back office will be at <code>https://localhost:8080/admin_xxx</code>.</p>
 </div>
 
 
 <h3 id="bind-a-volume-for-mysql-persisting">Bind a volume for MySQL persisting<a href="#bind-a-volume-for-mysql-persisting"></a></h3><p>If you don&rsquo;t bind a volume to the MySQL container, the database content will not be persisted when stopping/restarting the stack.</p>
 <p>To avoid this, add a <code>volume</code> to your MySQL container:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">...</span><span class="w">
-</span><span class="w">  </span><span class="nt">mysql</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
-</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="l">dbdata:/var/lib/mysql</span><span class="w">
-</span><span class="w"></span><span class="nn">...</span><span class="w">
-</span><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">dbdata</span><span class="p">:</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nn">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mysql</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">dbdata:/var/lib/mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">dbdata</span><span class="p">:</span><span class="w">
+</span></span></span></code></pre></div>
 <h3 id="bind-a-volume-for-instance-persisting">Bind a volume for instance persisting<a href="#bind-a-volume-for-instance-persisting"></a></h3><p>If you don&rsquo;t bind a volume to the PrestaShop container, data will not be persisted when stopping / restarting the stack. PrestaShop will try to install itself at every restart of the stack.</p>
 <p>To avoid this, add a <code>volume</code> to your PrestaShop container:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nn">...</span><span class="w">
-</span><span class="w">  </span><span class="nt">prestashop</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
-</span><span class="w">    </span><span class="l">...</span><span class="w">
-</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="l">psdata:/var/www/html</span><span class="w">
-</span><span class="w"></span><span class="nn">...</span><span class="w">
-</span><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">psdata</span><span class="p">:</span><span class="w">
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nn">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prestashop</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">psdata:/var/www/html</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">psdata</span><span class="p">:</span><span class="w">
+</span></span></span></code></pre></div>
 <h3 id="bind-a-local-module-to-your-instance-in-your-manifest">Bind a local module to your instance in your manifest<a href="#bind-a-local-module-to-your-instance-in-your-manifest"></a></h3><p>Let&rsquo;s consider we have a <code>test_module</code> PrestaShop Module.</p>
 <p>Create a <code>modules/</code> directory, and drop in your <code>test_module</code> directory.</p>
 <p>Create a bind mount in your docker-compose.yml:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">...</span><span class="w">
-</span><span class="w">  </span><span class="nt">prestashop</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
-</span><span class="w">    </span><span class="l">...</span><span class="w">
-</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">bind</span><span class="w">
-</span><span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">./modules/test_module</span><span class="w"> </span><span class="c"># local path to the module</span><span class="w">
-</span><span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l">/var/www/html/modules/test_module</span><span class="w"> </span><span class="c"># path to be mounted in the container</span><span class="w">
-</span><span class="w"></span><span class="nn">...</span><span class="w">
-</span></code></pre></div><p>And that&rsquo;s it: your module is available on the <code>prestashop</code> Docker container, and changes made in the local directory of the module are automatically synchronized on the <code>prestashop</code> Docker container.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prestashop</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">bind</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">./modules/test_module</span><span class="w"> </span><span class="c"># local path to the module</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l">/var/www/html/modules/test_module</span><span class="w"> </span><span class="c"># path to be mounted in the container</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">...</span><span class="w">
+</span></span></span></code></pre></div><p>And that&rsquo;s it: your module is available on the <code>prestashop</code> Docker container, and changes made in the local directory of the module are automatically synchronized on the <code>prestashop</code> Docker container.</p>
 
 <h3 id="bind-a-local-theme-to-your-instance-in-your-manifest">Bind a local theme to your instance in your manifest<a href="#bind-a-local-theme-to-your-instance-in-your-manifest"></a></h3><p>Let&rsquo;s consider we have a <code>mytheme</code> PrestaShop Theme.</p>
 <p>Create a <code>themes/</code> directory, and drop your <code>mytheme</code> directory there.</p>
 <p>Create a bind mount in your docker-compose.yml:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nn">...</span><span class="w">
-</span><span class="w">  </span><span class="nt">prestashop</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
-</span><span class="w">    </span><span class="l">...</span><span class="w">
-</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">bind</span><span class="w">
-</span><span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">./themes/mytheme</span><span class="w"> </span><span class="c"># local path to the module</span><span class="w">
-</span><span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l">/var/www/html/themes/mytheme</span><span class="w"> </span><span class="c"># path to be mounted in the container</span><span class="w">
-</span><span class="w"></span><span class="nn">...</span><span class="w">
-</span></code></pre></div><p>And that&rsquo;s it: your theme is available on the <code>prestashop</code> Docker container, and changes made in the local directory of the theme are automatically synchronized on the <code>prestashop</code> Docker container.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prestashop</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">bind</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">./themes/mytheme</span><span class="w"> </span><span class="c"># local path to the module</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l">/var/www/html/themes/mytheme</span><span class="w"> </span><span class="c"># path to be mounted in the container</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">...</span><span class="w">
+</span></span></span></code></pre></div><p>And that&rsquo;s it: your theme is available on the <code>prestashop</code> Docker container, and changes made in the local directory of the theme are automatically synchronized on the <code>prestashop</code> Docker container.</p>
 
-<h3 id="complete-docker-composeyml-for-reference">Complete docker-compose.yml for reference<a href="#complete-docker-composeyml-for-reference"></a></h3><div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
-</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">mysql</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
-</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql:5.7</span><span class="w">
-</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
-</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
-</span><span class="w">      </span><span class="nt">MYSQL_DATABASE</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
-</span><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="l">prestashop_network</span><span class="w">
-</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="l">dbdata:/var/lib/mysql</span><span class="w">
-</span><span class="w">  </span><span class="nt">prestashop</span><span class="p">:</span><span class="w">
-</span><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
-</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/prestashop:latest</span><span class="w">
-</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
-</span><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="l">mysql</span><span class="w">
-</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="m">8080</span><span class="p">:</span><span class="m">80</span><span class="w">
-</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">DB_SERVER</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
-</span><span class="w">      </span><span class="nt">DB_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
-</span><span class="w">      </span><span class="nt">DB_USER</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
-</span><span class="w">      </span><span class="nt">DB_PASSWD</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
-</span><span class="w">      </span><span class="nt">PS_FOLDER_ADMIN</span><span class="p">:</span><span class="w"> </span><span class="l">admin4577</span><span class="w">
-</span><span class="w">      </span><span class="nt">PS_FOLDER_INSTALL</span><span class="p">:</span><span class="w"> </span><span class="l">install4577</span><span class="w">
-</span><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="l">prestashop_network</span><span class="w">
-</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">bind</span><span class="w">
-</span><span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">./modules/testModule</span><span class="w"> </span><span class="c"># local path to the module</span><span class="w">
-</span><span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l">/var/www/html/modules/testModule</span><span class="w"> </span><span class="c"># path to be mounted in the container</span><span class="w">
-</span><span class="w">      </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">bind</span><span class="w">
-</span><span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">./themes/myTheme</span><span class="w"> </span><span class="c"># local path to the theme</span><span class="w">
-</span><span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w">  </span><span class="l">/var/www/html/themes/myTheme</span><span class="w"> </span><span class="c"># path to be mounted in the container</span><span class="w">
-</span><span class="w">      </span>- <span class="l">psdata:/var/www/html</span><span class="w">
-</span><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">prestashop_network</span><span class="p">:</span><span class="w">
-</span><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">psdata</span><span class="p">:</span><span class="w">
-</span><span class="w">  </span><span class="nt">dbdata</span><span class="p">:</span><span class="w">
-</span></code></pre></div>
+<h3 id="complete-docker-composeyml-for-reference">Complete docker-compose.yml for reference<a href="#complete-docker-composeyml-for-reference"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">mysql</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql:5.7</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_DATABASE</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">prestashop_network</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">dbdata:/var/lib/mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prestashop</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop/prestashop:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="m">8080</span><span class="p">:</span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">DB_SERVER</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">DB_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">prestashop</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">DB_USER</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">DB_PASSWD</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">PS_FOLDER_ADMIN</span><span class="p">:</span><span class="w"> </span><span class="l">admin4577</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">PS_FOLDER_INSTALL</span><span class="p">:</span><span class="w"> </span><span class="l">install4577</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">prestashop_network</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">bind</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">./modules/testModule</span><span class="w"> </span><span class="c"># local path to the module</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w"> </span><span class="l">/var/www/html/modules/testModule</span><span class="w"> </span><span class="c"># path to be mounted in the container</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">bind</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">./themes/myTheme</span><span class="w"> </span><span class="c"># local path to the theme</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">target</span><span class="p">:</span><span class="w">  </span><span class="l">/var/www/html/themes/myTheme</span><span class="w"> </span><span class="c"># path to be mounted in the container</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">psdata:/var/www/html</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prestashop_network</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">psdata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">dbdata</span><span class="p">:</span><span class="w">
+</span></span></span></code></pre></div>
 <h3 id="add-phpmyadmin-to-your-stack">Add PHPMyAdmin to your stack<a href="#add-phpmyadmin-to-your-stack"></a></h3><p>In the docker-compose.yml, add the following service declaration:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yml" data-lang="yml"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
-</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
-</span><span class="w"></span><span class="nn">...</span><span class="w">
-</span><span class="w">    </span><span class="nt">phpmyadmin</span><span class="p">:</span><span class="w">
-</span><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">phpmyadmin/phpmyadmin</span><span class="w">
-</span><span class="w">      </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">phpmyadmin</span><span class="w">
-</span><span class="w">      </span><span class="nt">links</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="l">some-mysql</span><span class="w">
-</span><span class="w">      </span><span class="nt">environment</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span><span class="nt">PMA_HOST</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
-</span><span class="w">        </span><span class="nt">PMA_PORT</span><span class="p">:</span><span class="w"> </span><span class="m">3306</span><span class="w">
-</span><span class="w">        </span><span class="nt">PMA_ARBITRARY</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span><span class="w">      </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
-</span><span class="w">      </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span><span class="w">        </span>- <span class="m">8081</span><span class="p">:</span><span class="m">80</span><span class="w">
-</span></code></pre></div><p>And access <code>http://localhost:8081</code> to access <code>phpMyAdmin</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">phpmyadmin</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">phpmyadmin/phpmyadmin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">phpmyadmin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">links</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">some-mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">PMA_HOST</span><span class="p">:</span><span class="w"> </span><span class="l">some-mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">PMA_PORT</span><span class="p">:</span><span class="w"> </span><span class="m">3306</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">PMA_ARBITRARY</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">unless-stopped</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="m">8081</span><span class="p">:</span><span class="m">80</span><span class="w">
+</span></span></span></code></pre></div><p>And access <code>http://localhost:8081</code> to access <code>phpMyAdmin</code>.</p>
 
 <h3 id="enter-the-container-to-execute-commands-and-interact-with-all-its-files">Enter the container to execute commands and interact with all its files<a href="#enter-the-container-to-execute-commands-and-interact-with-all-its-files"></a></h3><p>Sometimes, you may need to enter the container to parse logs, execute commands, modify core files, or some of the environment configurations.</p>
 <p>To access the container&rsquo;s shell, simply execute the following command in your terminal:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">docker <span class="nb">exec</span> -ti prestashop /bin/bash
-</code></pre></div><p>You will land in the container, in the PrestaShop&rsquo;s directory (<code>/var/www/html</code>).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker <span class="nb">exec</span> -ti prestashop /bin/bash
+</span></span></code></pre></div><p>You will land in the container, in the PrestaShop&rsquo;s directory (<code>/var/www/html</code>).</p>
 <p>From there, you can use commands like:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">php bin/console prestashop:module <span class="nb">enable</span> xxx <span class="c1"># enables the module xxx</span>
-tail -f var/logs/dev.log <span class="c1"># tail in interactive mode the dev.log file</span>
-<span class="c1"># you can use all other commands you may need</span>
-</code></pre></div><p>You can also execute commands directly in the container with <code>docker exec -i</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">docker <span class="nb">exec</span> -i prestashop php bin/console list <span class="c1"># will execute list command from Symfony&#39;s console </span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php bin/console prestashop:module <span class="nb">enable</span> xxx <span class="c1"># enables the module xxx</span>
+</span></span><span class="line"><span class="cl">tail -f var/logs/dev.log <span class="c1"># tail in interactive mode the dev.log file</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># you can use all other commands you may need</span>
+</span></span></code></pre></div><p>You can also execute commands directly in the container with <code>docker exec -i</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker <span class="nb">exec</span> -i prestashop php bin/console list <span class="c1"># will execute list command from Symfony&#39;s console </span>
+</span></span></code></pre></div>
 <h2 id="run-prestashop-on-docker-without-docker-compose">Run PrestaShop on Docker without Docker Compose<a href="#run-prestashop-on-docker-without-docker-compose"></a></h2><p>PrestaShop runs on an *AMP stack (Apache - MySQL - PHP). Two containers are required to run PrestaShop:</p>
 <ul>
 <li>a MySQL container (5.7 version)</li>
@@ -33430,8 +33430,8 @@ tail -f var/logs/dev.log <span class="c1"># tail in interactive mode the dev.log
 
 
 <h3 id="create-a-docker-network">Create a Docker network<a href="#create-a-docker-network"></a></h3><p>Those two containers need to be able to communicate with each other.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ docker network create prestashop-net
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ docker network create prestashop-net
+</span></span></code></pre></div>
 <div class="notices note" >When using Docker Compose, the network lives and dies when starting/stopping the stack automatically.</div>
 
 
@@ -33442,8 +33442,8 @@ tail -f var/logs/dev.log <span class="c1"># tail in interactive mode the dev.log
 <li>with container name <code>some-mysql</code>,</li>
 <li>and <code>root password</code> &lsquo;admin&rsquo;.</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ docker run -ti --name some-mysql --network prestashop-net -e MYSQL_ROOT_PASSWORD=admin -d mysql:5.7
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ docker run -ti --name some-mysql --network prestashop-net -e MYSQL_ROOT_PASSWORD=admin -d mysql:5.7
+</span></span></code></pre></div>
 <h3 id="start-the-prestashop-container">Start the PrestaShop container<a href="#start-the-prestashop-container"></a></h3><p>Then, start the PrestaShop container:</p>
 <ul>
 <li>with <code>name</code> <code>some-prestashop</code>,</li>
@@ -33451,8 +33451,8 @@ tail -f var/logs/dev.log <span class="c1"># tail in interactive mode the dev.log
 <li>on exposed <code>port</code> <code>8080</code></li>
 <li>with <code>image</code> <code>prestashop/prestashop:latest</code></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">$ docker run -ti --name some-prestashop --network prestashop-net -p 8080:80 -d prestashop/prestashop:latest
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ docker run -ti --name some-prestashop --network prestashop-net -p 8080:80 -d prestashop/prestashop:latest
+</span></span></code></pre></div>
 <h2 id="images-architectures-and-tags">Images, architectures and tags<a href="#images-architectures-and-tags"></a></h2><p>All our images and tags are available on <a href="https://hub.docker.com/r/prestashop/prestashop">Docker Hub</a>.</p>
 
 <h3 id="use-a-specific-prestashop-version">Use a specific PrestaShop version<a href="#use-a-specific-prestashop-version"></a></h3><p>You can use a specific PrestaShop version by changing the image tag:</p>
@@ -33691,17 +33691,17 @@ tail -f var/logs/dev.log <span class="c1"># tail in interactive mode the dev.log
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163900"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163900"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163900"></script>
-    <script src="/js/jquery.sticky.js?1703163900"></script>
-    <script src="/js/featherlight.min.js?1703163900"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163900"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163900"></script>
-    <script src="/js/learn.js?1703163900"></script>
-    <script src="/js/hugo-learn.js?1703163900"></script>
+    <script src="/js/clipboard.min.js?1703164726"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164726"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164726"></script>
+    <script src="/js/jquery.sticky.js?1703164726"></script>
+    <script src="/js/featherlight.min.js?1703164726"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164726"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164726"></script>
+    <script src="/js/learn.js?1703164726"></script>
+    <script src="/js/hugo-learn.js?1703164726"></script>
     
-    <script src="/main.js?1703163900"></script>
+    <script src="/main.js?1703164726"></script>
     
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';

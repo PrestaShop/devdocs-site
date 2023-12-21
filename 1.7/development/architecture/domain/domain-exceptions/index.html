@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Domain exceptions :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/architecture/domain/domain-exceptions/">
     
-    <link href="/css/font-awesome.min.css?1703163886" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163886" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163886" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163886" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164713" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164713" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164713" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164713" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163886" rel="stylesheet">
+    <link href="/style.css?1703164713" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163886"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164713"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -30295,77 +30295,77 @@ The code in <code>PrestaShop\PrestaShop\Core\Domain</code> namespace started to 
 <p>Let&rsquo;s see how domain exceptions look like in the code.
 For this example, let&rsquo;s look at <code>Category</code> domain:</p>
 
-<h5 id="srccoredomaincategory">src/Core/Domain/Category/<a href="#srccoredomaincategory"></a></h5><div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">.
-├── Command
-├── CommandHandler
-├── Exception
-│   ├── CannotAddCategoryException.php
-│   ├── CannotDeleteImageException.php
-│   ├── CannotDeleteRootCategoryForShopException.php
-│   ├── CannotEditCategoryException.php
-│   ├── CannotUpdateCategoryStatusException.php
-│   ├── CategoryConstraintException.php
-│   ├── CategoryException.php
-│   ├── CategoryNotFoundException.php
-│   ├── FailedToDeleteCategoryException.php
-│   └── MenuThumbnailsLimitException.php
-├── Query
-├── QueryHandler
-├── QueryResult
-└── ValueObject
-</code></pre></div><p>We can see the <code>Exception</code> directory, which contains all category domain exceptions.</p>
+<h5 id="srccoredomaincategory">src/Core/Domain/Category/<a href="#srccoredomaincategory"></a></h5><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">.
+</span></span><span class="line"><span class="cl">├── Command
+</span></span><span class="line"><span class="cl">├── CommandHandler
+</span></span><span class="line"><span class="cl">├── Exception
+</span></span><span class="line"><span class="cl">│   ├── CannotAddCategoryException.php
+</span></span><span class="line"><span class="cl">│   ├── CannotDeleteImageException.php
+</span></span><span class="line"><span class="cl">│   ├── CannotDeleteRootCategoryForShopException.php
+</span></span><span class="line"><span class="cl">│   ├── CannotEditCategoryException.php
+</span></span><span class="line"><span class="cl">│   ├── CannotUpdateCategoryStatusException.php
+</span></span><span class="line"><span class="cl">│   ├── CategoryConstraintException.php
+</span></span><span class="line"><span class="cl">│   ├── CategoryException.php
+</span></span><span class="line"><span class="cl">│   ├── CategoryNotFoundException.php
+</span></span><span class="line"><span class="cl">│   ├── FailedToDeleteCategoryException.php
+</span></span><span class="line"><span class="cl">│   └── MenuThumbnailsLimitException.php
+</span></span><span class="line"><span class="cl">├── Query
+</span></span><span class="line"><span class="cl">├── QueryHandler
+</span></span><span class="line"><span class="cl">├── QueryResult
+</span></span><span class="line"><span class="cl">└── ValueObject
+</span></span></code></pre></div><p>We can see the <code>Exception</code> directory, which contains all category domain exceptions.</p>
 <p>All domain exceptions are extending a base exception class.
 In case of categories, all category exceptions are extending <code>CategoryException</code>, which defines the <code>Category</code> domain,
 and <code>CategoryException</code> extends <code>PrestaShop\PrestaShop\Core\Domain\Exception\DomainException</code>,
 which defines the PrestaShop&rsquo;s domain.</p>
 
 <h2 id="example-usage-of-domain-exceptions">Example usage of domain exceptions<a href="#example-usage-of-domain-exceptions"></a></h2><p>Let&rsquo;s analyze one exception from <code>Category</code> domain, <code>CannotEditCategoryException</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Category\Exception</span><span class="p">;</span>
-
-<span class="sd">/**
-</span><span class="sd"> * Class CannotEditCategoryException is thrown when editing category fails.
-</span><span class="sd"> */</span>
-<span class="k">class</span> <span class="nc">CannotEditCategoryException</span> <span class="k">extends</span> <span class="nx">CategoryException</span>
-<span class="p">{</span>
-<span class="p">}</span>
-</code></pre></div><p>As we can guess from the comment in the code, this exception is supposed to be thrown when editing a category fails.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Category\Exception</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Class CannotEditCategoryException is thrown when editing category fails.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CannotEditCategoryException</span> <span class="k">extends</span> <span class="nx">CategoryException</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>As we can guess from the comment in the code, this exception is supposed to be thrown when editing a category fails.
 Let&rsquo;s see a real usage in a command handler:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// src/Adapter/Category/CommandHandler/EditCategoryHandler.php
-</span><span class="c1"></span>
-<span class="k">private</span> <span class="k">function</span> <span class="nf">updateCategoryFromCommandData</span><span class="p">(</span><span class="nx">Category</span> <span class="nv">$category</span><span class="p">,</span> <span class="nx">EditCategoryCommand</span> <span class="nv">$command</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="c1">// ... 
-</span><span class="c1"></span>    
-    <span class="k">if</span> <span class="p">(</span><span class="k">false</span> <span class="o">===</span> <span class="nv">$category</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">())</span> <span class="p">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="nx">CannotEditCategoryException</span><span class="p">(</span>
-            <span class="nx">sprintf</span><span class="p">(</span><span class="s1">&#39;Failed to edit Category with id &#34;%s&#34;.&#39;</span><span class="p">,</span> <span class="nv">$category</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">)</span>
-        <span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// src/Adapter/Category/CommandHandler/EditCategoryHandler.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span> <span class="k">function</span> <span class="nf">updateCategoryFromCommandData</span><span class="p">(</span><span class="nx">Category</span> <span class="nv">$category</span><span class="p">,</span> <span class="nx">EditCategoryCommand</span> <span class="nv">$command</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ... 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="k">false</span> <span class="o">===</span> <span class="nv">$category</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="k">new</span> <span class="nx">CannotEditCategoryException</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">sprintf</span><span class="p">(</span><span class="s1">&#39;Failed to edit Category with id &#34;%s&#34;.&#39;</span><span class="p">,</span> <span class="nv">$category</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices tip" >If you are not familiar with command handlers or how CQRS pattern is used in PrestaShop, you can read about it here: <a href="https://devdocs.prestashop-project.org/1.7/development/architecture/domain/cqrs/">CQRS</a>.</div>
 
 <p>We can see in the code above, that if category update fails, it will throw a <code>CannotEditCategoryException</code>.
 The exception then needs to be handled in the upper layers of the code.</p>
 <p>In our example all category domain exceptions are handled in the <code>CategoryController</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="c1">// src/PrestaShopBundle/Controller/Admin/Sell/Catalog/CategoryController.php
-</span><span class="c1"></span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">editAction</span><span class="p">(</span><span class="nv">$categoryId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">try</span> <span class="p">{</span>
-        <span class="nv">$editableCategory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getQueryBus</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="k">new</span> <span class="nx">GetCategoryForEditing</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$categoryId</span><span class="p">));</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">CategoryException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Catching all exceptions from category domain
-</span><span class="c1"></span>        <span class="c1">// and showing a specific error message for every exception type.
-</span><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getErrorMessageForException</span><span class="p">(</span><span class="nv">$e</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getErrorMessages</span><span class="p">()));</span>
-    <span class="p">}</span>
-
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div><p>So now, if we are editing a category and it fails for some reason (e.g. the database is not responding),
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// src/PrestaShopBundle/Controller/Admin/Sell/Catalog/CategoryController.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">editAction</span><span class="p">(</span><span class="nv">$categoryId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$editableCategory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getQueryBus</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="k">new</span> <span class="nx">GetCategoryForEditing</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$categoryId</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">CategoryException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Catching all exceptions from category domain
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// and showing a specific error message for every exception type.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getErrorMessageForException</span><span class="p">(</span><span class="nv">$e</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getErrorMessages</span><span class="p">()));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div><p>So now, if we are editing a category and it fails for some reason (e.g. the database is not responding),
 the controller will catch the <code>CannotEditCategoryException</code> (which is a child of <code>CategoryException</code>) and display a specific error message to the user.</p>
 
 <h2 id="why-are-there-so-many-new-exception-classes-">Why are there so many new exception classes ?<a href="#why-are-there-so-many-new-exception-classes-"></a></h2><p>Having many different exception classes means that developers can easily recognize specific failures in the system.
@@ -30373,22 +30373,22 @@ Just as we recognized category editing failure in our example, we can catch any 
 <p>For example, catching a <code>CategoryNotFoundException</code> lets us know when category is not found,
 or catching <code>CannotAddCategoryException</code> means that a category cannot be added. These exceptions carry an accurate information that makes it easier to debug the issue or to handle the usecase gracefully by displaying the right error message for example.</p>
 <p>If we expand our previous example with a better overview with different exception types:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">editAction</span><span class="p">(</span><span class="nv">$categoryId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="k">try</span> <span class="p">{</span>
-        <span class="nv">$editableCategory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getQueryBus</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="k">new</span> <span class="nx">GetCategoryForEditing</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$categoryId</span><span class="p">));</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">CannotEditCategoryException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Here we handle the case when category cannot be edited, like display a specific error message and suggestions to fix it.
-</span><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Something went wrong when editing category.&#39;</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">CategoryNotFoundException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Here we can do specific actions if the user is trying to edit a category that cannot be found, like redirect to category listing.
-</span><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Category cannot be found!&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="c1">// ...
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">editAction</span><span class="p">(</span><span class="nv">$categoryId</span><span class="p">,</span> <span class="nx">Request</span> <span class="nv">$request</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$editableCategory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getQueryBus</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="k">new</span> <span class="nx">GetCategoryForEditing</span><span class="p">((</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$categoryId</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">CannotEditCategoryException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Here we handle the case when category cannot be edited, like display a specific error message and suggestions to fix it.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Something went wrong when editing category.&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">CategoryNotFoundException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Here we can do specific actions if the user is trying to edit a category that cannot be found, like redirect to category listing.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Category cannot be found!&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></div>
 
 <footer class="article-footer">
 	
@@ -30466,17 +30466,17 @@ or catching <code>CannotAddCategoryException</code> means that a category cannot
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163886"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163886"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163886"></script>
-    <script src="/js/jquery.sticky.js?1703163886"></script>
-    <script src="/js/featherlight.min.js?1703163886"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163886"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163886"></script>
-    <script src="/js/learn.js?1703163886"></script>
-    <script src="/js/hugo-learn.js?1703163886"></script>
+    <script src="/js/clipboard.min.js?1703164713"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164713"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164713"></script>
+    <script src="/js/jquery.sticky.js?1703164713"></script>
+    <script src="/js/featherlight.min.js?1703164713"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164713"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164713"></script>
+    <script src="/js/learn.js?1703164713"></script>
+    <script src="/js/hugo-learn.js?1703164713"></script>
     
-    <script src="/main.js?1703163886"></script>
+    <script src="/main.js?1703164713"></script>
     
     
     

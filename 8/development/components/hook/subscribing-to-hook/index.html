@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>Subscribing to a Hook :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163910" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163910" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163910" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163910" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164735" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164735" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164735" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164735" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163910" rel="stylesheet">
+    <link href="/style.css?1703164735" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163910"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164735"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33126,8 +33126,8 @@
 
 <h1 id="subscribing-to-a-hook">Subscribing to a Hook<a href="#subscribing-to-a-hook"></a></h1><p>The <code>Hook</code> component acts as a registry for hook subscriptions, storing which modules have subscribed to which hook. Multiple modules can subscribe to the same hook, and a single module can subscribe to multiple hooks.</p>
 <p>Modules subscribe to hooks through the <code>registerHook()</code> static function:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="nx">Hook</span><span class="o">::</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$moduleInstance</span><span class="p">,</span> <span class="nx">string</span><span class="o">|</span><span class="nx">string</span><span class="p">[]</span> <span class="nv">$subscribedHooks</span><span class="p">,</span> <span class="o">?</span><span class="nx">int</span><span class="p">[]</span> <span class="nv">$shopIds</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
-</code></pre></div><p>This method returns <code>true</code> if the operation is successful, <code>false</code> otherwise.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">Hook</span><span class="o">::</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">Module</span> <span class="nv">$moduleInstance</span><span class="p">,</span> <span class="nx">string</span><span class="o">|</span><span class="nx">string</span><span class="p">[]</span> <span class="nv">$subscribedHooks</span><span class="p">,</span> <span class="o">?</span><span class="nx">int</span><span class="p">[]</span> <span class="nv">$shopIds</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span></code></pre></div><p>This method returns <code>true</code> if the operation is successful, <code>false</code> otherwise.</p>
 
 <h5 id="parameters">Parameters<a href="#parameters"></a></h5><p><code>$moduleInstance</code>
 :
@@ -33141,50 +33141,50 @@ This parameter is related to multishop and receives an array of shop ids.<br>
 By default, hook registrations are valid for all shops. If this parameter is defined, the hook subscription will only be registered for the specified shops.</p>
 
 <h5 id="example">Example<a href="#example"></a></h5><p>Here is how a Module subscribes to the <code>registerGDPRConsent</code> during the install process:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">Somemodule</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> 
-            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;registerGDPRConsent&#39;</span><span class="p">)</span> <span class="c1">// &lt;-- shorthand to Hook::registerHook()
-</span><span class="c1"></span>        <span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Modules can subscribe to multiple hooks at once. Here is how a Module subscribes to hook <code>registerGDPRConsent</code> and <code>displayProductAdditionalInfo</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">Somemodule</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">const</span> <span class="no">AVAILABLE_HOOKS</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="s1">&#39;registerGDPRConsent&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;displayProductAdditionalInfo&#39;</span><span class="p">,</span>
-    <span class="p">];</span> 
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="p">(</span>
-            <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span>
-            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">AVAILABLE_HOOKS</span><span class="p">)</span>
-        <span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Somemodule</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> 
+</span></span><span class="line"><span class="cl">            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;registerGDPRConsent&#39;</span><span class="p">)</span> <span class="c1">// &lt;-- shorthand to Hook::registerHook()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Modules can subscribe to multiple hooks at once. Here is how a Module subscribes to hook <code>registerGDPRConsent</code> and <code>displayProductAdditionalInfo</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Somemodule</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">const</span> <span class="no">AVAILABLE_HOOKS</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;registerGDPRConsent&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;displayProductAdditionalInfo&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="nx">self</span><span class="o">::</span><span class="na">AVAILABLE_HOOKS</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="module-callback">Module callback<a href="#module-callback"></a></h2><p>Modules having subscribed to a hook are notified when the hook is dispatched and are able to react in consequence.</p>
 <p>In order to receive the notification, modules must declare one public callback function per subscribed hook, following this naming convention: <code>hook&lt;SubscribedHookName&gt;</code>. This way, when a hook is dispatched, the dispatcher will be able to identify and call the appropriate callback on each subscriber.</p>
 <p>This means that in order to fully subscribe to a hook, a module must call <code>registerHook()</code> <strong>and</strong> declare a callback. For example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">Somemodule</span> <span class="k">extends</span> <span class="nx">Module</span>
-<span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
-    <span class="p">{</span>
-        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;registerGDPRConsent&#39;</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookRegisterGDPRConsent</span><span class="p">(</span><span class="nv">$parameters</span><span class="p">)</span>
-    <span class="p">{</span>
-    	<span class="c1">// This is where you can modify/alter the behavior of PrestaShop.
-</span><span class="c1"></span>    	<span class="c1">// The content of $parameters will depend on what is sent when the hook is dispatched.
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div><p>Depending on the hook&rsquo;s specifics, callbacks can alter the parameters being passed (when they are passed by reference), trigger an action, or even return a result (a data structure or raw HTML) to be used by PrestaShop.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Somemodule</span> <span class="k">extends</span> <span class="nx">Module</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">install</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">install</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">registerHook</span><span class="p">(</span><span class="s1">&#39;registerGDPRConsent&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">hookRegisterGDPRConsent</span><span class="p">(</span><span class="nv">$parameters</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    	<span class="c1">// This is where you can modify/alter the behavior of PrestaShop.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    	<span class="c1">// The content of $parameters will depend on what is sent when the hook is dispatched.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Depending on the hook&rsquo;s specifics, callbacks can alter the parameters being passed (when they are passed by reference), trigger an action, or even return a result (a data structure or raw HTML) to be used by PrestaShop.</p>
 
 <div class="notices tip" >Notice how hook names start with a lower case letter (<code>registerGDPRConsent</code>), and hook callbacks use the capitalized name <code>hookRegisterGDPRConsent</code>.</div>
 
@@ -33266,17 +33266,17 @@ By default, hook registrations are valid for all shops. If this parameter is def
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163910"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163910"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163910"></script>
-    <script src="/js/jquery.sticky.js?1703163910"></script>
-    <script src="/js/featherlight.min.js?1703163910"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163910"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163910"></script>
-    <script src="/js/learn.js?1703163910"></script>
-    <script src="/js/hugo-learn.js?1703163910"></script>
+    <script src="/js/clipboard.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164735"></script>
+    <script src="/js/jquery.sticky.js?1703164735"></script>
+    <script src="/js/featherlight.min.js?1703164735"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164735"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164735"></script>
+    <script src="/js/learn.js?1703164735"></script>
+    <script src="/js/hugo-learn.js?1703164735"></script>
     
-    <script src="/main.js?1703163910"></script>
+    <script src="/main.js?1703164735"></script>
     
     
     

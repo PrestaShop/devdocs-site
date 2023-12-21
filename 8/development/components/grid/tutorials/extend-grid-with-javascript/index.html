@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.85.0" />
+    <meta name="generator" content="Hugo 0.121.1">
     <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover.jpg" />
 <meta name="twitter:site" content="@prestashop" />
@@ -22,14 +22,14 @@
     <title>How to extend a Grid with Javascript extensions :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703163909" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703163909" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703163909" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703163909" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703164735" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703164735" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703164735" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703164735" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703163909" rel="stylesheet">
+    <link href="/style.css?1703164735" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703163909"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703164735"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33161,22 +33161,22 @@ As an example we will use a grid that display taxes items.</p>
 <ul>
 <li>
 <p>The twig template should look like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">### src/PrestaShopBundle/Resources/views/Admin/Improve/International/Tax/index.html.twig
-
-{% block content %}
-  &lt;div class=&#34;row justify-content-center&#34;&gt;
-    &lt;div class=&#34;col-lg-12&#34;&gt;
-      {% include &#39;@PrestaShop/Admin/Common/Grid/grid_panel.html.twig&#39; with {&#39;grid&#39;: taxGrid} %}
-    &lt;/div&gt;
-  &lt;/div&gt;
-{% endblock %}
-
-{% block javascripts %}
-  {{ parent() }}
-
-  &lt;script src=&#34;{{ asset(&#39;themes/default/js/bundle/pagination.js&#39;) }}&#34;&gt;&lt;/script&gt;
-{% endblock %}
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">### src/PrestaShopBundle/Resources/views/Admin/Improve/International/Tax/index.html.twig
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{% block content %}
+</span></span><span class="line"><span class="cl">  &lt;div class=&#34;row justify-content-center&#34;&gt;
+</span></span><span class="line"><span class="cl">    &lt;div class=&#34;col-lg-12&#34;&gt;
+</span></span><span class="line"><span class="cl">      {% include &#39;@PrestaShop/Admin/Common/Grid/grid_panel.html.twig&#39; with {&#39;grid&#39;: taxGrid} %}
+</span></span><span class="line"><span class="cl">    &lt;/div&gt;
+</span></span><span class="line"><span class="cl">  &lt;/div&gt;
+</span></span><span class="line"><span class="cl">{% endblock %}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">{% block javascripts %}
+</span></span><span class="line"><span class="cl">  {{ parent() }}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  &lt;script src=&#34;{{ asset(&#39;themes/default/js/bundle/pagination.js&#39;) }}&#34;&gt;&lt;/script&gt;
+</span></span><span class="line"><span class="cl">{% endblock %}
+</span></span></code></pre></div></li>
 <li>
 <p>And this is how it looks in browser:</p>
 </li>
@@ -33195,48 +33195,47 @@ In our example we create index.js in <code>admin-dev/themes/new-theme/js/pages/t
 </li>
 <li>
 <p>Add an entry point in webpack.config.js. In our example we add an entry point in <code>admin-dev/themes/new-theme/.webpack/common.js</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">### admin-dev/themes/new-theme/.webpack/common.js
-
-module.exports = {
-  entry: {
-    ### adding taxes page entry point
-    tax: &#39;./js/pages/tax&#39;,
-  },
-  output: {
-    path: path.resolve(__dirname, &#39;../public&#39;),
-    filename: &#39;[name].bundle.js&#39;,
-  }, 
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1">### admin-dev/themes/new-theme/.webpack/common.js</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">module</span><span class="o">.</span><span class="n">exports</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">entry</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">### adding taxes page entry point</span>
+</span></span><span class="line"><span class="cl">    <span class="n">tax</span><span class="p">:</span> <span class="s1">&#39;./js/pages/tax&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="n">output</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path</span><span class="p">:</span> <span class="n">path</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="n">__dirname</span><span class="p">,</span> <span class="s1">&#39;../public&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">filename</span><span class="p">:</span> <span class="s1">&#39;[name].bundle.js&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span> 
+</span></span></code></pre></div></li>
 <li>
 <p>Add your compiled file path to html script tag in twig template.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">### src/PrestaShopBundle/Resources/views/Admin/Improve/International/Tax/index.html.twig
-// ...
-{% block javascripts %}
-  {{ parent() }}
-
-  ## Adding script tag with path to compiled js file
-  &lt;script src=&#34;{{ asset(&#39;themes/new-theme/public/tax.bundle.js&#39;) }}&#34;&gt;&lt;/script&gt;
-  &lt;script src=&#34;{{ asset(&#39;themes/default/js/bundle/pagination.js&#39;) }}&#34;&gt;&lt;/script&gt;
-{% endblock %}
-
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">### src/PrestaShopBundle/Resources/views/Admin/Improve/International/Tax/index.html.twig
+</span></span><span class="line"><span class="cl">// ...
+</span></span><span class="line"><span class="cl">{% block javascripts %}
+</span></span><span class="line"><span class="cl">  {{ parent() }}
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  ## Adding script tag with path to compiled js file
+</span></span><span class="line"><span class="cl">  &lt;script src=&#34;{{ asset(&#39;themes/new-theme/public/tax.bundle.js&#39;) }}&#34;&gt;&lt;/script&gt;
+</span></span><span class="line"><span class="cl">  &lt;script src=&#34;{{ asset(&#39;themes/default/js/bundle/pagination.js&#39;) }}&#34;&gt;&lt;/script&gt;
+</span></span><span class="line"><span class="cl">{% endblock %}
+</span></span></code></pre></div></li>
 </ol>
 
 <h2 id="adding-extensions">Adding extensions<a href="#adding-extensions"></a></h2><ul>
 <li>
 <p>Import and initialize Grid component</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">### admin-dev/themes/new-theme/js/pages/tax/index.ts
-
-### 1. import the grid component
-import Grid from &#39;@components/grid/grid&#39;;
-
-const {$} = window;
-
-$(() =&gt; {
-### 2. initialize the grid component by providing grid id
-  const taxGrid = new Grid(&#39;tax&#39;);
-});
-</code></pre></div></li>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1">### admin-dev/themes/new-theme/js/pages/tax/index.ts</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">### 1. import the grid component</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">Grid</span> <span class="n">from</span> <span class="s1">&#39;@components/grid/grid&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="p">{</span><span class="o">$</span><span class="p">}</span> <span class="o">=</span> <span class="n">window</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">$</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">### 2. initialize the grid component by providing grid id</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">taxGrid</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Grid</span><span class="p">(</span><span class="s1">&#39;tax&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div></li>
 </ul>
 <p>As you can see in example above we are importing Grid component from <code>admin-dev/themes/new-theme/js/components/grid/grid.ts</code>
 (note that the <code>admin-dev</code> part might differ, as it depends on PrestaShop installation).
@@ -33245,47 +33244,47 @@ Next - initiating the grid component by declaring <code>const taxGrid = new Grid
 <p>Now when you need specific extension, just import it from <code>admin-dev/themes/new-theme/js/components/grid/extension</code> and
 add it to your grid - <code>taxGrid.addExtension(new SortingExtension());</code>.
 In case you need more than one list per page, you can just declare another variable of another list and add extensions the same way.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">### admin-dev/themes/new-theme/js/pages/tax/index.ts
-
-import Grid from &#39;@components/grid/grid&#39;;
-### import extension
-import SortingExtension from &#39;@components/grid/extension/sorting-extension&#39;;
-
-const {$} = window;
-
-$(() =&gt; {
-  const taxGrid = new Grid(&#39;tax&#39;);
-  ### add extension to grid
-  taxGrid.addExtension(new SortingExtension());
-});
-</code></pre></div><p>After adding all needed extensions, our index.js should look like this:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">### admin-dev/themes/new-theme/js/pages/tax/index.ts
-
-import Grid from &#39;@components/grid/grid&#39;;
-import SortingExtension from &#39;@components/grid/extension/sorting-extension&#39;;
-import FiltersResetExtension from &#39;@components/grid/extension/filters-reset-extension&#39;;
-import ReloadListActionExtension from &#39;@components/grid/extension/reload-list-extension&#39;;
-import ColumnTogglingExtension from &#39;@components/grid/extension/column-toggling-extension&#39;;
-import SubmitRowActionExtension from &#39;@components/grid/extension/action/row/submit-row-action-extension&#39;;
-import SubmitBulkExtension from &#39;@components/grid/extension/submit-bulk-action-extension&#39;;
-import BulkActionCheckboxExtension from &#39;@components/grid/extension/bulk-action-checkbox-extension&#39;;
-import ExportToSqlManagerExtension from &#39;@components/grid/extension/export-to-sql-manager-extension&#39;;
-
-const {$} = window;
-
-$(() =&gt; {
-  const taxGrid = new Grid(&#39;tax&#39;);
-
-  taxGrid.addExtension(new ExportToSqlManagerExtension());
-  taxGrid.addExtension(new ReloadListActionExtension());
-  taxGrid.addExtension(new SortingExtension());
-  taxGrid.addExtension(new FiltersResetExtension());
-  taxGrid.addExtension(new ColumnTogglingExtension());
-  taxGrid.addExtension(new SubmitRowActionExtension());
-  taxGrid.addExtension(new SubmitBulkExtension());
-  taxGrid.addExtension(new BulkActionCheckboxExtension());
-});
-</code></pre></div><p>The last thing to do is to run the compiler. <a href="/8/development/compile-assets/">More about compiler and npm commands here</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1">### admin-dev/themes/new-theme/js/pages/tax/index.ts</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">Grid</span> <span class="n">from</span> <span class="s1">&#39;@components/grid/grid&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">### import extension</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">SortingExtension</span> <span class="n">from</span> <span class="s1">&#39;@components/grid/extension/sorting-extension&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="p">{</span><span class="o">$</span><span class="p">}</span> <span class="o">=</span> <span class="n">window</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">$</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">taxGrid</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Grid</span><span class="p">(</span><span class="s1">&#39;tax&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">### add extension to grid</span>
+</span></span><span class="line"><span class="cl">  <span class="n">taxGrid</span><span class="o">.</span><span class="n">addExtension</span><span class="p">(</span><span class="n">new</span> <span class="n">SortingExtension</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>After adding all needed extensions, our index.js should look like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1">### admin-dev/themes/new-theme/js/pages/tax/index.ts</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">Grid</span> <span class="n">from</span> <span class="s1">&#39;@components/grid/grid&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">SortingExtension</span> <span class="n">from</span> <span class="s1">&#39;@components/grid/extension/sorting-extension&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">FiltersResetExtension</span> <span class="n">from</span> <span class="s1">&#39;@components/grid/extension/filters-reset-extension&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">ReloadListActionExtension</span> <span class="n">from</span> <span class="s1">&#39;@components/grid/extension/reload-list-extension&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">ColumnTogglingExtension</span> <span class="n">from</span> <span class="s1">&#39;@components/grid/extension/column-toggling-extension&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">SubmitRowActionExtension</span> <span class="n">from</span> <span class="s1">&#39;@components/grid/extension/action/row/submit-row-action-extension&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">SubmitBulkExtension</span> <span class="n">from</span> <span class="s1">&#39;@components/grid/extension/submit-bulk-action-extension&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">BulkActionCheckboxExtension</span> <span class="n">from</span> <span class="s1">&#39;@components/grid/extension/bulk-action-checkbox-extension&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">import</span> <span class="n">ExportToSqlManagerExtension</span> <span class="n">from</span> <span class="s1">&#39;@components/grid/extension/export-to-sql-manager-extension&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">const</span> <span class="p">{</span><span class="o">$</span><span class="p">}</span> <span class="o">=</span> <span class="n">window</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">$</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">const</span> <span class="n">taxGrid</span> <span class="o">=</span> <span class="n">new</span> <span class="n">Grid</span><span class="p">(</span><span class="s1">&#39;tax&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="n">taxGrid</span><span class="o">.</span><span class="n">addExtension</span><span class="p">(</span><span class="n">new</span> <span class="n">ExportToSqlManagerExtension</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="n">taxGrid</span><span class="o">.</span><span class="n">addExtension</span><span class="p">(</span><span class="n">new</span> <span class="n">ReloadListActionExtension</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="n">taxGrid</span><span class="o">.</span><span class="n">addExtension</span><span class="p">(</span><span class="n">new</span> <span class="n">SortingExtension</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="n">taxGrid</span><span class="o">.</span><span class="n">addExtension</span><span class="p">(</span><span class="n">new</span> <span class="n">FiltersResetExtension</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="n">taxGrid</span><span class="o">.</span><span class="n">addExtension</span><span class="p">(</span><span class="n">new</span> <span class="n">ColumnTogglingExtension</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="n">taxGrid</span><span class="o">.</span><span class="n">addExtension</span><span class="p">(</span><span class="n">new</span> <span class="n">SubmitRowActionExtension</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="n">taxGrid</span><span class="o">.</span><span class="n">addExtension</span><span class="p">(</span><span class="n">new</span> <span class="n">SubmitBulkExtension</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">  <span class="n">taxGrid</span><span class="o">.</span><span class="n">addExtension</span><span class="p">(</span><span class="n">new</span> <span class="n">BulkActionCheckboxExtension</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span>
+</span></span></code></pre></div><p>The last thing to do is to run the compiler. <a href="/8/development/compile-assets/">More about compiler and npm commands here</a>.</p>
 <p>In our example we open command line, cd to <code>{{Our prestashop root directory}}/admin-dev/themes/new-theme</code> and type the following command:</p>
 <ul>
 <li><code>npm run build</code> (for production)</li>
@@ -33373,17 +33372,17 @@ $(() =&gt; {
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703163909"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703163909"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703163909"></script>
-    <script src="/js/jquery.sticky.js?1703163909"></script>
-    <script src="/js/featherlight.min.js?1703163909"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703163909"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703163909"></script>
-    <script src="/js/learn.js?1703163909"></script>
-    <script src="/js/hugo-learn.js?1703163909"></script>
+    <script src="/js/clipboard.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703164735"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703164735"></script>
+    <script src="/js/jquery.sticky.js?1703164735"></script>
+    <script src="/js/featherlight.min.js?1703164735"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703164735"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703164735"></script>
+    <script src="/js/learn.js?1703164735"></script>
+    <script src="/js/hugo-learn.js?1703164735"></script>
     
-    <script src="/main.js?1703163909"></script>
+    <script src="/main.js?1703164735"></script>
     
     
     
