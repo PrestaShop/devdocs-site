@@ -38,7 +38,7 @@ This repository contains the sources to build [DevDocs - PrestaShop's technical 
 
 #### Setting up your environment
 
-1. Install [Hugo](https://gohugo.io/). You will need v0.82+ (extended binary)
+1. Install [Hugo](https://gohugo.io/). You will need v0.121+ (extended binary)
    
    * **Mac and Linux**: Run `./bin/installHugo.sh`
    * **Windows**: Grab the [release binary](https://github.com/gohugoio/hugo/releases)
