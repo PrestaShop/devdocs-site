@@ -22,14 +22,14 @@
     <title>Configure Nginx :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1703686063" rel="stylesheet">
-    <link href="/css/syntax-github.css?1703686063" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1703686063" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1703686063" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1703760944" rel="stylesheet">
+    <link href="/css/syntax-github.css?1703760944" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1703760944" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1703760944" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1703686063" rel="stylesheet">
+    <link href="/style.css?1703760944" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1703686063"></script>
+    <script src="/js/jquery-3.3.1.min.js?1703760944"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -33124,8 +33124,10 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">server_name</span> <span class="s">example.com</span> <span class="s">www.example.com</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># [EDIT] Path to your domain Nginx logs.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">access_log</span> <span class="s">/var/log/nginx/example.com-access.log</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="kn">error_log</span> <span class="s">/var/log/nginx/example.com-error.log</span><span class="p">;</span>
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1"># more details: https://docs.nginx.com/nginx/admin-guide/monitoring/logging/#setting-up-the-access-log
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">access_log</span> <span class="s">/var/log/nginx/example.com-access.log</span> <span class="s">combined</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># more details: https://nginx.org/en/docs/ngx_core_module.html?#error_log
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">error_log</span> <span class="s">/var/log/nginx/example.com-error.log</span> <span class="s">info</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># [EDIT] Path to your SSL certificates (take a look at Certbot https://certbot.eff.org).
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">ssl_certificate</span> <span class="s">/etc/ssl/fullchain.pem</span><span class="p">;</span>
@@ -33148,6 +33150,19 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1"># WARNING: Don&#39;t use this if your site is not fully on HTTPS!
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1"># add_header Strict-Transport-Security &#34;max-age=63072000; includeSubDomains&#34; preload; always;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># XSS Protection
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1"># add_header X-XSS-Protection &#34;1; mode=block&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Clickjacking
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1"># add_header X-Frame-Options &#34;SAMEORIGIN&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># X-Content Type Options
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1"># add_header X-Content-Type-Options nosniff;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Secure Cookie
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1"># add_header Set-Cookie &#34;Path=/; HttpOnly; Secure&#34;;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># [EDIT] If you are using multiple languages.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1"># rewrite ^/fr$ /fr/ redirect;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1"># rewrite ^/fr/(.*) /$1;
@@ -33178,10 +33193,9 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># [EDIT] Replace &#39;admin-dev&#39; in this block with the name of your admin directory.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">location</span> <span class="s">/admin-dev/</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="kn">if</span> <span class="s">(!-e</span> <span class="nv">$request_filename</span><span class="s">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="kn">rewrite</span> <span class="s">^</span> <span class="s">/admin-dev/index.php</span> <span class="s">last</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">try_files</span> <span class="nv">$uri</span> <span class="nv">$uri/</span> <span class="s">/admin-dev/index.php</span><span class="nv">$is_args$args</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># .htaccess, .DS_Store, .htpasswd, etc.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kn">location</span> <span class="p">~</span> <span class="sr">/\.</span> <span class="p">{</span>
@@ -33295,7 +33309,7 @@
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/d8c7fa40c36f2e7105c47ced18cc09354b570ba3">2023-12-18 by thomas nares</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/bebba3f15172d223215e8c727dff83057b14730b">2023-12-28 by Krystian Podemski</a>.<br>
         
     
 
@@ -33317,17 +33331,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1703686063"></script>
-    <script src="/js/perfect-scrollbar.min.js?1703686063"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1703686063"></script>
-    <script src="/js/jquery.sticky.js?1703686063"></script>
-    <script src="/js/featherlight.min.js?1703686063"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1703686063"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1703686063"></script>
-    <script src="/js/learn.js?1703686063"></script>
-    <script src="/js/hugo-learn.js?1703686063"></script>
+    <script src="/js/clipboard.min.js?1703760945"></script>
+    <script src="/js/perfect-scrollbar.min.js?1703760945"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1703760945"></script>
+    <script src="/js/jquery.sticky.js?1703760945"></script>
+    <script src="/js/featherlight.min.js?1703760945"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1703760945"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1703760945"></script>
+    <script src="/js/learn.js?1703760945"></script>
+    <script src="/js/hugo-learn.js?1703760945"></script>
     
-    <script src="/main.js?1703686063"></script>
+    <script src="/main.js?1703760945"></script>
     
     
     
