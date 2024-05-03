@@ -22,14 +22,14 @@
     <title>How to upgrade PrestaShop :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1714031530" rel="stylesheet">
-    <link href="/css/syntax-github.css?1714031530" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1714031530" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1714031530" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1714729807" rel="stylesheet">
+    <link href="/css/syntax-github.css?1714729807" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1714729807" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1714729807" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1714031530" rel="stylesheet">
+    <link href="/style.css?1714729807" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1714031530"></script>
+    <script src="/js/jquery-3.3.1.min.js?1714729807"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -15454,7 +15454,7 @@
     <li><a href="#how-to-upgrade-prestashop">How to upgrade PrestaShop</a>
       <ul>
         <li><a href="#upgrade-assistant-module-formerly-1-click-upgrade-module">Upgrade assistant module (formerly 1-click upgrade module)</a></li>
-        <li><a href="#upgrade-assistant-module---cli-method">Upgrade assistant module - CLI method</a></li>
+        <li><a href="#upgrade-assistant-module-formerly-1-click-upgrade-module---cli-method">Upgrade assistant module (formerly 1-click upgrade module) - CLI method</a></li>
         <li><a href="#manual-upgrade">Manual upgrade</a>
           <ul>
             <li><a href="#release-download">Release download</a></li>
@@ -15466,7 +15466,6 @@
             <li><a href="#database-upgrade">Database upgrade</a>
               <ul>
                 <li><a href="#execution-log">Execution log</a></li>
-                <li><a href="#error-codes">Error codes</a></li>
               </ul>
             </li>
             <li><a href="#cleanup">Cleanup</a></li>
@@ -33124,7 +33123,7 @@ Learn <a href="https://devdocs.prestashop-project.org/8/basics/keeping-up-to-dat
 
 <h2 id="upgrade-assistant-module-formerly-1-click-upgrade-module">Upgrade assistant module (formerly 1-click upgrade module)<a href="#upgrade-assistant-module-formerly-1-click-upgrade-module"></a></h2><p>You can use provided <code>autoupgrade</code> module to upgrade your store to the newest version using web interface. You can read more about the module and how to use it <a href="https://devdocs.prestashop-project.org/8/basics/keeping-up-to-date/use-autoupgrade-module/">here</a>.</p>
 
-<h2 id="upgrade-assistant-module---cli-method">Upgrade assistant module - CLI method<a href="#upgrade-assistant-module---cli-method"></a></h2><p>Upgrade assistant module (autoupgrade) is fully accessible through <code>cli</code>. You can read all the details <a href="https://devdocs.prestashop-project.org/8/basics/keeping-up-to-date/upgrade-module/upgrade-cli/">here</a>.</p>
+<h2 id="upgrade-assistant-module-formerly-1-click-upgrade-module---cli-method">Upgrade assistant module (formerly 1-click upgrade module) - CLI method<a href="#upgrade-assistant-module-formerly-1-click-upgrade-module---cli-method"></a></h2><p>Upgrade assistant module (autoupgrade) is fully accessible through <code>cli</code>. You can read all the details <a href="https://devdocs.prestashop-project.org/8/basics/keeping-up-to-date/upgrade-module/upgrade-cli/">here</a>.</p>
 
 <h2 id="manual-upgrade">Manual upgrade<a href="#manual-upgrade"></a></h2>
 <div class="notices warning" ><p><strong>Important</strong></p>
@@ -33132,7 +33131,6 @@ Learn <a href="https://devdocs.prestashop-project.org/8/basics/keeping-up-to-dat
 mechanism from the upgrade assistant module.</p>
 </div>
 
-<p>This guide gives you the full control on the process. This one has been applied by PrestaShop for several major versions, and thus can be applied on very old shops.</p>
 
 <h3 id="release-download">Release download<a href="#release-download"></a></h3><p>The first step is to download the latest version on <a href="https://github.com/PrestaShop/PrestaShop/releases">https://github.com/PrestaShop/PrestaShop/releases</a>.</p>
 <p>Download can also be done in command line, as done here with the version 8.0.2:</p>
@@ -33142,12 +33140,17 @@ mechanism from the upgrade assistant module.</p>
 <p>Note starting from PrestaShop 1.7.0.0, the release package contains a zip file itself, which must be extracted as well.</p>
 <p>On a Linux terminal, you can use the command `unzip`:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">unzip prestashop-upgrade.zip <span class="o">&amp;&amp;</span> unzip prestashop.zip
-</span></span></code></pre></div><p>Once you have the folders like <code>classes/</code>, <code>modules/</code>, <code>themes/</code>, etc. you may go on the next step.</p>
+</span></span></code></pre></div><p>If asked to overwrite the index.php file, answer yes.
+Once you have the folders like <code>classes/</code>, <code>modules/</code>, <code>themes/</code>, etc. you may go on the next step.</p>
 
-<h3 id="sample-files-cleanup">Sample files cleanup<a href="#sample-files-cleanup"></a></h3><p>Avoid overwrite the production resources (images, conf &hellip;) with the default data. These folders can be removed from the new release:</p>
+<h3 id="sample-files-cleanup">Sample files cleanup<a href="#sample-files-cleanup"></a></h3><p>Avoid overwrite the production resources (images, conf &hellip;) with the default data. These files and folders can be removed from the new release:</p>
 <ul>
+<li>prestashop-upgrade.zip</li>
+<li>prestashop.zip</li>
 <li>img/</li>
 <li>override/</li>
+<li>install/</li>
+<li>modules/</li>
 </ul>
 
 <div class="notices warning" >All the other files present in the new release will overwrite the existing files.
@@ -33183,40 +33186,41 @@ You will get warnings that files already exists in the destination folder. Choos
 
 <div class="notices note" >Some web hosting providers gives you two user accounts to access your database. One with full privileges the other for using in scripts with limited rights. To be able to use this Database upgrade script you have to use the account with full privileges.</div>
 
-<p>All the changes to apply have been defined in the <code>install</code> folder, running them can be done with a specific PHP script.</p>
-<p>When you’re ready, run the file <code>upgrade/upgrade.php</code> from the <code>autoupgrade</code> module.</p>
-<p>This can be done with a browser, by reaching the address <code>http://&lt;shop_domain&gt;/modules/autoupgrade/upgrade/upgrade.php</code>, or from your <code>CLI</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php modules/autoupgrade/upgrade/upgrade.php
-</span></span></code></pre></div><p>In both cases, an XML log will be displayed. The result can be found in the attribute <code>result</code> of the first tag <code>&lt;action&gt;</code>:</p>
-<ul>
-<li><code>ok</code> if updates have been found and executed</li>
-<li><code>error</code> if something went wrong</li>
-<li><code>info</code> for next actions, displaying the details on the process</li>
-</ul>
+<p>The database migration scripts are stored in the <code>autoupgrade</code> module. If not present in your modules folder, download it and unzip it there.</p>
+<p>Upgrading the database is a step of the process ran by the upgrade module. It can be independantly triggered from the command line even if the module is uninstalled:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php modules/autoupgrade/cli-upgrade.php --dir<span class="o">=</span>&lt;path_to_the_admin_folder&gt; --channel<span class="o">=</span>private --action<span class="o">=</span>upgradeDb
+</span></span></code></pre></div><p>Example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php modules/autoupgrade/cli-upgrade.php --dir<span class="o">=</span>admin-dev --channel<span class="o">=</span>private --action<span class="o">=</span>upgradeDb
+</span></span></code></pre></div><p>The minimal store context will be loaded, and SQL requests will be triggered.</p>
+<p>SQL requests that encountered an error will be displayed on the log with additional details which can help you understand, fix the issue then re-execute the request manually on your database. In some cases, you may need to restore your database backup and start over.</p>
+<p>If successful, a command will be given to run the next step, but can be safely ignored as you did not trigger the whole upgrade process from the module.</p>
 
-<h4 id="execution-log">Execution log<a href="#execution-log"></a></h4><p>When the upgrade script found some upgrades to apply, the SQL queries run will be listed along their respective result.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span><span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;ok&#34;</span> <span class="na">id=</span><span class="s">&#34;&#34;</span><span class="nt">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;info&#34;</span> <span class="na">id=</span><span class="s">&#34;1.7.0.5&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[[OK] PHP 1.7.0.5 : /* PHP:ps_update_tabs(); */]]&gt;</span><span class="nt">&lt;/action&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;info&#34;</span> <span class="na">id=</span><span class="s">&#34;1.7.0.5&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[[OK] SQL 1.7.0.5 : ALTER TABLE `ps_currency` MODIFY `name` varchar(64) NOT NULL]]&gt;</span><span class="nt">&lt;/action&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;info&#34;</span> <span class="na">id=</span><span class="s">&#34;1.7.1.0&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[[OK] SQL 1.7.1.0 : SET SESSION sql_mode = &#39;&#39;]]&gt;</span><span class="nt">&lt;/action&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;action</span> <span class="na">result=</span><span class="s">&#34;info&#34;</span> <span class="na">id=</span><span class="s">&#34;1.7.1.0&#34;</span><span class="nt">&gt;</span><span class="cp">&lt;![CDATA[[OK] SQL 1.7.1.0 : SET NAMES &#39;utf8&#39;]]&gt;</span><span class="nt">&lt;/action&gt;</span>
-</span></span><span class="line"><span class="cl">[...]
-</span></span></code></pre></div><p>You can double check that each action is marked as “OK”. If not, additional details will be shown after the request, which can help you fix the issue and re-execute the request manually on your database. In some cases, you may need to restore your database backup and start over.</p>
-
-<h4 id="error-codes">Error codes<a href="#error-codes"></a></h4><p>An error code can also be displayed. Each code is related to a message described here:</p>
-<ul>
-<li>Error #27: The shop is running a newer version than the content provided by the install folder.</li>
-<li>Error #28: The shop is already at the version you try to upgrade to.</li>
-<li>Error #29: Could not find the current version. Check your database parameters file and the database connection.</li>
-<li>Error #31: Unable to find upgrade directory in the installation path, does the folder <code>install/upgrade/sql</code> exist and is not empty?</li>
-<li>Error #32: No upgrade needs to be applied.</li>
-<li>Error #33: Error while loading a SQL upgrade file. Check your permissions of the folder <code>install/upgrade/sql</code>.</li>
-<li>Error #40: The version provided in the file <code>install/install_version.php</code> is invalid.</li>
-<li>Error #43: Error while upgrading database schema using doctrine.</li>
-<li>Error #44: Error while updating translations.</li>
-<li>Error #45: Error while enabling theme.</li>
-</ul>
-
+<h4 id="execution-log">Execution log<a href="#execution-log"></a></h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="o">===</span> <span class="n">Step</span> <span class="n">upgradeDb</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Cleaning</span> <span class="n">file</span> <span class="n">cache</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Running</span> <span class="n">opcache_reset</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Initializing</span> <span class="n">required</span> <span class="n">environment</span> <span class="n">constants</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Checking</span> <span class="n">version</span> <span class="n">validity</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Checking</span> <span class="n">connection</span> <span class="n">to</span> <span class="n">database</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Disabling</span> <span class="n">all</span> <span class="n">non</span> <span class="n">native</span> <span class="n">modules</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Updating</span> <span class="n">database</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">structure</span>
+</span></span><span class="line"><span class="cl"><span class="n">WARNING</span> <span class="o">-</span> 
+</span></span><span class="line"><span class="cl">            <span class="o">&lt;</span><span class="n">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;upgradeDbError&#34;</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">[</span><span class="n">WARNING</span><span class="p">]</span> <span class="n">SQL</span> <span class="mf">8.0</span><span class="o">.</span><span class="mi">0</span>
+</span></span><span class="line"><span class="cl">            <span class="mi">1060</span> <span class="ow">in</span> <span class="n">ALTER</span> <span class="n">TABLE</span> <span class="err">`</span><span class="n">ps_tab</span><span class="err">`</span> <span class="n">ADD</span> <span class="n">route_name</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span> <span class="n">DEFAULT</span> <span class="n">NULL</span><span class="p">:</span> <span class="n">Duplicate</span> <span class="n">column</span> <span class="n">name</span> <span class="s1">&#39;route_name&#39;</span><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Running</span> <span class="n">generic</span> <span class="n">queries</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Database</span> <span class="n">upgrade</span> <span class="n">OK</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Upgrading</span> <span class="n">languages</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Regenerating</span> <span class="n">htaccess</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Cleaning</span> <span class="n">XML</span> <span class="n">files</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Keeping</span> <span class="n">overrides</span> <span class="ow">in</span> <span class="n">place</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Keeping</span> <span class="n">current</span> <span class="n">theme</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Cleaning</span> <span class="n">file</span> <span class="n">cache</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Running</span> <span class="n">opcache_reset</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Database</span> <span class="n">upgrade</span> <span class="n">completed</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Database</span> <span class="n">upgraded</span><span class="o">.</span> <span class="n">Now</span> <span class="n">upgrading</span> <span class="n">your</span> <span class="n">Addons</span> <span class="n">modules</span><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Restart</span> <span class="n">requested</span><span class="o">.</span> <span class="n">Please</span> <span class="n">run</span> <span class="n">the</span> <span class="n">following</span> <span class="n">command</span> <span class="n">to</span> <span class="k">continue</span> <span class="n">your</span> <span class="n">upgrade</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</span></span></code></pre></div>
 <h3 id="cleanup">Cleanup<a href="#cleanup"></a></h3><p>Before going further, a few things should now be cleaned.</p>
 <ul>
 <li>The <code>install</code> folder, used to run the database upgrades, is not needed anymore and can be safely deleted.</li>
@@ -33291,7 +33295,7 @@ You will get warnings that files already exists in the destination folder. Choos
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/2e6895440771d2ab9f3ae2e98f9c272a039736e4">2023-11-15 by Jean-François Viguier</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/4439ff90699891f48148eaa1a750fb4012c7e758">2024-04-30 by Thomas Nabord</a>.<br>
         
     
 
@@ -33313,17 +33317,17 @@ You will get warnings that files already exists in the destination folder. Choos
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1714031530"></script>
-    <script src="/js/perfect-scrollbar.min.js?1714031530"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1714031530"></script>
-    <script src="/js/jquery.sticky.js?1714031530"></script>
-    <script src="/js/featherlight.min.js?1714031530"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1714031530"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1714031530"></script>
-    <script src="/js/learn.js?1714031530"></script>
-    <script src="/js/hugo-learn.js?1714031530"></script>
+    <script src="/js/clipboard.min.js?1714729807"></script>
+    <script src="/js/perfect-scrollbar.min.js?1714729807"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1714729807"></script>
+    <script src="/js/jquery.sticky.js?1714729807"></script>
+    <script src="/js/featherlight.min.js?1714729807"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1714729807"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1714729807"></script>
+    <script src="/js/learn.js?1714729807"></script>
+    <script src="/js/hugo-learn.js?1714729807"></script>
     
-    <script src="/main.js?1714031530"></script>
+    <script src="/main.js?1714729807"></script>
     
     
     
