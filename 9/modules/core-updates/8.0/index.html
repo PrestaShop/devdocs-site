@@ -22,14 +22,14 @@
     <title>Changes in PrestaShop 8.0 :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/core-updates/8.0/">
     
-    <link href="/css/font-awesome.min.css?1715070212" rel="stylesheet">
-    <link href="/css/syntax-github.css?1715070212" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1715070212" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1715070212" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1715071943" rel="stylesheet">
+    <link href="/css/syntax-github.css?1715071943" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1715071943" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1715071943" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1715070212" rel="stylesheet">
+    <link href="/style.css?1715071943" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1715070212"></script>
+    <script src="/js/jquery-3.3.1.min.js?1715071943"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -43497,7 +43497,7 @@
 
 <h2 id="notable-changes">Notable changes<a href="#notable-changes"></a></h2><ul>
 <li>Javascript files for migrated pages in the Back Office <a href="https://github.com/PrestaShop/PrestaShop/pull/23221">now are written in TypeScript</a> (related change: <a href="https://github.com/PrestaShop/PrestaShop/pull/24791">#24791</a>).</li>
-<li>Support for <a href="/8/modules/creation/module-translation/classic-system/">legacy translation dictionaries</a> (eg: <code>en.php</code>, <code>fr.php</code>&hellip;, deprecated in 1.7), <a href="https://github.com/PrestaShop/PrestaShop/pull/24401">has been removed</a> from Core controllers. Only modules can still use this system now.</li>
+<li>Support for <a href="/9/modules/creation/module-translation/classic-system/">legacy translation dictionaries</a> (eg: <code>en.php</code>, <code>fr.php</code>&hellip;, deprecated in 1.7), <a href="https://github.com/PrestaShop/PrestaShop/pull/24401">has been removed</a> from Core controllers. Only modules can still use this system now.</li>
 <li>All modules present in the <code>modules</code> directory during the installation process will be installed by default (except in the web-based installation where <a href="https://github.com/PrestaShop/PrestaShop/pull/27099">you can unselect some of them</a>). Modules can use <code>Module::postInstall()</code> to execute code after the shop installation is done (<a href="https://github.com/PrestaShop/PrestaShop/pull/24676">Read more</a>).</li>
 <li>Twig has been updated to version 3. Deprecated features from <a href="https://twig.symfony.com/doc/1.x/deprecated.html">v1</a> &amp; <a href="https://twig.symfony.com/doc/2.x/deprecated.html">v2</a> are no longer available.</li>
 <li>All upgrade scripts have been <a href="https://github.com/PrestaShop/PrestaShop/pull/25794">removed from the Core</a> and moved to the <a href="https://github.com/PrestaShop/autoupgrade">Upgrade module</a>.</li>
@@ -43510,7 +43510,7 @@
 <li>Because of the <a href="https://github.com/PrestaShop/PrestaShop/pull/28402">support for PHP 8.1</a> many methods have declared a return type now.</li>
 <li>The logic for customers&rsquo; login and registration <a href="https://github.com/PrestaShop/PrestaShop/pull/27755/">is now</a> split between two controllers (<code>RegistrationController</code>, <code>AuthController</code>). This might impact third-party themes and modules as the URL to the registration has changed.</li>
 <li>Before PrestaShop places an order <a href="https://github.com/PrestaShop/PrestaShop/pull/26048/">there is an additional request now</a>, to see if the number of products in the cart is still valid. This might require third-party payment modules to implement the checks in their solutions accordingly.</li>
-<li>Due to the new <a href="/8/modules/core-updates/new-password-policy/">password policy management features</a>, third-party solutions that generate customer data might require to implement changes accordingly.</li>
+<li>Due to the new <a href="/9/modules/core-updates/new-password-policy/">password policy management features</a>, third-party solutions that generate customer data might require to implement changes accordingly.</li>
 <li>In some countries, loading fonts through Google Fonts&rsquo; CDN service has been judged incompatible with <a href="https://en.wikipedia.org/wiki/General_Data_Protection_Regulation">GDPR</a>, so <a href="https://github.com/PrestaShop/PrestaShop/issues/27541">these fonts are now built into the project</a>. This should not affect your work, but spreading awareness around this topic is important.</li>
 </ul>
 
@@ -43531,7 +43531,7 @@
 
 <h4 id="child-themes">Child themes<a href="#child-themes"></a></h4><p>The <code>use_parent_assets</code> setting in <code>theme.yml</code>, when set to <code>true</code>, makes the child theme load its parent&rsquo;s assets (css, img and js) instead of its own. This feature, not functional and ignored in 1.7, <a href="https://github.com/PrestaShop/PrestaShop/issues/25667">has been fixed and improved</a> for 8.0. For further fine-tuning, a new set of <code>child_*_url</code> variables is made available when the feature is active, allowing theme developers to access the parent and child&rsquo;s asset urls separately.</p>
 <p>To maintain the behavior of 1.7 and load the child theme&rsquo;s assets, <code>use_parent_assets</code> must be set to <code>false</code>.</p>
-<p><a href="/8/themes/getting-started/theme-yml/#parent--child-settings">More details in the theme.yml reference page</a>.</p>
+<p><a href="/9/themes/getting-started/theme-yml/#parent--child-settings">More details in the theme.yml reference page</a>.</p>
 
 <h4 id="classic-theme">Classic theme<a href="#classic-theme"></a></h4><ul>
 <li>In <code>checkout/_partials/steps/payment.tpl</code>, the ID <code>payment-form</code> has <a href="https://github.com/PrestaShop/PrestaShop/pull/25069">been changed</a> to <code>payment-{$option.id}-form</code>.</li>
@@ -45147,7 +45147,7 @@
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/0ed2254c2f6750a79d598456cdd49bddf70dc973">2024-05-07 by Krystian Podemski</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/85033b89d357c045ff2c605797229386b367327d">2024-05-06 by Jonathan Lelievre</a>.<br>
         
     
 
@@ -45169,17 +45169,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1715070212"></script>
-    <script src="/js/perfect-scrollbar.min.js?1715070212"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1715070212"></script>
-    <script src="/js/jquery.sticky.js?1715070212"></script>
-    <script src="/js/featherlight.min.js?1715070212"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1715070212"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1715070212"></script>
-    <script src="/js/learn.js?1715070212"></script>
-    <script src="/js/hugo-learn.js?1715070212"></script>
+    <script src="/js/clipboard.min.js?1715071943"></script>
+    <script src="/js/perfect-scrollbar.min.js?1715071943"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1715071943"></script>
+    <script src="/js/jquery.sticky.js?1715071943"></script>
+    <script src="/js/featherlight.min.js?1715071943"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1715071943"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1715071943"></script>
+    <script src="/js/learn.js?1715071943"></script>
+    <script src="/js/hugo-learn.js?1715071943"></script>
     
-    <script src="/main.js?1715070212"></script>
+    <script src="/main.js?1715071943"></script>
     
     
     

@@ -22,14 +22,14 @@
     <title>Migration project and strategy :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/development/architecture/migration-guide/strategy/">
     
-    <link href="/css/font-awesome.min.css?1715070193" rel="stylesheet">
-    <link href="/css/syntax-github.css?1715070193" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1715070193" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1715070193" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1715071923" rel="stylesheet">
+    <link href="/css/syntax-github.css?1715071923" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1715071923" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1715071923" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1715070193" rel="stylesheet">
+    <link href="/style.css?1715071923" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1715070193"></script>
+    <script src="/js/jquery-3.3.1.min.js?1715071923"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -43494,15 +43494,15 @@
 
 <h2 id="different-kind-of-pages">Different kind of pages<a href="#different-kind-of-pages"></a></h2><p>Back-Office pages can be classified in four categories:</p>
 <ol>
-<li><a href="https://devdocs.prestashop-project.org/8/development/architecture/migration-guide/forms/settings-forms/">Configuration / Settings Form pages</a></li>
+<li><a href="https://devdocs.prestashop-project.org/9/development/architecture/migration-guide/forms/settings-forms/">Configuration / Settings Form pages</a></li>
 </ol>
 <p>These pages allow the user to modify configuration settings in PrestaShop.</p>
 <ol start="2">
-<li><a href="https://devdocs.prestashop-project.org/8/development/components/grid/">Listing pages</a></li>
+<li><a href="https://devdocs.prestashop-project.org/9/development/components/grid/">Listing pages</a></li>
 </ol>
 <p>These pages allow the user to browse PrestaShop content using listings. These listings usually provide some actions the user can trigger, such as &ldquo;enable/disable&rdquo;, &ldquo;delete&rdquo;, &ldquo;bulk delete&rdquo;.</p>
 <ol start="3">
-<li><a href="https://devdocs.prestashop-project.org/8/development/architecture/migration-guide/forms/crud-forms/">Add/Edit Form pages</a></li>
+<li><a href="https://devdocs.prestashop-project.org/9/development/architecture/migration-guide/forms/crud-forms/">Add/Edit Form pages</a></li>
 </ol>
 <p>These pages allow the user to create or edit records from PrestaShop data model (example: create/edit customers).</p>
 <ol start="4">
@@ -43511,7 +43511,7 @@
 <p>There are some pages that are unique: Carriers Edit page, Dashboard, Customer Service page &hellip;</p>
 <p>Sometimes a page will have mixed content. For example there are pages that provide two listings or one listing and one configuration form.</p>
 
-<h2 id="where-we-started-from">Where we started from<a href="#where-we-started-from"></a></h2><p>In legacy pages, most of the time, these Back-office pages were structured following standard <a href="https://devdocs.prestashop-project.org/8/basics/introduction/">MVC PrestaShop model</a>:</p>
+<h2 id="where-we-started-from">Where we started from<a href="#where-we-started-from"></a></h2><p>In legacy pages, most of the time, these Back-office pages were structured following standard <a href="https://devdocs.prestashop-project.org/9/basics/introduction/">MVC PrestaShop model</a>:</p>
 <ul>
 <li>smarty templates (View)</li>
 <li>a Controller with sometimes a lot of logic in it (Controller)</li>
@@ -43520,7 +43520,7 @@
 </ul>
 <p>We believe PrestaShop project has grown too big to follow this 3-layers model, rather fitted for small applications. We have chosen to introduce more architecture layers.</p>
 
-<h2 id="the-beginning-of-the-migration-project-configuration-form">The beginning of the Migration project: Configuration Form<a href="#the-beginning-of-the-migration-project-configuration-form"></a></h2><p>The Migration project started by migrating <a href="https://devdocs.prestashop-project.org/8/development/architecture/migration-guide/forms/settings-forms/">Configuration Form pages</a>.</p>
+<h2 id="the-beginning-of-the-migration-project-configuration-form">The beginning of the Migration project: Configuration Form<a href="#the-beginning-of-the-migration-project-configuration-form"></a></h2><p>The Migration project started by migrating <a href="https://devdocs.prestashop-project.org/9/development/architecture/migration-guide/forms/settings-forms/">Configuration Form pages</a>.</p>
 <p>The chosen structure to handle such pages was the following:</p>
 <ol>
 <li>A View layer: Twig template, rendering manually the Symfony form</li>
@@ -43528,9 +43528,9 @@
 <li>In Model layer: Symfony Form is built and managed by a FormHandler</li>
 <li>Also part of the Model layer, DataProvider is in charge of data retrieval and saving the data</li>
 </ol>
-<p>Since the DataProvider interacts with ObjectModel, it belongs to <a href="https://devdocs.prestashop-project.org/8/development/architecture/file-structure/understanding-src-folder/">Adapter namespace</a>.</p>
+<p>Since the DataProvider interacts with ObjectModel, it belongs to <a href="https://devdocs.prestashop-project.org/9/development/architecture/file-structure/understanding-src-folder/">Adapter namespace</a>.</p>
 
-<h2 id="phase-2-listings">Phase 2: listings<a href="#phase-2-listings"></a></h2><p>For migrating Listing pages, the <a href="https://devdocs.prestashop-project.org/8/development/components/grid/">Grid component</a> was built.</p>
+<h2 id="phase-2-listings">Phase 2: listings<a href="#phase-2-listings"></a></h2><p>For migrating Listing pages, the <a href="https://devdocs.prestashop-project.org/9/development/components/grid/">Grid component</a> was built.</p>
 <p>The chosen layer structure to handle such pages was the following:</p>
 <ol>
 <li>View layer: Twig template, using Grid Twig template</li>
@@ -43542,16 +43542,16 @@
 
 <h3 id="how-grid-interacts-with-the-legacy-model">How Grid interacts with the legacy Model<a href="#how-grid-interacts-with-the-legacy-model"></a></h3><p>The QueryBuilder ignores ObjectModel and use a Doctrine Connection to query directly the database. So there is no interaction with legacy code.</p>
 <p>However the Grid Actions use ObjectModel, for example to enable/disable a Category status. In the beginning we used Adapter classes to handle these, but we could see that once again we were coupling legacy code with migrated code.</p>
-<p>This is when we decided to introduce <a href="https://devdocs.prestashop-project.org/8/development/architecture/domain/cqrs/">CQRS</a>.</p>
+<p>This is when we decided to introduce <a href="https://devdocs.prestashop-project.org/9/development/architecture/domain/cqrs/">CQRS</a>.</p>
 
-<h2 id="phase-3-cqrscqrs">Phase 3: <a href="https://devdocs.prestashop-project.org/8/development/architecture/domain/cqrs/">CQRS</a><a href="#phase-3-cqrscqrs"></a></h2><p>We wanted to build a strong frontier between migrated code and legacy code. Since re-writing all the code would be too long, we needed to continue relying on the business logic legacy code to power PrestaShop.</p>
+<h2 id="phase-3-cqrscqrs">Phase 3: <a href="https://devdocs.prestashop-project.org/9/development/architecture/domain/cqrs/">CQRS</a><a href="#phase-3-cqrscqrs"></a></h2><p>We wanted to build a strong frontier between migrated code and legacy code. Since re-writing all the code would be too long, we needed to continue relying on the business logic legacy code to power PrestaShop.</p>
 <p>We however wanted to interact with it in a way that would allow us, in the future, to easily unplug it and replace it with a new implementation.</p>
-<p>So we decided to introduce <a href="https://devdocs.prestashop-project.org/8/development/architecture/domain/cqrs/">CQRS</a> and <a href="https://en.wikipedia.org/wiki/Domain-driven_design">a Domain</a>.</p>
+<p>So we decided to introduce <a href="https://devdocs.prestashop-project.org/9/development/architecture/domain/cqrs/">CQRS</a> and <a href="https://en.wikipedia.org/wiki/Domain-driven_design">a Domain</a>.</p>
 <p>CQRS was introduced into PrestaShop architecture in the following manner:</p>
-<p>The Application layer (Forms, Controllers, Views &hellip;) dispatches <a href="https://devdocs.prestashop-project.org/8/development/architecture/domain/cqrs/">Queries and Commands</a> to the Domain to be handled, unaware of the inner workings of this domain.</p>
+<p>The Application layer (Forms, Controllers, Views &hellip;) dispatches <a href="https://devdocs.prestashop-project.org/9/development/architecture/domain/cqrs/">Queries and Commands</a> to the Domain to be handled, unaware of the inner workings of this domain.</p>
 <p>Inside the domain are QueryHandlers and CommandHandlers that handle dispatched Queries and Commands. For now, they do use PrestaShop legacy business logic to handle it. This means classes like ObjectModel, Cart, Product are still being used inside migrated pages.</p>
 <p>The communication between the two layers is performed by CommandBus and QueryBus, which carry the Commands and Queries.</p>
-<p>Since the Handlers use legacy logic, they belong to the <a href="https://devdocs.prestashop-project.org/8/development/architecture/file-structure/understanding-src-folder/">Adapter namespace</a>. In the future they will be replaced with new implementations. The replacement will be very easy: a new Handler will be plugged in, previous Handler will be removed. No modification will be required in the code.</p>
+<p>Since the Handlers use legacy logic, they belong to the <a href="https://devdocs.prestashop-project.org/9/development/architecture/file-structure/understanding-src-folder/">Adapter namespace</a>. In the future they will be replaced with new implementations. The replacement will be very easy: a new Handler will be plugged in, previous Handler will be removed. No modification will be required in the code.</p>
 <p>So the structure for a Grid action, using CQRS, is the following:</p>
 <ol>
 <li>Symfony Controller layer empty of business logic, in charge of controlling the View, formatting data, handling security and routing</li>
@@ -43562,7 +43562,7 @@
 <p>So &ldquo;migrating a Grid action&rdquo; means to &ldquo;move the legacy logic into a Handler and building a Symfony layer on top of it&rdquo;</p>
 
 <h2 id="phase-4--addedit-form-pages">Phase 4 : Add/Edit Form pages<a href="#phase-4--addedit-form-pages"></a></h2><p>These pages are form leveraging the concepts of CQRS.</p>
-<p><a href="https://devdocs.prestashop-project.org/8/development/architecture/migration-guide/forms/crud-forms/">You can read more about it by clicking on this link</a>.</p>
+<p><a href="https://devdocs.prestashop-project.org/9/development/architecture/migration-guide/forms/crud-forms/">You can read more about it by clicking on this link</a>.</p>
 <ol>
 <li>View layer: Twig template, rendering manually the Symfony form</li>
 <li>Symfony Controller layer empty of business logic, in charge of controlling the View, formatting data, handling security and routing</li>
@@ -43582,7 +43582,7 @@
 </ul>
 <p>So &ldquo;migrating a legacy Add/Edit page&rdquo; means to &ldquo;move the legacy logic into a Handler and building a Symfony Form on top of it with its management logic&rdquo;.</p>
 
-<h2 id="form-theme">Form Theme<a href="#form-theme"></a></h2><p>We don&rsquo;t want to render Form inputs manually, so we now rely on a <a href="https://devdocs.prestashop-project.org/8/development/components/form/form-theme/">Twig Form Theme</a> allowing us to render all of our Symfony forms with a single block</p>
+<h2 id="form-theme">Form Theme<a href="#form-theme"></a></h2><p>We don&rsquo;t want to render Form inputs manually, so we now rely on a <a href="https://devdocs.prestashop-project.org/9/development/components/form/form-theme/">Twig Form Theme</a> allowing us to render all of our Symfony forms with a single block</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">{{ form_widget(form) }}
 </span></span></code></pre></div>
 <h2 id="towards-a-core-domain">Towards a Core domain<a href="#towards-a-core-domain"></a></h2><p>Between phase 1 and phase 4, two years passed. Two years where we experimented, explored, struggled and we got the hang of what was needed for PrestaShop to move forward.</p>
@@ -43663,7 +43663,7 @@
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/3aee395e3b8269668238413fc812c511ae7fb736">2023-12-28 by Krystian Podemski</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/85033b89d357c045ff2c605797229386b367327d">2024-05-06 by Jonathan Lelievre</a>.<br>
         
     
 
@@ -43685,17 +43685,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1715070193"></script>
-    <script src="/js/perfect-scrollbar.min.js?1715070193"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1715070193"></script>
-    <script src="/js/jquery.sticky.js?1715070193"></script>
-    <script src="/js/featherlight.min.js?1715070193"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1715070193"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1715070193"></script>
-    <script src="/js/learn.js?1715070193"></script>
-    <script src="/js/hugo-learn.js?1715070193"></script>
+    <script src="/js/clipboard.min.js?1715071923"></script>
+    <script src="/js/perfect-scrollbar.min.js?1715071923"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1715071923"></script>
+    <script src="/js/jquery.sticky.js?1715071923"></script>
+    <script src="/js/featherlight.min.js?1715071923"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1715071923"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1715071923"></script>
+    <script src="/js/learn.js?1715071923"></script>
+    <script src="/js/hugo-learn.js?1715071923"></script>
     
-    <script src="/main.js?1715070193"></script>
+    <script src="/main.js?1715071923"></script>
     
     
     

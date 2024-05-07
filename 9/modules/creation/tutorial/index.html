@@ -22,14 +22,14 @@
     <title>Tutorial: Creating your first module :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/creation/tutorial/">
     
-    <link href="/css/font-awesome.min.css?1715070212" rel="stylesheet">
-    <link href="/css/syntax-github.css?1715070212" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1715070212" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1715070212" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1715071943" rel="stylesheet">
+    <link href="/css/syntax-github.css?1715071943" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1715071943" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1715071943" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1715070212" rel="stylesheet">
+    <link href="/style.css?1715071943" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1715070212"></script>
+    <script src="/js/jquery-3.3.1.min.js?1715071943"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -43464,12 +43464,12 @@
 
 
 <h1 id="tutorial-creating-your-first-module">Tutorial: Creating your first module<a href="#tutorial-creating-your-first-module"></a></h1>
-<div class="notices note" >Before you start writing code for your PrestaShop module, we recommend reading PrestaShop&rsquo;s <a href="https://devdocs.prestashop-project.org/8/development/coding-standards/">Coding standards</a>. Configuring your IDE hints or using <a href="https://github.com/PrestaShop/php-dev-tools">automated tools</a> can help you make sure you follow the project&rsquo;s standards properly.</div>
+<div class="notices note" >Before you start writing code for your PrestaShop module, we recommend reading PrestaShop&rsquo;s <a href="https://devdocs.prestashop-project.org/9/development/coding-standards/">Coding standards</a>. Configuring your IDE hints or using <a href="https://github.com/PrestaShop/php-dev-tools">automated tools</a> can help you make sure you follow the project&rsquo;s standards properly.</div>
 
 <p>Let&rsquo;s create a first simple module, this will allow us to better describe its structure. We will name it <strong>&ldquo;My module&rdquo;</strong>.</p>
 <p>First, create the module&rsquo;s folder, in PrestaShop&rsquo;s <code>/modules</code> folder. Let&rsquo;s call it <code>mymodule</code>. This will be the module&rsquo;s &ldquo;technical&rdquo; name.</p>
 
-<div class="notices tip" >Technical names can only accept lower case alphanumeric characters (<code>[a-z0-9]</code>). <a href="https://devdocs.prestashop-project.org/8/modules/creation/module-translation/new-system/#translation-domain">Although accepted, we strongly discourage using underscores because they don&rsquo;t work with translation domains</a>.</div>
+<div class="notices tip" >Technical names can only accept lower case alphanumeric characters (<code>[a-z0-9]</code>). <a href="https://devdocs.prestashop-project.org/9/modules/creation/module-translation/new-system/#translation-domain">Although accepted, we strongly discourage using underscores because they don&rsquo;t work with translation domains</a>.</div>
 
 <p>This folder must contain the main file, a PHP file of the same name as the folder, which will handle most of the processing: <code>mymodule.php</code>.</p>
 <p>That is enough for a very basic module. Obviously, more files and folders can be added later, if needed.</p>
@@ -43539,7 +43539,7 @@
 </span></span></code></pre></div><p>This section assigns a handful of attributes to the class instance (<code>$this</code>):</p>
 <ul>
 <li>The <code>name</code> attribute serves as an internal identifier (technical name). The value MUST be the same as the module&rsquo;s folder and main class file. Only lower case letters and numbers are accepted.</li>
-<li>The <code>tab</code> attribute contains the section that shall contain this module in the Module Manager section in the Back office (see <a href="https://devdocs.prestashop-project.org/8/modules/concepts/module-class/#tab">list of available sections</a>). We choose <code>front_office_features</code> because our module will mostly have an impact on the front-end.</li>
+<li>The <code>tab</code> attribute contains the section that shall contain this module in the Module Manager section in the Back office (see <a href="https://devdocs.prestashop-project.org/9/modules/concepts/module-class/#tab">list of available sections</a>). We choose <code>front_office_features</code> because our module will mostly have an impact on the front-end.</li>
 <li>The <code>version</code> attribute contains the version number for the module, displayed in the modules list. We recommend following the <a href="https://semver.org/">Semantic Versioning specification</a>.</li>
 <li>The <code>author</code> attribute, as you can imagine contains the author&rsquo;s name. It is displayed as-is in the PrestaShop modules list.</li>
 </ul>
@@ -43591,7 +43591,7 @@
 </span></span></code></pre></div><p>In this first and extremely simplistic incarnation, this method does the minimum needed: return what&rsquo;s returned by the Module class&rsquo; <code>install()</code> method, which returns either <code>true</code> if the module is correctly installed, or <code>false</code> otherwise. As it is, if we had not created that method, the superclass&rsquo; method would have been called instead anyway, making the end result identical. Nevertheless, we must mention this method, because it will be very useful once we have to perform checks and actions during the module&rsquo;s installation process: creating SQL tables, copying files, creating configuration variables, etc.</p>
 <p>There are many things you can do to expand the <code>install()</code> method to perform installation checks. In the following example, we perform the following tasks during installation:</p>
 <ul>
-<li>Check that the <a href="https://devdocs.prestashop-project.org/8/development/multistore/">Multistore feature</a> is enabled, and if so, set the current context to all shops on this installation of PrestaShop.</li>
+<li>Check that the <a href="https://devdocs.prestashop-project.org/9/development/multistore/">Multistore feature</a> is enabled, and if so, set the current context to all shops on this installation of PrestaShop.</li>
 <li>Ensure that the base install process is successful.</li>
 <li>Ensure the value of the <code>MYMODULE_NAME</code> configuration setting can be set to &ldquo;my module&rdquo;.</li>
 </ul>
@@ -43626,7 +43626,7 @@
 <p>This PrestaShop-specific object allows you to easily manage all the shop&rsquo;s settings. It stores its data on the <code>PREFIX_configuration</code> database table.</p>
 <p>This is a very useful and easy-to-use object, and you will certainly use it in many situations. Most native modules use it too for their own settings.</p>
 
-<div class="notices note" >You can read more about this component in <a href="https://devdocs.prestashop-project.org/8/development/components/configuration/backward-compatibility/">Legacy Configuration object</a> and <a href="https://devdocs.prestashop-project.org/8/development/components/configuration/">Configuration storage</a>.</div>
+<div class="notices note" >You can read more about this component in <a href="https://devdocs.prestashop-project.org/9/development/components/configuration/backward-compatibility/">Legacy Configuration object</a> and <a href="https://devdocs.prestashop-project.org/9/development/components/configuration/">Configuration storage</a>.</div>
 
 
 <h2 id="the-shop-object">The Shop object<a href="#the-shop-object"></a></h2><p>The <code>install()</code> method also references this:</p>
@@ -43639,7 +43639,7 @@
 <li><code>Shop::isFeatureActive()</code>: This simply checks whether the multistore feature is active or not, and if at least two stores are presently activated.</li>
 <li><code>Shop::setContext(Shop::CONTEXT_ALL)</code>: This changes the context in order to apply coming changes to all existing stores instead of only the current store.</li>
 </ul>
-<p>The Shop Context is explained in more details in the <a href="https://devdocs.prestashop-project.org/8/development/multistore/">Multistore documentation</a>.</p>
+<p>The Shop Context is explained in more details in the <a href="https://devdocs.prestashop-project.org/9/development/multistore/">Multistore documentation</a>.</p>
 
 <h2 id="the-icon-file">The icon file<a href="#the-icon-file"></a></h2><p>To put the finishing touch to this basic module, you should add an icon, which will be displayed next to the module&rsquo;s name in the back office modules list. In case your module has been built for a prominent service, having that service&rsquo;s logo visible brings trust. Make sure you do not use an icon already in use by one of the native modules, or without authorization from the owner of the logo/service.</p>
 <p>The icon file must respect these requirements:</p>
@@ -43665,7 +43665,7 @@
 </span></span></code></pre></div><p>Where <code>mymodule</code> is your module&rsquo;s name.</p>
 <p>To uninstall the module, run the following:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">php bin/console prestashop:module uninstall mymodule
-</span></span></code></pre></div><p>For more informations, please read <a href="https://devdocs.prestashop-project.org/8/development/components/console/prestashop-module/">the reference of the ModuleCommand</a></p>
+</span></span></code></pre></div><p>For more informations, please read <a href="https://devdocs.prestashop-project.org/9/development/components/console/prestashop-module/">the reference of the ModuleCommand</a></p>
 
 <h3 id="the-configxml-file">The config.xml file<a href="#the-configxml-file"></a></h3><p>During the module&rsquo;s installation, PrestaShop automatically creates a small <code>config.xml</code> file in the module&rsquo;s folder, which stores the module&rsquo;s information. You should be very careful when editing this file by hand.</p>
 
@@ -43735,7 +43735,7 @@
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/44c4ee77c40f21ec8fe017ca819bbb7184a9bb1e">2024-02-25 by Vots1000</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/85033b89d357c045ff2c605797229386b367327d">2024-05-06 by Jonathan Lelievre</a>.<br>
         
     
 
@@ -43757,17 +43757,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1715070213"></script>
-    <script src="/js/perfect-scrollbar.min.js?1715070213"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1715070213"></script>
-    <script src="/js/jquery.sticky.js?1715070213"></script>
-    <script src="/js/featherlight.min.js?1715070213"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1715070213"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1715070213"></script>
-    <script src="/js/learn.js?1715070213"></script>
-    <script src="/js/hugo-learn.js?1715070213"></script>
+    <script src="/js/clipboard.min.js?1715071943"></script>
+    <script src="/js/perfect-scrollbar.min.js?1715071943"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1715071943"></script>
+    <script src="/js/jquery.sticky.js?1715071943"></script>
+    <script src="/js/featherlight.min.js?1715071943"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1715071943"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1715071943"></script>
+    <script src="/js/learn.js?1715071943"></script>
+    <script src="/js/hugo-learn.js?1715071943"></script>
     
-    <script src="/main.js?1715070213"></script>
+    <script src="/main.js?1715071943"></script>
     
     
     
