@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Database on PrestaShop Developer Documentation</title>
+    <link>https://devdocs.prestashop-project.org/9/development/components/database/</link>
+    <description>Recent content in Database on PrestaShop Developer Documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://devdocs.prestashop-project.org/9/development/components/database/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Db class</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/database/db/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/database/db/</guid>
+      <description>Using the database with the Db component Initialize connection to database/** @var \Db $db */ $db = \Db::getInstance(); The first call to this method initializes the link to the database, and return the same link to all the next calls. $db in this example will be reused in all the next examples.&#xA;Read-only &amp;ldquo;slave&amp;rdquo; serverIn some cases, you might encounter this alternative:&#xA;$db = \Db::getInstance(_PS_USE_SQL_SLAVE_); If PrestaShop&amp;rsquo;s database user allows the use of MySQL slave servers in its architecture, then this last instance&amp;rsquo;s connection can be done on the slave servers.</description>
+    </item>
+    <item>
+      <title>DBQuery class</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/database/dbquery/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/database/dbquery/</guid>
+      <description>The DBQuery classThe DBQuery class is a query builder which helps you create SQL queries. For instance:&#xA;$sql = new DbQuery(); $sql-&amp;gt;select(&amp;#39;*&amp;#39;); $sql-&amp;gt;from(&amp;#39;cms&amp;#39;, &amp;#39;c&amp;#39;); $sql-&amp;gt;innerJoin(&amp;#39;cms_lang&amp;#39;, &amp;#39;l&amp;#39;, &amp;#39;c.id_cms = l.id_cms AND l.id_lang = &amp;#39;.(int)$id_lang); $sql-&amp;gt;where(&amp;#39;c.active = 1&amp;#39;); $sql-&amp;gt;orderBy(&amp;#39;position&amp;#39;); return Db::getInstance()-&amp;gt;executeS($sql); Main methods __toString() Generate and get the query. build() Generate and get the query (return a string). from(string $table, mixed $alias = null) Set table for FROM clause. groupBy(string $fields) Add a GROUP BY restriction.</description>
+    </item>
+    <item>
+      <title>ObjectModel class</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/database/objectmodel/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/database/objectmodel/</guid>
+      <description>The ObjectModel class IntroductionObjectModel class is one of the main pillars of PrestaShop&amp;rsquo;s legacy core. While a complete migration to Symfony/Doctrine entities is planned in the roadmap, ObjectModel will remain present and available in our software for a while.&#xA;ObjectModel is the Data Access Layer for PrestaShop, implemented following the Active Record pattern. The Data Access Layer (DAL) is a part (with the Database Abstraction Layer - DBAL) of the Object Relational Mapping (ORM) legacy system for PrestaShop.</description>
+    </item>
+    <item>
+      <title>PrestaShopCollection class</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/database/prestashopcollection/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/database/prestashopcollection/</guid>
+      <description>The PrestaShopCollection component IntroductionThe PrestaShopCollection component is a Collection of ObjectModel objects. It implements common useful PHP interfaces:&#xA;Iterator: allows for foreach loop on the Collection ArrayAccess: allows for offset/index access on the Collection Countable: allow for count() function to be used on the Collection It eases fetching / filtering selections of ObjectModel objects.&#xA;use PrestaShopCollection; $productCollection = (new PrestaShopCollection(&amp;#39;Product&amp;#39;)) -&amp;gt;where(&amp;#39;on_sale&amp;#39;, &amp;#39;=&amp;#39;, true) -&amp;gt;orderBy(&amp;#39;reference&amp;#39;, &amp;#39;desc&amp;#39;) -&amp;gt;setPageSize(100); if (count($productCollection) &amp;gt; 0) { foreach ($productCollection as $product) { // do something with your product } } Create a PrestaShopCollectionTo create a PrestaShopCollection, simply instantiate a PrestaShopCollection with the ObjectModel type as a constructor parameter.</description>
+    </item>
+  </channel>
+</rss>
