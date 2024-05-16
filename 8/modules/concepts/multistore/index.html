@@ -22,14 +22,14 @@
     <title>Multistore :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1715075779" rel="stylesheet">
-    <link href="/css/syntax-github.css?1715075779" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1715075779" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1715075779" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1715867431" rel="stylesheet">
+    <link href="/css/syntax-github.css?1715867431" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1715867431" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1715867431" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1715075779" rel="stylesheet">
+    <link href="/style.css?1715867431" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1715075779"></script>
+    <script src="/js/jquery-3.3.1.min.js?1715867431"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -10720,6 +10720,27 @@
       <li data-nav-id="/8/modules/sample-modules/extend-product-page/" title="Extending the new product page form" class="dd-item ">
         <a href="/8/modules/sample-modules/extend-product-page/">
         Extending the new product page form
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/8/modules/sample-modules/read_uploaded_files_securely/" title="Reading uploaded files securely" class="dd-item ">
+        <a href="/8/modules/sample-modules/read_uploaded_files_securely/">
+        Reading uploaded files securely
         
         </a>
     </li>
@@ -30257,6 +30278,21 @@
     
   
       
+        
+    
+    
+      
+        
+      
+      
+      
+      
+      
+
+      
+    
+  
+      
     
   
       
@@ -43431,7 +43467,7 @@
 <p>In order to achieve that, the name of the image must be stored in a configuration variable. The default image is then replaced on the fly with the store-specific image.</p>
 <p>Let&rsquo;s explore how the Blockadvertising module does it. Using this module, you can upload an image to be displayed on the front office of the store, serving as an advertisement to any link you might want. The module was built to make use of the multistore feature: depending on the selected store or store group in the multistore menu, the user can assign the uploaded image to a given store context or store group context.</p>
 <p>Here is how it saves a submitted file depending on the store:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// Saving only the main portion of the uploaded file&#39;s name, without the file extension.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// Saving only the extension of the uploaded file.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">Configuration</span><span class="o">::</span><span class="na">updateValue</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">    <span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">substr</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;adv_img&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="nx">strrpos</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;adv_img&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -43444,16 +43480,16 @@
 </span></span></span><span class="line"><span class="cl"><span class="c1">// If the context is the current group, use the image named &#39;advertising-g&#39;
 </span></span></span><span class="line"><span class="cl"><span class="c1">// If the context is the current store, use the image named &#39;advertising-s&#39;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span> <span class="o">==</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_GROUP</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">=</span> <span class="s1">&#39;advertising&#39;</span><span class="o">.</span><span class="s1">&#39;-g&#39;</span><span class="o">.</span><span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopGroupID</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">=</span> <span class="s1">&#39;advertising&#39;</span> <span class="o">.</span> <span class="s1">&#39;-g&#39;</span> <span class="o">.</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopGroupID</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="k">elseif</span> <span class="p">(</span><span class="nx">Shop</span><span class="o">::</span><span class="na">getContext</span><span class="p">()</span> <span class="o">==</span> <span class="nx">Shop</span><span class="o">::</span><span class="na">CONTEXT_SHOP</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">=</span> <span class="s1">&#39;advertising&#39;</span><span class="o">.</span><span class="s1">&#39;-s&#39;</span><span class="o">.</span><span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopID</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">=</span> <span class="s1">&#39;advertising&#39;</span> <span class="o">.</span> <span class="s1">&#39;-s&#39;</span> <span class="o">.</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">context</span><span class="o">-&gt;</span><span class="na">shop</span><span class="o">-&gt;</span><span class="na">getContextShopID</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">// Copying the image in the module directory with its new contextual name.
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">move_uploaded_file</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">    <span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;adv_img&#39;</span><span class="p">][</span><span class="s1">&#39;tmp_name&#39;</span><span class="p">],</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">_PS_MODULE_DIR_</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span><span class="o">.</span><span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">_PS_MODULE_DIR_</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="o">.</span><span class="s1">&#39;/&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">adv_imgname</span> <span class="o">.</span> <span class="s1">&#39;.&#39;</span> <span class="o">.</span> <span class="nx">Configuration</span><span class="o">::</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;BLOCKADVERT_IMG_EXT&#39;</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nv">$errors</span> <span class="o">.=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">l</span><span class="p">(</span><span class="s1">&#39;File upload error.&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
@@ -43580,7 +43616,7 @@
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/de1b3a0dff1980019244061a841c8b50bbbadbf3">2024-02-27 by Andrea Pozza</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/136d6ed6bc8dc9b4f1ff9b60a22e89fe49b2a974">2024-05-06 by Lee Pak</a>.<br>
         
     
 
@@ -43602,17 +43638,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1715075779"></script>
-    <script src="/js/perfect-scrollbar.min.js?1715075779"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1715075779"></script>
-    <script src="/js/jquery.sticky.js?1715075779"></script>
-    <script src="/js/featherlight.min.js?1715075779"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1715075779"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1715075779"></script>
-    <script src="/js/learn.js?1715075779"></script>
-    <script src="/js/hugo-learn.js?1715075779"></script>
+    <script src="/js/clipboard.min.js?1715867431"></script>
+    <script src="/js/perfect-scrollbar.min.js?1715867431"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1715867431"></script>
+    <script src="/js/jquery.sticky.js?1715867431"></script>
+    <script src="/js/featherlight.min.js?1715867431"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1715867431"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1715867431"></script>
+    <script src="/js/learn.js?1715867431"></script>
+    <script src="/js/hugo-learn.js?1715867431"></script>
     
-    <script src="/main.js?1715075779"></script>
+    <script src="/main.js?1715867431"></script>
     
     
     
