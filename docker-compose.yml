@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   hugo:
     image: klakegg/hugo:0.101.0-ext-debian
@@ -7,5 +5,5 @@ services:
       - ./:/site
     working_dir: /site/src
     ports:
-      - ${HUGO_SERVER_PORT}:${HUGO_SERVER_PORT}
-    command: server --bind 0.0.0.0 --port ${HUGO_SERVER_PORT}
+      - ${HUGO_SERVER_PORT:-1313}:${HUGO_SERVER_PORT:-1313}
+    command: server --bind 0.0.0.0 --port ${HUGO_SERVER_PORT:-1313}
