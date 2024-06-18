@@ -22,14 +22,14 @@
     <title>Changes in PrestaShop 9.0 :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1718699303" rel="stylesheet">
-    <link href="/css/syntax-github.css?1718699303" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1718699303" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1718699303" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1718699688" rel="stylesheet">
+    <link href="/css/syntax-github.css?1718699688" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1718699688" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1718699688" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1718699303" rel="stylesheet">
+    <link href="/style.css?1718699688" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1718699303"></script>
+    <script src="/js/jquery-3.3.1.min.js?1718699688"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -15509,6 +15509,7 @@
             <li><a href="#removed-dependencies">Removed dependencies</a></li>
             <li><a href="#upgraded-dependencies">Upgraded dependencies</a></li>
             <li><a href="#symfony-controllers">Symfony controllers</a></li>
+            <li><a href="#bo-login-and-authorization-migrated-to-symfony">BO login and authorization migrated to Symfony</a></li>
           </ul>
         </li>
         <li><a href="#migrated-pages">Migrated pages</a></li>
@@ -15518,7 +15519,6 @@
             <li><a href="#some-front-controller-now-use-presenter-classes">Some front controller now use <code>Presenter</code> classes</a></li>
             <li><a href="#stronger-types--change-of-prototypes">Stronger types / change of prototypes</a></li>
             <li><a href="#symfony-layout">Symfony layout</a></li>
-            <li><a href="#bo-login-and-authorization-migrated-to-symfony">BO login and authorization migrated to Symfony</a></li>
             <li><a href="#symfony-context-refacto">Symfony context refacto</a></li>
             <li><a href="#kernel-modifications">Kernel modifications</a></li>
             <li><a href="#change-of-behaviourrules-or-removed-code">Change of behaviour/rules or removed code</a></li>
@@ -43554,6 +43554,63 @@ We used this occasion to clean the dependencies that are no longer used in the c
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/35212">Replace AdminSecurity annotation with attributes</a></li>
 </ul>
 
+<h3 id="bo-login-and-authorization-migrated-to-symfony">BO login and authorization migrated to Symfony<a href="#bo-login-and-authorization-migrated-to-symfony"></a></h3><p>The back office login page has been migrated to Symfony. Along with this change, the authorization system in the back office is now also based on Symfony, which implies several things:</p>
+<ul>
+<li>we no longer depend on the legacy <code>Context::$cookie</code>, the session is kept on the server side, and very few data are kept on the browser side. For retro-compatibility, we still populate the legacy cookie so that you can <strong>read</strong> it. While you can use <code>Context::$cookie</code> for your custom data, making changes to the data previously used for PrestaShop authorization will no longer have the desired effect and may even result in instability, so it&rsquo;s not recommended</li>
+<li>the <code>PrestaShopBundle\Security\Admin\EmployeeProvider</code> and <code>PrestaShopBundle\Service\DataProvider\UserProvider</code> now return a <code>PrestaShopBundle\Entity\Employee</code> instance, their responsibility is to return a <code>Symfony\Component\Security\Core\User\UserInterface</code> anyway (and they still do) but in case you depended on the child class know that <code>PrestaShopBundle\Security\Admin\Employee</code> no longer exist</li>
+<li>if you need to get the logged-in user, you can use the Symfony <code>Symfony\Bundle\SecurityBundle\Security</code> service, but we recommend you use the <code>EmployeeContext</code> internal PrestaShop service (see explanation about <a href="/9/modules/core-updates/9.0/#symfony-context-refacto">new Contexts</a>)</li>
+</ul>
+<p><strong>Storing custom data in Session</strong></p>
+<p>If you need to persist some custom Employee data, we don&rsquo;t recommend using the <code>Context::$cookie</code> anymore, instead you can use the <code>Session</code> from Symfony and update its attributes:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// In Symfony controllers, you can get the session from the Request parameter injected by Symfony
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$session</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getSession</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// In other services you will need to get the current request via the RequestStack service
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$request</span> <span class="o">=</span> <span class="nv">$requestStack</span><span class="o">-&gt;</span><span class="na">getCurrentRequest</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nv">$session</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getSession</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// You can then get/set a custom attribute, but you should always check that the session object is indeed available. Some requests do not rely on the session, and it may never be created
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nv">$session</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// Be careful to use a custom and UNIQUE attribute name
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nv">$myData</span> <span class="o">=</span> <span class="nv">$session</span><span class="o">-&gt;</span><span class="na">getAttribute</span><span class="p">(</span><span class="s1">&#39;my_custom_data&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// The session object will be automatically serialized at the end of the request, and automatically unserialized at the beginning of the next requests
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nv">$session</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="s1">&#39;my_custom_data&#39;</span><span class="p">,</span> <span class="s1">&#39;updated value&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+<div class="notices note" >The Symfony session has other interesting features (like flash bags for unique usage data). You can read more about its usage in the <a href="https://symfony.com/doc/6.4/session.html" target="_blank">Session documentation</a>.</div>
+
+<p><strong>Removed hooks:</strong></p>
+<ul>
+<li><code>actionAdminLoginControllerBefore</code></li>
+<li><code>actionAdminLoginControllerLoginBefore</code></li>
+<li><code>actionAdminLoginControllerLoginAfter</code></li>
+<li><code>actionAdminLoginControllerForgotBefore</code></li>
+<li><code>actionAdminLoginControllerForgotAfter</code></li>
+<li><code>actionAdminLoginControllerResetBefore</code></li>
+<li><code>actionAdminLoginControllerResetAfter</code></li>
+</ul>
+<p><strong>Hooks kept for backward compatibility:</strong></p>
+<ul>
+<li><code>actionAdminLoginControllerSetMedia</code> so you can add some custom assets on the login page</li>
+<li><code>displayAdminLogin</code> so you can add custom HTML on the login page</li>
+</ul>
+<p><strong>New hooks</strong></p>
+<ul>
+<li><code>actionBackOfficeLoginForm</code> to modify the login form (the form builder is passed via the <code>form_builder</code> hook parameter)</li>
+<li><code>actionEmployeeRequestPasswordResetForm</code> to modify the request password form (the form builder is passed via the <code>form_builder</code> hook parameter)</li>
+</ul>
+<p>The login logic, however, is not handled by PrestaShop&rsquo;s internal code so there is no handler that interprets the submitted data (and that&rsquo;s why there are so few new hooks). Instead we rely on <a href="https://symfony.com/doc/current/security.html#form-login" target="_blank">Symfony form login authentication system</a>, so it&rsquo;s Symfony&rsquo;s internal system that interprets the data submitted, validates it and authenticate the employee to the back office.</p>
+<p>If you need to integrate your code with the authentication process you should now rely on the <a href="https://symfony.com/doc/current/security.html#authentication-events" target="_blank">Authentication events</a> described in their documentation, you can also inspire yourself from our <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/src/PrestaShopBundle/EventListener/Admin/EmployeeSessionSubscriber.php" target="_blank">own internal subscriber</a>.</p>
+<p><strong>Related PRs:</strong></p>
+<ul>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34818">Update employee interfaces</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35761">PS_SSL_ENABLED_EVERYWHERE configuration removed, PS_TRUSTED_PROXIES env variable introduced</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35810">AdminController::isAnonymousAllowed is now public</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35983">Login page and authentication migrated</a></li>
+</ul>
+
 <h2 id="migrated-pages">Migrated pages<a href="#migrated-pages"></a></h2><p>The migration of pages imply several breaking changes, we won&rsquo;t detail all of them for each page but here is a summary:</p>
 <ul>
 <li>the legacy URL is no longer reachable, you are automatically redirected to the migrated page</li>
@@ -43600,14 +43657,6 @@ It also affects the <code>l</code> function in Smarty.</p>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/33864">Removed modal_module_list, modals views in new layout</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/34560">Clean Smarty variables that were only relevant for the layout internal use</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/34783">Legacy pages are rendered by Symfony</a></li>
-</ul>
-
-<h3 id="bo-login-and-authorization-migrated-to-symfony">BO login and authorization migrated to Symfony<a href="#bo-login-and-authorization-migrated-to-symfony"></a></h3><p>@todo detail the impact of this migration (legacy Cookie no longer usable, CQRS token always used in urls, session stored on server side, &hellip;)</p>
-<ul>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34818">Update employee interfaces</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35761">PS_SSL_ENABLED_EVERYWHERE configuration removed, PS_TRUSTED_PROXIES env variable introduced</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35810">AdminController::isAnonymousAllowed is now public</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35983">Login page and authentication migrated</a></li>
 </ul>
 
 <h3 id="symfony-context-refacto">Symfony context refacto<a href="#symfony-context-refacto"></a></h3><p>@todo Explain the new Context service (ADR, usages) that will replace the old Context</p>
@@ -43817,17 +43866,17 @@ It also affects the <code>l</code> function in Smarty.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1718699303"></script>
-    <script src="/js/perfect-scrollbar.min.js?1718699303"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1718699303"></script>
-    <script src="/js/jquery.sticky.js?1718699303"></script>
-    <script src="/js/featherlight.min.js?1718699303"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1718699303"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1718699303"></script>
-    <script src="/js/learn.js?1718699303"></script>
-    <script src="/js/hugo-learn.js?1718699303"></script>
+    <script src="/js/clipboard.min.js?1718699688"></script>
+    <script src="/js/perfect-scrollbar.min.js?1718699688"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1718699688"></script>
+    <script src="/js/jquery.sticky.js?1718699688"></script>
+    <script src="/js/featherlight.min.js?1718699688"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1718699688"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1718699688"></script>
+    <script src="/js/learn.js?1718699688"></script>
+    <script src="/js/hugo-learn.js?1718699688"></script>
     
-    <script src="/main.js?1718699303"></script>
+    <script src="/main.js?1718699688"></script>
     
     
     
