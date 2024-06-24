@@ -22,14 +22,14 @@
     <title>Changes in PrestaShop 9.0 :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1718720166" rel="stylesheet">
-    <link href="/css/syntax-github.css?1718720166" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1718720166" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1718720166" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1719272488" rel="stylesheet">
+    <link href="/css/syntax-github.css?1719272488" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1719272488" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1719272488" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1718720166" rel="stylesheet">
+    <link href="/style.css?1719272488" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1718720166"></script>
+    <script src="/js/jquery-3.3.1.min.js?1719272488"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -15509,6 +15509,7 @@
             <li><a href="#removed-dependencies">Removed dependencies</a></li>
             <li><a href="#upgraded-dependencies">Upgraded dependencies</a></li>
             <li><a href="#symfony-controllers">Symfony controllers</a></li>
+            <li><a href="#kernel-modifications">Kernel modifications</a></li>
             <li><a href="#bo-login-and-authorization-migrated-to-symfony">BO login and authorization migrated to Symfony</a></li>
           </ul>
         </li>
@@ -15520,7 +15521,6 @@
             <li><a href="#stronger-types--change-of-prototypes">Stronger types / change of prototypes</a></li>
             <li><a href="#symfony-layout">Symfony layout</a></li>
             <li><a href="#symfony-context-refacto">Symfony context refacto</a></li>
-            <li><a href="#kernel-modifications">Kernel modifications</a></li>
             <li><a href="#change-of-behaviourrules-or-removed-code">Change of behaviour/rules or removed code</a></li>
             <li><a href="#removal-of-deprecated-code">Removal of deprecated code</a></li>
           </ul>
@@ -43554,6 +43554,65 @@ We used this occasion to clean the dependencies that are no longer used in the c
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/35212">Replace AdminSecurity annotation with attributes</a></li>
 </ul>
 
+<h3 id="kernel-modifications">Kernel modifications<a href="#kernel-modifications"></a></h3><p>Until PrestaShop 8.0, we relied on one Kernel used for the back office. In Symfony 9.0, we expanded the usage of the Symfony framework, especially for two new features:</p>
+<ul>
+<li>the new Admin API based on API Platform and OAuth authentication</li>
+<li>an experimental feature that gives access to a Symfony container in the front office (in opposition to the custom-built container available today). This one is not very much used yet, but it&rsquo;s a first stone for the future front office migration</li>
+</ul>
+<p>Those two new environments have mechanisms and configuration different from those in the back office. To separate these configurations cleanly, they each have their dedicated kernel class and their own configuration. This allows to cleanly define different routing, security configurations, dedicated services, listeners, &hellip;
+Each kernel has a unique <code>applicationId</code> that allows to dynamize its configuration and cache folder (since the services are not the same, each kernel needs its own cache folder). The <code>appId</code> parameter has also been added globally to the <code>bin/console</code> tool. They all share the common <code>app/config/config.yml</code> configuration file, but each one extends it in its own config folder.</p>
+<table>
+<thead>
+<tr>
+<th>Environment</th>
+<th>Kernel class</th>
+<th>Config folder</th>
+<th>Cache folder</th>
+<th>Endpoint</th>
+<th>Application ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Back office</td>
+<td><code>AdminKernel</code></td>
+<td><code>app/config/admin</code></td>
+<td><code>var/cache/{dev,prod,test}/admin</code></td>
+<td><code>/admin-dev/index.php</code></td>
+<td><code>admin</code></td>
+</tr>
+<tr>
+<td>Admin API</td>
+<td><code>AdminAPIKernel</code></td>
+<td><code>app/config/admin-api</code></td>
+<td><code>var/cache/{dev,prod,test}/admin-api</code></td>
+<td><code>/admin-api/index.php</code></td>
+<td><code>admin-api</code></td>
+</tr>
+<tr>
+<td>Front office (experimental)</td>
+<td><code>FrontKernel</code></td>
+<td><code>app/config/front</code></td>
+<td><code>var/cache/{dev,prod,test}/front</code></td>
+<td><code>/index.php</code></td>
+<td><code>front</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="notices note" ><p><strong>Console usage</strong></p>
+<p>Clear the cache of the Admin API for its <code>prod</code> environment</p>
+<p><code>php bin/console cache:clear --env=prod --app-id=admin-api</code></p>
+<p>Display event listeners for the back office in <code>dev</code> environment (default value of <code>app-id</code> is <code>admin</code> for retro compatibility)</p>
+<p><code>php bin/console debug:event-dispatcher kernel.request --env=dev</code></p>
+</div>
+
+<p><strong>Related PRs</strong></p>
+<ul>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/32719">Experimental front container</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35515">Admin API has dedicated kernel, we now have three distinct configurations</a></li>
+</ul>
+
 <h3 id="bo-login-and-authorization-migrated-to-symfony">BO login and authorization migrated to Symfony<a href="#bo-login-and-authorization-migrated-to-symfony"></a></h3><p>The back office login page has been migrated to Symfony. Along with this change, the authorization system in the back office is now also based on Symfony, which implies several things:</p>
 <ul>
 <li>we no longer depend on the legacy <code>Context::$cookie</code>, the session is kept on the server side, and very few data are kept on the browser side. For retro-compatibility, we still populate the legacy cookie so that you can <strong>read</strong> it. While you can use <code>Context::$cookie</code> for your custom data, making changes to the data previously used for PrestaShop authorization will no longer have the desired effect and may even result in instability, so it&rsquo;s not recommended</li>
@@ -43662,12 +43721,6 @@ It also affects the <code>l</code> function in Smarty.</p>
 <h3 id="symfony-context-refacto">Symfony context refacto<a href="#symfony-context-refacto"></a></h3><p>@todo Explain the new Context service (ADR, usages) that will replace the old Context</p>
 <ul>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/34500">Modified LanguageInterface and LocaleInterface</a></li>
-</ul>
-
-<h3 id="kernel-modifications">Kernel modifications<a href="#kernel-modifications"></a></h3><p>@todo Explain the three new kernels and their respective folders for configurations</p>
-<ul>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/32719">Experimental front container</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35515">Admin API has dedicated kernel, we now have three distinct configurations</a></li>
 </ul>
 
 <h3 id="change-of-behaviourrules-or-removed-code">Change of behaviour/rules or removed code<a href="#change-of-behaviourrules-or-removed-code"></a></h3><ul>
@@ -43844,7 +43897,7 @@ It also affects the <code>l</code> function in Smarty.</p>
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/35ef045c74e9971dc0f914e52a3ede0c2eacd9d9">2024-06-12 by Jonathan Lelievre</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/675619bab4172e46dc5ab9c900106c8905a1e46b">2024-06-18 by Jonathan Lelievre</a>.<br>
         
     
 
@@ -43866,17 +43919,17 @@ It also affects the <code>l</code> function in Smarty.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1718720166"></script>
-    <script src="/js/perfect-scrollbar.min.js?1718720166"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1718720166"></script>
-    <script src="/js/jquery.sticky.js?1718720166"></script>
-    <script src="/js/featherlight.min.js?1718720166"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1718720166"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1718720166"></script>
-    <script src="/js/learn.js?1718720166"></script>
-    <script src="/js/hugo-learn.js?1718720166"></script>
+    <script src="/js/clipboard.min.js?1719272488"></script>
+    <script src="/js/perfect-scrollbar.min.js?1719272488"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1719272488"></script>
+    <script src="/js/jquery.sticky.js?1719272488"></script>
+    <script src="/js/featherlight.min.js?1719272488"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1719272488"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1719272488"></script>
+    <script src="/js/learn.js?1719272488"></script>
+    <script src="/js/hugo-learn.js?1719272488"></script>
     
-    <script src="/main.js?1718720166"></script>
+    <script src="/main.js?1719272488"></script>
     
     
     

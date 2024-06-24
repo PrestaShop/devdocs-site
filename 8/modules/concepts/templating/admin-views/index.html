@@ -22,14 +22,14 @@
     <title>How to override Back Office views :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1718720135" rel="stylesheet">
-    <link href="/css/syntax-github.css?1718720135" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1718720135" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1718720135" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1719272458" rel="stylesheet">
+    <link href="/css/syntax-github.css?1719272458" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1719272458" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1719272458" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1718720135" rel="stylesheet">
+    <link href="/style.css?1719272458" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1718720135"></script>
+    <script src="/js/jquery-3.3.1.min.js?1719272458"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -43500,7 +43500,7 @@
 <h3 id="identify-the-template-to-override">Identify the template to override<a href="#identify-the-template-to-override"></a></h3><p>First we need to identify which Twig template(s) is (are) rendered. Using the <em>Debug mode</em>, select the &ldquo;Twig metrics&rdquo; block in the Symfony Debug toolbar. You&rsquo;ll see the list of Twig templates used to render the page. In our case, we are interested in the template &ldquo;<strong>@PrestaShop/Admin/Product/CatalogPage/catalog.html.twig</strong>&rdquo;.</p>
 
 <h3 id="override-the-template-in-the-module-a-simple-hello-world">Override the template in the module: a simple &ldquo;Hello world!&rdquo;<a href="#override-the-template-in-the-module-a-simple-hello-world"></a></h3><p>Now we have found the right template, let&rsquo;s override it inside a module.
-In a module called <code>foo</code> let&rsquo;s create the related template. As the template is located inside the <code>PrestaShop/Admin/Product/CatalogPage</code> folder, we need to create the same path.</p>
+In a module called <code>foo</code> let&rsquo;s create the related template. Since the original template is located inside the <code>src/PrestaShopBundle/Resources/views/Admin/Product/CatalogPage</code> folder, we need to create the same path into our module, but with a small difference: This part <code>src/PrestaShopBundle/Resources/views</code> is replaced by the <code>PrestaShop</code> namespace and the final path is <code>modules/foo/views/PrestaShop/Admin/Product/CatalogPage</code>.</p>
 <p>So Let&rsquo;s create a file named <code>catalog.html.twig</code> in the <code>modules/foo/views/PrestaShop/Admin/Product/CatalogPage/catalog.html.twig</code> folder: we could re-use the one in the <code>src/PrestaShopBundle/Resources/views/Admin/Product/CatalogPage</code> folder, but let&rsquo;s start with a very simple override.</p>
 <p>Note that we use <code>@!PrestaShop</code> instead of <code>@PrestaShop</code> to be sure we extend the original file.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="cp">{%</span> <span class="k">extends</span> <span class="s1">&#39;@!PrestaShop/Admin/Product/CatalogPage/catalog.html.twig&#39;</span> <span class="cp">%}</span><span class="x">
@@ -43572,7 +43572,7 @@ In a module called <code>foo</code> let&rsquo;s create the related template. As 
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/8a9044ca37b421eac3e30322d0e0884797a0e040">2023-10-31 by thomas nares</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/bd023709f1ae7900a69b53e7260f69d8eb155be0">2024-06-21 by Carlos Batista</a>.<br>
         
     
 
@@ -43594,17 +43594,17 @@ In a module called <code>foo</code> let&rsquo;s create the related template. As 
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1718720135"></script>
-    <script src="/js/perfect-scrollbar.min.js?1718720135"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1718720135"></script>
-    <script src="/js/jquery.sticky.js?1718720135"></script>
-    <script src="/js/featherlight.min.js?1718720135"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1718720135"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1718720135"></script>
-    <script src="/js/learn.js?1718720135"></script>
-    <script src="/js/hugo-learn.js?1718720135"></script>
+    <script src="/js/clipboard.min.js?1719272458"></script>
+    <script src="/js/perfect-scrollbar.min.js?1719272458"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1719272458"></script>
+    <script src="/js/jquery.sticky.js?1719272458"></script>
+    <script src="/js/featherlight.min.js?1719272458"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1719272458"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1719272458"></script>
+    <script src="/js/learn.js?1719272458"></script>
+    <script src="/js/hugo-learn.js?1719272458"></script>
     
-    <script src="/main.js?1718720135"></script>
+    <script src="/main.js?1719272458"></script>
     
     
     
