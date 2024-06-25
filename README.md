@@ -12,7 +12,7 @@ This repository contains the sources to build [DevDocs - PrestaShop's technical 
 
 ## Rendering the site locally
 
-### Using `docker-compose`
+### Using `docker compose`
 
 1. Clone the repository somewhere on your system:
     ```
@@ -31,8 +31,10 @@ This repository contains the sources to build [DevDocs - PrestaShop's technical 
 
 4. Launch Hugo service:
     ```
-    docker-compose up hugo
+    docker compose up hugo
     ```
+
+5. You can access to the devdocs site at `http://localhost:1313`
 
 ### Natively
 
