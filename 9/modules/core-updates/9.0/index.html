@@ -22,14 +22,14 @@
     <title>Changes in PrestaShop 9.0 :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1719315440" rel="stylesheet">
-    <link href="/css/syntax-github.css?1719315440" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1719315440" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1719315440" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1719396516" rel="stylesheet">
+    <link href="/css/syntax-github.css?1719396516" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1719396516" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1719396516" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1719315440" rel="stylesheet">
+    <link href="/style.css?1719396516" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1719315440"></script>
+    <script src="/js/jquery-3.3.1.min.js?1719396516"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -15510,7 +15510,9 @@
             <li><a href="#upgraded-dependencies">Upgraded dependencies</a></li>
             <li><a href="#symfony-controllers">Symfony controllers</a></li>
             <li><a href="#kernel-modifications">Kernel modifications</a></li>
+            <li><a href="#symfony-layout">Symfony layout</a></li>
             <li><a href="#bo-login-and-authorization-migrated-to-symfony">BO login and authorization migrated to Symfony</a></li>
+            <li><a href="#symfony-context-refacto">Symfony context refacto</a></li>
           </ul>
         </li>
         <li><a href="#migrated-pages">Migrated pages</a></li>
@@ -15519,8 +15521,6 @@
             <li><a href="#trans-method"><code>trans</code> method</a></li>
             <li><a href="#some-front-controller-now-use-presenter-classes">Some front controller now use <code>Presenter</code> classes</a></li>
             <li><a href="#stronger-types--change-of-prototypes">Stronger types / change of prototypes</a></li>
-            <li><a href="#symfony-layout">Symfony layout</a></li>
-            <li><a href="#symfony-context-refacto">Symfony context refacto</a></li>
             <li><a href="#change-of-behaviourrules-or-removed-code">Change of behaviour/rules or removed code</a></li>
             <li><a href="#removal-of-deprecated-code">Removal of deprecated code</a></li>
           </ul>
@@ -43546,7 +43546,80 @@ We used this occasion to clean the dependencies that are no longer used in the c
 <li>&rsquo;egulias/email-validator&rsquo;: <code>3.2.6</code> -&gt; <code>4.0.1</code></li>
 </ul>
 
-<h3 id="symfony-controllers">Symfony controllers<a href="#symfony-controllers"></a></h3><p>@todo: explain changes about DI (controllers as services, injected container no longer the same, &hellip;), new PrestaShopAdminController and deprecated FrameworkAdminBundleController</p>
+<h3 id="symfony-controllers">Symfony controllers<a href="#symfony-controllers"></a></h3><p>In Symfony 6.4, the controllers must now be defined as services. The impact on the existing controllers is mainly around the concept of Dependency Injection and how services are injected or accessed in the controllers.
+The container passed to the controllers is no longer the &ldquo;global container&rdquo; that contains all the existing services in the application. Instead, it injects a dedicated container optimized for the controller based on the services that are injected into it.</p>
+<p>The issue is that most of PrestaShop&rsquo;s Symfony controllers do not rely on injection but instead use the <code>$this-&gt;get('service_name')</code> method to access any service. This is no longer possible in modern controllers because of the mentioned optimization related to container build (and the <code>get</code> method was even removed).
+To avoid a very big breaking change, we modified the <code>PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</code>, so that it can fetch services from the controller&rsquo;s container <strong>and</strong> from the global one, but this is a little hack that goes against Symfony recommendations, as such this base class is already <strong>deprecated and will be removed in PrestaShop 10.0</strong>.</p>
+<p>This gives developers some time to refacto their controllers. They should now rely on the new <code>PrestaShopBundle\Controller\Admin\PrestaShopAdminController</code>, which doesn&rsquo;t implement the mentioned hack in order to force a proper implementation of the controllers.
+You can read more details about <a href="https://symfony.com/doc/6.4/controller/service.html" target="_blank">Controllers as services</a>, <a href="https://symfony.com/doc/6.4/service_container/service_subscribers_locators.html" target="_blank">Service Subscribers &amp; Locators</a> or <a href="https://symfony.com/doc/6.4/service_container.html">Service container</a> in general.</p>
+<p>As an example, you have three main possibilities to inject a service into your controller:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\PrestaShopAdminController</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyController</span> <span class="k">extends</span> <span class="nx">PrestaShopAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * You can inject your service systematically in the constructor, useful if the service is used by several actions of your controller.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * 
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param MyCustomService $myCustomService
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">      <span class="k">private</span> <span class="nx">readonly</span> <span class="nx">MyCustomService</span> <span class="nv">$myCustomService</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * You can inject a service only on one method, useful if the service is used only in one action. It is more optimized than injecting it all the time and never using it.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * 
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param MySpecificService $specificService
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return JsonResponse
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">(</span><span class="nx">MySpecificService</span> <span class="nv">$specificService</span><span class="p">)</span><span class="o">:</span> <span class="nx">JsonResponse</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$generalData</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">myCustomerService</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$specificData</span> <span class="o">=</span> <span class="nv">$specifiService</span><span class="o">-&gt;</span><span class="na">getSpecificData</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// You can use the get method to fetch a service that was added in the getSubscribedServices method
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$toolingService</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">ToolingService</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="nx">JsonResponse</span><span class="p">(</span><span class="nv">$toolingService</span><span class="o">-&gt;</span><span class="na">format</span><span class="p">(</span><span class="nv">$generalData</span> <span class="o">+</span> <span class="nv">$specificData</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * You can define a list of registered services, they will be accessible via the $this-&gt;container-&gt;get method, this
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * way of injecting service is interesting if implemented on a base controller class for generic services that
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * may be used by many controllers (like the router, the translator, ...) so you don&#39;t need to inject them manually
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * in each controller class.
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * 
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return array
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">getSubscribedServices</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">parent</span><span class="o">::</span><span class="na">getSubscribedServices</span><span class="p">()</span> <span class="o">+</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">ToolingService</span><span class="o">::</span><span class="na">class</span> <span class="o">=&gt;</span> <span class="nx">ToolingService</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p><strong>Define your controller as a service</strong></p>
+<p>You can already anticipate and define your controllers as services, it is also compatible with previous versions of Symfony and PrestaShop:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">MyNamespace\MyController</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># Using autowire will inject services in the constructors automatically</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">autowire</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># Using autoconfigure with controllers that extend AbstractController will handle method parameter injection and subscribed services</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">autoconfigure</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># If your controller class doesn&#39;t extend AbstractController you should add this tag manually so you benefit from method parameters injection</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;controller.service_arguments&#39;</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div>
+<div class="notices note" ><p><strong>PrestaShopAdminController::getSubscribedServices</strong></p>
+<p>The new base controller class uses the <code>getSubscribedServices</code> method to give easy access to some commonly used PrestaShop services, like the <code>ConfigurationInterface</code>, <code>HookDispatcherInterface</code>, <code>TranslatorInterface</code>, &hellip;
+You can see the <a href="https://github.com/PrestaShop/PrestaShop/blob/9.0.0-alpha.1/src/PrestaShopBundle/Controller/Admin/PrestaShopAdminController.php#L59" target="_blank">full list of subscribed services</a> in the class, this list will probably grow piece by piece but only for common generic services.
+<br/><br/>
+Thanks to this, you can use <code>$this-&gt;container-&gt;get(ConfigurationInterface::class)-&gt;get('my_config')</code> to access the configuration service, or alternatively use the helper method <code>$this-&gt;getConfiguration()-&gt;get('my_config')</code>.
+The <code>PrestaShopAdminController</code> class comes with other helpful helper methods that are commonly used in controllers.</p>
+</div>
+
 <ul>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/31994">Removed method renderForm which is now used by the Symfony framework</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/32450">Maintain backward compatibility FrameworkBundleAdminController, but deprecated</a></li>
@@ -43613,6 +43686,125 @@ Each kernel has a unique <code>applicationId</code> that allows to dynamize its 
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/35515">Admin API has dedicated kernel, we now have three distinct configurations</a></li>
 </ul>
 
+<h3 id="symfony-layout">Symfony layout<a href="#symfony-layout"></a></h3><p>All the back office pages share a common layout, composed of a few elements:</p>
+<ul>
+<li>the <code>&lt;head&gt;</code> element that includes all the CSS and JS (among other things)</li>
+<li>the side navigation menu</li>
+<li>the header of the page which is itself composed of:
+<ul>
+<li>quick accesses</li>
+<li>search form</li>
+<li>notifications center</li>
+<li>employee dropdown</li>
+<li>the multistore header (when multistore is enabled)</li>
+<li>the page toolbar (which includes breadcrumb and top action buttons)</li>
+</ul>
+</li>
+<li>the footer (which only contains a displayBackOfficeFooter display hook)</li>
+</ul>
+<p>Until PrestaShop 8.1, all these common elements were handled by legacy code, so even on the migrated pages, there was always a background legacy controller based on <code>AdminController</code> in charge of building the layout data and rendering it. Once the layout was rendered the central content of Symfony pages was included in the middle of it. It means no page was completely free from the legacy controllers, which would ultimately block the end of migration, while they are intended to disappear completely.</p>
+<p>In PrestaShop 9.0 all this layout part is now fully handled by Symfony, we use <a href="https://symfony.com/bundles/ux-twig-component/current/index.html" target="_blank">Twig components</a> to render each element independently. The code is, therefore, easier to understand, a component class is responsible for fetching/building the data, while the actual rendering is based on Twig. See our <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/src/PrestaShopBundle/Twig/Component" target="_blank">Layout components</a> for more details.</p>
+<p>On legacy pages, we follow the same principle. Symfony is now in charge of rendering all the layout, and we use some <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/src/PrestaShopBundle/Twig/Component/Legacy" target="_blank">Legacy layout components</a> that follow the same architecture, but render different Twig templates to fit with the old <strong>default theme</strong> (that is based on old Bootstrap and includes old legacy helpers like <code>HelperForm</code> and <code>HelperList</code>).</p>
+<p><strong>What changes for my module pages?</strong></p>
+<p>We refactored this layout with maximum backward compatibility in mind. The HTML layout itself had minimum changes (in both migrated and legacy pages). We tried to keep the same hooks in both the PHP code and the Twig templates. We even introduced a fake legacy controller in migrated pages that has no logic but is kept mostly as a <a href="https://en.wikipedia.org/wiki/Data_transfer_object">DTO</a> to contain things like CSS files and JS files, because that&rsquo;s where most modules add their content.
+We still had to change the controller workflow. Many of the functions in <code>AdminController</code> are no longer useful as they are used to initialize the layout variables (now handled by Twig components). Some methods also render or write output directly, which we prevent as we need to get the rendered content as a string to integrate it correctly inside the new layout. This means some internal methods had to be split to avoid unwanted usage.</p>
+<p><strong>Legacy workflow:</strong></p>
+<ul>
+<li><code>Dispatcher::dispatch</code> would detect the legacy controller and instantiate it</li>
+<li><code>AdminController::run</code> was executed by the <code>Dispatcher</code>, which was split into
+<ul>
+<li><code>AdminController::init</code></li>
+<li><code>AdminController::checkAccess</code> would handle the check of the legacy token in the url</li>
+<li><code>AdminController::setMedia</code> is in charge of defining the JS/CSS files to be loaded in the page</li>
+<li><code>AdminController::postProcess</code> processes the posted data
+<ul>
+<li>if after this method <code>AdminController::redirect_after</code> is defined then perform an HTTP redirection</li>
+</ul>
+</li>
+<li><code>AdminController::initHeader</code></li>
+<li><code>AdminController::initContent</code></li>
+<li><code>AdminController::initFooter</code></li>
+<li>Check if <code>AdminController::ajax</code>, one of the two is executed
+<ul>
+<li><code>AdminController::displayAjax</code> (or specific <code>displayAjax{action}</code> method)</li>
+<li><code>AdminController::display</code>
+<ul>
+<li>init many variables used by the layout templates (meta title, toolbar, JS definitions, &hellip;)</li>
+<li>render <code>page</code>, <code>header</code>, <code>footer</code> and sets them as Smarty variables</li>
+<li>fetch the Smarty <code>AdminController::template</code> to get the content of the page</li>
+<li>calls <code>smartyOutputContent</code> to echo/output the whole page (layout + content)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Here you&rsquo;ll find the <a href="/9/development/architecture/legacy/legacy-controllers/">execution workflow of legacy controllers</a></p>
+<p><strong>Symfony workflow:</strong></p>
+<ul>
+<li>A special routing matching URLs like <code>?controller=LegacyAdminController</code> checks if the URL is valid thanks to <code>LegacyRouterChecker::check</code>
+<ul>
+<li>the query parameter must match an existing legacy controller class</li>
+<li>the controller object is instantiated and <code>AdminController::init</code> is called, this is important to know if the controller is anonymous, this is the proper moment to define <code>AdminController::allowAnonymous</code></li>
+<li>a few attributes are set on the Symfony <code>Request</code> so they can be reused later in the workflow by other components/services</li>
+</ul>
+</li>
+<li><code>LegacyController::legacyPageAction</code> is a generic controller responsible for executing the legacy controller, it doesn&rsquo;t execute <code>AdminController::run</code> but splits it into several steps
+<ul>
+<li><code>AdminController::checkAccess</code> is not called, the token in URLs is a Symfony CSRF token now and is checked by <code>TokenizedUrlListener</code></li>
+<li><code>LegacyController::initController</code>
+<ul>
+<li>the permission is checked based on the detected controller and action, unless <code>AdminController::viewAccess</code> has been overridden in which case it is used to check authorization</li>
+<li><code>SmartyVariablesFiller::fillDefault</code> is in charge of building most of the generic smarty variables previously handled by <code>AdminController::initHeader</code></li>
+<li><code>AdminController::setMedia</code> is in charge of defining the JS/CSS files to be loaded in the page</li>
+<li><code>AdminController::postProcess</code> processes the posted data
+<ul>
+<li>if after this method <code>AdminController::redirect_after</code> is defined then perform an HTTP redirection</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Check if <code>ajax</code> query parameter is defined, one of the two is executed
+<ul>
+<li><code>LegacyController::renderAjaxController</code> executes <code>AdminController::initContent</code> the appropriate <code>AdminController::displayAjax</code> method, it catches all the output data into a string buffer (because most legacy ajax methods simply echo their content) and returns it as a response</li>
+<li><code>LegacyController::renderPageContent</code>
+<ul>
+<li>executes <code>AdminController::initContent</code></li>
+<li>fetch the Smarty <code>AdminController::template</code> to get the content of the page</li>
+<li>calls <code>Cookie::write</code> which was previously called via <code>smartyOutputContent</code></li>
+<li>get the modal content via <code>AdminController::renderModal</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>The two workflows should render the same result. Many methods from the legacy workflow are not executed anymore because they lost their purpose, but in case you override one of those methods, be aware that they are no longer called directly, so there are breaking changes:</p>
+<ul>
+<li><code>AdminController:run</code></li>
+<li><code>AdminController::initHeader</code></li>
+<li><code>AdminController::initContent</code></li>
+<li><code>AdminController::initFooter</code></li>
+<li><code>AdminController:display</code></li>
+</ul>
+<p>Also, be aware that many Smarty variables are no longer defined because they were only used to render the layout.</p>
+<p>Despite the changes in the workflow and the fact we no longer depend on the <code>Dispatcher</code> class, we <strong>maintained</strong> these hooks:</p>
+<ul>
+<li><code>actionDispatcher</code></li>
+<li><code>actionDispatcherBefore</code></li>
+<li><code>actionDispatcherAfter</code></li>
+</ul>
+<p><strong>Related PRs:</strong></p>
+<ul>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33775">Smarty variables viewport_scale and inline_js variables no longer present</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33864">Removed modal_module_list, modals views in new layout</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34560">Clean Smarty variables that were only relevant for the layout internal use</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34783">Legacy pages are rendered by Symfony</a></li>
+</ul>
+<p>For more details about the changes, you can check the content of the <a href="https://github.com/PrestaShop/PrestaShop/issues/32875" target="_blank">Symfony layout Epic</a>.</p>
+
 <h3 id="bo-login-and-authorization-migrated-to-symfony">BO login and authorization migrated to Symfony<a href="#bo-login-and-authorization-migrated-to-symfony"></a></h3><p>The back office login page has been migrated to Symfony. Along with this change, the authorization system in the back office is now also based on Symfony, which implies several things:</p>
 <ul>
 <li>we no longer depend on the legacy <code>Context::$cookie</code>, the session is kept on the server side, and very few data are kept on the browser side. For retro-compatibility, we still populate the legacy cookie so that you can <strong>read</strong> it. While you can use <code>Context::$cookie</code> for your custom data, making changes to the data previously used for PrestaShop authorization will no longer have the desired effect and may even result in instability, so it&rsquo;s not recommended</li>
@@ -43670,6 +43862,27 @@ Each kernel has a unique <code>applicationId</code> that allows to dynamize its 
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/35983">Login page and authentication migrated</a></li>
 </ul>
 
+<h3 id="symfony-context-refacto">Symfony context refacto<a href="#symfony-context-refacto"></a></h3><p>A significant amount of code in the core relies on the legacy <code>Context</code> class, which stores certain data as a singleton. However, this legacy implementation has many drawbacks, so refactoring was initiated in PrestaShop 9.0 to replace this usage.
+You can find more details about the reason behind this and the implementation in the related <a href="https://github.com/PrestaShop/ADR/blob/master/0024-context-refacto.md" traget="_blank">ADR about Context refactoring</a>.</p>
+<p>You should now favor using the modern split context services:</p>
+<ul>
+<li><code>PrestaShop\PrestaShop\Core\Context\ApiClientContext</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Context\CountryContext</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Context\CurrencyContext</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Context\EmployeeContext</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Context\LanguageContext</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Context\LegacyControllerContext</code></li>
+<li><code>PrestaShop\PrestaShop\Core\Context\ShopContext</code></li>
+</ul>
+<p>We still have some work to do to replace all the usages of the legacy context with the modern ones, but the new code will stop using the legacy ones. We recommend that developers rely on the new ones from now on.</p>
+<ul>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33223">ShopContext and EmployeeContext</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34147">CurrencyContext and CountryContext</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34500">LanguageContext (implied modifications on LanguageInterface and LocaleInterface)</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34892">ApiClientContext</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34390">LegacyControllerContext</a></li>
+</ul>
+
 <h2 id="migrated-pages">Migrated pages<a href="#migrated-pages"></a></h2><p>The migration of pages imply several breaking changes, we won&rsquo;t detail all of them for each page but here is a summary:</p>
 <ul>
 <li>the legacy URL is no longer reachable, you are automatically redirected to the migrated page</li>
@@ -43708,19 +43921,6 @@ It also affects the <code>l</code> function in Smarty.</p>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/31995">PrestaShop\PrestaShop\Core\Product\Search\Pagination</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/32846">Type hint front controllers</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/34653">Strong types in legacy admin controllers</a></li>
-</ul>
-
-<h3 id="symfony-layout">Symfony layout<a href="#symfony-layout"></a></h3><p>@todo explain the new workflow in BO the responsibility of twig components, the difference in how a legacy controller is executed and rendered</p>
-<ul>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33775">Smarty variables viewport_scale and inline_js variables no longer present</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33864">Removed modal_module_list, modals views in new layout</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34560">Clean Smarty variables that were only relevant for the layout internal use</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34783">Legacy pages are rendered by Symfony</a></li>
-</ul>
-
-<h3 id="symfony-context-refacto">Symfony context refacto<a href="#symfony-context-refacto"></a></h3><p>@todo Explain the new Context service (ADR, usages) that will replace the old Context</p>
-<ul>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34500">Modified LanguageInterface and LocaleInterface</a></li>
 </ul>
 
 <h3 id="change-of-behaviourrules-or-removed-code">Change of behaviour/rules or removed code<a href="#change-of-behaviourrules-or-removed-code"></a></h3><ul>
@@ -43897,7 +44097,7 @@ It also affects the <code>l</code> function in Smarty.</p>
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/675619bab4172e46dc5ab9c900106c8905a1e46b">2024-06-18 by Jonathan Lelievre</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/26c97759e009cf35ad3dfa40e154a29b3291b233">2024-06-19 by Jonathan Lelievre</a>.<br>
         
     
 
@@ -43919,17 +44119,17 @@ It also affects the <code>l</code> function in Smarty.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1719315440"></script>
-    <script src="/js/perfect-scrollbar.min.js?1719315440"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1719315440"></script>
-    <script src="/js/jquery.sticky.js?1719315440"></script>
-    <script src="/js/featherlight.min.js?1719315440"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1719315440"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1719315440"></script>
-    <script src="/js/learn.js?1719315440"></script>
-    <script src="/js/hugo-learn.js?1719315440"></script>
+    <script src="/js/clipboard.min.js?1719396516"></script>
+    <script src="/js/perfect-scrollbar.min.js?1719396516"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1719396516"></script>
+    <script src="/js/jquery.sticky.js?1719396516"></script>
+    <script src="/js/featherlight.min.js?1719396516"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1719396516"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1719396516"></script>
+    <script src="/js/learn.js?1719396516"></script>
+    <script src="/js/hugo-learn.js?1719396516"></script>
     
-    <script src="/main.js?1719315440"></script>
+    <script src="/main.js?1719396516"></script>
     
     
     
