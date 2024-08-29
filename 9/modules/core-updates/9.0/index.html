@@ -22,14 +22,14 @@
     <title>Changes in PrestaShop 9.0 :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1724746082" rel="stylesheet">
-    <link href="/css/syntax-github.css?1724746082" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1724746082" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1724746082" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1724930819" rel="stylesheet">
+    <link href="/css/syntax-github.css?1724930819" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1724930819" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1724930819" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1724746082" rel="stylesheet">
+    <link href="/style.css?1724930819" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1724746082"></script>
+    <script src="/js/jquery-3.3.1.min.js?1724930819"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -9348,27 +9348,6 @@
             
             
           
-            
-            
-          
-            
-            
-          
-            
-            
-          
-            
-            
-          
-            
-            
-          
-            
-            
-          
-            
-            
-          
         
         </ul>
       
@@ -15567,16 +15546,24 @@
         <li><a href="#core-changes">Core changes</a>
           <ul>
             <li><a href="#symfony-upgrade">Symfony Upgrade</a></li>
-            <li><a href="#removed-dependencies">Removed dependencies</a></li>
+            <li><a href="#removed-dependencies">Removed dependencies</a>
+              <ul>
+                <li><a href="#mailer-migration">Mailer Migration</a></li>
+              </ul>
+            </li>
             <li><a href="#upgraded-dependencies">Upgraded dependencies</a></li>
             <li><a href="#symfony-controllers">Symfony controllers</a></li>
             <li><a href="#kernel-modifications">Kernel modifications</a></li>
             <li><a href="#symfony-layout">Symfony layout</a></li>
-            <li><a href="#bo-login-and-authorization-migrated-to-symfony">BO login and authorization migrated to Symfony</a></li>
-            <li><a href="#symfony-context-refacto">Symfony context refacto</a></li>
+            <li><a href="#back-office-login-and-authorization-migrated-to-symfony">Back office login and authorization migrated to Symfony</a></li>
+            <li><a href="#symfony-context-refactorization">Symfony context refactorization</a></li>
           </ul>
         </li>
-        <li><a href="#migrated-pages">Migrated pages</a></li>
+        <li><a href="#migrated-pages">Migrated pages</a>
+          <ul>
+            <li><a href="#changes-in-the-product-page">Changes in the product page</a></li>
+          </ul>
+        </li>
         <li><a href="#breaking-changes">Breaking Changes</a>
           <ul>
             <li><a href="#trans-method"><code>trans</code> method</a></li>
@@ -39885,41 +39872,6 @@
     
   
       
-        
-    
-    
-  
-      
-        
-    
-    
-  
-      
-        
-    
-    
-  
-      
-        
-    
-    
-  
-      
-        
-    
-    
-  
-      
-        
-    
-    
-  
-      
-        
-    
-    
-  
-      
     
   
       
@@ -43618,17 +43570,18 @@
 #body-inner depre::before {content: ' – '}
 </style>
 
-<h1 id="notable-changes-in-prestashop-90">Notable changes in PrestaShop 9.0<a href="#notable-changes-in-prestashop-90"></a></h1>
+<h1 id="notable-changes-in-prestashop-90">Notable changes in PrestaShop 9.0<a href="#notable-changes-in-prestashop-90"></a></h1><p>This section provides a list of the most significant changes in PrestaShop 9.0. While this list is not exhaustive, it aims to give developers a clear overview of the important updates. If you notice any missing or incorrect information, please help us improve by creating an issue on our <a href="https://github.com/PrestaShop/docs/issues/new">GitHub repository</a>.</p>
+
 <h2 id="php-support">PHP support<a href="#php-support"></a></h2><p>PrestaShop 9.0 now requires <strong>PHP 8.1 minimum</strong>, with support added for PHP 8.2 and 8.3.</p>
 <ul>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/32514">Remove compatibility for php versions inferior to PHP 8.1</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/32514">Remove compatibility for PHP versions inferior to PHP 8.1</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/29116">Support for PHP 8.2</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/34485">Support for PHP 8.3</a></li>
 </ul>
 
 <h2 id="core-changes">Core changes<a href="#core-changes"></a></h2>
-<h3 id="symfony-upgrade">Symfony Upgrade<a href="#symfony-upgrade"></a></h3><p>PrestaShop V9 has been upgraded to rely on Symfony 6.4, V8 was previously based on Symfony 4.4 so it&rsquo;s quite a big leap. As such the V9 includes all the breaking changes related to the Symfony Framework, you can see <a href="https://github.com/PrestaShop/PrestaShop/issues/33993">more details about the changes in the core here</a> and if you can also check Symfony migration guides (see below).
-Symfony 6.4 is the latest LTS version and will be supported until November 2026 for bug fixes, and November 2027 for security fixes.</p>
+<h3 id="symfony-upgrade">Symfony Upgrade<a href="#symfony-upgrade"></a></h3><p>PrestaShop 9.0 has been upgraded to rely on Symfony 6.4. This is a significant leap from the previous version, 8.x, which was based on Symfony 4.4. As a result, version 9 includes all the breaking changes related to the Symfony Framework. For more details about these changes in the core, you can refer to the <a href="https://github.com/PrestaShop/PrestaShop/issues/33993">PrestaShop GitHub issue</a>. Additionally, you can consult the Symfony migration guides (see links below).</p>
+<p>Symfony 6.4 is the latest LTS version and will receive bug fixes until November 2026, as well as security fixes until November 2027.</p>
 <ul>
 <li><a href="https://github.com/symfony/symfony/blob/5.4/UPGRADE-5.0.md">UPGRADE FROM 4.4 to 5.0</a></li>
 <li><a href="https://github.com/symfony/symfony/blob/5.4/UPGRADE-5.1.md">UPGRADE FROM 5.0 to 5.1</a></li>
@@ -43643,45 +43596,149 @@ Symfony 6.4 is the latest LTS version and will be supported until November 2026 
 <li><a href="https://github.com/symfony/symfony/blob/6.4/UPGRADE-6.4.md">UPGRADE FROM 6.3 to 6.4</a></li>
 </ul>
 
-<h3 id="removed-dependencies">Removed dependencies<a href="#removed-dependencies"></a></h3><p>We followed Symfony recommendations and no longer use the <code>symfony/symfony</code> dependency but instead each sub package manually, the minimum version of PHP 8.1 also forced us to upgrade or removed some dependencies.
-We used this occasion to clean the dependencies that are no longer used in the core (whether they are from symfony or not), if you need these dependencies in your modules you will have to integrate them in your module&rsquo;s dependencies.</p>
-<ul>
-<li><code>guzzlehttp/guzzle</code> (replaced by Symfony HTTP client in the core)</li>
-<li><code>league/tactician-bundle</code> (replaced by Symfony Messenger component)</li>
-<li><code>pear/archive_tar</code></li>
-<li><code>sensio/framework-extra-bundle</code> (we now favor annotations in the core)</li>
-<li><code>soundasleep/html2text</code></li>
-<li><code>swiftmailer/swiftmailer</code> (replaced by Symfony Mailer component in the core)</li>
-<li><code>symfony/inflector</code></li>
-<li><code>symfony/notifier</code></li>
-<li><code>symfony/rate-limiter</code></li>
-<li><code>symfony/semaphore</code></li>
-<li><code>symfony/uid</code></li>
-<li><code>symfony/workflow</code></li>
-</ul>
+<h3 id="removed-dependencies">Removed dependencies<a href="#removed-dependencies"></a></h3><p>We have followed Symfony&rsquo;s recommendations and made changes to our dependencies. Instead of using the <code>symfony/symfony</code> dependency, we now manually include each sub-package. Additionally, due to the minimum PHP version requirement of 8.1, we had to upgrade or remove certain dependencies.</p>
+<p>During this process, we took the opportunity to clean up dependencies that are no longer used in the core, regardless of whether they are from Symfony or not. If you rely on these dependencies in your modules, you will need to integrate them into your module&rsquo;s dependencies.</p>
+<table>
+<thead>
+<tr>
+<th>Library name</th>
+<th>Reason for removal/Replacement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>guzzlehttp/guzzle</td>
+<td>Replaced by Symfony HTTP client in the core</td>
+</tr>
+<tr>
+<td>league/tactician-bundle</td>
+<td>Replaced by Symfony Messenger component</td>
+</tr>
+<tr>
+<td>pear/archive_tar</td>
+<td>No longer used</td>
+</tr>
+<tr>
+<td>sensio/framework-extra-bundle</td>
+<td>We now favor annotations in the core</td>
+</tr>
+<tr>
+<td>soundasleep/html2text</td>
+<td>No longer used</td>
+</tr>
+<tr>
+<td>swiftmailer/swiftmailer</td>
+<td>Replaced by Symfony Mailer component in the core</td>
+</tr>
+<tr>
+<td>symfony/inflector</td>
+<td>No longer used</td>
+</tr>
+<tr>
+<td>symfony/notifier</td>
+<td>No longer used</td>
+</tr>
+<tr>
+<td>symfony/rate-limiter</td>
+<td>No longer used</td>
+</tr>
+<tr>
+<td>symfony/semaphore</td>
+<td>No longer used</td>
+</tr>
+<tr>
+<td>symfony/uid</td>
+<td>No longer used</td>
+</tr>
+<tr>
+<td>symfony/workflow</td>
+<td>No longer used</td>
+</tr>
+</tbody>
+</table>
 
-<div class="notices note" ><p><strong>Mail SSL encryption was dropped</strong></p>
+<h4 id="mailer-migration">Mailer Migration<a href="#mailer-migration"></a></h4><p>We have migrated from Swift Mailer to Symfony Mailer. This change includes several improvements and aligns with Symfony&rsquo;s latest recommendations.</p>
+<p><strong>Mail SSL encryption was dropped</strong></p>
 <p>When we migrated from Swift Mailer to Symfony Mailer, we noticed that SSL support was not an option in ESMTP transport. SSL is an old and outdated encryption type, and for security reasons, it will no longer be allowed.</p>
 <p>The remaining choices are &ldquo;TLS encryption&rdquo; or &ldquo;No encryption&rdquo;.</p>
-</div>
-
 
 <h3 id="upgraded-dependencies">Upgraded dependencies<a href="#upgraded-dependencies"></a></h3><p>Some dependencies are still present but were upgraded which comes with their own breaking changes, please refer to each dependency changelog to understand them in details if you depend on these dependencies:</p>
-<ul>
-<li><code>api-platform/core</code>: <code>2.7.6</code> -&gt; <code>3.2.13</code></li>
-<li><code>composer/installers</code>: <code>1.12.0</code> -&gt; <code>2.2.0</code></li>
-<li><code>friendsofsymfony/jsrouting-bundle</code>: <code>2.8.0</code> -&gt; <code>3.2.1</code></li>
-<li><code>lcobucci/jwt</code>: <code>3.4.6</code> (special patch from <a href="https://github.com/PrestaShop/jwt.git">https://github.com/PrestaShop/jwt.git</a>) -&gt; <code>5.0.0</code> (no need for fork version anymore)</li>
-<li><code>mobiledetect/mobiledetectlib</code>: <code>2.8.41</code> -&gt; <code>3.74.0</code></li>
-<li><code>pelago/emogrifier</code>: <code>5.0.1</code> -&gt; <code>7.0.0</code></li>
-<li>Symfony dependencies all upgraded from <code>4.4</code> to <code>6.4</code></li>
-<li><code>twig/twig</code>: <code>3.4.3</code> -&gt; <code>3.8.0</code></li>
-<li><code>doctrine/dbal</code>: <code>2.13.8</code> -&gt; <code>3.6.5</code></li>
-<li><code>doctrine/lexer</code>: <code>1.2.3</code> -&gt; <code>2.1.1</code></li>
-<li><code>doctrine/orm</code>: <code>2.12.1</code> -&gt; <code>2.15.5</code></li>
-<li><code>doctrine/deprecations</code>: <code>0.5.3</code> -&gt; <code>1.1.3</code></li>
-<li>&rsquo;egulias/email-validator&rsquo;: <code>3.2.6</code> -&gt; <code>4.0.1</code></li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Old version</th>
+<th>New version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>api-platform/core</td>
+<td>2.7.6</td>
+<td>3.2.13</td>
+</tr>
+<tr>
+<td>composer/installers</td>
+<td>1.12.0</td>
+<td>2.2.0</td>
+</tr>
+<tr>
+<td>friendsofsymfony/jsrouting-bundle</td>
+<td>2.8.0</td>
+<td>3.2.1</td>
+</tr>
+<tr>
+<td>lcobucci/jwt</td>
+<td>3.4.6 (special patch from <a href="https://github.com/PrestaShop/jwt.git">https://github.com/PrestaShop/jwt.git</a>)</td>
+<td>5.0.0 (no need for fork version anymore)</td>
+</tr>
+<tr>
+<td>mobiledetect/mobiledetectlib</td>
+<td>2.8.41</td>
+<td>3.74.0</td>
+</tr>
+<tr>
+<td>pelago/emogrifier</td>
+<td>5.0.1</td>
+<td>7.0.0</td>
+</tr>
+<tr>
+<td>Symfony dependencies</td>
+<td>4.4</td>
+<td>6.4</td>
+</tr>
+<tr>
+<td>twig/twig</td>
+<td>3.4.3</td>
+<td>3.8.0</td>
+</tr>
+<tr>
+<td>doctrine/dbal</td>
+<td>2.13.8</td>
+<td>3.6.5</td>
+</tr>
+<tr>
+<td>doctrine/lexer</td>
+<td>1.2.3</td>
+<td>2.1.1</td>
+</tr>
+<tr>
+<td>doctrine/orm</td>
+<td>2.12.1</td>
+<td>2.15.5</td>
+</tr>
+<tr>
+<td>doctrine/deprecations</td>
+<td>0.5.3</td>
+<td>1.1.3</td>
+</tr>
+<tr>
+<td>egulias/email-validator</td>
+<td>3.2.6</td>
+<td>4.0.1</td>
+</tr>
+</tbody>
+</table>
 
 <h3 id="symfony-controllers">Symfony controllers<a href="#symfony-controllers"></a></h3><p>In Symfony 6.4, the controllers must now be defined as services. The impact on the existing controllers is mainly around the concept of Dependency Injection and how services are injected or accessed in the controllers.
 The container passed to the controllers is no longer the &ldquo;global container&rdquo; that contains all the existing services in the application. Instead, it injects a dedicated container optimized for the controller based on the services that are injected into it.</p>
@@ -43764,13 +43821,13 @@ The <code>PrestaShopAdminController</code> class comes with other helpful helper
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/35212">Replace AdminSecurity annotation with attributes</a></li>
 </ul>
 
-<h3 id="kernel-modifications">Kernel modifications<a href="#kernel-modifications"></a></h3><p>Until PrestaShop 8.0, we relied on one Kernel used for the back office. In Symfony 9.0, we expanded the usage of the Symfony framework, especially for two new features:</p>
+<h3 id="kernel-modifications">Kernel modifications<a href="#kernel-modifications"></a></h3><p>Until PrestaShop 8, we relied on one Kernel used for the back office. In PrestaShop 9.0, we expanded the usage of the Symfony framework, especially for two new features:</p>
 <ul>
-<li>the new Admin API based on API Platform and OAuth authentication</li>
+<li><a href="https://build.prestashop-project.org/news/2024/meet-prestashop9-api/">the new Admin API based on API Platform</a> and OAuth authentication</li>
 <li>an experimental feature that gives access to a Symfony container in the front office (in opposition to the custom-built container available today). This one is not very much used yet, but it&rsquo;s a first stone for the future front office migration</li>
 </ul>
-<p>Those two new environments have mechanisms and configuration different from those in the back office. To separate these configurations cleanly, they each have their dedicated kernel class and their own configuration. This allows to cleanly define different routing, security configurations, dedicated services, listeners, &hellip;
-Each kernel has a unique <code>applicationId</code> that allows to dynamize its configuration and cache folder (since the services are not the same, each kernel needs its own cache folder). The <code>appId</code> parameter has also been added globally to the <code>bin/console</code> tool. They all share the common <code>app/config/config.yml</code> configuration file, but each one extends it in its own config folder.</p>
+<p>Those two new environments have mechanisms and configuration different from those in the back office. To separate these configurations cleanly, they each have their dedicated kernel class and their own configuration. This allows to cleanly define different routing, security configurations, dedicated services, listeners, etc.</p>
+<p>Each kernel has a unique <code>applicationId</code> that allows to dynamize its configuration and cache folder (since the services are not the same, each kernel needs its own cache folder). The <code>appId</code> parameter has also been added globally to the <code>bin/console</code> tool. They all share the common <code>app/config/config.yml</code> configuration file, but each one extends it in its own config folder.</p>
 <table>
 <thead>
 <tr>
@@ -43779,7 +43836,7 @@ Each kernel has a unique <code>applicationId</code> that allows to dynamize its 
 <th>Config folder</th>
 <th>Cache folder</th>
 <th>Endpoint</th>
-<th>Application ID</th>
+<th>App ID</th>
 </tr>
 </thead>
 <tbody>
@@ -43810,11 +43867,12 @@ Each kernel has a unique <code>applicationId</code> that allows to dynamize its 
 </tbody>
 </table>
 
-<div class="notices note" ><p><strong>Console usage</strong></p>
-<p>Clear the cache of the Admin API for its <code>prod</code> environment</p>
+<div class="notices note" ><p><strong>Console usage examples</strong></p>
+<p>To clear the cache of the Admin API for its <code>prod</code> environment:</p>
 <p><code>php bin/console cache:clear --env=prod --app-id=admin-api</code></p>
-<p>Display event listeners for the back office in <code>dev</code> environment (default value of <code>app-id</code> is <code>admin</code> for retro compatibility)</p>
-<p><code>php bin/console debug:event-dispatcher kernel.request --env=dev</code></p>
+<p>&ndash;</p>
+<p>To display event listeners for the back office in <code>dev</code> environment (default value of <code>app-id</code> is <code>admin</code> for retro compatibility):
+<code>php bin/console debug:event-dispatcher kernel.request --env=dev</code></p>
 </div>
 
 <p><strong>Related PRs</strong></p>
@@ -43829,95 +43887,49 @@ Each kernel has a unique <code>applicationId</code> that allows to dynamize its 
 <li>the side navigation menu</li>
 <li>the header of the page which is itself composed of:
 <ul>
-<li>quick accesses</li>
+<li>quick access component</li>
 <li>search form</li>
 <li>notifications center</li>
 <li>employee dropdown</li>
 <li>the multistore header (when multistore is enabled)</li>
-<li>the page toolbar (which includes breadcrumb and top action buttons)</li>
+<li>the page toolbar (which includes breadcrumbs and top action buttons)</li>
 </ul>
 </li>
-<li>the footer (which only contains a displayBackOfficeFooter display hook)</li>
+<li>the footer (which only contains a <code>displayBackOfficeFooter</code> display hook)</li>
 </ul>
 <p>Until PrestaShop 8.1, all these common elements were handled by legacy code, so even on the migrated pages, there was always a background legacy controller based on <code>AdminController</code> in charge of building the layout data and rendering it. Once the layout was rendered the central content of Symfony pages was included in the middle of it. It means no page was completely free from the legacy controllers, which would ultimately block the end of migration, while they are intended to disappear completely.</p>
 <p>In PrestaShop 9.0 all this layout part is now fully handled by Symfony, we use <a href="https://symfony.com/bundles/ux-twig-component/current/index.html" target="_blank">Twig components</a> to render each element independently. The code is, therefore, easier to understand, a component class is responsible for fetching/building the data, while the actual rendering is based on Twig. See our <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/src/PrestaShopBundle/Twig/Component" target="_blank">Layout components</a> for more details.</p>
 <p>On legacy pages, we follow the same principle. Symfony is now in charge of rendering all the layout, and we use some <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/src/PrestaShopBundle/Twig/Component/Legacy" target="_blank">Legacy layout components</a> that follow the same architecture, but render different Twig templates to fit with the old <strong>default theme</strong> (that is based on old Bootstrap and includes old legacy helpers like <code>HelperForm</code> and <code>HelperList</code>).</p>
 <p><strong>What changes for my module pages?</strong></p>
-<p>We refactored this layout with maximum backward compatibility in mind. The HTML layout itself had minimum changes (in both migrated and legacy pages). We tried to keep the same hooks in both the PHP code and the Twig templates. We even introduced a fake legacy controller in migrated pages that has no logic but is kept mostly as a <a href="https://en.wikipedia.org/wiki/Data_transfer_object">DTO</a> to contain things like CSS files and JS files, because that&rsquo;s where most modules add their content.
-We still had to change the controller workflow. Many of the functions in <code>AdminController</code> are no longer useful as they are used to initialize the layout variables (now handled by Twig components). Some methods also render or write output directly, which we prevent as we need to get the rendered content as a string to integrate it correctly inside the new layout. This means some internal methods had to be split to avoid unwanted usage.</p>
+<p>We refactored this layout with maximum backward compatibility in mind. The HTML layout itself had minimum changes (in both migrated and legacy pages). We tried to keep the same hooks in both the PHP code and the Twig templates. We even introduced a fake legacy controller in migrated pages that has no logic but is kept mostly as a <a href="https://en.wikipedia.org/wiki/Data_transfer_object">DTO</a> to contain things like CSS files and JS files, because that&rsquo;s where most modules add their content.</p>
+<p>We still had to change the controller workflow. Many of the functions in <code>AdminController</code> are no longer useful as they are used to initialize the layout variables (now handled by Twig components). Some methods also render or write output directly, which we prevent as we need to get the rendered content as a string to integrate it correctly inside the new layout. This means some internal methods had to be split to avoid unwanted usage.</p>
 <p><strong>Legacy workflow:</strong></p>
-<ul>
-<li><code>Dispatcher::dispatch</code> would detect the legacy controller and instantiate it</li>
-<li><code>AdminController::run</code> was executed by the <code>Dispatcher</code>, which was split into
-<ul>
-<li><code>AdminController::init</code></li>
-<li><code>AdminController::checkAccess</code> would handle the check of the legacy token in the url</li>
-<li><code>AdminController::setMedia</code> is in charge of defining the JS/CSS files to be loaded in the page</li>
-<li><code>AdminController::postProcess</code> processes the posted data
-<ul>
-<li>if after this method <code>AdminController::redirect_after</code> is defined then perform an HTTP redirection</li>
-</ul>
-</li>
-<li><code>AdminController::initHeader</code></li>
-<li><code>AdminController::initContent</code></li>
-<li><code>AdminController::initFooter</code></li>
-<li>Check if <code>AdminController::ajax</code>, one of the two is executed
-<ul>
-<li><code>AdminController::displayAjax</code> (or specific <code>displayAjax{action}</code> method)</li>
-<li><code>AdminController::display</code>
-<ul>
-<li>init many variables used by the layout templates (meta title, toolbar, JS definitions, &hellip;)</li>
-<li>render <code>page</code>, <code>header</code>, <code>footer</code> and sets them as Smarty variables</li>
-<li>fetch the Smarty <code>AdminController::template</code> to get the content of the page</li>
-<li>calls <code>smartyOutputContent</code> to echo/output the whole page (layout + content)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
 <p>Here you&rsquo;ll find the <a href="/9/development/architecture/legacy/legacy-controllers/">execution workflow of legacy controllers</a></p>
 <p><strong>Symfony workflow:</strong></p>
-<ul>
-<li>A special routing matching URLs like <code>?controller=LegacyAdminController</code> checks if the URL is valid thanks to <code>LegacyRouterChecker::check</code>
-<ul>
-<li>the query parameter must match an existing legacy controller class</li>
-<li>the controller object is instantiated and <code>AdminController::init</code> is called, this is important to know if the controller is anonymous, this is the proper moment to define <code>AdminController::allowAnonymous</code></li>
-<li>a few attributes are set on the Symfony <code>Request</code> so they can be reused later in the workflow by other components/services</li>
-</ul>
-</li>
-<li><code>LegacyController::legacyPageAction</code> is a generic controller responsible for executing the legacy controller, it doesn&rsquo;t execute <code>AdminController::run</code> but splits it into several steps
-<ul>
-<li><code>AdminController::checkAccess</code> is not called, the token in URLs is a Symfony CSRF token now and is checked by <code>TokenizedUrlListener</code></li>
-<li><code>LegacyController::initController</code>
-<ul>
-<li>the permission is checked based on the detected controller and action, unless <code>AdminController::viewAccess</code> has been overridden in which case it is used to check authorization</li>
-<li><code>SmartyVariablesFiller::fillDefault</code> is in charge of building most of the generic smarty variables previously handled by <code>AdminController::initHeader</code></li>
-<li><code>AdminController::setMedia</code> is in charge of defining the JS/CSS files to be loaded in the page</li>
-<li><code>AdminController::postProcess</code> processes the posted data
-<ul>
-<li>if after this method <code>AdminController::redirect_after</code> is defined then perform an HTTP redirection</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Check if <code>ajax</code> query parameter is defined, one of the two is executed
-<ul>
-<li><code>LegacyController::renderAjaxController</code> executes <code>AdminController::initContent</code> the appropriate <code>AdminController::displayAjax</code> method, it catches all the output data into a string buffer (because most legacy ajax methods simply echo their content) and returns it as a response</li>
-<li><code>LegacyController::renderPageContent</code>
-<ul>
-<li>executes <code>AdminController::initContent</code></li>
-<li>fetch the Smarty <code>AdminController::template</code> to get the content of the page</li>
-<li>calls <code>Cookie::write</code> which was previously called via <code>smartyOutputContent</code></li>
-<li>get the modal content via <code>AdminController::renderModal</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<div class="mermaid">
+  flowchart TD
+  A[Special Routing Matching URL] -->|Check URL with LegacyRouterChecker::check| B{Is valid?}
+  B -->|Yes| C[Instantiate Controller & call AdminController::init]
+  B -->|No| Z[Invalid URL]
+  C --> D[Set attributes on Symfony Request]
+  D --> E[LegacyController::legacyPageAction]
+  E --> F[LegacyController::initController]
+  F --> G[Check permissions based on detected controller & action]
+  G --> H[SmartyVariablesFiller::fillDefault]
+  H --> I[AdminController::setMedia]
+  I --> J[AdminController::postProcess]
+  J -->|redirect_after defined| K[Perform HTTP redirection]
+  J -->|redirect_after not defined| L{ajax query parameter defined?}
+  L -->|Yes| M[LegacyController::renderAjaxController]
+  L -->|No| N[LegacyController::renderPageContent]
+  M --> O[Execute AdminController::initContent]
+  O --> P[Execute AdminController::displayAjax]
+  P --> Q[Catch output data & return as response]
+  N --> R[Execute AdminController::initContent]
+  R --> S[Fetch AdminController::template content]
+  S --> T[Call Cookie::write]
+  T --> U[Get modal content via AdminController::renderModal]
+</div>
 <p>The two workflows should render the same result. Many methods from the legacy workflow are not executed anymore because they lost their purpose, but in case you override one of those methods, be aware that they are no longer called directly, so there are breaking changes:</p>
 <ul>
 <li><code>AdminController:run</code></li>
@@ -43942,14 +43954,14 @@ We still had to change the controller workflow. Many of the functions in <code>A
 </ul>
 <p>For more details about the changes, you can check the content of the <a href="https://github.com/PrestaShop/PrestaShop/issues/32875" target="_blank">Symfony layout Epic</a>.</p>
 
-<h3 id="bo-login-and-authorization-migrated-to-symfony">BO login and authorization migrated to Symfony<a href="#bo-login-and-authorization-migrated-to-symfony"></a></h3><p>The back office login page has been migrated to Symfony. Along with this change, the authorization system in the back office is now also based on Symfony, which implies several things:</p>
+<h3 id="back-office-login-and-authorization-migrated-to-symfony">Back office login and authorization migrated to Symfony<a href="#back-office-login-and-authorization-migrated-to-symfony"></a></h3><p>The back office login page has been migrated to Symfony. Along with this change, the authorization system in the back office is now also based on Symfony, which implies several things:</p>
 <ul>
 <li>we no longer depend on the legacy <code>Context::$cookie</code>, the session is kept on the server side, and very few data are kept on the browser side. For retro-compatibility, we still populate the legacy cookie so that you can <strong>read</strong> it. While you can use <code>Context::$cookie</code> for your custom data, making changes to the data previously used for PrestaShop authorization will no longer have the desired effect and may even result in instability, so it&rsquo;s not recommended</li>
 <li>the <code>PrestaShopBundle\Security\Admin\EmployeeProvider</code> and <code>PrestaShopBundle\Service\DataProvider\UserProvider</code> now return a <code>PrestaShopBundle\Entity\Employee</code> instance, their responsibility is to return a <code>Symfony\Component\Security\Core\User\UserInterface</code> anyway (and they still do) but in case you depended on the child class know that <code>PrestaShopBundle\Security\Admin\Employee</code> no longer exist</li>
 <li>if you need to get the logged-in user, you can use the Symfony <code>Symfony\Bundle\SecurityBundle\Security</code> service, but we recommend you use the <code>EmployeeContext</code> internal PrestaShop service (see explanation about <a href="/9/modules/core-updates/9.0/#symfony-context-refacto">new Contexts</a>)</li>
 </ul>
-<p><strong>Storing custom data in Session</strong></p>
-<p>If you need to persist some custom Employee data, we don&rsquo;t recommend using the <code>Context::$cookie</code> anymore, instead you can use the <code>Session</code> from Symfony and update its attributes:</p>
+<p><strong>Storing custom data in a Session</strong></p>
+<p>If you need to persist some custom Employee data, we no longer recommend using the <code>Context::$cookie</code>. Instead, you can use the <code>Session</code> from Symfony and update its attributes:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// In Symfony controllers, you can get the session from the Request parameter injected by Symfony
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$session</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getSession</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
@@ -43959,15 +43971,18 @@ We still had to change the controller workflow. Many of the functions in <code>A
 </span></span><span class="line"><span class="cl">  <span class="nv">$session</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getSession</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// You can then get/set a custom attribute, but you should always check that the session object is indeed available. Some requests do not rely on the session, and it may never be created
+</span></span><span class="line"><span class="cl"><span class="c1">// You can then get/set a custom attribute, but you should always check that the session object is indeed available.
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Some requests do not rely on the session, and it may never be created
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nv">$session</span><span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="c1">// Be careful to use a custom and UNIQUE attribute name
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nv">$myData</span> <span class="o">=</span> <span class="nv">$session</span><span class="o">-&gt;</span><span class="na">getAttribute</span><span class="p">(</span><span class="s1">&#39;my_custom_data&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// The session object will be automatically serialized at the end of the request, and automatically unserialized at the beginning of the next requests
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="c1">// The session object will be automatically serialized at the end of the request,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="c1">// and automatically unserialized at the beginning of the next requests
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nv">$session</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="s1">&#39;my_custom_data&#39;</span><span class="p">,</span> <span class="s1">&#39;updated value&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
-<div class="notices note" >The Symfony session has other interesting features (like flash bags for unique usage data). You can read more about its usage in the <a href="https://symfony.com/doc/6.4/session.html" target="_blank">Session documentation</a>.</div>
+<div class="notices note" >The Symfony Session has other useful features, such as flash bags for storing temporary data. You can find more information about its usage in the <a href="https://symfony.com/doc/6.4/session.html" target="_blank">Session documentation</a>.</div>
 
 <p><strong>Removed hooks:</strong></p>
 <ul>
@@ -43990,7 +44005,7 @@ We still had to change the controller workflow. Many of the functions in <code>A
 <li><code>actionEmployeeRequestPasswordResetForm</code> to modify the request password form (the form builder is passed via the <code>form_builder</code> hook parameter)</li>
 </ul>
 <p>The login logic, however, is not handled by PrestaShop&rsquo;s internal code so there is no handler that interprets the submitted data (and that&rsquo;s why there are so few new hooks). Instead we rely on <a href="https://symfony.com/doc/current/security.html#form-login" target="_blank">Symfony form login authentication system</a>, so it&rsquo;s Symfony&rsquo;s internal system that interprets the data submitted, validates it and authenticate the employee to the back office.</p>
-<p>If you need to integrate your code with the authentication process you should now rely on the <a href="https://symfony.com/doc/current/security.html#authentication-events" target="_blank">Authentication events</a> described in their documentation, you can also inspire yourself from our <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/src/PrestaShopBundle/EventListener/Admin/EmployeeSessionSubscriber.php" target="_blank">own internal subscriber</a>.</p>
+<p>If you need to integrate your code with the authentication process you should now rely on the <a href="https://symfony.com/doc/current/security.html#authentication-events" target="_blank">Authentication events</a> described in their documentation, you can also inspire yourself from our <a href="https://github.com/PrestaShop/PrestaShop/blob/develop/src/PrestaShopBundle/EventListener/Admin/EmployeeSessionSubscriber.php" target="_blank">internal subscriber</a>.</p>
 <p><strong>Related PRs:</strong></p>
 <ul>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/34818">Update employee interfaces</a></li>
@@ -43999,8 +44014,8 @@ We still had to change the controller workflow. Many of the functions in <code>A
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/35983">Login page and authentication migrated</a></li>
 </ul>
 
-<h3 id="symfony-context-refacto">Symfony context refacto<a href="#symfony-context-refacto"></a></h3><p>A significant amount of code in the core relies on the legacy <code>Context</code> class, which stores certain data as a singleton. However, this legacy implementation has many drawbacks, so refactoring was initiated in PrestaShop 9.0 to replace this usage.
-You can find more details about the reason behind this and the implementation in the related <a href="https://github.com/PrestaShop/ADR/blob/master/0024-context-refacto.md" traget="_blank">ADR about Context refactoring</a>.</p>
+<h3 id="symfony-context-refactorization">Symfony context refactorization<a href="#symfony-context-refactorization"></a></h3><p>A significant amount of code in the core relies on the legacy <code>Context</code> class, which stores certain data as a singleton. However, this legacy implementation has many drawbacks, so refactoring was initiated in PrestaShop 9.0 to replace its usage.</p>
+<p>You can find more details about the reason behind this and the implementation in the related <a href="https://github.com/PrestaShop/ADR/blob/master/0024-context-refacto.md" traget="_blank">ADR about Context refactoring</a>.</p>
 <p>You should now favor using the modern split context services:</p>
 <ul>
 <li><code>PrestaShop\PrestaShop\Core\Context\ApiClientContext</code></li>
@@ -44020,39 +44035,57 @@ You can find more details about the reason behind this and the implementation in
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/34390">LegacyControllerContext</a></li>
 </ul>
 
-<h2 id="migrated-pages">Migrated pages<a href="#migrated-pages"></a></h2><p>The migration of pages imply several breaking changes, we won&rsquo;t detail all of them for each page but here is a summary:</p>
+<h2 id="migrated-pages">Migrated pages<a href="#migrated-pages"></a></h2><p>The migration of back office pages to Symfony imply several breaking changes, we won&rsquo;t detail all of them for each page but here is a summary:</p>
 <ul>
 <li>the legacy URL is no longer reachable, you are automatically redirected to the migrated page</li>
-<li>the legacy controller is removed along with its associated smarty templates</li>
+<li>the legacy controller is removed along with its associated Smarty templates</li>
 <li>the legacy hooks related to controller workflow are no longer called</li>
-<li>the page no longer uses smarty but twig</li>
+<li>the page no longer uses Smarty, but Twig</li>
+<li>the page no longer uses HelperForm and HelperList, but Symfony form components and Grid components</li>
 </ul>
 <p>Here is the list of migrated pages in v9:</p>
 <ul>
 <li>International &gt; Locations &gt; States</li>
 <li>Shop parameters &gt; Order settings &gt; Statuses</li>
 <li>Orders &gt; Shopping Carts</li>
-<li>Sell &gt; Catalog &gt; Attributes</li>
-<li>Sell &gt; Catalog &gt; Feature</li>
-<li>Sell &gt; Catalog &gt; Products (new version of the page introduce in PrestaShop V8 is now the only available one)
-<ul>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34763">edition of features use a new optimized data structure in the form</a></li>
+<li>Sell &gt; Catalog &gt; Attributes &amp; Features -&gt; Attributes</li>
+<li>Sell &gt; Catalog &gt;  Attributes &amp; Features -&gt; Feature</li>
+<li>Sell &gt; Catalog &gt; Products (new version of the page introduce in PrestaShop 8.1 is now the only available one)</li>
 </ul>
-</li>
-</ul>
+
+<h3 id="changes-in-the-product-page">Changes in the product page<a href="#changes-in-the-product-page"></a></h3><p>Edition of features on the new product page, <a href="https://github.com/PrestaShop/PrestaShop/pull/34763">use a new optimized data structure in the form</a>. You may need to adapt your module if you rely on the old structure.</p>
 
 <h2 id="breaking-changes">Breaking Changes<a href="#breaking-changes"></a></h2>
-<h3 id="trans-method"><code>trans</code> method<a href="#trans-method"></a></h3><p>Following <a href="https://github.com/PrestaShop/PrestaShop/pull/30415">PrestaShop/PrestaShop#30415</a> the function <code>trans()</code> does NOT escape anymore strings. In v8 you could pass parameters like <code>htmspecialcharacters</code> or <code>addslashes</code> to <code>trans()</code> to perform additional escape, but it’s been removed.
-It also affects the <code>l</code> function in Smarty.</p>
-<p>Since <a href="https://github.com/PrestaShop/PrestaShop/pull/31900">PrestaShop/PrestaShop#30415</a> the <code>trans</code> method always keep the behavior it had with the (now removed) <code>_raw</code> parameter, meaning the content is not modified anymore. You need to use <code>htmlspecialchars</code> on your parameters provided on input and on the returned string if you need to modify it.</p>
+<h3 id="trans-method"><code>trans</code> method<a href="#trans-method"></a></h3><p>Following <a href="https://github.com/PrestaShop/PrestaShop/pull/30415">PrestaShop/PrestaShop#30415</a>, the function <code>trans()</code> does <strong>not</strong> escape anymore strings. In PrestaShop 8, you could pass parameters like <code>htmspecialcharacters</code> or <code>addslashes</code> to <code>trans()</code> to perform additional escape, but it’s been removed. It also affects the <code>l</code> function in Smarty.</p>
+<p>Since <a href="https://github.com/PrestaShop/PrestaShop/pull/31900">PrestaShop/PrestaShop#31900</a>, the <code>trans</code> method always keep the behavior it had with the (now removed) <code>_raw</code> parameter, meaning the content is not modified anymore. You need to use <code>htmlspecialchars</code> on your parameters provided on input and on the returned string if you need to modify it.</p>
 
-<h3 id="some-front-controller-now-use-presenter-classes">Some front controller now use <code>Presenter</code> classes<a href="#some-front-controller-now-use-presenter-classes"></a></h3><p>This changes the data passed to the smarty templates:</p>
-<ul>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/32653">Category</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/31309">Manufacturer</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/32634">Supplier</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/32652">Store</a></li>
-</ul>
+<h3 id="some-front-controller-now-use-presenter-classes">Some front controller now use <code>Presenter</code> classes<a href="#some-front-controller-now-use-presenter-classes"></a></h3><p>This changes the data passed to the Smarty templates:</p>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/32653">Category</a></td>
+<td>New hook available, <code>actionPresentCategory</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/32634">Supplier</a></td>
+<td><a href="https://github.com/PrestaShop/classic-theme/pull/117">Different template structure</a> and new hooks</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/31309">Manufacturer</a></td>
+<td><a href="https://github.com/PrestaShop/classic-theme/pull/117">Different template structure</a> and new hooks</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/32652">Store</a></td>
+<td>New hook available <code>actionPresentStore</code></td>
+</tr>
+</tbody>
+</table>
 
 <h3 id="stronger-types--change-of-prototypes">Stronger types / change of prototypes<a href="#stronger-types--change-of-prototypes"></a></h3><ul>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/31995">PrestaShop\PrestaShop\Core\Product\Search\Pagination</a></li>
@@ -44060,54 +44093,190 @@ It also affects the <code>l</code> function in Smarty.</p>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/34653">Strong types in legacy admin controllers</a></li>
 </ul>
 
-<h3 id="change-of-behaviourrules-or-removed-code">Change of behaviour/rules or removed code<a href="#change-of-behaviourrules-or-removed-code"></a></h3><ul>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/12422">Customization quantity feature has been removed</a>, the customization quantity is now the one from the cart_product row</li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/27912">Refactor AdminModulesControllers and remove obsolete features</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/29760">Invalid characters are being saved as Social titles</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/29951">AbstractCategoryType constructor changed</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/30565">HTTPs check in BackOffice is now based on Symfony Request::isSecure instead of legacy Tools::usingSecureMode</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/31029">PrestaShopAutoload has been removed in favor of prestashop/autoload</a></li>
-<li>Form Types/Extensions have been migrated to be autowired and rely on FQCN service names:
-<ul>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/31138">https://github.com/PrestaShop/PrestaShop/pull/31138</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/31193">https://github.com/PrestaShop/PrestaShop/pull/31193</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/31391">https://github.com/PrestaShop/PrestaShop/pull/31391</a></li>
-</ul>
-</li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/31151">Enable/disable module on mobile feature was removed</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/31531">Standardize filterManufacturerContent hook</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/31311">Legacy images format no longer supported</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/31418">PrestaShopBundle\Kernel\ModuleRepository was removed along with its Factory</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/31752">Product::getDefaultCategory always returns an int</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/32446">Remove high DPI images feature</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/32458">Remove Category menu thumbnail feature</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/32496">Symfony Parameter prestashop.addons.categories was removed</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/32669">UpdateHookStatusCommand parameter is no the new expected status</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/32736">Replaced SwiftMailer by Symfony Mailer</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/32787">Replaced TactitianBundle by Symfony Messenger</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33158">Removed Advanced Stock Management remains</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33232">Remove shop activity during install</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33264">Remove Multi Address delivery</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33324">Remove non responsive component in BO</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33335">Lazy load Product feature in FO</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33363">Removed cover_image_id from Product lazy array</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33435">Removed attribute_price from Product::getProductProperties</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33459">Doctrine dependencies updated</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33563">FrontController::addJqueryUi no only adds the requested component</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33587">Removed code from old product page</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33624">ObjectModel fields definition can contain translatable wording</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34172">Always enable experimental feature for images</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34184">Forbid sensitive files in modules directory</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34290">Remove legacy tab system</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/34382">Upgrade jquery to latest version, drop polyfills</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35292">EmployeeId has strict type, OrderStatusForViewing has new constructor parameters</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35608">RedirectTargetProvider and ProductRedirectTarget moved into generic namespace</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35697">Changed return types of all ean13 properties in CQRS</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35716">ModuleManagerBuilder and ThemeManager internal properties no longer public</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35772">Admin API, lots of experimental code renamed</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/35996">Empty value no longer allowed for redirect_type in product tables</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/36021">PHPStan Doctrine extension introduced that impact all existing Entities</a></li>
-</ul>
+<h3 id="change-of-behaviourrules-or-removed-code">Change of behaviour/rules or removed code<a href="#change-of-behaviourrules-or-removed-code"></a></h3><p>The list below is one of the most important changes in PrestaShop 9.0, it includes changes in the behaviour of the core, rules that have been removed or changed, and some code that has been removed. It is very important to check this list to understand the changes in the core as it may impact your solutions.</p>
+<p>Each change links to the pull request that introduced it, so you can find more details about the modification.</p>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/12422">Customization quantity feature has been removed</a></td>
+<td>The customization quantity is now the one from the <code>cart_product</code> row. In the pull request you can find more details about the changes, also related to themes.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/27912">Refactor AdminModulesControllers and remove obsolete features</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/29760">Invalid characters are being saved as Social titles</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/29951">AbstractCategoryType constructor changed</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/30565">HTTPs check in BackOffice is now based on Symfony Request::isSecure instead of legacy Tools::usingSecureMode</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/31029">PrestaShopAutoload has been removed in favor of prestashop/autoload</a></td>
+<td>If you rely on <code>classes/PrestaShopAutoload.php</code> class, you need to adapt your solutions</td>
+</tr>
+<tr>
+<td>Form Types/Extensions have been migrated to be autowired and rely on FQCN service names:</td>
+<td>If you decorated or override some services modified in the pull request, you may need to adapt your solutions.</td>
+</tr>
+<tr>
+<td>- <a href="https://github.com/PrestaShop/PrestaShop/pull/31138">https://github.com/PrestaShop/PrestaShop/pull/31138</a></td>
+<td></td>
+</tr>
+<tr>
+<td>- <a href="https://github.com/PrestaShop/PrestaShop/pull/31193">https://github.com/PrestaShop/PrestaShop/pull/31193</a></td>
+<td></td>
+</tr>
+<tr>
+<td>- <a href="https://github.com/PrestaShop/PrestaShop/pull/31391">https://github.com/PrestaShop/PrestaShop/pull/31391</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/31151">Enable/disable module on mobile feature was removed</a></td>
+<td>Module configuration to prevent display on mobile devices is no longer possible. This feature has been removed due to issues with cache and low reliability. You can still achieve the same result by implementing this mechanism on a module level.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/31531">Standardize filterManufacturerContent hook</a></td>
+<td>Parameters inside <code>filterManufacturerContent</code> hook have changed.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/31311">Legacy images format no longer supported</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/31418">PrestaShopBundle\Kernel\ModuleRepository was removed along with its Factory</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/31752">Product::getDefaultCategory always returns an int</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/32446">Remove high DPI images feature</a></td>
+<td>HighDPI images feature wasn&rsquo;t used in PrestaShop 8 and has been removed in PrestaShop 9. You can still achieve the same results by creating more image types and using <code>sourceset</code></td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/32458">Remove Category menu thumbnail feature</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/32496">Symfony Parameter prestashop.addons.categories was removed</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/32669">UpdateHookStatusCommand parameter is no the new expected status</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/32736">Replaced SwiftMailer by Symfony Mailer</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/32787">Replaced TactitianBundle by Symfony Messenger</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/33158">Removed Advanced Stock Management remains</a></td>
+<td>Advanced stock management functionality has been partially removed and deprecated for a whole lifetime of 1.7, but not completely removed. This PR removes all the logic from the code along with everything related - supply orders, warehouses, old stock management etc.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/33232">Remove shop activity during install</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/33264">Remove Multi Address delivery</a></td>
+<td>This change may have an impact on third-party solutions,especially ones that modify checkout process in PrestaShop. Address IDs from the <code>cart_product</code> and <code>customization</code> tables are no longer relevant and you should not rely on them.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/33324">Remove non responsive component in BO</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/33335">Lazy load Product feature in FO</a></td>
+<td>By default, <code>Product::getProductsProperties</code> will no longer contain <code>features</code> data.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/33363">Removed cover_image_id from Product lazy array</a></td>
+<td>Removes <code>cover_image_id</code> property that was used to override id_image. You can still alter the cover by using standard presenter hook. It also adds a new functionality that allows to choose behavior of cover image for products with combinations.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/33435">Removed attribute_price from Product::getProductProperties</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/33459">Doctrine dependencies updated</a></td>
+<td>This change brings a lot of backward incompatible changes. All details are available inside a pull request. It is really important to understand those changes to make your solutions compatible.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/33563">FrontController::addJqueryUi no only adds the requested component</a></td>
+<td>This performance optimization may result in a different loading of jQuery UI components.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/33587">Removed code from old product page</a></td>
+<td>The old product page has been removed in version 9, this brings a lot of backward incompatible changes, especially if you used some of the components of the old product page.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/33624">ObjectModel fields definition can contain translatable wording</a></td>
+<td>This change introduced a new approach to translating error messages related to ObjectModel fields.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/34172">Image feature flag has been removed</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/34184">Forbid sensitive files in modules directory</a></td>
+<td>This pull request has been merged following <a href="https://github.com/PrestaShop/PrestaShop/discussions/32566">discussion</a> about securing PrestaShop modules better. It will require the adaptation of your modules and switching from calling .php files directly to using <code>ModuleFrontController</code>. You can check all the details inside the discussion and pull request, as well as related pull requests from native modules which you can use as an example implementation.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/34290">Remove legacy tab system</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/34382">Upgrade jquery to latest version, drop polyfills</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/35292">EmployeeId has strict type, OrderStatusForViewing has new constructor parameters</a></td>
+<td>TBD</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/35608">RedirectTargetProvider and ProductRedirectTarget moved into generic namespace</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/35697">Changed return types of all ean13 properties in CQRS</a></td>
+<td><code>ean13</code> has been replaced with <code>gtin</code> which may require adjustments to third-party solutions</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/35716">ModuleManagerBuilder and ThemeManager internal properties no longer public</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/35772">Admin API, lots of experimental code renamed</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/35996">Empty value no longer allowed for redirect_type in product tables</a></td>
+<td>n/a</td>
+</tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/36021">PHPStan Doctrine extension introduced that impact all existing Entities</a></td>
+<td>n/a</td>
+</tr>
+</tbody>
+</table>
 
 <h3 id="removal-of-deprecated-code">Removal of deprecated code<a href="#removal-of-deprecated-code"></a></h3><ul>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/28532">Remove TextEmptyType and TextareaEmptyType</a></li>
@@ -44234,7 +44403,7 @@ It also affects the <code>l</code> function in Smarty.</p>
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/e1eb4ec890761812d3c050274b768129da60aff3">2024-06-28 by Krystian Podemski</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/3734a9fc9e1bd88a4998d63e35eb98118efc01d0">2024-08-27 by Krystian Podemski</a>.<br>
         
     
 
@@ -44256,18 +44425,22 @@ It also affects the <code>l</code> function in Smarty.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1724746083"></script>
-    <script src="/js/perfect-scrollbar.min.js?1724746083"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1724746083"></script>
-    <script src="/js/jquery.sticky.js?1724746083"></script>
-    <script src="/js/featherlight.min.js?1724746083"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1724746083"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1724746083"></script>
-    <script src="/js/learn.js?1724746083"></script>
-    <script src="/js/hugo-learn.js?1724746083"></script>
+    <script src="/js/clipboard.min.js?1724930819"></script>
+    <script src="/js/perfect-scrollbar.min.js?1724930819"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1724930819"></script>
+    <script src="/js/jquery.sticky.js?1724930819"></script>
+    <script src="/js/featherlight.min.js?1724930819"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1724930819"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1724930819"></script>
+    <script src="/js/learn.js?1724930819"></script>
+    <script src="/js/hugo-learn.js?1724930819"></script>
     
-    <script src="/main.js?1724746083"></script>
+    <script src="/main.js?1724930819"></script>
     
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({ startOnLoad: true });
+    </script>
     
     
 
@@ -44473,41 +44646,6 @@ It also affects the <code>l</code> function in Smarty.</p>
                     {
                         name: "actionAdminInternationalLocalizationControllerPostProcessBefore",
                         url: "/9/modules/concepts/hooks/list-of-hooks/actionadmininternationallocalizationcontrollerpostprocessbefore/"
-                    },
-                
-                    {
-                        name: "actionAdminLoginControllerBefore",
-                        url: "/9/modules/concepts/hooks/list-of-hooks/actionadminlogincontrollerbefore/"
-                    },
-                
-                    {
-                        name: "actionAdminLoginControllerForgotAfter",
-                        url: "/9/modules/concepts/hooks/list-of-hooks/actionadminlogincontrollerforgotafter/"
-                    },
-                
-                    {
-                        name: "actionAdminLoginControllerForgotBefore",
-                        url: "/9/modules/concepts/hooks/list-of-hooks/actionadminlogincontrollerforgotbefore/"
-                    },
-                
-                    {
-                        name: "actionAdminLoginControllerLoginAfter",
-                        url: "/9/modules/concepts/hooks/list-of-hooks/actionadminlogincontrollerloginafter/"
-                    },
-                
-                    {
-                        name: "actionAdminLoginControllerLoginBefore",
-                        url: "/9/modules/concepts/hooks/list-of-hooks/actionadminlogincontrollerloginbefore/"
-                    },
-                
-                    {
-                        name: "actionAdminLoginControllerResetAfter",
-                        url: "/9/modules/concepts/hooks/list-of-hooks/actionadminlogincontrollerresetafter/"
-                    },
-                
-                    {
-                        name: "actionAdminLoginControllerResetBefore",
-                        url: "/9/modules/concepts/hooks/list-of-hooks/actionadminlogincontrollerresetbefore/"
                     },
                 
                     {
