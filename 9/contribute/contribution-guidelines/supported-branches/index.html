@@ -22,14 +22,14 @@
     <title>Supported branches :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/contribute/contribution-guidelines/supported-branches/">
     
-    <link href="/css/font-awesome.min.css?1732543507" rel="stylesheet">
-    <link href="/css/syntax-github.css?1732543507" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1732543507" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1732543507" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1732619766" rel="stylesheet">
+    <link href="/css/syntax-github.css?1732619766" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1732619766" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1732619766" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1732543507" rel="stylesheet">
+    <link href="/style.css?1732619766" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1732543507"></script>
+    <script src="/js/jquery-3.3.1.min.js?1732619766"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -16102,6 +16102,7 @@
       <ul>
         <li><a href="#understanding-active--closed-branches">Understanding active &amp; closed branches</a></li>
         <li><a href="#bug-fixes-and-patch-branches">Bug fixes and patch branches</a></li>
+        <li><a href="#new-hooks-in-patch-branches">New hooks in patch branches</a></li>
       </ul>
     </li>
   </ul>
@@ -44408,23 +44409,29 @@
 
 
 
-<h1 id="supported-branches">Supported branches<a href="#supported-branches"></a></h1><p>Maintainers will only accept contributions for branches which are subject to new releases.</p>
+<h1 id="supported-branches">Supported branches<a href="#supported-branches"></a></h1><p>Maintainers will only accept contributions for branches that are subject to new releases.</p>
 <p>The <strong>development branch</strong> (<code>develop</code>) contains the development code for the next minor or major version, and is the natural destination for all contributions.</p>
-<p>The <strong>patch version branch</strong> (e.g. <code>8.0.x</code>) contains the code for the next patch release for a given version. This is where some bug fixes are destined, under specific conditions.</p>
+<p>The <strong>patch version branch</strong> (e.g. <code>9.0.x</code>) contains the code for the next patch release for a given version. Under specific conditions, this is where some bug fixes are destined.</p>
 
 <div class="notices tip" ><strong>TL;DR</strong>
 When in doubt, target the <code>develop</code> branch. We will ask you to rebase on the correct branch if necessary.</div>
 
 
 <h2 id="understanding-active--closed-branches">Understanding active &amp; closed branches<a href="#understanding-active--closed-branches"></a></h2><p>The <code>develop</code> branch is always active and open to contributions.</p>
-<p>Each minor version has its own patch branch: patches for the 8.0 version go in the <code>8.0.x</code> branch, while patches for 8.1 go in <code>8.1.x</code>&hellip; and so on.</p>
+<p>Each minor version has its own patch branch: patches for the 9.0 version go in the <code>9.0.x</code> branch, while patches for 9.1 go in <code>9.1.x</code>&hellip; and so on.</p>
 <p>These branches are created and closed following the support window of each version. Once the support for a version is over and no new patch releases are expected for it, its corresponding branch becomes closed to contribution.</p>
-<p>Except for rare cases, a patch version branch is closed the moment the following minor version is released. For example, the <code>8.0.x</code> branch is closed once the 8.1 version has been released, giving way to the <code>8.1.x</code> branch.</p>
+<p>Except for rare cases, a patch version branch is closed the moment the following minor version is released. For example, the <code>9.0.x</code> branch is closed once the 9.1 version has been released, giving way to the <code>9.1.x</code> branch.</p>
 <p><strong>Pull Requests targeting closed branches will not be accepted.</strong></p>
 
-<h2 id="bug-fixes-and-patch-branches">Bug fixes and patch branches<a href="#bug-fixes-and-patch-branches"></a></h2><p>Patch branches usually only accept critical bug fixes, like security bugs, and <strong>same-version regression</strong> fixes.</p>
-<p>Regressions are bugs that break a feature that was previously working well. If a feature was working well in 8.0 and is broken by a bug introduced in 8.1, then the bug is a regression introduced in 8.1 and should be fixed in the <code>8.1.x</code> branch—as long as that branch is open.</p>
-<p>If you intend to submit a fix for a regression introduced in a version that no longer receives patches, make sure that bug is still present in the <code>develop</code> branch. If the bug is still present, please submit a Pull Request on <code>develop</code>.</p>
+<h2 id="bug-fixes-and-patch-branches">Bug fixes and patch branches<a href="#bug-fixes-and-patch-branches"></a></h2><p>Patch branches accept all types of bug fixes, including critical issues, security bugs, and regressions introduced in the same version.</p>
+<p>A regression is a bug that breaks a feature that previously worked well. For example, if a feature worked in 9.0 but a bug in 9.1 caused it to stop working, that’s considered a regression introduced in 9.1, which should be fixed in the <code>9.1.x</code> branch—as long as that branch is still open.</p>
+
+<div class="notices tip" >If you’re unsure whether the bug is a regression, you can still submit your fix to the patch branch. Project maintainers will determine if the fix should be applied to the patch branch or redirected to the develop branch instead.</div>
+
+<p>If you want to submit a fix for a regression in a version that no longer receives patches, first verify if the bug is still present in the develop branch. If it is, submit your fix against the <code>develop</code> branch.</p>
+
+<h2 id="new-hooks-in-patch-branches">New hooks in patch branches<a href="#new-hooks-in-patch-branches"></a></h2><p>While new hooks may be treated as features and therefore not accepted in patch branches, there are exceptions for hooks that are critical for the proper functioning of the module or aim to help with the situation where overrides are either required or not possible. Since overrides are not recommended, we may accept new hooks in patch branches to help developers avoid them.</p>
+<p>In these cases, the maintainers may accept new hooks in patch branches. If you believe your hook falls into this category, <a href="https://github.com/PrestaShop/PrestaShop/discussions/categories/ideas">let&rsquo;s discuss it</a> before submitting a pull request.</p>
 
 
 <footer class="article-footer">
@@ -44481,7 +44488,7 @@ When in doubt, target the <code>develop</code> branch. We will ask you to rebase
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/049a5e22a43547e1f734d161b2b60796b22741dd">2024-10-21 by Krystian Podemski</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/ffc1443f5e11d73f7ab81bf94849b4db00d00f24">2024-11-26 by Krystian Podemski</a>.<br>
         
     
 
@@ -44503,17 +44510,17 @@ When in doubt, target the <code>develop</code> branch. We will ask you to rebase
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1732543507"></script>
-    <script src="/js/perfect-scrollbar.min.js?1732543507"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1732543507"></script>
-    <script src="/js/jquery.sticky.js?1732543507"></script>
-    <script src="/js/featherlight.min.js?1732543507"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1732543507"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1732543507"></script>
-    <script src="/js/learn.js?1732543507"></script>
-    <script src="/js/hugo-learn.js?1732543507"></script>
+    <script src="/js/clipboard.min.js?1732619766"></script>
+    <script src="/js/perfect-scrollbar.min.js?1732619766"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1732619766"></script>
+    <script src="/js/jquery.sticky.js?1732619766"></script>
+    <script src="/js/featherlight.min.js?1732619766"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1732619766"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1732619766"></script>
+    <script src="/js/learn.js?1732619766"></script>
+    <script src="/js/hugo-learn.js?1732619766"></script>
     
-    <script src="/main.js?1732543507"></script>
+    <script src="/main.js?1732619766"></script>
     
     
     
