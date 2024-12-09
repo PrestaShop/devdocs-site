@@ -22,14 +22,14 @@
     <title>Adding a new Core hook :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1733354266" rel="stylesheet">
-    <link href="/css/syntax-github.css?1733354266" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1733354266" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1733354266" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1733759035" rel="stylesheet">
+    <link href="/css/syntax-github.css?1733759035" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1733759035" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1733759035" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1733354266" rel="stylesheet">
+    <link href="/style.css?1733759035" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1733354266"></script>
+    <script src="/js/jquery-3.3.1.min.js?1733759035"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -15600,7 +15600,11 @@
     <li><a href="#how-to-add-a-new-core-hook">How to add a new Core Hook</a>
       <ul>
         <li><a href="#1-dispatch-the-new-hook">1. Dispatch the new hook</a></li>
-        <li><a href="#2-update-the-hooks-definition-file">2. Update the Hooks definition file</a></li>
+        <li><a href="#2-update-the-hooks-definition-file">2. Update the Hooks definition file</a>
+          <ul>
+            <li><a href="#how-to-choose-a-name-for-this-new-hook">How to choose a name for this new hook</a></li>
+          </ul>
+        </li>
         <li><a href="#3-prepare-database-update-for-shop-upgrades">3. Prepare database update for shop upgrades</a></li>
       </ul>
     </li>
@@ -43903,7 +43907,10 @@
 
 
 
-<h1 id="how-to-add-a-new-core-hook">How to add a new Core Hook<a href="#how-to-add-a-new-core-hook"></a></h1><p>Although hooks are automatically created the first time they are subscribed to, new hooks added to the Core itself need to be properly registered and documented.</p>
+<h1 id="how-to-add-a-new-core-hook">How to add a new Core Hook<a href="#how-to-add-a-new-core-hook"></a></h1>
+<div class="notices warning" >This page describes how to add a new Core hook for the selected Core version. If you wish to add a new Core hook for another PrestaShop version, make sure to select the right version.</div>
+
+<p>Although hooks are automatically created the first time they are subscribed to, new hooks added to the Core itself need to be properly registered and documented.</p>
 <p>Here are the steps you need to follow.</p>
 
 <h2 id="1-dispatch-the-new-hook">1. Dispatch the new hook<a href="#1-dispatch-the-new-hook"></a></h2><p>The very first step is just to dispatch the new hook wherever you need it, as explained in <a href="/8/development/components/hook/dispatching-hook/">Dispatching a Hook</a>.</p>
@@ -43931,6 +43938,20 @@
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/entity_hook&gt;</span>
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/xml&gt;</span>
 </span></span></code></pre></div><p>Add new hooks at the bottom of the list, as hooks are registered sequentially.</p>
+<p>Here is an example of <a href="https://github.com/PrestaShop/PrestaShop/pull/34431/files#diff-83f4085b0cf6d3684a214fdffee7ec16b2f967d60a2674a7d4a536a2898eee26">Pull Request</a> registering a new hook.</p>
+
+<h3 id="how-to-choose-a-name-for-this-new-hook">How to choose a name for this new hook<a href="#how-to-choose-a-name-for-this-new-hook"></a></h3><p>The hook naming convention is <code>type</code> followed by <code>location</code> or <code>target</code>. <code>Type</code> can be <code>display</code> or <code>action</code> .</p>
+<p>The name of the hook must be useful. It should either help a developer understand where this hook is dispatched or what the hook aims to do. Depending on the usecase you should choose the 1st or 2nd option.</p>
+<p>Here are some examples:</p>
+<ul>
+<li><code>displayMaintenance</code>: this hook name was chosen to indicate where it is displayed (on maintenance page)</li>
+<li><code>actionUpdateQuantity</code>: this hook name was chosen to indicate when it is dispatched</li>
+<li><code>actionCustomerGridDataModifier</code>: this hook was chosen to indicate what it should be used for</li>
+<li><code>displayAdminGridTableBefore</code>: this hook name was chosen to indicate where it is displayed</li>
+</ul>
+
+<div class="notices tip" >Remember that hook names are global – choose your hook names carefully to reduce risks of collision with other modules or future Core hooks.</div>
+
 
 <h2 id="3-prepare-database-update-for-shop-upgrades">3. Prepare database update for shop upgrades<a href="#3-prepare-database-update-for-shop-upgrades"></a></h2><p>The previous step only adds the hook to <em>new</em> shops. We also need to register the hook to shops that upgrade from a previous version.</p>
 <p>The last step is to insert the new hooks in the <code>ps_hooks</code> table using the upgrade system. Locate the X.Y.Z.sql file that refers to the PrestaShop version that will include your change: for instance, if the release expected to include this change is <code>1.7.5.0</code>, locate that file in the <code>upgrade/sql</code> folder from the <a href="https://github.com/PrestaShop/autoupgrade">autoupgrade</a> module.</p>
@@ -43941,7 +43962,8 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">INSERT</span><span class="w"> </span><span class="k">IGNORE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="o">`</span><span class="n">PREFIX_hook</span><span class="o">`</span><span class="w"> </span><span class="p">(</span><span class="o">`</span><span class="n">name</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">title</span><span class="o">`</span><span class="p">,</span><span class="w"> </span><span class="o">`</span><span class="n">description</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">VALUES</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">(</span><span class="s1">&#39;displayAdministrationPageForm&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Manage Administration Page form fields&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook adds, update or remove fields of the Administration Page form&#39;</span><span class="p">),</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">(</span><span class="s1">&#39;actionMaintenancePageFormSave&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Processing Maintenance page form&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;This hook is called when the Maintenance Page form is processed&#39;</span><span class="p">);</span><span class="w">
-</span></span></span></code></pre></div>
+</span></span></span></code></pre></div><p>If you wish to test your changes, follow <a href="https://devdocs.prestashop-project.org/8/basics/keeping-up-to-date/use-autoupgrade-module/">this page</a> to install the autoupgrade module.</p>
+
 
 <footer class="article-footer">
 	
@@ -43997,7 +44019,7 @@
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/76a1c099e1b996daf591203b1f05c0bb9e950a89">2023-04-25 by Thomas Nares</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/01897754fd8b98fdfd21811e72927223b1118f2d">2024-12-09 by matks</a>.<br>
         
     
 
@@ -44019,17 +44041,17 @@
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1733354267"></script>
-    <script src="/js/perfect-scrollbar.min.js?1733354267"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1733354267"></script>
-    <script src="/js/jquery.sticky.js?1733354267"></script>
-    <script src="/js/featherlight.min.js?1733354267"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1733354267"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1733354267"></script>
-    <script src="/js/learn.js?1733354267"></script>
-    <script src="/js/hugo-learn.js?1733354267"></script>
+    <script src="/js/clipboard.min.js?1733759036"></script>
+    <script src="/js/perfect-scrollbar.min.js?1733759036"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1733759036"></script>
+    <script src="/js/jquery.sticky.js?1733759036"></script>
+    <script src="/js/featherlight.min.js?1733759036"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1733759036"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1733759036"></script>
+    <script src="/js/learn.js?1733759036"></script>
+    <script src="/js/hugo-learn.js?1733759036"></script>
     
-    <script src="/main.js?1733354267"></script>
+    <script src="/main.js?1733759036"></script>
     
     
     
