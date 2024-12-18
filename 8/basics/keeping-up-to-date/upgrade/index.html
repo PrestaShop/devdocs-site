@@ -22,14 +22,14 @@
     <title>How to upgrade PrestaShop :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1734510647" rel="stylesheet">
-    <link href="/css/syntax-github.css?1734510647" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1734510647" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1734510647" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1734513126" rel="stylesheet">
+    <link href="/css/syntax-github.css?1734513126" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1734513126" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1734513126" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1734510647" rel="stylesheet">
+    <link href="/style.css?1734513126" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1734510647"></script>
+    <script src="/js/jquery-3.3.1.min.js?1734513126"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -15574,23 +15574,6 @@
       <ul>
         <li><a href="#upgrade-assistant-module-formerly-1-click-upgrade-module">Upgrade assistant module (formerly 1-click upgrade module)</a></li>
         <li><a href="#upgrade-assistant-module-formerly-1-click-upgrade-module---cli-method">Upgrade assistant module (formerly 1-click upgrade module) - CLI method</a></li>
-        <li><a href="#manual-upgrade">Manual upgrade</a>
-          <ul>
-            <li><a href="#release-download">Release download</a></li>
-            <li><a href="#archive-extraction">Archive extraction</a></li>
-            <li><a href="#sample-files-cleanup">Sample files cleanup</a></li>
-            <li><a href="#turning-on-maintenance-mode">Turning on maintenance mode</a></li>
-            <li><a href="#file-copy">File copy</a></li>
-            <li><a href="#disable-cache">Disable cache</a></li>
-            <li><a href="#database-upgrade">Database upgrade</a>
-              <ul>
-                <li><a href="#execution-log">Execution log</a></li>
-              </ul>
-            </li>
-            <li><a href="#cleanup">Cleanup</a></li>
-            <li><a href="#modules-upgrade">Modules upgrade</a></li>
-          </ul>
-        </li>
         <li><a href="#support-service">Support service</a></li>
       </ul>
     </li>
@@ -43899,114 +43882,6 @@ Learn <a href="https://devdocs.prestashop-project.org/8/basics/keeping-up-to-dat
 
 <h2 id="upgrade-assistant-module-formerly-1-click-upgrade-module---cli-method">Upgrade assistant module (formerly 1-click upgrade module) - CLI method<a href="#upgrade-assistant-module-formerly-1-click-upgrade-module---cli-method"></a></h2><p>Upgrade assistant module (autoupgrade) is fully accessible through <code>cli</code>. You can read all the details <a href="https://devdocs.prestashop-project.org/8/basics/keeping-up-to-date/upgrade-module/upgrade-cli/">here</a>.</p>
 
-<h2 id="manual-upgrade">Manual upgrade<a href="#manual-upgrade"></a></h2>
-<div class="notices warning" ><p><strong>Important</strong></p>
-<p>Manual upgrade without <code>autoupgrade</code> module is not possible at the moment. We recommend using <a href="https://devdocs.prestashop-project.org/8/basics/keeping-up-to-date/upgrade-module/upgrade-cli/">cli</a>
-mechanism from the upgrade assistant module.</p>
-</div>
-
-
-<h3 id="release-download">Release download<a href="#release-download"></a></h3><p>The first step is to download the latest version on <a href="https://github.com/PrestaShop/PrestaShop/releases">https://github.com/PrestaShop/PrestaShop/releases</a>.</p>
-<p>Download can also be done in command line, as done here with the version 8.1.7:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">wget -O prestashop-upgrade.zip https://github.com/PrestaShop/PrestaShop/releases/download/8.1.7/prestashop_8.1.7.zip
-</span></span></code></pre></div>
-<h3 id="archive-extraction">Archive extraction<a href="#archive-extraction"></a></h3><p>Extract the files from the archive with a tool like 7zip</p>
-<p>Note starting from PrestaShop 1.7.0.0, the release package contains a zip file itself, which must be extracted as well.</p>
-<p>On a Linux terminal, you can use the command `unzip`:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">unzip prestashop-upgrade.zip <span class="o">&amp;&amp;</span> unzip prestashop.zip -d upgrade
-</span></span></code></pre></div><p>If asked to overwrite the index.php file, answer yes.
-Once you have the folders like <code>classes/</code>, <code>modules/</code>, <code>themes/</code>, etc. you may go on the next step.</p>
-
-<h3 id="sample-files-cleanup">Sample files cleanup<a href="#sample-files-cleanup"></a></h3><p>Avoid overwrite the production resources (images, conf &hellip;) with the default data. These files and folders can be removed from the new release:</p>
-<ul>
-<li>prestashop-upgrade.zip</li>
-<li>prestashop.zip</li>
-<li>img/</li>
-<li>override/</li>
-</ul>
-
-<div class="notices warning" >All the other files present in the new release will overwrite the existing files.
-All changes you made on the original source code will be lost (this is not recommended, you should never modify the core files).</div>
-
-<p>Also, rename the “admin” folder to match your shop’s admin folder name. This will prevent an unwanted duplication of the administration content.</p>
-
-<h3 id="turning-on-maintenance-mode">Turning on maintenance mode<a href="#turning-on-maintenance-mode"></a></h3><p>The shop will now be modified. As it may cause unexpected behavior for you and your customers during the upgrade, we highly recommend you to turn on maintenance mode during the upgrade.</p>
-<p>This can be done in your administration panel:</p>
-<ul>
-<li>On PrestaShop &gt;= 1.7, in Shop parameters &gt; General &gt; Maintenance tab</li>
-</ul>
-<p>Adding your IP address will allow you to access your shop while it’s in maintenance mode.
-That way, you can make sure everything is working right before allowing your customers to access it again.</p>
-
-<h3 id="file-copy">File copy<a href="#file-copy"></a></h3><p>In this step, we &ldquo;upgrade&rdquo; the PrestaShop files by copying the new release content in the existing shop.</p>
-
-<h3 id="disable-cache">Disable cache<a href="#disable-cache"></a></h3><p>You may have activated a caching system (e.g. Memcache) on your shop. In that case, make sure to disable it in &ldquo;Advanced Parameters&rdquo; &gt; &ldquo;Performance&rdquo;. You can enable it again once the upgrade process is done. You might want to also delete the <code>var/cache/prod</code> and <code>var/cache/dev</code> folders.</p>
-
-<div class="notices warning" ><p><strong>Note about <code>vendor</code> folder</strong>: Previous upgrades of PrestaShop 1.7 showed that conflicts may occur when merging the new vendor/ folder with the old one.
-To avoid this problem, we recommend to delete this folder in the existing shop before copying the new one.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">rm -rf vendor/
-</span></span></code></pre></div></div>
-
-<p>On Windows, copy the new folder content and paste it in your shop folder.
-You will get warnings that files already exists in the destination folder. Choose “overwrite” to continue.</p>
-<p>On linux, the copy can be done in your terminal:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp -rf &lt;path_to_the_new_release&gt;/* &lt;path_to_the_current_shop&gt;/
-</span></span></code></pre></div><p>Example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cp -rf ~/Downloads/upgrade/* /var/www/html/
-</span></span></code></pre></div>
-<h3 id="database-upgrade">Database upgrade<a href="#database-upgrade"></a></h3><p>Once the files have been copied, your shop database is ready to be upgraded.</p>
-
-<div class="notices note" >Some web hosting providers gives you two user accounts to access your database. One with full privileges the other for using in scripts with limited rights. To be able to use this Database upgrade script you have to use the account with full privileges.</div>
-
-<p>The database migration scripts are stored in the <code>autoupgrade</code> module. If not present in your modules folder, download it and unzip it there.</p>
-<p>Upgrading the database is a step of the process ran by the upgrade module. It can be independantly triggered from the command line even if the module is uninstalled:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php modules/autoupgrade/cli-upgrade.php --dir<span class="o">=</span>&lt;path_to_the_admin_folder&gt; --channel<span class="o">=</span>private --action<span class="o">=</span>upgradeDb
-</span></span></code></pre></div><p>Example:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php modules/autoupgrade/cli-upgrade.php --dir<span class="o">=</span>admin-dev --channel<span class="o">=</span>private --action<span class="o">=</span>upgradeDb
-</span></span></code></pre></div><p>The minimal store context will be loaded, and SQL requests will be triggered.</p>
-<p>SQL requests that encountered an error will be displayed on the log with additional details which can help you understand, fix the issue then re-execute the request manually on your database. In some cases, you may need to restore your database backup and start over.</p>
-<p>If successful, a command will be given to run the next step, but can be safely ignored as you did not trigger the whole upgrade process from the module.</p>
-
-<h4 id="execution-log">Execution log<a href="#execution-log"></a></h4><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="o">===</span> <span class="n">Step</span> <span class="n">upgradeDb</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Cleaning</span> <span class="n">file</span> <span class="n">cache</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Running</span> <span class="n">opcache_reset</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Initializing</span> <span class="n">required</span> <span class="n">environment</span> <span class="n">constants</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Checking</span> <span class="n">version</span> <span class="n">validity</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Checking</span> <span class="n">connection</span> <span class="n">to</span> <span class="n">database</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Disabling</span> <span class="n">all</span> <span class="n">non</span> <span class="n">native</span> <span class="n">modules</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Updating</span> <span class="n">database</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">structure</span>
-</span></span><span class="line"><span class="cl"><span class="n">WARNING</span> <span class="o">-</span> 
-</span></span><span class="line"><span class="cl">            <span class="o">&lt;</span><span class="n">div</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;upgradeDbError&#34;</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">            <span class="p">[</span><span class="n">WARNING</span><span class="p">]</span> <span class="n">SQL</span> <span class="mf">8.0</span><span class="o">.</span><span class="mi">0</span>
-</span></span><span class="line"><span class="cl">            <span class="mi">1060</span> <span class="ow">in</span> <span class="n">ALTER</span> <span class="n">TABLE</span> <span class="err">`</span><span class="n">ps_tab</span><span class="err">`</span> <span class="n">ADD</span> <span class="n">route_name</span> <span class="n">VARCHAR</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span> <span class="n">DEFAULT</span> <span class="n">NULL</span><span class="p">:</span> <span class="n">Duplicate</span> <span class="n">column</span> <span class="n">name</span> <span class="s1">&#39;route_name&#39;</span><span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Running</span> <span class="n">generic</span> <span class="n">queries</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Database</span> <span class="n">upgrade</span> <span class="n">OK</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Upgrading</span> <span class="n">languages</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Regenerating</span> <span class="n">htaccess</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Cleaning</span> <span class="n">XML</span> <span class="n">files</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Keeping</span> <span class="n">overrides</span> <span class="ow">in</span> <span class="n">place</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Keeping</span> <span class="n">current</span> <span class="n">theme</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Cleaning</span> <span class="n">file</span> <span class="n">cache</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Running</span> <span class="n">opcache_reset</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Database</span> <span class="n">upgrade</span> <span class="n">completed</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Database</span> <span class="n">upgraded</span><span class="o">.</span> <span class="n">Now</span> <span class="n">upgrading</span> <span class="n">your</span> <span class="n">Addons</span> <span class="n">modules</span><span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="n">INFO</span> <span class="o">-</span> <span class="n">Restart</span> <span class="n">requested</span><span class="o">.</span> <span class="n">Please</span> <span class="n">run</span> <span class="n">the</span> <span class="n">following</span> <span class="n">command</span> <span class="n">to</span> <span class="k">continue</span> <span class="n">your</span> <span class="n">upgrade</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="o">...</span><span class="p">]</span>
-</span></span></code></pre></div>
-<h3 id="cleanup">Cleanup<a href="#cleanup"></a></h3><p>Before going further, a few things should now be cleaned.</p>
-<ul>
-<li>The <code>install</code> folder, used to run the database upgrades, is not needed anymore and can be safely deleted.</li>
-<li>When opening your shop (in the front or back office) on your browser, you may see some visual issues. This can be due to your old assets being still served by a cache.</li>
-</ul>
-<p>Reload them by force-refreshing the page (press ctrl+R on Windows / Linux or cmd+R on Mac OS) or clearing your browser’s cache.</p>
-
-<h3 id="modules-upgrade">Modules upgrade<a href="#modules-upgrade"></a></h3><p>Your modules files have been upgraded during the file copy, however many of them may require additional changes on the database. Please check the module page in your Back Office to see if upgrades are waiting to be run.</p>
-<p>Go to your administration panel and login. You will notice the version displayed has changed on the login page. Then in the menu, click on the module page to reach your catalog.</p>
-<p>On PrestaShop &gt;= 1.7, this page can be found in the Improve &gt;&gt; Modules page, under the tab &ldquo;Updates&rdquo;:</p>
-<figure><img src="../img/image38.png"/>
-</figure>
-
-
 <h2 id="support-service">Support service<a href="#support-service"></a></h2><p>Doing an upgrade by yourself can be risky. If you feel uncomfortable with doing it on your own, you can find support on <a href="https://www.prestashop-project.org/support/">prestashop-project.org</a>.</p>
 <p>Basically, the process and the result will be the same. The existing data on the shop will be kept, as well as your module and your current theme.</p>
 <p>Many agencies and freelancers in your area may also provide this kind of service.</p>
@@ -44067,7 +43942,7 @@ You will get warnings that files already exists in the destination folder. Choos
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/6f02b29bb8294eadf5cfe2abfbb358041f0229b6">2024-09-25 by Sebastian G. Marinescu</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/86db6b9e42d756b5d12a8f5dcd9ed9175d970947">2024-12-13 by morgan</a>.<br>
         
     
 
@@ -44089,17 +43964,17 @@ You will get warnings that files already exists in the destination folder. Choos
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1734510648"></script>
-    <script src="/js/perfect-scrollbar.min.js?1734510648"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1734510648"></script>
-    <script src="/js/jquery.sticky.js?1734510648"></script>
-    <script src="/js/featherlight.min.js?1734510648"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1734510648"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1734510648"></script>
-    <script src="/js/learn.js?1734510648"></script>
-    <script src="/js/hugo-learn.js?1734510648"></script>
+    <script src="/js/clipboard.min.js?1734513127"></script>
+    <script src="/js/perfect-scrollbar.min.js?1734513127"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1734513127"></script>
+    <script src="/js/jquery.sticky.js?1734513127"></script>
+    <script src="/js/featherlight.min.js?1734513127"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1734513127"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1734513127"></script>
+    <script src="/js/learn.js?1734513127"></script>
+    <script src="/js/hugo-learn.js?1734513127"></script>
     
-    <script src="/main.js?1734510648"></script>
+    <script src="/main.js?1734513127"></script>
     
     
     
