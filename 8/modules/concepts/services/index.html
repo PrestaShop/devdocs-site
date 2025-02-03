@@ -22,14 +22,14 @@
     <title>Services :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1738244648" rel="stylesheet">
-    <link href="/css/syntax-github.css?1738244648" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1738244648" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1738244648" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1738615486" rel="stylesheet">
+    <link href="/css/syntax-github.css?1738615486" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1738615486" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1738615486" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1738244648" rel="stylesheet">
+    <link href="/style.css?1738615486" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1738244648"></script>
+    <script src="/js/jquery-3.3.1.min.js?1738615486"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -44057,7 +44057,21 @@ their documentation about the <a href="https://symfony.com/doc/4.4/service_conta
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prestashop.core.b2b.b2b_feature</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;YourCompany\YourModule\YourService&#39;</span><span class="w">
 </span></span></span></code></pre></div><p>That&rsquo;s done. The service registered under the name <code>prestashop.core.b2b.b2b_feature</code> is now your service. The previous <code>prestashop.core.b2b.b2b_feature</code> is gone.</p>
+<p>Since 
+<span class="version-pill" title="New in PrestaShop 8.1">
+  8.1
+</span>
 
+, some service definitions have been updated to rely on FQCN. Nothing changes, just name your service after the original FQCN:</p>
+<p>Example :
+If you want override this following service</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">PrestaShop\PrestaShop\Adapter\ImageManager</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s1">&#39;@PrestaShop\PrestaShop\Adapter\LegacyContext&#39;</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div><p>you can do this in your <code>config/services.yml</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">PrestaShop\PrestaShop\Adapter\ImageManager</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">class</span><span class="p">:</span><span class="w">  </span><span class="l">YourCompany\YourModule\YourService</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">arguments</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s1">&#39;@prestashop.adapter.legacy.context&#39;</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div>
 <h4 id="decorate-the-service">Decorate the service<a href="#decorate-the-service"></a></h4><p>When you choose to decorate a service, this means that you <em>make everybody use your service but you keep the old service available</em>. The previous service has been given a new name and can still be used. Every other part of the code where this service was used will use the new version.</p>
 <p>To do it: you declare your new service using the &lsquo;decorates&rsquo; keyword. So if you want to decorates the service <code>prestashop.core.b2b.b2b_feature</code> with my own implementation, you write in <code>config/services.yml</code> :</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w"> </span><span class="nt">mymodule.my_own_b2b_feature_service</span><span class="p">:</span><span class="w">
@@ -44416,7 +44430,7 @@ create errors in case of modifications.</p>
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/f95a2a20c3e782df424a30bbc9e4a959c1e2c99e">2024-02-12 by Krystian Podemski</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/82706faa007acc3ec43f4f900b91f798f862262b">2025-02-03 by Krystian Podemski</a>.<br>
         
     
 
@@ -44438,17 +44452,17 @@ create errors in case of modifications.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1738244648"></script>
-    <script src="/js/perfect-scrollbar.min.js?1738244648"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1738244648"></script>
-    <script src="/js/jquery.sticky.js?1738244648"></script>
-    <script src="/js/featherlight.min.js?1738244648"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1738244648"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1738244648"></script>
-    <script src="/js/learn.js?1738244648"></script>
-    <script src="/js/hugo-learn.js?1738244648"></script>
+    <script src="/js/clipboard.min.js?1738615486"></script>
+    <script src="/js/perfect-scrollbar.min.js?1738615486"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1738615486"></script>
+    <script src="/js/jquery.sticky.js?1738615486"></script>
+    <script src="/js/featherlight.min.js?1738615486"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1738615486"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1738615486"></script>
+    <script src="/js/learn.js?1738615486"></script>
+    <script src="/js/hugo-learn.js?1738615486"></script>
     
-    <script src="/main.js?1738244648"></script>
+    <script src="/main.js?1738615486"></script>
     
     
     
