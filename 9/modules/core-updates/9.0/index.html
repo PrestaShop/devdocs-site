@@ -22,14 +22,14 @@
     <title>Changes in PrestaShop 9.0 :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1738615474" rel="stylesheet">
-    <link href="/css/syntax-github.css?1738615474" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1738615474" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1738615474" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1739263899" rel="stylesheet">
+    <link href="/css/syntax-github.css?1739263899" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1739263899" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1739263899" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1738615474" rel="stylesheet">
+    <link href="/style.css?1739263899" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1738615474"></script>
+    <script src="/js/jquery-3.3.1.min.js?1739263899"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -16126,11 +16126,11 @@
             <li><a href="#stronger-types--change-of-prototypes">Stronger types / change of prototypes</a></li>
             <li><a href="#change-of-behaviourrules-or-removed-code">Change of behaviour/rules or removed code</a></li>
             <li><a href="#removal-of-deprecated-code">Removal of deprecated code</a></li>
-            <li><a href="#rebranding-changes">Rebranding changes</a></li>
           </ul>
         </li>
         <li><a href="#back-office-rebranding">Back office rebranding</a>
           <ul>
+            <li><a href="#rebranding-backward-incompatible-changes">Rebranding backward incompatible changes</a></li>
             <li><a href="#anatomy-of-prestashop-back-office">Anatomy of PrestaShop back office</a>
               <ul>
                 <li><a href="#theme-default">Theme: default</a></li>
@@ -44489,11 +44489,12 @@
 
 <h1 id="notable-changes-in-prestashop-90">Notable changes in PrestaShop 9.0<a href="#notable-changes-in-prestashop-90"></a></h1><p>This section provides a list of the most significant changes in PrestaShop 9.0. While this list is not exhaustive, it aims to give developers a clear overview of the important updates. If you notice any missing or incorrect information, please help us improve by creating an issue on our <a href="https://github.com/PrestaShop/docs/issues/new">GitHub repository</a>.</p>
 
-<h2 id="php-support">PHP support<a href="#php-support"></a></h2><p>PrestaShop 9.0 now requires <strong>PHP 8.1 minimum</strong>, with support added for PHP 8.2 and 8.3.</p>
+<h2 id="php-support">PHP support<a href="#php-support"></a></h2><p>PrestaShop 9.0 now requires <strong>PHP 8.1 minimum</strong>, with support added for PHP 8.2, 8.3 and 8.4.</p>
 <ul>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/32514">Remove compatibility for PHP versions inferior to PHP 8.1</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/29116">Support for PHP 8.2</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/34485">Support for PHP 8.3</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/37417">Support for PHP 8.4</a></li>
 </ul>
 
 <h2 id="node-support">Node support<a href="#node-support"></a></h2><p>The <strong>minimum</strong> version to build PrestaShop assets is now the version 20.</p>
@@ -44581,7 +44582,9 @@
 <p>When we migrated from Swift Mailer to Symfony Mailer, we noticed that SSL support was not an option in ESMTP transport. SSL is an old and outdated encryption type, and for security reasons, it will no longer be allowed.</p>
 <p>The remaining choices are &ldquo;TLS encryption&rdquo; or &ldquo;No encryption&rdquo;.</p>
 
-<h3 id="upgraded-dependencies">Upgraded dependencies<a href="#upgraded-dependencies"></a></h3><p>Some dependencies are still present but were upgraded which comes with their own breaking changes, please refer to each dependency changelog to understand them in details if you depend on these dependencies:</p>
+<h3 id="upgraded-dependencies">Upgraded dependencies<a href="#upgraded-dependencies"></a></h3><p>Some dependencies are still present but were upgraded which comes with their own breaking changes, please refer to each dependency changelog to understand them in details if you depend on these dependencies. The list below includes dependencies which major version was upgraded.</p>
+<p>Production dependencies:</p>
+<p>Production dependencies:</p>
 <table>
 <thead>
 <tr>
@@ -44593,48 +44596,28 @@
 <tbody>
 <tr>
 <td>api-platform/core</td>
-<td>2.7.6</td>
-<td>3.2.13</td>
+<td>v2.7.11</td>
+<td>v3.4.8</td>
 </tr>
 <tr>
 <td>composer/installers</td>
-<td>1.12.0</td>
-<td>2.2.0</td>
-</tr>
-<tr>
-<td>friendsofsymfony/jsrouting-bundle</td>
-<td>2.8.0</td>
-<td>3.2.1</td>
-</tr>
-<tr>
-<td>lcobucci/jwt</td>
-<td>3.4.6 (special patch from <a href="https://github.com/PrestaShop/jwt.git">https://github.com/PrestaShop/jwt.git</a>)</td>
-<td>5.0.0 (no need for fork version anymore)</td>
-</tr>
-<tr>
-<td>mobiledetect/mobiledetectlib</td>
-<td>2.8.41</td>
-<td>3.74.0</td>
-</tr>
-<tr>
-<td>pelago/emogrifier</td>
-<td>5.0.1</td>
-<td>7.0.0</td>
-</tr>
-<tr>
-<td>Symfony dependencies</td>
-<td>4.4</td>
-<td>6.4</td>
-</tr>
-<tr>
-<td>twig/twig</td>
-<td>3.4.3</td>
-<td>3.8.0</td>
+<td>v1.12.0</td>
+<td>v2.2.0</td>
 </tr>
 <tr>
 <td>doctrine/dbal</td>
 <td>2.13.8</td>
-<td>3.6.5</td>
+<td>3.9.3</td>
+</tr>
+<tr>
+<td>doctrine/event-manager</td>
+<td>1.2.0</td>
+<td>2.0.1</td>
+</tr>
+<tr>
+<td>doctrine/instantiator</td>
+<td>1.4.1</td>
+<td>2.0.0</td>
 </tr>
 <tr>
 <td>doctrine/lexer</td>
@@ -44642,18 +44625,150 @@
 <td>2.1.1</td>
 </tr>
 <tr>
-<td>doctrine/orm</td>
-<td>2.12.1</td>
-<td>2.15.5</td>
-</tr>
-<tr>
-<td>doctrine/deprecations</td>
-<td>0.5.3</td>
-<td>1.1.3</td>
-</tr>
-<tr>
 <td>egulias/email-validator</td>
-<td>3.2.6</td>
+<td>3.1.2</td>
+<td>4.0.2</td>
+</tr>
+<tr>
+<td>friendsofsymfony/jsrouting-bundle</td>
+<td>2.8.0</td>
+<td>3.5.2</td>
+</tr>
+<tr>
+<td>lcobucci/jwt</td>
+<td>3.4.6 (special patch from <a href="https://github.com/PrestaShop/jwt.git">https://github.com/PrestaShop/jwt.git</a>)</td>
+<td>5.0.0 (no need for fork version anymore)</td>
+</tr>
+<tr>
+<td>league/oauth2-server</td>
+<td>8.3.5</td>
+<td>9.1.0</td>
+</tr>
+<tr>
+<td>league/uri-interfaces</td>
+<td>2.3.0</td>
+<td>7.4.1</td>
+</tr>
+<tr>
+<td>mobiledetect/mobiledetectlib</td>
+<td>2.8.41</td>
+<td>3.74.3</td>
+</tr>
+<tr>
+<td>pelago/emogrifier</td>
+<td>v5.0.1</td>
+<td>v7.2.0</td>
+</tr>
+<tr>
+<td>prestashop/classic</td>
+<td>2.1.3</td>
+<td>3.0.0</td>
+</tr>
+<tr>
+<td>prestashop/ps_distributionapiclient</td>
+<td>v1.1.1</td>
+<td>v2.0.0</td>
+</tr>
+<tr>
+<td>prestashop/ps_facetedsearch</td>
+<td>v3.16.1</td>
+<td>v4.0.0</td>
+</tr>
+<tr>
+<td>prestashop/ps_linklist</td>
+<td>v6.0.7</td>
+<td>v7.0.1</td>
+</tr>
+<tr>
+<td>psr/cache</td>
+<td>1.0.1</td>
+<td>3.0.0</td>
+</tr>
+<tr>
+<td>psr/log</td>
+<td>1.1.4</td>
+<td>3.0.2</td>
+</tr>
+</tbody>
+</table>
+<p>Development dependencies:</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Old version</th>
+<th>New version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>composer/pcre</td>
+<td>1.0.1</td>
+<td>3.1.4</td>
+</tr>
+<tr>
+<td>phpunit/php-code-coverage</td>
+<td>7.0.15</td>
+<td>10.1.16</td>
+</tr>
+<tr>
+<td>phpunit/php-timer</td>
+<td>2.1.3</td>
+<td>6.0.0</td>
+</tr>
+<tr>
+<td>phpunit/phpunit</td>
+<td>8.5.26</td>
+<td>10.5.38</td>
+</tr>
+<tr>
+<td>sebastian/comparator</td>
+<td>3.0.4</td>
+<td>5.0.3</td>
+</tr>
+<tr>
+<td>sebastian/diff</td>
+<td>3.0.3</td>
+<td>5.1.1</td>
+</tr>
+<tr>
+<td>sebastian/environment</td>
+<td>4.2.4</td>
+<td>6.1.0</td>
+</tr>
+<tr>
+<td>sebastian/exporter</td>
+<td>3.1.5</td>
+<td>5.1.2</td>
+</tr>
+<tr>
+<td>sebastian/global-state</td>
+<td>3.0.2</td>
+<td>6.0.2</td>
+</tr>
+<tr>
+<td>sebastian/object-enumerator</td>
+<td>3.0.4</td>
+<td>5.0.0</td>
+</tr>
+<tr>
+<td>sebastian/object-reflector</td>
+<td>1.1.2</td>
+<td>3.0.0</td>
+</tr>
+<tr>
+<td>sebastian/recursion-context</td>
+<td>3.0.1</td>
+<td>5.0.0</td>
+</tr>
+<tr>
+<td>sebastian/type</td>
+<td>1.1.4</td>
+<td>4.0.0</td>
+</tr>
+<tr>
+<td>sebastian/version</td>
+<td>2.0.1</td>
 <td>4.0.1</td>
 </tr>
 </tbody>
@@ -44962,17 +45077,26 @@ The <code>PrestaShopAdminController</code> class comes with other helpful helper
 <li>the page no longer uses Smarty, but Twig</li>
 <li>the page no longer uses HelperForm and HelperList, but Symfony form components and Grid components</li>
 </ul>
-<p>Here is the list of migrated pages in v9:</p>
+<p>Here is the list of migrated pages enabled by default in PrestaShop 9:</p>
 <ul>
-<li>International &gt; Locations &gt; States</li>
-<li>Shop parameters &gt; Order settings &gt; Statuses</li>
-<li>Orders &gt; Shopping Carts</li>
-<li>Sell &gt; Catalog &gt; Attributes &amp; Features -&gt; Attributes</li>
-<li>Sell &gt; Catalog &gt;  Attributes &amp; Features -&gt; Feature</li>
-<li>Sell &gt; Catalog &gt; Products (new version of the page introduce in PrestaShop 8.1 is now the only available one)</li>
+<li>Sell -&gt; Orders -&gt; Shopping carts</li>
+<li>Sell -&gt; Catalog -&gt; Attributes &amp; Features</li>
+<li>Sell -&gt; Catalog -&gt; Products (new version of the page introduce in PrestaShop 8.1 is now the only available one)</li>
+<li>Improve -&gt; Design -&gt; Image Settings</li>
+<li>Improve -&gt; International -&gt; Locations -&gt; States</li>
+<li>Configure -&gt; Shop Parameters -&gt; Customer Settings -&gt; Titles</li>
+<li>Configure -&gt; Shop Parameters -&gt; Order Settings -&gt; Statuses</li>
+</ul>
+<p>List of newly migrated pages in PrestaShop 9.0 that are hidden behind a feature flag:</p>
+<ul>
+<li>Sell -&gt; Customer Service -&gt; Merchandise Returns</li>
+<li>Configure -&gt; Shop Parameters -&gt; Customer Settings -&gt; Groups</li>
+<li>Configure -&gt; Shop Parameters -&gt; Contact -&gt; Stores</li>
+<li>Configure -&gt; Shop Parameters -&gt; Search</li>
 </ul>
 
 <h3 id="changes-in-the-product-page">Changes in the product page<a href="#changes-in-the-product-page"></a></h3><p>Edition of features on the new product page, <a href="https://github.com/PrestaShop/PrestaShop/pull/34763">use a new optimized data structure in the form</a>. You may need to adapt your module if you rely on the old structure.</p>
+<p>The new product page is the only one available in PrestaShop 9.0, the old one is no longer reachable. <a href="/9/modules/sample-modules/extend-product-page/">Discover how to extend it with modules in this chapter</a>.</p>
 
 <h2 id="breaking-changes">Breaking Changes<a href="#breaking-changes"></a></h2>
 <h3 id="trans-method"><code>trans</code> method<a href="#trans-method"></a></h3><p>Following <a href="https://github.com/PrestaShop/PrestaShop/pull/30415">PrestaShop/PrestaShop#30415</a>, the function <code>trans()</code> does <strong>not</strong> escape anymore strings. In PrestaShop 8, you could pass parameters like <code>htmspecialcharacters</code> or <code>addslashes</code> to <code>trans()</code> to perform additional escape, but it’s been removed. It also affects the <code>l</code> function in Smarty.</p>
@@ -45267,7 +45391,9 @@ The <code>PrestaShopAdminController</code> class comes with other helpful helper
 </li>
 </ul>
 
-<h3 id="rebranding-changes">Rebranding changes<a href="#rebranding-changes"></a></h3><ul>
+<h2 id="back-office-rebranding">Back office rebranding<a href="#back-office-rebranding"></a></h2><p>By the end of 2023, PrestaShop introduced a new brand identity to reinforce its strengths and enhance credibility and trust. The PrestaShop back office was one of the final components to undergo rebranding, with the release of PrestaShop 9 providing an ideal opportunity for this update.</p>
+
+<h3 id="rebranding-backward-incompatible-changes">Rebranding backward incompatible changes<a href="#rebranding-backward-incompatible-changes"></a></h3><ul>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/36584">Breaking changes in the PrestaShop Back Office due to rebranding</a>
 <ul>
 <li><strong>New Fonts</strong>: The adoption of <code>IBM Plex Sans</code> and <code>Material Symbols</code> is part of the rebranding effort. These fonts are included in both the <code>default</code> theme and also the <code>new-theme</code> through the UI Kit.</li>
@@ -45276,8 +45402,6 @@ The <code>PrestaShopAdminController</code> class comes with other helpful helper
 </ul>
 </li>
 </ul>
-
-<h2 id="back-office-rebranding">Back office rebranding<a href="#back-office-rebranding"></a></h2><p>By the end of 2023, PrestaShop introduced a new brand identity to reinforce its strengths and enhance credibility and trust. The PrestaShop back office was one of the final components to undergo rebranding, with the release of PrestaShop 9 providing an ideal opportunity for this update.</p>
 
 <h3 id="anatomy-of-prestashop-back-office">Anatomy of PrestaShop back office<a href="#anatomy-of-prestashop-back-office"></a></h3><p>The PrestaShop back office consists of <a href="https://devdocs.prestashop-project.org/9/development/architecture/introduction/#bo-themes">two themes</a>. Both themes have been modified to achieve a complete rebranding:</p>
 
@@ -45348,7 +45472,7 @@ The <code>PrestaShopAdminController</code> class comes with other helpful helper
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/65a3fb434e68b27cd8efe63ce06a14b3bd7162ff">2024-10-01 by Jonathan LELIEVRE</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/01e5ca757a71888b3df0bea9c33b45eeda4de862">2025-01-02 by Krystian Podemski</a>.<br>
         
     
 
@@ -45370,17 +45494,17 @@ The <code>PrestaShopAdminController</code> class comes with other helpful helper
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1738615474"></script>
-    <script src="/js/perfect-scrollbar.min.js?1738615474"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1738615474"></script>
-    <script src="/js/jquery.sticky.js?1738615474"></script>
-    <script src="/js/featherlight.min.js?1738615474"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1738615474"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1738615474"></script>
-    <script src="/js/learn.js?1738615474"></script>
-    <script src="/js/hugo-learn.js?1738615474"></script>
+    <script src="/js/clipboard.min.js?1739263899"></script>
+    <script src="/js/perfect-scrollbar.min.js?1739263899"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1739263899"></script>
+    <script src="/js/jquery.sticky.js?1739263899"></script>
+    <script src="/js/featherlight.min.js?1739263899"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1739263899"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1739263899"></script>
+    <script src="/js/learn.js?1739263899"></script>
+    <script src="/js/hugo-learn.js?1739263899"></script>
     
-    <script src="/main.js?1738615474"></script>
+    <script src="/main.js?1739263899"></script>
     
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
