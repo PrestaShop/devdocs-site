@@ -22,14 +22,14 @@
     <title>Interacting with APIs :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/8/modules/creation/external-services/">
     
-    <link href="/css/font-awesome.min.css?1739438452" rel="stylesheet">
-    <link href="/css/syntax-github.css?1739438452" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1739438452" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1739438452" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1742296448" rel="stylesheet">
+    <link href="/css/syntax-github.css?1742296448" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1742296448" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1742296448" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1739438452" rel="stylesheet">
+    <link href="/style.css?1742296448" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1739438452"></script>
+    <script src="/js/jquery-3.3.1.min.js?1742296448"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -44498,24 +44498,35 @@ This can be done by generating your own token and checking it everytime the cont
 </ul>
 
 <h2 id="requests-from-a-shop">Requests from a shop<a href="#requests-from-a-shop"></a></h2><p>HTTP requests can be triggered from a shop to an external service.</p>
-<p>Several methods allows requests to be sent (in order of preference):</p>
+<p>Several methods allow requests to be sent (in order of preference):</p>
 <ul>
-<li><a href="https://github.com/guzzle/guzzle">Guzzle</a>. The version 7.4 is included from PrestaShop 
-<span class="version-pill" title="New in PrestaShop 8.0">
-  8.0
-</span>
-
- (version 5 in 
-<span class="version-pill" title="New in PrestaShop 1.7.0">
-  1.7.0
-</span>
-
-), but can be included in your module as well for older PS versions.
+<li><a href="https://symfony.com/doc/6.4/http_client.html">Symfony HTTP Client</a>
 <ul>
-<li>Loading in memory another version of guzzle in the same namespace will trigger errors on the shop.</li>
-<li>Example with PS Checkout module: <a href="https://github.com/PrestaShopCorp/ps_checkout/blob/578135d8bef2d99b8056ebc0bd709e9a87d661e6/composer.json#L28">Inclusion in composer.json</a> &amp; <a href="https://github.com/PrestaShopCorp/ps_checkout/blob/ef48da09735e6e64b42364a703b5a74d41cd24d9/classes/Api/Payment/Dispute.php">implementation</a></li>
+<li>In legacy code you can create one manually <code>$client = HttpClient::create();</code></li>
+<li>In Symfony environment (in the BO) you should rely on dependency injection as the Symfony documentation suggests</li>
 </ul>
 </li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Contracts\HttpClient\HttpClientInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SymfonyDocs</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="k">private</span> <span class="nx">HttpClientInterface</span> <span class="nv">$client</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">fetchGitHubInformation</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">client</span><span class="o">-&gt;</span><span class="na">request</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;https://api.github.com/repos/symfony/symfony-docs&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$response</span><span class="o">-&gt;</span><span class="na">getContent</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><ul>
 <li><a href="https://github.com/PrestaShop/PrestaShop/blob/a07a569b45ab6afc777f25aba505997004e5f70a/classes/Tools.php#L2212-L2223">\Tools::file_get_contents(&hellip;)</a>
 <ul>
 <li>Will rely on <code>cURL</code> or <code>fopen()</code>, depending on what is available on the shop.</li>
@@ -44594,7 +44605,7 @@ This can be done by generating your own token and checking it everytime the cont
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/a69a1c3dd1a5ae7512d6f79b1136b0b68349bb89">2024-07-05 by Jonathan Danse</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/c8f38908a9bf4d826daa8cd89a122a23a7c21913">2025-03-14 by Jonathan LELIEVRE</a>.<br>
         
     
 
@@ -44616,17 +44627,17 @@ This can be done by generating your own token and checking it everytime the cont
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1739438452"></script>
-    <script src="/js/perfect-scrollbar.min.js?1739438452"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1739438452"></script>
-    <script src="/js/jquery.sticky.js?1739438452"></script>
-    <script src="/js/featherlight.min.js?1739438452"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1739438452"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1739438452"></script>
-    <script src="/js/learn.js?1739438452"></script>
-    <script src="/js/hugo-learn.js?1739438452"></script>
+    <script src="/js/clipboard.min.js?1742296448"></script>
+    <script src="/js/perfect-scrollbar.min.js?1742296448"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1742296448"></script>
+    <script src="/js/jquery.sticky.js?1742296448"></script>
+    <script src="/js/featherlight.min.js?1742296448"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1742296448"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1742296448"></script>
+    <script src="/js/learn.js?1742296448"></script>
+    <script src="/js/hugo-learn.js?1742296448"></script>
     
-    <script src="/main.js?1739438452"></script>
+    <script src="/main.js?1742296448"></script>
     
     
     
