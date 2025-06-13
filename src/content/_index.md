@@ -13,6 +13,8 @@ Are you a PrestaShop user?
 <a class="" href="https://docs.prestashop-project.org/">head to User Documentation</a>
 {{% /notice %}}
 
-{{<mainCategories>}}
-
 {{<mostViewedPages>}}
+
+<h3>Documentation sections</h3>
+
+{{<mainCategories>}}
