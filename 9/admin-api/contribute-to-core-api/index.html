@@ -22,14 +22,14 @@
     <title>Create new API endpoints using CQRS :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1754481357" rel="stylesheet">
-    <link href="/css/syntax-github.css?1754481357" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754481357" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754481357" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1754496850" rel="stylesheet">
+    <link href="/css/syntax-github.css?1754496850" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754496850" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754496850" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1754481357" rel="stylesheet">
+    <link href="/style.css?1754496850" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1754481357"></script>
+    <script src="/js/jquery-3.3.1.min.js?1754496850"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -16880,7 +16880,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <li><a href="#api-resource-validation">API Resource validation</a></li>
               </ul>
             </li>
-            <li><a href="#5-create-the-list-api-resource-attributegrouplistphp">5. Create the List API Resource (AttributeGroupList.php)</a></li>
+            <li><a href="#5-create-the-list-api-resource-attributegrouplistphp">5. Create the List API Resource (AttributeGroupList.php)</a>
+              <ul>
+                <li><a href="#how-to-find-the-grid-data-factory-service-name">How to find the Grid Data factory service name</a></li>
+                <li><a href="#extra-information-on-internal-services">Extra information on internal services</a></li>
+                <li><a href="#create-the-attributegrouplist-api-resource">Create the AttributeGroupList API resource</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li><a href="#-phpunit-testing-strategy">🧪 PHPUnit Testing Strategy</a>
@@ -46489,7 +46495,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span><span class="line"><span class="cl">│       └── Resources/
 </span></span><span class="line"><span class="cl">│           └── Attribute/                      # The namespace contains the larger domain Attribute (that combines AttributeGroup and AttributeValue)
 </span></span><span class="line"><span class="cl">│               ├── AttributeGroup.php          # Resource for single operations
-</span></span><span class="line"><span class="cl">│               └── AttributeGroupList.php      # Resource for listing
+</span></span><span class="line"><span class="cl">│               ├── AttributeGroupList.php      # Resource for listing
+</span></span><span class="line"><span class="cl">│               └── BulkAttributeGroups.php     # Resource for bulk operation
 </span></span><span class="line"><span class="cl">├── tests/
 </span></span><span class="line"><span class="cl">│   └── Integration/
 </span></span><span class="line"><span class="cl">│       └── ApiPlatform/
@@ -46505,7 +46512,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </ul>
 
 <h3 id="1-create-and-fetch-a-single-resource">1. Create and fetch a single resource<a href="#1-create-and-fetch-a-single-resource"></a></h3>
-<h4 id="create-the-api-resource-object-that-defines-our-expected-format">Create the API Resource object that defines our expected format<a href="#create-the-api-resource-object-that-defines-our-expected-format"></a></h4><p>Create the file <code>src/ApiPlatform/Resources/AttributeGroup/AttributeGroup.php</code>, here is the simple DTO with the naming we are expecting:</p>
+<h4 id="create-the-api-resource-object-that-defines-our-expected-format">Create the API Resource object that defines our expected format<a href="#create-the-api-resource-object-that-defines-our-expected-format"></a></h4><p>Create the file <code>src/ApiPlatform/Resources/Attribute/AttributeGroup.php</code>, here is the simple DTO with the naming we are expecting:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -46519,8 +46526,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">array</span> <span class="nv">$names</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">array</span> <span class="nv">$publicNames</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">bool</span> <span class="nv">$isColorGroup</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$groupType</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -46575,8 +46580,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">array</span> <span class="nv">$names</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">array</span> <span class="nv">$publicNames</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">bool</span> <span class="nv">$isColorGroup</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$groupType</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
@@ -46656,7 +46659,7 @@ It is much more convenient if the localized values are index by locale value lik
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>That&rsquo;s why we introduced a customer PHP attribute <code>PrestaShopBundle\ApiPlatform\Metadata\LocalizedValue</code> that you can simply add on the field that must be handled specifically, and internally the core will handle the automatic convertion of <code>locale-to-id</code> and <code>id-to-locale</code> for both read and write operations:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\ApiPlatform\Metadata\LocalizedValue</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\ApiPlatform\Metadata\LocalizedValue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="o">...</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#[ApiResource(
@@ -46674,7 +46677,7 @@ It is much more convenient if the localized values are index by locale value lik
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="o">...</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>You nw have two endpoints that allow you to create and fetch an AttributeGroup, and the format looks like this:</p>
+</span></span></code></pre></div><p>You now have two endpoints that allow you to create and fetch an AttributeGroup, and the format looks like this:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;attributeGroupId&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;names&#34;</span><span class="p">:</span> <span class="p">{</span>
@@ -46734,7 +46737,7 @@ It is much more convenient if the localized values are index by locale value lik
 </span></span><span class="line"><span class="cl">    <span class="o">...</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
-<h3 id="3-bulk-deletion">3. Bulk deletion<a href="#3-bulk-deletion"></a></h3><p>For bulk action we create a new dedicated resource with only one array field <code>$attributeGroupIds</code></p>
+<h3 id="3-bulk-deletion">3. Bulk deletion<a href="#3-bulk-deletion"></a></h3><p>For bulk action we create a new dedicated resource with only one array field <code>$attributeGroupIds</code>, create the file <code>src/ApiPlatform/Resources/Attribute/BulkAttributeGroups.php</code>:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -46811,6 +46814,9 @@ You can also use validation groups, which is very convenient when your constrain
 </ul>
 <p>And here is an example with our <code>AttributeGroup</code> example that now includes validation:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\DefaultLanguage</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\TypedRegex</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Validator\Constraints</span> <span class="k">as</span> <span class="nx">Assert</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="o">...</span>
 </span></span><span class="line"><span class="cl">
@@ -46875,21 +46881,30 @@ You can also use validation groups, which is very convenient when your constrain
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">array</span> <span class="nv">$shopIds</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">int</span> <span class="nv">$position</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
 <div class="notices note" >When you need to know which constraint apply on your entity you can search for its associated form type which usually already contain some for form inline errors, and you can adapt them on your API resource. In our <code>AttributeGroup</code> example this <a href="https://github.com/PrestaShop/PrestaShop/blob/2b035743b75e04a8ca1ea7a9c7212a93f5ed6892/src/PrestaShopBundle/Form/Admin/Sell/Catalog/AttributeGroupType.php">form type</a> was used for reference.</div>
 
 
-<h3 id="5-create-the-list-api-resource-attributegrouplistphp">5. Create the List API Resource (AttributeGroupList.php)<a href="#5-create-the-list-api-resource-attributegrouplistphp"></a></h3><p>For the listing API we use the Grid component that is used on Symfony migrated pages, so any migrated page should already have the appropriate Grid data factory.
-To find the service name you need to look into the Symfony controller related to the entity you are targeting:</p>
+<h3 id="5-create-the-list-api-resource-attributegrouplistphp">5. Create the List API Resource (AttributeGroupList.php)<a href="#5-create-the-list-api-resource-attributegrouplistphp"></a></h3><p>For the listing API we use the Grid component that is used on Symfony migrated pages, so any migrated page should already have the appropriate Grid data factory.</p>
+
+<h4 id="how-to-find-the-grid-data-factory-service-name">How to find the Grid Data factory service name<a href="#how-to-find-the-grid-data-factory-service-name"></a></h4><p>To find the service name you need to look into the Symfony controller related to the entity you are targeting:</p>
 <ol>
 <li>Find the <code>AttributeGroupController</code> and check which <a href="https://github.com/PrestaShop/PrestaShop/blob/c5102424bc44c8fabbdfa1477bbb275fd75d4efe/src/PrestaShopBundle/Controller/Admin/Sell/Catalog/AttributeGroupController.php#L66">Grid factory service it relies on</a></li>
 <li>In our case it is <code>prestashop.core.grid.factory.attribute_group</code> now we need to search for its service definition</li>
 <li>In this service definition you can find the associated <a href="https://github.com/PrestaShop/PrestaShop/blob/f3d3a87a16e8bb36df151727f2f135ae2fd8dfb1/src/PrestaShopBundle/Resources/config/services/core/grid/grid_factory.yml#L327">Grid Data factory service</a></li>
-<li>In our case it is <code>prestashop.core.grid.data.factory.attribute_group_decorator</code> that we&rsquo;ll need to configure our endpoint</li>
+<li>In our case <code>prestashop.core.grid.data.factory.attribute_group_decorator</code> is the <strong>Grid data factory service name that we&rsquo;ll need</strong> to configure our endpoint</li>
 <li>You can check that <a href="https://github.com/PrestaShop/PrestaShop/blob/f3d3a87a16e8bb36df151727f2f135ae2fd8dfb1/src/PrestaShopBundle/Resources/config/services/core/grid/grid_data_factory.yml#L416">this service</a> is based on the <a href="https://github.com/PrestaShop/PrestaShop/blob/a5d084be8476afc856e9306db7a9b4e94836a252/src/Core/Grid/Data/Factory/AttributeGroupGridDataFactory.php#L36">AttributeGroupGridDataFactory</a> that implements the <code>GridDataFactoryInterface</code></li>
 </ol>
-<p>Now you can create the file <code>src/ApiPlatform/Resources/AttributeGroup/AttributeGroupList.php</code>, we usually use another API resource class for the listing because the returned data is usually smaller than on the single point:</p>
+
+<h4 id="extra-information-on-internal-services">Extra information on internal services<a href="#extra-information-on-internal-services"></a></h4><ul>
+<li>From the factory <a href="https://github.com/PrestaShop/PrestaShop/blob/653e2a8a86f6df52e33f7b126f777d7400974872/src/PrestaShopBundle/Resources/config/services/core/grid/grid_factory.yml#L318">service definition</a> you can also deduce <a href="https://github.com/PrestaShop/PrestaShop/blob/29af08841c8bb66bc552b1339c8d594c1d9b7ef8/src/Core/Grid/Definition/Factory/AttributeGroupGridDefinitionFactory.php#L50">Grid definition service</a> which can help you understand which <a href="https://github.com/PrestaShop/PrestaShop/blob/29af08841c8bb66bc552b1339c8d594c1d9b7ef8/src/Core/Grid/Definition/Factory/AttributeGroupGridDefinitionFactory.php#L181">filters</a> are usable on this endpoint.</li>
+<li>In this special case, for AttributeGroup, the factory decorates another one <a href="https://github.com/PrestaShop/PrestaShop/blob/653e2a8a86f6df52e33f7b126f777d7400974872/src/PrestaShopBundle/Resources/config/services/core/grid/grid_data_factory.yml#L400"><code>prestashop.core.grid.data.factory.attribute_group</code></a>, if you check its definition you will see that is uses the <code>prestashop.core.grid.query_builder.attribute_group</code></li>
+<li>From there you can find the <code>prestashop.core.grid.query_builder.attribute_group</code> service which is the <a href="https://github.com/PrestaShop/PrestaShop/blob/6b28c32d9355a2e99f42f50ee302a95ca2cb32ea/src/Core/Grid/Query/AttributeGroupQueryBuilder.php#L37">Query builder</a> that builds the SQL query</li>
+</ul>
+
+<h4 id="create-the-attributegrouplist-api-resource">Create the AttributeGroupList API resource<a href="#create-the-attributegrouplist-api-resource"></a></h4><p>Now you can create the file <code>src/ApiPlatform/Resources/Attribute/AttributeGroupList.php</code>, we usually use another API resource class for the listing because the returned data is usually smaller than on the single point:</p>
 <ul>
 <li>to list the AttributeGroups we use the <code>prestashop.core.grid.data.factory.attribute_group_decorator</code> service mapped with a <code>PaginatedList</code> operation</li>
 </ul>
@@ -46979,10 +46994,11 @@ Keep in mind that the default fixtures are inserted in the database (like for ou
 
 
 <h4 id="module-only">Module only<a href="#module-only"></a></h4><p>To run the test the module needs a PrestaShop core base to be executed into, we provide some tools to install a shop in a <code>/tmp</code> folder</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Setup your tests in local, it will:</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">composer install
+</span></span><span class="line"><span class="cl"><span class="c1"># Setup your tests in local, it will:</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># - clone the repository</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># - build the assets</span>
-</span></span><span class="line"><span class="cl"><span class="c1"># - install a shop with fixtures data (a working DB is needed)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># - install a shop with fixtures data (a working DB is needed), you can edit your DB access in the parameters.php.dist file (or in parameters.php once you have installed your local env)</span>
 </span></span><span class="line"><span class="cl">composer setup-local-tests
 </span></span></code></pre></div><p>If the DB setting is not adapted to your environment you can modify them in the <code>test/local-parameters/parameters.yml</code> file.</p>
 <p>By default, the branch clone is the <code>develop</code> branch, in case you want to use another one you can use additional parameters:</p>
@@ -47600,7 +47616,7 @@ It ensures that you didn&rsquo;t forget to setup the appropriate scopes, adn tha
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/78f0903d236e5de0f72553cebb8ba969fb04603f">2025-08-06 by Jonathan Lelievre</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/5bf3c02fa92c5342bdb6add37a38ae9a6dbe0cab">2025-08-06 by Jonathan LELIEVRE</a>.<br>
         
     
 
@@ -47622,17 +47638,17 @@ It ensures that you didn&rsquo;t forget to setup the appropriate scopes, adn tha
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754481357"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754481357"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754481357"></script>
-    <script src="/js/jquery.sticky.js?1754481357"></script>
-    <script src="/js/featherlight.min.js?1754481357"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1754481357"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754481357"></script>
-    <script src="/js/learn.js?1754481357"></script>
-    <script src="/js/hugo-learn.js?1754481357"></script>
+    <script src="/js/clipboard.min.js?1754496850"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754496850"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754496850"></script>
+    <script src="/js/jquery.sticky.js?1754496850"></script>
+    <script src="/js/featherlight.min.js?1754496850"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1754496850"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754496850"></script>
+    <script src="/js/learn.js?1754496850"></script>
+    <script src="/js/hugo-learn.js?1754496850"></script>
     
-    <script src="/main.js?1754481357"></script>
+    <script src="/main.js?1754496850"></script>
     
     
     
