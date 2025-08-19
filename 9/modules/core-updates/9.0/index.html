@@ -22,14 +22,14 @@
     <title>Changes in PrestaShop 9.0 :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1754976271" rel="stylesheet">
-    <link href="/css/syntax-github.css?1754976271" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1754976271" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1754976271" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1755588068" rel="stylesheet">
+    <link href="/css/syntax-github.css?1755588068" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1755588068" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1755588068" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1754976271" rel="stylesheet">
+    <link href="/style.css?1755588068" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1754976271"></script>
+    <script src="/js/jquery-3.3.1.min.js?1755588068"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -47473,6 +47473,10 @@ The <code>PrestaShopAdminController</code> class comes with other helpful helper
 <td><a href="https://github.com/PrestaShop/PrestaShop/pull/36233">The command <code>prestashop:schema:update-without-foreign</code> now has two optional parameter <code>--dump-sql</code> and <code>--force</code></a></td>
 <td>The default behaviour is NOT to apply changes and NOT to output anything, so the default behaviour does nothing now</td>
 </tr>
+<tr>
+<td><a href="https://github.com/PrestaShop/PrestaShop/pull/33779">Move <code>FrontController::updateQueryString</code> to <code>Tools</code> to make reusable</a></td>
+<td>You should not rely on <code>FrontController::updateQueryString</code> anymore, but use <code>Tools::updateQueryString</code> instead. The method signature is the same, so it should not impact your code.</td>
+</tr>
 </tbody>
 </table>
 
@@ -47608,7 +47612,6 @@ The <code>PrestaShopAdminController</code> class comes with other helpful helper
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/32232">Removed unused functions getUrlRewriteInformation &amp; getUrlRewriteInformations</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/32679">Removed Tools::clearColorListCache, Product::getColorsListCacheId, Validate::isPlaintextPassword, Validate::isPasswdAdmin, FrontController::addColorsToProductList</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/32693">Removed AdminController::isFresh, AdminController::refresh</a></li>
-<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33263">Removed Cart::simulateCarriersOutput</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/34498">Removed calls to Product::getProductProperties</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/34499">Move data from product::getProductProperties to ProductLazyArray</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/34525">Clean legacy Tab related code, and multiple other deprecations</a></li>
@@ -47660,6 +47663,12 @@ The <code>PrestaShopAdminController</code> class comes with other helpful helper
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/31028/">Removed deprecated method Tools::cleanNonUnicodeSupport()</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/31118/">Removed deprecated method FrameworkBundleAdminController::overviewAction()</a></li>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/31118/">Removed deprecated property FrameworkBundleAdminController::$configuration</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/27590">Removed deprecated class AdminStatusesController</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33437">Removed method StoresController::processStoreAddress()</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33437">Removed method StoresController::getStoresForXml()</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33437">Removed method StoresController::displayAjax()</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33263">Removed method Cart::containsProduct()</a></li>
+<li><a href="https://github.com/PrestaShop/PrestaShop/pull/33263">Removed method Cart::simulateCarriersOutput()</a></li>
 </ul>
 </li>
 </ul>
@@ -47753,7 +47762,7 @@ The <code>PrestaShopAdminController</code> class comes with other helpful helper
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/7e3a4542b7dd6a81c7117443642b20b20389349a">2025-06-13 by Krystian Podemski</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/4dd2abd5630eaebcf049d46200b6445fe8e6641d">2025-08-19 by Krystian Podemski</a>.<br>
         
     
 
@@ -47775,17 +47784,17 @@ The <code>PrestaShopAdminController</code> class comes with other helpful helper
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1754976271"></script>
-    <script src="/js/perfect-scrollbar.min.js?1754976271"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1754976271"></script>
-    <script src="/js/jquery.sticky.js?1754976271"></script>
-    <script src="/js/featherlight.min.js?1754976271"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1754976271"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1754976271"></script>
-    <script src="/js/learn.js?1754976271"></script>
-    <script src="/js/hugo-learn.js?1754976271"></script>
+    <script src="/js/clipboard.min.js?1755588068"></script>
+    <script src="/js/perfect-scrollbar.min.js?1755588068"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1755588068"></script>
+    <script src="/js/jquery.sticky.js?1755588068"></script>
+    <script src="/js/featherlight.min.js?1755588068"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1755588068"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1755588068"></script>
+    <script src="/js/learn.js?1755588068"></script>
+    <script src="/js/hugo-learn.js?1755588068"></script>
     
-    <script src="/main.js?1754976271"></script>
+    <script src="/main.js?1755588068"></script>
     
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
