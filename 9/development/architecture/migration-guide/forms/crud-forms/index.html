@@ -22,14 +22,14 @@
     <title>CRUD Forms :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1758791097" rel="stylesheet">
-    <link href="/css/syntax-github.css?1758791097" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1758791097" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1758791097" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1758819269" rel="stylesheet">
+    <link href="/css/syntax-github.css?1758819269" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1758819269" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1758819269" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1758791097" rel="stylesheet">
+    <link href="/style.css?1758819269" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1758791097"></script>
+    <script src="/js/jquery-3.3.1.min.js?1758819269"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -46600,16 +46600,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <h2 id="form-data-provider">Form Data Provider<a href="#form-data-provider"></a></h2><p>The <em>Form Data Provider</em> takes care of retrieving data to fill out a form. For that, it needs to implement two methods:</p>
 <div class="function-definition">
-<dl>
-<dt>getData(mixed $id): array</dt>
-<dd>Retrieves data for an edit form, using the given id to retrieve the object&rsquo;s data.</dd>
-<dt>getDefaultData(): array</dt>
-<dd>Returns default data for a creation form.</dd>
-</dl>
+<p>getData(mixed $id): array
+:
+Retrieves data for an edit form, using the given id to retrieve the object&rsquo;s data.</p>
+<p>getDefaultData(): array
+:
+Returns default data for a creation form.</p>
 </div>
 
 <h3 id="creating-a-form-data-provider">Creating a Form Data Provider<a href="#creating-a-form-data-provider"></a></h3><p>To create a Form data provider you must implement the following interface:</p>
-<pre><code>\PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\FormDataProviderInterface 
+<pre><code>\PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\FormDataProviderInterface
 </code></pre>
 <p>In the example below, you can see a <code>ContactFormDataProvider</code> that queries the database (in this case, using <code>ObjectModel</code>) to retrieve data when a specific identifiable object id (in this case, <code>Contact</code>) is given, and that returns static data with defaults to use when creating a new element.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -46629,7 +46629,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getData</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$contactObjectModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Contact</span><span class="p">(</span><span class="nv">$contactId</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="c1">// check that the element exists in db
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$contactObjectModel</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">))</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="nx">PrestaShopObjectNotFoundException</span><span class="p">(</span><span class="s1">&#39;Object not found&#39;</span><span class="p">);</span>
@@ -46674,12 +46674,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p>The common methods that you will be using are:</p>
 <div class="function-definition">
-<dl>
-<dt>getForm(array $data = [], array $options = []): FormInterface</dt>
-<dd>Generates and returns the Symfony form. Additional <code>$data</code> and <code>$options</code> can be used in your form type.</dd>
-<dt>getFormFor(mixed $id, array $data = [], array $options = []): FormInterface</dt>
-<dd>Generates and returns the Symfony form for an editable object which already exists and can be identified. Additional <code>$data</code> and <code>$options</code> can be used in your form type.</dd>
-</dl>
+<p>getForm(array $data = [], array $options = []): FormInterface
+:
+Generates and returns the Symfony form. Additional <code>$data</code> and <code>$options</code> can be used in your form type.</p>
+<p>getFormFor(mixed $id, array $data = [], array $options = []): FormInterface
+:
+Generates and returns the Symfony form for an editable object which already exists and can be identified. Additional <code>$data</code> and <code>$options</code> can be used in your form type.</p>
 </div>
 
 <h3 id="using-the-form-builder">Using the Form Builder<a href="#using-the-form-builder"></a></h3><p>In most cases, you can simply reuse the default implementation. All you need to do is declare it as a service and configure it for your form&rsquo;s needs, by specifying the appropriate <a href="/9/development/architecture/migration-guide/forms/#form-types">Form type</a> and <a href="#form-data-provider">Form data provider</a>.</p>
@@ -46731,12 +46731,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <h2 id="form-data-handler">Form Data Handler<a href="#form-data-handler"></a></h2><p>The <em>Form Data Handler</em> is responsible for persisting the data submitted through your form. It implements the following methods:</p>
 <div class="function-definition">
-<dl>
-<dt>create(array $data): mixed</dt>
-<dd>Creates a new identifiable object using the provided data and returns the created object&rsquo;s id.</dd>
-<dt>update(mixed $id, array $data): void</dt>
-<dd>Updates the object identified by <code>$id</code> using the provided data</dd>
-</dl>
+<p>create(array $data): mixed
+:
+Creates a new identifiable object using the provided data and returns the created object&rsquo;s id.</p>
+<p>update(mixed $id, array $data): void
+:
+Updates the object identified by <code>$id</code> using the provided data</p>
 </div>
 
 <h3 id="creating-a-form-data-handler">Creating a Form Data Handler<a href="#creating-a-form-data-handler"></a></h3><p>When creating your Form Data Handler you must implement the following interface:</p>
@@ -46801,23 +46801,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p>It provides two methods:</p>
 <div class="function-definition">
-<dl>
-<dt>handle(FormInterface $form): FormHandlerResultInterface</dt>
-<dd>Saves form data by creating new instance of the related identifiable object.</dd>
-<dt>handleFor($id, FormInterface $form): FormHandlerResultInterface</dt>
-<dd>Saves form data by updating the related object identified by <code>$id</code>.</dd>
-</dl>
+<p>handle(FormInterface $form): FormHandlerResultInterface
+:
+Saves form data by creating new instance of the related identifiable object.</p>
+<p>handleFor($id, FormInterface $form): FormHandlerResultInterface
+:
+Saves form data by updating the related object identified by <code>$id</code>.</p>
 </div>
 <p>Both methods return an instance of <code>FormHandlerResultInterface</code> that provides information about the process result:</p>
 <div class="function-definition">
-<dl>
-<dt>isValid(): bool</dt>
-<dd>Indicates whether the form contains errors or not</dd>
-<dt>isSubmitted(): bool</dt>
-<dd>Indicates if the form was submitted</dd>
-<dt>getIdentifiableObjectId(): mixed</dt>
-<dd>Returns the Id of the identifiable object created by the form submit, if applicable</dd>
-</dl>
+<p>isValid(): bool
+:
+Indicates whether the form contains errors or not</p>
+<p>isSubmitted(): bool
+:
+Indicates if the form was submitted</p>
+<p>getIdentifiableObjectId(): mixed
+:
+Returns the Id of the identifiable object created by the form submit, if applicable</p>
 </div>
 
 <h3 id="using-the-form-handler">Using the Form Handler<a href="#using-the-form-handler"></a></h3><p>Much like with the <a href="#form-builder">Form Builder</a>, in most cases you can reuse the default implementation by declaring it as a service and configuring it according to your form&rsquo;s needs:</p>
@@ -46839,7 +46840,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nv">$contactFormBuilder</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.builder.contact_form_builder&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nv">$contactForm</span> <span class="o">=</span> <span class="nv">$contactFormBuilder</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">handleRequest</span><span class="p">(</span><span class="nv">$request</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="nv">$contactFormHandler</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.form.identifiable_object.handler.contact_form_handler&#39;</span><span class="p">);</span>
@@ -46850,7 +46851,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_contacts_index&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@PrestaShop/Admin/Configure/ShopParameters/Contact/Contacts/create.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
 </span></span><span class="line"><span class="cl">        <span class="s1">&#39;contactForm&#39;</span> <span class="o">=&gt;</span> <span class="nv">$contactForm</span><span class="o">-&gt;</span><span class="na">createView</span><span class="p">(),</span>
 </span></span><span class="line"><span class="cl">    <span class="p">]);</span>
@@ -46977,7 +46978,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/5adff69decf286052ab8bb975362527f8f39a7e1">2025-08-19 by Daniel</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/6ca6adc4606dfffc10b95435921a172168afb8c0">2025-09-25 by Jonathan Danse</a>.<br>
         
     
 
@@ -46999,17 +47000,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1758791097"></script>
-    <script src="/js/perfect-scrollbar.min.js?1758791097"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1758791097"></script>
-    <script src="/js/jquery.sticky.js?1758791097"></script>
-    <script src="/js/featherlight.min.js?1758791097"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1758791097"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1758791097"></script>
-    <script src="/js/learn.js?1758791097"></script>
-    <script src="/js/hugo-learn.js?1758791097"></script>
+    <script src="/js/clipboard.min.js?1758819269"></script>
+    <script src="/js/perfect-scrollbar.min.js?1758819269"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1758819269"></script>
+    <script src="/js/jquery.sticky.js?1758819269"></script>
+    <script src="/js/featherlight.min.js?1758819269"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1758819269"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1758819269"></script>
+    <script src="/js/learn.js?1758819269"></script>
+    <script src="/js/hugo-learn.js?1758819269"></script>
     
-    <script src="/main.js?1758791097"></script>
+    <script src="/main.js?1758819269"></script>
     
     
     
