@@ -22,14 +22,14 @@
     <title>The Grid component :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1759515900" rel="stylesheet">
-    <link href="/css/syntax-github.css?1759515900" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1759515900" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1759515900" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1760092477" rel="stylesheet">
+    <link href="/css/syntax-github.css?1760092477" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1760092477" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1760092477" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1759515900" rel="stylesheet">
+    <link href="/style.css?1760092477" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1759515900"></script>
+    <script src="/js/jquery-3.3.1.min.js?1760092477"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -16958,7 +16958,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </li>
         <li><a href="#working-with-grid">Working with Grid</a>
           <ul>
-            <li><a href="#configuring-grid-factory">Configuring Grid factory</a></li>
+            <li><a href="#configuring-grid-factory">Configuring Grid factory</a>
+              <ul>
+                <li><a href="#decorating-your-data">Decorating your data</a></li>
+              </ul>
+            </li>
             <li><a href="#rendering-grid">Rendering Grid</a></li>
           </ul>
         </li>
@@ -46833,7 +46837,73 @@ your own Grid factory in some rare cases.</div>
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.data.factory.product_data_factory&#39;</span><span class="w">              </span><span class="c"># our data factory</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.filter.form_factory&#39;</span><span class="w">                            </span><span class="c"># core service needed by grid factory</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.hook.dispatcher&#39;</span><span class="w">                                     </span><span class="c"># core service needed by grid factory</span><span class="w">
-</span></span></span></code></pre></div><p>And we are done! Let&rsquo;s see how to use it and render it in the page.</p>
+</span></span></span></code></pre></div><p>And we are done!</p>
+
+<h4 id="decorating-your-data">Decorating your data<a href="#decorating-your-data"></a></h4><p>Sometimes you may need to modify or decorate your data to format it in a specific way. In this case, you can create a custom decorator service.</p>
+<p>This is useful when you want to keep your data retrieval logic untouched and apply formatting, transformations, or additional computed fields before rendering the grid.</p>
+<p>First, declare the decorator service in your YAML configuration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">my.namespace.grid.data_provider.product_grid_data_factory_decorator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;My\Namespace\Grid\Data\ProductGridDataFactoryDecorator&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;@prestashop.core.grid.data.factory.product_data_factory&#39;</span><span class="w"> </span><span class="c"># our data factory</span><span class="w">
+</span></span></span></code></pre></div><p>Then, create the corresponding class. You can alter the records inside the <code>applyModifications()</code> method.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">My\Namespace\Grid\Data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Data\GridData</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Record\RecordCollection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Record\RecordCollectionInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteriaInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Data\Factory\GridDataFactoryInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ProductGridDataFactoryDecorator</span> <span class="k">implements</span> <span class="nx">GridDataFactoryInterface</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$productGridDataFactory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">GridDataFactoryInterface</span> <span class="nv">$productGridDataFactory</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">productGridDataFactory</span> <span class="o">=</span> <span class="nv">$productGridDataFactory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getData</span><span class="p">(</span><span class="nx">SearchCriteriaInterface</span> <span class="nv">$searchCriteria</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$productData</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">productGridDataFactory</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">(</span><span class="nv">$searchCriteria</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$productRecords</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">applyModifications</span><span class="p">(</span><span class="nv">$productData</span><span class="o">-&gt;</span><span class="na">getRecords</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="nx">GridData</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$productRecords</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$productData</span><span class="o">-&gt;</span><span class="na">getRecordsTotal</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$productData</span><span class="o">-&gt;</span><span class="na">getQuery</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">applyModifications</span><span class="p">(</span><span class="nx">RecordCollectionInterface</span> <span class="nv">$products</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$modifiedProducts</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$products</span> <span class="k">as</span> <span class="nv">$product</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># Basic example on how to alter the record
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nv">$product</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">ucfirst</span><span class="p">(</span><span class="nv">$product</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="nv">$modifiedProducts</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$product</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="nx">RecordCollection</span><span class="p">(</span><span class="nv">$modifiedProducts</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Finally, override the default <code>GridFactory</code> service to use the decorated data factory instead of the original one.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Configure Grid factory to use services we have implemented</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">prestashop.core.grid.product_grid_factory</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\GridFactory&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.definition.factory.product_grid_definition_factory&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@my.namespace.grid.data_provider.product_grid_data_factory_decorator&#39;</span><span class="w"> </span><span class="c"># our decorator service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.grid.filter.form_factory&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="s1">&#39;@prestashop.core.hook.dispatcher&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>Now let&rsquo;s see how to use the grid and render it in the page.</p>
 
 <h3 id="rendering-grid">Rendering Grid<a href="#rendering-grid"></a></h3><p>In Back Office controllers, you can use the Grid Factory to create a Grid and render it.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -47041,7 +47111,7 @@ your own Grid factory in some rare cases.</div>
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/85033b89d357c045ff2c605797229386b367327d">2024-05-06 by Jonathan Lelievre</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/02d875dcfb682903b7dd4970cc989f02e418d83e">2025-10-10 by MattKelvin</a>.<br>
         
     
 
@@ -47063,17 +47133,17 @@ your own Grid factory in some rare cases.</div>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1759515900"></script>
-    <script src="/js/perfect-scrollbar.min.js?1759515900"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1759515900"></script>
-    <script src="/js/jquery.sticky.js?1759515900"></script>
-    <script src="/js/featherlight.min.js?1759515900"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1759515900"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1759515900"></script>
-    <script src="/js/learn.js?1759515900"></script>
-    <script src="/js/hugo-learn.js?1759515900"></script>
+    <script src="/js/clipboard.min.js?1760092477"></script>
+    <script src="/js/perfect-scrollbar.min.js?1760092477"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1760092477"></script>
+    <script src="/js/jquery.sticky.js?1760092477"></script>
+    <script src="/js/featherlight.min.js?1760092477"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1760092477"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1760092477"></script>
+    <script src="/js/learn.js?1760092477"></script>
+    <script src="/js/hugo-learn.js?1760092477"></script>
     
-    <script src="/main.js?1759515900"></script>
+    <script src="/main.js?1760092477"></script>
     
     
     
