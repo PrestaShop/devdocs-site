@@ -22,14 +22,14 @@
     <title>Bulk Actions reference :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1760092477" rel="stylesheet">
-    <link href="/css/syntax-github.css?1760092477" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1760092477" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1760092477" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1760099976" rel="stylesheet">
+    <link href="/css/syntax-github.css?1760099976" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1760099976" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1760099976" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1760092477" rel="stylesheet">
+    <link href="/style.css?1760099976" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1760092477"></script>
+    <script src="/js/jquery-3.3.1.min.js?1760099976"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -16974,7 +16974,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <li><a href="#deletecustomersbulkaction">DeleteCustomersBulkAction</a></li>
           </ul>
         </li>
-        <li><a href="#use-case-example">Use case example</a></li>
+        <li><a href="#use-case-example">Use case example</a>
+          <ul>
+            <li><a href="#disabling-the-bulk-checkbox-for-specific-rows">Disabling the bulk checkbox for specific rows</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
@@ -46675,6 +46679,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
+<h3 id="disabling-the-bulk-checkbox-for-specific-rows">Disabling the bulk checkbox for specific rows<a href="#disabling-the-bulk-checkbox-for-specific-rows"></a></h3>
+<div class="notices note" >See <a href="https://devdocs.prestashop-project.org/9/development/components/grid/#decorating-your-data">Decorating your data</a> for more details on how to decorate a grid.</div>
+
+<p>It&rsquo;s possible to disable the bulk action checkbox for specific rows in a grid. To do this, decorate the grid data and set <code>disableBulkCheckbox</code> to <code>true</code> on the record(s) that should be disabled.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Decorated grid service
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ExampleGridDataFactoryDecorator</span> <span class="k">implements</span> <span class="nx">GridDataFactoryInterface</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="k">function</span> <span class="nf">applyModifications</span><span class="p">(</span><span class="k">array</span> <span class="nv">$records</span><span class="p">)</span><span class="o">:</span> <span class="nx">RecordCollectionInterface</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$modifiedRecords</span> <span class="o">=</span> <span class="p">[];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">foreach</span> <span class="p">(</span><span class="nv">$records</span> <span class="k">as</span> <span class="nv">$record</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="nv">$record</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">===</span> <span class="s1">&#39;archived&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nv">$record</span><span class="p">[</span><span class="s1">&#39;disableBulkCheckbox&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="nv">$modifiedRecords</span><span class="p">[]</span> <span class="o">=</span> <span class="nv">$record</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="nx">RecordCollection</span><span class="p">(</span><span class="nv">$modifiedRecords</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <div class="notices note" >You need to create a custom Bulk Action? We got you <a href="https://devdocs.prestashop-project.org/9/development/components/grid/tutorials/work-with-bulk-actions/#how-to-create-custom-bulk-action">covered</a>!</div>
 
 
@@ -46735,7 +46766,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/85033b89d357c045ff2c605797229386b367327d">2024-05-06 by Jonathan Lelievre</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/e13d46d213e6df4fb1e4a890f5a8d17e3156db53">2025-10-10 by Matthias-Kelvin Daous</a>.<br>
         
     
 
@@ -46757,17 +46788,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1760092477"></script>
-    <script src="/js/perfect-scrollbar.min.js?1760092477"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1760092477"></script>
-    <script src="/js/jquery.sticky.js?1760092477"></script>
-    <script src="/js/featherlight.min.js?1760092477"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1760092477"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1760092477"></script>
-    <script src="/js/learn.js?1760092477"></script>
-    <script src="/js/hugo-learn.js?1760092477"></script>
+    <script src="/js/clipboard.min.js?1760099976"></script>
+    <script src="/js/perfect-scrollbar.min.js?1760099976"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1760099976"></script>
+    <script src="/js/jquery.sticky.js?1760099976"></script>
+    <script src="/js/featherlight.min.js?1760099976"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1760099976"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1760099976"></script>
+    <script src="/js/learn.js?1760099976"></script>
+    <script src="/js/hugo-learn.js?1760099976"></script>
     
-    <script src="/main.js?1760092477"></script>
+    <script src="/main.js?1760099976"></script>
     
     
     
