@@ -22,14 +22,14 @@
     <title>CQRS - Commands and Queries :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1762584742" rel="stylesheet">
-    <link href="/css/syntax-github.css?1762584742" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1762584742" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1762584742" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1763065551" rel="stylesheet">
+    <link href="/css/syntax-github.css?1763065551" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1763065551" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1763065551" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1762584742" rel="stylesheet">
+    <link href="/style.css?1763065551" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1762584742"></script>
+    <script src="/js/jquery-3.3.1.min.js?1763065551"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -16967,8 +16967,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <li><a href="#difference-between-legacy--new-architectures">Difference between legacy &amp; new architectures</a></li>
         <li><a href="#cqrs-principles-in-prestashop">CQRS Principles in PrestaShop</a>
           <ul>
-            <li><a href="#command-and-commandhandler-principles">Command and CommandHandler principles</a></li>
-            <li><a href="#query-and-queryhandler-principles">Query and QueryHandler principles</a></li>
+            <li><a href="#command-and-commandhandler-principles">Command and CommandHandler principles</a>
+              <ul>
+                <li><a href="#code-example">Code example</a></li>
+              </ul>
+            </li>
+            <li><a href="#query-and-queryhandler-principles">Query and QueryHandler principles</a>
+              <ul>
+                <li><a href="#code-example-1">Code example</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li><a href="#command-and-query-buses">Command and Query buses</a>
@@ -46590,6 +46598,95 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">NameOfTheCommand</span> <span class="nv">$command</span><span class="p">);</span>
 </span></span></code></pre></div>
+<h4 id="code-example">Code example<a href="#code-example"></a></h4><p>In this example, we’ll create a <code>Command</code> to toggle the status of a <code>Product</code>.
+We’ll assume you’re creating it inside a module, which is the recommended way to extend PrestaShop.</p>
+<p>If you’re not familiar with module creation yet, see <a href="/9/modules/creation/">how to create a module</a>.</p>
+<p>First declare the <code>CommandHandler</code> in the <code>config/services.yml</code> :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Declare the CommandHandler service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Your\Namespace\CommandHandler\ToggleProductStatusHandler</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">autoconfigure</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div>
+<div class="notices note" >if the handler is not found, ensure the module namespace is correctly registered in composer.json or in the class.</div>
+
+<p>Then create two classes.</p>
+<ul>
+<li>The <code>Command</code> which provides the data needed in the <code>CommandHandler</code>.</li>
+<li>The <code>CommandHandler</code> which will process the data.</li>
+</ul>
+<p>Create the Command</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Your\Namespace\Command</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd"> * Toggles the active status of a Product.
+</span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
+</span></span><span class="line"><span class="cl"><span class="k">final</span> <span class="k">class</span> <span class="nc">ToggleProductStatusCommand</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="k">private</span> <span class="nx">readonly</span> <span class="nx">int</span> <span class="nv">$productId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="k">private</span> <span class="nx">readonly</span> <span class="nx">bool</span> <span class="nv">$status</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getProductId</span><span class="p">()</span><span class="o">:</span> <span class="nx">int</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">productId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getStatus</span><span class="p">()</span><span class="o">:</span> <span class="nx">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">status</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Create the CommandHandler</p>
+<p>Now, create the <code>CommandHandler</code> which will execute it. Note that the class must have the <code>AsCommandHandler</code> attribute.
+It&rsquo;s also possible to do some validation and throw exceptions if needed.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Your\Namespace\CommandHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\CommandBus\Attributes\AsCommandHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Your\Namespace\Command\ToggleProductStatusCommand</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Product</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Validate</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#[AsCommandHandler]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">final</span> <span class="k">class</span> <span class="nc">ToggleProductStatusHandler</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">ToggleProductStatusCommand</span> <span class="nv">$command</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$product</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Product</span><span class="p">(</span><span class="nv">$command</span><span class="o">-&gt;</span><span class="na">getProductId</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Validate</span><span class="o">::</span><span class="na">isLoadedObject</span><span class="p">(</span><span class="nv">$product</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="nx">PrestaShopException</span><span class="p">(</span><span class="nx">sprintf</span><span class="p">(</span><span class="s1">&#39;Product with id %d not found.&#39;</span><span class="p">,</span> <span class="nv">$command</span><span class="o">-&gt;</span><span class="na">getProductId</span><span class="p">()));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nv">$product</span><span class="o">-&gt;</span><span class="na">active</span> <span class="o">=</span> <span class="nv">$command</span><span class="o">-&gt;</span><span class="na">getStatus</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$product</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>To execute the command, use the <code>CommandBus</code> service. The <code>CommandBus</code> automatically finds and executes the right handler thanks to the <code>#[AsCommandHandler]</code> attribute.</p>
+<p>Here&rsquo;s an example from a Symfony controller.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Your controller
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$productId</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$status</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$command</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ToggleProductStatusCommand</span><span class="p">(</span><span class="nv">$productId</span><span class="p">,</span> <span class="nv">$status</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Retrieves a prestashop.core.command_bus service
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$commandBus</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getCommandBus</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$commandBus</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$command</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h3 id="query-and-queryhandler-principles">Query and QueryHandler principles<a href="#query-and-queryhandler-principles"></a></h3><ol>
 <li>Data retrieval SHOULD always go through a <code>Query</code>.</li>
 <li>A <code>Query</code> describes a <strong>single</strong> data query. It DOES NOT perform it.</li>
@@ -46608,6 +46705,111 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span></span><span class="line"><span class="cl"><span class="sd"> * @return TypeOfReturn
 </span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">NameOfTheQuery</span> <span class="nv">$query</span><span class="p">)</span><span class="o">:</span> <span class="nx">TypeOfReturn</span><span class="p">;</span>
+</span></span></code></pre></div>
+<h4 id="code-example-1">Code example<a href="#code-example-1"></a></h4><p>In this example, we’ll create a <code>Query</code> to retrieve some information of a <code>Product</code>.
+We’ll assume you’re creating it inside a module, which is the recommended way to extend PrestaShop.</p>
+<p>If you’re not familiar with module creation yet, see <a href="/9/modules/creation/">how to create a module</a>.</p>
+<p>First declare the <code>QueryHandler</code> in the <code>config/services.yml</code> :</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Declare the QueryHandler service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">Your\Namespace\QueryHandler\GetProductForEditingHandler</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">autoconfigure</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div>
+<div class="notices note" >if the handler is not found, ensure the module namespace is correctly registered in composer.json or in the class.</div>
+
+<p>Then create three classes.</p>
+<ul>
+<li>The <code>Query</code> which will be composed of the data needed to retrieve the product</li>
+<li>The <code>QueryHandler</code> which will retrieve the data</li>
+<li>The <code>QueryResult</code> class which represents the retrieved data in a structured object.</li>
+</ul>
+<p>Create the Query</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Your\Namespace\Query</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">GetProductForEditing</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="k">private</span> <span class="nx">readonly</span> <span class="nx">int</span> <span class="nv">$productId</span><span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getProductId</span><span class="p">()</span><span class="o">:</span> <span class="nx">int</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">productId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Create the QueryResult</p>
+<p>This example will just retrieve the product id and its name.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Your\Namespace\QueryResult</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">EditableProduct</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="k">private</span> <span class="nx">readonly</span> <span class="nx">int</span> <span class="nv">$productId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="k">private</span> <span class="nx">readonly</span> <span class="k">array</span> <span class="nv">$name</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getProductId</span><span class="p">()</span><span class="o">:</span> <span class="nx">int</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">productId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">getName</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Create the QueryHandler</p>
+<p>Now, create the <code>QueryHandler</code> which will execute the <code>Query</code> and return an <code>EditableProduct</code> object. Note that the class must have the <code>AsQueryHandler</code> attribute.
+It&rsquo;s also possible to do some validation and throw exceptions if needed.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">Your\Namespace\QueryHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Your\Namespace\QueryResult\EditableProduct</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Your\Namespace\Query\GetProductForEditing</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\CommandBus\Attributes\AsQueryHandler</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Product</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Validate</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#[AsQueryHandler]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">final</span> <span class="k">class</span> <span class="nc">GetProductForEditingHandler</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">handle</span><span class="p">(</span><span class="nx">GetProductForEditing</span> <span class="nv">$query</span><span class="p">)</span><span class="o">:</span> <span class="nx">EditableProduct</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$product</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Product</span><span class="p">(</span><span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getProductId</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">Validate</span><span class="o">::</span><span class="na">isLoadedObject</span><span class="p">(</span><span class="nv">$product</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="nx">PrestaShopException</span><span class="p">(</span><span class="nx">sprintf</span><span class="p">(</span><span class="s1">&#39;Product with id %d not found.&#39;</span><span class="p">,</span> <span class="nv">$query</span><span class="o">-&gt;</span><span class="na">getProductId</span><span class="p">()));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// Return an EditableProduct object containing the requested information
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="k">new</span> <span class="nx">EditableProduct</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$product</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$product</span><span class="o">-&gt;</span><span class="na">name</span>
+</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Execute the Query</p>
+<p>To execute the <code>Query</code>, use the <code>QueryBus</code> service. The <code>QueryBus</code> automatically finds and executes the right handler thanks to the <code>#[AsQueryHandler]</code> attribute.</p>
+<p>Here&rsquo;s an example from a Symfony controller.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># Your controller
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Retrieves a prestashop.core.query_bus service
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$queryBus</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getQueryBus</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$query</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">GetProductForEditing</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="sd">/** @var EditableProduct $editableProduct */</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$editableProduct</span> <span class="o">=</span> <span class="nv">$queryBus</span><span class="o">-&gt;</span><span class="na">handle</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
 <h2 id="command-and-query-buses">Command and Query buses<a href="#command-and-query-buses"></a></h2><p>Command bus is a pattern used to map <code>Commands</code> and <code>Queries</code> to <code>CommandHandlers</code> and <code>QueryHandlers</code>. PrestaShop defines it&rsquo;s own <code>CommandBusInterface</code> and implements it using <a href="https://tactician.thephpleague.com/">Tactician command bus library</a>.</p>
 <p>PrestaShop uses 2 commands buses:</p>
@@ -46684,7 +46886,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/98bca22a35de8b125541582ee31ceac02c295d80">2025-10-22 by Krystian Podemski</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/33f11d1b7ec885c45883fa5945d3dd901c1db443">2025-11-13 by Krystian Podemski</a>.<br>
         
     
 
@@ -46706,17 +46908,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1762584742"></script>
-    <script src="/js/perfect-scrollbar.min.js?1762584742"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1762584742"></script>
-    <script src="/js/jquery.sticky.js?1762584742"></script>
-    <script src="/js/featherlight.min.js?1762584742"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1762584742"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1762584742"></script>
-    <script src="/js/learn.js?1762584742"></script>
-    <script src="/js/hugo-learn.js?1762584742"></script>
+    <script src="/js/clipboard.min.js?1763065551"></script>
+    <script src="/js/perfect-scrollbar.min.js?1763065551"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1763065551"></script>
+    <script src="/js/jquery.sticky.js?1763065551"></script>
+    <script src="/js/featherlight.min.js?1763065551"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1763065551"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1763065551"></script>
+    <script src="/js/learn.js?1763065551"></script>
+    <script src="/js/hugo-learn.js?1763065551"></script>
     
-    <script src="/main.js?1762584742"></script>
+    <script src="/main.js?1763065551"></script>
     
     
     
