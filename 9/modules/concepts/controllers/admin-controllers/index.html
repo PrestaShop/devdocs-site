@@ -22,14 +22,14 @@
     <title>Admin controllers :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1763529865" rel="stylesheet">
-    <link href="/css/syntax-github.css?1763529865" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1763529865" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1763529865" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1764075813" rel="stylesheet">
+    <link href="/css/syntax-github.css?1764075813" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1764075813" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1764075813" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1763529865" rel="stylesheet">
+    <link href="/style.css?1764075813" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1763529865"></script>
+    <script src="/js/jquery-3.3.1.min.js?1764075813"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -16983,19 +16983,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <ul>
     <li><a href="#create-admin-module-controllers">Create Admin module controllers</a>
       <ul>
-        <li><a href="#how-to-declare-a-new-controller">How to declare a new Controller</a>
+        <li><a href="#how-to-declare-a-new-controller">How to declare a new Controller</a></li>
+        <li><a href="#service-configuration">Service Configuration</a>
           <ul>
-            <li>
-              <ul>
-                <li><a href="#example-using-psr-4-namespacing">Example using PSR-4 namespacing</a></li>
-              </ul>
-            </li>
+            <li><a href="#option-1-explicit-service-configuration-with-tags">Option 1: Explicit service configuration with tags</a></li>
+            <li><a href="#option-2-using-service-defaults">Option 2: Using service defaults</a></li>
+          </ul>
+        </li>
+        <li><a href="#autoloading-configuration">Autoloading Configuration</a>
+          <ul>
+            <li><a href="#example-using-psr-4-namespacing">Example using PSR-4 namespacing</a></li>
           </ul>
         </li>
         <li><a href="#how-to-map-an-action-of-your-controller-to-a-uri">How to map an action of your controller to a URI</a>
           <ul>
             <li><a href="#disabling-the-prefix">Disabling the prefix</a></li>
             <li><a href="#generating-the-uri-of-a-back-office-controller-inside-a-module">Generating the URI of a back-office controller inside a module</a></li>
+          </ul>
+        </li>
+        <li><a href="#key-changes-in-prestashop-90-symfony-64">Key Changes in PrestaShop 9.0 (Symfony 6.4)</a>
+          <ul>
+            <li><a href="#controllers-as-services">Controllers as Services</a></li>
+            <li><a href="#dependency-injection-methods">Dependency Injection Methods</a></li>
+            <li><a href="#prestashopadmincontroller-helper-methods">PrestaShopAdminController Helper Methods</a></li>
           </ul>
         </li>
         <li><a href="#secure-your-controller">Secure your controller</a></li>
@@ -46579,64 +46589,159 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <h1 id="create-admin-module-controllers">Create Admin module controllers<a href="#create-admin-module-controllers"></a></h1><p>Using modern pages, you will have access to the PrestaShop debug toolbar, the service container, Twig and Doctrine, among others. For your views, the PrestaShop UI Kit is available, built on top of Bootstrap 4 and ensuring your views are consistent with the PrestaShop Back Office.</p>
 
-<h2 id="how-to-declare-a-new-controller">How to declare a new Controller<a href="#how-to-declare-a-new-controller"></a></h2><p>Somewhere in your module declare a new class that will act as a Controller:</p>
+<h2 id="how-to-declare-a-new-controller">How to declare a new Controller<a href="#how-to-declare-a-new-controller"></a></h2>
+<div class="notices warning" ><strong>PrestaShop 9.0+</strong>: The <code>FrameworkBundleAdminController</code> is <strong>deprecated</strong> and will be removed in PrestaShop 10.0. Use <code>PrestaShopAdminController</code> instead for new controllers.</div>
+
+<p>In your module, create a new controller class in the <code>src/Controller/</code> directory:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// modules/your-module/src/Controller/DemoController.php
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">MyModule\Controller</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\Common\Cache\CacheProvider</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\PrestaShopAdminController</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\DependencyInjection\Attribute\Autowire</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Request</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DemoController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DemoController</span> <span class="k">extends</span> <span class="nx">PrestaShopAdminController</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nv">$cache</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">       
-</span></span><span class="line"><span class="cl">    <span class="c1">// you can use symfony DI to inject services
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">CacheProvider</span> <span class="nv">$cache</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cache</span> <span class="o">=</span> <span class="nv">$cache</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Inject services via constructor for services used across multiple actions
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="k">private</span> <span class="nx">readonly</span> <span class="nx">MyCustomService</span> <span class="nv">$myCustomService</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">demoAction</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * You can also inject services directly in action methods
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">demoAction</span><span class="p">(</span><span class="nx">AnotherService</span> <span class="nv">$anotherService</span><span class="p">)</span><span class="o">:</span> <span class="nx">Response</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/your-module/templates/admin/demo.html.twig&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>If you want Symfony Dependency Injection to inject services into your controller, you need to use specific YAML service declaration:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># The name of the service must match the full namespace class</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">MyModule\Controller\DemoController</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">MyModule\Controller\DemoController</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;@doctrine.cache.provider&#39;</span><span class="w">
-</span></span></span></code></pre></div><p>You can also retrieve services with the container available in symfony controllers -&gt;</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// modules/your-module/src/Controller/DemoController.php
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">MyModule\Controller</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\Common\Cache\CacheProvider</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DemoController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">demoAction</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="c1">// you can also retrieve services directly from the container
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$cache</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">container</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;doctrine.cache&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Use injected services
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">myCustomService</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$moreData</span> <span class="o">=</span> <span class="nv">$anotherService</span><span class="o">-&gt;</span><span class="na">getMoreData</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">        
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/your-module/templates/admin/demo.html.twig&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/your-module/templates/admin/demo.html.twig&#39;</span><span class="p">,</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;data&#39;</span> <span class="o">=&gt;</span> <span class="nv">$data</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;moreData&#39;</span> <span class="o">=&gt;</span> <span class="nv">$moreData</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * You can also use the #[Autowire] attribute to inject services by their ID
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">advancedAction</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">ShopRepository</span> <span class="nv">$shopRepository</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">#[Autowire(service: &#39;my_module.custom_service&#39;)] $customService,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">)</span><span class="o">:</span> <span class="nx">Response</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Use the injected service
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$customService</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/your-module/templates/admin/advanced.html.twig&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="sd">/**
+</span></span></span><span class="line"><span class="cl"><span class="sd">     * Use helper methods provided by PrestaShopAdminController
+</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">anotherAction</span><span class="p">()</span><span class="o">:</span> <span class="nx">Response</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// PrestaShopAdminController provides helper methods for common services
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$config</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getConfiguration</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;my_config&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span><span class="p">(</span><span class="s1">&#39;@Modules/your-module/templates/admin/another.html.twig&#39;</span><span class="p">,[</span>
+</span></span><span class="line"><span class="cl">          <span class="s1">&#39;my_config&#39;</span> <span class="o">=&gt;</span> <span class="nv">$config</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>You have access to the Container, to Twig as rendering engine, the Doctrine ORM, everything from Symfony framework ecosystem.
+</span></span></code></pre></div><p>The example above demonstrates a complete controller implementation with:</p>
+<ul>
+<li><strong>Constructor injection</strong> for services used across multiple actions (<code>MyCustomService</code>)</li>
+<li><strong>Method parameter injection</strong> for services used in specific actions (<code>AnotherService</code>)</li>
+<li><strong>Autowire attribute</strong> for injecting services by their ID (<code>#[Autowire(service: 'my_module.custom_service')]</code>)</li>
+<li><strong>Helper methods</strong> provided by <code>PrestaShopAdminController</code> for accessing common PrestaShop services</li>
+</ul>
+<p>You have access to Twig as rendering engine and everything from the Symfony framework ecosystem.
 Note that you must return a <code>Response</code> object, but this can be a <code>JsonResponse</code> if you plan to make a single page application (or &ldquo;SPA&rdquo;).</p>
 
 <div class="notices note" >This controller works exactly the same as the Core Back Office ones.</div>
 
-<p>You must enable the autoloading for this Controller. For example using a <code>composer.json</code> file for your module.</p>
 
-<h4 id="example-using-psr-4-namespacing">Example using PSR-4 namespacing<a href="#example-using-psr-4-namespacing"></a></h4><ol>
+<div class="notices info" ><p><strong>Accessing PrestaShop services:</strong></p>
+<p>The <code>PrestaShopAdminController</code> provides helper methods to access common PrestaShop services:</p>
+<ul>
+<li><code>$this-&gt;getConfiguration()</code> - Configuration service</li>
+<li><code>$this-&gt;getTranslator()</code> or <code>$this-&gt;trans()</code> - Translation service</li>
+<li><code>$this-&gt;getRouter()</code> - Router service</li>
+<li><code>$this-&gt;getEmployeeContext()</code> - Employee context</li>
+<li><code>$this-&gt;getShopContext()</code> - Shop context</li>
+<li><code>$this-&gt;getLanguageContext()</code> - Language context</li>
+<li><code>$this-&gt;getCurrencyContext()</code> - Currency context</li>
+<li><code>$this-&gt;getCountryContext()</code> - Country context</li>
+<li><code>$this-&gt;dispatchCommand()</code> - Execute CQRS commands</li>
+<li><code>$this-&gt;dispatchQuery()</code> - Execute CQRS queries</li>
+<li><code>$this-&gt;dispatchHookWithParameters()</code> - Dispatch hooks</li>
+<li><code>$this-&gt;presentGrid()</code> - Present grid data</li>
+</ul>
+<p>See the complete list in the <a href="https://github.com/PrestaShop/PrestaShop/blob/9.0.0/src/PrestaShopBundle/Controller/Admin/PrestaShopAdminController.php">PrestaShopAdminController source code</a>.</p>
+</div>
+
+
+<div class="notices warning" ><p><strong>Doctrine repositories must be injected:</strong></p>
+<p>Doctrine ORM is not directly accessible via <code>$this-&gt;getDoctrine()</code> or similar methods. All Doctrine repositories and entity managers must be injected as dependencies in your controller&rsquo;s constructor or action methods.</p>
+<p>Example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Doctrine\ORM\EntityManagerInterface</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">App\Repository\ProductRepository</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nx">readonly</span> <span class="nx">EntityManagerInterface</span> <span class="nv">$entityManager</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="k">private</span> <span class="nx">readonly</span> <span class="nx">ProductRepository</span> <span class="nv">$productRepository</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></div>
+
+
+<h2 id="service-configuration">Service Configuration<a href="#service-configuration"></a></h2><p>In PrestaShop 9.0, controllers must be defined as services. You have two main approaches to configure your controller service:</p>
+
+<h3 id="option-1-explicit-service-configuration-with-tags">Option 1: Explicit service configuration with tags<a href="#option-1-explicit-service-configuration-with-tags"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># modules/your-module/config/services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">MyModule\Controller\DemoController</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">autowire</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">autoconfigure</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- {<span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">controller.service_arguments }</span><span class="w">
+</span></span></span></code></pre></div>
+<h3 id="option-2-using-service-defaults">Option 2: Using service defaults<a href="#option-2-using-service-defaults"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># modules/your-module/config/services.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">_defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">autowire</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">autoconfigure</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">MyModule\Controller\DemoController</span><span class="p">:</span><span class="w"> </span><span class="l">~</span><span class="w">
+</span></span></span></code></pre></div>
+<div class="notices warning" ><p><strong>Service configuration is mandatory:</strong></p>
+<p>One of the two service configuration options above is <strong>essential and required</strong> for your controller to work properly. Without this configuration:</p>
+<ul>
+<li><strong>The controller will not function</strong> and will throw errors</li>
+<li>Helper methods from <code>PrestaShopAdminController</code> will not be accessible</li>
+<li>Services like Twig, Form, Router, and other Symfony components will not be available</li>
+</ul>
+<p><strong>Important:</strong> The service name (e.g., <code>MyModule\Controller\DemoController</code>) <strong>must exactly match</strong> the fully qualified class name (FQCN) of your controller. If the service name doesn&rsquo;t match the class name, Symfony and PrestaShop will not be able to identify and instantiate the controller, resulting in errors.</p>
+<p><strong>Understanding the configuration:</strong></p>
+<ul>
+<li><code>autowire: true</code> - Automatically injects services in constructors and method parameters</li>
+<li><code>autoconfigure: true</code> - Automatically configures the controller as a service and enables all controller features</li>
+<li><code>controller.service_arguments</code> tag - Required if your controller doesn&rsquo;t extend <code>AbstractController</code> to enable method parameter injection</li>
+</ul>
+</div>
+
+
+<h2 id="autoloading-configuration">Autoloading Configuration<a href="#autoloading-configuration"></a></h2><p>You must enable the autoloading for this Controller. For example using a <code>composer.json</code> file for your module.</p>
+
+<h3 id="example-using-psr-4-namespacing">Example using PSR-4 namespacing<a href="#example-using-psr-4-namespacing"></a></h3><ol>
 <li>
 <p>Use namespace for your Controller file</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
@@ -46644,7 +46749,7 @@ Note that you must return a <code>Response</code> object, but this can be a <cod
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>
 </span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">MyModule\Controller</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\PrestaShopAdminController</span><span class="p">;</span>
 </span></span></code></pre></div></li>
 <li>
 <p>Configure composer to autoload this namespace</p>
@@ -46653,7 +46758,7 @@ Note that you must return a <code>Response</code> object, but this can be a <cod
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;description&#34;</span><span class="p">:</span> <span class="s2">&#34;...&#34;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;autoload&#34;</span><span class="p">:</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nt">&#34;psr-4&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;MyModule\\Controller\\&#34;</span><span class="p">:</span> <span class="s2">&#34;src/Controller/&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;MyModule\\&#34;</span><span class="p">:</span> <span class="s2">&#34;src/&#34;</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">  <span class="p">},</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;config&#34;</span><span class="p">:</span> <span class="p">{</span>
@@ -46712,7 +46817,43 @@ Since Symfony 4.1 the bundle notation is going to be deprecated: <a href="https:
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span></code></pre></div>
+<h2 id="key-changes-in-prestashop-90-symfony-64">Key Changes in PrestaShop 9.0 (Symfony 6.4)<a href="#key-changes-in-prestashop-90-symfony-64"></a></h2>
+<h3 id="controllers-as-services">Controllers as Services<a href="#controllers-as-services"></a></h3><p>In Symfony 6.4, controllers must be defined as services. The container passed to controllers is no longer the &ldquo;global container&rdquo; but a dedicated, optimized container based on the services injected into it.</p>
+<p><strong>Important implications:</strong></p>
+<ul>
+<li>The <code>$this-&gt;get('service_name')</code> method is no longer available in modern controllers</li>
+<li><code>FrameworkBundleAdminController</code> maintains backward compatibility but is <strong>deprecated</strong> and will be removed in PrestaShop 10.0</li>
+<li>New controllers should extend <code>PrestaShopAdminController</code> which follows Symfony best practices</li>
+</ul>
+
+<h3 id="dependency-injection-methods">Dependency Injection Methods<a href="#dependency-injection-methods"></a></h3><p>You have three main ways to inject services:</p>
+<ol>
+<li><strong>Constructor injection</strong> - For services used across multiple actions</li>
+<li><strong>Method injection</strong> - For services used in a single action (more optimized)</li>
+<li><strong>Autowire attribute</strong> - Use <code>#[Autowire(service: 'service_id')]</code> to inject services by their ID</li>
+</ol>
+
+<h3 id="prestashopadmincontroller-helper-methods">PrestaShopAdminController Helper Methods<a href="#prestashopadmincontroller-helper-methods"></a></h3><p>The new base controller provides convenient helper methods for commonly used services:</p>
+<ul>
+<li><code>$this-&gt;getConfiguration()</code> - Access configuration service</li>
+<li><code>$this-&gt;getTranslator()</code> - Access translator service</li>
+<li><code>$this-&gt;getRouter()</code> - Access router service</li>
+<li><code>$this-&gt;getFlashBag()</code> - Access flash messages</li>
+</ul>
+<p>See the <a href="https://github.com/PrestaShop/PrestaShop/blob/9.0.0/src/PrestaShopBundle/Controller/Admin/PrestaShopAdminController.php">full list of helper methods</a> in the class.</p>
+
+<div class="notices info" ><p><strong>Learn more about Symfony controllers:</strong></p>
+<ul>
+<li><a href="https://symfony.com/doc/6.4/controller/service.html">Controllers as services</a></li>
+<li><a href="https://symfony.com/doc/6.4/service_container/service_subscribers_locators.html">Service Subscribers &amp; Locators</a></li>
+<li><a href="https://symfony.com/doc/6.4/service_container.html">Service container</a></li>
+</ul></div>
+
+
 <h2 id="secure-your-controller">Secure your controller<a href="#secure-your-controller"></a></h2><p>It is safer to define permissions required to use your controller, this can be configured using the <code>#[AdminSecurity]</code> attribute and some configuration in your routing file. You can read this documentation if you need more details about <a href="https://devdocs.prestashop-project.org/9/development/architecture/migration-guide/controller-routing/#security">Controller Security</a>.</p>
+
+<div class="notices note" ><strong>PrestaShop 9.0+</strong>: The <code>@AdminSecurity</code> annotation has been replaced with the <code>#[AdminSecurity]</code> attribute following PHP 8 standards.</div>
+
 
 
 
@@ -46771,7 +46912,7 @@ Since Symfony 4.1 the bundle notation is going to be deprecated: <a href="https:
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/f5bf89f0bdffd7b8f9af5c073a4ae594f82cde8e">2024-11-14 by Jonathan Danse</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/b252858177c4689eb9d624e1d3459834cda0b371">2025-10-23 by luigi massa</a>.<br>
         
     
 
@@ -46793,17 +46934,17 @@ Since Symfony 4.1 the bundle notation is going to be deprecated: <a href="https:
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1763529865"></script>
-    <script src="/js/perfect-scrollbar.min.js?1763529865"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1763529865"></script>
-    <script src="/js/jquery.sticky.js?1763529865"></script>
-    <script src="/js/featherlight.min.js?1763529865"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1763529865"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1763529865"></script>
-    <script src="/js/learn.js?1763529865"></script>
-    <script src="/js/hugo-learn.js?1763529865"></script>
+    <script src="/js/clipboard.min.js?1764075813"></script>
+    <script src="/js/perfect-scrollbar.min.js?1764075813"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1764075813"></script>
+    <script src="/js/jquery.sticky.js?1764075813"></script>
+    <script src="/js/featherlight.min.js?1764075813"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1764075813"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1764075813"></script>
+    <script src="/js/learn.js?1764075813"></script>
+    <script src="/js/hugo-learn.js?1764075813"></script>
     
-    <script src="/main.js?1763529865"></script>
+    <script src="/main.js?1764075813"></script>
     
     
     
