@@ -4,16 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Hugo 0.121.1">
-    <meta name="description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
+    <meta name="description" content="This hook allows modules to declare additional controllers that should support Faceted Search filters. These controllers will appear in the module configuration template as eligible for displaying faceted filters.">
 <meta name="twitter:image" content="https://devdocs.prestashop-project.org/images/social-cover-2024.jpg" />
 <meta name="twitter:site" content="@prestashop" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="actionFacetedSearchSetSupportedControllers" />
-<meta name="twitter:description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
+<meta name="twitter:description" content="This hook allows modules to declare additional controllers that should support Faceted Search filters. These controllers will appear in the module configuration template as eligible for displaying faceted filters.">
 <meta property="og:image" content="https://devdocs.prestashop-project.org/images/social-cover-2024.jpg" />
 <meta property="og:site_name" content="PrestaShop" />
 <meta property="og:title" content="actionFacetedSearchSetSupportedControllers" />
-<meta property="og:description" content="Learn how to extend, modify and test PrestaShop, create modules, themes, and more.">
+<meta property="og:description" content="This hook allows modules to declare additional controllers that should support Faceted Search filters. These controllers will appear in the module configuration template as eligible for displaying faceted filters.">
 <meta name="author" content="PrestaShop">
 <meta name="docsearch:version" content="9" />
 
@@ -22,14 +22,14 @@
     <title>actionFacetedSearchSetSupportedControllers :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1766410607" rel="stylesheet">
-    <link href="/css/syntax-github.css?1766410607" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1766410607" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1766410607" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1766484543" rel="stylesheet">
+    <link href="/css/syntax-github.css?1766484543" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1766484543" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1766484543" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1766410607" rel="stylesheet">
+    <link href="/style.css?1766484543" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1766410607"></script>
+    <script src="/js/jquery-3.3.1.min.js?1766484543"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -10507,6 +10507,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             
             
           
+            
+            
+          
         
         </ul>
       
@@ -17094,6 +17097,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul>
         <li><a href="#informations">Informations</a></li>
         <li><a href="#located-in">Located in</a></li>
+        <li><a href="#purpose">Purpose</a></li>
+        <li><a href="#parameters-available">Parameters available</a></li>
+        <li><a href="#example-usage">Example usage</a></li>
         <li><a href="#call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file</a></li>
       </ul>
     </li>
@@ -42954,6 +42960,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
   
       
+        
+    
+    
+  
+      
     
   
       
@@ -46857,7 +46868,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <h1 id="hook-actionfacetedsearchsetsupportedcontrollers">Hook actionFacetedSearchSetSupportedControllers<a href="#hook-actionfacetedsearchsetsupportedcontrollers"></a></h1>
 <h2 id="informations">Informations<a href="#informations"></a></h2><div class="notices note">
-    <strong></strong>
+    <strong>Add custom controllers to Faceted Search supported controllers list</strong>
+    This hook allows modules to declare additional controllers that should support Faceted Search filters. These controllers will appear in the module configuration template as eligible for displaying faceted filters.
 </div>
 <table>
 <thead>
@@ -46877,7 +46889,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </tr>
 <tr>
 <td>Origin</td>
-<td>core</td>
+<td>ps_facetedsearch</td>
 </tr>
 <tr>
 <td>Aliases</td>
@@ -46885,7 +46897,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </tr>
 <tr>
 <td>Description</td>
-<td></td>
+<td>This hook allows modules to declare additional controllers that should support Faceted Search filters. These controllers will appear in the module configuration template as eligible for displaying faceted filters.</td>
 </tr>
 </tbody>
 </table>
@@ -46897,16 +46909,58 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </tr>
 <tr>
 <td>core</td>
-<td><a href=https://github.com/PrestaShop/PrestaShop/blob/9.1.x/modules/ps_facetedsearch/ps_facetedsearch.php>modules/ps_facetedsearch/ps_facetedsearch.php</a></td>
+<td><a href=https://github.com/PrestaShop/ps_facetedsearch/blob/dev/ps_facetedsearch.php>ps_facetedsearch.php</a></td>
 </tr>
 </table>
 
+<h2 id="purpose">Purpose<a href="#purpose"></a></h2><p>The <code>actionFacetedSearchSetSupportedControllers</code> hook allows third-party modules to <strong>append custom controllers</strong> to the list of controllers supported by the <em>ps_facetedsearch</em> module.</p>
+<p>This makes it possible to <strong>enable faceted filters on non-standard pages</strong>, such as custom product listings, landing pages or other bespoke front controllers.</p>
+
+<h2 id="parameters-available">Parameters available<a href="#parameters-available"></a></h2><p>The hook receives an array of parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>supportedControllers</td>
+<td>array</td>
+<td>Associative array of supported controllers, passed <strong>by reference</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>supportedControllers</code> array is passed <strong>by reference</strong>, so you can modify it directly. The structure follows the one used internally by the module, for example:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;category&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Category&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;cacheable&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;manufacturer&#39;</span> <span class="o">=&gt;</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Brand&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;cacheable&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">];</span>
+</span></span></code></pre></div>
+<h2 id="example-usage">Example usage<a href="#example-usage"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">hookActionFacetedSearchSetSupportedControllers</span><span class="p">(</span><span class="k">array</span> <span class="nv">$params</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Add a custom front controller that should support Faceted Search filters
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nv">$params</span><span class="p">[</span><span class="s1">&#39;supportedControllers&#39;</span><span class="p">][</span><span class="s1">&#39;mycustomproductlisting&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Custom product listing&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Custommodule.Front&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;cacheable&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
 <h2 id="call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file<a href="#call-of-the-hook-in-the-origin-file"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">            <span class="s1">&#39;actionFacetedSearchSetSupportedControllers&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="p">[</span>
-</span></span><span class="line"><span class="cl">                <span class="s1">&#39;supportedControllers&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$supportedControllers</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="p">]</span>
-</span></span><span class="line"><span class="cl">        <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;actionFacetedSearchSetSupportedControllers&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;supportedControllers&#39;</span> <span class="o">=&gt;</span> <span class="o">&amp;</span><span class="nv">$supportedControllers</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">);</span>
 </span></span></code></pre></div>
 
 <footer class="article-footer">
@@ -46963,7 +47017,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/cfb3c48eeeb8607a559decbf64ac86b32016d13c">2025-12-17 by Jonathan LELIEVRE</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/560bbfa54c5ca2ad55a3ebb8cde443b6ff92857b">2025-12-23 by Paolo Cunti @codencode</a>.<br>
         
     
 
@@ -46985,17 +47039,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1766410607"></script>
-    <script src="/js/perfect-scrollbar.min.js?1766410607"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1766410607"></script>
-    <script src="/js/jquery.sticky.js?1766410607"></script>
-    <script src="/js/featherlight.min.js?1766410607"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1766410607"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1766410607"></script>
-    <script src="/js/learn.js?1766410607"></script>
-    <script src="/js/hugo-learn.js?1766410607"></script>
+    <script src="/js/clipboard.min.js?1766484543"></script>
+    <script src="/js/perfect-scrollbar.min.js?1766484543"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1766484543"></script>
+    <script src="/js/jquery.sticky.js?1766484543"></script>
+    <script src="/js/featherlight.min.js?1766484543"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1766484543"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1766484543"></script>
+    <script src="/js/learn.js?1766484543"></script>
+    <script src="/js/hugo-learn.js?1766484543"></script>
     
-    <script src="/main.js?1766410607"></script>
+    <script src="/main.js?1766484543"></script>
     
     
     
@@ -48267,6 +48321,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     {
                         name: "actionExportGDPRData",
                         url: "/9/modules/concepts/hooks/list-of-hooks/actionexportgdprdata/"
+                    },
+                
+                    {
+                        name: "actionFacetedSearchCacheKeyGeneration",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actionfacetedsearchcachekeygeneration/"
                     },
                 
                     {
