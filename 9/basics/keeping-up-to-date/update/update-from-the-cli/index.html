@@ -22,14 +22,14 @@
     <title>Update from the CLI :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1767784363" rel="stylesheet">
-    <link href="/css/syntax-github.css?1767784363" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1767784363" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1767784363" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1767796658" rel="stylesheet">
+    <link href="/css/syntax-github.css?1767796658" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1767796658" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1767796658" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1767784363" rel="stylesheet">
+    <link href="/style.css?1767796658" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1767784363"></script>
+    <script src="/js/jquery-3.3.1.min.js?1767796658"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -17090,7 +17090,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </li>
         <li><a href="#update-commands">Update commands</a>
           <ul>
-            <li><a href="#updatecheck-new-version-command">update:check-new-version command</a></li>
+            <li><a href="#updatecheck-new-version-command">update:check-new-version command</a>
+              <ul>
+                <li><a href="#understanding-the-channel-column">Understanding the Channel column</a></li>
+                <li><a href="#update-scenarios">Update scenarios</a></li>
+              </ul>
+            </li>
             <li><a href="#updatecheck-requirements-command">update:check-requirements command</a></li>
             <li><a href="#updatestart-command">update:start command</a></li>
           </ul>
@@ -47059,17 +47064,30 @@ You must specify the location (<code>--from-config-file=.../folder1/configfile</
 </span></span></code></pre></div><p>The <code>[ADMIN_DIR]</code> argument is mandatory and is used to target the correct resource.</p>
 <p>Example of the <code>update:check-new-version</code> command execution:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console update:check-new-version admin123
-</span></span><span class="line"><span class="cl">-----------+----------+-------+---------------------------------------------------------------------------+
-</span></span><span class="line"><span class="cl">| Version  | Channel  | Type  | Information                                                               |
-</span></span><span class="line"><span class="cl">+----------+----------+-------+---------------------------------------------------------------------------+
-</span></span><span class="line"><span class="cl">| 8.2.0    | online   | minor | https://build.prestashop-project.org/news/2024/prestashop-8-2-0-available/|
-</span></span><span class="line"><span class="cl">| 9.0.0    | local    | major | Zip: 2024-10-17-develop-prestashop_9_0_0.zip                              |
-</span></span><span class="line"><span class="cl">|          |          |       | Xml: prestashop_9.0.0.xml                                                 |
-</span></span><span class="line"><span class="cl">| 8.1.0    | local    | patch | Zip: 8_1_0.zip                                                            |
-</span></span><span class="line"><span class="cl">|          |          |       | Xml: 8.1.0-2.xml, 8.1.0.xml                                               |
-</span></span></code></pre></div><ul>
-<li>The official “online” update for your store, detected by PrestaShop APIs (major, minor or patch versions). This update corresponds to the most recent version of PrestaShop compatible with the PHP version of your server.</li>
-<li>The “local” update, which displays customized updates detected in your <code>/your-admin-directory/autoupgrade/download</code> folder on your server.</li>
+</span></span><span class="line"><span class="cl">+---------+--------------------+-------+--------------------------------------------------------------------------------------+
+</span></span><span class="line"><span class="cl">| Version | Channel            | Type  | Information                                                                          |
+</span></span><span class="line"><span class="cl">+---------+--------------------+-------+--------------------------------------------------------------------------------------+
+</span></span><span class="line"><span class="cl">| 8.2.3   | online_recommended | minor | https://build.prestashop-project.org/news/2025/prestashop-8-2-3-security-release/    |
+</span></span><span class="line"><span class="cl">| 9.0.1   | online             | major | https://build.prestashop-project.org/news/2025/prestashop-9-0-1-maintenance-release/ |
+</span></span><span class="line"><span class="cl">| 9.0.0   | local              | major | Zip: 2024-10-17-develop-prestashop_9_0_0.zip                                         |
+</span></span><span class="line"><span class="cl">|         |                    |       | Xml: prestashop_9.0.0.xml                                                            |
+</span></span><span class="line"><span class="cl">| 8.1.1   | local              | patch | Zip: 8_1_1.zip                                                                       |
+</span></span><span class="line"><span class="cl">|         |                    |       | Xml: 8.1.1-2.xml, 8.1.1.xml                                                          |
+</span></span><span class="line"><span class="cl">+---------+--------------------+-------+--------------------------------------------------------------------------------------+
+</span></span></code></pre></div>
+<h4 id="understanding-the-channel-column">Understanding the Channel column<a href="#understanding-the-channel-column"></a></h4><p>The <strong>Channel</strong> column indicates the source and type of the available update:</p>
+<ul>
+<li><strong><code>online_recommended</code></strong>: The recommended update for your store, detected by PrestaShop APIs (major, minor or patch versions). This update corresponds to the most stable and well-tested version of PrestaShop compatible with the PHP version of your server. The recommended version represents the safest upgrade path for your store.</li>
+<li><strong><code>online</code></strong>: The latest update available for your store, which corresponds to the most recent version of PrestaShop compatible with the PHP version of your server. This version may differ from the recommended version.</li>
+<li><strong><code>local</code></strong>: Customized updates detected in your <code>/your-admin-directory/autoupgrade/download</code> folder on your server.</li>
+</ul>
+
+<h4 id="update-scenarios">Update scenarios<a href="#update-scenarios"></a></h4><p>Depending on the current state of PrestaShop releases, the command output may show:</p>
+<ul>
+<li>Both a <strong>recommended version</strong> (channel <code>online_recommended</code>) and a <strong>latest version</strong> (channel <code>online</code>) when they differ.</li>
+<li>Only one online version (channel <code>online_recommended</code>) when the recommended version is also the latest.</li>
+<li>Only the latest version (channel <code>online</code>) when no specific version is marked as recommended.</li>
+<li>Local versions (channel <code>local</code>) in addition to online versions, if custom update files are detected on your server.</li>
 </ul>
 
 <h3 id="updatecheck-requirements-command">update:check-requirements command<a href="#updatecheck-requirements-command"></a></h3><p>The <code>update:check-requirements</code> command is used to check that your store meets the technical requirements before updating.</p>
@@ -47197,7 +47215,7 @@ This update corresponds to the most recent version of PrestaShop compatible with
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/dc8c46a30600e2f64be05d115610257ebd16379d">2025-05-01 by Thomas Nabord</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/bb4c2e660bc6881c9d70709861e9e9f00284e404">2025-11-27 by Alexis Guyomar</a>.<br>
         
     
 
@@ -47219,17 +47237,17 @@ This update corresponds to the most recent version of PrestaShop compatible with
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1767784363"></script>
-    <script src="/js/perfect-scrollbar.min.js?1767784363"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1767784363"></script>
-    <script src="/js/jquery.sticky.js?1767784363"></script>
-    <script src="/js/featherlight.min.js?1767784363"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1767784363"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1767784363"></script>
-    <script src="/js/learn.js?1767784363"></script>
-    <script src="/js/hugo-learn.js?1767784363"></script>
+    <script src="/js/clipboard.min.js?1767796658"></script>
+    <script src="/js/perfect-scrollbar.min.js?1767796658"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1767796658"></script>
+    <script src="/js/jquery.sticky.js?1767796658"></script>
+    <script src="/js/featherlight.min.js?1767796658"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1767796658"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1767796658"></script>
+    <script src="/js/learn.js?1767796658"></script>
+    <script src="/js/hugo-learn.js?1767796658"></script>
     
-    <script src="/main.js?1767784363"></script>
+    <script src="/main.js?1767796658"></script>
     
     
     
