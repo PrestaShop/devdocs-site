@@ -22,14 +22,14 @@
     <title>New translation system :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1767796700" rel="stylesheet">
-    <link href="/css/syntax-github.css?1767796700" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1767796700" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1767796700" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1767873728" rel="stylesheet">
+    <link href="/css/syntax-github.css?1767873728" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1767873728" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1767873728" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1767796700" rel="stylesheet">
+    <link href="/style.css?1767873728" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1767796700"></script>
+    <script src="/js/jquery-3.3.1.min.js?1767873728"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -47025,20 +47025,27 @@ Make sure that the technical name of your module does not contain contains under
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>Symfony controllers work exactly the same as the Core&rsquo;s. Just use <code>$this-&gt;trans()</code> method.</p>
-
-<div class="notices warning" >Be aware that in Symfony controllers, the second and third arguments have been swapped to make <code>$parameters</code> optional.</div>
-
+<p><strong>PrestaShop 9.0+</strong> uses <code>PrestaShopAdminController</code> which follows the standard Symfony translator signature:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\MyModule</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SomeAdminController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Controller\Admin\PrestaShopAdminController</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SomeAdminController</span> <span class="k">extends</span> <span class="nx">PrestaShopAdminController</span>
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">someAction</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">text</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Some text being translated&#39;</span><span class="p">,</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Standard Symfony signature: trans($id, $parameters, $domain)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">text</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Some text being translated&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1">// With parameters
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">text</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Hello %name%!&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;%name%&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;World&#39;</span><span class="p">],</span> <span class="s1">&#39;Modules.Mymodule.Admin&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
+<div class="notices info" ><strong>PrestaShop 8.x and earlier:</strong> If you need to support older versions using the deprecated <code>FrameworkBundleAdminController</code>, note that it uses a different parameter order: <code>trans($id, $domain, $parameters)</code> where the domain and parameters are swapped.</div>
+
+
 <h4 id="other-classes">Other classes<a href="#other-classes"></a></h4><p>Other classes will need to retrieve the module&rsquo;s translator instance somehow. We recommend passing it as a parameter in the constructor and storing it for later use.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CustomModuleClass</span> 
@@ -47235,7 +47242,7 @@ Make sure that the technical name of your module does not contain contains under
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/ce1ab07272432cab90eff9cd2c4f80b3c73dffc4">2025-12-12 by Jonathan Danse</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/044b4bbbd704d67777f30c2f84a0425ff82543c1">2026-01-07 by Krystian Podemski</a>.<br>
         
     
 
@@ -47257,17 +47264,17 @@ Make sure that the technical name of your module does not contain contains under
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1767796700"></script>
-    <script src="/js/perfect-scrollbar.min.js?1767796700"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1767796700"></script>
-    <script src="/js/jquery.sticky.js?1767796700"></script>
-    <script src="/js/featherlight.min.js?1767796700"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1767796700"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1767796700"></script>
-    <script src="/js/learn.js?1767796700"></script>
-    <script src="/js/hugo-learn.js?1767796700"></script>
+    <script src="/js/clipboard.min.js?1767873729"></script>
+    <script src="/js/perfect-scrollbar.min.js?1767873729"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1767873729"></script>
+    <script src="/js/jquery.sticky.js?1767873729"></script>
+    <script src="/js/featherlight.min.js?1767873729"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1767873729"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1767873729"></script>
+    <script src="/js/learn.js?1767873729"></script>
+    <script src="/js/hugo-learn.js?1767873729"></script>
     
-    <script src="/main.js?1767796700"></script>
+    <script src="/main.js?1767873729"></script>
     
     
     

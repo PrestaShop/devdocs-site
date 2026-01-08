@@ -22,14 +22,14 @@
     <title>Using the Translator to translate wordings :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1767796672" rel="stylesheet">
-    <link href="/css/syntax-github.css?1767796672" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1767796672" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1767796672" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1767873702" rel="stylesheet">
+    <link href="/css/syntax-github.css?1767873702" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1767873702" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1767873702" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1767796672" rel="stylesheet">
+    <link href="/style.css?1767873702" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1767796672"></script>
+    <script src="/js/jquery-3.3.1.min.js?1767873702"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -46859,17 +46859,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li><code>$domain</code> – The [translation domain][translation-domains] for that wording.</li>
 </ol>
 
-<div class="notices warning" >Be aware that in Symfony-based Admin controllers, the second and third arguments have been swapped in order to allow <code>$replacements</code> to be optional. For more, see <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.0/src/PrestaShopBundle/Controller/Admin/FrameworkBundleAdminController.php#L299">FrameworkBundleAdminController</a>.</div>
-
-
 <h3 id="inside-controllers">Inside controllers<a href="#inside-controllers"></a></h3><p>Controllers include a helper method named <code>trans()</code> that calls the translator internally:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// legacy controllers
+</span></span><span class="line"><span class="cl"><span class="c1">// Legacy controllers and PrestaShopAdminController (PrestaShop 9.0+)
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Standard Symfony signature: trans($id, $parameters, $domain)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;This product is no longer available.&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Shop.Notifications.Error&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// Symfony-based controllers (FrameworkBundleAdminController)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;This product is no longer available.&#39;</span><span class="p">,</span> <span class="s1">&#39;Shop.Notifications.Error&#39;</span><span class="p">,</span> <span class="p">[]);</span>
 </span></span></code></pre></div>
+<div class="notices warning" ><p><strong>PrestaShop 8.x and earlier:</strong> The deprecated <code>FrameworkBundleAdminController</code> used a non-standard parameter order where the second and third arguments were swapped: <code>trans($id, $domain, $parameters)</code>. This was changed in PrestaShop 9.0 with the introduction of <code>PrestaShopAdminController</code>, which follows the standard Symfony signature.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// DEPRECATED: FrameworkBundleAdminController (PrestaShop 8.x and earlier)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;This product is no longer available.&#39;</span><span class="p">,</span> <span class="s1">&#39;Shop.Notifications.Error&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+</span></span></code></pre></div></div>
+
+
 <h3 id="outside-controllers">Outside controllers<a href="#outside-controllers"></a></h3><p>If you are outside a controller, and after careful consideration you think you absolutely need some stuff translated, then you can add it as a dependency of your class:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// SomeService.php
@@ -46980,7 +46982,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/444f3073e6db257f78e63ae3af7956cdc20b111a">2025-10-02 by Matthias-Kelvin Daous</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/044b4bbbd704d67777f30c2f84a0425ff82543c1">2026-01-07 by Krystian Podemski</a>.<br>
         
     
 
@@ -47002,17 +47004,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1767796672"></script>
-    <script src="/js/perfect-scrollbar.min.js?1767796672"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1767796672"></script>
-    <script src="/js/jquery.sticky.js?1767796672"></script>
-    <script src="/js/featherlight.min.js?1767796672"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1767796672"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1767796672"></script>
-    <script src="/js/learn.js?1767796672"></script>
-    <script src="/js/hugo-learn.js?1767796672"></script>
+    <script src="/js/clipboard.min.js?1767873702"></script>
+    <script src="/js/perfect-scrollbar.min.js?1767873702"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1767873702"></script>
+    <script src="/js/jquery.sticky.js?1767873702"></script>
+    <script src="/js/featherlight.min.js?1767873702"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1767873702"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1767873702"></script>
+    <script src="/js/learn.js?1767873702"></script>
+    <script src="/js/hugo-learn.js?1767873702"></script>
     
-    <script src="/main.js?1767796672"></script>
+    <script src="/main.js?1767873702"></script>
     
     
     
