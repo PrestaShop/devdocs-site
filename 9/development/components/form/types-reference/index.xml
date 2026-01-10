@@ -134,6 +134,13 @@
       <description>FormattedTextareaTypeEnables TinyMCE text editor on TextareaType.&#xA;Type options Option Type Default value Description autoload bool true Whether to automatically load TinyMCE editor, or no. limit int 21844 Limit of characters in text field. By default value equals to max size of UTF-8 content available in MySQL text column Required Javascript components Component Description TinyMCEEditor Rich text editor Learn more about Javascript components and how to use them Code example&amp;lt;?php // path/to/your/CustomType.</description>
     </item>
     <item>
+      <title>GenderType</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/form/types-reference/gender-type/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/form/types-reference/gender-type/</guid>
+      <description>GenderTypeGenderType is a child of ChoiceType. It is used to display a selection for social titles (genders) and comes pre-populated with the list of genders configured in PrestaShop.&#xA;Namespace: PrestaShopBundle\Form\Admin\Sell\Customer Fully qualified class name: PrestaShopBundle\Form\Admin\Sell\Customer\GenderType Type options Option Type Default value Description choices array From provider Automatically populated from GenderByIdChoiceProvider::getChoices(). choice_translation_domain boolean false Disables translation for choice labels (names come from database). label string &amp;lsquo;Social title&amp;rsquo; Default label for the field.</description>
+    </item>
+    <item>
       <title>GeneratableTextType</title>
       <link>https://devdocs.prestashop-project.org/9/development/components/form/types-reference/generatable-text/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -146,6 +153,13 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://devdocs.prestashop-project.org/9/development/components/form/types-reference/geo-coordinates/</guid>
       <description>GeoCoordinatesTypeThis form class is responsible to create a geolocation latitude/longitude coordinates field.&#xA;Type options Option Type Default value Description label_longitude string Longitude Longitude label label_latitude string Latitude Latitude label Required Javascript componentsNone.&#xA;Code exampleAdd GeoCoordinatesType to your form.&#xA;&amp;lt;?php // path/to/your/CustomType.php use PrestaShopBundle\Form\Admin\Type\GeoCoordinatesType; class CustomType { public function buildForm(FormBuilderInterface $builder, array $options) { $builder -&amp;gt;add(&amp;#39;coordinates&amp;#39;, GeoCoordinatesType::class) ; } } Find a complete implementation in the demosymfonyform module.&#xA;Updating the coordinatesThe GeoCoordinatesType renders two input fields that must be provided when updating the value:</description>
+    </item>
+    <item>
+      <title>GroupType</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/form/types-reference/group-type/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/form/types-reference/group-type/</guid>
+      <description>GroupTypeGroupType is a child of ChoiceType. It is used to display a selection for customer groups and comes pre-populated with the list of customer groups configured in PrestaShop.&#xA;Namespace: PrestaShopBundle\Form\Admin\Sell\Customer Fully qualified class name: PrestaShopBundle\Form\Admin\Sell\Customer\GroupType Type options Option Type Default value Description choices array From provider Automatically populated from GroupByIdChoiceProvider::getChoices(). choice_translation_domain boolean false Disables translation for choice labels (names come from database). Required Javascript componentsNone.&#xA;Code example&amp;lt;?php // path/to/your/CustomType.php use PrestaShopBundle\Form\Admin\Sell\Customer\GroupType; use Symfony\Component\Form\AbstractType; use Symfony\Component\Form\FormBuilderInterface; class CustomType extends AbstractType { public function buildForm(FormBuilderInterface $builder, array $options) { $builder-&amp;gt;add(&amp;#39;default_group_id&amp;#39;, GroupType::class, [ &amp;#39;label&amp;#39; =&amp;gt; &amp;#39;Default customer group&amp;#39;, &amp;#39;required&amp;#39; =&amp;gt; false, &amp;#39;autocomplete&amp;#39; =&amp;gt; true, &amp;#39;placeholder&amp;#39; =&amp;gt; null, ]); } } Usage with autocompleteFor better UX with many customer groups, enable the autocomplete feature:</description>
     </item>
     <item>
       <title>IconButtonType</title>
@@ -174,6 +188,13 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://devdocs.prestashop-project.org/9/development/components/form/types-reference/ip-address/</guid>
       <description>IpAddressTypeExtends TextType with additional button which inserts current device ip address to input.&#xA;Type optionsNone.&#xA;Required Javascript components Component Description ../admin-dev/themes/new-theme/js/maintenance-page/ip-input.js Inserts current device ip address to input. Code example&amp;lt;?php // path/to/your/CustomType.php use PrestaShopBundle\Form\Admin\Type\IpAddressType; class CustomType { public function buildForm(FormBuilderInterface $builder, array $options) { $builder -&amp;gt;add( &amp;#39;my_ip&amp;#39;, IpAddressType::class ) ; } } Then in Javascript you have to enable IpInput component.&#xA;import IpInput from &amp;#39;admin-dev/themes/new-theme/js/maintenance-page/ip-input&amp;#39;; // initialize the component IpInput.</description>
+    </item>
+    <item>
+      <title>LocaleChoiceType</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/form/types-reference/locale-choice-type/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/form/types-reference/locale-choice-type/</guid>
+      <description>LocaleChoiceTypeLocaleChoiceType is a child of ChoiceType. It is used to display a dropdown selection of available languages/locales configured in PrestaShop. The choices are automatically populated from the shop&amp;rsquo;s language configuration.&#xA;Namespace: PrestaShopBundle\Form\Admin\Type Fully qualified class name: PrestaShopBundle\Form\Admin\Type\LocaleChoiceType Type options Option Type Default value Description placeholder string &amp;lsquo;Language&amp;rsquo; Placeholder text shown before selection. Translated via Admin.Global domain. translation_domain string &amp;lsquo;Admin.Global&amp;rsquo; Translation domain for the placeholder. choice_translation_domain boolean false Disables translation for choice labels (language names).</description>
     </item>
     <item>
       <title>LogSeverityChoiceType</title>
