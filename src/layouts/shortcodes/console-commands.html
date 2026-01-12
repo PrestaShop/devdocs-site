@@ -1,0 +1,51 @@
+{{- $currentPage := .Page -}}
+{{- $pages := .Page.Pages -}}
+
+{{- /* Define categories and their display order */ -}}
+{{- $categories := slice
+    "Module Management"
+    "Translations"
+    "Theme Management"
+    "Development & Debugging"
+    "Code Quality & Linting"
+    "Database & Schema"
+    "Search & Indexing"
+    "Assets & Media"
+    "API & Documentation"
+    "Feature Flags"
+    "Tax Management"
+    "License & Legal"
+    "Internal/Advanced"
+    "Utilities"
+-}}
+
+{{- /* Group pages by category */ -}}
+{{- range $categories -}}
+  {{- $categoryName := . -}}
+  {{- $categoryPages := where $pages ".Params.category" $categoryName -}}
+  {{- if $categoryPages -}}
+    <h3>{{ $categoryName }}</h3>
+    <ul>
+    {{- range sort $categoryPages ".Params.weight" "asc" -}}
+      <li>
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{- with .Params.description }} - {{ . }}{{ end -}}
+      </li>
+    {{- end -}}
+    </ul>
+  {{- end -}}
+{{- end -}}
+
+{{- /* List uncategorized commands */ -}}
+{{- $uncategorized := where $pages ".Params.category" nil -}}
+{{- if $uncategorized -}}
+  <h3>Other Commands</h3>
+  <ul>
+  {{- range $uncategorized -}}
+    <li>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{- with .Params.description }} - {{ . }}{{ end -}}
+    </li>
+  {{- end -}}
+  </ul>
+{{- end -}}
