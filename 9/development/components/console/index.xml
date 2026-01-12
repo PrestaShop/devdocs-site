@@ -8,6 +8,13 @@
     <language>en-us</language>
     <atom:link href="https://devdocs.prestashop-project.org/9/development/components/console/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>about</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/about/</guid>
+      <description>about DescriptionThis command displays information about the current PrestaShop installation. It extends the default Symfony about command to include PrestaShop-specific details such as version, debug mode status, and Smarty cache configuration.&#xA;Usagephp bin/console about OutputThe command displays:&#xA;Standard Symfony project information (PHP version, environment, etc.) PrestaShop section with: Version: Current PrestaShop version (e.g., 9.0.0) Debug mode: Whether debug mode is enabled (true or false) Smarty Cache: Whether Smarty template caching is enabled (true or false) Example$ php bin/console about -------------------- ------------------------------------------- Symfony -------------------- ------------------------------------------- Version 6.</description>
+    </item>
+    <item>
       <title>Context helper</title>
       <link>https://devdocs.prestashop-project.org/9/development/components/console/context-helper/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -22,18 +29,11 @@
       <description>prestashop:api-client Informations Path: src/PrestaShopBundle/Command/APIClientCommand.php Arguments: action: Action to perform, create/delete. client-id: Client ID. Options: --name: Client Name --description: Client Description (Created by CLI command., by default) --all-scopes: Automatically assign all available scopes --scopes: OClient list of scopes separated by commas --secret-only: Only output secret value after creation --timeout: Timeout in seconds (3600, by default) --secret: Force secret value (auto generated, by default) DescriptionManage Admin API client.&#xA;UsageCreate an AdminApi client.</description>
     </item>
     <item>
-      <title>prestashop:config</title>
-      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-config/</link>
+      <title>prestashop:feature-flag</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-feature-flag/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-config/</guid>
-      <description>prestashop:config DescriptionManage shop configuration settings via command line&#xA;Help$ bin/console prestashop:config --help Description: Manage your configuration via command line Usage: prestashop:config [options] [--] &amp;lt;action&amp;gt; &amp;lt;key&amp;gt; Arguments: action Action to execute (Allowed actions: get / set / remove). key Configuration key. like PS_LANG_DEFAULT Options: -l, --lang=LANG in this language. this can be either language id or ISO 3166-2 alpha-2 (en, fr, fi...) -g, --shopGroupId=SHOPGROUPID in this shop group (if no shop group or shop options are given defaults to allShops) -s, --shopId=SHOPID in this shop (if no shop group or shop options are given defaults to allShops) -h, --help Display this help message -q, --quiet Do not output any message -V, --version Display this application version --ansi Force ANSI output --no-ansi Disable ANSI output -n, --no-interaction Do not ask any interactive question -e, --env=ENV The Environment name.</description>
-    </item>
-    <item>
-      <title>prestashop:debug</title>
-      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-debug/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-debug/</guid>
-      <description>prestashop:debug Informations Path: src/PrestaShopBundle/Command/DebugCommand.php Arguments: value: Value for debug mode, on/off, true/false, 1/0. If left out will just print the current state. DescriptionGet or set the debug mode from command line.&#xA;With this command its easy to switch between debug mode on and off.&#xA;To set debug mode on just run the command&#xA;bin/console prestashop:debug on And to take it off&#xA;bin/console prestashop:debug off To read out the debug status of the shop use</description>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-feature-flag/</guid>
+      <description>prestashop:feature-flag DescriptionThis command allows you to manage feature flags via command line. Feature flags enable or disable specific features in PrestaShop, allowing for gradual rollout of new functionality or A/B testing.&#xA;Usagephp bin/console prestashop:feature-flag &amp;lt;action&amp;gt; [feature_flag] Arguments action (required): Action to execute. Allowed actions: enable, disable, list feature_flag (optional): Name of the feature flag you want to enable/disable (required for enable and disable actions) Actions List all feature flagsDisplay all available feature flags with their current state:</description>
     </item>
     <item>
       <title>prestashop:licenses:update</title>
@@ -43,13 +43,6 @@
       <description>prestashop:licenses:update Informations Path: src/PrestaShopBundle/Command/UpdateLicensesCommand.php DescriptionThis command aims to rewrite your license headers to be up-to-date.&#xA;It works on multiple files extensions: .css, .html.twig, .js, .json, .php, .tpl, .vue.</description>
     </item>
     <item>
-      <title>prestashop:linter:legacy-link</title>
-      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-linter-legacy-link/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-linter-legacy-link/</guid>
-      <description>prestashop:linter:legacy-link Informations Path: src/PrestaShopBundle/Command/LegacyLinkLinterCommand.php DescriptionThis command aims to check if _legacy_link is configured in BackOffice routes.</description>
-    </item>
-    <item>
       <title>prestashop:linter:naming-convention</title>
       <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-linter-naming-convention/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -57,32 +50,11 @@
       <description>prestashop:linter:naming-convention Informations Path: src/PrestaShopBundle/Command/NamingConventionLinterCommand.php DescriptionThis command aims to check if Back Office routes and controllers follow the following naming convention admin_{resources}_{action}.</description>
     </item>
     <item>
-      <title>prestashop:linter:security-attribute</title>
-      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-linter-security-attribute/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-linter-security-attribute/</guid>
-      <description>prestashop:linter:security-attribute Informations Path: src/PrestaShopBundle/Command/SecurityAttributeLinterCommand.php Arguments: action: Action to perform, must be one of: list and find-missing DescriptionThis command aims to check if Back Office controller routes have configured Security attributes.&#xA;Two options are available: Listing and Finding Missing.&#xA;ListingThis option aims to list all routes, and their related permissions.&#xA;Finding missingThis option aims to find routes with missing security attributes.</description>
-    </item>
-    <item>
-      <title>prestashop:list:commands-and-queries</title>
-      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-list-commands-and-queries/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-list-commands-and-queries/</guid>
-      <description>prestashop:list:commands-and-queries Informations Path: src/PrestaShopBundle/Command/ListCommandsAndQueriesCommand.php DescriptionThis command aims to list all available CQRS commands and queries.&#xA;That permits to list all classes, with their types (Command or Query) and their description.</description>
-    </item>
-    <item>
-      <title>prestashop:mail:generate</title>
-      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-mail-generate/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-mail-generate/</guid>
-      <description>prestashop:mail:generate Informations Path: src/PrestaShopBundle/Command/GenerateMailTemplatesCommand.php Arguments: theme: Theme to use for mail templates locale: Locale to use for the templates coreOutputFolder: Output folder to export core templates ((optional)) modulesOutputFolder: Output folder to export modules templates (by default same as core) ((optional)) Options: --overwrite, -o: Overwrite existing templates (false, by default) DescriptionThis command aims to generate mail templates for a specified theme.</description>
-    </item>
-    <item>
       <title>prestashop:module</title>
       <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-module/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-module/</guid>
-      <description>prestashop:module Informations Path: src/PrestaShopBundle/Command/ModuleCommand.php Arguments: action: Action to execute, must be one of: install, uninstall, enable, disable, reset, upgrade, configure module name: Module on which the action will be executed file path: YML file path for configuration (optional) Options: hook: Hook name to use with the registerHook|unregisterHook action (array|optional) DescriptionThis command aims to manage your modules via command line.</description>
+      <description>prestashop:module Informations Path: src/PrestaShopBundle/Command/ModuleCommand.php Arguments: action: Action to execute, must be one of: install, uninstall, enable, disable, reset, upgrade, configure, delete module name: Module on which the action will be executed file path: YML file path for configuration (optional, only used with configure action) DescriptionThis command aims to manage your modules via command line.</description>
     </item>
     <item>
       <title>prestashop:schema:update-without-foreign</title>
@@ -90,6 +62,13 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-schema-update-without-foreign/</guid>
       <description>prestashop:schema:update-without-foreign Informations Path: src/PrestaShopBundle/Command/UpdateSchemaCommand.php DescriptionThis command aims to update the database.</description>
+    </item>
+    <item>
+      <title>prestashop:search:index</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-search-index/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-search-index/</guid>
+      <description>prestashop:search:index DescriptionThis command indexes products for the PrestaShop search functionality. It can rebuild the entire search index or index specific products, shops, or shop groups.&#xA;Usagephp bin/console prestashop:search:index [options] Options &amp;ndash;full, -f: Rebuild the whole search index (removes all existing indexed data and reindexes everything) &amp;ndash;shop-id, -s: Shop ID to index (only index products for a specific shop) &amp;ndash;shop-group-id, -g: Shop group ID to index (only index products for a specific shop group) &amp;ndash;product-id, -p: Product ID to index (only index a specific product) Examples Rebuild entire search indexCompletely rebuild the search index for all products across all shops:</description>
     </item>
     <item>
       <title>prestashop:taxes:update-eu-tax-rule-groups</title>
@@ -106,13 +85,6 @@
       <description>prestashop:theme:enable Informations Path: src/PrestaShopBundle/Command/ThemeEnablerCommand.php Arguments: theme: Theme on which the action will be executed DescriptionThis command aims to enable your theme via command line.</description>
     </item>
     <item>
-      <title>prestashop:theme:export</title>
-      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-theme-export/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-theme-export/</guid>
-      <description>prestashop:theme:export Informations Path: src/PrestaShopBundle/Command/ExportThemeCommand.php Arguments: theme: Directory name of the theme to export DescriptionThis command aims to create a zip file to distribute a theme with its dependencies.</description>
-    </item>
-    <item>
       <title>prestashop:thumbnails:regenerate</title>
       <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-thumbnails-regenerate/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -120,11 +92,11 @@
       <description> prestashop:thumbnails:regenerate Informations Path: src/PrestaShopBundle/Command/RegenerateThumbnailsCommand.php Arguments: image: Image domain (e.g products, categories, manufacturers, &amp;hellip;) image-type: Image format ID (0 for all) (optional) Options: --delete: Erase previous images before regenerating (optional) DescriptionSince 9.1.x .&#xA;This command aims to regenerate thumbnails via command line.&#xA;Examples Regenerate products image types$ bin/console prestashop:thumbnails:regenerate products Regenerate categories image types for image type ID 5$ bin/console prestashop:thumbnails:regenerate categories 5 Regenerate all image types and erase previous thumbnails$ bin/console prestashop:thumbnails:regenerate all --delete </description>
     </item>
     <item>
-      <title>prestashop:translation:find-duplicates</title>
-      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-translation-find-duplicates/</link>
+      <title>prestashop:translation:export-module</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-translation-export-module/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-translation-find-duplicates/</guid>
-      <description>prestashop:translation:find-duplicates Informations Path: src/PrestaShopBundle/Command/CheckTranslationDuplicatesCommand.php DescriptionThis command aims to find duplicates in your translations.</description>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-translation-export-module/</guid>
+      <description>prestashop:translation:export-module DescriptionThis command exports module translations to XLF (XLIFF) files that can be distributed with a module package. It allows module developers to extract translations from the database and package them for distribution.&#xA;Usagephp bin/console prestashop:translation:export-module &amp;lt;module&amp;gt; [locale] [options] Arguments module (required): Technical name of the module to export translations for (e.g., ps_banner, mymodule) locale (optional): Locale code or ISO code for the translations (e.g., en-US, fr-FR, pl-PL, or just fr, en, pl).</description>
     </item>
     <item>
       <title>prestashop:update:configuration-file-hooks-listing</title>
@@ -134,11 +106,81 @@
       <description>prestashop:update:configuration-file-hooks-listing Informations Path: src/PrestaShopBundle/Command/AppendConfigurationFileHooksListCommand.php DescriptionThis command aims to append configuration file hooks list.</description>
     </item>
     <item>
+      <title>prestashop:config</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-config/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-config/</guid>
+      <description>prestashop:config DescriptionManage shop configuration settings via command line&#xA;Help$ bin/console prestashop:config --help Description: Manage your configuration via command line Usage: prestashop:config [options] [--] &amp;lt;action&amp;gt; &amp;lt;key&amp;gt; Arguments: action Action to execute (Allowed actions: get / set / remove). key Configuration key. like PS_LANG_DEFAULT Options: -l, --lang=LANG in this language. this can be either language id or ISO 3166-2 alpha-2 (en, fr, fi...) -g, --shopGroupId=SHOPGROUPID in this shop group (if no shop group or shop options are given defaults to allShops) -s, --shopId=SHOPID in this shop (if no shop group or shop options are given defaults to allShops) -h, --help Display this help message -q, --quiet Do not output any message -V, --version Display this application version --ansi Force ANSI output --no-ansi Disable ANSI output -n, --no-interaction Do not ask any interactive question -e, --env=ENV The Environment name.</description>
+    </item>
+    <item>
+      <title>prestashop:generate:apidoc</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-generate-apidoc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-generate-apidoc/</guid>
+      <description>prestashop:generate:apidoc DescriptionThis command generates the API documentation in JSON format using API Platform&amp;rsquo;s documentation generator. It produces an OpenAPI specification (formerly known as Swagger) for PrestaShop&amp;rsquo;s REST API.&#xA;Usagephp bin/console prestashop:generate:apidoc OutputThe command outputs the complete API documentation in JSON format to stdout. The generated documentation includes:&#xA;All API endpoints and their methods Request/response schemas Authentication requirements Parameter definitions Data models and relationships Example$ php bin/console prestashop:generate:apidoc &amp;gt; api-docs.json This saves the API documentation to api-docs.</description>
+    </item>
+    <item>
+      <title>prestashop:linter:legacy-link</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-linter-legacy-link/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-linter-legacy-link/</guid>
+      <description>prestashop:linter:legacy-link Informations Path: src/PrestaShopBundle/Command/LegacyLinkLinterCommand.php DescriptionThis command aims to check if _legacy_link is configured in BackOffice routes.</description>
+    </item>
+    <item>
+      <title>prestashop:mail:generate</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-mail-generate/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-mail-generate/</guid>
+      <description>prestashop:mail:generate Informations Path: src/PrestaShopBundle/Command/GenerateMailTemplatesCommand.php Arguments: theme: Theme to use for mail templates locale: Locale to use for the templates coreOutputFolder: Output folder to export core templates ((optional)) modulesOutputFolder: Output folder to export modules templates (by default same as core) ((optional)) Options: --overwrite, -o: Overwrite existing templates (false, by default) DescriptionThis command aims to generate mail templates for a specified theme.</description>
+    </item>
+    <item>
+      <title>prestashop:theme:export</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-theme-export/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-theme-export/</guid>
+      <description>prestashop:theme:export Informations Path: src/PrestaShopBundle/Command/ExportThemeCommand.php Arguments: theme: Directory name of the theme to export DescriptionThis command aims to create a zip file to distribute a theme with its dependencies.</description>
+    </item>
+    <item>
+      <title>prestashop:translation:find-duplicates</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-translation-find-duplicates/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-translation-find-duplicates/</guid>
+      <description>prestashop:translation:find-duplicates Informations Path: src/PrestaShopBundle/Command/CheckTranslationDuplicatesCommand.php DescriptionThis command aims to find duplicates in your translations.</description>
+    </item>
+    <item>
       <title>prestashop:update:sql-upgrade-file-hooks-listing</title>
       <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-update-sql-upgrade-file-hooks-listing/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-update-sql-upgrade-file-hooks-listing/</guid>
       <description>prestashop:update:sql-upgrade-file-hooks-listing Informations Path: src/PrestaShopBundle/Command/AppendHooksListForSqlUpgradeFileCommand.php Arguments: ps-version: PrestaShop version for which the SQL upgrade file will be searched autoupgrade-path: Path to the autoupgrade module path which contains the upgrade scripts DescriptionThis command aims to add SQL to the SQL upgrade file which contains hook insert operations.</description>
+    </item>
+    <item>
+      <title>prestashop:debug</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-debug/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-debug/</guid>
+      <description>prestashop:debug Informations Path: src/PrestaShopBundle/Command/DebugCommand.php Arguments: value: Value for debug mode, on/off, true/false, 1/0. If left out will just print the current state. DescriptionGet or set the debug mode from command line.&#xA;With this command its easy to switch between debug mode on and off.&#xA;To set debug mode on just run the command&#xA;bin/console prestashop:debug on And to take it off&#xA;bin/console prestashop:debug off To read out the debug status of the shop use</description>
+    </item>
+    <item>
+      <title>prestashop:linter:security-attribute</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-linter-security-attribute/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-linter-security-attribute/</guid>
+      <description>prestashop:linter:security-attribute Informations Path: src/PrestaShopBundle/Command/SecurityAttributeLinterCommand.php Arguments: action: Action to perform, must be one of: list and find-missing DescriptionThis command aims to check if Back Office controller routes have configured Security attributes.&#xA;Two options are available: Listing and Finding Missing.&#xA;ListingThis option aims to list all routes, and their related permissions.&#xA;Finding missingThis option aims to find routes with missing security attributes.</description>
+    </item>
+    <item>
+      <title>prestashop:update:hooks-documentation</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-update-hooks-documentation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-update-hooks-documentation/</guid>
+      <description>prestashop:update:hooks-documentation DescriptionThis command generates comprehensive hooks documentation by extracting hook information from the PrestaShop codebase. It creates structured XML files containing hook definitions, including static hooks and dynamic hooks (such as Grid-related hooks).&#xA;The generated documentation is used to maintain the official hooks list in the developer documentation.&#xA;Usagephp bin/console prestashop:update:hooks-documentation &amp;lt;format&amp;gt; &amp;lt;destination&amp;gt; Arguments format (required): Output format for the documentation. Currently supports xml destination (required): File path where the generated documentation should be saved Examplephp bin/console prestashop:update:hooks-documentation xml hooks-list.</description>
+    </item>
+    <item>
+      <title>prestashop:list:commands-and-queries</title>
+      <link>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-list-commands-and-queries/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://devdocs.prestashop-project.org/9/development/components/console/prestashop-list-commands-and-queries/</guid>
+      <description>prestashop:list:commands-and-queries Informations Path: src/PrestaShopBundle/Command/ListCommandsAndQueriesCommand.php DescriptionThis command aims to list all available CQRS commands and queries.&#xA;That permits to list all classes, with their types (Command or Query) and their description.</description>
     </item>
   </channel>
 </rss>
