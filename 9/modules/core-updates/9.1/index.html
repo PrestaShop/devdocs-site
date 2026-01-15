@@ -22,14 +22,14 @@
     <title>Changes in PrestaShop 9.1.x :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1768489215" rel="stylesheet">
-    <link href="/css/syntax-github.css?1768489215" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1768489215" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1768489215" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1768492451" rel="stylesheet">
+    <link href="/css/syntax-github.css?1768492451" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1768492451" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1768492451" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1768489215" rel="stylesheet">
+    <link href="/style.css?1768492451" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1768489215"></script>
+    <script src="/js/jquery-3.3.1.min.js?1768492451"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -17320,7 +17320,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </li>
         <li><a href="#multi-shipment-system">Multi-Shipment System</a></li>
         <li><a href="#new-discount-system">New Discount System</a></li>
-        <li><a href="#hummingbird-theme">Hummingbird Theme</a></li>
+        <li><a href="#hummingbird-theme">Hummingbird Theme</a>
+          <ul>
+            <li><a href="#hooks">Hooks</a></li>
+            <li><a href="#bootstrap">Bootstrap</a>
+              <ul>
+                <li><a href="#breaking-changes-that-can-impact-module-developers">Breaking changes that can impact module developers:</a></li>
+              </ul>
+            </li>
+            <li><a href="#javascript">Javascript</a>
+              <ul>
+                <li><a href="#jquery">JQuery</a></li>
+                <li><a href="#js-selectors">JS Selectors</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
         <li><a href="#database-changes">Database Changes</a></li>
         <li><a href="#infrastructure-changes">Infrastructure Changes</a>
           <ul>
@@ -47289,27 +47304,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </style>
 
 <h1 id="notable-changes-in-prestashop-91x">Notable changes in PrestaShop 9.1.x<a href="#notable-changes-in-prestashop-91x"></a></h1>
-<div class="notices warning" ><strong>Draft documentation</strong> - PrestaShop 9.1 is currently in beta. This documentation is subject to change as the release progresses.</div>
+<div class="notices warning" ><strong>Draft documentation</strong> - PrestaShop 9.1 is currently in
+beta. This documentation is subject to change as the release progresses.</div>
 
-<p>This section provides a list of the most significant changes in PrestaShop 9.1.x for module and theme developers. If you notice any missing or incorrect information, please help us improve by creating an issue on our <a href="https://github.com/PrestaShop/docs/issues/new">GitHub repository</a>.</p>
+<p>This section provides a list of the most significant changes in PrestaShop 9.1.x
+for module and theme developers. If you notice any missing or incorrect
+information, please help us improve by creating an issue on our
+<a href="https://github.com/PrestaShop/docs/issues/new">GitHub repository</a>.</p>
 
-<div class="notices info" >As a minor version, PrestaShop 9.1 strives to maintain backward compatibility with 9.0.x. Breaking changes are only introduced when absolutely necessary. For more details, see our <a href="https://github.com/PrestaShop/ADR/blob/master/0017-backward-compatibility-promise.md">Backward Compatibility Promise</a>.</div>
+<div class="notices info" >As a minor version, PrestaShop 9.1 strives to maintain
+backward compatibility with 9.0.x. Breaking changes are only introduced when
+absolutely necessary. For more details, see our
+<a href="https://github.com/PrestaShop/ADR/blob/master/0017-backward-compatibility-promise.md">Backward Compatibility Promise</a>.</div>
 
 
 <h2 id="breaking-changes">Breaking Changes<a href="#breaking-changes"></a></h2>
-<h3 id="themegetdefaulttheme-method">Theme::getDefaultTheme() method<a href="#themegetdefaulttheme-method"></a></h3><p>The <code>Theme::getDefaultTheme()</code> method no longer returns a hardcoded &ldquo;classic&rdquo; value. It now returns the actual default theme from configuration.</p>
-<p>Related pull request: <a href="https://github.com/PrestaShop/PrestaShop/pull/40295">Introduce Theme::getDefaultTheme method to replace classic hard-coded value</a></p>
+<h3 id="themegetdefaulttheme-method">Theme::getDefaultTheme() method<a href="#themegetdefaulttheme-method"></a></h3><p>The <code>Theme::getDefaultTheme()</code> method no longer returns a hardcoded &ldquo;classic&rdquo;
+value. It now returns the actual default theme from configuration.</p>
+<p>Related pull request:
+<a href="https://github.com/PrestaShop/PrestaShop/pull/40295">Introduce Theme::getDefaultTheme method to replace classic hard-coded value</a></p>
 <p><strong>Before (9.0.x):</strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// Always returned &#34;classic&#34;
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$defaultTheme</span> <span class="o">=</span> <span class="nx">Theme</span><span class="o">::</span><span class="na">getDefaultTheme</span><span class="p">();</span>
 </span></span></code></pre></div><p><strong>After (9.1.x):</strong></p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// Returns the configured default theme (e.g., &#34;hummingbird&#34;)
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nv">$defaultTheme</span> <span class="o">=</span> <span class="nx">Theme</span><span class="o">::</span><span class="na">getDefaultTheme</span><span class="p">();</span>
-</span></span></code></pre></div><p>If your code assumes the default theme is &ldquo;classic&rdquo;, update it to handle any theme name or use <code>Theme::getDefaultTheme()</code> dynamically.</p>
+</span></span></code></pre></div><p>If your code assumes the default theme is &ldquo;classic&rdquo;, update it to handle any
+theme name or use <code>Theme::getDefaultTheme()</code> dynamically.</p>
 
 <h3 id="d3-and-nvd3-libraries-updated">D3 and NVD3 Libraries Updated<a href="#d3-and-nvd3-libraries-updated"></a></h3><p>The D3 and NVD3 charting libraries have been updated to newer versions.</p>
-<p>Related pull request: <a href="https://github.com/PrestaShop/PrestaShop/pull/39629">Update d3 and nvd3 libs</a></p>
-<p>If your module creates custom dashboard widgets or charts using these libraries, test for compatibility.</p>
+<p>Related pull request:
+<a href="https://github.com/PrestaShop/PrestaShop/pull/39629">Update d3 and nvd3 libs</a></p>
+<p>If your module creates custom dashboard widgets or charts using these libraries,
+test for compatibility.</p>
 
 <h2 id="new-hooks">New Hooks<a href="#new-hooks"></a></h2>
 <h3 id="module-lifecycle-hooks">Module Lifecycle Hooks<a href="#module-lifecycle-hooks"></a></h3><p>New hooks allow you to react to module enable, disable, and upgrade events:</p>
@@ -47335,7 +47362,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </tr>
 </tbody>
 </table>
-<p>Related pull request: <a href="https://github.com/PrestaShop/PrestaShop/pull/38839">Add hooks on Module enable/disable/upgrade</a></p>
+<p>Related pull request:
+<a href="https://github.com/PrestaShop/PrestaShop/pull/38839">Add hooks on Module enable/disable/upgrade</a></p>
 
 <h3 id="configuration-hook">Configuration Hook<a href="#configuration-hook"></a></h3><p>A new hook is triggered when configuration values are updated:</p>
 <table>
@@ -47357,13 +47385,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </ul>
 
 <h2 id="new-cli-commands">New CLI Commands<a href="#new-cli-commands"></a></h2>
-<h3 id="prestashopthumbnailsregeneratehahahugoshortcode3736s6hbhb"><a href="/9/development/components/console/prestashop-thumbnails-regenerate/">prestashop:thumbnails:regenerate</a><a href="#prestashopthumbnailsregeneratehahahugoshortcode3736s6hbhb"></a></h3><p>Regenerate product image thumbnails from the command line. Useful for batch processing after image type changes.</p>
+<h3 id="prestashopthumbnailsregeneratehahahugoshortcode3736s6hbhb"><a href="/9/development/components/console/prestashop-thumbnails-regenerate/">prestashop:thumbnails:regenerate</a><a href="#prestashopthumbnailsregeneratehahahugoshortcode3736s6hbhb"></a></h3><p>Regenerate product image thumbnails from the command line. Useful for batch
+processing after image type changes.</p>
 <ul>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/39478">Add console command &ldquo;prestashop:thumbnails:regenerate&rdquo;</a></li>
 </ul>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php bin/console prestashop:thumbnails:regenerate
 </span></span></code></pre></div>
-<h3 id="prestashopsearchindexhahahugoshortcode3736s7hbhb"><a href="/9/development/components/console/prestashop-search-index/">prestashop:search:index</a><a href="#prestashopsearchindexhahahugoshortcode3736s7hbhb"></a></h3><p>Rebuild the search index from the command line. Useful for cron jobs or after bulk product imports.</p>
+<h3 id="prestashopsearchindexhahahugoshortcode3736s7hbhb"><a href="/9/development/components/console/prestashop-search-index/">prestashop:search:index</a><a href="#prestashopsearchindexhahahugoshortcode3736s7hbhb"></a></h3><p>Rebuild the search index from the command line. Useful for cron jobs or after
+bulk product imports.</p>
 <ul>
 <li><a href="https://github.com/PrestaShop/PrestaShop/pull/39403">Add SearchIndexationCommand to handle CLI search indexation</a></li>
 </ul>
@@ -47376,32 +47406,294 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php bin/console prestashop:module:export-translations &lt;module_name&gt;
 </span></span></code></pre></div>
 <h2 id="multi-shipment-system">Multi-Shipment System<a href="#multi-shipment-system"></a></h2>
-<div class="notices note" >The multi-shipment feature is behind a feature flag and is disabled by default.</div>
+<div class="notices note" >The multi-shipment feature is behind a feature flag and is
+disabled by default.</div>
 
 
-<div class="notices warning" ><strong>Work in Progress</strong> - The multi-shipment system is still under active development. While we encourage module developers to explore the new features and ensure compatibility, please note that changes may be introduced in future releases. Any significant updates will be documented accordingly.</div>
+<div class="notices warning" ><strong>Work in Progress</strong> - The multi-shipment system is still
+under active development. While we encourage module developers to explore the
+new features and ensure compatibility, please note that changes may be
+introduced in future releases. Any significant updates will be documented
+accordingly.</div>
 
-<p>PrestaShop 9.1 introduces a multi-shipment system allowing orders to be split across multiple carriers. This is a major architectural change that will affect modules interacting with order shipments and carriers.</p>
-<p>For an overview of this feature and its capabilities, read the announcement: <a href="https://build.prestashop-project.org/news/2026/introducing-shipments/">Introducing Shipments in PrestaShop 9.1</a></p>
-<p>Detailed developer documentation for this feature will be added once the implementation is finalized.</p>
+<p>PrestaShop 9.1 introduces a multi-shipment system allowing orders to be split
+across multiple carriers. This is a major architectural change that will affect
+modules interacting with order shipments and carriers.</p>
+<p>For an overview of this feature and its capabilities, read the announcement:
+<a href="https://build.prestashop-project.org/news/2026/introducing-shipments/">Introducing Shipments in PrestaShop 9.1</a></p>
+<p>Detailed developer documentation for this feature will be added once the
+implementation is finalized.</p>
 
 <h2 id="new-discount-system">New Discount System<a href="#new-discount-system"></a></h2>
-<div class="notices note" >The new discount system is behind a feature flag and is disabled by default.</div>
+<div class="notices note" >The new discount system is behind a feature flag and is
+disabled by default.</div>
 
 
-<div class="notices warning" ><strong>Work in Progress</strong> - The discount system is still under active development. While we encourage module developers to explore the new features and ensure compatibility, please note that changes may be introduced in future releases. Any significant updates will be documented accordingly.</div>
+<div class="notices warning" ><strong>Work in Progress</strong> - The discount system is still under
+active development. While we encourage module developers to explore the new
+features and ensure compatibility, please note that changes may be introduced in
+future releases. Any significant updates will be documented accordingly.</div>
 
-<p>PrestaShop 9.1 introduces a completely redesigned discount management interface and architecture. While it uses the existing cart rules system under the hood, it features an improved implementation with a completely revamped design and new approaches to managing and combining discounts. This is a major change that will affect modules interacting with discounts and promotions.</p>
-<p>For an overview of this feature and its capabilities, read the announcement: <a href="https://build.prestashop-project.org/news/2026/improved-discounts-system/">Improved Discounts System in PrestaShop 9.1</a></p>
-<p>Detailed developer documentation for this feature will be added once the implementation is finalized.</p>
+<p>PrestaShop 9.1 introduces a completely redesigned discount management interface
+and architecture. While it uses the existing cart rules system under the hood,
+it features an improved implementation with a completely revamped design and new
+approaches to managing and combining discounts. This is a major change that will
+affect modules interacting with discounts and promotions.</p>
+<p>For an overview of this feature and its capabilities, read the announcement:
+<a href="https://build.prestashop-project.org/news/2026/improved-discounts-system/">Improved Discounts System in PrestaShop 9.1</a></p>
+<p>Detailed developer documentation for this feature will be added once the
+implementation is finalized.</p>
 
 <h2 id="hummingbird-theme">Hummingbird Theme<a href="#hummingbird-theme"></a></h2><p>Hummingbird is now the default theme for new PrestaShop 9.1 installations.</p>
 
-<div class="notices info" >Existing installations upgrading from 9.0.x keep their current theme. Hummingbird is only set as default for fresh installations.</div>
+<div class="notices info" >Existing installations upgrading from 9.0.x keep their
+current theme. Hummingbird is only set as default for fresh installations.</div>
+
+<p>Hummingbird introduces compatibility breaks compared to the Classic theme. If
+module developers wish to ensure their modules remain compatible, we invite them
+to review the changes listed below.</p>
+
+<h3 id="hooks">Hooks<a href="#hooks"></a></h3><p>Some hooks have been removed or replaced in Hummingbird. Below is a list of key
+changes to be aware of:</p>
+<ul>
+<li><strong><code>displaySearch</code></strong>: This hook was previously used to inject an instance of
+the <code>ps_searchbar</code> module into the 404 page. It caused conflict issues
+(duplicate display), which is why it has been removed in Hummingbird.</li>
+<li><strong><code>displayOrderDetail</code></strong>: Replaces the variable hook
+<code>$HOOK_DISPLAYORDERDETAIL</code>. It functions in the same way but follows the
+standard hook naming convention.</li>
+<li><strong><code>displayModalContent</code></strong>: A new hook that allows module developers to inject
+content into the modal container.</li>
+</ul>
+
+<h3 id="bootstrap">Bootstrap<a href="#bootstrap"></a></h3>
+<div class="notices note" >Bootstrap has been updated from <strong>4.0.0-alpha.5</strong> →
+<strong>5.3.3</strong></div>
+
+<p>For a complete guide on migrating from v4 to v5, please refer to the
+<a href="https://getbootstrap.com/docs/5.3/migration/">official Bootstrap migration documentation</a>.</p>
+
+<h4 id="breaking-changes-that-can-impact-module-developers">Breaking changes that can impact module developers:<a href="#breaking-changes-that-can-impact-module-developers"></a></h4>
+<div class="notices warning" >The following changes in Bootstrap 5 may impact the
+display and functionality of your modules. We strongly recommend reviewing these
+items and updating your tpl/css/js files to ensure full compatibility with the
+new theme.</div>
 
 
-<h2 id="database-changes">Database Changes<a href="#database-changes"></a></h2><p>PrestaShop 9.1 includes database schema changes to support new features like multi-shipment and the improved discount system.</p>
-<p>You can review all database changes in the upgrade SQL file: <a href="https://github.com/PrestaShop/autoupgrade/blob/dev/upgrade/sql/9.1.0.sql">9.1.0.sql</a></p>
+<h5 id="grid--layout-system">Grid &amp; Layout system<a href="#grid--layout-system"></a></h5><ul>
+<li>
+<p><strong>Breakpoints</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Breakpoint</th>
+<th>Class infix</th>
+<th>Dimensions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Extra Extra Small</td>
+<td>None</td>
+<td><strong>&lt; 360px</strong></td>
+</tr>
+<tr>
+<td>Extra Small</td>
+<td><code>xs</code></td>
+<td><strong>≥ 360px</strong></td>
+</tr>
+<tr>
+<td>Small</td>
+<td><code>sm</code></td>
+<td><strong>≥ 576px</strong></td>
+</tr>
+<tr>
+<td>Medium</td>
+<td><code>md</code></td>
+<td><strong>≥ 768px</strong></td>
+</tr>
+<tr>
+<td>Large</td>
+<td><code>lg</code></td>
+<td><strong>≥ 992px</strong></td>
+</tr>
+<tr>
+<td>Extra Large</td>
+<td><code>xl</code></td>
+<td><strong>≥ 1200px</strong></td>
+</tr>
+<tr>
+<td>Extra Extra Large</td>
+<td><code>xxl</code></td>
+<td><strong>≥ 1400px</strong></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>Gutters</strong>: Renamed <code>.no-gutters</code> to <code>.g-0</code> to match new gutter utilities.</p>
+</li>
+<li>
+<p><strong>Columns</strong>: Columns no longer have <code>position: relative</code> applied. You may have
+to add <code>.position-relative</code> to some elements to restore that behavior.</p>
+</li>
+<li>
+<p><strong>Order classes</strong>: Dropped several <code>.order-*</code> classes. Only <code>.order-0</code> to
+<code>.order-5</code> are provided out of the box.</p>
+</li>
+<li>
+<p><strong>Media Object</strong>: Dropped the <code>.media</code> component in favor of flex utilities.
+<a href="https://getbootstrap.com/docs/5.3/utilities/flex#media-object">See example</a>.</p>
+</li>
+</ul>
+
+<h5 id="forms">Forms<a href="#forms"></a></h5><ul>
+<li><strong>Consolidated native and custom form elements</strong>: Checkboxes, radios, selects,
+and other inputs now use unified classes:
+<ul>
+<li><code>.custom-control.custom-checkbox</code> → <code>.form-check</code>.</li>
+<li><code>.custom-control.custom-radio</code> → <code>.form-check</code>.</li>
+<li><code>.custom-control.custom-switch</code> → <code>.form-check.form-switch</code>.</li>
+<li><code>.custom-select</code> → <code>.form-select</code>.</li>
+<li><code>.custom-file</code> and <code>.form-control-file</code> → replaced by custom styles on
+<code>.form-control</code>.</li>
+<li><code>.custom-range</code> → <code>.form-range</code>.</li>
+</ul>
+</li>
+<li><strong>Input Groups</strong>: Dropped <code>.input-group-append</code> and <code>.input-group-prepend</code>.
+Add buttons and <code>.input-group-text</code> as direct children of input groups.</li>
+<li><strong>Layout</strong>: Dropped specific layout classes (<code>.form-group</code>, <code>.form-row</code>,
+<code>.form-inline</code>) in favor of grid and utilities.</li>
+<li><strong>Labels</strong>: Form labels now require <code>.form-label</code>.</li>
+<li><strong>Form Text</strong>: <code>.form-text</code> no longer sets <code>display</code>.</li>
+<li><strong>Toggle Buttons</strong>: Checkboxes/radios with toggle buttons no longer require a
+wrapping element. Add <code>.btn-check</code> to the <code>&lt;input&gt;</code> and pair with <code>.btn</code>
+classes on the <code>&lt;label&gt;</code>.</li>
+</ul>
+
+<h5 id="components">Components<a href="#components"></a></h5><ul>
+<li><strong>Buttons</strong>:
+<ul>
+<li>Dropped <code>.btn-block</code> in favor of <code>.d-grid</code> and <code>.gap-*</code> utilities.
+<a href="https://getbootstrap.com/docs/5.3/components/buttons#block-buttons">See examples</a>.</li>
+<li><code>.close</code> renamed to <code>.btn-close</code>.</li>
+</ul>
+</li>
+<li><strong>Cards</strong>:
+<ul>
+<li>Dropped <code>.card-deck</code> in favor of grid (<code>.row-cols-*</code>).</li>
+<li>Dropped <code>.card-columns</code> in favor of Masonry.</li>
+<li>Replaced <code>.card</code> based accordion with the new
+<a href="https://getbootstrap.com/docs/5.3/components/accordion">Accordion component</a>.</li>
+</ul>
+</li>
+<li><strong>Badges</strong>:
+<ul>
+<li>Dropped all <code>.badge-*</code> color classes (use background utilities like
+<code>.bg-primary</code>).</li>
+<li>Dropped <code>.badge-pill</code> (use <code>.rounded-pill</code>).</li>
+</ul>
+</li>
+<li><strong>Jumbotron</strong>: Dropped, use utilities instead.</li>
+<li><strong>Navbars</strong>: Now require a container within.</li>
+<li><strong>Navs</strong>: <code>.active</code> class must be applied to <code>.nav-link</code>s, not <code>.nav-item</code>s.</li>
+<li><strong>Popovers/Tooltips</strong>: Renamed <code>.arrow</code> to <code>.popover-arrow</code> /
+<code>.tooltip-arrow</code>.</li>
+</ul>
+
+<h5 id="utilities--helpers">Utilities &amp; Helpers<a href="#utilities--helpers"></a></h5><ul>
+<li><strong>RTL Support (Renaming)</strong>: Several utilities renamed for logical properties:
+<ul>
+<li><code>.float-left</code>/<code>.right</code> → <code>.float-start</code>/<code>.end</code>.</li>
+<li><code>.border-left</code>/<code>.right</code> → <code>.border-start</code>/<code>.end</code>.</li>
+<li><code>.rounded-left</code>/<code>.right</code> → <code>.rounded-start</code>/<code>.end</code>.</li>
+<li><code>.ml-*</code> / <code>.mr-*</code> → <code>.ms-*</code> / <code>.me-*</code>.</li>
+<li><code>.pl-*</code> / <code>.pr-*</code> → <code>.ps-*</code> / <code>.pe-*</code>.</li>
+<li><code>.text-*-left</code> / <code>.right</code> → <code>.text-*-start</code> / <code>.end</code>.</li>
+</ul>
+</li>
+<li><strong>Backgrounds</strong>: Use <code>.bg-gradient</code> combined with <code>.bg-{color}</code> instead of
+<code>.bg-gradient-{color}</code> classes.</li>
+<li><strong>Text</strong>:
+<ul>
+<li>Removed <code>.text-hide</code>.</li>
+<li><code>.text-*</code> utilities no longer add hover/focus states to links. Use <code>.link-*</code>
+helpers.</li>
+<li>Dropped <code>.text-justify</code>.</li>
+<li><code>.text-monospace</code> -&gt; <code>.font-monospace</code>.</li>
+</ul>
+</li>
+<li><strong>Spacing</strong>: Disabled negative margins by default.</li>
+<li><strong>Fonts</strong>:
+<ul>
+<li><code>.font-weight-*</code> → <code>.fw-*</code>.</li>
+<li><code>.font-italic</code> → <code>.fst-italic</code>.</li>
+</ul>
+</li>
+<li><strong>Borders</strong>: Removed <code>.rounded-sm</code>/<code>.lg</code>. Introduced <code>.rounded-0</code> to
+<code>.rounded-3</code>.</li>
+<li><strong>Ratio</strong>: <code>.embed-responsive</code> helpers renamed to <code>.ratio</code> helpers (e.g.
+<code>.ratio-16x9</code>).</li>
+<li><strong>Visually Hidden</strong>: <code>.sr-only</code> replaced by <code>.visually-hidden</code>.</li>
+</ul>
+
+<h5 id="javascript--data-attributes">Javascript &amp; Data Attributes<a href="#javascript--data-attributes"></a></h5><ul>
+<li><strong>Data Attributes</strong>: All JavaScript plugins are now namespaced (e.g.,
+<code>data-bs-toggle</code> instead of <code>data-toggle</code>).</li>
+<li><strong>Dropdowns</strong>:
+<ul>
+<li>Events triggered on toggle button and bubble up.</li>
+<li>Dropped <code>flip</code> option for <code>fallbackPlacements</code>.</li>
+</ul>
+</li>
+<li><strong>PopperConfig</strong>: Default <code>fallbackPlacements</code> changed to
+<code>['top', 'right', 'bottom', 'left']</code>.</li>
+</ul>
+
+<h5 id="tables">Tables<a href="#tables"></a></h5><ul>
+<li><strong>Nested tables</strong>: Do not inherit styles anymore.</li>
+<li><strong>Headings</strong>: <code>.thead-light</code> and <code>.thead-dark</code> dropped in favor of <code>.table-*</code>
+variant classes.</li>
+</ul>
+
+<h3 id="javascript">Javascript<a href="#javascript"></a></h3>
+<h4 id="jquery">JQuery<a href="#jquery"></a></h4><p>JQuery is now deprecated and will be removed in the next major Hummingbird
+version planned to be released with PrestaShop 10. This change aligns with the
+Bootstrap 5 update, which dropped jQuery dependency. <strong>Developers are encouraged
+to use Vanilla JS, utilizing PrestaShop helper functions and
+<a href="https://getbootstrap.com/docs/5.3/getting-started/javascript/">native Bootstrap 5 features</a>
+where possible.</strong></p>
+
+<h4 id="js-selectors">JS Selectors<a href="#js-selectors"></a></h4><p>Non-standard selectors that are not part of Bootstrap or our core CSS (e.g.,
+<code>js-top-menu mobile</code>) have been removed (from JS, they are still available in
+templates) in favor of <strong>data attributes</strong>. To maintain a clean separation of
+concerns, we now use CSS classes exclusively for styling and data attributes for
+programmatic logic.</p>
+
+<div class="notices note" >This migration is <strong>progressive</strong>. Not all selectors have
+been updated yet due to Core limitations, but the long-term goal is to migrate
+all of them to this new standard. We encourage you to use new data attributes
+instead of old CSS classes.</div>
+
+<p><strong>Example Change:</strong></p>
+<ul>
+<li><strong>Before:</strong> <code>#password-feedback</code> (ID selector)</li>
+<li><strong>After:</strong> <code>[data-ps-ref=&quot;password-feedback-template&quot;]</code> (Data attribute)</li>
+</ul>
+<p><strong>Naming Convention:</strong> All new or updated selectors now start with <code>data-ps</code>
+followed by a specific indicator:</p>
+<ul>
+<li><code>ref</code>: For referencing an element (e.g., <code>data-ps-ref</code>)</li>
+<li><code>action</code>: For defining an action (e.g., <code>data-ps-action</code>)</li>
+<li><code>target</code>: For the target of an action (e.g., <code>data-ps-target</code>)</li>
+</ul>
+<p><em>This convention will be further documented in the Theme Development
+documentation.</em></p>
+
+<h2 id="database-changes">Database Changes<a href="#database-changes"></a></h2><p>PrestaShop 9.1 includes database schema changes to support new features like
+multi-shipment and the improved discount system.</p>
+<p>You can review all database changes in the upgrade SQL file:
+<a href="https://github.com/PrestaShop/autoupgrade/blob/dev/upgrade/sql/9.1.0.sql">9.1.0.sql</a></p>
 
 <h2 id="infrastructure-changes">Infrastructure Changes<a href="#infrastructure-changes"></a></h2>
 <h3 id="nodejs-version">Node.js Version<a href="#nodejs-version"></a></h3><p><a href="https://github.com/PrestaShop/PrestaShop/pull/40359">Node.js 20.19.5 is now the default version for building assets.</a></p>
@@ -47461,7 +47753,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/310e6d42023b34ee32c75581d38591fb29bd0ba8">2026-01-09 by Krystian Podemski</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/e69e5cf208b849699510dfafbf5c46499a1ea454">2026-01-15 by Krystian Podemski</a>.<br>
         
     
 
@@ -47483,17 +47775,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1768489215"></script>
-    <script src="/js/perfect-scrollbar.min.js?1768489215"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1768489215"></script>
-    <script src="/js/jquery.sticky.js?1768489215"></script>
-    <script src="/js/featherlight.min.js?1768489215"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1768489215"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1768489215"></script>
-    <script src="/js/learn.js?1768489215"></script>
-    <script src="/js/hugo-learn.js?1768489215"></script>
+    <script src="/js/clipboard.min.js?1768492451"></script>
+    <script src="/js/perfect-scrollbar.min.js?1768492451"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1768492451"></script>
+    <script src="/js/jquery.sticky.js?1768492451"></script>
+    <script src="/js/featherlight.min.js?1768492451"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1768492451"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1768492451"></script>
+    <script src="/js/learn.js?1768492451"></script>
+    <script src="/js/hugo-learn.js?1768492451"></script>
     
-    <script src="/main.js?1768489215"></script>
+    <script src="/main.js?1768492451"></script>
     
     
     

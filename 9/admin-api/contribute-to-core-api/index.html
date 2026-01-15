@@ -22,14 +22,14 @@
     <title>Create new API endpoints using CQRS :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1768489175" rel="stylesheet">
-    <link href="/css/syntax-github.css?1768489175" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1768489175" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1768489175" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1768492403" rel="stylesheet">
+    <link href="/css/syntax-github.css?1768492403" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1768492403" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1768492403" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1768489175" rel="stylesheet">
+    <link href="/style.css?1768492403" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1768489175"></script>
+    <script src="/js/jquery-3.3.1.min.js?1768492403"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -17267,6 +17267,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <li><a href="#-prerequisites">📋 Prerequisites</a></li>
         <li><a href="#-objective">🎯 Objective</a></li>
         <li><a href="#-project-structure">🏗️ Project Structure</a></li>
+        <li><a href="#-api-design-principles">🎨 API Design Principles</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#uri-path-conventions">URI Path Conventions</a></li>
+                <li><a href="#http-methods-and-custom-operations">HTTP Methods and Custom Operations</a></li>
+                <li><a href="#multilang-field-conventions">Multilang Field Conventions</a></li>
+                <li><a href="#api-resource-properties-rules">API Resource Properties Rules</a></li>
+                <li><a href="#scope-naming-convention">Scope Naming Convention</a></li>
+                <li><a href="#bulk-operations-convention">Bulk Operations Convention</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#-what-not-to-do">🚫 What NOT to do</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#no-custom-normalizers">NO Custom Normalizers</a></li>
+                <li><a href="#no-custom-processors">NO Custom Processors</a></li>
+                <li><a href="#no-value-objects-in-api-resources">NO Value Objects in API Resources</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
         <li><a href="#-implementation-steps">📝 Implementation Steps</a>
           <ul>
             <li><a href="#1-create-and-fetch-a-single-resource">1. Create and fetch a single resource</a>
@@ -17310,8 +17335,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <ul>
             <li><a href="#naming-conventions">Naming Conventions</a></li>
             <li><a href="#data-mapping">Data Mapping</a></li>
-            <li><a href="#security-scopes">Security Scopes</a></li>
-            <li><a href="#uri-templates">URI Templates</a></li>
+            <li><a href="#security-scopes-per-adr">Security Scopes (per ADR)</a></li>
+            <li><a href="#uri-templates-per-adr">URI Templates (per ADR)</a></li>
+            <li><a href="#api-resource-properties-per-adr">API Resource Properties (per ADR)</a></li>
+            <li><a href="#forbidden-practices-ci-enforced">Forbidden Practices (CI-Enforced)</a></li>
+            <li><a href="#testing-requirements-ci-enforced">Testing Requirements (CI-Enforced)</a></li>
           </ul>
         </li>
         <li><a href="#-useful-resources">📚 Useful Resources</a></li>
@@ -47271,7 +47299,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="notices note" >For the new Admin API, although the whole architecture is inside the core of PrestaShop the definition of all the endpoints are in the <a href="https://github.com/PrestaShop/ps_apiresources">ps_apiresources</a> module, externalizing the endpoints in a module allows us to make them evolve outside the core release cycle, so it can be updated and improved more frequently.</div>
 
 
-<div class="notices warning" >This documentation is based on the most recent modifications and bugfixes done for PrestaShop <code>9.0.1</code>, so to contribute new core endpoints please make sure you use at least this version, or the <code>9.0.x</code> branch which should be even more up-to-date.</div>
+<div class="notices warning" >This documentation is based on the most recent modifications and bugfixes done for PrestaShop <code>9.0.2</code>, so to contribute new core endpoints please make sure you use at least this version, or the <code>9.0.x</code> branch which should be even more up-to-date.</div>
+
+
+<div class="notices info" ><p><strong>Automated CI Checks</strong></p>
+<p>Your contribution will be automatically validated by CI to ensure code quality and consistency. To help your PR get approved quickly, please follow these important guidelines:</p>
+<ul>
+<li><strong>No custom normalizers</strong> in the module (use mapping instead)</li>
+<li><strong>No custom processors</strong> in the module (core processors are sufficient)</li>
+<li><strong>No Value Objects (VOs)</strong> in API Resources (only scalar types allowed)</li>
+<li>Integration tests must use <strong>full data assertions</strong> (not field-by-field checks)</li>
+</ul>
+<p>If any issues are detected, the CI will provide helpful comments to guide you on how to fix them. If you believe your use case requires core improvements (e.g., a new generic normalizer or mapping capability), please reach out to the team - we&rsquo;re here to help!</p>
+</div>
 
 
 <h2 id="-prerequisites">📋 Prerequisites<a href="#-prerequisites"></a></h2><ul>
@@ -47284,7 +47324,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li>Understanding of <a href="/9/admin-api/oauth/">OAuth2</a></li>
 <li>Understanding of how our <a href="/9/admin-api/resource_server/api-platform/">CQRS architecture integrates with API Platform</a></li>
 <li>Understanding of <a href="/9/admin-api/resource_server/api-resources/">API Resources and our customer operations</a></li>
-<li>Understanding the convention defined in our <a href="https://github.com/PrestaShop/ADR/blob/master/0023-cqrs-api-guidelines.md">CQRS API guidelines</a></li>
+<li>Understanding the conventions defined in our <a href="https://github.com/PrestaShop/ADR/blob/master/0023-cqrs-api-guidelines.md">CQRS API guidelines ADR</a> (Architecture Decision Record)</li>
 </ul>
 
 <h2 id="-objective">🎯 Objective<a href="#-objective"></a></h2><p>Create REST API endpoints to manage attribute groups (AttributeGroup) with complete CRUD operations and comprehensive PHPUnit integration test coverage.</p>
@@ -47297,12 +47337,119 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span><span class="line"><span class="cl">│               ├── AttributeGroup.php          # Resource for single operations
 </span></span><span class="line"><span class="cl">│               ├── AttributeGroupList.php      # Resource for listing
 </span></span><span class="line"><span class="cl">│               └── BulkAttributeGroups.php     # Resource for bulk operation
+</span></span><span class="line"><span class="cl">                └── BulkAttribute.php           # Resource for bulk operation on Attribute Values
 </span></span><span class="line"><span class="cl">├── tests/
 </span></span><span class="line"><span class="cl">│   └── Integration/
 </span></span><span class="line"><span class="cl">│       └── ApiPlatform/
 </span></span><span class="line"><span class="cl">│           └── Resources/
 </span></span><span class="line"><span class="cl">│               └── AttributeGroupEndpointTest.php
 </span></span></code></pre></div>
+<h2 id="-api-design-principles">🎨 API Design Principles<a href="#-api-design-principles"></a></h2><p>Before implementing endpoints, you must follow the conventions defined in the <a href="https://github.com/PrestaShop/ADR/blob/master/0023-cqrs-api-guidelines.md">CQRS API guidelines ADR</a>. Here are the fundamental rules:</p>
+
+<h4 id="uri-path-conventions">URI Path Conventions<a href="#uri-path-conventions"></a></h4><ul>
+<li><strong>Base on the CQRS domain name</strong> from <code>PrestaShop/PrestaShop/Core/Domain</code> (matches ObjectModel entity name)</li>
+<li><strong>Use plural form</strong> for URIs (e.g., <code>/hooks</code>, <code>/products</code>, <code>/attribute-groups</code>)</li>
+<li><strong>Use domain name + &ldquo;Id&rdquo; suffix</strong> for identifiers (e.g., <code>hookId</code>, <code>productId</code>, <code>attributeGroupId</code>)</li>
+<li><strong>Use kebab-case</strong> for compound names and actions (e.g., <code>/assign-to-category</code>, <code>/bulk-delete</code>)</li>
+<li><strong>Sub-parts follow the parent path</strong> (e.g., <code>/products/{productId}/combinations</code>, <code>/hooks/{hookId}/status</code>)</li>
+</ul>
+
+<h4 id="http-methods-and-custom-operations">HTTP Methods and Custom Operations<a href="#http-methods-and-custom-operations"></a></h4><ul>
+<li><strong>GET</strong>: Read operations → use <code>CQRSGet</code> or <code>CQRSGetCollection</code></li>
+<li><strong>POST</strong>: Creation and duplication → use <code>CQRSCreate</code></li>
+<li><strong>PUT</strong>: Full update → use <code>CQRSUpdate</code></li>
+<li><strong>PATCH</strong>: Partial update → use <code>CQRSPartialUpdate</code></li>
+<li><strong>DELETE</strong>: Delete operations → use <code>CQRSDelete</code></li>
+<li><strong>PaginatedList</strong>: For paginated collections</li>
+</ul>
+
+<h4 id="multilang-field-conventions">Multilang Field Conventions<a href="#multilang-field-conventions"></a></h4><p>For entities with multilang values:</p>
+<ul>
+<li><strong>Single entity endpoints</strong>: Return ALL languages as an associative array indexed by locale, for example:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span><span class="nt">&#34;names&#34;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&#34;en-US&#34;</span><span class="p">:</span> <span class="s2">&#34;english name&#34;</span><span class="p">,</span> <span class="nt">&#34;fr-FR&#34;</span><span class="p">:</span> <span class="s2">&#34;nom français&#34;</span><span class="p">}}</span>
+</span></span></code></pre></div><ul>
+<li><strong>List endpoints</strong>: Return only one language as strings (default shop language, or specify <code>langId</code> query parameter)</li>
+</ul>
+
+<h4 id="api-resource-properties-rules">API Resource Properties Rules<a href="#api-resource-properties-rules"></a></h4><p>All API resource class fields must follow these strict rules:</p>
+<ul>
+<li><strong>All fields must be strictly typed</strong> (e.g., <code>public string $name;</code>, not <code>public $name;</code>)</li>
+<li><strong>Only scalar types and arrays are allowed</strong> - NO Value Objects (VOs) in API Resources (enforced by CI/Rector)</li>
+<li><strong>Localized properties do NOT start with &ldquo;localized&rdquo;</strong> (e.g., <code>public array $names;</code>, not <code>public array $localizedNames;</code>)
+<ul>
+<li>Use the <code>#[LocalizedValue]</code> attribute for automatic locale conversion</li>
+</ul>
+</li>
+<li><strong>Boolean fields should NOT start with &ldquo;is&rdquo;</strong> (e.g., <code>public bool $ready;</code>, not <code>public bool $isReady;</code>)</li>
+<li><strong>Status field must use &ldquo;enabled&rdquo;</strong> to homogenize naming (e.g., <code>public bool $enabled;</code>, not <code>$active</code>, <code>$enable</code>, etc.)</li>
+<li><strong>Use internal mapping attributes</strong>: <code>CQRSQueryMapping</code>, <code>CQRSCommandMapping</code>, <code>ApiResourceMapping</code> instead of <code>SerializedName</code></li>
+<li><strong>Document array fields properly</strong> for OpenAPI schema generation (use <code>#[ApiProperty(openapiContext: ...)]</code> for nested structures)</li>
+</ul>
+
+<h4 id="scope-naming-convention">Scope Naming Convention<a href="#scope-naming-convention"></a></h4><ul>
+<li>Use <strong>singular form</strong> of the entity domain name</li>
+<li><strong>snake_case</strong> format</li>
+<li>Append the action: <code>{entity}_read</code> or <code>{entity}_write</code></li>
+<li>Examples: <code>order_read</code>, <code>order_write</code>, <code>product_read</code>, <code>product_write</code></li>
+<li>Detailed sub-scopes may be defined later (e.g., <code>order_update_address</code>, <code>order_create_invoice</code>)</li>
+</ul>
+
+<h4 id="bulk-operations-convention">Bulk Operations Convention<a href="#bulk-operations-convention"></a></h4><ul>
+<li>Always use <code>bulk-</code> prefix for the action (e.g., <code>/products/bulk-delete</code>, <code>/products/bulk-update-status</code>)</li>
+<li>Use plural form of domain + &ldquo;Ids&rdquo; for parameter names (e.g., <code>productIds</code>, <code>attributeGroupIds</code>)</li>
+<li>Default to POST method if no HTTP method consensus exists</li>
+<li>Examples:
+<ul>
+<li><code>DELETE /products/bulk-delete</code> with <code>productIds</code> in body</li>
+<li><code>POST /products/bulk-duplicate</code> with <code>productIds</code> in body</li>
+<li><code>PUT /products/bulk-update-status</code> with <code>productIds</code> in body</li>
+</ul>
+</li>
+</ul>
+
+<div class="notices tip" >For complete details, always refer to the <a href="https://github.com/PrestaShop/ADR/blob/master/0023-cqrs-api-guidelines.md">CQRS API guidelines ADR</a>.</div>
+
+
+<h2 id="-what-not-to-do">🚫 What NOT to do<a href="#-what-not-to-do"></a></h2><p>The following practices are <strong>forbidden</strong> and will be automatically blocked by CI:</p>
+
+<h4 id="no-custom-normalizers">NO Custom Normalizers<a href="#no-custom-normalizers"></a></h4>
+<div class="notices info" ><p><strong>Custom normalizers are NOT allowed in the <code>ps_apiresources</code> module.</strong></p>
+<ul>
+<li>Normalization should be handled by the core&rsquo;s generic normalization system</li>
+<li>Use <strong>mapping</strong> (<code>CQRSQueryMapping</code>, <code>CQRSCommandMapping</code>, <code>ApiResourceMapping</code>) instead of normalizers</li>
+<li>If a command/query has a specific structure that can&rsquo;t be normalized with current tools, the <strong>core must be improved</strong> with a generic solution</li>
+<li>This ensures reusability and avoids code duplication</li>
+</ul>
+<p><strong>CI Check</strong>: A whitelist system exists for exceptional cases, but exceptions are only granted when no generic approach is possible. The CI will block PRs with normalizers and provide guidance.</p>
+<p><strong>Need Help?</strong> If you encounter a situation where mapping isn&rsquo;t sufficient and believe a new generic normalizer is needed in the core, please reach out to the team. We can work together to add the functionality to the core in a reusable way.</p>
+</div>
+
+
+<h4 id="no-custom-processors">NO Custom Processors<a href="#no-custom-processors"></a></h4>
+<div class="notices info" ><p><strong>Custom processors are NOT allowed in the <code>ps_apiresources</code> module.</strong></p>
+<ul>
+<li>The core already contains generic processors that handle all common cases</li>
+<li>Core processors combined with proper normalization and mapping are sufficient</li>
+<li>Adding custom processors creates maintenance overhead and inconsistency</li>
+</ul>
+<p><strong>CI Check</strong>: PRs containing custom processors will be automatically blocked.</p>
+<p><strong>Need Help?</strong> If you encounter a situation where existing core processors don&rsquo;t cover your use case, please reach out to the team. We can evaluate whether a new generic processor should be added to the core.</p>
+</div>
+
+
+<h4 id="no-value-objects-in-api-resources">NO Value Objects in API Resources<a href="#no-value-objects-in-api-resources"></a></h4>
+<div class="notices info" ><p><strong>Value Objects (VOs) are forbidden in API Resources.</strong></p>
+<ul>
+<li>Only <strong>scalar types</strong> (<code>string</code>, <code>int</code>, <code>float</code>, <code>bool</code>) and <strong>arrays</strong> are allowed in API Resource properties</li>
+<li>This ensures proper serialization and OpenAPI documentation generation</li>
+<li>Complex structures should be represented as arrays with proper documentation</li>
+</ul>
+<p><strong>CI Check</strong>: A Rector rule enforces this and will block PRs with VOs in API Resources.</p>
+<p><strong>Need Help?</strong> If you have a complex data structure that&rsquo;s difficult to represent with scalars and arrays, please reach out to the team. We can discuss alternative approaches or potential core enhancements.</p>
+</div>
+
+
 <h2 id="-implementation-steps">📝 Implementation Steps<a href="#-implementation-steps"></a></h2><p>The new admin API is based on APIPlatform, we use some API Resources which are classes used to define our endpoint configuration:</p>
 <ul>
 <li>the field names used in API resources will define the format of our API ant its json field names</li>
@@ -47313,6 +47460,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <h3 id="1-create-and-fetch-a-single-resource">1. Create and fetch a single resource<a href="#1-create-and-fetch-a-single-resource"></a></h3>
 <h4 id="create-the-api-resource-object-that-defines-our-expected-format">Create the API Resource object that defines our expected format<a href="#create-the-api-resource-object-that-defines-our-expected-format"></a></h4><p>Create the file <code>src/ApiPlatform/Resources/Attribute/AttributeGroup.php</code>, here is the simple DTO with the naming we are expecting:</p>
+
+<div class="notices warning" ><p><strong>IMPORTANT</strong>: Follow the <a href="#api-resource-properties-rules">API Resource Properties Rules</a> from the ADR:</p>
+<ul>
+<li>All fields must be strictly typed</li>
+<li>Localized properties do NOT start with &ldquo;localized&rdquo; (use <code>$names</code>, not <code>$localizedNames</code>)</li>
+<li>Boolean fields should NOT start with &ldquo;is&rdquo; (use <code>$ready</code>, not <code>$isReady</code>)</li>
+<li>Status field must use &ldquo;enabled&rdquo; (not <code>$active</code>, <code>$enable</code>, etc.)</li>
+</ul></div>
+
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -47343,6 +47499,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
 <li>fetching the AttributeGroup, we will use the <code>GetAttributeGroupForEditing</code> mapped with a <code>CQRSGet</code> operation, it requires a scope <code>attribute_group_read</code> to be used</li>
 </ul>
+
+<div class="notices note" ><p><strong>URI Convention</strong>: Following the ADR, we use:</p>
+<ul>
+<li>Plural form: <code>/attributes/groups</code> (not <code>/attribute/group</code>)</li>
+<li>Domain name + &ldquo;Id&rdquo; suffix for identifier: <code>attributeGroupId</code> (not <code>id</code> or <code>attribute_group_id</code>)</li>
+<li>Scope naming: <code>attribute_group_read</code> and <code>attribute_group_write</code> (singular, snake_case)</li>
+</ul></div>
+
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -47394,6 +47558,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li>the query result <code>EditableAttributeGroup</code> (returned by our query) uses <code>name</code> and <code>publicName</code></li>
 </ul>
 <p>So we have to explain to our core architecture how to map these data if we want to keep the target naming on our API resource. This is done using mapping (you can read more about <a href="/9/admin-api/resource_server/api-resources/#custom-mapping">custom mapping</a>), here is the API resource adapted with the proper mapping, we use class protected const to reuse the mapping in several operations more easily:</p>
+
+<div class="notices tip" ><strong>ADR Requirement</strong>: Use the internal mapping attributes (<code>CQRSQueryMapping</code>, <code>CQRSCommandMapping</code>, <code>ApiResourceMapping</code>) instead of the <code>SerializedName</code> attribute, as it is not applied everywhere appropriately for the documentation.</div>
+
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">#[ApiResource(
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">operations</span><span class="o">:</span> <span class="p">[</span>
 </span></span><span class="line"><span class="cl">        <span class="k">new</span> <span class="nx">CQRSGet</span><span class="p">(</span>
@@ -47460,6 +47627,14 @@ It is much more convenient if the localized values are index by locale value lik
 </span></span><span class="line"><span class="cl">  <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>That&rsquo;s why we introduced a customer PHP attribute <code>PrestaShopBundle\ApiPlatform\Metadata\LocalizedValue</code> that you can simply add on the field that must be handled specifically, and internally the core will handle the automatic convertion of <code>locale-to-id</code> and <code>id-to-locale</code> for both read and write operations:</p>
+
+<div class="notices note" ><p><strong>ADR Convention</strong>: Following the <a href="#multilang-field-conventions">Multilang Field Conventions</a>:</p>
+<ul>
+<li>Single entity endpoints return ALL languages indexed by locale</li>
+<li>List endpoints return only one language as a string (default shop language or <code>langId</code> parameter)</li>
+<li>Localized property names do NOT start with &ldquo;localized&rdquo; (use <code>$names</code>, not <code>$localizedNames</code>)</li>
+</ul></div>
+
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">...</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\ApiPlatform\Metadata\LocalizedValue</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="o">...</span>
@@ -47507,6 +47682,14 @@ It is much more convenient if the localized values are index by locale value lik
 </li>
 <li>to delete the AttributeGroup, we will use the <code>DeleteAttributeGroupCommand</code> mapped with a <code>CQRSDelete</code> operation, it requires a scope <code>attribute_group_write</code> to be used</li>
 </ul>
+
+<div class="notices info" ><p><strong>HTTP Methods per ADR</strong>:</p>
+<ul>
+<li><code>PATCH</code> for partial updates → use <code>CQRSPartialUpdate</code></li>
+<li><code>PUT</code> for full updates → use <code>CQRSUpdate</code></li>
+<li><code>DELETE</code> for deletions → use <code>CQRSDelete</code></li>
+</ul></div>
+
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">...</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\ApiPlatform\Metadata\CQRSPartialUpdate</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\ApiPlatform\Metadata\CQRSDelete</span><span class="p">;</span>
@@ -47540,6 +47723,14 @@ It is much more convenient if the localized values are index by locale value lik
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
 <h3 id="3-bulk-deletion">3. Bulk deletion<a href="#3-bulk-deletion"></a></h3><p>For bulk action we create a new dedicated resource with only one array field <code>$attributeGroupIds</code>, create the file <code>src/ApiPlatform/Resources/Attribute/BulkAttributeGroups.php</code>:</p>
+
+<div class="notices warning" ><p><strong>ADR Bulk Operations Convention</strong>:</p>
+<ul>
+<li>Use <code>bulk-</code> prefix for the action in the URI (e.g., <code>/attributes/groups/delete</code>, not <code>/attributes/groups/bulk-delete</code>)</li>
+<li>Use plural domain name + &ldquo;Ids&rdquo; for parameter names (e.g., <code>attributeGroupIds</code>)</li>
+<li>The example uses <code>PUT</code> method, but you could also use <code>DELETE</code> method depending on the operation</li>
+</ul></div>
+
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
@@ -47549,20 +47740,19 @@ It is much more convenient if the localized values are index by locale value lik
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">ApiPlatform\Metadata\ApiResource</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\AttributeGroup\Command\BulkDeleteAttributeGroupCommand</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\AttributeGroup\Exception\AttributeGroupNotFoundException</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\ApiPlatform\Metadata\CQRSUpdate</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\ApiPlatform\Metadata\CQRSDelete</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\Validator\Constraints</span> <span class="k">as</span> <span class="nx">Assert</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1">#[ApiResource(
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">operations</span><span class="o">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">        <span class="k">new</span> <span class="nx">CQRSUpdate</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">uriTemplate</span><span class="o">:</span> <span class="s1">&#39;/attributes/groups/delete&#39;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="c1">// No output 204 code
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="nx">output</span><span class="o">:</span> <span class="k">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="k">new</span> <span class="nx">CQRSDelete</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">uriTemplate</span><span class="o">:</span> <span class="s1">&#39;/attributes/groups/bulk-delete&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">CQRSCommand</span><span class="o">:</span> <span class="nx">BulkDeleteAttributeGroupCommand</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="nx">scopes</span><span class="o">:</span> <span class="p">[</span>
 </span></span><span class="line"><span class="cl">                <span class="s1">&#39;attribute_group_write&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">allowEmptyBody</span><span class="o">:</span> <span class="k">false</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="p">),</span>
 </span></span><span class="line"><span class="cl">    <span class="p">],</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">exceptionToStatus</span><span class="o">:</span> <span class="p">[</span>
@@ -47789,6 +47979,33 @@ You can also use validation groups, which is very convenient when your constrain
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
 <h2 id="-phpunit-testing-strategy">🧪 PHPUnit Testing Strategy<a href="#-phpunit-testing-strategy"></a></h2>
+<div class="notices warning" ><p><strong>Critical Testing Requirements</strong> (enforced by CI):</p>
+<ol>
+<li>
+<p><strong>Full Data Assertions</strong>: Tests MUST assert the complete response data, not individual fields</p>
+<ul>
+<li>✅ Good: <code>$this-&gt;assertEquals(['id' =&gt; 1, 'name' =&gt; 'Test', 'enabled' =&gt; true], $response);</code></li>
+<li>❌ Bad: <code>$this-&gt;assertEquals(1, $response['id']); $this-&gt;assertEquals('Test', $response['name']);</code></li>
+</ul>
+</li>
+<li>
+<p><strong>Skip Null Values</strong>: Always use <code>'skip_null_values' =&gt; false</code> in test assertions</p>
+<ul>
+<li>This will be enforced globally via core configuration (no need to add everywhere)</li>
+<li>Ensures all fields are returned and tested, even when null</li>
+</ul>
+</li>
+<li>
+<p><strong>Integration Tests Are Sufficient</strong>: With accurate full-data assertions, manual QA can often be avoided</p>
+<ul>
+<li>Tests must cover all CRUD operations</li>
+<li>Tests must verify complete API contract</li>
+</ul>
+</li>
+</ol>
+</div>
+
+
 <h3 id="test-configuration-and-setup">Test Configuration and Setup<a href="#test-configuration-and-setup"></a></h3><p>To run the tests locally you can clone the module repository, and you can run the tests from its root folder</p>
 
 <div class="notices note" >The following step sets-up an environment to run the tests, it needs a working database to install all the default fixtures, and of course persist the data that will be read/written by the API.
@@ -47978,7 +48195,8 @@ It ensures that you didn&rsquo;t forget to setup the appropriate scopes, adn tha
 </span></span><span class="line"><span class="cl">        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertArrayHasKey</span><span class="p">(</span><span class="s1">&#39;attributeGroupId&#39;</span><span class="p">,</span> <span class="nv">$attributeGroup</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$attributeGroupId</span> <span class="o">=</span> <span class="nv">$attributeGroup</span><span class="p">[</span><span class="s1">&#39;attributeGroupId&#39;</span><span class="p">];</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="c1">// We assert the returned data matches what was posted (plus the ID)
+</span></span><span class="line"><span class="cl">        <span class="c1">// IMPORTANT: Assert the FULL response data, not individual fields (CI requirement)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// This ensures the complete API contract is tested
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assertEquals</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="p">[</span><span class="s1">&#39;attributeGroupId&#39;</span> <span class="o">=&gt;</span> <span class="nv">$attributeGroupId</span><span class="p">]</span> <span class="o">+</span> <span class="nv">$postData</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="nv">$attributeGroup</span>
@@ -48317,8 +48535,9 @@ It ensures that you didn&rsquo;t forget to setup the appropriate scopes, adn tha
 <h2 id="-key-points-to-remember">🔍 Key Points to Remember<a href="#-key-points-to-remember"></a></h2>
 <h3 id="naming-conventions">Naming Conventions<a href="#naming-conventions"></a></h3><ul>
 <li><strong>CamelCase</strong> for API Resource properties</li>
-<li><strong>snake_case</strong> for database mapping</li>
+<li><strong>snake_case</strong> for database mapping and scope names</li>
 <li><strong>PascalCase</strong> for class names</li>
+<li><strong>kebab-case</strong> for compound URI actions (e.g., <code>/assign-to-category</code>)</li>
 </ul>
 
 <h3 id="data-mapping">Data Mapping<a href="#data-mapping"></a></h3><ul>
@@ -48326,43 +48545,84 @@ It ensures that you didn&rsquo;t forget to setup the appropriate scopes, adn tha
 <li><code>filtersMapping</code>: transforms API filters to grid format</li>
 <li><code>CQRSQueryMapping</code>: for CQRS queries</li>
 <li><code>CQRSCommandMapping</code>: for CQRS commands</li>
+<li><strong>Use internal mapping attributes</strong> (NOT <code>SerializedName</code>)</li>
 </ul>
 
-<h3 id="security-scopes">Security Scopes<a href="#security-scopes"></a></h3><ul>
-<li><code>_read</code>: for read operations (GET)</li>
-<li><code>_write</code>: for write operations (POST, PUT, PATCH, DELETE)</li>
+<h3 id="security-scopes-per-adr">Security Scopes (per ADR)<a href="#security-scopes-per-adr"></a></h3><ul>
+<li>Use <strong>singular</strong> entity name + action: <code>{entity}_read</code> or <code>{entity}_write</code></li>
+<li>Examples: <code>attribute_group_read</code>, <code>attribute_group_write</code>, <code>order_read</code>, <code>order_write</code></li>
+<li>Format: <strong>snake_case</strong></li>
 </ul>
 
-<h3 id="uri-templates">URI Templates<a href="#uri-templates"></a></h3><ul>
-<li>Use consistent and descriptive names</li>
+<h3 id="uri-templates-per-adr">URI Templates (per ADR)<a href="#uri-templates-per-adr"></a></h3><ul>
+<li>Use <strong>plural form</strong> for base URIs (e.g., <code>/hooks</code>, <code>/products</code>)</li>
+<li>Use domain name + &ldquo;Id&rdquo; suffix for identifiers (e.g., <code>hookId</code>, <code>productId</code>)</li>
 <li>Follow REST conventions:
 <ul>
-<li><code>GET /resource/{id}</code>: retrieve single item</li>
+<li><code>GET /resources/{resourceId}</code>: retrieve single item</li>
 <li><code>GET /resources</code>: list items</li>
-<li><code>POST /resource</code>: create item</li>
-<li><code>PUT/PATCH /resource/{id}</code>: update item</li>
-<li><code>DELETE /resource/{id}</code>: delete item</li>
+<li><code>POST /resources</code>: create item</li>
+<li><code>PUT /resources/{resourceId}</code>: full update</li>
+<li><code>PATCH /resources/{resourceId}</code>: partial update</li>
+<li><code>DELETE /resources/{resourceId}</code>: delete item</li>
+<li><code>POST /resources/{resourceId}/duplicate</code>: duplicate item</li>
+<li><code>DELETE /resources/bulk-delete</code>: bulk operations (with <code>resourceIds</code> in body)</li>
 </ul>
 </li>
 </ul>
 
+<h3 id="api-resource-properties-per-adr">API Resource Properties (per ADR)<a href="#api-resource-properties-per-adr"></a></h3><ul>
+<li><strong>All fields must be strictly typed</strong></li>
+<li><strong>Only scalar types and arrays allowed</strong> - NO Value Objects (VOs)</li>
+<li><strong>Localized properties</strong>: Use <code>$names</code> (not <code>$localizedNames</code>) with <code>#[LocalizedValue]</code> attribute</li>
+<li><strong>Boolean fields</strong>: Use <code>$ready</code> (not <code>$isReady</code>)</li>
+<li><strong>Status field</strong>: Always use <code>$enabled</code> (not <code>$active</code>, <code>$enable</code>, etc.)</li>
+<li><strong>Document array fields</strong> with <code>#[ApiProperty(openapiContext: ...)]</code></li>
+</ul>
+
+<h3 id="forbidden-practices-ci-enforced">Forbidden Practices (CI-Enforced)<a href="#forbidden-practices-ci-enforced"></a></h3><ul>
+<li>❌ <strong>NO custom normalizers</strong> - use mapping instead</li>
+<li>❌ <strong>NO custom processors</strong> - core processors are sufficient</li>
+<li>❌ <strong>NO Value Objects in API Resources</strong> - only scalars and arrays</li>
+<li>❌ <strong>NO field-by-field assertions</strong> - test full response data</li>
+</ul>
+
+<h3 id="testing-requirements-ci-enforced">Testing Requirements (CI-Enforced)<a href="#testing-requirements-ci-enforced"></a></h3><ul>
+<li>✅ <strong>Assert complete response data</strong> in one call</li>
+<li>✅ <strong>Test all CRUD operations</strong> comprehensively</li>
+<li>✅ <strong>Use <code>skip_null_values =&gt; false</code></strong> for accurate validation</li>
+<li>✅ <strong>Integration tests should eliminate need for manual QA</strong></li>
+</ul>
+
 <h2 id="-useful-resources">📚 Useful Resources<a href="#-useful-resources"></a></h2><ul>
+<li><strong><a href="https://github.com/PrestaShop/ADR/blob/master/0023-cqrs-api-guidelines.md">CQRS API Guidelines ADR</a></strong> ⭐ <strong>Required reading</strong> - Architecture Decision Record defining all API conventions</li>
 <li><a href="/9/admin-api/resource_server/api-resources/">PrestaShop API Resources Documentation</a></li>
 <li><a href="https://api-platform.com/docs/">API Platform Documentation</a></li>
 <li><a href="https://phpunit.de/documentation.html">PHPUnit Documentation</a></li>
 <li><a href="https://martinfowler.com/bliki/CQRS.html">CQRS Pattern</a></li>
 <li><a href="/9/contribute/">PrestaShop Contributing Guidelines</a></li>
-<li><a href="https://symfony.com/doc/current/testing.html">Symfony Testing Best Practices</a></li>
+<li><a href="https://symfony.com/doc/6.4/testing.html">Symfony Testing Best Practices</a></li>
 </ul>
 
 <h2 id="-conclusion">🎉 Conclusion<a href="#-conclusion"></a></h2><p>Following this guide will help you create a comprehensive PR for adding API endpoints to PrestaShop with proper test coverage. Remember to:</p>
 <ol>
-<li>Follow PrestaShop coding standards</li>
-<li>Write comprehensive tests (integration)</li>
-<li>Achieve good test coverage</li>
-<li>Document your changes properly</li>
-<li>Follow the team&rsquo;s review process</li>
+<li><strong>Follow the <a href="https://github.com/PrestaShop/ADR/blob/master/0023-cqrs-api-guidelines.md">CQRS API Guidelines ADR</a></strong> - this is mandatory</li>
+<li><strong>Follow PrestaShop coding standards</strong> and API Resource property rules</li>
+<li><strong>Write comprehensive tests</strong> with full data assertions</li>
+<li><strong>Avoid forbidden practices</strong>:
+<ul>
+<li>No custom normalizers (use mapping)</li>
+<li>No custom processors (core handles this)</li>
+<li>No Value Objects in API Resources (only scalars and arrays)</li>
+</ul>
+</li>
+<li><strong>Ensure CI checks pass</strong> - automated checks will block PRs that violate these rules</li>
+<li><strong>Document your changes properly</strong> (especially array fields for OpenAPI)</li>
+<li><strong>Follow the team&rsquo;s review process</strong></li>
 </ol>
+
+<div class="notices tip" >With proper full-data integration tests, your contribution should require minimal to no manual QA, accelerating the review process!</div>
+
 <p>Good luck with your contribution! 🚀</p>
 
 
@@ -48442,17 +48702,17 @@ It ensures that you didn&rsquo;t forget to setup the appropriate scopes, adn tha
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1768489175"></script>
-    <script src="/js/perfect-scrollbar.min.js?1768489175"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1768489175"></script>
-    <script src="/js/jquery.sticky.js?1768489175"></script>
-    <script src="/js/featherlight.min.js?1768489175"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1768489175"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1768489175"></script>
-    <script src="/js/learn.js?1768489175"></script>
-    <script src="/js/hugo-learn.js?1768489175"></script>
+    <script src="/js/clipboard.min.js?1768492404"></script>
+    <script src="/js/perfect-scrollbar.min.js?1768492404"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1768492404"></script>
+    <script src="/js/jquery.sticky.js?1768492404"></script>
+    <script src="/js/featherlight.min.js?1768492404"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1768492404"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1768492404"></script>
+    <script src="/js/learn.js?1768492404"></script>
+    <script src="/js/hugo-learn.js?1768492404"></script>
     
-    <script src="/main.js?1768489175"></script>
+    <script src="/main.js?1768492404"></script>
     
     
     
