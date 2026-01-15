@@ -22,14 +22,14 @@
     <title>The Console component :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1768245564" rel="stylesheet">
-    <link href="/css/syntax-github.css?1768245564" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1768245564" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1768245564" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1768489231" rel="stylesheet">
+    <link href="/css/syntax-github.css?1768489231" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1768489231" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1768489231" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1768245564" rel="stylesheet">
+    <link href="/style.css?1768489231" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1768245564"></script>
+    <script src="/js/jquery-3.3.1.min.js?1768489231"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -11926,6 +11926,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  
   
     
+      <li data-nav-id="/9/modules/core-updates/9.1/" title="Changes in PrestaShop 9.1.x" class="dd-item ">
+        <a href="/9/modules/core-updates/9.1/">
+        Changes in 9.1.x
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
       <li data-nav-id="/9/modules/core-updates/new-password-policy/" title="New password policy based on zxcvbn" class="dd-item ">
         <a href="/9/modules/core-updates/new-password-policy/">
         New password policy
@@ -17301,7 +17322,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     <nav id="TableOfContents">
   <ul>
-    <li><a href="#the-console-component">The Console component</a></li>
+    <li><a href="#the-console-component">The Console component</a>
+      <ul>
+        <li><a href="#what-are-console-commands">What are console commands?</a></li>
+        <li><a href="#running-console-commands">Running console commands</a>
+          <ul>
+            <li><a href="#list-all-available-commands">List all available commands</a></li>
+          </ul>
+        </li>
+        <li><a href="#available-prestashop-commands">Available PrestaShop commands</a></li>
+        <li><a href="#creating-custom-commands">Creating custom commands</a></li>
+        <li><a href="#common-use-cases">Common use cases</a>
+          <ul>
+            <li><a href="#regular-maintenance">Regular maintenance</a></li>
+            <li><a href="#scheduled-maintenance-cron-jobs">Scheduled maintenance (cron jobs)</a></li>
+            <li><a href="#development-workflow">Development workflow</a></li>
+            <li><a href="#full-list-of-commands">Full list of commands</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
 </nav>
 
@@ -44011,6 +44051,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
   
       
+        
+    
+    
+      
+        
+      
+      
+      
+      
+      
+
+      
+    
+  
+      
     
   
       
@@ -47239,8 +47294,88 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<h1 id="the-console-component">The Console component<a href="#the-console-component"></a></h1><p>PrestaShop uses the <a href="https://symfony.com/doc/current/components/console.html">Symfony Console</a> component and provides its own set of commands.</p>
+<h1 id="the-console-component">The Console component<a href="#the-console-component"></a></h1><p>PrestaShop uses the <a href="https://symfony.com/doc/6.4/components/console.html">Symfony Console</a> component and provides its own set of CLI commands for developers and administrators.</p>
 
+<h2 id="what-are-console-commands">What are console commands?<a href="#what-are-console-commands"></a></h2><p>Console commands (also called CLI commands or terminal commands) allow you to perform various PrestaShop operations from the command line without using the Back Office. These commands are particularly useful for:</p>
+<ul>
+<li><strong>Development</strong>: Debugging, clearing cache, regenerating assets</li>
+<li><strong>Automation</strong>: Scripting repetitive tasks, CI/CD pipelines, scheduled jobs (cron)</li>
+<li><strong>Maintenance</strong>: Module management, database operations, index rebuilding</li>
+<li><strong>Performance</strong>: Batch operations that would timeout in the browser</li>
+<li><strong>DevOps</strong>: Server administration, deployment workflows</li>
+</ul>
+
+<h2 id="running-console-commands">Running console commands<a href="#running-console-commands"></a></h2><p>All commands are executed from your PrestaShop root directory using:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php bin/console <span class="o">[</span>command-name<span class="o">]</span> <span class="o">[</span>arguments<span class="o">]</span> <span class="o">[</span>options<span class="o">]</span>
+</span></span></code></pre></div><p><strong>Example:</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php bin/console prestashop:module install ps_banner
+</span></span></code></pre></div>
+<h3 id="list-all-available-commands">List all available commands<a href="#list-all-available-commands"></a></h3><p>To see all available commands:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php bin/console list
+</span></span></code></pre></div><p>To get help for a specific command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">php bin/console <span class="o">[</span>command-name<span class="o">]</span> --help
+</span></span></code></pre></div>
+<h2 id="available-prestashop-commands">Available PrestaShop commands<a href="#available-prestashop-commands"></a></h2><p>PrestaShop provides the following console commands for various tasks. The list below is automatically generated from the command documentation files.</p>
+<h3>Module Management</h3>
+    <ul><li>
+        <a href="/9/development/components/console/prestashop-module/">prestashop:module</a> - Install, uninstall, enable, disable, and manage modules</li></ul><h3>Translations</h3>
+    <ul><li>
+        <a href="/9/development/components/console/prestashop-translation-export-module/">prestashop:translation:export-module</a> - Export module translations to XLF files</li><li>
+        <a href="/9/development/components/console/prestashop-translation-find-duplicates/">prestashop:translation:find-duplicates</a> - Find duplicate translations in the system</li></ul><h3>Theme Management</h3>
+    <ul><li>
+        <a href="/9/development/components/console/prestashop-theme-enable/">prestashop:theme:enable</a> - Enable a theme for a shop</li><li>
+        <a href="/9/development/components/console/prestashop-theme-export/">prestashop:theme:export</a> - Export a theme package</li></ul><h3>Development &amp; Debugging</h3>
+    <ul><li>
+        <a href="/9/development/components/console/about/">about</a> - Display information about the current PrestaShop installation</li><li>
+        <a href="/9/development/components/console/prestashop-config/">prestashop:config</a> - Display and manage configuration values</li><li>
+        <a href="/9/development/components/console/prestashop-debug/">prestashop:debug</a> - Debug mode utilities and helpers</li><li>
+        <a href="/9/development/components/console/prestashop-list-commands-and-queries/">prestashop:list:commands-and-queries</a> - List CQRS commands and queries</li></ul><h3>Code Quality &amp; Linting</h3>
+    <ul><li>
+        <a href="/9/development/components/console/prestashop-linter-naming-convention/">prestashop:linter:naming-convention</a> - Check naming conventions compliance</li><li>
+        <a href="/9/development/components/console/prestashop-linter-legacy-link/">prestashop:linter:legacy-link</a> - Check for legacy link usage</li><li>
+        <a href="/9/development/components/console/prestashop-linter-security-attribute/">prestashop:linter:security-attribute</a> - Check security attribute annotations</li></ul><h3>Database &amp; Schema</h3>
+    <ul><li>
+        <a href="/9/development/components/console/prestashop-schema-update-without-foreign/">prestashop:schema:update-without-foreign</a> - Update database schema without foreign keys</li></ul><h3>Search &amp; Indexing</h3>
+    <ul><li>
+        <a href="/9/development/components/console/prestashop-search-index/">prestashop:search:index</a> - Rebuild search index for products</li></ul><h3>Assets &amp; Media</h3>
+    <ul><li>
+        <a href="/9/development/components/console/prestashop-thumbnails-regenerate/">prestashop:thumbnails:regenerate</a> - Regenerate product and category image thumbnails</li><li>
+        <a href="/9/development/components/console/prestashop-mail-generate/">prestashop:mail:generate</a> - Generate email templates from layouts</li></ul><h3>API &amp; Documentation</h3>
+    <ul><li>
+        <a href="/9/development/components/console/prestashop-apiclient/">prestashop:api-client</a> - Manage API client credentials</li><li>
+        <a href="/9/development/components/console/prestashop-generate-apidoc/">prestashop:generate:apidoc</a> - Generate API documentation in OpenAPI format</li></ul><h3>Feature Flags</h3>
+    <ul><li>
+        <a href="/9/development/components/console/prestashop-feature-flag/">prestashop:feature-flag</a> - Manage feature flags (enable, disable, list)</li></ul><h3>Tax Management</h3>
+    <ul><li>
+        <a href="/9/development/components/console/prestashop-taxes-update-eu-tax-rule-groups/">prestashop:taxes:update-eu-tax-rule-groups</a> - Update EU tax rule groups automatically</li></ul><h3>License &amp; Legal</h3>
+    <ul><li>
+        <a href="/9/development/components/console/prestashop-licenses-update/">prestashop:licenses:update</a> - Update license headers in source files</li></ul><h3>Internal/Advanced</h3>
+    <ul><li>
+        <a href="/9/development/components/console/prestashop-update-configuration-file-hooks-listing/">prestashop:update:configuration-file-hooks-listing</a> - Update hooks listing in configuration files</li><li>
+        <a href="/9/development/components/console/prestashop-update-sql-upgrade-file-hooks-listing/">prestashop:update:sql-upgrade-file-hooks-listing</a> - Update hooks in SQL upgrade files</li><li>
+        <a href="/9/development/components/console/prestashop-update-hooks-documentation/">prestashop:update:hooks-documentation</a> - Generate hooks documentation from codebase</li></ul><h3>Utilities</h3>
+    <ul><li>
+        <a href="/9/development/components/console/context-helper/">Context helper</a> - Context helper utilities for development</li></ul>
+
+<h2 id="creating-custom-commands">Creating custom commands<a href="#creating-custom-commands"></a></h2><p>You can also create your own console commands for your modules. See the Symfony documentation on <a href="https://symfony.com/doc/6.4/console.html">Creating Console Commands</a> for more information.</p>
+
+<h2 id="common-use-cases">Common use cases<a href="#common-use-cases"></a></h2>
+<h3 id="regular-maintenance">Regular maintenance<a href="#regular-maintenance"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Clear cache</span>
+</span></span><span class="line"><span class="cl">php bin/console cache:clear
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Rebuild search index</span>
+</span></span><span class="line"><span class="cl">php bin/console prestashop:search:index --full
+</span></span></code></pre></div>
+<h3 id="scheduled-maintenance-cron-jobs">Scheduled maintenance (cron jobs)<a href="#scheduled-maintenance-cron-jobs"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Regenerate thumbnails nightly</span>
+</span></span><span class="line"><span class="cl"><span class="m">0</span> <span class="m">2</span> * * * <span class="nb">cd</span> /path/to/prestashop <span class="o">&amp;&amp;</span> php bin/console prestashop:thumbnails:regenerate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Rebuild search index</span>
+</span></span><span class="line"><span class="cl">php bin/console prestashop:search:index --full
+</span></span></code></pre></div>
+<h3 id="development-workflow">Development workflow<a href="#development-workflow"></a></h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Export translations before release</span>
+</span></span><span class="line"><span class="cl">php bin/console prestashop:translation:export-module mymodule en-US
+</span></span></code></pre></div>
+<h3 id="full-list-of-commands">Full list of commands<a href="#full-list-of-commands"></a></h3>
 
 
 
@@ -47676,7 +47811,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/6b3ce8b6785aeced6b0afb710928fbc354188320">2026-01-07 by Krystian Podemski</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/49e64c0f966a888c20c6226dae2d2f64e4be04e5">2026-01-07 by Krystian Podemski</a>.<br>
         
     
 
@@ -47698,17 +47833,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1768245564"></script>
-    <script src="/js/perfect-scrollbar.min.js?1768245564"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1768245564"></script>
-    <script src="/js/jquery.sticky.js?1768245564"></script>
-    <script src="/js/featherlight.min.js?1768245564"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1768245564"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1768245564"></script>
-    <script src="/js/learn.js?1768245564"></script>
-    <script src="/js/hugo-learn.js?1768245564"></script>
+    <script src="/js/clipboard.min.js?1768489231"></script>
+    <script src="/js/perfect-scrollbar.min.js?1768489231"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1768489231"></script>
+    <script src="/js/jquery.sticky.js?1768489231"></script>
+    <script src="/js/featherlight.min.js?1768489231"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1768489231"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1768489231"></script>
+    <script src="/js/learn.js?1768489231"></script>
+    <script src="/js/hugo-learn.js?1768489231"></script>
     
-    <script src="/main.js?1768245564"></script>
+    <script src="/main.js?1768489231"></script>
     
     
     
