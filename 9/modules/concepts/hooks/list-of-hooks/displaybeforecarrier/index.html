@@ -22,14 +22,14 @@
     <title>displayBeforeCarrier :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1769575468" rel="stylesheet">
-    <link href="/css/syntax-github.css?1769575468" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1769575468" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1769575468" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1770038171" rel="stylesheet">
+    <link href="/css/syntax-github.css?1770038171" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1770038171" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1770038171" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1769575468" rel="stylesheet">
+    <link href="/style.css?1770038171" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1769575468"></script>
+    <script src="/js/jquery-3.3.1.min.js?1770038171"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -17363,7 +17363,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <ul>
         <li><a href="#informations">Informations</a></li>
         <li><a href="#located-in">Located in</a></li>
-        <li><a href="#parameters-details">Parameters details</a></li>
         <li><a href="#call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file</a></li>
       </ul>
     </li>
@@ -47373,53 +47372,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </tr>
 <tr>
 <td>core</td>
-<td><a href=https://github.com/PrestaShop/PrestaShop/blob/8.0.x/classes/checkout/CheckoutDeliveryStep.php>classes/checkout/CheckoutDeliveryStep.php</a></td>
+<td><a href=https://github.com/PrestaShop/PrestaShop/blob/9.1.x/classes/checkout/CheckoutDeliveryStep.php>classes/checkout/CheckoutDeliveryStep.php</a></td>
 </tr>
 </table>
 
-<h2 id="parameters-details">Parameters details<a href="#parameters-details"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">    <span class="o">&lt;?</span><span class="nx">php</span>
-</span></span><span class="line"><span class="cl">    <span class="k">array</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;carriers&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">            <span class="k">array</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">                <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="nx">Name</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="s1">&#39;img&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="nx">Image</span> <span class="nx">URL</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="s1">&#39;delay&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span> <span class="nx">Delay</span> <span class="nx">text</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="s1">&#39;price&#39;</span> <span class="o">=&gt;</span>  <span class="p">(</span><span class="nx">float</span><span class="p">)</span> <span class="nx">Total</span> <span class="nx">price</span> <span class="nx">with</span> <span class="nx">tax</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="s1">&#39;price_tax_exc&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">float</span><span class="p">)</span> <span class="nx">Total</span> <span class="nx">price</span> <span class="nx">without</span> <span class="nx">tax</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="s1">&#39;id_carrier&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">intified</span> <span class="nx">option</span> <span class="nx">delivery</span> <span class="nx">identifier</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                <span class="s1">&#39;id_module&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">Module</span> <span class="nx">ID</span>
-</span></span><span class="line"><span class="cl">        <span class="p">)),</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;checked&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nx">intified</span> <span class="nx">selected</span> <span class="nx">carriers</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="s1">&#39;delivery_option_list&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="k">array</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">            <span class="mi">0</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> <span class="c1">// First address
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="s1">&#39;12,&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> <span class="c1">// First delivery option available for this address
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                     <span class="nx">carrier_list</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">                         <span class="mi">12</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span> <span class="c1">// First carrier for this option
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                             <span class="s1">&#39;instance&#39;</span> <span class="o">=&gt;</span> <span class="nx">Carrier</span> <span class="nx">Object</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                             <span class="s1">&#39;logo&#39;</span> <span class="o">=&gt;</span> <span class="o">&lt;</span><span class="nx">url</span> <span class="nx">to</span> <span class="nx">the</span> <span class="nx">carrier</span><span class="s1">&#39;s logo&gt;,
-</span></span></span><span class="line"><span class="cl"><span class="s1">                             &#39;</span><span class="nx">price_with_tax</span><span class="s1">&#39; =&gt; 12.4, // Example
-</span></span></span><span class="line"><span class="cl"><span class="s1">                             &#39;</span><span class="nx">price_without_tax</span><span class="s1">&#39; =&gt; 12.4, // Example
-</span></span></span><span class="line"><span class="cl"><span class="s1">                             &#39;</span><span class="nx">package_list</span><span class="s1">&#39; =&gt; array(
-</span></span></span><span class="line"><span class="cl"><span class="s1">                                 1, // Example
-</span></span></span><span class="line"><span class="cl"><span class="s1">                                 3, // Example
-</span></span></span><span class="line"><span class="cl"><span class="s1">                              ),
-</span></span></span><span class="line"><span class="cl"><span class="s1">                         ),
-</span></span></span><span class="line"><span class="cl"><span class="s1">                     ),
-</span></span></span><span class="line"><span class="cl"><span class="s1">                     is_best_grade =&gt; true, // Does this option have the biggest grade (quick shipping) for this shipping address
-</span></span></span><span class="line"><span class="cl"><span class="s1">                     is_best_price =&gt; true, // Does this option have the lower price for this shipping address
-</span></span></span><span class="line"><span class="cl"><span class="s1">                     unique_carrier =&gt; true, // Does this option use a unique carrier
-</span></span></span><span class="line"><span class="cl"><span class="s1">                     total_price_with_tax =&gt; 12.5,
-</span></span></span><span class="line"><span class="cl"><span class="s1">                     total_price_without_tax =&gt; 12.5,
-</span></span></span><span class="line"><span class="cl"><span class="s1">                     position =&gt; 5, // Average of the carrier position
-</span></span></span><span class="line"><span class="cl"><span class="s1">                 ),
-</span></span></span><span class="line"><span class="cl"><span class="s1">             ),
-</span></span></span><span class="line"><span class="cl"><span class="s1">         )),
-</span></span></span><span class="line"><span class="cl"><span class="s1">         &#39;</span><span class="nx">delivery_option</span><span class="s1">&#39; =&gt; array(
-</span></span></span><span class="line"><span class="cl"><span class="s1">             &#39;</span><span class="o">&lt;</span><span class="nx">id_address</span><span class="o">&gt;</span><span class="err">&#39;</span> <span class="o">=&gt;</span> <span class="nx">Delivery</span> <span class="nx">option</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">             <span class="o">...</span>
-</span></span><span class="line"><span class="cl">         <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">);</span>
-</span></span></code></pre></div>
 <h2 id="call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file<a href="#call-of-the-hook-in-the-origin-file"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">Hook</span><span class="o">::</span><span class="na">exec</span><span class="p">(</span><span class="s1">&#39;displayBeforeCarrier&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;cart&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getCheckoutSession</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">getCart</span><span class="p">()])</span>
 </span></span></code></pre></div>
 
@@ -47477,7 +47433,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/c89fb1b46c8c5e9ceb0e55e61172b095ac4957ff">2026-01-22 by Jonathan LELIEVRE</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/ab83bbbe1bd40a6d193b077a95b3f1f1677a1de5">2026-01-31 by Krystian Podemski</a>.<br>
         
     
 
@@ -47499,17 +47455,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1769575468"></script>
-    <script src="/js/perfect-scrollbar.min.js?1769575468"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1769575468"></script>
-    <script src="/js/jquery.sticky.js?1769575468"></script>
-    <script src="/js/featherlight.min.js?1769575468"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1769575468"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1769575468"></script>
-    <script src="/js/learn.js?1769575468"></script>
-    <script src="/js/hugo-learn.js?1769575468"></script>
+    <script src="/js/clipboard.min.js?1770038171"></script>
+    <script src="/js/perfect-scrollbar.min.js?1770038171"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1770038171"></script>
+    <script src="/js/jquery.sticky.js?1770038171"></script>
+    <script src="/js/featherlight.min.js?1770038171"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1770038171"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1770038171"></script>
+    <script src="/js/learn.js?1770038171"></script>
+    <script src="/js/hugo-learn.js?1770038171"></script>
     
-    <script src="/main.js?1769575468"></script>
+    <script src="/main.js?1770038171"></script>
     
     
     
