@@ -22,14 +22,14 @@
     <title>Settings Forms :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1770863981" rel="stylesheet">
-    <link href="/css/syntax-github.css?1770863981" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1770863981" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1770863981" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1772099840" rel="stylesheet">
+    <link href="/css/syntax-github.css?1772099840" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1772099840" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1772099840" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1770863981" rel="stylesheet">
+    <link href="/style.css?1772099840" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1770863981"></script>
+    <script src="/js/jquery-3.3.1.min.js?1772099840"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -8698,6 +8698,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           
 
         
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
           
             
             
@@ -43443,6 +43467,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
   
       
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
     
   
       
@@ -47427,7 +47491,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </li>
 </ul>
 
-<h2 id="form-request-handling-in-controllers">Form request handling in Controllers<a href="#form-request-handling-in-controllers"></a></h2><p>In modern pages, Controllers have or should have only one responsibility: handle the User request and return a response. This is why in modern pages, controllers should be as thin as possible and rely on specific classes (services) to manage the data. As always, check out the existing implementations, like in the <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/PrestaShopBundle/Controller/Admin/Configure/AdvancedParameters/PerformanceController.php">PerformanceController</a>.</p>
+<h2 id="form-request-handling-in-controllers">Form request handling in Controllers<a href="#form-request-handling-in-controllers"></a></h2><p>In modern pages, Controllers have or should have only one responsibility: handle the User request and return a response. This is why in modern pages, controllers should be as thin as possible and rely on specific classes (services) to manage the data. As always, check out the existing implementations, like in the <a href="https://github.com/PrestaShop/PrestaShop/blob/9.0.x/src/PrestaShopBundle/Controller/Admin/Configure/AdvancedParameters/PerformanceController.php">PerformanceController</a>.</p>
 <p>This is how we manage a form submit inside a Controller:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="nv">$form</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.adapter.performance.form_handler&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getForm</span><span class="p">();</span>
@@ -47485,7 +47549,7 @@ stateDiagram-v2
   DataProvider --> s3: persist data
 </div>
 
-<h2 id="render-the-form-using-twig">Render the form using Twig<a href="#render-the-form-using-twig"></a></h2><p>The rendering of forms in Twig is already described by the <a href="https://symfony.com/doc/4.4/form/rendering.html">Symfony documentation</a>. PrestaShop uses its own <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/PrestaShopBundle/Resources/views/Admin/TwigTemplateForm/prestashop_ui_kit.html.twig">Form theme</a> that contains specific markup for the PrestaShop UI Kit. You can see it as a customized version of Symfony&rsquo;s Bootstrap 4 form theme, even though it&rsquo;s not directly based on it.</p>
+<h2 id="render-the-form-using-twig">Render the form using Twig<a href="#render-the-form-using-twig"></a></h2><p>The rendering of forms in Twig is already described by the <a href="https://symfony.com/doc/4.4/form/rendering.html">Symfony documentation</a>. PrestaShop uses its own <a href="https://github.com/PrestaShop/PrestaShop/blob/9.0.x/src/PrestaShopBundle/Resources/views/Admin/TwigTemplateForm/prestashop_ui_kit.html.twig">Form theme</a> that contains specific markup for the PrestaShop UI Kit. You can see it as a customized version of Symfony&rsquo;s Bootstrap 4 form theme, even though it&rsquo;s not directly based on it.</p>
 <p>To sum up how it works, the controller sends an instance of <code>FormView</code> to Twig and Twig uses form helpers to render the right markup for every field type (the Form theme defines a specific markup for each Form Type).</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-twig" data-lang="twig"><span class="line"><span class="cl"><span class="cp">{{</span> <span class="nv">form_start</span><span class="o">(</span><span class="nv">logsByEmailForm</span><span class="o">)</span> <span class="cp">}}</span><span class="x">
 </span></span></span><span class="line"><span class="cl"><span class="x">&lt;div class=&#34;col-md-12&#34;&gt;
@@ -47571,7 +47635,7 @@ stateDiagram-v2
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/6ca6adc4606dfffc10b95435921a172168afb8c0">2025-09-25 by Jonathan Danse</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/184e5245071a4c0c45020dfddf536ae1663bd4a2">2026-02-24 by Jean-François Viguier</a>.<br>
         
     
 
@@ -47593,17 +47657,17 @@ stateDiagram-v2
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1770863981"></script>
-    <script src="/js/perfect-scrollbar.min.js?1770863981"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1770863981"></script>
-    <script src="/js/jquery.sticky.js?1770863981"></script>
-    <script src="/js/featherlight.min.js?1770863981"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1770863981"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1770863981"></script>
-    <script src="/js/learn.js?1770863981"></script>
-    <script src="/js/hugo-learn.js?1770863981"></script>
+    <script src="/js/clipboard.min.js?1772099840"></script>
+    <script src="/js/perfect-scrollbar.min.js?1772099840"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1772099840"></script>
+    <script src="/js/jquery.sticky.js?1772099840"></script>
+    <script src="/js/featherlight.min.js?1772099840"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1772099840"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1772099840"></script>
+    <script src="/js/learn.js?1772099840"></script>
+    <script src="/js/hugo-learn.js?1772099840"></script>
     
-    <script src="/main.js?1770863981"></script>
+    <script src="/main.js?1772099840"></script>
     
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
@@ -47637,6 +47701,16 @@ stateDiagram-v2
                     },
                 
                     {
+                        name: "action\u003cController\u003eInitAfter",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrollerinitafter/"
+                    },
+                
+                    {
+                        name: "action\u003cController\u003eInitBefore",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrollerinitbefore/"
+                    },
+                
+                    {
                         name: "action\u003cController\u003eListingFieldsModifier",
                         url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrollerlistingfieldsmodifier/"
                     },
@@ -47649,6 +47723,21 @@ stateDiagram-v2
                     {
                         name: "action\u003cController\u003eOptionsModifier",
                         url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrolleroptionsmodifier/"
+                    },
+                
+                    {
+                        name: "action\u003cController\u003eSetMedia",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrollersetmedia/"
+                    },
+                
+                    {
+                        name: "action\u003cController\u003eSetVariables",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrollersetvariables/"
+                    },
+                
+                    {
+                        name: "action\u003cController\u003eSetVariablesBefore",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrollersetvariablesbefore/"
                     },
                 
                     {
@@ -48089,6 +48178,11 @@ stateDiagram-v2
                     {
                         name: "actionBeforeUpdate\u003cFormName\u003eFormHandler",
                         url: "/9/modules/concepts/hooks/list-of-hooks/actionbeforeupdateformnameformhandler/"
+                    },
+                
+                    {
+                        name: "actionBuild\u003cController\u003eFrontEndObject",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actionbuildcontrollerfrontendobject/"
                     },
                 
                     {
@@ -49582,6 +49676,11 @@ stateDiagram-v2
                     },
                 
                     {
+                        name: "actionOutput\u003cController\u003eHTMLBefore",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actionoutputcontrollerhtmlbefore/"
+                    },
+                
+                    {
                         name: "actionOutputHTMLBefore",
                         url: "/9/modules/concepts/hooks/list-of-hooks/actionoutputhtmlbefore/"
                     },
@@ -50329,6 +50428,11 @@ stateDiagram-v2
                     {
                         name: "deleteProductAttribute",
                         url: "/9/modules/concepts/hooks/list-of-hooks/deleteproductattribute/"
+                    },
+                
+                    {
+                        name: "display\u003cController\u003eHeader",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/displaycontrollerheader/"
                     },
                 
                     {

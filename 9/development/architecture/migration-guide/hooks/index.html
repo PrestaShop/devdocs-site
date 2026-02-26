@@ -22,14 +22,14 @@
     <title>Hooks :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1770863981" rel="stylesheet">
-    <link href="/css/syntax-github.css?1770863981" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1770863981" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1770863981" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1772099839" rel="stylesheet">
+    <link href="/css/syntax-github.css?1772099839" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1772099839" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1772099839" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1770863981" rel="stylesheet">
+    <link href="/style.css?1772099839" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1770863981"></script>
+    <script src="/js/jquery-3.3.1.min.js?1772099839"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -8677,6 +8677,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           
 
         
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
           
             
             
@@ -43403,6 +43427,46 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
   
       
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
+        
+    
+    
+  
+      
     
   
       
@@ -47321,7 +47385,7 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
 <p>Getting the list of available Hooks in modern pages is really easy. Thanks to the hook profiler, the Symfony debug bar displays the list of available hooks (alongside some useful information) on a given page. Sadly, this is only available on Symfony pages, since the legacy system doesn&rsquo;t have any way to get the list of hooks dispatched for a page.</p>
 
 <h2 id="getting-the-list-of-hooks-on-a-legacy-page">Getting the list of hooks on a legacy page<a href="#getting-the-list-of-hooks-on-a-legacy-page"></a></h2><p>Use this trick to find out which hooks are called on a legacy page.</p>
-<p>In <code>classes/Hook</code>, find the <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/classes/Hook.php#L735">exec() function</a> and add the following code:</p>
+<p>In <code>classes/Hook</code>, find the <a href="https://github.com/PrestaShop/PrestaShop/blob/9.0.x/classes/Hook.php#L906">exec() function</a> and add the following code:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="nx">file_put_contents</span><span class="p">(</span><span class="s1">&#39;hooks.txt&#39;</span><span class="p">,</span> <span class="nx">PHP_EOL</span><span class="o">.</span> <span class="nv">$hook_name</span><span class="p">,</span> <span class="nx">FILE_APPEND</span> <span class="o">|</span> <span class="nx">LOCK_EX</span><span class="p">);</span>
 </span></span></code></pre></div><p>After applying this change, access the url of the page you want to migrate. In <code>admin-dev/hooks.txt</code>, you&rsquo;ll see the list of available hooks in the legacy page.</p>
@@ -47345,7 +47409,7 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dispatchHook</span><span class="p">(</span><span class="s1">&#39;actionAdminPerformanceControllerPostProcessBefore&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;controller&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="p">));</span>
 </span></span></code></pre></div>
-<h2 id="dispatching-hooks-using-the-hook-dispatcher">Dispatching hooks using the Hook dispatcher<a href="#dispatching-hooks-using-the-hook-dispatcher"></a></h2><p>If you need to dispatch a hook from a non-controller class, you&rsquo;ll need to inject the <a href="https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Core/Hook/HookDispatcher.php">HookDispatcher</a> class.</p>
+<h2 id="dispatching-hooks-using-the-hook-dispatcher">Dispatching hooks using the Hook dispatcher<a href="#dispatching-hooks-using-the-hook-dispatcher"></a></h2><p>If you need to dispatch a hook from a non-controller class, you&rsquo;ll need to inject the <a href="https://github.com/PrestaShop/PrestaShop/blob/9.0.x/src/Core/Hook/HookDispatcher.php">HookDispatcher</a> class.</p>
 <p>If your class is defined as a Symfony service, the HookDispatcher is available as a service called <code>prestashop.core.hook.dispatcher</code>.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\Service\Hook\HookEvent</span><span class="p">;</span>
@@ -47421,7 +47485,7 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/095b8964d4e87b74a3ff3fe1115fce4a395e6fa5">2025-10-03 by Jonathan Danse</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/184e5245071a4c0c45020dfddf536ae1663bd4a2">2026-02-24 by Jean-François Viguier</a>.<br>
         
     
 
@@ -47443,17 +47507,17 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1770863981"></script>
-    <script src="/js/perfect-scrollbar.min.js?1770863981"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1770863981"></script>
-    <script src="/js/jquery.sticky.js?1770863981"></script>
-    <script src="/js/featherlight.min.js?1770863981"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1770863981"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1770863981"></script>
-    <script src="/js/learn.js?1770863981"></script>
-    <script src="/js/hugo-learn.js?1770863981"></script>
+    <script src="/js/clipboard.min.js?1772099839"></script>
+    <script src="/js/perfect-scrollbar.min.js?1772099839"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1772099839"></script>
+    <script src="/js/jquery.sticky.js?1772099839"></script>
+    <script src="/js/featherlight.min.js?1772099839"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1772099839"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1772099839"></script>
+    <script src="/js/learn.js?1772099839"></script>
+    <script src="/js/hugo-learn.js?1772099839"></script>
     
-    <script src="/main.js?1770863981"></script>
+    <script src="/main.js?1772099839"></script>
     
     
     
@@ -47483,6 +47547,16 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
                     },
                 
                     {
+                        name: "action\u003cController\u003eInitAfter",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrollerinitafter/"
+                    },
+                
+                    {
+                        name: "action\u003cController\u003eInitBefore",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrollerinitbefore/"
+                    },
+                
+                    {
                         name: "action\u003cController\u003eListingFieldsModifier",
                         url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrollerlistingfieldsmodifier/"
                     },
@@ -47495,6 +47569,21 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
                     {
                         name: "action\u003cController\u003eOptionsModifier",
                         url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrolleroptionsmodifier/"
+                    },
+                
+                    {
+                        name: "action\u003cController\u003eSetMedia",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrollersetmedia/"
+                    },
+                
+                    {
+                        name: "action\u003cController\u003eSetVariables",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrollersetvariables/"
+                    },
+                
+                    {
+                        name: "action\u003cController\u003eSetVariablesBefore",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actioncontrollersetvariablesbefore/"
                     },
                 
                     {
@@ -47935,6 +48024,11 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
                     {
                         name: "actionBeforeUpdate\u003cFormName\u003eFormHandler",
                         url: "/9/modules/concepts/hooks/list-of-hooks/actionbeforeupdateformnameformhandler/"
+                    },
+                
+                    {
+                        name: "actionBuild\u003cController\u003eFrontEndObject",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actionbuildcontrollerfrontendobject/"
                     },
                 
                     {
@@ -49428,6 +49522,11 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
                     },
                 
                     {
+                        name: "actionOutput\u003cController\u003eHTMLBefore",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/actionoutputcontrollerhtmlbefore/"
+                    },
+                
+                    {
                         name: "actionOutputHTMLBefore",
                         url: "/9/modules/concepts/hooks/list-of-hooks/actionoutputhtmlbefore/"
                     },
@@ -50175,6 +50274,11 @@ To keep some degree of compatibility with 1.6 or 1.7 (pre-Symfony migration) mod
                     {
                         name: "deleteProductAttribute",
                         url: "/9/modules/concepts/hooks/list-of-hooks/deleteproductattribute/"
+                    },
+                
+                    {
+                        name: "display\u003cController\u003eHeader",
+                        url: "/9/modules/concepts/hooks/list-of-hooks/displaycontrollerheader/"
                     },
                 
                     {
