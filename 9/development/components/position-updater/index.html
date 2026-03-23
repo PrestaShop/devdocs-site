@@ -22,14 +22,14 @@
     <title>The Position Updater component :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1773246482" rel="stylesheet">
-    <link href="/css/syntax-github.css?1773246482" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1773246482" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1773246482" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1774278883" rel="stylesheet">
+    <link href="/css/syntax-github.css?1774278883" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1774278883" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1774278883" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1773246482" rel="stylesheet">
+    <link href="/style.css?1774278883" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1773246482"></script>
+    <script src="/js/jquery-3.3.1.min.js?1774278883"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -47456,11 +47456,11 @@ To allow our component to automatically compute position updates we need a few d
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;position&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;id_category_default&#39;</span><span class="w">
 </span></span></span></code></pre></div>
-<h2 id="building-your-positionupdate">Building your PositionUpdate<a href="#building-your-positionupdate"></a></h2><p>The good news is that you now made the hardest part, all other computing and database queries will be managed by our component.
-The only thing you have to do now is provide the updates you want to apply to your list positions. We provide a default <code>PositionUpdateFactory</code>
-to help you build your update, it is defined as a Symfony service accessible via <code>prestashop.core.grid.position.position_update_factory</code>.</p>
+<h2 id="building-your-positionupdate">Building your PositionUpdate<a href="#building-your-positionupdate"></a></h2><p>The good news is that you have now completed the hardest part: all the remaining computation and database queries are handled by this component.
+The only thing left to do is provide the updates you want to apply to your list positions. We provide a default <code>PositionUpdateFactory</code>
+to help you build your update. In PrestaShop 9, it can be retrieved via <code>PositionUpdateFactoryInterface::class</code>.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
-</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Position\PositionUpdateFactory</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Position\PositionUpdateFactoryInterface</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Position\PositionDefinition</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Position\PositionUpdate</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Grid\Position\Exception\PositionDataException</span><span class="p">;</span>
@@ -47484,8 +47484,8 @@ to help you build your update, it is defined as a Symfony service accessible via
 </span></span><span class="line"><span class="cl"><span class="sd">/** @var PositionDefinition $positionDefinition */</span>
 </span></span><span class="line"><span class="cl"><span class="nv">$positionDefinition</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.product.grid.position_definition&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="sd">/** @var PositionUpdateFactory $positionUpdateFactory */</span>
-</span></span><span class="line"><span class="cl"><span class="nv">$positionUpdateFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.position.position_update_factory&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="sd">/** @var PositionUpdateFactoryInterface $positionUpdateFactory */</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$positionUpdateFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">PositionUpdateFactoryInterface</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="sd">/** @var PositionUpdate $positionUpdate */</span>
@@ -47500,8 +47500,8 @@ to help you build your update, it is defined as a Symfony service accessible via
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">  </span><span class="c"># In src/PrestaShopBundle/Resources/config/services/core/grid.yml</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="l">...</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># Grid position updater</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prestashop.core.grid.position.position_update_factory</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Grid\Position\PositionUpdateFactory&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">PrestaShop\PrestaShop\Core\Grid\Position\PositionUpdateFactory</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">public</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">arguments</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;positions&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;rowId&#39;</span><span class="w">
@@ -47523,7 +47523,7 @@ the <code>GridPositionUpdater</code> service which id is <code>PrestaShop\Presta
 </span></span><span class="line"><span class="cl"><span class="nv">$positionUpdate</span> <span class="o">=</span> <span class="nx">buildPositionUpdate</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="sd">/** @var GridPositionUpdaterInterface $updater */</span>
-</span></span><span class="line"><span class="cl"><span class="nv">$updater</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.position.doctrine_grid_position_updater&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$updater</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="nx">GridPositionUpdaterInterface</span><span class="o">::</span><span class="na">class</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nv">$updater</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="nv">$positionUpdate</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">clearModuleCache</span><span class="p">();</span>
@@ -47564,47 +47564,28 @@ the <code>GridPositionUpdater</code> service which id is <code>PrestaShop\Presta
 </span></span></span><span class="line"><span class="cl"><span class="sd"> *
 </span></span></span><span class="line"><span class="cl"><span class="sd"> * @ModuleActivated(moduleName=&#34;ps_linklist&#34;, redirectRoute=&#34;admin_module_manage&#34;)
 </span></span></span><span class="line"><span class="cl"><span class="sd"> */</span>
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">LinkBlockController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="sd">/**
-</span></span></span><span class="line"><span class="cl"><span class="sd">     * @AdminSecurity(&#34;is_granted(&#39;update&#39;, request.get(&#39;_legacy_controller&#39;))&#34;, message=&#34;Access denied.&#34;)
-</span></span></span><span class="line"><span class="cl"><span class="sd">     *
-</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param Request $request
-</span></span></span><span class="line"><span class="cl"><span class="sd">     * @param int $hookId
-</span></span></span><span class="line"><span class="cl"><span class="sd">     *
-</span></span></span><span class="line"><span class="cl"><span class="sd">     * @throws \Exception
-</span></span></span><span class="line"><span class="cl"><span class="sd">     *
-</span></span></span><span class="line"><span class="cl"><span class="sd">     * @return RedirectResponse
-</span></span></span><span class="line"><span class="cl"><span class="sd">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">updatePositionsAction</span><span class="p">(</span><span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span> <span class="nv">$hookId</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">LinkBlockController</span> <span class="k">extends</span> <span class="nx">FrameworkBundleAdminController</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#[AdminSecurity(&#34;is_granted(&#39;update&#39;, request.get(&#39;_legacy_controller&#39;))&#34;, redirectRoute: &#39;admin_homepage&#39;)]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">function</span> <span class="nf">updatePositionsAction</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">Request</span> <span class="nv">$request</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">int</span> <span class="nv">$hookId</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">LegacyLinkBlockCache</span> <span class="nv">$linkBlockCache</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">LinkBlockRepository</span> <span class="nv">$linkBlockRepository</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">ShopContext</span> <span class="nv">$shopContext</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">:</span> <span class="nx">RedirectResponse</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$positionsData</span> <span class="o">=</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">            <span class="s1">&#39;positions&#39;</span> <span class="o">=&gt;</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;positions&#39;</span><span class="p">,</span> <span class="k">null</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;positions&#39;</span> <span class="o">=&gt;</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">request</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">()[</span><span class="s1">&#39;positions&#39;</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">            <span class="s1">&#39;parentId&#39;</span> <span class="o">=&gt;</span> <span class="nv">$hookId</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="p">];</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="sd">/** @var PositionDefinition $positionDefinition */</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$positionDefinition</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.module.link_block.grid.position_definition&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="sd">/** @var PositionUpdateFactory $positionUpdateFactory */</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$positionUpdateFactory</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.position.position_update_factory&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="sd">/** @var PositionUpdate $positionUpdate */</span>
-</span></span><span class="line"><span class="cl">            <span class="nv">$positionUpdate</span> <span class="o">=</span> <span class="nv">$positionUpdateFactory</span><span class="o">-&gt;</span><span class="na">buildPositionUpdate</span><span class="p">(</span><span class="nv">$positionsData</span><span class="p">,</span> <span class="nv">$positionDefinition</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PositionDataException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nv">$errors</span> <span class="o">=</span> <span class="p">[</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">()];</span>
-</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">flashErrors</span><span class="p">(</span><span class="nv">$errors</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_link_block_list&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="sd">/** @var GridPositionUpdaterInterface $updater */</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$updater</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;prestashop.core.grid.position.doctrine_grid_position_updater&#39;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">try</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nv">$updater</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="nv">$positionUpdate</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">clearModuleCache</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Successful update.&#39;</span><span class="p">,</span> <span class="s1">&#39;Admin.Notifications.Success&#39;</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">PositionUpdateException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nv">$errors</span> <span class="o">=</span> <span class="p">[</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">()];</span>
-</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">flashErrors</span><span class="p">(</span><span class="nv">$errors</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$linkBlockRepository</span><span class="o">-&gt;</span><span class="na">updatePositions</span><span class="p">(</span><span class="nv">$shopContext</span><span class="o">-&gt;</span><span class="na">getId</span><span class="p">(),</span> <span class="nv">$positionsData</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$linkBlockCache</span><span class="o">-&gt;</span><span class="na">clearModuleCache</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlash</span><span class="p">(</span><span class="s1">&#39;success&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="s1">&#39;Successful update.&#39;</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Admin.Notifications.Success&#39;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">DatabaseException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$errors</span> <span class="o">=</span> <span class="p">[</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()];</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">addFlashErrors</span><span class="p">(</span><span class="nv">$errors</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirectToRoute</span><span class="p">(</span><span class="s1">&#39;admin_link_block_list&#39;</span><span class="p">);</span>
@@ -47668,7 +47649,7 @@ the <code>GridPositionUpdater</code> service which id is <code>PrestaShop\Presta
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/6d2ca1390756a58b8523f214eb4c1d4039bad7bf">2022-10-01 by Yannick Armand</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/f0d84b1793269a2d2df6e710b752ff155594cff2">2026-03-13 by Paolo Cunti @codencode</a>.<br>
         
     
 
@@ -47690,17 +47671,17 @@ the <code>GridPositionUpdater</code> service which id is <code>PrestaShop\Presta
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1773246482"></script>
-    <script src="/js/perfect-scrollbar.min.js?1773246482"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1773246482"></script>
-    <script src="/js/jquery.sticky.js?1773246482"></script>
-    <script src="/js/featherlight.min.js?1773246482"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1773246482"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1773246482"></script>
-    <script src="/js/learn.js?1773246482"></script>
-    <script src="/js/hugo-learn.js?1773246482"></script>
+    <script src="/js/clipboard.min.js?1774278884"></script>
+    <script src="/js/perfect-scrollbar.min.js?1774278884"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1774278884"></script>
+    <script src="/js/jquery.sticky.js?1774278884"></script>
+    <script src="/js/featherlight.min.js?1774278884"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1774278884"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1774278884"></script>
+    <script src="/js/learn.js?1774278884"></script>
+    <script src="/js/hugo-learn.js?1774278884"></script>
     
-    <script src="/main.js?1773246482"></script>
+    <script src="/main.js?1774278884"></script>
     
     
     
