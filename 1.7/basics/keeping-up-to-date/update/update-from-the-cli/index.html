@@ -22,14 +22,14 @@
     <title>Update from the CLI :: PrestaShop Developer Documentation</title>
     <link rel="canonical" href="https://devdocs.prestashop-project.org/9/basics/keeping-up-to-date/update/update-from-the-cli/">
     
-    <link href="/css/font-awesome.min.css?1774368317" rel="stylesheet">
-    <link href="/css/syntax-github.css?1774368317" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1774368317" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1774368317" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1774442055" rel="stylesheet">
+    <link href="/css/syntax-github.css?1774442055" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1774442055" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1774442055" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1774368317" rel="stylesheet">
+    <link href="/style.css?1774442055" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1774368317"></script>
+    <script src="/js/jquery-3.3.1.min.js?1774442055"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -12651,6 +12651,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               </ul>
             </li>
             <li><a href="#updatecheck-requirements-command">update:check-requirements command</a></li>
+            <li><a href="#updatecheck-modules-command">update:check-modules command</a></li>
             <li><a href="#updatestart-command">update:start command</a></li>
           </ul>
         </li>
@@ -42724,53 +42725,57 @@ this technology.</p>
 parameters, it displays the available commands and associated general options.</p>
 <p>Example of <code>bin/console</code> command execution:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console 
+</span></span><span class="line"><span class="cl">Update Assistant 7.x.x
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">Usage:
 </span></span><span class="line"><span class="cl">	command [options] [arguments]
-</span></span><span class="line"><span class="cl">	
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">Options:
-</span></span><span class="line"><span class="cl">	-h, --help                            Display this help message
-</span></span><span class="line"><span class="cl">	-q, --quiet                           Do not output any message
-</span></span><span class="line"><span class="cl">	-V, --version                         Display this application version
-</span></span><span class="line"><span class="cl">	--ansi                                Force ANSI output
-</span></span><span class="line"><span class="cl">	--no-ansi                             Disable ANSI output
-</span></span><span class="line"><span class="cl">	-n, --no-interaction                  Do not ask any interactive question
-</span></span><span class="line"><span class="cl">	-v|vv|vvv, --verbose                  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+</span></span><span class="line"><span class="cl">	-h, --help            Display help for the given command. When no command is given display help for the list command
+</span></span><span class="line"><span class="cl">	-q, --quiet           Do not output any message
+</span></span><span class="line"><span class="cl">	-V, --version         Display this application version
+</span></span><span class="line"><span class="cl">		--ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
+</span></span><span class="line"><span class="cl">	-n, --no-interaction  Do not ask any interactive question
+</span></span><span class="line"><span class="cl">	-v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">Available commands:
-</span></span><span class="line"><span class="cl">	help                                  Displays help for a command
-</span></span><span class="line"><span class="cl">	list                                  List commands
+</span></span><span class="line"><span class="cl">	completion                 Dump the shell completion script
+</span></span><span class="line"><span class="cl">	help                       Display help for a command
+</span></span><span class="line"><span class="cl">	list                       List commands
 </span></span><span class="line"><span class="cl">backup
-</span></span><span class="line"><span class="cl">	backup:create                         Create backup.
-</span></span><span class="line"><span class="cl">	backup:list                           List existing backups.
-</span></span><span class="line"><span class="cl">	backup:restore                        Restore your store.
-</span></span><span class="line"><span class="cl">	backup:delete                         Remove a backup not anymore needed.
+</span></span><span class="line"><span class="cl">	backup:create              Create backup.
+</span></span><span class="line"><span class="cl">	backup:delete              Delete a store backup file.
+</span></span><span class="line"><span class="cl">	backup:list                List all available backups.
+</span></span><span class="line"><span class="cl">	backup:restore             Restore the store to a previous state from a backup file.
 </span></span><span class="line"><span class="cl">update
-</span></span><span class="line"><span class="cl">	update:check-new-version              Display the version the store can update to.
-</span></span><span class="line"><span class="cl">	update:check-requirements             Check all prerequisites for an update.
-</span></span><span class="line"><span class="cl">	update:start                          Update your store.
+</span></span><span class="line"><span class="cl">	update:check-modules       Check module compatibility and updates.
+</span></span><span class="line"><span class="cl">	update:check-new-version   List Prestashop updates available for the store.
+</span></span><span class="line"><span class="cl">	update:check-requirements  Check all prerequisites for an update.
+</span></span><span class="line"><span class="cl">	update:start               Update your store.
 </span></span></code></pre></div>
 <h3 id="list-command">List command<a href="#list-command"></a></h3><p>This command lists the Update Assistant CLI commands.</p>
 <p>Example of list command execution:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console list
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">Available commands:
-</span></span><span class="line"><span class="cl">	help                                  Displays help for a command
-</span></span><span class="line"><span class="cl">	list                                  List commands
+</span></span><span class="line"><span class="cl">	completion                 Dump the shell completion script
+</span></span><span class="line"><span class="cl">	help                       Display help for a command
+</span></span><span class="line"><span class="cl">	list                       List commands
 </span></span><span class="line"><span class="cl">backup
-</span></span><span class="line"><span class="cl">	backup:create                         Create backup.
-</span></span><span class="line"><span class="cl">	backup:list                           List existing backups.
-</span></span><span class="line"><span class="cl">	backup:restore                        Restore your store.
-</span></span><span class="line"><span class="cl">	backup:delete                         Remove a backup not anymore needed.
+</span></span><span class="line"><span class="cl">	backup:create              Create backup.
+</span></span><span class="line"><span class="cl">	backup:delete              Delete a store backup file.
+</span></span><span class="line"><span class="cl">	backup:list                List all available backups.
+</span></span><span class="line"><span class="cl">	backup:restore             Restore the store to a previous state from a backup file.
 </span></span><span class="line"><span class="cl">update
-</span></span><span class="line"><span class="cl">	update:check-new-version              Display the version the store can update to.
-</span></span><span class="line"><span class="cl">	update:check-requirements             Check all prerequisites for an update.
-</span></span><span class="line"><span class="cl">	update:start                          Update your store.
+</span></span><span class="line"><span class="cl">	update:check-modules       Check module compatibility and updates.
+</span></span><span class="line"><span class="cl">	update:check-new-version   List Prestashop updates available for the store.
+</span></span><span class="line"><span class="cl">	update:check-requirements  Check all prerequisites for an update.
+</span></span><span class="line"><span class="cl">	update:start               Update your store.
 </span></span></code></pre></div>
 <h3 id="help-command">Help command<a href="#help-command"></a></h3><p>This command allows you to access the documentation for a particular option. The help command is one of the Symfony
 Console component&rsquo;s built-in global options, and is therefore available for all the Update Assistant CLI commands.</p>
 <p>Example of help command execution:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:list help [command]
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:list --help [command]
 </span></span></code></pre></div>
 <h3 id="command-line-logs-download">Command-Line logs download<a href="#command-line-logs-download"></a></h3><p>You can download backup, update and restore logs to keep track of any changes you made. These logs in
 <code>yyyy-dd-mm-hhmmss-process.txt</code> format are available in the following folder on your PrestaShop store server:
@@ -42787,44 +42792,62 @@ configured on your store server.</p>
 
 <h3 id="backupcreate-command">backup:create command<a href="#backupcreate-command"></a></h3><p>The <code>backup:create</code> command is used to create a backup of your PrestaShop store. These backup files are stored in the
 <code>/your-admin-directory/autoupgrade/backup</code> folder on your server.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:create help
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:create --help
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">backup:create: create a PrestaShop store backup
+</span></span><span class="line"><span class="cl">Description:
+</span></span><span class="line"><span class="cl">  Create backup.
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Usage: backup:create [ADMIN_DIR] 
-</span></span><span class="line"><span class="cl">with [ADMIN_DIR] the PrestaShop admin directory
-</span></span><span class="line"><span class="cl">--from-config-file=[config-path]: the update config file path
-</span></span><span class="line"><span class="cl">--include-images=[1|0]: include, or not, images in the store backup (1 for yes, 0 for no)
-</span></span><span class="line"><span class="cl">--verbose: sets the verbosity level (e.g. 1 the default, 2 and 3, or you can use respective shortcuts -v, -vv and -vvv)
-</span></span><span class="line"><span class="cl">--quiet: disables output and interaction
-</span></span><span class="line"><span class="cl">--no-interaction: disables interaction
-</span></span><span class="line"><span class="cl">--version: displays the application version
-</span></span><span class="line"><span class="cl">--help: displays the command help
-</span></span><span class="line"><span class="cl">--ansi|--no-ansi: whether to force of disable coloring the output
-</span></span></code></pre></div><p>The <code>[ADMIN_DIR]</code> argument is mandatory and is used to target the correct resource.</p>
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">  backup:create [options] [--] &lt;admin-dir&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Arguments:
+</span></span><span class="line"><span class="cl">  admin-dir                                The admin directory name.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">      --config-file-path=CONFIG-FILE-PATH  Configuration file location.
+</span></span><span class="line"><span class="cl">      --include-images=INCLUDE-IMAGES      Include, or not, images in the store backup.
+</span></span><span class="line"><span class="cl">  -h, --help                               Display help for the given command. When no command is given display help for the list command
+</span></span><span class="line"><span class="cl">  -q, --quiet                              Do not output any message
+</span></span><span class="line"><span class="cl">  -V, --version                            Display this application version
+</span></span><span class="line"><span class="cl">      --ansi|--no-ansi                     Force (or disable --no-ansi) ANSI output
+</span></span><span class="line"><span class="cl">  -n, --no-interaction                     Do not ask any interactive question
+</span></span><span class="line"><span class="cl">  -v|vv|vvv, --verbose                     Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Help:
+</span></span><span class="line"><span class="cl">  This command triggers the creation of the files and database backup.
+</span></span></code></pre></div><p>The <code>&lt;admin-dir&gt;</code> argument is mandatory and is used to target the correct resource.</p>
 <p>The optional <code>--include-images=[1|0]</code> option allows you to include, or not, the image backup during the backup process.
 By default, if the option is not set, images are included in the backup.</p>
-<p>The optional <code>--from-config-file=[config-path]</code> option allows you to use the backup options specified in the configuration file.
-You must specify the location (<code>--from-config-file=.../folder1/configfile</code>) of this <code>[config-path]</code> file.</p>
+<p>The optional <code>--from-config-file=CONFIG-FILE-PATH</code> option allows you to use the backup options specified in the configuration file.
+You must specify the location (<code>--from-config-file=.../folder1/configfile</code>) of this <code>CONFIG-FILE-PATH</code> file.</p>
 <p>Example of <code>backup:create</code> command execution:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:create admin123 --include-images=1
 </span></span><span class="line"><span class="cl">Your files, database, and images will be backed up.
 </span></span><span class="line"><span class="cl">Starting backup...
 </span></span></code></pre></div>
 <h3 id="backuplist-command">backup:list command<a href="#backuplist-command"></a></h3><p>The <code>backup:list</code> command lists the backups available for your PrestaShop store.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:list help
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:list --help
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">backup:list: list all available backups for the store
+</span></span><span class="line"><span class="cl">Description:
+</span></span><span class="line"><span class="cl">  List all available backups.
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Usage: backup:list [ADMIN_DIR] 
-</span></span><span class="line"><span class="cl">with [ADMIN_DIR] the PrestaShop admin directory
-</span></span><span class="line"><span class="cl">--verbose: sets the verbosity level (e.g. 1 the default, 2 and 3, or you can use respective shortcuts -v, -vv and -vvv)
-</span></span><span class="line"><span class="cl">--quiet: disables output and interaction
-</span></span><span class="line"><span class="cl">--no-interaction: disables interaction
-</span></span><span class="line"><span class="cl">--version: displays the application version
-</span></span><span class="line"><span class="cl">--help: displays the command help
-</span></span><span class="line"><span class="cl">--ansi|--no-ansi: whether to force of disable coloring the output
-</span></span></code></pre></div><p>The <code>[ADMIN_DIR]</code> argument is mandatory and is used to target the correct resource.</p>
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">  backup:list &lt;admin-dir&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Arguments:
+</span></span><span class="line"><span class="cl">  admin-dir             The admin directory name.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">  -h, --help            Display help for the given command. When no command is given display help for the list command
+</span></span><span class="line"><span class="cl">  -q, --quiet           Do not output any message
+</span></span><span class="line"><span class="cl">  -V, --version         Display this application version
+</span></span><span class="line"><span class="cl">      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
+</span></span><span class="line"><span class="cl">  -n, --no-interaction  Do not ask any interactive question
+</span></span><span class="line"><span class="cl">  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Help:
+</span></span><span class="line"><span class="cl">  This command list all available backups for the store.
+</span></span></code></pre></div><p>The <code>&lt;admin-dir&gt;</code> argument is mandatory and is used to target the correct resource.</p>
 <p>Example of the <code>backup:list</code> command execution:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:list admin123
 </span></span><span class="line"><span class="cl">------------------+---------------+-----------------------------------------+
@@ -42834,20 +42857,30 @@ You must specify the location (<code>--from-config-file=.../folder1/configfile</
 </span></span><span class="line"><span class="cl">| 14/07/2024 8:00 | 8.1.5         | autoupgrade_save_8.1.5_14/07/2024_8:00  |
 </span></span></code></pre></div>
 <h3 id="backuprestore-command">backup:restore command<a href="#backuprestore-command"></a></h3><p>The <code>backup:restore</code> command is used to restore your PrestaShop store from backup files in the <code>/your-admin-directory/autoupgrade/backup</code> folder on your server.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:restore help
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:restore --help
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">backup:restore: restore the store to a previous state from a backup file
+</span></span><span class="line"><span class="cl">Description:
+</span></span><span class="line"><span class="cl">  Restore the store to a previous state from a backup file.
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Usage: backup:restore [ADMIN_DIR][BACKUP_NAME]
-</span></span><span class="line"><span class="cl">with [ADMIN_DIR][BACKUP_NAME] the PrestaShop admin directory and the name of the backup file you want to restore
-</span></span><span class="line"><span class="cl">--verbose: sets the verbosity level (e.g. 1 the default, 2 and 3, or you can use respective shortcuts -v, -vv and -vvv)
-</span></span><span class="line"><span class="cl">--quiet: disables output and interaction
-</span></span><span class="line"><span class="cl">--no-interaction: disables interaction
-</span></span><span class="line"><span class="cl">--version: displays the application version
-</span></span><span class="line"><span class="cl">--help: displays the command help
-</span></span><span class="line"><span class="cl">--ansi|--no-ansi: whether to force of disable coloring the output
-</span></span></code></pre></div><p>The <code>[ADMIN_DIR]</code> argument is mandatory and is used to target the correct resource.</p>
-<p>The <code>[BACKUP_NAME]</code> argument is intended to target the backup file (file_name) to be used for the store restore.</p>
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">  backup:restore [options] [--] &lt;admin-dir&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Arguments:
+</span></span><span class="line"><span class="cl">  admin-dir             The admin directory name.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">      --backup=BACKUP   Specify the backup name to restore (this can be found in your folder &lt;admin directory&gt;/autoupgrade/backup/)
+</span></span><span class="line"><span class="cl">  -h, --help            Display help for the given command. When no command is given display help for the list command
+</span></span><span class="line"><span class="cl">  -q, --quiet           Do not output any message
+</span></span><span class="line"><span class="cl">  -V, --version         Display this application version
+</span></span><span class="line"><span class="cl">      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
+</span></span><span class="line"><span class="cl">  -n, --no-interaction  Do not ask any interactive question
+</span></span><span class="line"><span class="cl">  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Help:
+</span></span><span class="line"><span class="cl">  This command allows you to restore the store to a previous state from a backup file.See https://devdocs.prestashop-project.org/1.7/basics/keeping-up-to-date/upgrade-module/upgrade-cli/#rollback-cli for more details
+</span></span></code></pre></div><p>The <code>&lt;admin-dir&gt;</code> argument is mandatory and is used to target the correct resource.</p>
+<p>The <code>[BACKUP]</code> argument is intended to target the backup file (file_name) to be used for the store restore.</p>
 <p>Example of <code>backup:restore</code> command execution:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:restore admin123 autoupgrade_save_8.1.6_15/07/2024_8:00
 </span></span><span class="line"><span class="cl">The restoration of your store is complete
@@ -42859,20 +42892,30 @@ You must specify the location (<code>--from-config-file=.../folder1/configfile</
 </span></span><span class="line"><span class="cl">	[2] Exit the process
 </span></span></code></pre></div>
 <h3 id="backupdelete-command">backup:delete command<a href="#backupdelete-command"></a></h3><p>The <code>backup:delete</code> command is used to delete a backup file from your PrestaShop store.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:delete help
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:delete --help
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">backup:delete: delete a store backup file
+</span></span><span class="line"><span class="cl">Description:
+</span></span><span class="line"><span class="cl">  Delete a store backup file.
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Usage: backup:delete [ADMIN_DIR] [BACKUP_NAME]
-</span></span><span class="line"><span class="cl">with [ADMIN_DIR] [BACKUP_NAME] the PrestaShop admin directory and the name of the backup file you want to delete
-</span></span><span class="line"><span class="cl">--verbose: sets the verbosity level (e.g. 1 the default, 2 and 3, or you can use respective shortcuts -v, -vv and -vvv)
-</span></span><span class="line"><span class="cl">--quiet: disables output and interaction
-</span></span><span class="line"><span class="cl">--no-interaction: disables interaction
-</span></span><span class="line"><span class="cl">--version: displays the application version
-</span></span><span class="line"><span class="cl">--help: displays the command help
-</span></span><span class="line"><span class="cl">--ansi|--no-ansi: whether to force of disable coloring the output
-</span></span></code></pre></div><p>The <code>[ADMIN_DIR]</code> argument is mandatory and is used to target the correct resource.</p>
-<p>The <code>[BACKUP_NAME]</code> argument is intended to target the backup file (file_name) to be deleted.</p>
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">  backup:delete [options] [--] &lt;admin-dir&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Arguments:
+</span></span><span class="line"><span class="cl">  admin-dir             The admin directory name.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">      --backup=BACKUP   Specify the backup name to delete. The allowed values can be found with backup:list command)
+</span></span><span class="line"><span class="cl">  -h, --help            Display help for the given command. When no command is given display help for the list command
+</span></span><span class="line"><span class="cl">  -q, --quiet           Do not output any message
+</span></span><span class="line"><span class="cl">  -V, --version         Display this application version
+</span></span><span class="line"><span class="cl">      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
+</span></span><span class="line"><span class="cl">  -n, --no-interaction  Do not ask any interactive question
+</span></span><span class="line"><span class="cl">  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Help:
+</span></span><span class="line"><span class="cl">  This command allows you to delete a store backup file.
+</span></span></code></pre></div><p>The <code>&lt;admin-dir&gt;</code> argument is mandatory and is used to target the correct resource.</p>
+<p>The <code>[BACKUP]</code> argument is intended to target the backup file (file_name) to be deleted.</p>
 <p>Example of <code>backup:delete</code> command execution:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console backup:delete admin123 autoupgrade_save_8.1.6_15/07/2024_8:00
 </span></span><span class="line"><span class="cl">The backup file has been successfully deleted
@@ -42883,27 +42926,37 @@ You must specify the location (<code>--from-config-file=.../folder1/configfile</
 </span></span><span class="line"><span class="cl">	[1] Date: 12/19/24 09:44:50, Version: 8.1.5, File name: V8.1.5_20241219-094450-XXX
 </span></span><span class="line"><span class="cl">	[2] Exit the process
 </span></span></code></pre></div>
-<h2 id="update-commands">Update commands<a href="#update-commands"></a></h2><p>The Update Assistant CLI includes 3 commands dedicated to updates:</p>
+<h2 id="update-commands">Update commands<a href="#update-commands"></a></h2><p>The Update Assistant CLI includes 4 commands dedicated to updates:</p>
 <ul>
 <li><code>update:check-new-version</code></li>
 <li><code>update:check-requirements</code></li>
+<li><code>update:check-modules</code></li>
 <li><code>update:start</code></li>
 </ul>
 
 <h3 id="updatecheck-new-version-command">update:check-new-version command<a href="#updatecheck-new-version-command"></a></h3><p>The <code>update:check-new-version</code> command is used to check whether new updates are available for your store.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console update:check-new-version help
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console update:check-new-version --help
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">update:check-new-version: list PrestaShop updates available for the store
+</span></span><span class="line"><span class="cl">Description:
+</span></span><span class="line"><span class="cl">  List Prestashop updates available for the store.
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Usage: update:check-new-version [ADMIN_DIR]
-</span></span><span class="line"><span class="cl">with [ADMIN_DIR] the PrestaShop admin directory
-</span></span><span class="line"><span class="cl">--verbose: sets the verbosity level (e.g. 1 the default, 2 and 3, or you can use respective shortcuts -v, -vv and -vvv)
-</span></span><span class="line"><span class="cl">--quiet: disables output and interaction
-</span></span><span class="line"><span class="cl">--no-interaction: disables interaction
-</span></span><span class="line"><span class="cl">--version: displays the application version
-</span></span><span class="line"><span class="cl">--help: displays the command help
-</span></span><span class="line"><span class="cl">--ansi|--no-ansi: whether to force of disable coloring the output
-</span></span></code></pre></div><p>The <code>[ADMIN_DIR]</code> argument is mandatory and is used to target the correct resource.</p>
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">  update:check-new-version &lt;admin-dir&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Arguments:
+</span></span><span class="line"><span class="cl">  admin-dir             The admin directory name.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">  -h, --help            Display help for the given command. When no command is given display help for the list command
+</span></span><span class="line"><span class="cl">  -q, --quiet           Do not output any message
+</span></span><span class="line"><span class="cl">  -V, --version         Display this application version
+</span></span><span class="line"><span class="cl">      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
+</span></span><span class="line"><span class="cl">  -n, --no-interaction  Do not ask any interactive question
+</span></span><span class="line"><span class="cl">  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Help:
+</span></span><span class="line"><span class="cl">  This command allows you to list Prestashop updates available for the store.
+</span></span></code></pre></div><p>The <code>&lt;admin-dir&gt;</code> argument is mandatory and is used to target the correct resource.</p>
 <p>Example of the <code>update:check-new-version</code> command execution:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console update:check-new-version admin123
 </span></span><span class="line"><span class="cl">+---------+--------------------+-------+--------------------------------------------------------------------------------------+
@@ -42932,28 +42985,36 @@ You must specify the location (<code>--from-config-file=.../folder1/configfile</
 </ul>
 
 <h3 id="updatecheck-requirements-command">update:check-requirements command<a href="#updatecheck-requirements-command"></a></h3><p>The <code>update:check-requirements</code> command is used to check that your store meets the technical requirements before updating.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console update:check-requirements help
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console update:check-requirements --help
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">update:check-requirements: check if the store is compatible with the update requirements.
+</span></span><span class="line"><span class="cl">Description:
+</span></span><span class="line"><span class="cl">  Check all prerequisites for an update.
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Usage: update:check-requirements [ADMIN_DIR]
-</span></span><span class="line"><span class="cl">with [ADMIN_DIR] the PrestaShop admin directory
-</span></span><span class="line"><span class="cl">--from-config-file=[config-path]: the update config file path
-</span></span><span class="line"><span class="cl">--zip=[name]: sets the archive zip file for a local update
-</span></span><span class="line"><span class="cl">--xml=[name]: sets the  archive xml file for a local update
-</span></span><span class="line"><span class="cl">--verbose: sets the verbosity level (e.g. 1 the default, 2 and 3, or you can use respective shortcuts -v, -vv and -vvv)
-</span></span><span class="line"><span class="cl">--quiet: disables output and interaction
-</span></span><span class="line"><span class="cl">--no-interaction: disables interaction
-</span></span><span class="line"><span class="cl">--version: displays the application version
-</span></span><span class="line"><span class="cl">--help: displays the command help
-</span></span><span class="line"><span class="cl">--ansi|--no-ansi: whether to force of disable coloring the output
-</span></span></code></pre></div><p>The <code>[ADMIN_DIR]</code> argument is mandatory and is used to target the correct resource.</p>
-<p>The <code>--from-config-file=[config-path]</code> option is used to check prerequisites based on information provided in the
-configuration file. You must specify the location (<code>--from-config-file=.../folder1/configfile</code>) of this <code>[config-path]</code>
-file.</p>
-<p>The <code>--zip=[name]</code> and <code>--xml=[name]</code> options allow you to specify a <code>.zip</code> file and an <code>.xml</code> file to be used to check prerequisites from the “local” source. The “local” update, which displays customized updates detected in your <code>/your-admin-directory/autoupgrade/download</code> folder on your server.
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">  update:check-requirements [options] [--] &lt;admin-dir&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Arguments:
+</span></span><span class="line"><span class="cl">  admin-dir                                The admin directory name.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">      --config-file-path=CONFIG-FILE-PATH  Configuration file location for update.
+</span></span><span class="line"><span class="cl">      --channel=CHANNEL                    Selects what update to run (&#39;local&#39; / &#39;online_recommended&#39; / &#39;online&#39;)
+</span></span><span class="line"><span class="cl">      --zip=ZIP                            Sets the archive zip file for a local update.
+</span></span><span class="line"><span class="cl">      --xml=XML                            Sets the archive xml file for a local update.
+</span></span><span class="line"><span class="cl">  -h, --help                               Display help for the given command. When no command is given display help for the list command
+</span></span><span class="line"><span class="cl">  -q, --quiet                              Do not output any message
+</span></span><span class="line"><span class="cl">  -V, --version                            Display this application version
+</span></span><span class="line"><span class="cl">      --ansi|--no-ansi                     Force (or disable --no-ansi) ANSI output
+</span></span><span class="line"><span class="cl">  -n, --no-interaction                     Do not ask any interactive question
+</span></span><span class="line"><span class="cl">  -v|vv|vvv, --verbose                     Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Help:
+</span></span><span class="line"><span class="cl">  This command allows you to check the prerequisites necessary for the proper functioning of an update.
+</span></span></code></pre></div><p>The <code>&lt;admin-dir&gt;</code> argument is mandatory and is used to target the correct resource.</p>
+<p>The <code>--from-config-file=CONFIG-FILE-PATH</code> option is used to check prerequisites based on information provided in the configuration file. You must specify the location (<code>--from-config-file=.../folder1/configfile</code>) of this <code>CONFIG-FILE-PATH</code> file.</p>
+<p>The <code>--zip=ZIP</code> and <code>--xml=XML</code> options allow you to specify a <code>.zip</code> file and an <code>.xml</code> file to be used to check prerequisites from the “local” source. The “local” update, which displays customized updates detected in your <code>/your-admin-directory/autoupgrade/download</code> folder on your server.
 You can download the desired <code>.zip</code> and <code>.xml</code> files from the <a href="https://github.com/PrestaShop/PrestaShop/releases">Releases section of PrestaShop’s GitHub repository</a>.</p>
-<p>By default, if no option is set, the prerequisites will be checked from the “online” source. The official “online” update for your store, detected by PrestaShop APIs (major, minor or patch versions). This update corresponds to the most recent version of PrestaShop compatible with the PHP version of your server.</p>
+<p>By default, if no option is set, the prerequisites will be checked from the “online_recommended” source. The official “online_recommended” update for your store, detected by PrestaShop APIs (major, minor or patch versions). This update corresponds to the most recent and stable version of PrestaShop compatible with the current store installation.</p>
 <p>Example of execution of the <code>update:check-requirements</code> command, if all prerequisites have been successfully met:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console update:check-requirements admin123
 </span></span><span class="line"><span class="cl">Checking requirements...
@@ -42965,36 +43026,100 @@ You can download the desired <code>.zip</code> and <code>.xml</code> files from 
 </span></span><span class="line"><span class="cl">X Maintenance mode needs to be enabled. Enable maintenance mode and add your maintenance IP in Shop parameters &gt; General &gt; Maintenance.
 </span></span><span class="line"><span class="cl">⚠ Your current version of the module is out of date. Update now Modules &gt; Module Manager &gt; Updates
 </span></span></code></pre></div>
+<h3 id="updatecheck-modules-command">update:check-modules command<a href="#updatecheck-modules-command"></a></h3><p>The <code>update:check-modules</code> command is used to check that the modules installed on the store are compatible with the new version of PrestaShop. The command <code>update:check-requirements</code> will invite you to run it when it finds a module that requires attention.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ bin/console update:check-modules admin-dev --help
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Description:
+</span></span><span class="line"><span class="cl">  Check module compatibility and updates.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">  update:check-modules [options] [--] &lt;admin-dir&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Arguments:
+</span></span><span class="line"><span class="cl">  admin-dir                                Name of the admin directory.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">      --config-file-path=CONFIG-FILE-PATH  Configuration file location for update.
+</span></span><span class="line"><span class="cl">      --channel=CHANNEL                    Select which update channel to use (&#39;local&#39; / &#39;online_recommended&#39; / &#39;online&#39;)
+</span></span><span class="line"><span class="cl">      --zip=ZIP                            Sets the archive zip file for a local channel.
+</span></span><span class="line"><span class="cl">      --xml=XML                            Sets the archive xml file for a local update.
+</span></span><span class="line"><span class="cl">  -h, --help                               Display help for the given command. When no command is given display help for the list command
+</span></span><span class="line"><span class="cl">  -q, --quiet                              Do not output any message
+</span></span><span class="line"><span class="cl">  -V, --version                            Display this application version
+</span></span><span class="line"><span class="cl">      --ansi|--no-ansi                     Force (or disable --no-ansi) ANSI output
+</span></span><span class="line"><span class="cl">  -n, --no-interaction                     Do not ask any interactive question
+</span></span><span class="line"><span class="cl">  -v|vv|vvv, --verbose                     Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Help:
+</span></span><span class="line"><span class="cl">  This command checks the installed modules for compatibility with the target PrestaShop version and lists available updates.
+</span></span></code></pre></div><p>The <code>&lt;admin-dir&gt;</code> argument is mandatory and is used to target the correct resource.</p>
+<p>The <code>--from-config-file=CONFIG-FILE-PATH</code> option is used to check prerequisites based on information provided in the configuration file. You must specify the location (<code>--from-config-file=.../folder1/configfile</code>) of this <code>CONFIG-FILE-PATH</code> file.</p>
+<p>The <code>--zip=ZIP</code> and <code>--xml=XML</code> options allow you to specify a <code>.zip</code> file and an <code>.xml</code> file to be used to check prerequisites from the “local” source. The “local” update, which displays customized updates detected in your <code>/your-admin-directory/autoupgrade/download</code> folder on your server.
+You can download the desired <code>.zip</code> and <code>.xml</code> files from the <a href="https://github.com/PrestaShop/PrestaShop/releases">Releases section of PrestaShop’s GitHub repository</a>.</p>
+<p>By default, if no option is set, the prerequisites will be checked from the “online_recommended” source. The official “online_recommended” update for your store, detected by PrestaShop APIs (major, minor or patch versions). This update corresponds to the most recent and stable version of PrestaShop compatible with the current store installation.</p>
+<p>Example of execution of the <code>update:check-modules</code> command, if all modules are compatible:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console update:check-modules admin-dev
+</span></span><span class="line"><span class="cl">Prestashop version: 8.2.4
+</span></span><span class="line"><span class="cl"> Retrieving modules informations, please wait...
+</span></span><span class="line"><span class="cl"> Retrieving modules informations: Done.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">✔ There is no action needed on the installed modules for this update.
+</span></span></code></pre></div><p>Example of execution of the <code>update:check-modules</code> command, if some modules require attention:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console update:check-modules admin-dev
+</span></span><span class="line"><span class="cl">Prestashop version: 8.2.4
+</span></span><span class="line"><span class="cl"> Retrieving modules informations, please wait...
+</span></span><span class="line"><span class="cl"> Retrieving modules informations: Done.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	✘ 5 incompatible modules
+</span></span><span class="line"><span class="cl">	  These modules are known to be incompatible with PrestaShop 8.2.4. They will be uninstalled before updating the store:
+</span></span><span class="line"><span class="cl">		contactform
+</span></span><span class="line"><span class="cl">		psgdpr
+</span></span><span class="line"><span class="cl">		ps_edition_basic
+</span></span><span class="line"><span class="cl">		ps_themecusto
+</span></span><span class="line"><span class="cl">		statsdata
+</span></span><span class="line"><span class="cl">	⚠ 1 uncertain modules
+</span></span><span class="line"><span class="cl">	  The compatibility of the following modules with the destination version of PrestaShop cannot be checked. It could be because they are homemade or have been unlisted from the Marketplace. Please review them via the Module Manager:
+</span></span><span class="line"><span class="cl">		gamification
+</span></span></code></pre></div>
 <h3 id="updatestart-command">update:start command<a href="#updatestart-command"></a></h3><p>The <code>update:start</code> command is used to update your PrestaShop store.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console update:start help
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console update:start --help
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">update:start: launch a store update.
+</span></span><span class="line"><span class="cl">Description:
+</span></span><span class="line"><span class="cl">  Update your store.
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">Usage: update:start [ADMIN_DIR]
-</span></span><span class="line"><span class="cl">with [ADMIN_DIR] the PrestaShop admin directory
-</span></span><span class="line"><span class="cl">--from-config-file=[config-path]: the update config file path
-</span></span><span class="line"><span class="cl">--zip=[name] : sets the archive zip file for a local update
-</span></span><span class="line"><span class="cl">--xml=[name] : sets the archive xml file for a local update
-</span></span><span class="line"><span class="cl">--disable-non-native-modules=[1|0]: disable all modules installed after the store creation  (1 for yes, 0 for no)
-</span></span><span class="line"><span class="cl">--regenerate-email-templates=[1|0]: regenerate email templates. If you&#39;ve customized email templates, your changes will be lost if you activate this option  (1 for yes, 0 for no)
-</span></span><span class="line"><span class="cl">--disable-all-overrides=[1|0]: overriding is a way to replace business behaviors (class files and controller files) to target only one method or as many as you need. This option disables all classes &amp; controllers overrides, allowing you to avoid conflicts during and after updates  (1 for yes, 0 for no)
-</span></span><span class="line"><span class="cl">--verbose: sets the verbosity level (e.g. 1 the default, 2 and 3, or you can use respective shortcuts -v, -vv and -vvv)
-</span></span><span class="line"><span class="cl">--quiet: disables output and interaction
-</span></span><span class="line"><span class="cl">--no-interaction: disables interaction
-</span></span><span class="line"><span class="cl">--version: displays the application version
-</span></span><span class="line"><span class="cl">--help: displays the command help
-</span></span><span class="line"><span class="cl">--ansi|--no-ansi: whether to force of disable coloring the output
-</span></span><span class="line"><span class="cl">--action:[step]: Specify the step you want to start from (Default: UpgradeNow)
-</span></span><span class="line"><span class="cl">--chain: Enables to sequence update steps
-</span></span><span class="line"><span class="cl">--no-chain: Prevents chaining of update steps to keep the control
-</span></span></code></pre></div><p>The <code>[ADMIN_DIR]</code> argument is mandatory and is used to target the correct resource.</p>
-<p>The <code>--from-config-file=[config-path]</code> option is used to update from the information provided in the configuration file.
-You must specify the location (<code>--from-config-file=.../folder1/configfile</code>) of this <code>[config-path]</code> file.</p>
-<p>The <code>--zip=[name]</code> and <code>--xml=[name]</code> options allow you to specify a .zip file and an .xml file to be used for a “local” update.
+</span></span><span class="line"><span class="cl">Usage:
+</span></span><span class="line"><span class="cl">  update:start [options] [--] &lt;admin-dir&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Arguments:
+</span></span><span class="line"><span class="cl">  admin-dir                                                    The admin directory name.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Options:
+</span></span><span class="line"><span class="cl">      --chain                                                  True by default. Allows you to chain update commands automatically. The command will continue executing subsequent tasks without requiring manual intervention to restart the process.
+</span></span><span class="line"><span class="cl">      --no-chain                                               Prevents chaining of update commands. The command will execute a task and then stop, logging the next command that needs to be run. You will need to manually restart the process to continue with the next step.
+</span></span><span class="line"><span class="cl">      --channel=CHANNEL                                        Selects what update to run (&#39;local&#39; / &#39;online_recommended&#39; / &#39;online&#39;)
+</span></span><span class="line"><span class="cl">      --zip=ZIP                                                Sets the archive zip file for a local update
+</span></span><span class="line"><span class="cl">      --xml=XML                                                Sets the archive xml file for a local update
+</span></span><span class="line"><span class="cl">      --disable-non-native-modules=DISABLE-NON-NATIVE-MODULES  Disable all modules installed after the store creation (1 for yes, 0 for no). Ignored for PrestaShop v9 and above.
+</span></span><span class="line"><span class="cl">      --regenerate-email-templates=REGENERATE-EMAIL-TEMPLATES  Regenerate email templates. If you&#39;ve customized email templates, your changes will be lost if you activate this option (1 for yes, 0 for no)
+</span></span><span class="line"><span class="cl">      --disable-all-overrides=DISABLE-ALL-OVERRIDES            Overriding is a way to replace business behaviors (class files and controller files) to target only one method or as many as you need. This option disables all classes &amp; controllers overrides, allowing you to avoid conflicts during and after updates (1 for yes, 0 for no)
+</span></span><span class="line"><span class="cl">      --config-file-path=CONFIG-FILE-PATH                      Configuration file location for update.
+</span></span><span class="line"><span class="cl">      --action=ACTION                                          Advanced users only. Sets the step you want to start from. Only the &#34;UpdateInitialization&#34; task updates the configuration. (Default: UpdateInitialization, see https://devdocs.prestashop-project.org/1.7/basics/keeping-up-to-date/update/update-from-the-cli for other values available)
+</span></span><span class="line"><span class="cl">  -h, --help                                                   Display help for the given command. When no command is given display help for the list command
+</span></span><span class="line"><span class="cl">  -q, --quiet                                                  Do not output any message
+</span></span><span class="line"><span class="cl">  -V, --version                                                Display this application version
+</span></span><span class="line"><span class="cl">      --ansi|--no-ansi                                         Force (or disable --no-ansi) ANSI output
+</span></span><span class="line"><span class="cl">  -n, --no-interaction                                         Do not ask any interactive question
+</span></span><span class="line"><span class="cl">  -v|vv|vvv, --verbose                                         Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Help:
+</span></span><span class="line"><span class="cl">  This command allows you to start the update process. Advanced users can refer to the https://devdocs.prestashop-project.org/1.7/basics/keeping-up-to-date/update/update-from-the-cli for further details on available actions
+</span></span></code></pre></div><p>The <code>&lt;admin-dir&gt;</code> argument is mandatory and is used to target the correct resource.</p>
+<p>The <code>--from-config-file=CONFIG-FILE-PATH</code> option is used to update from the information provided in the configuration file.
+You must specify the location (<code>--from-config-file=.../folder1/configfile</code>) of this <code>CONFIG-FILE-PATH</code> file.</p>
+<p>The <code>--zip=ZIP</code> and <code>--xml=XML</code> options allow you to specify a .zip file and an .xml file to be used for a “local” update.
 The “local” update, which displays customized updates detected in your <code>/your-admin-directory/autoupgrade/download</code> folder on your server.</p>
-<p>By default, if no option is set, the update will be performed from the “online” source. The official “online” update for your store, detected by PrestaShop APIs (major, minor or patch versions).
-This update corresponds to the most recent version of PrestaShop compatible with the PHP version of your server.
-Example of <code>update:start</code> command execution:</p>
+<p>By default, if no option is set, the prerequisites will be checked from the “online_recommended” source. The official “online_recommended” update for your store, detected by PrestaShop APIs (major, minor or patch versions). This update corresponds to the most recent and stable version of PrestaShop compatible with the current store installation.</p>
+<p>Example of <code>update:start</code> command execution:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">$ php bin/console update:start admin123
 </span></span><span class="line"><span class="cl">Starting update...
 </span></span><span class="line"><span class="cl">Destination version: 9.0.0
@@ -43058,7 +43183,7 @@ Example of <code>update:start</code> command execution:</p>
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/4d43d3a5d67b1db09b38ca7e63837d454077f7a2">2025-11-27 by Alexis Guyomar</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/f590ab097d1b015c258128fdcbb32e2496700dea">2026-03-20 by Thomas Nabord</a>.<br>
         
     
 
@@ -43080,17 +43205,17 @@ Example of <code>update:start</code> command execution:</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1774368317"></script>
-    <script src="/js/perfect-scrollbar.min.js?1774368317"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1774368317"></script>
-    <script src="/js/jquery.sticky.js?1774368317"></script>
-    <script src="/js/featherlight.min.js?1774368317"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1774368317"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1774368317"></script>
-    <script src="/js/learn.js?1774368317"></script>
-    <script src="/js/hugo-learn.js?1774368317"></script>
+    <script src="/js/clipboard.min.js?1774442055"></script>
+    <script src="/js/perfect-scrollbar.min.js?1774442055"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1774442055"></script>
+    <script src="/js/jquery.sticky.js?1774442055"></script>
+    <script src="/js/featherlight.min.js?1774442055"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1774442055"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1774442055"></script>
+    <script src="/js/learn.js?1774442055"></script>
+    <script src="/js/hugo-learn.js?1774442055"></script>
     
-    <script src="/main.js?1774368317"></script>
+    <script src="/main.js?1774442055"></script>
     
     
     
