@@ -22,14 +22,14 @@
     <title>API Resources :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1774468407" rel="stylesheet">
-    <link href="/css/syntax-github.css?1774468407" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1774468407" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1774468407" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1774547218" rel="stylesheet">
+    <link href="/css/syntax-github.css?1774547218" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1774547218" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1774547218" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1774468407" rel="stylesheet">
+    <link href="/style.css?1774547218" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1774468407"></script>
+    <script src="/js/jquery-3.3.1.min.js?1774547218"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -17381,6 +17381,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <li><a href="#cqrspartialupdate">CQRSPartialUpdate</a></li>
             <li><a href="#cqrsupdate">CQRSUpdate</a></li>
             <li><a href="#cqrsdelete">CQRSDelete</a></li>
+            <li><a href="#cqrspaginate">CQRSPaginate</a>
+              <ul>
+                <li><a href="#custom-parameters">Custom parameters</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
         <li><a href="#paginatedlist">PaginatedList</a></li>
@@ -47732,6 +47737,145 @@ If you want the endpoint to fetch and return the whole object you can specify a 
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="nx">int</span> <span class="nv">$apiClientId</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
+<h3 id="cqrspaginate">CQRSPaginate<a href="#cqrspaginate"></a></h3><table>
+<thead>
+<tr>
+<th>HTTP Method</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>Read a paginated collection</td>
+</tr>
+</tbody>
+</table>
+<p><code>CQRSPaginate</code> is the CQRS-based equivalent of <code>PaginatedList</code> for endpoints backed by a CQRS query instead of a <code>GridDataFactory</code>. Use it when you have a CQRS query that handles pagination internally and returns a result object containing both an items list and a total count. Use <code>PaginatedList</code> instead when you need to reuse an existing grid data factory.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\APIResources\ApiPlatform\Resources\Product</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">ApiPlatform\Metadata\ApiProperty</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">ApiPlatform\Metadata\ApiResource</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Product\Combination\Query\GetEditableCombinationsList</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\Product\Exception\ProductNotFoundException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Search\Filters\ProductCombinationFilters</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\ApiPlatform\Metadata\CQRSPaginate</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#[ApiResource(
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">operations</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="k">new</span> <span class="nx">CQRSPaginate</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">uriTemplate</span><span class="o">:</span> <span class="s1">&#39;/products/{productId}/combinations&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">CQRSQuery</span><span class="o">:</span> <span class="nx">GetEditableCombinationsList</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">scopes</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;product_read&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">CQRSQueryMapping</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;[_context][langId]&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;[languageId]&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;[_context][shopConstraint]&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;[shopConstraint]&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">ApiResourceMapping</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;[combinationName]&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;[name]&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;[attributesInformation]&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;[attributes]&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;[impactOnPrice]&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;[impactOnPriceTaxExcluded]&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">filtersClass</span><span class="o">:</span> <span class="nx">ProductCombinationFilters</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">filtersMapping</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                <span class="s1">&#39;[_context][shopId]&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;[shopId]&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">itemsField</span><span class="o">:</span> <span class="s1">&#39;combinations&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">countField</span><span class="o">:</span> <span class="s1">&#39;totalCombinationsCount&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">exceptionToStatus</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">ProductNotFoundException</span><span class="o">::</span><span class="na">class</span> <span class="o">=&gt;</span> <span class="nx">Response</span><span class="o">::</span><span class="na">HTTP_NOT_FOUND</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">CombinationList</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">int</span> <span class="nv">$productId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">int</span> <span class="nv">$combinationId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">bool</span> <span class="nv">$default</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$reference</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">array</span> <span class="nv">$attributes</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The provider (<code>QueryListProvider</code>) builds a <code>Filters</code> object from the request query parameters (<code>offset</code>, <code>limit</code>, <code>orderBy</code>, <code>sortOrder</code>, <code>filters</code>), executes the CQRS query, and returns a <code>PaginationElements</code> object with pagination metadata alongside the items. The default page size is 50 items.</p>
+<p>The CQRS query receives pagination parameters plus URI variables and context parameters automatically. The normalized query result must expose the items array and total count as top-level fields, identified by <code>itemsField</code> and <code>countField</code>.</p>
+
+<h4 id="custom-parameters">Custom parameters<a href="#custom-parameters"></a></h4><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CQRSQuery</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>—</td>
+<td>Fully qualified class name of the CQRS query to execute. The query must handle pagination internally.</td>
+</tr>
+<tr>
+<td><code>scopes</code></td>
+<td><code>string[]</code></td>
+<td>No</td>
+<td><code>[]</code></td>
+<td>OAuth scopes required to access the endpoint.</td>
+</tr>
+<tr>
+<td><code>CQRSQueryMapping</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td><code>null</code></td>
+<td>Field mapping applied when denormalizing the query object and normalizing the query result. See <a href="#custom-mapping">Custom Mapping</a>.</td>
+</tr>
+<tr>
+<td><code>ApiResourceMapping</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td><code>null</code></td>
+<td>Field mapping applied when denormalizing each item from the query result into the API resource DTO. See <a href="#custom-mapping">Custom Mapping</a>.</td>
+</tr>
+<tr>
+<td><code>filtersClass</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td><code>Filters::class</code></td>
+<td>Fully qualified class name of the <code>Filters</code> subclass to use. Specify a custom class to enforce default ordering or filtering constraints.</td>
+</tr>
+<tr>
+<td><code>filtersMapping</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td><code>null</code></td>
+<td>Maps API field names to the internal names used by the <code>Filters</code> class. Applied to <code>filters</code> and <code>orderBy</code> query parameters. See <a href="#custom-mapping">Custom Mapping</a>.</td>
+</tr>
+<tr>
+<td><code>itemsField</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td><code>'items'</code></td>
+<td>Name of the field in the normalized CQRS query result that holds the list of items.</td>
+</tr>
+<tr>
+<td><code>countField</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td><code>'count'</code></td>
+<td>Name of the field in the normalized CQRS query result that holds the total item count.</td>
+</tr>
+</tbody>
+</table>
+
 <h2 id="paginatedlist">PaginatedList<a href="#paginatedlist"></a></h2><p>For listing operations we provided a custom operation based on the core grid system based on two settings:</p>
 <ul>
 <li><strong>gridDataFactory</strong>: service ID implementing the <code>GridDataFactoryInterface</code> (also used in all migrated pages listing)</li>
@@ -47964,7 +48108,7 @@ stateDiagram-v2
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/e119cb019a6579e00eca77a4a8fcefd7541b25d3">2025-07-30 by Jonathan LELIEVRE</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/90b2e320bafd2099d1bb7016288675b1f0539ea5">2026-03-25 by tleon</a>.<br>
         
     
 
@@ -47986,17 +48130,17 @@ stateDiagram-v2
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1774468407"></script>
-    <script src="/js/perfect-scrollbar.min.js?1774468407"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1774468407"></script>
-    <script src="/js/jquery.sticky.js?1774468407"></script>
-    <script src="/js/featherlight.min.js?1774468407"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1774468407"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1774468407"></script>
-    <script src="/js/learn.js?1774468407"></script>
-    <script src="/js/hugo-learn.js?1774468407"></script>
+    <script src="/js/clipboard.min.js?1774547218"></script>
+    <script src="/js/perfect-scrollbar.min.js?1774547218"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1774547218"></script>
+    <script src="/js/jquery.sticky.js?1774547218"></script>
+    <script src="/js/featherlight.min.js?1774547218"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1774547218"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1774547218"></script>
+    <script src="/js/learn.js?1774547218"></script>
+    <script src="/js/hugo-learn.js?1774547218"></script>
     
-    <script src="/main.js?1774468407"></script>
+    <script src="/main.js?1774547218"></script>
     
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
