@@ -22,14 +22,14 @@
     <title>Create new API endpoints using CQRS :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1779245115" rel="stylesheet">
-    <link href="/css/syntax-github.css?1779245115" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1779245115" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1779245115" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1779280120" rel="stylesheet">
+    <link href="/css/syntax-github.css?1779280120" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1779280120" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1779280120" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1779245115" rel="stylesheet">
+    <link href="/style.css?1779280120" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1779245115"></script>
+    <script src="/js/jquery-3.3.1.min.js?1779280120"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -15789,6 +15789,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  
   
     
+      <li data-nav-id="/9/admin-api/multi-shop/" title="Multi-shop context" class="dd-item ">
+        <a href="/9/admin-api/multi-shop/">
+        Multi-shop
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
       <li data-nav-id="/9/admin-api/contribute-to-core-api/" title="Create new API endpoints using CQRS" class="dd-item active currentPage">
         <a href="/9/admin-api/contribute-to-core-api/">
         Contribute to Core API
@@ -17505,6 +17526,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <li><a href="#add-post-and-get-endpoints">Add POST and GET endpoints</a></li>
                 <li><a href="#define-custom-mapping">Define custom mapping</a></li>
                 <li><a href="#handle-localized-values">Handle localized values</a></li>
+                <li><a href="#handle-multi-shop-association">Handle multi-shop association</a></li>
               </ul>
             </li>
             <li><a href="#2-update-and-delete-a-single-resource">2. Update and delete a single resource</a></li>
@@ -17519,6 +17541,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               <ul>
                 <li><a href="#how-to-find-the-grid-data-factory-service-name">How to find the Grid Data factory service name</a></li>
                 <li><a href="#extra-information-on-internal-services">Extra information on internal services</a></li>
+                <li><a href="#verifying-dto--query-field-alignment">Verifying DTO ↔ query field alignment</a></li>
                 <li><a href="#create-the-attributegrouplist-api-resource">Create the AttributeGroupList API resource</a></li>
               </ul>
             </li>
@@ -17532,6 +17555,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 <li><a href="#run-tests-from-the-core">Run tests from the core</a></li>
               </ul>
             </li>
+            <li><a href="#default-test-environment-and-fixtures">Default test environment and fixtures</a></li>
+            <li><a href="#local-tooling">Local tooling</a></li>
             <li><a href="#integration-tests">Integration Tests</a></li>
             <li><a href="#crud-integration-test">CRUD Integration Test</a></li>
           </ul>
@@ -17545,6 +17570,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <li><a href="#api-resource-properties-per-adr">API Resource Properties (per ADR)</a></li>
             <li><a href="#forbidden-practices-ci-enforced">Forbidden Practices (CI-Enforced)</a></li>
             <li><a href="#testing-requirements-ci-enforced">Testing Requirements (CI-Enforced)</a></li>
+            <li><a href="#common-pitfalls-checklist">Common pitfalls checklist</a></li>
           </ul>
         </li>
         <li><a href="#-useful-resources">📚 Useful Resources</a></li>
@@ -46736,6 +46762,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
       
         
+      
+      
+      
+      
+      
+
+      
+    
+  
+      
+        
+    
+    
+      
+        
         
       
       
@@ -47750,7 +47791,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h4 id="api-resource-properties-rules">API Resource Properties Rules<a href="#api-resource-properties-rules"></a></h4><p>All API resource class fields must follow these strict rules:</p>
 <ul>
 <li><strong>All fields must be strictly typed</strong> (e.g., <code>public string $name;</code>, not <code>public $name;</code>)</li>
-<li><strong>Only scalar types and arrays are allowed</strong> - NO Value Objects (VOs) in API Resources (enforced by CI/Rector)</li>
+<li><strong>Only scalar types and arrays are allowed</strong> - NO Value Objects (VOs) in API Resources (enforced by CI via the <code>ApiResourcePropertyTypeRule</code> PHPStan rule). Two exceptions are allowed: <code>PrestaShop\Decimal\DecimalNumber</code> and <code>DateTimeImmutable</code> (see below).</li>
+<li><strong>Decimal and monetary values must use <code>DecimalNumber</code></strong> instead of <code>float</code> (e.g. <code>public DecimalNumber $price;</code>, not <code>public float $price;</code>). Floats are CI-blocked because they lose precision on serialization.</li>
+<li><strong>Date / datetime values can be exposed as <code>DateTimeImmutable</code></strong> properties (e.g. <code>public DateTimeImmutable $dateAdd;</code>). This is the second exception to the &ldquo;scalars and arrays only&rdquo; rule.</li>
 <li><strong>Localized properties do NOT start with &ldquo;localized&rdquo;</strong> (e.g., <code>public array $names;</code>, not <code>public array $localizedNames;</code>)
 <ul>
 <li>Use the <code>#[LocalizedValue]</code> attribute for automatic locale conversion</li>
@@ -47816,11 +47859,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h4 id="no-value-objects-in-api-resources">NO Value Objects in API Resources<a href="#no-value-objects-in-api-resources"></a></h4>
 <div class="notices info" ><p><strong>Value Objects (VOs) are forbidden in API Resources.</strong></p>
 <ul>
-<li>Only <strong>scalar types</strong> (<code>string</code>, <code>int</code>, <code>float</code>, <code>bool</code>) and <strong>arrays</strong> are allowed in API Resource properties</li>
+<li>Only <strong>scalar types</strong> (<code>string</code>, <code>int</code>, <code>bool</code>) and <strong>arrays</strong> are allowed in API Resource properties</li>
 <li>This ensures proper serialization and OpenAPI documentation generation</li>
 <li>Complex structures should be represented as arrays with proper documentation</li>
+<li><strong>Two allowed exceptions</strong>:
+<ul>
+<li><code>PrestaShop\Decimal\DecimalNumber</code> — used for decimal/monetary values. <strong><code>float</code> is forbidden</strong> because it loses precision on serialization; use <code>DecimalNumber</code> instead.</li>
+<li><code>DateTimeImmutable</code> — used for date / datetime values exposed by the API.</li>
 </ul>
-<p><strong>CI Check</strong>: A Rector rule enforces this and will block PRs with VOs in API Resources.</p>
+</li>
+</ul>
+<p><strong>CI Check</strong>: The <code>ApiResourcePropertyTypeRule</code> PHPStan rule enforces this and will block PRs with disallowed types in API Resources (including PRs that use <code>float</code> instead of <code>DecimalNumber</code>).</p>
 <p><strong>Need Help?</strong> If you have a complex data structure that&rsquo;s difficult to represent with scalars and arrays, please reach out to the team. We can discuss alternative approaches or potential core enhancements.</p>
 </div>
 
@@ -47832,6 +47881,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li>a WRITE operation on a single entity (or multiple) is linked to a CQRS command</li>
 <li>a LIST operation is linked to a <a href="/9/development/components/grid/#grid-data">Grid data factory</a> service</li>
 </ul>
+
+<div class="notices info" ><p><strong>Where to find CQRS classes in the PrestaShop core</strong></p>
+<p>The CQRS classes you&rsquo;ll be wrapping live under <code>src/Core/Domain/{Entity}/</code> in the PrestaShop core repository, following a standard layout:</p>
+<ul>
+<li><code>Command/Add{Entity}Command.php</code>, <code>Edit{Entity}Command.php</code>, <code>Delete{Entity}Command.php</code>, <code>BulkDelete{Entity}Command.php</code></li>
+<li><code>Query/Get{Entity}ForEditing.php</code> — single-entity fetch (may not exist for entities that only have listings)</li>
+<li><code>QueryResult/{Entity}ForEditing.php</code> — <strong>read this class to discover the exact field names returned by the query</strong>. Its constructor arguments and getters are the ground truth for <code>CQRSQueryMapping</code></li>
+<li><code>Exception/{Entity}NotFoundException.php</code> and <code>Exception/{Entity}ConstraintException.php</code></li>
+</ul>
+<p>If a CQRS class doesn&rsquo;t exist for the operation you want to expose (e.g. no <code>Add</code> command), only declare the operations whose backing class exists — don&rsquo;t try to implement the CQRS side from the module.</p>
+</div>
+
 
 <h3 id="1-create-and-fetch-a-single-resource">1. Create and fetch a single resource<a href="#1-create-and-fetch-a-single-resource"></a></h3>
 <h4 id="create-the-api-resource-object-that-defines-our-expected-format">Create the API Resource object that defines our expected format<a href="#create-the-api-resource-object-that-defines-our-expected-format"></a></h4><p>Create the file <code>src/ApiPlatform/Resources/Attribute/AttributeGroup.php</code>, here is the simple DTO with the naming we are expecting:</p>
@@ -47870,6 +47931,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <li>creating the AttributeGroup, we will use the <code>AddAttributeGroupCommand</code> mapped with a <code>CQRSCreate</code> operation, it requires a scope <code>attribute_group_write</code> to be used
 <ul>
 <li>by default the command will only return the created ID if you want to return the full object you need to define the <code>CQRSQuery</code> option on the operation, this way the full object is read and returned in the response</li>
+<li>if the <code>Add*Command</code> handler returns an <code>EntityId</code> value object (instead of a raw integer), the created ID isn&rsquo;t directly usable in the API response — you <strong>must</strong> declare a <code>CQRSQuery</code> so the full object is re-fetched and returned. This is a common quirk on Core commands written before the API existed.</li>
 </ul>
 </li>
 <li>fetching the AttributeGroup, we will use the <code>GetAttributeGroupForEditing</code> mapped with a <code>CQRSGet</code> operation, it requires a scope <code>attribute_group_read</code> to be used</li>
@@ -47936,6 +47998,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <div class="notices tip" ><strong>ADR Requirement</strong>: Use the internal mapping attributes (<code>CQRSQueryMapping</code>, <code>CQRSCommandMapping</code>, <code>ApiResourceMapping</code>) instead of the <code>SerializedName</code> attribute, as it is not applied everywhere appropriately for the documentation.</div>
 
+
+<div class="notices tip" ><p><strong>Finding the correct source field names</strong></p>
+<p>The single biggest source of mapping bugs is inverting the direction of a mapping entry. To avoid this:</p>
+<ul>
+<li>For <code>CQRSQueryMapping</code>: open the <strong>QueryResult class</strong> returned by the query (e.g. <code>EditableAttributeGroup</code> for <code>GetAttributeGroupForEditing</code>). Its constructor arguments and getters reveal the exact field names returned. Those names are the <strong>left-hand keys</strong> of the mapping; the API field names are the values.</li>
+<li>For <code>CQRSCommandMapping</code>: open the <strong>command constructor</strong> to find the parameter names it expects. Those names are the <strong>right-hand values</strong>; the API field names are the keys.</li>
+</ul>
+<p>Read the classes — never guess the field names from the entity model or the database column names.</p>
+</div>
+
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">#[ApiResource(
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">operations</span><span class="o">:</span> <span class="p">[</span>
 </span></span><span class="line"><span class="cl">        <span class="k">new</span> <span class="nx">CQRSGet</span><span class="p">(</span>
@@ -47986,6 +48058,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span><span class="line"><span class="cl">    <span class="p">];</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
+<div class="notices note" ><strong>One <code>COMMAND_MAPPING</code> or two?</strong> When <code>AddXCommand</code> and <code>EditXCommand</code> have the same constructor parameter names (a common case), a single <code>COMMAND_MAPPING</code> constant can be reused on both <code>CQRSCreate</code> and <code>CQRSPartialUpdate</code> operations — that&rsquo;s what the example above does. When the commands have diverging signatures, declare two separate constants (<code>CREATE_COMMAND_MAPPING</code> and <code>UPDATE_COMMAND_MAPPING</code>) and reference each from the corresponding operation.</div>
+
+
 <h4 id="handle-localized-values">Handle localized values<a href="#handle-localized-values"></a></h4><p>One last thing to handle for our API to be easy to use, at this point you&rsquo;ll notice that the localize values are indexed by <code>Language ID</code> using the value in the DB. These Ids can change on each shop depending on when they were installed, which other languages are present and so on.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nt">&#34;names&#34;</span><span class="p">:</span> <span class="p">{</span>
@@ -48046,6 +48121,42 @@ It is much more convenient if the localized values are index by locale value lik
 </span></span><span class="line"><span class="cl">  <span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
+<h4 id="handle-multi-shop-association">Handle multi-shop association<a href="#handle-multi-shop-association"></a></h4>
+<div class="notices warning" >Multistore support in the Admin API is gated behind the experimental <code>admin_api_multistore</code> feature flag (Advanced Parameters → New &amp; Experimental Features). The conventions below still apply when writing endpoints, but they only take effect at runtime once the flag is enabled.</div>
+
+<p>If your entity can be associated with one or more shops (most administrable entities can), expose that association on the API resource so callers can read and modify it.</p>
+<p>The convention is a <code>$shopIds</code> array property on the DTO. The CQRS layer in the Core usually exposes the association under a different field name (often <code>associatedShopIds</code>, <code>associatedShops</code>, or <code>shopAssociation</code>), so you&rsquo;ll need a mapping entry in each direction:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">AttributeGroup</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">array</span> <span class="nv">$shopIds</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">const</span> <span class="no">QUERY_MAPPING</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;[associatedShopIds]&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;[shopIds]&#39;</span><span class="p">,</span>   <span class="c1">// read: Core query result → API field
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">const</span> <span class="no">COMMAND_MAPPING</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="o">...</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;[shopIds]&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;[associatedShopIds]&#39;</span><span class="p">,</span>   <span class="c1">// write: API field → Core command parameter
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+<div class="notices note" >If the entity has no concept of shop association at all, the <code>shopIds</code> property must be omitted from the DTO entirely — don&rsquo;t expose an empty array.</div>
+
+
+<h5 id="passing-the-current-shop-context-to-a-cqrs-command-or-query">Passing the current shop context to a CQRS command or query<a href="#passing-the-current-shop-context-to-a-cqrs-command-or-query"></a></h5><p>Some CQRS commands and queries need to know which shop(s) the current request targets — for example to filter list results or to scope an update. The shop context the caller passed (<code>shopId</code>, <code>shopGroupId</code>, <code>shopIds</code>, or <code>allShops</code> — see the <a href="/9/admin-api/multi-shop/">Multi-shop page</a> for the consumer side) is exposed inside mappings via the special <code>[_context]</code> prefix:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="c1">// In a CQRSCommandMapping or CQRSQueryMapping
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="s1">&#39;[_context][shopId]&#39;</span>         <span class="o">=&gt;</span> <span class="s1">&#39;[shopId]&#39;</span><span class="p">,</span>         <span class="c1">// single shop ID (int)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="s1">&#39;[_context][shopIds]&#39;</span>        <span class="o">=&gt;</span> <span class="s1">&#39;[shopIds]&#39;</span><span class="p">,</span>        <span class="c1">// multiple shop IDs (array)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="s1">&#39;[_context][shopConstraint]&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;[shopConstraint]&#39;</span><span class="p">,</span> <span class="c1">// full ShopConstraint value object
+</span></span></span></code></pre></div><p>Pick the entry that matches the signature of the CQRS class:</p>
+<ul>
+<li>Use <code>[_context][shopConstraint]</code> when the command or query accepts a <code>ShopConstraint</code> directly (common for <code>Product</code>-related commands and queries).</li>
+<li>Use <code>[_context][shopId]</code> or <code>[_context][shopIds]</code> when the command expects raw integer IDs.</li>
+</ul>
+<p>For complete working examples, see <code>Product.php</code>, <code>Combination.php</code>, <code>CombinationList.php</code>, and <code>CustomerGroup.php</code> in <a href="https://github.com/PrestaShop/ps_apiresources">ps_apiresources</a>.</p>
+
 <h3 id="2-update-and-delete-a-single-resource">2. Update and delete a single resource<a href="#2-update-and-delete-a-single-resource"></a></h3><p>For update and delete endpoints the principle is similar, we are creating a <code>DELETE</code> and <code>PATCH</code> endpoint:</p>
 <ul>
 <li>to update the AttributeGroup, we will use the <code>EditAttributeGroupCommand</code> mapped with a <code>CQRSPartialUpdate</code> operation, it requires a scope <code>attribute_group_write</code> to be used
@@ -48143,7 +48254,12 @@ It is much more convenient if the localized values are index by locale value lik
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">#[Assert\NotBlank]
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="k">array</span> <span class="nv">$attributeGroupIds</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div>
+</span></span></code></pre></div><p>The two attributes on the <code>$attributeGroupIds</code> property are both required and serve different roles:</p>
+<ul>
+<li><code>#[ApiProperty(openapiContext: ['type' =&gt; 'array', 'items' =&gt; ['type' =&gt; 'integer']])]</code> documents the array shape in the generated OpenAPI schema — without it, the Swagger UI shows an untyped array.</li>
+<li><code>#[Assert\NotBlank]</code> rejects empty payloads at validation time so the bulk handler never runs against an empty ID list.</li>
+</ul>
+
 <h3 id="4-errors-and-validation">4. Errors and validation<a href="#4-errors-and-validation"></a></h3>
 <h4 id="exception-returned">Exception returned<a href="#exception-returned"></a></h4><p>The CQRS layer include some internal check and validation that ensures the consistency of the domain, when an error or a constraint is detected it throws an exception. But such exception is displayed automatically by API Platform and returned as a server error with a 500 HTTP code, whereas depending on the exception there is no problem the API does exactly what it&rsquo;s supposed to but the HTTP code is not adapted.</p>
 <p>To adapt such cases API Platform allows defining a mapping between an exception and an HTTP code, CQRS handlers usually follow a naming convention so you should be able to find the proper exception easily, for example:</p>
@@ -48151,6 +48267,10 @@ It is much more convenient if the localized values are index by locale value lik
 <li><code>{Domain}NotFoundException</code> is triggered when we try to access or modify an entity that doesn&rsquo;t exist in the database, it should match a 404 Not Found code</li>
 <li><code>{Domain}ConstraintException</code> is triggered when the data used for creation or udpate is not valid with the domain rules and constraints, it should match with a 422 Unprocessable Entity code</li>
 </ul>
+
+<div class="notices warning" ><strong>Never map a constraint violation to <code>HTTP_BAD_REQUEST</code> (400).</strong> Constraint violations must always use <code>HTTP_UNPROCESSABLE_ENTITY</code> (422). The 400 status is reserved for malformed requests at the protocol level (invalid JSON, missing required URI parameters, etc.) — API Platform returns it automatically when relevant, you don&rsquo;t need to map domain exceptions to it.</div>
+
+<p>For sub-resource endpoints that reference a parent entity in the URI (e.g. <code>/products/{productId}/combinations</code>), remember to map <strong>both</strong> the parent and child <code>NotFoundException</code> to 404. Otherwise, calling the endpoint with a non-existent parent ID will return a 500 server error instead of a clean 404.</p>
 <p>The mapping can be defined on the API resource with the <code>exceptionToStatus</code>:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="o">...</span>
@@ -48254,6 +48374,11 @@ You can also use validation groups, which is very convenient when your constrain
 <div class="notices note" >When you need to know which constraint apply on your entity you can search for its associated form type which usually already contain some for form inline errors, and you can adapt them on your API resource. In our <code>AttributeGroup</code> example this <a href="https://github.com/PrestaShop/PrestaShop/blob/2b035743b75e04a8ca1ea7a9c7212a93f5ed6892/src/PrestaShopBundle/Form/Admin/Sell/Catalog/AttributeGroupType.php">form type</a> was used for reference.</div>
 
 
+<div class="notices warning" ><p><strong><code>#[DefaultLanguage]</code> requires an explicit <code>fieldName</code> argument when used on an API Resource.</strong> The constraint&rsquo;s auto-detection fallback only works in Symfony Form contexts — on <code>ApiResource</code> attributes it has no way to figure out which field it&rsquo;s attached to, so without <code>fieldName</code> the validation error message points at an empty property path.</p>
+<p>Always set <code>fieldName</code> to the <strong>API field name</strong> (the property name as it appears in the JSON), not the underlying CQRS parameter name. For example, on <code>public array $names</code>, use <code>fieldName: 'names'</code>, not <code>'localizedNames'</code>. On partial updates, also pass <code>allowNull: true</code> so the field stays optional.</p>
+</div>
+
+
 <h3 id="5-create-the-list-api-resource-attributegrouplistphp">5. Create the List API Resource (AttributeGroupList.php)<a href="#5-create-the-list-api-resource-attributegrouplistphp"></a></h3><p>For the listing API we use the Grid component that is used on Symfony migrated pages, so any migrated page should already have the appropriate Grid data factory.</p>
 
 <h4 id="how-to-find-the-grid-data-factory-service-name">How to find the Grid Data factory service name<a href="#how-to-find-the-grid-data-factory-service-name"></a></h4><p>To find the service name you need to look into the Symfony controller related to the entity you are targeting:</p>
@@ -48270,6 +48395,17 @@ You can also use validation groups, which is very convenient when your constrain
 <li>In this special case, for AttributeGroup, the factory decorates another one <a href="https://github.com/PrestaShop/PrestaShop/blob/653e2a8a86f6df52e33f7b126f777d7400974872/src/PrestaShopBundle/Resources/config/services/core/grid/grid_data_factory.yml#L400"><code>prestashop.core.grid.data.factory.attribute_group</code></a>, if you check its definition you will see that is uses the <code>prestashop.core.grid.query_builder.attribute_group</code></li>
 <li>From there you can find the <code>prestashop.core.grid.query_builder.attribute_group</code> service which is the <a href="https://github.com/PrestaShop/PrestaShop/blob/6b28c32d9355a2e99f42f50ee302a95ca2cb32ea/src/Core/Grid/Query/AttributeGroupQueryBuilder.php#L37">Query builder</a> that builds the SQL query</li>
 </ul>
+
+<h4 id="verifying-dto--query-field-alignment">Verifying DTO ↔ query field alignment<a href="#verifying-dto--query-field-alignment"></a></h4><p>A <code>PaginatedList</code> endpoint silently returns <code>null</code> for any DTO property whose name doesn&rsquo;t match a field returned by the grid&rsquo;s data source. To avoid shipping orphan fields, walk through this check before opening the PR:</p>
+<ol>
+<li>Trace the <code>gridDataFactory</code> service to its underlying <strong>query builder class</strong> (the one implementing <code>DoctrineQueryBuilderInterface</code> or similar).</li>
+<li>Read the SQL <code>SELECT</code> clause — each selected column is a field the grid can return.</li>
+<li>Make sure every selected field has a matching property on your List DTO. If a field is intentionally omitted, document why; an oversight here is a silent bug.</li>
+<li>When the SQL column name differs from the DTO property name (e.g. <code>id_attribute_group</code> vs <code>attributeGroupId</code>, <code>firstname</code> vs <code>firstName</code>), add the rename to <code>ApiResourceMapping</code>. The mapping direction is <strong>source field → DTO field</strong>.</li>
+<li>A DTO property with no matching query field will always be <code>null</code> at runtime — that&rsquo;s almost certainly a bug. Either remove the property or fix the source name.</li>
+</ol>
+<p>The same checklist applies to <code>CQRSPaginate</code> endpoints, comparing the CQRS query&rsquo;s result DTO fields against the API Resource properties instead of the SQL columns.</p>
+<p>Likewise, every filterable / orderable parameter whose API name differs from the grid filter name must have an entry in <code>filtersMapping</code> (API field → grid filter field), otherwise the filter silently does nothing.</p>
 
 <h4 id="create-the-attributegrouplist-api-resource">Create the AttributeGroupList API resource<a href="#create-the-attributegrouplist-api-resource"></a></h4><p>Now you can create the file <code>src/ApiPlatform/Resources/Attribute/AttributeGroupList.php</code>, we usually use another API resource class for the listing because the returned data is usually smaller than on the single point:</p>
 <ul>
@@ -48424,6 +48560,69 @@ By default, you already have the <code>ps_apiresources</code> module in your <co
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Only run tests for AttributeGroupEndpointTest</span>
 </span></span><span class="line"><span class="cl">php -d date.timezone<span class="o">=</span>UTC ./vendor/phpunit/phpunit/phpunit -c modules/ps_apiresources/tests/Integration/phpunit-ci.xml --filter<span class="o">=</span>AttributeGroupEndpointTest
 </span></span></code></pre></div>
+<h3 id="default-test-environment-and-fixtures">Default test environment and fixtures<a href="#default-test-environment-and-fixtures"></a></h3><p><code>ApiTestCase::setUpBeforeClass()</code> already prepares the environment so your test class only has to set up data specific to its entity. Out of the box it:</p>
+<ul>
+<li>forces <code>PS_ADMIN_API_FORCE_DEBUG_SECURED = 0</code> so tests don&rsquo;t need HTTPS,</li>
+<li>resets API clients and languages between test classes,</li>
+<li><strong>installs <code>fr-FR</code> as a second language</strong> so every endpoint runs against a multi-language environment by default.</li>
+</ul>
+<p>Because <code>fr-FR</code> is always installed, test fixtures for localized fields should include both <code>en-US</code> and <code>fr-FR</code> values — otherwise the test won&rsquo;t exercise the multi-language behavior the module is expected to handle.</p>
+<p>A few static helpers are available on <code>ApiTestCase</code> for setup needs that go beyond defaults (call them from your own <code>setUpBeforeClass</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Helper</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addLanguageByLocale(string $locale)</code></td>
+<td>Install an additional language beyond the default <code>en-US</code> + <code>fr-FR</code>.</td>
+</tr>
+<tr>
+<td><code>addShopGroup(string $name, ?string $color = null)</code></td>
+<td>Create a shop group fixture for multistore tests.</td>
+</tr>
+<tr>
+<td><code>addShop(string $name, int $groupId, ?string $color = null)</code></td>
+<td>Create a shop fixture inside the given group.</td>
+</tr>
+<tr>
+<td><code>updateConfiguration(string $key, $value, ?ShopConstraint $shopConstraint = null)</code></td>
+<td>Override a configuration value for the duration of the test, optionally scoped to a shop or shop group.</td>
+</tr>
+<tr>
+<td><code>createApiClient(array $scopes)</code></td>
+<td>Pre-create an API client with the given scopes. Not required — <code>getBearerToken</code> creates one on the fly per scope set — but useful when you want to avoid recreating clients in every test method.</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="local-tooling">Local tooling<a href="#local-tooling"></a></h3><p>Beyond the test runners, the module ships a few <code>composer</code> scripts to keep contributions clean:</p>
+<table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>composer header-stamp-fix</code></td>
+<td>Add the AFL 3.0 license header on top of any file that&rsquo;s missing it. Run this after creating new files.</td>
+</tr>
+<tr>
+<td><code>composer phpstan</code></td>
+<td>Run static analysis. Requires the <code>_PS_ROOT_DIR_</code> and <code>_PS_BRANCH_</code> environment variables to point at a checked-out PrestaShop core, otherwise PHPStan can&rsquo;t resolve Core symbols.</td>
+</tr>
+<tr>
+<td><code>composer rector</code></td>
+<td>Apply automated refactor / upgrade rules. Some of the CI checks (no Value Objects, <code>float</code> → <code>DecimalNumber</code>, etc.) are enforced via Rector and can be auto-fixed by this command.</td>
+</tr>
+</tbody>
+</table>
+
 <h3 id="integration-tests">Integration Tests<a href="#integration-tests"></a></h3><p>Integration tests <strong>must</strong> test the actual API endpoints and their behavior with the PrestaShop system. To help build them we created a base class <code>PsApiResourcesTest\Integration\ApiPlatform\ApiTestCase</code> the provides some helper methods:</p>
 <table>
 <thead>
@@ -48468,6 +48667,16 @@ By default, you already have the <code>ps_apiresources</code> module in your <co
 <td><code>countItems</code></td>
 <td>Performs a <code>GET</code> request to list entities, but only returns the count</td>
 <td><code>string $listUrl</code>: URL of the API endpoint<br><code>array $scopes = []</code>: List of scopes to use in the token<br><code>array $filters = []</code> List of filters</td>
+</tr>
+<tr>
+<td><code>bulkDeleteItems</code></td>
+<td>Performs a bulk-delete <code>DELETE</code> request with a JSON body containing the IDs to delete</td>
+<td><code>string $endpointUrl</code>: URL of the bulk endpoint<br><code>array $data</code>: Payload (typically <code>['xxxIds' =&gt; [1, 2, 3]]</code>)<br><code>array $scopes = []</code>: List of scopes to use in the token<br><code>?int $expectedHttpCode = null</code> HTTP code expected after request</td>
+</tr>
+<tr>
+<td><code>requestApi</code></td>
+<td>Last-resort low-level helper for cases the other methods don&rsquo;t cover (custom methods, non-standard responses)</td>
+<td><code>string $method</code>, <code>string $endpointUrl</code>, <code>array $scopes</code>, plus framework-style options. Prefer the dedicated helpers above — only reach for <code>requestApi</code> when the request shape genuinely doesn&rsquo;t fit.</td>
 </tr>
 </tbody>
 </table>
@@ -48969,6 +49178,22 @@ It ensures that you didn&rsquo;t forget to setup the appropriate scopes, adn tha
 <li>✅ <strong>Integration tests should eliminate need for manual QA</strong></li>
 </ul>
 
+<h3 id="common-pitfalls-checklist">Common pitfalls checklist<a href="#common-pitfalls-checklist"></a></h3><p>Quick self-review before opening a PR — these are the most frequent mistakes flagged in review:</p>
+<ul>
+<li>❌ <code>CQRSQueryMapping</code> keys inverted (API field used as key instead of the QueryResult field name)</li>
+<li>❌ Missing <code>CQRSQuery</code> on <code>CQRSCreate</code> / <code>CQRSPartialUpdate</code> when the full object should be returned, especially when the command handler returns an <code>EntityId</code> value object</li>
+<li>❌ <code>Response::HTTP_BAD_REQUEST</code> (400) used for constraint violations instead of <code>HTTP_UNPROCESSABLE_ENTITY</code> (422)</li>
+<li>❌ Identifier property named <code>$id</code> instead of <code>${entity}Id</code>, or missing <code>#[ApiProperty(identifier: true)]</code></li>
+<li>❌ Boolean properties prefixed with <code>is</code> (<code>$isEnabled</code>, <code>$isActive</code>) instead of <code>$enabled</code> / <code>$ready</code></li>
+<li>❌ Localized properties prefixed with <code>localized</code> (<code>$localizedNames</code>) instead of <code>$names</code> with <code>#[LocalizedValue]</code></li>
+<li>❌ <code>float</code> used for decimal/monetary fields instead of <code>PrestaShop\Decimal\DecimalNumber</code></li>
+<li>❌ Custom normalizer or custom processor added in the module (hard CI blocker)</li>
+<li>❌ <code>#[DefaultLanguage]</code> without an explicit <code>fieldName</code> argument</li>
+<li>❌ Sub-resource endpoints missing the parent <code>NotFoundException</code> → 404 mapping</li>
+<li>❌ List DTO with properties that don&rsquo;t match any field returned by the grid query (silent <code>null</code> in responses)</li>
+<li>❌ Tests asserting only the identifier instead of the full response payload</li>
+</ul>
+
 <h2 id="-useful-resources">📚 Useful Resources<a href="#-useful-resources"></a></h2><ul>
 <li><strong><a href="https://github.com/PrestaShop/ADR/blob/master/0023-cqrs-api-guidelines.md">CQRS API Guidelines ADR</a></strong> ⭐ <strong>Required reading</strong> - Architecture Decision Record defining all API conventions</li>
 <li><a href="/9/admin-api/resource_server/api-resources/">PrestaShop API Resources Documentation</a></li>
@@ -49055,7 +49280,7 @@ It ensures that you didn&rsquo;t forget to setup the appropriate scopes, adn tha
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/a418e0624f3626ba1c375cefafcb26008c2a934b">2026-05-20 by Jarvis</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/7eb964d8ecab81dc194dc434b9a50084c7456f2e">2026-05-20 by Jonathan LELIEVRE</a>.<br>
         
     
 
@@ -49077,17 +49302,17 @@ It ensures that you didn&rsquo;t forget to setup the appropriate scopes, adn tha
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1779245116"></script>
-    <script src="/js/perfect-scrollbar.min.js?1779245116"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1779245116"></script>
-    <script src="/js/jquery.sticky.js?1779245116"></script>
-    <script src="/js/featherlight.min.js?1779245116"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1779245116"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1779245116"></script>
-    <script src="/js/learn.js?1779245116"></script>
-    <script src="/js/hugo-learn.js?1779245116"></script>
+    <script src="/js/clipboard.min.js?1779280120"></script>
+    <script src="/js/perfect-scrollbar.min.js?1779280120"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1779280120"></script>
+    <script src="/js/jquery.sticky.js?1779280120"></script>
+    <script src="/js/featherlight.min.js?1779280120"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1779280120"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1779280120"></script>
+    <script src="/js/learn.js?1779280120"></script>
+    <script src="/js/hugo-learn.js?1779280120"></script>
     
-    <script src="/main.js?1779245116"></script>
+    <script src="/main.js?1779280120"></script>
     
     
     

@@ -22,14 +22,14 @@
     <title>API Resources :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1779245116" rel="stylesheet">
-    <link href="/css/syntax-github.css?1779245116" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1779245116" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1779245116" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1779280120" rel="stylesheet">
+    <link href="/css/syntax-github.css?1779280120" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1779280120" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1779280120" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1779245116" rel="stylesheet">
+    <link href="/style.css?1779280120" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1779245116"></script>
+    <script src="/js/jquery-3.3.1.min.js?1779280120"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -15806,6 +15806,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  
   
     
+      <li data-nav-id="/9/admin-api/multi-shop/" title="Multi-shop context" class="dd-item ">
+        <a href="/9/admin-api/multi-shop/">
+        Multi-shop
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
       <li data-nav-id="/9/admin-api/contribute-to-core-api/" title="Create new API endpoints using CQRS" class="dd-item ">
         <a href="/9/admin-api/contribute-to-core-api/">
         Contribute to Core API
@@ -17500,6 +17521,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <li><a href="#cqrspartialupdate">CQRSPartialUpdate</a></li>
             <li><a href="#cqrsupdate">CQRSUpdate</a></li>
             <li><a href="#cqrsdelete">CQRSDelete</a></li>
+            <li><a href="#cqrsgetcollection">CQRSGetCollection</a></li>
             <li><a href="#cqrspaginate">CQRSPaginate</a>
               <ul>
                 <li><a href="#custom-parameters">Custom parameters</a></li>
@@ -17507,7 +17529,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </li>
           </ul>
         </li>
-        <li><a href="#paginatedlist">PaginatedList</a></li>
+        <li><a href="#paginatedlist">PaginatedList</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#custom-parameters-1">Custom parameters</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
         <li><a href="#custom-mapping">Custom Mapping</a>
           <ul>
             <li><a href="#query-provider">Query Provider</a></li>
@@ -46750,6 +46780,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
   
       
+        
+    
+    
+      
+        
+      
+      
+      
+      
+      
+
+      
+    
+  
+      
     
   
       
@@ -47936,6 +47981,57 @@ If you want the endpoint to fetch and return the whole object you can specify a 
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">public</span> <span class="nx">int</span> <span class="nv">$apiClientId</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
+<h3 id="cqrsgetcollection">CQRSGetCollection<a href="#cqrsgetcollection"></a></h3><table>
+<thead>
+<tr>
+<th>HTTP Method</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td>Read a non-paginated collection</td>
+</tr>
+</tbody>
+</table>
+<p><code>CQRSGetCollection</code> wraps a CQRS query that returns a full list of items in a single response — without pagination, filters, or sorting. Use it for short, bounded collections (e.g. enums, lookup tables, all rules for a given parent) where pagination would add complexity without value. For anything that can grow large, prefer <code>CQRSPaginate</code> or <code>PaginatedList</code> instead.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="k">declare</span><span class="p">(</span><span class="nx">strict_types</span><span class="o">=</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">namespace</span> <span class="nx">PrestaShop\Module\APIResources\ApiPlatform\Resources\TaxRule</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">ApiPlatform\Metadata\ApiResource</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\TaxRulesGroup\Exception\TaxRulesGroupNotFoundException</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShop\PrestaShop\Core\Domain\TaxRulesGroup\Query\GetTaxRulesList</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">PrestaShopBundle\ApiPlatform\Metadata\CQRSGetCollection</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">use</span> <span class="nx">Symfony\Component\HttpFoundation\Response</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#[ApiResource(
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">operations</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="k">new</span> <span class="nx">CQRSGetCollection</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">uriTemplate</span><span class="o">:</span> <span class="s1">&#39;/tax-rules-groups/{taxRulesGroupId}/tax-rules&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">CQRSQuery</span><span class="o">:</span> <span class="nx">GetTaxRulesList</span><span class="o">::</span><span class="na">class</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">scopes</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;tax_rules_group_read&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">        <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">exceptionToStatus</span><span class="o">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">TaxRulesGroupNotFoundException</span><span class="o">::</span><span class="na">class</span> <span class="o">=&gt;</span> <span class="nx">Response</span><span class="o">::</span><span class="na">HTTP_NOT_FOUND</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl"><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">TaxRuleList</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">int</span> <span class="nv">$taxRuleId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">int</span> <span class="nv">$taxRulesGroupId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">int</span> <span class="nv">$countryId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">int</span> <span class="nv">$stateId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$zipCode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">int</span> <span class="nv">$taxId</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$behavior</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">string</span> <span class="nv">$description</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>The CQRS query is called once, its result is normalized to a flat list of API resources, and the whole list is returned in a single JSON array. No <code>itemsField</code> / <code>countField</code> configuration is needed because there is no envelope.</p>
+
 <h3 id="cqrspaginate">CQRSPaginate<a href="#cqrspaginate"></a></h3><table>
 <thead>
 <tr>
@@ -48136,6 +48232,56 @@ If you want the endpoint to fetch and return the whole object you can specify a 
 </span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="nx">int</span> <span class="nv">$lifetime</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
+<h4 id="custom-parameters-1">Custom parameters<a href="#custom-parameters-1"></a></h4><table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>gridDataFactory</code></td>
+<td><code>string</code></td>
+<td>Yes</td>
+<td>—</td>
+<td>Service ID of a class implementing <code>GridDataFactoryInterface</code>. This is the same service the migrated back-office listing page uses.</td>
+</tr>
+<tr>
+<td><code>scopes</code></td>
+<td><code>string[]</code></td>
+<td>No</td>
+<td><code>[]</code></td>
+<td>OAuth scopes required to access the endpoint.</td>
+</tr>
+<tr>
+<td><code>filtersClass</code></td>
+<td><code>string</code></td>
+<td>No</td>
+<td><code>Filters::class</code></td>
+<td>Fully qualified class name of the <code>Filters</code> subclass to use. Specify a custom class to enforce default ordering or filtering constraints.</td>
+</tr>
+<tr>
+<td><code>filtersMapping</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td><code>null</code></td>
+<td>Maps API field names to the internal names used by the <code>Filters</code> class. Applied to <code>filters</code> and <code>orderBy</code> query parameters. See <a href="#custom-mapping">Custom Mapping</a>.</td>
+</tr>
+<tr>
+<td><code>ApiResourceMapping</code></td>
+<td><code>array</code></td>
+<td>No</td>
+<td><code>null</code></td>
+<td>Field mapping applied when denormalizing each row from the grid into the API resource DTO. See <a href="#custom-mapping">Custom Mapping</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>Like <code>CQRSPaginate</code>, <code>PaginatedList</code> builds the <code>Filters</code> object from the request query parameters (<code>offset</code>, <code>limit</code>, <code>orderBy</code>, <code>sortOrder</code>, <code>filters</code>), invokes the grid data factory, and returns the standard paginated envelope (<code>totalItems</code>, <code>sortOrder</code>, <code>limit</code>, <code>filters</code>, <code>items</code>). The default page size is 50 items.</p>
+
 <h2 id="custom-mapping">Custom Mapping<a href="#custom-mapping"></a></h2><p>The API Platform DTO allows you to define the expected format of your API endpoint, including the format of each field name (snake case, camel case, etc.) and any field you want to rename because it seems better.</p>
 <p>However, the CQRS or Grid implementation may not match the format or naming you expected, which is why you can define some mapping to explain how to match the fields between your DTO and the underlying implementation.</p>
 <p>Each mapping is an associative array. The keys are the original naming, and the value is the target mapping (the renamed key if you prefer). You can customize different mappings that are used at different moments of normalization in the workflow.</p>
@@ -48307,7 +48453,7 @@ stateDiagram-v2
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/90b2e320bafd2099d1bb7016288675b1f0539ea5">2026-03-25 by tleon</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/7eb964d8ecab81dc194dc434b9a50084c7456f2e">2026-05-20 by Jonathan LELIEVRE</a>.<br>
         
     
 
@@ -48329,17 +48475,17 @@ stateDiagram-v2
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1779245116"></script>
-    <script src="/js/perfect-scrollbar.min.js?1779245116"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1779245116"></script>
-    <script src="/js/jquery.sticky.js?1779245116"></script>
-    <script src="/js/featherlight.min.js?1779245116"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1779245116"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1779245116"></script>
-    <script src="/js/learn.js?1779245116"></script>
-    <script src="/js/hugo-learn.js?1779245116"></script>
+    <script src="/js/clipboard.min.js?1779280121"></script>
+    <script src="/js/perfect-scrollbar.min.js?1779280121"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1779280121"></script>
+    <script src="/js/jquery.sticky.js?1779280121"></script>
+    <script src="/js/featherlight.min.js?1779280121"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1779280121"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1779280121"></script>
+    <script src="/js/learn.js?1779280121"></script>
+    <script src="/js/hugo-learn.js?1779280121"></script>
     
-    <script src="/main.js?1779245116"></script>
+    <script src="/main.js?1779280121"></script>
     
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.esm.min.mjs';
