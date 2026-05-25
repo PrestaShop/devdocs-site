@@ -22,14 +22,14 @@
     <title>displayProductExtraContent :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1779361375" rel="stylesheet">
-    <link href="/css/syntax-github.css?1779361375" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1779361375" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1779361375" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1779728177" rel="stylesheet">
+    <link href="/css/syntax-github.css?1779728177" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1779728177" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1779728177" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1779361375" rel="stylesheet">
+    <link href="/style.css?1779728177" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1779361375"></script>
+    <script src="/js/jquery-3.3.1.min.js?1779728177"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -8835,24 +8835,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           
 
         
-          
-            
-            
-          
-            
-            
-          
-            
-            
-          
-            
-            
-          
-            
-            
-          
-            
-            
           
             
             
@@ -43912,36 +43894,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
   
       
-        
-    
-    
-  
-      
-        
-    
-    
-  
-      
-        
-    
-    
-  
-      
-        
-    
-    
-  
-      
-        
-    
-    
-  
-      
-        
-    
-    
-  
-      
     
   
       
@@ -48048,21 +48000,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <th>File</th>
 </tr>
 <tr>
-<td>classic</td>
-<td><a href=https://github.com/PrestaShop/classic-theme/blob/develop/templates/catalog/product.tpl#L216>templates/catalog/product.tml</a></td>
+<td>core</td>
+<td><a href=https://github.com/PrestaShop/PrestaShop/blob/9.1.x/src/Core/Product/ProductExtraContent.php>src/Core/Product/ProductExtraContent.php</a></td>
 </tr>
 <tr>
 <td>core</td>
-<td><a href=https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Core/Product/ProductExtraContent.php>src/Core/Product/ProductExtraContent.php</a></td>
-</tr>
-<tr>
-<td>core</td>
-<td><a href=https://github.com/PrestaShop/PrestaShop/blob/8.0.x/src/Core/Product/ProductExtraContentFinder.php>src/Core/Product/ProductExtraContentFinder.php</a></td>
+<td><a href=https://github.com/PrestaShop/PrestaShop/blob/9.1.x/src/Core/Product/ProductExtraContentFinder.php>src/Core/Product/ProductExtraContentFinder.php</a></td>
 </tr>
 </table>
 
-<h2 id="call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file<a href="#call-of-the-hook-in-the-origin-file"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">protected</span> <span class="nv">$hookName</span> <span class="o">=</span> <span class="s1">&#39;displayProductExtraContent&#39;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">protected</span> <span class="nv">$expectedInstanceClasses</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Product\ProductExtraContent&#39;</span><span class="p">];</span>
+<h2 id="call-of-the-hook-in-the-origin-file">Call of the Hook in the origin file<a href="#call-of-the-hook-in-the-origin-file"></a></h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$product</span><span class="p">[</span><span class="s1">&#39;extraContent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="k">new</span> <span class="nx">ProductExtraContentFinder</span><span class="p">())</span><span class="o">-&gt;</span><span class="na">addParams</span><span class="p">([</span><span class="s1">&#39;product&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">product</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">present</span><span class="p">();</span>
 </span></span></code></pre></div>
 <h2 id="example-implementation">Example implementation<a href="#example-implementation"></a></h2><p>This hook has been implemented as an example in our <a href="https://github.com/PrestaShop/example-modules/tree/master/demoproductextracontent">example-modules repository - demoproductextracontent</a>.</p>
 
@@ -48077,7 +48025,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span><span class="line"><span class="cl"><span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nv">$hookName</span> <span class="o">=</span> <span class="s1">&#39;displayProductExtraContent&#39;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">    <span class="k">protected</span> <span class="nv">$expectedInstanceClasses</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PrestaShop\PrestaShop\Core\Product\ProductExtraContent&#39;</span><span class="p">];</span>
-</span></span></code></pre></div><p>The <code>ProductExtraContentFinder</code> will look for modules hooked into <code>displayProductExtraContent</code>  with the corresponding existing method, and will expect <code>ProductExtraContent</code> to be returned.</p>
+</span></span></code></pre></div><p>The <code>ProductExtraContentFinder</code> will look for modules hooked into <code>displayProductExtraContent</code> with the corresponding existing method, and will expect <code>ProductExtraContent</code> to be returned.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nx">PrestaShop\PrestaShop\Core\Product\ProductExtraContent</span><span class="p">())</span>
 </span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">setTitle</span><span class="p">(</span><span class="s1">&#39;example field&#39;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="o">-&gt;</span><span class="na">setContent</span><span class="p">(</span><span class="s1">&#39;example content&#39;</span><span class="p">)</span>
@@ -48139,7 +48087,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/9a9fdd0e33b8bd46c955e394c8a5badcb7bdcc3f">2026-05-11 by Nicolas Lœuillet</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/df0717a55b8c80e5e2fd006ac157dcaf295ade70">2026-05-25 by Krystian Podemski</a>.<br>
         
     
 
@@ -48161,17 +48109,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1779361376"></script>
-    <script src="/js/perfect-scrollbar.min.js?1779361376"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1779361376"></script>
-    <script src="/js/jquery.sticky.js?1779361376"></script>
-    <script src="/js/featherlight.min.js?1779361376"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1779361376"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1779361376"></script>
-    <script src="/js/learn.js?1779361376"></script>
-    <script src="/js/hugo-learn.js?1779361376"></script>
+    <script src="/js/clipboard.min.js?1779728177"></script>
+    <script src="/js/perfect-scrollbar.min.js?1779728177"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1779728177"></script>
+    <script src="/js/jquery.sticky.js?1779728177"></script>
+    <script src="/js/featherlight.min.js?1779728177"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1779728177"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1779728177"></script>
+    <script src="/js/learn.js?1779728177"></script>
+    <script src="/js/hugo-learn.js?1779728177"></script>
     
-    <script src="/main.js?1779361376"></script>
+    <script src="/main.js?1779728177"></script>
     
     
     
@@ -48663,11 +48611,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     {
                         name: "actionBackupGridQueryBuilderModifier",
                         url: "/9/modules/concepts/hooks/list-of-hooks/actionbackupgridquerybuildermodifier/"
-                    },
-                
-                    {
-                        name: "actionBeforeAjaxDie\u003cController\u003e\u003cMethod\u003e",
-                        url: "/9/modules/concepts/hooks/list-of-hooks/actionbeforeajaxdiecontrollermethod/"
                     },
                 
                     {
@@ -51171,7 +51114,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     },
                 
                     {
-                        name: "displaybackOfficeEmployeeMenu",
+                        name: "displayBackOfficeEmployeeMenu",
                         url: "/9/modules/concepts/hooks/list-of-hooks/displaybackofficeemployeemenu/"
                     },
                 
@@ -51181,12 +51124,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     },
                 
                     {
-                        name: "displaybackOfficeHeader",
+                        name: "displayBackOfficeHeader",
                         url: "/9/modules/concepts/hooks/list-of-hooks/displaybackofficeheader/"
                     },
                 
                     {
-                        name: "displaybackOfficeTop",
+                        name: "displayBackOfficeTop",
                         url: "/9/modules/concepts/hooks/list-of-hooks/displaybackofficetop/"
                     },
                 
@@ -51316,11 +51259,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     },
                 
                     {
-                        name: "displayDashboardToolbarIcons",
-                        url: "/9/modules/concepts/hooks/list-of-hooks/displaydashboardtoolbaricons/"
-                    },
-                
-                    {
                         name: "displayDashboardToolbarTopMenu",
                         url: "/9/modules/concepts/hooks/list-of-hooks/displaydashboardtoolbartopmenu/"
                     },
@@ -51338,26 +51276,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                     {
                         name: "displayExpressCheckout",
                         url: "/9/modules/concepts/hooks/list-of-hooks/displayexpresscheckout/"
-                    },
-                
-                    {
-                        name: "displayFeatureForm",
-                        url: "/9/modules/concepts/hooks/list-of-hooks/displayfeatureform/"
-                    },
-                
-                    {
-                        name: "displayFeaturePostProcess",
-                        url: "/9/modules/concepts/hooks/list-of-hooks/displayfeaturepostprocess/"
-                    },
-                
-                    {
-                        name: "displayFeatureValueForm",
-                        url: "/9/modules/concepts/hooks/list-of-hooks/displayfeaturevalueform/"
-                    },
-                
-                    {
-                        name: "displayFeatureValuePostProcess",
-                        url: "/9/modules/concepts/hooks/list-of-hooks/displayfeaturevaluepostprocess/"
                     },
                 
                     {
