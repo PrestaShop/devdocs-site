@@ -22,14 +22,14 @@
     <title>Services :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1780908702" rel="stylesheet">
-    <link href="/css/syntax-github.css?1780908702" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1780908702" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1780908702" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1780946346" rel="stylesheet">
+    <link href="/css/syntax-github.css?1780946346" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1780946346" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1780946346" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1780908702" rel="stylesheet">
+    <link href="/style.css?1780946346" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1780908702"></script>
+    <script src="/js/jquery-3.3.1.min.js?1780946346"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -17704,6 +17704,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <li><a href="#create-and-declare-a-new-symfony-service">Create and declare a new Symfony service</a>
               <ul>
                 <li><a href="#define-your-service">Define your service</a></li>
+                <li><a href="#service-configuration-files">Service configuration files</a></li>
               </ul>
             </li>
             <li><a href="#override-an-existing-symfony-service">Override an existing Symfony service</a>
@@ -47993,7 +47994,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">translator</span><span class="o">-&gt;</span><span class="na">trans</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">customMessage</span><span class="p">,</span> <span class="p">[],</span> <span class="s1">&#39;Modules.YourModule&#39;</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>Now that your namespace is setup, you can define your services in the <code>config/services.yml</code> file of your module.</p>
+</span></span></code></pre></div><p>Now that your namespace is setup, you can define your services in a service configuration file of your module, for example <code>config/services.yml</code>.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># yourmodule/config/services.yml</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">_defaults</span><span class="p">:</span><span class="w">
@@ -48005,19 +48006,63 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;@translator&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;My custom message&#34;</span><span class="w">
 </span></span></span></code></pre></div>
-<div class="notices tip" >It is possible to load PHP / XML files for modules services</div>
+<h4 id="service-configuration-files">Service configuration files<a href="#service-configuration-files"></a></h4>
+<div class="magic-version-pill" data-version="9.2.0" data-title="New in PrestaShop 9.2.0"></div>
 
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="c"># yourmodule/config/services.yml</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">imports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- {<span class="w"> </span><span class="nt">resource</span><span class="p">:</span><span class="w"> </span><span class="l">services.php }</span><span class="w">
-</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<p>Starting from PrestaShop 9.2, modules can use several service configuration files. PrestaShop loads the first existing
+file in this order:</p>
+<ol>
+<li><code>services.php</code></li>
+<li><code>services-{major}.{minor}.yml</code>, for example <code>services-9.2.yml</code></li>
+<li><code>services-{major}.yml</code>, for example <code>services-9.yml</code></li>
+<li><code>services.yml</code></li>
+</ol>
+<p>The same priority applies to the supported module service configuration folders, such as <code>config/</code>, <code>config/admin/</code>,
+<code>config/front/</code> and <code>config/webservice/</code>.</p>
+<p>This means you can use PHP service configuration in PrestaShop 9.2 and newer:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// yourmodule/config/services.php
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">namespace</span> <span class="nx">Symfony\Component\DependencyInjection\Loader\Configurator</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="k">function</span><span class="p">(</span><span class="nx">ContainerConfigurator</span> <span class="nv">$configurator</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="k">static</span> <span class="k">function</span> <span class="p">(</span><span class="nx">ContainerConfigurator</span> <span class="nv">$container</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$services</span> <span class="o">=</span> <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">services</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$services</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">defaults</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">public</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$services</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">set</span><span class="p">(</span><span class="s1">&#39;your_company.your_module.your_service&#39;</span><span class="p">,</span> <span class="nx">\YourCompany\YourModule\YourService</span><span class="o">::</span><span class="na">class</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">-&gt;</span><span class="na">args</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">service</span><span class="p">(</span><span class="s1">&#39;translator&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;My custom message&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]);</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
-</span></span></code></pre></div><p>This will then allow you to get your service from the Symfony container, like in your modern controllers:</p>
+</span></span></code></pre></div><p>You can use <code>services.php</code> as an entry point to load different service definitions depending on the PrestaShop version:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// yourmodule/config/services.php
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">namespace</span> <span class="nx">Symfony\Component\DependencyInjection\Loader\Configurator</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="k">static</span> <span class="k">function</span> <span class="p">(</span><span class="nx">ContainerConfigurator</span> <span class="nv">$container</span><span class="p">)</span><span class="o">:</span> <span class="nx">void</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">version_compare</span><span class="p">(</span><span class="nx">_PS_VERSION_</span><span class="p">,</span> <span class="s1">&#39;9.2.0&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;=&#39;</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">import</span><span class="p">(</span><span class="s1">&#39;services/services-ps-9.2.php&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nv">$container</span><span class="o">-&gt;</span><span class="na">import</span><span class="p">(</span><span class="s1">&#39;services/services-ps-9.php&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></div><p>You can also keep YAML files as fallbacks for compatibility with older PrestaShop versions:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">yourmodule/
+</span></span><span class="line"><span class="cl">`-- config/
+</span></span><span class="line"><span class="cl">    |-- services.php
+</span></span><span class="line"><span class="cl">    |-- services-9.2.yml
+</span></span><span class="line"><span class="cl">    |-- services-9.yml
+</span></span><span class="line"><span class="cl">    `-- services.yml
+</span></span></code></pre></div><p>When <code>services.php</code> exists, it has priority. Otherwise PrestaShop falls back to the most specific YAML file matching
+the current PrestaShop version, then to <code>services.yml</code>.</p>
+<p>This will then allow you to get your service from the Symfony container, like in your modern controllers:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
 </span></span><span class="line"><span class="cl"><span class="c1">// modules/yourmodule/src/Controller/DemoController.php
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">namespace</span> <span class="nx">YourCompany\YourModule\Controller</span><span class="p">;</span>
@@ -48037,7 +48082,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div>
 <div class="notices tip" >If you need more details about dependency injection and how services work in the Symfony environment we recommend you to read
-their documentation about the <a href="https://symfony.com/doc/4.4/service_container.html">Service Container</a>.</div>
+their documentation about the <a href="https://symfony.com/doc/6.4/service_container.html">Service Container</a>.</div>
 
 
 <h5 id="exclude-indexphp-files-when-adding-wildcard-resource">Exclude index.php files when adding wildcard resource<a href="#exclude-indexphp-files-when-adding-wildcard-resource"></a></h5><p>When adding resources with a wildcard to your module namespace, make sure to exclude all <code>index.php</code> files (this file is used for security; it is redirecting to FO to prevent reading from the directory). If you don&rsquo;t do it, you might be redirected whenever you open your shop.</p>
@@ -48049,16 +48094,16 @@ their documentation about the <a href="https://symfony.com/doc/4.4/service_conta
 </span></span></span></code></pre></div>
 <h3 id="override-an-existing-symfony-service">Override an existing Symfony service<a href="#override-an-existing-symfony-service"></a></h3><p>The container definition can be modified by a module, which enables you to override an existing Symfony service being used in PrestaShop.</p>
 <p>This is a mechanism similar to PrestaShop standard overrides, but the main benefit is that the php code stays unmodified. This prevents issues linked to code definition or autoloading failures.</p>
-<p>As you can read it from the <a href="https://symfony.com/doc/current/service_container/service_decoration.html">Symfony documentation</a>, there are 2 ways to modify an existing service:</p>
+<p>As you can read it from the <a href="https://symfony.com/doc/6.4/service_container/service_decoration.html">Symfony documentation</a>, there are 2 ways to modify an existing service:</p>
 
 <h4 id="override-the-service">Override the service<a href="#override-the-service"></a></h4><p>When you choose to override a service, this means that you <em>replace the service by another one</em>. The previous service is not usable anymore. Every other part of the code where this service is used will use the new version.</p>
-<p>To do it: you declare your new service using the old service name. So if you want to override the service <code>prestashop.core.b2b.b2b_feature</code> with your own implementation, you write in <code>config/services.yml</code> :</p>
+<p>To do it: you declare your new service using the old service name. So if you want to override the service <code>prestashop.core.b2b.b2b_feature</code> with your own implementation, you can write for example in <code>config/services.yml</code>:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prestashop.core.b2b.b2b_feature</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;YourCompany\YourModule\YourService&#39;</span><span class="w">
 </span></span></span></code></pre></div><p>That&rsquo;s done. The service registered under the name <code>prestashop.core.b2b.b2b_feature</code> is now your service. The previous <code>prestashop.core.b2b.b2b_feature</code> is gone.</p>
 
 <h4 id="decorate-the-service">Decorate the service<a href="#decorate-the-service"></a></h4><p>When you choose to decorate a service, this means that you <em>make everybody use your service but you keep the old service available</em>. The previous service has been given a new name and can still be used. Every other part of the code where this service was used will use the new version.</p>
-<p>To do it: you declare your new service using the &lsquo;decorates&rsquo; keyword. So if you want to decorates the service <code>prestashop.core.b2b.b2b_feature</code> with my own implementation, you write in <code>config/services.yml</code> :</p>
+<p>To do it: you declare your new service using the &lsquo;decorates&rsquo; keyword. So if you want to decorates the service <code>prestashop.core.b2b.b2b_feature</code> with my own implementation, you can write for example in <code>config/services.yml</code>:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="w"> </span><span class="nt">mymodule.my_own_b2b_feature_service</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;YourCompany\YourModule\YourService&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">decorates</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prestashop.core.b2b.b2b_feature&#39;</span><span class="w">
@@ -48066,7 +48111,7 @@ their documentation about the <a href="https://symfony.com/doc/4.4/service_conta
 <p>This means that in your container you can access 3 services now:</p>
 <ul>
 <li><code>mymodule.my_own_b2b_feature_service</code> your service</li>
-<li><code>prestashop.core.b2b.b2b_feature</code> is now an alias for <code>mymodule.my_own_b2b_feature_service</code> (see <a href="https://symfony.com/doc/current/service_container/alias_private.html">service aliases</a>) so the other services which rely on it now use your implementation</li>
+<li><code>prestashop.core.b2b.b2b_feature</code> is now an alias for <code>mymodule.my_own_b2b_feature_service</code> (see <a href="https://symfony.com/doc/6.4/service_container/alias_private.html">service aliases</a>) so the other services which rely on it now use your implementation</li>
 <li><code>mymodule.my_own_b2b_feature_service.inner</code> is the previous implementation, still available</li>
 </ul>
 <p>The decoration strategy can be very useful if:</p>
@@ -48225,7 +48270,7 @@ their documentation about the <a href="https://symfony.com/doc/4.4/service_conta
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">TestModule\InstanceofConditionals\Collection\Element</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">TestModule\InstanceofConditionals\Collection\Element</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="l">test_module.instance_of.manually_tagged ]</span><span class="w">
-</span></span></span></code></pre></div><p>Explore more configuration features in <a href="https://symfony.com/doc/4.4/service_container.html#creating-configuring-services-in-the-container">the official Symfony documentation</a>.</p>
+</span></span></span></code></pre></div><p>Explore more configuration features in <a href="https://symfony.com/doc/6.4/service_container.html#creating-configuring-services-in-the-container">the official Symfony documentation</a>.</p>
 
 <h2 id="services-in-legacy-environment">Services in Legacy environment<a href="#services-in-legacy-environment"></a></h2>
 <div class="magic-version-pill" data-version="1.7.6" data-title="New in PrestaShop 1.7.6"></div>
@@ -48239,9 +48284,10 @@ container for this environment (<code>PrestaShop\PrestaShop\Adapter\ContainerBui
 <p>To define your services you need to follow the same principle as Symfony services, but this time you need to place your definition
 files in sub folders:</p>
 <ul>
-<li><code>config/admin/services.yml</code> will define the services accessible in the back office (in legacy environment AND Symfony environment)</li>
-<li><code>config/front/services.yml</code> will define the services accessible in the front office</li>
+<li><code>config/admin/</code> service configuration files will define the services accessible in the back office (in legacy environment AND Symfony environment)</li>
+<li><code>config/front/</code> service configuration files will define the services accessible in the front office</li>
 </ul>
+<p>The service file priority described above also applies in these folders.</p>
 
 <div class="notices warning" ><p><strong>Do not use named arguments for front services definition</strong></p>
 <p>For more information read the dedicated section in <a href="https://devdocs.prestashop-project.org/9/development/naming-conventions/#named-arguments">Naming Conventions</a>.</p>
@@ -48299,7 +48345,7 @@ in admin or front. Be careful and always keep in mind in which context/environme
 <table>
 <thead>
 <tr>
-<th>Definition file</th>
+<th>Definition folder</th>
 <th style="text-align:center">Symfony Container</th>
 <th style="text-align:center">Front Legacy Container</th>
 <th style="text-align:center">Admin Legacy Container</th>
@@ -48309,7 +48355,7 @@ in admin or front. Be careful and always keep in mind in which context/environme
 </thead>
 <tbody>
 <tr>
-<td><code>config/services.yml</code></td>
+<td><code>config/</code></td>
 <td style="text-align:center">Yes</td>
 <td style="text-align:center">No</td>
 <td style="text-align:center">No</td>
@@ -48317,7 +48363,7 @@ in admin or front. Be careful and always keep in mind in which context/environme
 <td>All Symfony components and <code>PrestaShopBundle</code> services</td>
 </tr>
 <tr>
-<td><code>config/admin/services.yml</code></td>
+<td><code>config/admin/</code></td>
 <td style="text-align:center">Yes</td>
 <td style="text-align:center">No</td>
 <td style="text-align:center">Yes</td>
@@ -48325,7 +48371,7 @@ in admin or front. Be careful and always keep in mind in which context/environme
 <td>Doctrine, services defined in <code>&lt;PS_ROOT_DIR&gt;/config/services/admin</code> folder</td>
 </tr>
 <tr>
-<td><code>config/front/services.yml</code></td>
+<td><code>config/front/</code></td>
 <td style="text-align:center">Yes</td>
 <td style="text-align:center">Yes</td>
 <td style="text-align:center">No</td>
@@ -48333,7 +48379,7 @@ in admin or front. Be careful and always keep in mind in which context/environme
 <td>Doctrine, services defined in <code>&lt;PS_ROOT_DIR&gt;/config/services/front</code> folder</td>
 </tr>
 <tr>
-<td><code>config/webservice/services.yml</code></td>
+<td><code>config/webservice/</code></td>
 <td style="text-align:center">Yes</td>
 <td style="text-align:center">No</td>
 <td style="text-align:center">No</td>
@@ -48430,7 +48476,7 @@ create errors in case of modifications.</p>
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/349d6ddc853eae6f71495ca1647623a310d0582e">2026-04-19 by Krystian Podemski</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/63447996a47f94b82897efc2ba3e58127668b529">2026-06-08 by Vincent HADJEDJ</a>.<br>
         
     
 
@@ -48452,17 +48498,17 @@ create errors in case of modifications.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1780908703"></script>
-    <script src="/js/perfect-scrollbar.min.js?1780908703"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1780908703"></script>
-    <script src="/js/jquery.sticky.js?1780908703"></script>
-    <script src="/js/featherlight.min.js?1780908703"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1780908703"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1780908703"></script>
-    <script src="/js/learn.js?1780908703"></script>
-    <script src="/js/hugo-learn.js?1780908703"></script>
+    <script src="/js/clipboard.min.js?1780946346"></script>
+    <script src="/js/perfect-scrollbar.min.js?1780946346"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1780946346"></script>
+    <script src="/js/jquery.sticky.js?1780946346"></script>
+    <script src="/js/featherlight.min.js?1780946346"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1780946346"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1780946346"></script>
+    <script src="/js/learn.js?1780946346"></script>
+    <script src="/js/hugo-learn.js?1780946346"></script>
     
-    <script src="/main.js?1780908703"></script>
+    <script src="/main.js?1780946346"></script>
     
     
     
