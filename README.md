@@ -92,6 +92,35 @@ This commit triggers a third GitHub workflow that will deploy the latest version
 
 _Theme updates do not trigger a deployment, consequently following a theme update, the docs website must be deployed manually._
 
+## AI assistant access (MCP)
+
+The documentation is also exposed to AI assistants through a
+[Model Context Protocol](https://modelcontextprotocol.io/) server, so that tools like
+Claude, Cursor or ChatGPT answer PrestaShop questions from the actual documentation.
+
+The Hugo build publishes three machine-readable artifacts alongside the site:
+
+| Artifact | Contents |
+| --- | --- |
+| `/<path>/index.md` | raw markdown source of every page |
+| [`/llms.txt`](https://devdocs.prestashop-project.org/llms.txt) | index of the supported documentation version, per the [llms.txt convention](https://llmstxt.org/) |
+| [`/mcp-index.json`](https://devdocs.prestashop-project.org/mcp-index.json) | compact page catalogue |
+
+The MCP server itself is a small Cloudflare Worker in [`mcp-server/`](mcp-server/) — GitHub
+Pages can only serve static files, and MCP requires an endpoint that answers `POST`
+requests. It holds no data of its own: it reads the artifacts above and delegates search to
+the site's existing Algolia DocSearch index, so **documentation changes go live without
+redeploying it**.
+
+To run and test the whole thing locally:
+
+```bash
+npm run mcp:local    # builds the site, serves it, starts the Worker on :8787
+npm run mcp:test     # in another terminal
+```
+
+See [`mcp-server/README.md`](mcp-server/README.md) for setup, deployment and usage.
+
 ## License
 
 Content from this documentation is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).
