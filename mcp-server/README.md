@@ -143,41 +143,11 @@ answers through the labelled fallback.
 
 ## Deployment
 
-`.github/workflows/deploy-mcp.yml` deploys on every push to `main` that touches
-`mcp-server/`. It needs two repository secrets:
+**Deployment is owned by the platform/devops team — this repository does not deploy the
+server.** There is deliberately no CI workflow and there are no deployment secrets here.
 
-| Secret | Where to get it |
-| --- | --- |
-| `CLOUDFLARE_API_TOKEN` | Cloudflare dashboard → My Profile → API Tokens → *Edit Cloudflare Workers* template |
-| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare dashboard → Workers & Pages → Account ID |
-
-Manual deploy: `npx wrangler deploy` from this directory.
-
-### Cost
-
-The Workers free plan covers 100,000 requests/day, which is far beyond what documentation
-lookups will generate. Algolia DocSearch is free for open-source documentation and is
-already in use by the website.
-
-### Custom domain
-
-On a `*.workers.dev` host the Cloudflare edge cache is bypassed, so every isolate refetches
-the documentation artifacts (they are still cached in-memory for 15 minutes per isolate).
-Binding a custom domain — the `routes` block in `wrangler.jsonc` — enables edge caching and
-gives a nicer URL.
-
-`prestashop-project.org` is already an active zone on Cloudflare, so nothing needs setting
-up by hand: `wrangler deploy` creates the DNS record and provisions the certificate itself.
-Two things have to be true, though:
-
-- **The API token must include this zone.** The *Edit Cloudflare Workers* template asks
-  which zones it applies to; `prestashop-project.org` has to be among them, or the custom
-  domain cannot be created.
-- **The hostname must be a first-level subdomain.** Universal SSL on this zone covers
-  `prestashop-project.org` and `*.prestashop-project.org`, and a wildcard matches exactly
-  one label. `devdocs-mcp.prestashop-project.org` is covered;
-  `mcp.devdocs.prestashop-project.org` is not, and would fail TLS. Deeper subdomains need
-  Advanced Certificate Manager, which is a paid add-on.
+Whichever host: Algolia DocSearch is free for open source and already in use by the
+website, and the compute involved is negligible on any platform's free tier.
 
 ## Protocol notes
 

@@ -106,8 +106,8 @@ The Hugo build publishes three machine-readable artifacts alongside the site:
 | [`/llms.txt`](https://devdocs.prestashop-project.org/llms.txt) | index of the supported documentation version, per the [llms.txt convention](https://llmstxt.org/) |
 | [`/mcp-index.json`](https://devdocs.prestashop-project.org/mcp-index.json) | compact page catalogue |
 
-The MCP server itself is a small Cloudflare Worker in [`mcp-server/`](mcp-server/) — GitHub
-Pages can only serve static files, and MCP requires an endpoint that answers `POST`
+The MCP server itself is a small stateless HTTP service in [`mcp-server/`](mcp-server/) —
+GitHub Pages can only serve static files, and MCP requires an endpoint that answers `POST`
 requests. It holds no data of its own: it reads the artifacts above and delegates search to
 the site's existing Algolia DocSearch index, so **documentation changes go live without
 redeploying it**.
