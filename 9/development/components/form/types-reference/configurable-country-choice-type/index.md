@@ -1,0 +1,40 @@
+---
+title: "ConfigurableCountryChoiceType"
+url: "https://devdocs.prestashop-project.org/9/development/components/form/types-reference/configurable-country-choice-type/"
+version: "9"
+source: "https://github.com/PrestaShop/docs/blob/9.x/development/components/form/types-reference/configurable-country-choice-type.md"
+---
+
+
+# ConfigurableCountryChoiceType
+
+Class responsible for providing configurable countries list
+
+- Namespace: PrestaShopBundle\Form\Admin\Type
+- Reference: [ConfigurableCountryChoiceType](https://github.com/PrestaShop/PrestaShop/blob/9.1.x/src/PrestaShopBundle/Form/Admin/Type/ConfigurableCountryChoiceType.php)
+
+## Type options
+
+| Option       | Type   | Default value                     | Description                                                                               |
+| :----------- | :----- | :-------------------------------- | :---------------------------------------------------------------------------------------- |
+
+## Code example
+
+- [StateGridDefinitionFactory.php](https://github.com/PrestaShop/PrestaShop/blob/9.1.0/src/Core/Grid/Definition/Factory/StateGridDefinitionFactory.php#L191-L199)
+
+```php
+$builder->add(
+    (new Filter('id_country', ConfigurableCountryChoiceType::class))
+        ->setTypeOptions([
+            'required' => false,
+            'contains_states' => true,
+            'choice_translation_domain' => false,
+        ])
+        ->setAssociatedColumn('country_name')
+)
+```
+
+## Preview example
+
+{{< figure src="../img/configurable-country-choice.png" title="ConfigurableCountryChoiceType rendered in form example" >}}
+

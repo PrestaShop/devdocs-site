@@ -1,0 +1,867 @@
+---
+title: "Changes in PrestaShop 9.0.x"
+url: "https://devdocs.prestashop-project.org/9/modules/core-updates/9.0/"
+version: "9"
+source: "https://github.com/PrestaShop/docs/blob/9.x/modules/core-updates/9.0.md"
+---
+
+
+<style>
+/* condensed lists in this article */
+#body-inner li, #body-inner li ul, li p { margin-bottom: 0.2rem}
+/* deprecation indicators */
+#body-inner depre {font-size: 85%; color: #666; font-style: italic; vertical-align: middle }
+#body-inner depre::before {content: ' – '}
+</style>
+
+# Notable changes in PrestaShop 9.0.x
+
+This section provides a list of the most significant changes in PrestaShop 9.0.x. While this list is not exhaustive, it aims to give developers a clear overview of the important updates. If you notice any missing or incorrect information, please help us improve by creating an issue on our [GitHub repository](https://github.com/PrestaShop/docs/issues/new).
+
+{{% notice tip %}}
+**Quick links to patch releases:**
+[PrestaShop 9.0.1](#prestashop-901) | [PrestaShop 9.0.2](#prestashop-902)
+{{% /notice %}}
+
+## PHP support
+
+PrestaShop 9.0 now requires **PHP 8.1 minimum**, with support added for PHP 8.2, 8.3 and 8.4.
+
+- [Remove compatibility for PHP versions inferior to PHP 8.1](https://github.com/PrestaShop/PrestaShop/pull/32514)
+- [Support for PHP 8.2](https://github.com/PrestaShop/PrestaShop/pull/29116)
+- [Support for PHP 8.3](https://github.com/PrestaShop/PrestaShop/pull/34485)
+- [Support for PHP 8.4](https://github.com/PrestaShop/PrestaShop/pull/37417)
+
+## Node support
+
+The **minimum** version to build PrestaShop assets is now the version 20.
+
+## Core changes
+
+### Symfony Upgrade
+
+PrestaShop 9.0 has been upgraded to rely on Symfony 6.4. This is a significant leap from the previous version, 8.x, which was based on Symfony 4.4. As a result, version 9 includes all the breaking changes related to the Symfony Framework. For more details about these changes in the core, you can refer to the [PrestaShop GitHub issue](https://github.com/PrestaShop/PrestaShop/issues/33993). Additionally, you can consult the Symfony migration guides (see links below).
+
+Symfony 6.4 is the latest LTS version and will receive bug fixes until November 2026, as well as security fixes until November 2027.
+
+- [UPGRADE FROM 4.4 to 5.0](https://github.com/symfony/symfony/blob/5.4/UPGRADE-5.0.md)
+- [UPGRADE FROM 5.0 to 5.1](https://github.com/symfony/symfony/blob/5.4/UPGRADE-5.1.md)
+- [UPGRADE FROM 5.1 to 5.2](https://github.com/symfony/symfony/blob/5.4/UPGRADE-5.2.md)
+- [UPGRADE FROM 5.2 to 5.3](https://github.com/symfony/symfony/blob/5.4/UPGRADE-5.3.md)
+- [UPGRADE FROM 5.3 to 5.4](https://github.com/symfony/symfony/blob/5.4/UPGRADE-5.4.md)
+- [UPGRADE FROM 5.3 to 5.4](https://github.com/symfony/symfony/blob/5.4/UPGRADE-5.4.md)
+- [UPGRADE FROM 5.X to 6.0](https://github.com/symfony/symfony/blob/6.4/UPGRADE-6.0.md)
+- [UPGRADE FROM 6.0 to 6.1](https://github.com/symfony/symfony/blob/6.4/UPGRADE-6.1.md)
+- [UPGRADE FROM 6.1 to 6.2](https://github.com/symfony/symfony/blob/6.4/UPGRADE-6.2.md)
+- [UPGRADE FROM 6.2 to 6.3](https://github.com/symfony/symfony/blob/6.4/UPGRADE-6.3.md)
+- [UPGRADE FROM 6.3 to 6.4](https://github.com/symfony/symfony/blob/6.4/UPGRADE-6.4.md)
+
+### Removed dependencies
+
+We have followed Symfony's recommendations and made changes to our dependencies. Instead of using the `symfony/symfony` dependency, we now manually include each sub-package. Additionally, due to the minimum PHP version requirement of 8.1, we had to upgrade or remove certain dependencies.
+
+During this process, we took the opportunity to clean up dependencies that are no longer used in the core, regardless of whether they are from Symfony or not. If you rely on these dependencies in your modules, you will need to integrate them into your module's dependencies.
+
+| Library name                       | Reason for removal/Replacement                              | More details |
+|------------------------------------|-------------------------------------------------------------|--------------|
+| guzzlehttp/guzzle                  | Replaced by Symfony HTTP client in the core                 | [Adapting to PrestaShop 9: Guzzle is gone, what's next?](https://build.prestashop-project.org/news/2025/breaking-change-guzzle-removal-v9/)             |
+| league/tactician-bundle            | Replaced by Symfony Messenger component                     |              |
+| pear/archive_tar                   | No longer used                                              |              |
+| sensio/framework-extra-bundle      | We now favor annotations in the core                        |              |
+| soundasleep/html2text              | No longer used                                              |              |
+| swiftmailer/swiftmailer            | Replaced by Symfony Mailer component in the core            |              |
+| symfony/inflector                  | No longer used                                              |              |
+| symfony/notifier                   | No longer used                                              |              |
+| symfony/rate-limiter               | No longer used                                              |              |
+| symfony/semaphore                  | No longer used                                              |              |
+| symfony/uid                        | No longer used                                              |              |
+| symfony/workflow                   | No longer used                                              |              |
+
+#### Mailer Migration
+
+We have migrated from Swift Mailer to Symfony Mailer. This change includes several improvements and aligns with Symfony's latest recommendations.
+
+**Mail SSL encryption was dropped**
+
+When we migrated from Swift Mailer to Symfony Mailer, we noticed that SSL support was not an option in ESMTP transport. SSL is an old and outdated encryption type, and for security reasons, it will no longer be allowed.
+
+The remaining choices are "TLS encryption" or "No encryption".
+
+### Upgraded dependencies
+
+Some dependencies are still present but were upgraded which comes with their own breaking changes, please refer to each dependency changelog to understand them in details if you depend on these dependencies. The list below includes dependencies which major version was upgraded.
+
+Production dependencies:
+
+
+Production dependencies:
+| Name                               | Old version   | New version   |
+|------------------------------------|---------------|---------------|
+| api-platform/core                  | v2.7.11       | v3.4.8        |
+| composer/installers                | v1.12.0       | v2.2.0        |
+| doctrine/dbal                      | 2.13.8        | 3.9.3         |
+| doctrine/event-manager             | 1.2.0         | 2.0.1         |
+| doctrine/instantiator              | 1.4.1         | 2.0.0         |
+| doctrine/lexer                     | 1.2.3         | 2.1.1         |
+| egulias/email-validator            | 3.1.2         | 4.0.2         |
+| friendsofsymfony/jsrouting-bundle  | 2.8.0         | 3.5.2         |
+| lcobucci/jwt                       | 3.4.6 (special patch from https://github.com/PrestaShop/jwt.git) | 5.0.0 (no need for fork version anymore) |
+| league/oauth2-server               | 8.3.5         | 9.1.0         |
+| league/uri-interfaces              | 2.3.0         | 7.4.1         |
+| mobiledetect/mobiledetectlib       | 2.8.41        | 3.74.3        |
+| pelago/emogrifier                  | v5.0.1        | v7.2.0        |
+| prestashop/classic                 | 2.1.3         | 3.0.0         |
+| prestashop/ps_distributionapiclient| v1.1.1        | v2.0.0        |
+| prestashop/ps_facetedsearch        | v3.16.1       | v4.0.0        |
+| prestashop/ps_linklist             | v6.0.7        | v7.0.1        |
+| psr/cache                          | 1.0.1         | 3.0.0         |
+| psr/log                            | 1.1.4         | 3.0.2         |
+
+Development dependencies:
+
+| Name                               | Old version   | New version   |
+|------------------------------------|---------------|---------------|
+| composer/pcre                      | 1.0.1         | 3.1.4         |
+| phpunit/php-code-coverage          | 7.0.15        | 10.1.16       |
+| phpunit/php-timer                  | 2.1.3         | 6.0.0         |
+| phpunit/phpunit                    | 8.5.26        | 10.5.38       |
+| sebastian/comparator               | 3.0.4         | 5.0.3         |
+| sebastian/diff                     | 3.0.3         | 5.1.1         |
+| sebastian/environment              | 4.2.4         | 6.1.0         |
+| sebastian/exporter                 | 3.1.5         | 5.1.2         |
+| sebastian/global-state             | 3.0.2         | 6.0.2         |
+| sebastian/object-enumerator        | 3.0.4         | 5.0.0         |
+| sebastian/object-reflector         | 1.1.2         | 3.0.0         |
+| sebastian/recursion-context        | 3.0.1         | 5.0.0         |
+| sebastian/type                     | 1.1.4         | 4.0.0         |
+| sebastian/version                  | 2.0.1         | 4.0.1         |
+
+### Symfony controllers
+
+In Symfony 6.4, the controllers must now be defined as services. The impact on the existing controllers is mainly around the concept of Dependency Injection and how services are injected or accessed in the controllers.
+The container passed to the controllers is no longer the "global container" that contains all the existing services in the application. Instead, it injects a dedicated container optimized for the controller based on the services that are injected into it.
+
+The issue is that most of PrestaShop's Symfony controllers do not rely on injection but instead use the `$this->get('service_name')` method to access any service. This is no longer possible in modern controllers because of the mentioned optimization related to container build (and the `get` method was even removed).
+To avoid a very big breaking change, we modified the `PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController`, so that it can fetch services from the controller's container **and** from the global one, but this is a little hack that goes against Symfony recommendations, as such this base class is already **deprecated and will be removed in PrestaShop 10.0**.
+
+This gives developers some time to refacto their controllers. They should now rely on the new `PrestaShopBundle\Controller\Admin\PrestaShopAdminController`, which doesn't implement the mentioned hack in order to force a proper implementation of the controllers.
+You can read more details about <a href="https://symfony.com/doc/6.4/controller/service.html" target="_blank">Controllers as services</a>, <a href="https://symfony.com/doc/6.4/service_container/service_subscribers_locators.html" target="_blank">Service Subscribers & Locators</a> or <a href="https://symfony.com/doc/6.4/service_container.html">Service container</a> in general.
+
+As an example, you have three main possibilities to inject a service into your controller:
+
+```php
+<?php
+
+use PrestaShopBundle\Controller\Admin\PrestaShopAdminController;
+
+class MyController extends PrestaShopAdminController
+{
+    /**
+     * You can inject your service systematically in the constructor, useful if the service is used by several actions of your controller.
+     * 
+     * @param MyCustomService $myCustomService
+     */
+    public function __construct(
+      private readonly MyCustomService $myCustomService,
+    ) {
+    }
+    
+    /**
+     * You can inject a service only on one method, useful if the service is used only in one action. It is more optimized than injecting it all the time and never using it.
+     * 
+     * @param MySpecificService $specificService
+     * @return JsonResponse
+     */
+    public function indexAction(MySpecificService $specificService): JsonResponse
+    {
+        $generalData = $this->myCustomerService->getData();
+        $specificData = $specifiService->getSpecificData();
+
+        // You can use the get method to fetch a service that was added in the getSubscribedServices method
+        $toolingService = $this->container->get(ToolingService::class);
+        
+        return new JsonResponse($toolingService->format($generalData + $specificData));
+    }
+    
+    /**
+     * You can define a list of registered services, they will be accessible via the $this->container->get method, this
+     * way of injecting service is interesting if implemented on a base controller class for generic services that
+     * may be used by many controllers (like the router, the translator, ...) so you don't need to inject them manually
+     * in each controller class.
+     * 
+     * @return array
+     */
+    public static function getSubscribedServices(): array
+    {
+        return parent::getSubscribedServices() + [
+            ToolingService::class => ToolingService::class,
+        ];
+    }
+}
+```
+
+**Define your controller as a service**
+
+You can already anticipate and define your controllers as services, it is also compatible with previous versions of Symfony and PrestaShop:
+
+```yaml
+services:
+  MyNamespace\MyController:
+    # Using autowire will inject services in the constructors automatically
+    autowire: true
+    # Using autoconfigure with controllers that extend AbstractController will handle method parameter injection and subscribed services
+    autoconfigure: true
+    # If your controller class doesn't extend AbstractController you should add this tag manually so you benefit from method parameters injection
+    tags: ['controller.service_arguments']
+```
+
+{{% notice note %}}
+**PrestaShopAdminController::getSubscribedServices**
+
+The new base controller class uses the `getSubscribedServices` method to give easy access to some commonly used PrestaShop services, like the `ConfigurationInterface`, `HookDispatcherInterface`, `TranslatorInterface`, ...
+You can see the <a href="https://github.com/PrestaShop/PrestaShop/blob/9.0.0/src/PrestaShopBundle/Controller/Admin/PrestaShopAdminController.php#L74" target="_blank">full list of subscribed services</a> in the class, this list will probably grow piece by piece but only for common generic services.
+<br/><br/>
+Thanks to this, you can use `$this->container->get(ConfigurationInterface::class)->get('my_config')` to access the configuration service, or alternatively use the helper method `$this->getConfiguration()->get('my_config')`.
+The `PrestaShopAdminController` class comes with other helpful helper methods that are commonly used in controllers.
+{{% /notice %}}
+
+- [Removed method renderForm which is now used by the Symfony framework](https://github.com/PrestaShop/PrestaShop/pull/31994)
+- [Maintain backward compatibility FrameworkBundleAdminController, but deprecated](https://github.com/PrestaShop/PrestaShop/pull/32450)
+- [Services translator, security.csrf.token_manager, session, session.flash_bag no longer public](https://github.com/PrestaShop/PrestaShop/pull/35069)
+- [Replace AdminSecurity annotation with attributes](https://github.com/PrestaShop/PrestaShop/pull/35212)
+
+### Kernel modifications
+
+Until PrestaShop 8, we relied on one Kernel used for the back office. In PrestaShop 9.0, we expanded the usage of the Symfony framework, especially for two new features:
+- [the new Admin API based on API Platform](https://build.prestashop-project.org/news/2024/meet-prestashop9-api/) and OAuth authentication
+- an experimental feature that gives access to a Symfony container in the front office (in opposition to the custom-built container available today). This one is not very much used yet, but it's a first stone for the future front office migration
+
+Those two new environments have mechanisms and configuration different from those in the back office. To separate these configurations cleanly, they each have their dedicated kernel class and their own configuration. This allows to cleanly define different routing, security configurations, dedicated services, listeners, etc.
+
+Each kernel has a unique `applicationId` that allows to dynamize its configuration and cache folder (since the services are not the same, each kernel needs its own cache folder). The `appId` parameter has also been added globally to the `bin/console` tool. They all share the common `app/config/config.yml` configuration file, but each one extends it in its own config folder.
+
+| Environment                 | Kernel class     | Config folder          | Cache folder                          | Endpoint               | App ID |
+|-----------------------------|------------------|------------------------|---------------------------------------|------------------------|----------------|
+| Back office                 | `AdminKernel`    | `app/config/admin`     | `var/cache/{dev,prod,test}/admin`     | `/admin-dev/index.php` | `admin`        |
+| Admin API                   | `AdminAPIKernel` | `app/config/admin-api` | `var/cache/{dev,prod,test}/admin-api` | `/admin-api/index.php` | `admin-api`    |
+| Front office (experimental) | `FrontKernel`    | `app/config/front`     | `var/cache/{dev,prod,test}/front`     | `/index.php`           | `front`        |
+
+{{% notice note %}}
+**Console usage examples**
+
+To clear the cache of the Admin API for its `prod` environment:
+
+`php bin/console cache:clear --env=prod --app-id=admin-api`
+
+--
+
+To display event listeners for the back office in `dev` environment (default value of `app-id` is `admin` for retro compatibility):
+`php bin/console debug:event-dispatcher kernel.request --env=dev`
+{{% /notice %}}
+
+**Related PRs**
+
+- [Experimental front container](https://github.com/PrestaShop/PrestaShop/pull/32719)
+- [Admin API has dedicated kernel, we now have three distinct configurations](https://github.com/PrestaShop/PrestaShop/pull/35515)
+
+### Symfony layout
+
+All the back office pages share a common layout, composed of a few elements:
+- the `<head>` element that includes all the CSS and JS (among other things)
+- the side navigation menu
+- the header of the page which is itself composed of:
+  - quick access component
+  - search form
+  - notifications center
+  - employee dropdown
+  - the multistore header (when multistore is enabled)
+  - the page toolbar (which includes breadcrumbs and top action buttons)
+- the footer (which only contains a `displayBackOfficeFooter` display hook)
+
+Until PrestaShop 8.1, all these common elements were handled by legacy code, so even on the migrated pages, there was always a background legacy controller based on `AdminController` in charge of building the layout data and rendering it. Once the layout was rendered the central content of Symfony pages was included in the middle of it. It means no page was completely free from the legacy controllers, which would ultimately block the end of migration, while they are intended to disappear completely.
+
+In PrestaShop 9.0 all this layout part is now fully handled by Symfony, we use <a href="https://symfony.com/bundles/ux-twig-component/current/index.html" target="_blank">Twig components</a> to render each element independently. The code is, therefore, easier to understand, a component class is responsible for fetching/building the data, while the actual rendering is based on Twig. See our <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/src/PrestaShopBundle/Twig/Component" target="_blank">Layout components</a> for more details.
+
+On legacy pages, we follow the same principle. Symfony is now in charge of rendering all the layout, and we use some <a href="https://github.com/PrestaShop/PrestaShop/tree/develop/src/PrestaShopBundle/Twig/Component/Legacy" target="_blank">Legacy layout components</a> that follow the same architecture, but render different Twig templates to fit with the old **default theme** (that is based on old Bootstrap and includes old legacy helpers like `HelperForm` and `HelperList`).
+
+**What changes for my module pages?**
+
+We refactored this layout with maximum backward compatibility in mind. The HTML layout itself had minimum changes (in both migrated and legacy pages). We tried to keep the same hooks in both the PHP code and the Twig templates. We even introduced a fake legacy controller in migrated pages that has no logic but is kept mostly as a [DTO](https://en.wikipedia.org/wiki/Data_transfer_object) to contain things like CSS files and JS files, because that's where most modules add their content.
+
+We still had to change the controller workflow. Many of the functions in `AdminController` are no longer useful as they are used to initialize the layout variables (now handled by Twig components). Some methods also render or write output directly, which we prevent as we need to get the rendered content as a string to integrate it correctly inside the new layout. This means some internal methods had to be split to avoid unwanted usage.
+
+**Legacy workflow:**
+
+Here you'll find the [execution workflow of legacy controllers]({{< relref "/9/development/architecture/legacy/legacy-controllers.md" >}})
+
+**Symfony workflow:**
+
+<div class="mermaid">
+  flowchart TD
+  A[Special Routing Matching URL] -->|Check URL with LegacyRouterChecker::check| B{Is valid?}
+  B -->|Yes| C[Instantiate Controller & call AdminController::init]
+  B -->|No| Z[Invalid URL]
+  C --> D[Set attributes on Symfony Request]
+  D --> E[LegacyController::legacyPageAction]
+  E --> F[LegacyController::initController]
+  F --> G[Check permissions based on detected controller & action]
+  G --> H[SmartyVariablesFiller::fillDefault]
+  H --> I[AdminController::setMedia]
+  I --> J[AdminController::postProcess]
+  J -->|redirect_after defined| K[Perform HTTP redirection]
+  J -->|redirect_after not defined| L{ajax query parameter defined?}
+  L -->|Yes| M[LegacyController::renderAjaxController]
+  L -->|No| N[LegacyController::renderPageContent]
+  M --> O[Execute AdminController::initContent]
+  O --> P[Execute AdminController::displayAjax]
+  P --> Q[Catch output data & return as response]
+  N --> R[Execute AdminController::initContent]
+  R --> S[Fetch AdminController::template content]
+  S --> T[Call Cookie::write]
+  T --> U[Get modal content via AdminController::renderModal]
+</div>
+
+The two workflows should render the same result. Many methods from the legacy workflow are not executed anymore because they lost their purpose, but in case you override one of those methods, be aware that they are no longer called directly, so there are breaking changes:
+
+- `AdminController:run`
+- `AdminController::initHeader`
+- `AdminController::initContent`
+- `AdminController::initFooter`
+- `AdminController:display`
+
+Also, be aware that many Smarty variables are no longer defined because they were only used to render the layout.
+
+Despite the changes in the workflow and the fact we no longer depend on the `Dispatcher` class, we **maintained** these hooks:
+- `actionDispatcher`
+- `actionDispatcherBefore`
+- `actionDispatcherAfter`
+
+**Related PRs:**
+- [Smarty variables viewport_scale and inline_js variables no longer present](https://github.com/PrestaShop/PrestaShop/pull/33775)
+- [Removed modal_module_list, modals views in new layout](https://github.com/PrestaShop/PrestaShop/pull/33864)
+- [Clean Smarty variables that were only relevant for the layout internal use](https://github.com/PrestaShop/PrestaShop/pull/34560)
+- [Legacy pages are rendered by Symfony](https://github.com/PrestaShop/PrestaShop/pull/34783)
+
+For more details about the changes, you can check the content of the <a href="https://github.com/PrestaShop/PrestaShop/issues/32875" target="_blank">Symfony layout Epic</a>.
+
+### Back office login and authorization migrated to Symfony
+
+The back office login page has been migrated to Symfony. Along with this change, the authorization system in the back office is now also based on Symfony, which implies several things:
+- we no longer depend on the legacy `Context::$cookie`, the session is kept on the server side, and very few data are kept on the browser side. For retro-compatibility, we still populate the legacy cookie so that you can **read** it. While you can use `Context::$cookie` for your custom data, making changes to the data previously used for PrestaShop authorization will no longer have the desired effect and may even result in instability, so it's not recommended
+- the `PrestaShopBundle\Security\Admin\EmployeeProvider` and `PrestaShopBundle\Service\DataProvider\UserProvider` now return a `PrestaShopBundle\Entity\Employee` instance, their responsibility is to return a `Symfony\Component\Security\Core\User\UserInterface` anyway (and they still do) but in case you depended on the child class know that `PrestaShopBundle\Security\Admin\Employee` no longer exist
+- if you need to get the logged-in user, you can use the Symfony `Symfony\Bundle\SecurityBundle\Security` service, but we recommend you use the `EmployeeContext` internal PrestaShop service (see explanation about [new Contexts]({{< relref "/9/modules/core-updates/9.0.md#symfony-context-refactorization" >}}))
+
+**Storing custom data in a Session**
+
+If you need to persist some custom Employee data, we no longer recommend using the `Context::$cookie`. Instead, you can use the `Session` from Symfony and update its attributes:
+
+```php
+// In Symfony controllers, you can get the session from the Request parameter injected by Symfony
+$session = $request->getSession();
+
+// In other services you will need to get the current request via the RequestStack service
+$request = $requestStack->getCurrentRequest();
+if ($request) {
+  $session = $request->getSession();
+}
+
+// You can then get/set a custom attribute, but you should always check that the session object is indeed available.
+// Some requests do not rely on the session, and it may never be created
+if ($session) {
+  // Be careful to use a custom and UNIQUE attribute name
+  $myData = $session->getAttribute('my_custom_data');
+  
+  // The session object will be automatically serialized at the end of the request,
+  // and automatically unserialized at the beginning of the next requests
+  $session->setAttribute('my_custom_data', 'updated value');
+}
+```
+
+{{% notice note %}}
+The Symfony Session has other useful features, such as flash bags for storing temporary data. You can find more information about its usage in the <a href="https://symfony.com/doc/6.4/session.html" target="_blank">Session documentation</a>.
+{{% /notice %}}
+
+**Removed hooks:**
+- `actionAdminLoginControllerBefore`
+- `actionAdminLoginControllerLoginBefore`
+- `actionAdminLoginControllerLoginAfter`
+- `actionAdminLoginControllerForgotBefore`
+- `actionAdminLoginControllerForgotAfter`
+- `actionAdminLoginControllerResetBefore`
+- `actionAdminLoginControllerResetAfter`
+
+**Hooks kept for backward compatibility:**
+- `actionAdminLoginControllerSetMedia` so you can add some custom assets on the login page
+- `displayAdminLogin` so you can add custom HTML on the login page
+
+**New hooks**
+- `actionBackOfficeLoginForm` to modify the login form (the form builder is passed via the `form_builder` hook parameter)
+- `actionEmployeeRequestPasswordResetForm` to modify the request password form (the form builder is passed via the `form_builder` hook parameter)
+
+The login logic, however, is not handled by PrestaShop's internal code so there is no handler that interprets the submitted data (and that's why there are so few new hooks). Instead we rely on <a href="https://symfony.com/doc/current/security.html#form-login" target="_blank">Symfony form login authentication system</a>, so it's Symfony's internal system that interprets the data submitted, validates it and authenticate the employee to the back office.
+
+If you need to integrate your code with the authentication process you should now rely on the <a href="https://symfony.com/doc/current/security.html#authentication-events" target="_blank">Authentication events</a> described in their documentation, you can also inspire yourself from our <a href="https://github.com/PrestaShop/PrestaShop/blob/9.0.0/src/PrestaShopBundle/EventListener/Admin/EmployeeSessionSubscriber.php" target="_blank">internal subscriber</a>.
+
+**Related PRs:**
+- [Update employee interfaces](https://github.com/PrestaShop/PrestaShop/pull/34818)
+- [PS_SSL_ENABLED_EVERYWHERE configuration removed, PS_TRUSTED_PROXIES env variable introduced](https://github.com/PrestaShop/PrestaShop/pull/35761)
+- [AdminController::isAnonymousAllowed is now public](https://github.com/PrestaShop/PrestaShop/pull/35810)
+- [Login page and authentication migrated](https://github.com/PrestaShop/PrestaShop/pull/35983)
+
+### Symfony context refactorization
+
+A significant amount of code in the core relies on the legacy `Context` class, which stores certain data as a singleton. However, this legacy implementation has many drawbacks, so refactoring was initiated in PrestaShop 9.0 to replace its usage.
+
+You can find more details about the reason behind this and the implementation in the related <a href="https://github.com/PrestaShop/ADR/blob/master/0024-context-refacto.md" traget="_blank">ADR about Context refactoring</a>.
+
+You should now favor using the modern split context services:
+
+- `PrestaShop\PrestaShop\Core\Context\ApiClientContext`
+- `PrestaShop\PrestaShop\Core\Context\CountryContext`
+- `PrestaShop\PrestaShop\Core\Context\CurrencyContext`
+- `PrestaShop\PrestaShop\Core\Context\EmployeeContext`
+- `PrestaShop\PrestaShop\Core\Context\LanguageContext`
+- `PrestaShop\PrestaShop\Core\Context\LegacyControllerContext`
+- `PrestaShop\PrestaShop\Core\Context\ShopContext`
+
+We still have some work to do to replace all the usages of the legacy context with the modern ones, but the new code will stop using the legacy ones. We recommend that developers rely on the new ones from now on.
+
+- [ShopContext and EmployeeContext](https://github.com/PrestaShop/PrestaShop/pull/33223)
+- [CurrencyContext and CountryContext](https://github.com/PrestaShop/PrestaShop/pull/34147)
+- [LanguageContext (implied modifications on LanguageInterface and LocaleInterface)](https://github.com/PrestaShop/PrestaShop/pull/34500)
+- [ApiClientContext](https://github.com/PrestaShop/PrestaShop/pull/34892)
+- [LegacyControllerContext](https://github.com/PrestaShop/PrestaShop/pull/34390)
+
+## Migrated pages
+
+The migration of back office pages to Symfony imply several breaking changes, we won't detail all of them for each page but here is a summary:
+- the legacy URL is no longer reachable, you are automatically redirected to the migrated page
+- the legacy controller is removed along with its associated Smarty templates
+- the legacy hooks related to controller workflow are no longer called
+- the page no longer uses Smarty, but Twig
+- the page no longer uses HelperForm and HelperList, but Symfony form components and Grid components
+
+Here is the list of migrated pages enabled by default in PrestaShop 9:
+
+- Sell -> Orders -> Shopping carts
+- Sell -> Catalog -> Attributes & Features
+- Sell -> Catalog -> Products (new version of the page introduce in PrestaShop 8.1 is now the only available one)
+- Improve -> Design -> Image Settings
+- Improve -> International -> Locations -> States
+- Configure -> Shop Parameters -> Customer Settings -> Titles
+- Configure -> Shop Parameters -> Order Settings -> Statuses
+
+List of newly migrated pages in PrestaShop 9.0 that are hidden behind a feature flag:
+
+- Sell -> Customer Service -> Merchandise Returns
+- Configure -> Shop Parameters -> Customer Settings -> Groups
+- Configure -> Shop Parameters -> Contact -> Stores
+- Configure -> Shop Parameters -> Search
+
+### Changes in the product page
+
+Edition of features on the new product page, [use a new optimized data structure in the form](https://github.com/PrestaShop/PrestaShop/pull/34763). You may need to adapt your module if you rely on the old structure.
+
+The new product page is the only one available in PrestaShop 9.0, the old one is no longer reachable. [Discover how to extend it with modules in this chapter][new-product-page].
+
+## Breaking Changes
+
+### `trans` method
+
+Following [PrestaShop/PrestaShop#30415](https://github.com/PrestaShop/PrestaShop/pull/30415), the function `trans()` does **not** escape anymore strings. In PrestaShop 8, you could pass parameters like `htmspecialcharacters` or `addslashes` to `trans()` to perform additional escape, but it’s been removed. It also affects the `l` function in Smarty.
+
+Since [PrestaShop/PrestaShop#31900](https://github.com/PrestaShop/PrestaShop/pull/31900), the `trans` method always keep the behavior it had with the (now removed) `_raw` parameter, meaning the content is not modified anymore. You need to use `htmlspecialchars` on your parameters provided on input and on the returned string if you need to modify it.
+
+### Some front controller now use `Presenter` classes
+
+Several front office pages now use Presenter classes to format data before passing it to Smarty templates. This standardizes data delivery and enables features like multiple image formats (including WebP).
+
+**This is a breaking change for themes.** If you have a custom theme, you will need to update your templates to use the new data structure.
+
+| Page                                                | Details                                                                               |
+|-----------------------------------------------------|---------------------------------------------------------------------------------------|
+| [Category](https://github.com/PrestaShop/PrestaShop/pull/32653)       | New hook available, `actionPresentCategory`                                            |
+| [Supplier](https://github.com/PrestaShop/PrestaShop/pull/32634)       | [Different template structure](https://github.com/PrestaShop/classic-theme/pull/117) and new hooks |
+| [Manufacturer](https://github.com/PrestaShop/PrestaShop/pull/31309)   | [Different template structure](https://github.com/PrestaShop/classic-theme/pull/112) and new hooks |
+| [Store](https://github.com/PrestaShop/PrestaShop/pull/32652)          | New hook available `actionPresentStore`                                               |
+
+#### Manufacturer page breaking changes
+
+The `ManufacturerPresenter` introduces the following breaking changes:
+
+- **Image structure changed**: The `$manufacturer.image` variable is no longer a final URL string. It is now a standard image array with multiple sizes and formats, similar to product images.
+
+  Before:
+  ```smarty
+  <img src="{$manufacturer.image}" alt="{$manufacturer.name}">
+  ```
+
+  After:
+  ```smarty
+  <img src="{$manufacturer.image.medium.url}" alt="{$manufacturer.name}">
+  ```
+
+- **Product count format changed**: The `nb_products` field now returns only an integer, not a formatted string. The string formatting should be handled in the template.
+
+  Before (returned by controller):
+  ```
+  "10 products"
+  ```
+
+  After (returned by presenter):
+  ```
+  10
+  ```
+
+  Your template should now handle the pluralization:
+  ```smarty
+  {l s='%number% product' sprintf=['%number%' => $manufacturer.nb_products] d='Shop.Theme.Catalog'}
+  ```
+
+- **New hook available**: `actionPresentManufacturer` allows modules to modify manufacturer data before it's sent to the template.
+
+For reference implementations, see the [classic theme changes](https://github.com/PrestaShop/classic-theme/pull/112).
+
+
+### Stronger types / change of prototypes
+
+- [PrestaShop\PrestaShop\Core\Product\Search\Pagination](https://github.com/PrestaShop/PrestaShop/pull/31995)
+- [Type hint front controllers](https://github.com/PrestaShop/PrestaShop/pull/32846)
+- [Strong types in legacy admin controllers](https://github.com/PrestaShop/PrestaShop/pull/34653)
+
+### Removed hooks in PrestaShop 9.0
+
+The list below is a summary of the removed hooks in PrestaShop 9.0, it is important to check this list to understand the changes in the core as it may impact your solutions.
+
+| Hook                                              | Details                                      |
+|---------------------------------------------------|----------------------------------------------|
+| `actionAdminActivateAfter`                        | Legacy product page is no longer available.  |
+| `actionAdminActivateBefore`                       | Legacy product page is no longer available.  |
+| `actionAdminDeactivateAfter`                      | Legacy product page is no longer available.  |
+| `actionAdminDeactivateBefore`                     | Legacy product page is no longer available.  |
+| `actionAdminDeleteAfter`                          | Legacy product page is no longer available.  |
+| `actionAdminDeleteBefore`                         | Legacy product page is no longer available.  |
+| `actionAdminProductsControllerActivateAfter`      | Legacy product page is no longer available.  |
+| `actionAdminProductsControllerActivateBefore`     | Legacy product page is no longer available.  |
+| `actionAdminProductsControllerDeactivateAfter`    | Legacy product page is no longer available.  |
+| `actionAdminProductsControllerDeactivateBefore`   | Legacy product page is no longer available.  |
+| `actionAdminProductsControllerDeleteAfter`        | Legacy product page is no longer available.  |
+| `actionAdminProductsControllerDeleteBefore`       | Legacy product page is no longer available.  |
+| `actionAdminProductsControllerDuplicateAfter`     | Legacy product page is no longer available.  |
+| `actionAdminProductsControllerDuplicateBefore`    | Legacy product page is no longer available.  |
+| `actionAdminProductsControllerSortAfter`          | Legacy product page is no longer available.  |
+| `actionAdminProductsControllerSortBefore`         | Legacy product page is no longer available.  |
+| `actionAdminSortAfter`                            | Legacy product page is no longer available.  |
+| `actionAdminSortBefore`                           | Legacy product page is no longer available.  |
+| `actionAdminLoginControllerBefore`                | Back office login and related hooks are now handled by Symfony. |
+| `actionAdminLoginControllerLoginBefore`           | Back office login and related hooks are now handled by Symfony. |
+| `actionAdminLoginControllerLoginAfter`            | Back office login and related hooks are now handled by Symfony. |
+| `actionAdminLoginControllerForgotBefore`          | Back office login and related hooks are now handled by Symfony. |
+| `actionAdminLoginControllerForgotAfter`           | Back office login and related hooks are now handled by Symfony. |
+| `actionAdminLoginControllerResetBefore`           | Back office login and related hooks are now handled by Symfony. |
+| `actionAdminLoginControllerResetAfter`            | Back office login and related hooks are now handled by Symfony. |
+
+### Change of behaviour/rules or removed code
+
+The list below is one of the most important changes in PrestaShop 9.0, it includes changes in the behaviour of the core, rules that have been removed or changed, and some code that has been removed. It is very important to check this list to understand the changes in the core as it may impact your solutions.
+
+Each change links to the pull request that introduced it, so you can find more details about the modification.
+
+| Change                                                                                              | Details |
+|-----------------------------------------------------------------------------------------------------|---------|
+| [Customization quantity feature has been removed](https://github.com/PrestaShop/PrestaShop/pull/12422) | The customization quantity is now the one from the `cart_product` row. In the pull request you can find more details about the changes, also related to themes. |
+| [Refactor AdminModulesControllers and remove obsolete features](https://github.com/PrestaShop/PrestaShop/pull/27912) | n/a
+| [Invalid characters are being saved as Social titles](https://github.com/PrestaShop/PrestaShop/pull/29760) | n/a |
+| [AbstractCategoryType constructor changed](https://github.com/PrestaShop/PrestaShop/pull/29951) | n/a |
+| [HTTPs check in BackOffice is now based on Symfony Request::isSecure instead of legacy Tools::usingSecureMode](https://github.com/PrestaShop/PrestaShop/pull/30565) | n/a |
+| [PrestaShopAutoload has been removed in favor of prestashop/autoload](https://github.com/PrestaShop/PrestaShop/pull/31029) | If you rely on `classes/PrestaShopAutoload.php` class, you need to adapt your solutions |
+| Form Types/Extensions have been migrated to be autowired and rely on FQCN service names:             | If you decorated or override some services modified in the pull request, you may need to adapt your solutions. |
+| - [https://github.com/PrestaShop/PrestaShop/pull/31138](https://github.com/PrestaShop/PrestaShop/pull/31138) | |
+| - [https://github.com/PrestaShop/PrestaShop/pull/31193](https://github.com/PrestaShop/PrestaShop/pull/31193) | |
+| - [https://github.com/PrestaShop/PrestaShop/pull/31391](https://github.com/PrestaShop/PrestaShop/pull/31391) | |
+| [Enable/disable module on mobile feature was removed](https://github.com/PrestaShop/PrestaShop/pull/31151) | Module configuration to prevent display on mobile devices is no longer possible. This feature has been removed due to issues with cache and low reliability. You can still achieve the same result by implementing this mechanism on a module level. |
+| [Standardize filterManufacturerContent hook](https://github.com/PrestaShop/PrestaShop/pull/31531) | Parameters inside `filterManufacturerContent` hook have changed. |
+| [Legacy images format no longer supported](https://github.com/PrestaShop/PrestaShop/pull/31311) | n/a |
+| [PrestaShopBundle\Kernel\ModuleRepository was removed along with its Factory](https://github.com/PrestaShop/PrestaShop/pull/31418) | n/a |
+| [Product::getDefaultCategory always returns an int](https://github.com/PrestaShop/PrestaShop/pull/31752) | n/a |
+| [Remove high DPI images feature](https://github.com/PrestaShop/PrestaShop/pull/32446) | HighDPI images feature wasn't used in PrestaShop 8 and has been removed in PrestaShop 9. You can still achieve the same results by creating more image types and using `sourceset` |
+| [Remove Category menu thumbnail feature](https://github.com/PrestaShop/PrestaShop/pull/32458) | n/a |
+| [Symfony Parameter prestashop.addons.categories was removed](https://github.com/PrestaShop/PrestaShop/pull/32496) | n/a |
+| [UpdateHookStatusCommand parameter is no the new expected status](https://github.com/PrestaShop/PrestaShop/pull/32669) | n/a |
+| [Replaced SwiftMailer by Symfony Mailer](https://github.com/PrestaShop/PrestaShop/pull/32736) | n/a |
+| [Replaced TactitianBundle by Symfony Messenger](https://github.com/PrestaShop/PrestaShop/pull/32787) | n/a |
+| [Removed Advanced Stock Management remains](https://github.com/PrestaShop/PrestaShop/pull/33158) | Advanced stock management functionality has been partially removed and deprecated for a whole lifetime of 1.7, but not completely removed. This PR removes all the logic from the code along with everything related - supply orders, warehouses, old stock management etc. |
+| [Remove shop activity during install](https://github.com/PrestaShop/PrestaShop/pull/33232) | n/a |
+| [Remove Multi Address delivery](https://github.com/PrestaShop/PrestaShop/pull/33264) | This change may have an impact on third-party solutions,especially ones that modify checkout process in PrestaShop. Address IDs from the `cart_product` and `customization` tables are no longer relevant and you should not rely on them. |
+| [Remove non responsive component in BO](https://github.com/PrestaShop/PrestaShop/pull/33324) | n/a |
+| [Lazy load Product feature in FO](https://github.com/PrestaShop/PrestaShop/pull/33335) | By default, `Product::getProductsProperties` will no longer contain `features` data.  |
+| [Removed cover_image_id from Product lazy array](https://github.com/PrestaShop/PrestaShop/pull/33363) | Removes `cover_image_id` property that was used to override id_image. You can still alter the cover by using standard presenter hook. It also adds a new functionality that allows to choose behavior of cover image for products with combinations. |
+| [Removed attribute_price from Product::getProductProperties](https://github.com/PrestaShop/PrestaShop/pull/33435) | n/a |
+| [Doctrine dependencies updated](https://github.com/PrestaShop/PrestaShop/pull/33459) | This change brings a lot of backward incompatible changes. All details are available inside a pull request. It is really important to understand those changes to make your solutions compatible. |
+| [FrontController::addJqueryUi no only adds the requested component](https://github.com/PrestaShop/PrestaShop/pull/33563) | This performance optimization may result in a different loading of jQuery UI components. |
+| [Removed code from old product page](https://github.com/PrestaShop/PrestaShop/pull/33587) | The old product page has been removed in version 9, this brings a lot of backward incompatible changes, especially if you used some of the components of the old product page. |
+| [ObjectModel fields definition can contain translatable wording](https://github.com/PrestaShop/PrestaShop/pull/33624) | This change introduced a new approach to translating error messages related to ObjectModel fields. |
+| [Image feature flag has been removed](https://github.com/PrestaShop/PrestaShop/pull/34172) | n/a |
+| [Forbid sensitive files in modules directory](https://github.com/PrestaShop/PrestaShop/pull/34184) | This pull request has been merged following [discussion](https://github.com/PrestaShop/PrestaShop/discussions/32566) about securing PrestaShop modules better. It will require the adaptation of your modules and switching from calling .php files directly to using `ModuleFrontController`. You can check all the details inside the discussion and pull request, as well as related pull requests from native modules which you can use as an example implementation. |
+| [Remove legacy tab system](https://github.com/PrestaShop/PrestaShop/pull/34290) | n/a |
+| [Upgrade jquery to latest version, drop polyfills](https://github.com/PrestaShop/PrestaShop/pull/34382) | n/a |
+| [EmployeeId has strict type, OrderStatusForViewing has new constructor parameters](https://github.com/PrestaShop/PrestaShop/pull/35292) | TBD |
+| [RedirectTargetProvider and ProductRedirectTarget moved into generic namespace](https://github.com/PrestaShop/PrestaShop/pull/35608) | n/a |
+| [Changed return types of all ean13 properties in CQRS](https://github.com/PrestaShop/PrestaShop/pull/35697) | `ean13` has been replaced with `gtin` which may require adjustments to third-party solutions |
+| [ModuleManagerBuilder and ThemeManager internal properties no longer public](https://github.com/PrestaShop/PrestaShop/pull/35716) | n/a |
+| [Admin API, lots of experimental code renamed](https://github.com/PrestaShop/PrestaShop/pull/35772) | n/a |
+| [Empty value no longer allowed for redirect_type in product tables](https://github.com/PrestaShop/PrestaShop/pull/35996) | n/a |
+| [PHPStan Doctrine extension introduced that impact all existing Entities](https://github.com/PrestaShop/PrestaShop/pull/36021) | n/a |
+| [$productPriceWithoutReduction is no longer available on the product page](https://github.com/PrestaShop/PrestaShop/pull/37436) | n/a
+| [The command `prestashop:schema:update-without-foreign` is no longer used in the install process](https://github.com/PrestaShop/PrestaShop/pull/36233) | n/a
+| [The command `prestashop:schema:update-without-foreign` now has two optional parameter `--dump-sql` and `--force`](https://github.com/PrestaShop/PrestaShop/pull/36233) | The default behaviour is NOT to apply changes and NOT to output anything, so the default behaviour does nothing now
+| [Move `FrontController::updateQueryString` to `Tools` to make reusable](https://github.com/PrestaShop/PrestaShop/pull/33779) | You should not rely on `FrontController::updateQueryString` anymore, but use `Tools::updateQueryString` instead. The method signature is the same, so it should not impact your code. |
+
+
+### Removal of deprecated code
+
+- [Remove TextEmptyType and TextareaEmptyType](https://github.com/PrestaShop/PrestaShop/pull/28532)
+- [Removed deprecated methods in Order class](https://github.com/PrestaShop/PrestaShop/pull/28550)
+- [remove deprecated endpoint admin-dev/get-file-admin.php](https://github.com/PrestaShop/PrestaShop/pull/31764)
+- [Removed deprecated controller AdminRequestSqlController](https://github.com/PrestaShop/PrestaShop/pull/31893)
+- [Remove TranslationFinder and TranslationFinderTrait](https://github.com/PrestaShop/PrestaShop/pull/31991)
+- [Remove TypeaheadRedirectionTargetTransformer and TranslateTextType](https://github.com/PrestaShop/PrestaShop/pull/31992)
+- [Remove deprecated methods in LogRepository & RequestSqlRepository](https://github.com/PrestaShop/PrestaShop/pull/31993)
+- [Remove triggered errors and deprecated for Grid](https://github.com/PrestaShop/PrestaShop/pull/31996)
+- [Remove triggered error in GetProfileForEditingHandler](https://github.com/PrestaShop/PrestaShop/pull/31997)
+- [Remove UpdateProductStatusCommand](https://github.com/PrestaShop/PrestaShop/pull/32157)
+- [Remove old error message files](https://github.com/PrestaShop/PrestaShop/pull/32187)
+- [Remove unused toolbar.tpl](https://github.com/PrestaShop/PrestaShop/pull/32190)
+- [Remove deprecated classes for performances page](https://github.com/PrestaShop/PrestaShop/pull/32362)
+- [Removed Order ActionBarButton](https://github.com/PrestaShop/PrestaShop/pull/32927)
+- [Remove deprecated code from HttpKernel](https://github.com/PrestaShop/PrestaShop/pull/34778)
+- [Clean horizontal migration code](https://github.com/PrestaShop/PrestaShop/pull/35191)
+
+- Remove deprecated code in Adapter namespace
+  - [https://github.com/PrestaShop/PrestaShop/pull/28564](https://github.com/PrestaShop/PrestaShop/pull/28564)
+  - [https://github.com/PrestaShop/PrestaShop/pull/31894](https://github.com/PrestaShop/PrestaShop/pull/31894)
+
+- Remove deprecated code in Core namespace
+  - [Remove classes](https://github.com/PrestaShop/PrestaShop/pull/28988) 
+  - [Remove SearchParameters](https://github.com/PrestaShop/PrestaShop/pull/32691)
+
+- Removal or renaming of Symfony services:
+  - [Removed service `prestashop.adapter.admin.page_preference`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.attachment.attachment_repository`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.product.attribute_group.attribute_group_view_data_provider`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.backup.database_creator`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.backup.backup_provider`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.backup.backup_remover`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.category.repository.category_repository`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.currency.repository.currency_repository`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.data_provider.tab`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.image.image_validator`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.admin.data_provider.product`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.admin.data_updater.product`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.admin.wrapper.product`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.admin.controller.attribute_generator`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.product.filter_categories_request_purifier`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.product.list_parameters_updater`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.image_manager`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.tax.tax_computer`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.adapter.tax_rules_group.repository.tax_rules_group_repository`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `form.form_cloner`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.admin.feature_flag.repository`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.bundle.routing.converter.router_provider`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.utils.float_parser`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.category.name_builder.category_display_name_builder`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.domain.country.zip_code_format_resolver`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.grid.position.position_update_factory`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.grid.position.doctrine_grid_position_updater`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.help.documentation`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.admin.module.repository`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.module.sourcehandler.zip`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.module.manager`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.product.csv_exporter`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.util.internationalized_domain_name_converter`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.uti.back_url_provider`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.util.arabic_to_latin_digit_converter`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.util.url.url_file_checker`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.util.string.string_validator`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.util.string.string_modifier`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.util.file_size.size_converter`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed service `prestashop.core.util.helper_card.documentation_link_provider`](https://github.com/PrestaShop/PrestaShop/pull/32167)
+  - [Removed deprecated service `prestashop.adapter.module.data_provider.tab_module_list`](https://github.com/PrestaShop/PrestaShop/pull/28564/)
+  - [Removed deprecated service `prestashop.adapter.sql_manager.request_sql_form_data_validator`](https://github.com/PrestaShop/PrestaShop/pull/28564/)
+
+- Remove deprecated code in legacy classes:
+  - [Remove Tools::encrypt and Tools::encryptIV](https://github.com/PrestaShop/PrestaShop/pull/31421)
+  - [Remove deprecated upload classes](https://github.com/PrestaShop/PrestaShop/pull/31705)
+  - [Removed deprecated parameter in class Cart](https://github.com/PrestaShop/PrestaShop/pull/31765)
+  - [Removed deprecated class linked to FileUpload](https://github.com/PrestaShop/PrestaShop/pull/31766)
+  - [Removed deprecated method Tools::isBright](https://github.com/PrestaShop/PrestaShop/pull/31769)
+  - [Removed deprecated method Tools::getBrightness](https://github.com/PrestaShop/PrestaShop/pull/32160)
+  - [Removed deprecated method Translate::getAdminTranslation](https://github.com/PrestaShop/PrestaShop/pull/31770)
+  - [Removed deprecated method addJquery in Controller class](https://github.com/PrestaShop/PrestaShop/pull/31889)
+  - [Removed deprecated method isAnything in class Validate](https://github.com/PrestaShop/PrestaShop/pull/31890)
+  - [Removed deprecated methods stripslashes & safePostVars in class Tools](https://github.com/PrestaShop/PrestaShop/pull/31891)
+  - [Removed deprecated methods generateDeliverySlipPDFByIdOrder & generateInvoicePDFByIdOrder in class AdminPdfController](https://github.com/PrestaShop/PrestaShop/pull/31892)
+  - [Removed deprecated parameters in OrderReturn](https://github.com/PrestaShop/PrestaShop/pull/32159)
+  - [Removed Tab::getClassName](https://github.com/PrestaShop/PrestaShop/pull/32161)
+  - [Removed SpecificPrice::setPriorities](https://github.com/PrestaShop/PrestaShop/pull/32163)
+  - [Removed Tools::displayNumber and Tools::displayPrice](https://github.com/PrestaShop/PrestaShop/pull/32164)
+  - [Removed deprecated displayFlags](https://github.com/PrestaShop/PrestaShop/pull/32189)
+  - [Removed unused functions getUrlRewriteInformation & getUrlRewriteInformations](https://github.com/PrestaShop/PrestaShop/pull/32232)
+  - [Removed Tools::clearColorListCache, Product::getColorsListCacheId, Validate::isPlaintextPassword, Validate::isPasswdAdmin, FrontController::addColorsToProductList](https://github.com/PrestaShop/PrestaShop/pull/32679)
+  - [Removed AdminController::isFresh, AdminController::refresh](https://github.com/PrestaShop/PrestaShop/pull/32693)
+  - [Removed calls to Product::getProductProperties](https://github.com/PrestaShop/PrestaShop/pull/34498)
+  - [Move data from product::getProductProperties to ProductLazyArray](https://github.com/PrestaShop/PrestaShop/pull/34499)
+  - [Clean legacy Tab related code, and multiple other deprecations](https://github.com/PrestaShop/PrestaShop/pull/34525)
+  - [Remove unused Media methods](https://github.com/PrestaShop/PrestaShop/pull/34571)
+  - [Clean code in Module classes](https://github.com/PrestaShop/PrestaShop/pull/34731)
+  - [Removed unused legacy constants](https://github.com/PrestaShop/PrestaShop/pull/34927)
+  - [Removed ajaxDie and related hooks](https://github.com/PrestaShop/PrestaShop/pull/35283)
+  - [Removed deprecated object model validation code](https://github.com/PrestaShop/PrestaShop/pull/36029)
+  - [Remove unused Tab::getTabByIdProfile](https://github.com/PrestaShop/PrestaShop/pull/37152/)
+  - [Removed deprecated Product::addProductAttribute](https://github.com/PrestaShop/PrestaShop/pull/34525/)
+  - [Removed deprecated Product::updateProductAttribute](https://github.com/PrestaShop/PrestaShop/pull/34525/)
+  - [Removed deprecated src/Adapter/Cart/CartPresenter.php](https://github.com/PrestaShop/PrestaShop/pull/34525/)
+  - [Removed deprecated src/Adapter/ObjectPresenter.php](https://github.com/PrestaShop/PrestaShop/pull/34525/)
+  - [Removed deprecated searchAction from some controllers in favor of CommonController:searchGridAction](https://github.com/PrestaShop/PrestaShop/pull/34525/)
+  - [File js/validate.js has been removed](https://github.com/PrestaShop/PrestaShop/pull/36946/)
+  - [Removed deprecated Order::getDiscounts()](https://github.com/PrestaShop/PrestaShop/pull/28550/)
+  - [Removed deprecated Order::getOrdersIdInvoiceByDate()](https://github.com/PrestaShop/PrestaShop/pull/28550/)
+  - [Removed deprecated Order::getOrderIdsByStatus()](https://github.com/PrestaShop/PrestaShop/pull/28550/)
+  - [Removed deprecated Order::getOrderByCartId()](https://github.com/PrestaShop/PrestaShop/pull/28550/)
+  - [Removed deprecated Order::addDiscount()](https://github.com/PrestaShop/PrestaShop/pull/28550/)
+  - [Removed deprecated Order::getInvoice()](https://github.com/PrestaShop/PrestaShop/pull/28550/)
+  - [Removed deprecated Order::getWsCurrentState()](https://github.com/PrestaShop/PrestaShop/pull/28550/)
+  - [Removed deprecated class PrestaShop\PrestaShop\Adapter\Address\AbstractManufacturerAddressHandler](https://github.com/PrestaShop/PrestaShop/pull/28564/)
+  - [Removed deprecated class PrestaShop\PrestaShop\Adapter\ClassLang](https://github.com/PrestaShop/PrestaShop/pull/28564/)
+  - [Removed deprecated class PrestaShop\PrestaShop\Adapter\Module\ModulePresenter](https://github.com/PrestaShop/PrestaShop/pull/28564/)
+  - [Removed deprecated class PrestaShop\PrestaShop\Adapter\Module\TabModuleListProvider](https://github.com/PrestaShop/PrestaShop/pull/28564/)
+  - [Removed deprecated class PrestaShop\PrestaShop\Adapter\Order\OrderPresenter](https://github.com/PrestaShop/PrestaShop/pull/28564/)
+  - [Removed deprecated class PrestaShop\PrestaShop\Adapter\Order\OrderReturnPresenter](https://github.com/PrestaShop/PrestaShop/pull/28564/)
+  - [Removed deprecated class PrestaShop\PrestaShop\Adapter\SqlManager\SqlRequestFormDataValidator](https://github.com/PrestaShop/PrestaShop/pull/28564/)
+  - [Removed deprecated method PrestaShop\PrestaShop\Adapter\CombinationDataProvider::getFormCombination](https://github.com/PrestaShop/PrestaShop/pull/28564/)
+  - [Removed deprecated method PrestaShop\PrestaShop\Adapter\Shop\Context::isShopGroupContext](https://github.com/PrestaShop/PrestaShop/pull/28564/)
+  - [Removed deprecated method PrestaShop\PrestaShop\Adapter\Shop\Context::isAllContext](https://github.com/PrestaShop/PrestaShop/pull/28564/)
+  - [Removed deprecated class PrestaShop\PrestaShop\Core\Domain\Customer\ValueObject\Email](https://github.com/PrestaShop/PrestaShop/pull/28988)
+  - [Removed deprecated class PrestaShop\PrestaShop\Core\Product\ProductListingPresenter](https://github.com/PrestaShop/PrestaShop/pull/28988)
+  - [Removed deprecated class PrestaShop\PrestaShop\Core\Product\ProductPresenter](https://github.com/PrestaShop/PrestaShop/pull/28988)
+  - [Removed deprecated class PrestaShop\PrestaShop\Core\Search\SortOrderFactory](https://github.com/PrestaShop/PrestaShop/pull/28988)
+  - [Removed deprecated class PrestaShop\PrestaShop\Core\Search\URLFragmentSerializer](https://github.com/PrestaShop/PrestaShop/pull/28988)
+  - [Removed deprecated trait PrestaShop\PrestaShop\Core\Hook\HookDispatcherAwareTrait](https://github.com/PrestaShop/PrestaShop/pull/28988)
+  - [Removed deprecated method Currency::getConversationRate()](https://github.com/PrestaShop/PrestaShop/pull/31028/)
+  - [Removed deprecated method Tools::getBytes()](https://github.com/PrestaShop/PrestaShop/pull/31028/)
+  - [Removed deprecated method Tools::redirectLink()](https://github.com/PrestaShop/PrestaShop/pull/31028/)
+  - [Removed deprecated method Tools::link_rewrite()](https://github.com/PrestaShop/PrestaShop/pull/31028/)
+  - [Removed deprecated method Tools::replaceByAbsoluteURL()](https://github.com/PrestaShop/PrestaShop/pull/31028/)
+  - [Removed deprecated method Tools::cleanNonUnicodeSupport()](https://github.com/PrestaShop/PrestaShop/pull/31028/)
+  - [Removed deprecated method Tools::getDescriptionClean()](https://github.com/PrestaShop/PrestaShop/pull/31028/)
+  - [Removed deprecated method Tools::arrayReplaceRecursive()](https://github.com/PrestaShop/PrestaShop/pull/31028/)
+  - [Removed deprecated method Translate::smartyPostProcessTranslation()](https://github.com/PrestaShop/PrestaShop/pull/31028/)
+  - [Removed deprecated method Translate::ppTags()](https://github.com/PrestaShop/PrestaShop/pull/31028/)
+  - [Removed deprecated method Tools::cleanNonUnicodeSupport()](https://github.com/PrestaShop/PrestaShop/pull/31028/)
+  - [Removed deprecated method FrameworkBundleAdminController::overviewAction()](https://github.com/PrestaShop/PrestaShop/pull/31118/)
+  - [Removed deprecated property FrameworkBundleAdminController::$configuration](https://github.com/PrestaShop/PrestaShop/pull/31118/)
+  - [Removed deprecated class AdminStatusesController](https://github.com/PrestaShop/PrestaShop/pull/27590)
+  - [Removed method StoresController::processStoreAddress()](https://github.com/PrestaShop/PrestaShop/pull/33437)
+  - [Removed method StoresController::getStoresForXml()](https://github.com/PrestaShop/PrestaShop/pull/33437)
+  - [Removed method StoresController::displayAjax()](https://github.com/PrestaShop/PrestaShop/pull/33437)
+  - [Removed method Cart::containsProduct()](https://github.com/PrestaShop/PrestaShop/pull/33263)
+  - [Removed method Cart::simulateCarriersOutput()](https://github.com/PrestaShop/PrestaShop/pull/33263)
+
+
+
+## Back office rebranding
+
+By the end of 2023, PrestaShop introduced a new brand identity to reinforce its strengths and enhance credibility and trust. The PrestaShop back office was one of the final components to undergo rebranding, with the release of PrestaShop 9 providing an ideal opportunity for this update.
+
+### Rebranding backward incompatible changes
+
+- [Breaking changes in the PrestaShop Back Office due to rebranding](https://github.com/PrestaShop/PrestaShop/pull/36584)
+  - **New Fonts**: The adoption of `IBM Plex Sans` and `Material Symbols` is part of the rebranding effort. These fonts are included in both the `default` theme and also the `new-theme` through the UI Kit.
+  - **Removal of `postcss.config.js`**: The `postcss.config.js` file, which used the deprecated `postcss-cssnext` package, has been removed. This package is no longer needed.
+  - **Removal of SCSS Files**: The file `admin-dev/themes/default/scss/modules/_colors.scss` and the directory `admin-dev/themes/default/scss/modules/colors/` have been removed. These are no longer used in the back office. Update your stylesheets to avoid relying on these outdated resources.
+
+### Anatomy of PrestaShop back office
+
+The PrestaShop back office consists of [two themes][bo-themes]. Both themes have been modified to achieve a complete rebranding:
+
+#### Theme: default
+- Used for legacy controllers
+- Based on **Bootstrap 3**
+- Now includes `_root.scss` file from the **PrestaShop UI Kit** to expose CSS variables from the UI Kit
+
+
+#### Theme: new-theme
+- Used for Symfony controllers
+- Based on **Bootstrap 4**
+- Utilizes the **PrestaShop UI Kit**
+
+[bo-themes]: {{< ref "/9/development/architecture/introduction.md#bo-themes" >}}
+[new-product-page]: {{< relref "/9/modules/sample-modules/extend-product-page" >}}
+
+## Miscellaneous changes
+
+- [CCC is enabled by default for new installations](https://github.com/PrestaShop/PrestaShop/pull/37260)
+- [You can now use `{categories}` inside category URL pattern](https://github.com/PrestaShop/PrestaShop/pull/38527)
+- [Default category of the product is now removed from the URL](https://github.com/PrestaShop/PrestaShop/pull/37467)
+- [Meta keywords are no longer used in PrestaShop 9. You need to adjust your solutions not to rely on "meta_keywords" since the field is no longer available](https://github.com/PrestaShop/PrestaShop/pull/36873)
+- [You can now manage FeatureFlags settings in a different storage than the database](https://github.com/PrestaShop/PrestaShop/pull/32923)
+
+## Patch releases
+
+### PrestaShop 9.0.1
+
+Released on October 13, 2025. This patch release includes bug fixes and several improvements for module developers.
+
+#### New hooks
+
+The following hooks were added in 9.0.1:
+
+| Hook | Description |
+|------|-------------|
+| [`actionOrderHasBeenShipped`]({{< relref "/9/modules/concepts/hooks/list-of-hooks/actionOrderHasBeenShipped" >}}) | Triggered when an order status changes to "shipped" |
+| [`actionOrderHasBeenDelivered`]({{< relref "/9/modules/concepts/hooks/list-of-hooks/actionOrderHasBeenDelivered" >}}) | Triggered when an order status changes to "delivered" |
+| [`actionPaymentModuleProductVarTplAfter`]({{< relref "/9/modules/concepts/hooks/list-of-hooks/actionPaymentModuleProductVarTplAfter" >}}) | Allows modification of product variables in payment module templates |
+| [`actionGetPdfTemplateObject`]({{< relref "/9/modules/concepts/hooks/list-of-hooks/actionGetPdfTemplateObject" >}}) | Customize PDF template objects before rendering |
+| [`actionCheckoutStepRenderTemplate`]({{< relref "/9/modules/concepts/hooks/list-of-hooks/actionCheckoutStepRenderTemplate" >}}) | Triggered when rendering a checkout step template |
+
+#### Notable improvements
+
+- [**TinyMCE Editor extensibility**](https://github.com/PrestaShop/PrestaShop/pull/39277): The TinyMCE Editor is now more flexible for module extensions
+- [**Enhanced `Tools::unSerialize` security**](https://github.com/PrestaShop/PrestaShop/pull/38822): Additional security measures were added to prevent potential deserialization vulnerabilities
+- [**Text email auto-generation**](https://github.com/PrestaShop/PrestaShop/pull/39063): New option to automatically generate text versions of email templates
+- [**Symfony components updated to 6.4.25**](https://github.com/PrestaShop/PrestaShop/pull/39466)
+
+---
+
+### PrestaShop 9.0.2
+
+Released on December 10, 2025. This patch release includes important fixes and a breaking change for Admin API resources.
+
+#### Breaking change
+
+{{% notice warning %}}
+**[Module API resources updated to version 0.2.0](https://github.com/PrestaShop/PrestaShop/pull/40212)**
+
+If your module uses the Admin API resources, you may need to update your implementation. The API normalization mapper indexes have been enhanced, which could affect how your module interacts with the API.
+{{% /notice %}}
+
+#### New hooks
+
+The following hooks were added in 9.0.2 for stock and quantity management:
+
+| Hook | Description |
+|------|-------------|
+| [`actionOverrideQuantityAvailableByProduct`]({{< relref "/9/modules/concepts/hooks/list-of-hooks/actionOverrideQuantityAvailableByProduct" >}}) | Override the available quantity for a product |
+| [`actionCheckAttributeQuantity`]({{< relref "/9/modules/concepts/hooks/list-of-hooks/actionCheckAttributeQuantity" >}}) | Check attribute quantity during cart operations |
+| [`actionOverrideProductQuantity`]({{< relref "/9/modules/concepts/hooks/list-of-hooks/actionOverrideProductQuantity" >}}) | Override product quantity calculations |
+
+These hooks are particularly useful for modules that manage stock across multiple warehouses or implement custom inventory logic.
+
+#### Hook fix
+
+{{% notice info %}}
+**[`actionAttributeCombinationSave` now works correctly](https://github.com/PrestaShop/PrestaShop/pull/38617)**
+
+The `actionAttributeCombinationSave` hook was never being triggered in PrestaShop 9.0.0. This has been fixed in 9.0.2. If you have modules that rely on this hook, they will now function as expected.
+{{% /notice %}}
+

@@ -1,0 +1,17 @@
+---
+title: "displayAfterProductThumbs"
+url: "https://devdocs.prestashop-project.org/9/modules/concepts/hooks/list-of-hooks/displayafterproductthumbs/"
+version: "9"
+description: "This hook displays new elements below product images ex. additional media"
+source: "https://github.com/PrestaShop/docs/blob/9.x/modules/concepts/hooks/list-of-hooks/displayAfterProductThumbs.md"
+---
+
+
+{{% hookDescriptor %}}
+
+## Call of the Hook in the origin file
+
+```php
+{hook h='displayAfterProductThumbs' product=$product}
+```
+
