@@ -1,0 +1,24 @@
+{{- $version := site.Params.versions.current -}}
+{{- $root := site.GetPage (printf "/%s" $version) -}}
+# {{ site.Title }}
+
+> {{ site.Params.description }} This file indexes the currently supported documentation (PrestaShop {{ $version }}.x). Every entry links to the raw markdown source of that page.
+
+Base URL: {{ site.BaseURL }}
+Documentation version: {{ $version }}.x
+Source repository: {{ site.Params.ghRepoURL }} (branch `{{ $version }}.x`)
+Machine-readable page catalogue: {{ site.BaseURL }}mcp-index.json
+{{ with $root }}
+{{ range .RegularPages.ByWeight }}
+- [{{ .Title }}]({{ with .OutputFormats.Get "markdown" }}{{ .Permalink }}{{ end }}){{ with .Description }}: {{ . }}{{ end }}
+{{- end }}
+{{ range .Sections.ByWeight }}
+## {{ .Title }}
+{{ with .Description }}
+{{ . }}
+{{ end }}
+{{ range .RegularPagesRecursive.ByWeight }}
+- [{{ .Title }}]({{ with .OutputFormats.Get "markdown" }}{{ .Permalink }}{{ end }}){{ with .Description }}: {{ . }}{{ end }}
+{{- end }}
+{{ end }}
+{{- end -}}

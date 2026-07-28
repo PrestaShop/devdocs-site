@@ -44,9 +44,36 @@ params:
     apiKey: "352524fc37137a45610faa44bcc1a47c"
     indexName: "prestashop"
 
+# Machine-readable outputs consumed by the MCP server (see mcp-server/README.md)
+outputFormats:
+  # Raw markdown source of every page, emitted next to its index.html
+  # e.g. /9/basics/introduction/index.md
+  markdown:
+    mediaType: "text/markdown"
+    baseName: "index"
+    isPlainText: true
+    permalinkable: false
+    notAlternative: true
+  # llms.txt convention: https://llmstxt.org/  -> /llms.txt
+  llms:
+    mediaType: "text/plain"
+    baseName: "llms"
+    isPlainText: true
+    permalinkable: false
+    notAlternative: true
+  # Compact page catalogue for the MCP server -> /mcp-index.json
+  mcpindex:
+    mediaType: "application/json"
+    baseName: "mcp-index"
+    isPlainText: true
+    permalinkable: false
+    notAlternative: true
+
 # For search functionality
 outputs:
-  home: ["HTML", "RSS", "JSON"]
+  home: ["HTML", "RSS", "JSON", "LLMS", "MCPINDEX"]
+  section: ["HTML", "RSS", "MARKDOWN"]
+  page: ["HTML", "MARKDOWN"]
 
 markup:
   highlight:

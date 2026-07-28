@@ -1,0 +1,39 @@
+{{- /*
+  Compact catalogue of every page of the currently supported documentation
+  version. Consumed by the devdocs MCP server (mcp-server/) to power the
+  `list_sections` / `browse_docs` tools and to resolve `get_doc` paths.
+*/ -}}
+{{- $version := site.Params.versions.current -}}
+{{- $root := site.GetPage (printf "/%s" $version) -}}
+{{- $pages := slice -}}
+{{- $sections := slice -}}
+{{- with $root -}}
+  {{- range .Sections.ByWeight -}}
+    {{- $sections = $sections | append (dict
+        "slug" (path.Base .RelPermalink)
+        "title" .Title
+        "path" .RelPermalink
+        "description" .Description
+        "pageCount" (len .RegularPagesRecursive)) -}}
+  {{- end -}}
+{{- end -}}
+{{- range where site.RegularPages "Section" $version -}}
+  {{- $md := "" -}}
+  {{- with .OutputFormats.Get "markdown" -}}{{- $md = .RelPermalink -}}{{- end -}}
+  {{- $parts := split (strings.TrimPrefix "/" .RelPermalink) "/" -}}
+  {{- $sec := "" -}}
+  {{- if gt (len $parts) 2 -}}{{- $sec = index $parts 1 -}}{{- end -}}
+  {{- $pages = $pages | append (dict
+      "path" .RelPermalink
+      "markdown" $md
+      "title" .Title
+      "description" .Description
+      "section" $sec) -}}
+{{- end -}}
+{{- dict
+    "site" site.BaseURL
+    "docsVersion" $version
+    "generated" (now.Format "2006-01-02T15:04:05Z07:00")
+    "sections" $sections
+    "pages" $pages
+  | jsonify -}}
