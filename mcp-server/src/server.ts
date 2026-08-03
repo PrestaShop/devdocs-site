@@ -9,6 +9,8 @@ import { createServer } from "node:http";
 import { Readable } from "node:stream";
 import app, { type Env } from "./index";
 
+// All defaults are public values. The Algolia key is DocSearch's search-only key,
+// already shipped in the website's JavaScript to every visitor — not a secret.
 const env: Env = {
   DOCS_BASE_URL: process.env.DOCS_BASE_URL ?? "https://devdocs.prestashop-project.org/",
   DOCS_VERSION: process.env.DOCS_VERSION ?? "9",
