@@ -78,15 +78,15 @@ serve_site() {
 
 port_pids() { lsof -nP -tiTCP:"$1" -sTCP:LISTEN 2>/dev/null || true; }
 
-# Signalling the PIDs we launched is not enough on its own: `npx` sits in front of a
-# chain of node processes, so terminating it can leave the real wrangler process alive
-# and still holding the port. The contract we actually care about is "both ports are
-# free afterwards", so verify that and force it if the polite shutdown stalls.
+# Signalling the PIDs we launched is not enough on its own: intermediary processes
+# (npm, shells) can leave the real server process alive and still holding the port.
+# The contract we actually care about is "both ports are free afterwards", so verify
+# that and force it if the polite shutdown stalls.
 cleanup() {
   trap - EXIT INT TERM
   log "Shutting down…"
 
-  for pid in "${WRANGLER_PID:-}" "${SITE_PID:-}"; do
+  for pid in "${SERVER_PID:-}" "${SITE_PID:-}"; do
     [ -n "$pid" ] && kill -TERM "$pid" 2>/dev/null || true
   done
 
@@ -117,7 +117,7 @@ done
 
 serve_site
 
-[ -d "${ROOT}/mcp-server/node_modules" ] || (log "Installing Worker dependencies…" && cd "${ROOT}/mcp-server" && npm install --silent)
+[ -d "${ROOT}/mcp-server/node_modules" ] || (log "Installing MCP server dependencies…" && cd "${ROOT}/mcp-server" && npm install --silent)
 
 cat <<EOF
 
@@ -131,13 +131,15 @@ cat <<EOF
 EOF
 
 cd "${ROOT}/mcp-server"
+npm run --silent build
+
 # Deliberately NOT `exec`: that would replace this shell and discard the trap above,
-# leaving the static server on $SITE_PORT orphaned when wrangler stops.
+# leaving the static server on $SITE_PORT orphaned when the MCP server stops.
 #
 # Backgrounded, then waited on, rather than run in the foreground: bash defers trap
-# handlers until the current foreground command returns, so a foreground wrangler
-# would swallow the signal until it felt like exiting — which is exactly the hang
-# this is meant to survive. `wait` is interruptible, so the trap fires immediately.
-npx wrangler dev --port "$MCP_PORT" --var "DOCS_BASE_URL:http://127.0.0.1:${SITE_PORT}/" &
-WRANGLER_PID=$!
-wait "$WRANGLER_PID"
+# handlers until the current foreground command returns, so a foreground server
+# would swallow the signal until it felt like exiting. `wait` is interruptible,
+# so the trap fires immediately.
+DOCS_BASE_URL="http://127.0.0.1:${SITE_PORT}/" PORT="$MCP_PORT" node dist/server.mjs &
+SERVER_PID=$!
+wait "$SERVER_PID"
