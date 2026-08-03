@@ -52,7 +52,7 @@ that version.
 Once deployed, point any MCP client at the `/mcp` endpoint.
 
 ```bash
-claude mcp add --transport http prestashop-devdocs https://<worker-host>/mcp
+claude mcp add --transport http prestashop-devdocs https://<host>/mcp
 ```
 
 Or, in a `mcp.json` / `claude_desktop_config.json`:
@@ -62,7 +62,7 @@ Or, in a `mcp.json` / `claude_desktop_config.json`:
   "mcpServers": {
     "prestashop-devdocs": {
       "type": "http",
-      "url": "https://<worker-host>/mcp"
+      "url": "https://<host>/mcp"
     }
   }
 }

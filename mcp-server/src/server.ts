@@ -4,14 +4,10 @@
  * The core in ./index.ts is written against the Web fetch API; this file only
  * translates Node's http primitives to Request/Response and back. It is the sole
  * entry point for local development and for the container image alike.
- *
- * The `cf:` cache hints index.ts passes to fetch() are a leftover of the original
- * Cloudflare deployment target and are ignored by Node's undici — harmless; the
- * in-process 15-minute index cache still applies.
  */
 import { createServer } from "node:http";
 import { Readable } from "node:stream";
-import worker, { type Env } from "./index";
+import app, { type Env } from "./index";
 
 const env: Env = {
   DOCS_BASE_URL: process.env.DOCS_BASE_URL ?? "https://devdocs.prestashop-project.org/",
@@ -21,7 +17,6 @@ const env: Env = {
   ALGOLIA_INDEX: process.env.ALGOLIA_INDEX ?? "prestashop",
 };
 
-// Cloud Run injects PORT; default to its convention locally too.
 const port = Number(process.env.PORT ?? 8080);
 
 const server = createServer(async (req, res) => {
@@ -43,7 +38,7 @@ const server = createServer(async (req, res) => {
       ...(hasBody ? { duplex: "half" as const } : {}),
     });
 
-    const response = await worker.fetch(request as never, env);
+    const response = await app.fetch(request as never, env);
 
     res.writeHead(response.status, Object.fromEntries(response.headers.entries()));
     if (response.body) {
@@ -61,5 +56,5 @@ server.listen(port, () => {
   console.log(`devdocs MCP server listening on :${port} (docs: ${env.DOCS_BASE_URL})`);
 });
 
-// Cloud Run sends SIGTERM before scaling an instance down; close cleanly.
+// Orchestrators send SIGTERM before stopping an instance; close cleanly.
 process.on("SIGTERM", () => server.close(() => process.exit(0)));
