@@ -19,7 +19,7 @@ with JSON-RPC — so the two halves live in different places:
 └─────────────────────────────────────────────────────────────────┘
               ▲                                    ▲
               │ fetch (cached)                     │
-┌─ mcp-server/ (Cloudflare Worker) ──────────────────────────────┐
+┌─ mcp-server/ (stateless HTTP server) ──────────────────────────┐
 │  POST /mcp   Streamable HTTP, stateless                        │
 │  search_docs ──► Algolia DocSearch (the site's own index)      │
 │  get_doc     ──► /<path>/index.md on GitHub Pages              │
@@ -30,10 +30,10 @@ with JSON-RPC — so the two halves live in different places:
       Claude / Cursor / ChatGPT / …
 ```
 
-The Worker stores nothing. Search relevance comes from the same Algolia DocSearch index
+The server stores nothing. Search relevance comes from the same Algolia DocSearch index
 that powers the search box on the website, and page content is read from the markdown
 files the Hugo build already publishes. **New documentation is live as soon as GitHub
-Pages redeploys — the Worker never needs redeploying for content changes.**
+Pages redeploys — the server never needs redeploying for content changes.**
 
 ## Tools
 
@@ -74,7 +74,7 @@ No authentication — the server is public and read-only, exactly like the websi
 
 One command brings up the whole stack — it builds the site with the Hugo version CI uses
 (downloaded to `bin/.hugo/` on first run), serves `src/public` in place of GitHub Pages,
-and starts the Worker against it:
+and starts the MCP server against it:
 
 ```bash
 npm run mcp:local          # from the repository root
@@ -123,9 +123,9 @@ curl -s -X POST http://127.0.0.1:8787/mcp \
        "params":{"name":"search_docs","arguments":{"query":"actionValidateOrder"}}}'
 ```
 
-### Working on the Worker alone
+### Working on the server alone
 
-`npm run dev` in this directory starts just the Worker, reading the **live**
+`npm run dev` in this directory starts just the MCP server on :8787, reading the **live**
 `https://devdocs.prestashop-project.org/`. Useful for iterating on search, but `get_doc`
 and `list_sections` will 404 until the artifacts from this branch are actually deployed.
 
