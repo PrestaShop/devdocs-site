@@ -5,7 +5,7 @@
 #   ./bin/mcp-local.sh            # in one terminal
 #   ./mcp-server/test/smoke.sh    # in another
 #
-# Override the endpoint with MCP_URL to test a deployed Worker.
+# Override the endpoint with MCP_URL to test a deployed server.
 #
 set -uo pipefail
 

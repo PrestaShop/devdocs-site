@@ -1,7 +1,7 @@
 /**
  * PrestaShop Developer Documentation — MCP server.
  *
- * A stateless Streamable HTTP MCP server running on Cloudflare Workers. It owns no
+ * A stateless Streamable HTTP MCP server. It owns no
  * data of its own: search is delegated to the Algolia DocSearch index that already
  * powers the search box on devdocs.prestashop-project.org, and page content is read
  * from the static artifacts published to GitHub Pages by the Hugo build
@@ -29,7 +29,7 @@ const SUPPORTED_PROTOCOL_VERSIONS = [
   "2024-11-05",
 ];
 
-/** How long a fetched artifact stays cached inside a single Worker isolate. */
+/** How long a fetched artifact stays cached within a single server instance. */
 const INDEX_TTL_MS = 15 * 60 * 1000;
 
 // ---------------------------------------------------------------------------
@@ -107,18 +107,15 @@ interface DocsIndex {
 let cachedIndex: { at: number; value: DocsIndex } | null = null;
 
 /**
- * Note: the Cache API and `cf.cacheTtl` are bypassed on *.workers.dev, so this
- * in-isolate cache is the one that actually does the work there. On a custom
- * domain the edge cache kicks in on top of it.
+ * Cached per instance: with multiple replicas each keeps its own copy, which is
+ * fine — the index is small and refreshes within INDEX_TTL_MS everywhere.
  */
 async function loadIndex(env: Env): Promise<DocsIndex> {
   const now = Date.now();
   if (cachedIndex && now - cachedIndex.at < INDEX_TTL_MS) return cachedIndex.value;
 
   const url = new URL("mcp-index.json", env.DOCS_BASE_URL).toString();
-  const res = await fetch(url, {
-    cf: { cacheTtl: 900, cacheEverything: true },
-  } as RequestInit);
+  const res = await fetch(url);
   if (!res.ok) throw new Error(`Could not load ${url} (HTTP ${res.status})`);
 
   const value = (await res.json()) as DocsIndex;
@@ -407,7 +404,7 @@ async function runGetDoc(env: Env, args: Record<string, unknown>) {
   const maxChars = Math.min(Math.max(Number(args.max_chars) || 40000, 1000), 120000);
 
   const mdUrl = new URL(`${docPath.slice(1)}index.md`, env.DOCS_BASE_URL).toString();
-  const res = await fetch(mdUrl, { cf: { cacheTtl: 900, cacheEverything: true } } as RequestInit);
+  const res = await fetch(mdUrl);
 
   if (res.status === 404) {
     return toolText(
@@ -547,7 +544,7 @@ async function handleRpc(msg: JsonRpcRequest, env: Env): Promise<unknown | null>
 // HTTP entry point
 // ---------------------------------------------------------------------------
 
-const LANDING_PAGE = (env: Env) => `<!doctype html>
+const LANDING_PAGE = (env: Env, endpoint: string) => `<!doctype html>
 <meta charset="utf-8">
 <title>PrestaShop DevDocs MCP server</title>
 <style>
@@ -561,9 +558,9 @@ const LANDING_PAGE = (env: Env) => `<!doctype html>
 <p>Model Context Protocol server for the
 <a href="${env.DOCS_BASE_URL}">PrestaShop ${env.DOCS_VERSION} developer documentation</a>.</p>
 <h2>Endpoint</h2>
-<pre>POST /mcp   (Streamable HTTP)</pre>
+<pre>POST ${endpoint}   (Streamable HTTP)</pre>
 <h2>Add it to Claude Code</h2>
-<pre>claude mcp add --transport http prestashop-devdocs https://YOUR-WORKER-HOST/mcp</pre>
+<pre>claude mcp add --transport http prestashop-devdocs ${endpoint}</pre>
 <h2>Tools</h2>
 <ul>
 ${TOOLS.map((t) => `<li><code>${t.name}</code> — ${t.title}</li>`).join("\n")}
@@ -582,7 +579,12 @@ export default {
 
     if (url.pathname !== "/mcp") {
       if (url.pathname === "/" && request.method === "GET") {
-        return new Response(LANDING_PAGE(env), {
+        // Build the copy-pasteable endpoint URL from the request itself, honouring
+        // the proxy headers a TLS-terminating ingress sets.
+        const proto = request.headers.get("x-forwarded-proto")?.split(",")[0].trim()
+          ?? url.protocol.replace(":", "");
+        const host = request.headers.get("x-forwarded-host")?.split(",")[0].trim() ?? url.host;
+        return new Response(LANDING_PAGE(env, `${proto}://${host}/mcp`), {
           headers: { "Content-Type": "text/html; charset=utf-8", ...CORS_HEADERS },
         });
       }

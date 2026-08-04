@@ -115,7 +115,7 @@ redeploying it**.
 To run and test the whole thing locally:
 
 ```bash
-npm run mcp:local    # builds the site, serves it, starts the Worker on :8787
+npm run mcp:local    # builds the site, serves it, starts the MCP server on :8787
 npm run mcp:test     # in another terminal
 ```
 
