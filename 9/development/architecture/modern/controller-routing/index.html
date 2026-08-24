@@ -22,14 +22,14 @@
     <title>Symfony controllers &amp; routing :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1787196860" rel="stylesheet">
-    <link href="/css/syntax-github.css?1787196860" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1787196860" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1787196860" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1787590571" rel="stylesheet">
+    <link href="/css/syntax-github.css?1787590571" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1787590571" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1787590571" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1787196860" rel="stylesheet">
+    <link href="/style.css?1787590571" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1787196860"></script>
+    <script src="/js/jquery-3.3.1.min.js?1787590571"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -17952,6 +17952,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <li>
               <ul>
                 <li><a href="#routing-configuration">Routing configuration</a></li>
+                <li><a href="#tab-resolution-for-tab-less-routes">Tab resolution for tab-less routes</a></li>
                 <li><a href="#automatic-redirection">Automatic redirection</a></li>
               </ul>
             </li>
@@ -48650,6 +48651,32 @@ If you use both <code>url</code> and <code>redirectRoute</code> at the same time
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">AdminEmails:index</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="l">AdminEmails:list</span><span class="w">
 </span></span></span></code></pre></div>
+<h4 id="tab-resolution-for-tab-less-routes">Tab resolution for tab-less routes<a href="#tab-resolution-for-tab-less-routes"></a></h4><p>Some routes have no <code>Tab</code> of their own. The create, edit, and view actions of an entity are usually reached only from the entity&rsquo;s listing page and don&rsquo;t need a separate menu entry. Without a <code>Tab</code>, the sidebar has nothing to highlight, and the breadcrumb and toolbar have nothing to resolve against.</p>
+<p>Use the <code>_parent</code> attribute to declare which other route&rsquo;s <code>Tab</code> these actions should borrow:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">admin_foo_index</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/foo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle\Controller\Path\To\FooController::indexAction&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">admin_foo_create</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/foo/create</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET, POST]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle\Controller\Path\To\FooController::createAction&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_parent</span><span class="p">:</span><span class="w"> </span><span class="l">admin_foo_index</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">admin_foo_edit</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/foo/{fooId}/edit</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">methods</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">GET, POST]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_controller</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;PrestaShopBundle\Controller\Path\To\FooController::editAction&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">_parent</span><span class="p">:</span><span class="w"> </span><span class="l">admin_foo_index</span><span class="w">
+</span></span></span></code></pre></div><p><code>_parent</code> names another route, typically the listing route of the same entity. When the current route has no related <code>Tab</code> in the database, the sidebar, breadcrumb, and toolbar fall back to the <code>Tab</code> of the route named in <code>_parent</code>.</p>
+
+<div class="notices warning" >Do not add <code>_legacy_controller</code> to a route only to make the sidebar or breadcrumb work. <code>_legacy_controller</code> is reserved for controllers actually migrated from a legacy <code>AdminXController</code>: it also drives permission checks and <code>Link::getAdminLink()</code> resolution. Removing it from a migrated page breaks both. A route counts as native, whether it&rsquo;s declared by the core or by a module, as soon as it has no legacy <code>AdminXController</code> behind it. For a native route, use <code>_parent</code> instead. It has no effect on permissions or link generation: it&rsquo;s purely used for Back Office navigation rendering.</div>
+
+
 <h4 id="automatic-redirection">Automatic redirection<a href="#automatic-redirection"></a></h4><p>Finally some urls might have been generated manually or hard coded. To avoid losing these legacy urls a Symfony listener
 checks each call to the back office and tries to match it to a migrated url if it is found then the response is <em>automatically</em>
 redirected to the new migrated url.</p>
@@ -48714,7 +48741,7 @@ redirected to the new migrated url.</p>
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/45d7bdf378c218d36dd88b78fcd8ac7a3d422dcc">2026-04-13 by MadMax</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/c295e80694bac45a30064a4989f8a12c5228d522">2026-08-24 by Morgan PICHAT</a>.<br>
         
     
 
@@ -48736,17 +48763,17 @@ redirected to the new migrated url.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1787196861"></script>
-    <script src="/js/perfect-scrollbar.min.js?1787196861"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1787196861"></script>
-    <script src="/js/jquery.sticky.js?1787196861"></script>
-    <script src="/js/featherlight.min.js?1787196861"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1787196861"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1787196861"></script>
-    <script src="/js/learn.js?1787196861"></script>
-    <script src="/js/hugo-learn.js?1787196861"></script>
+    <script src="/js/clipboard.min.js?1787590571"></script>
+    <script src="/js/perfect-scrollbar.min.js?1787590571"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1787590571"></script>
+    <script src="/js/jquery.sticky.js?1787590571"></script>
+    <script src="/js/featherlight.min.js?1787590571"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1787590571"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1787590571"></script>
+    <script src="/js/learn.js?1787590571"></script>
+    <script src="/js/hugo-learn.js?1787590571"></script>
     
-    <script src="/main.js?1787196861"></script>
+    <script src="/main.js?1787590571"></script>
     
     
     
