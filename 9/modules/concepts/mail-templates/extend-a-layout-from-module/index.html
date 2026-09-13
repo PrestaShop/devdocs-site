@@ -22,14 +22,14 @@
     <title>How to extend a layout in a theme from a module :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1787842527" rel="stylesheet">
-    <link href="/css/syntax-github.css?1787842527" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1787842527" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1787842527" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1789308561" rel="stylesheet">
+    <link href="/css/syntax-github.css?1789308561" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1789308561" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1789308561" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1787842527" rel="stylesheet">
+    <link href="/style.css?1789308561" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1787842527"></script>
+    <script src="/js/jquery-3.3.1.min.js?1789308561"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -48532,12 +48532,17 @@ the <code>actionListMailThemes</code> hook.</p>
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nv">$orderIndex</span> <span class="o">=</span> <span class="nv">$theme</span><span class="o">-&gt;</span><span class="na">getLayouts</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">indexOf</span><span class="p">(</span><span class="nv">$orderConfLayout</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">$theme</span><span class="o">-&gt;</span><span class="na">getLayouts</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">offsetSet</span><span class="p">(</span><span class="nv">$orderIndex</span><span class="p">,</span> <span class="k">new</span> <span class="nx">Layout</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="nv">$orderConfLayout</span><span class="o">-&gt;</span><span class="na">getName</span><span class="p">(),</span>
-</span></span><span class="line"><span class="cl">            <span class="no">__DIR__</span> <span class="o">.</span> <span class="s1">&#39;/mails/layouts/order_conf.html.twig&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;@Modules/&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">name</span> <span class="o">.</span> <span class="s1">&#39;/mails/layouts/order_conf.html.twig&#39;</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">            <span class="s1">&#39;&#39;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">));</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>You can then go to the &ldquo;Design &gt; Email Theme&rdquo; page and preview the <code>modern</code> <strong>order_conf</strong> layout.</p>
+</span></span></code></pre></div>
+<div class="notices tip" >The layout path is a <strong>Twig template name</strong>, not a filesystem path: it is passed straight to
+<code>Twig\Environment::render()</code>. An absolute path such as <code>__DIR__ . '/mails/layouts/...'</code> cannot be
+resolved and fails with <em>Could not find layout file</em>, so use the <code>@Modules</code> namespace as above.</div>
+
+<p>You can then go to the &ldquo;Design &gt; Email Theme&rdquo; page and preview the <code>modern</code> <strong>order_conf</strong> layout.</p>
 <figure><img src="../img/extended_order_conf_layout.png"/><figcaption>
             <h4>Your order_conf layout has been extended&#39; layout list</h4>
         </figcaption>
@@ -48599,7 +48604,7 @@ the <code>actionListMailThemes</code> hook.</p>
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/5b310de1acfb9bd0d1e750557663a5fa10e3aeb5">2026-04-13 by MadMax</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/6e51647bbf13bd7a84c232b9982f54ae6df11f60">2026-09-02 by boo-code</a>.<br>
         
     
 
@@ -48621,17 +48626,17 @@ the <code>actionListMailThemes</code> hook.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1787842527"></script>
-    <script src="/js/perfect-scrollbar.min.js?1787842527"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1787842527"></script>
-    <script src="/js/jquery.sticky.js?1787842527"></script>
-    <script src="/js/featherlight.min.js?1787842527"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1787842527"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1787842527"></script>
-    <script src="/js/learn.js?1787842527"></script>
-    <script src="/js/hugo-learn.js?1787842527"></script>
+    <script src="/js/clipboard.min.js?1789308561"></script>
+    <script src="/js/perfect-scrollbar.min.js?1789308561"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1789308561"></script>
+    <script src="/js/jquery.sticky.js?1789308561"></script>
+    <script src="/js/featherlight.min.js?1789308561"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1789308561"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1789308561"></script>
+    <script src="/js/learn.js?1789308561"></script>
+    <script src="/js/hugo-learn.js?1789308561"></script>
     
-    <script src="/main.js?1787842527"></script>
+    <script src="/main.js?1789308561"></script>
     
     
     

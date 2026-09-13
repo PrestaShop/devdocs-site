@@ -100,12 +100,18 @@ class MyEmailThemeModule extends Module
         $orderIndex = $theme->getLayouts()->indexOf($orderConfLayout);
         $theme->getLayouts()->offsetSet($orderIndex, new Layout(
             $orderConfLayout->getName(),
-            __DIR__ . '/mails/layouts/order_conf.html.twig',
+            '@Modules/' . $this->name . '/mails/layouts/order_conf.html.twig',
             ''
         ));
     }
 }
 ```
+
+{{% notice tip %}}
+The layout path is a **Twig template name**, not a filesystem path: it is passed straight to
+`Twig\Environment::render()`. An absolute path such as `__DIR__ . '/mails/layouts/...'` cannot be
+resolved and fails with *Could not find layout file*, so use the `@Modules` namespace as above.
+{{% /notice %}}
 
 You can then go to the "Design > Email Theme" page and preview the `modern` **order_conf** layout.
 

@@ -122,7 +122,7 @@ class MyEmailThemeModule extends Module
             // Add a layout to each theme (don't forget to specify the module name)
             $theme->getLayouts()->add(new Layout(
                 'custom_template',
-                __DIR__ . '/mails/layouts/custom_' . $theme->getName() . '_layout.html.twig',
+                '@Modules/' . $this->name . '/mails/layouts/custom_' . $theme->getName() . '_layout.html.twig',
                 '',
                 $this->name
             ));
@@ -130,6 +130,12 @@ class MyEmailThemeModule extends Module
     }
 }
 ```
+
+{{% notice tip %}}
+The layout path is a **Twig template name**, not a filesystem path: it is passed straight to
+`Twig\Environment::render()`. An absolute path such as `__DIR__ . '/mails/layouts/...'` cannot be
+resolved and fails with *Could not find layout file*, so use the `@Modules` namespace as above.
+{{% /notice %}}
 
 You can then go to the "Design > Email Theme" page and preview the `classic` or `modern` layouts list.
 

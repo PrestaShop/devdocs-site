@@ -22,14 +22,14 @@
     <title>Services :: PrestaShop Developer Documentation</title>
     
     
-    <link href="/css/font-awesome.min.css?1787842547" rel="stylesheet">
-    <link href="/css/syntax-github.css?1787842547" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1787842547" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1787842547" rel="stylesheet">
+    <link href="/css/font-awesome.min.css?1789308582" rel="stylesheet">
+    <link href="/css/syntax-github.css?1789308582" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1789308582" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1789308582" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3.2.1" />
-    <link href="/style.css?1787842547" rel="stylesheet">
+    <link href="/style.css?1789308582" rel="stylesheet">
 
-    <script src="/js/jquery-3.3.1.min.js?1787842547"></script>
+    <script src="/js/jquery-3.3.1.min.js?1789308582"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -48470,7 +48470,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
 
-<h2 id="symfony-services">Symfony Services<a href="#symfony-services"></a></h2><p>You have the ability to modify the Symfony container configuration from a module. This means that</p>
+<h2 id="symfony-services">Symfony Services<a href="#symfony-services"></a></h2>
+<div class="notices warning" ><p><strong><code>$this-&gt;get()</code> resolves against the container of the context you are in, which is not always the full Symfony container.</strong></p>
+<p>In the back office, and in pages already migrated to Symfony, you get the full container: <code>router</code>, <code>translator</code>
+and anything you declared in <code>config/services.yml</code> are available. A front office page still runs a legacy
+controller, and there <code>$this-&gt;get()</code> resolves against the light front container instead. It holds Doctrine and
+the services declared in <code>&lt;PS_ROOT_DIR&gt;/config/services/front/</code>, and nothing else: asking it for <code>router</code> or
+<code>translator</code> raises a <code>ServiceNotFoundException</code>, <code>$this-&gt;getTwig()</code> returns <code>null</code>, and
+<code>SymfonyContainer::getInstance()</code> is <code>null</code> there too.</p>
+<p>A service you want to call from a front office hook has to be declared in your module&rsquo;s <code>config/front/</code> folder.
+See <a href="#services-in-legacy-environment">Services in Legacy environment</a> below.</p>
+</div>
+
+<p>You have the ability to modify the Symfony container configuration from a module. This means that</p>
 <ul>
 <li>You have the possibility to define your own Symfony services from your modules.</li>
 <li>You have the possibility to modify existing Symfony services declaration from your modules, which is somehow an Override mechanism</li>
@@ -48994,7 +49006,7 @@ create errors in case of modifications.</p>
     
 
         
-            Last update on <a href="https://github.com/PrestaShop/docs/commit/63447996a47f94b82897efc2ba3e58127668b529">2026-06-08 by Vincent HADJEDJ</a>.<br>
+            Last update on <a href="https://github.com/PrestaShop/docs/commit/e7c7767215c4ddb7c0cfb3376ef653025dd16973">2026-09-02 by boo-code</a>.<br>
         
     
 
@@ -49016,17 +49028,17 @@ create errors in case of modifications.</p>
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1787842548"></script>
-    <script src="/js/perfect-scrollbar.min.js?1787842548"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1787842548"></script>
-    <script src="/js/jquery.sticky.js?1787842548"></script>
-    <script src="/js/featherlight.min.js?1787842548"></script>
-    <script src="/js/html5shiv-printshiv.min.js?1787842548"></script>
-    <script src="/js/modernizr.custom-3.6.0.js?1787842548"></script>
-    <script src="/js/learn.js?1787842548"></script>
-    <script src="/js/hugo-learn.js?1787842548"></script>
+    <script src="/js/clipboard.min.js?1789308583"></script>
+    <script src="/js/perfect-scrollbar.min.js?1789308583"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1789308583"></script>
+    <script src="/js/jquery.sticky.js?1789308583"></script>
+    <script src="/js/featherlight.min.js?1789308583"></script>
+    <script src="/js/html5shiv-printshiv.min.js?1789308583"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1789308583"></script>
+    <script src="/js/learn.js?1789308583"></script>
+    <script src="/js/hugo-learn.js?1789308583"></script>
     
-    <script src="/main.js?1787842548"></script>
+    <script src="/main.js?1789308583"></script>
     
     
     
