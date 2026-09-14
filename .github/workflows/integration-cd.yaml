@@ -1,0 +1,38 @@
+name: Integration CD for devdocs-mcp
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, labeled]
+
+env:
+  LABELS: ${{toJSON(github.event.pull_request.labels)}}
+
+jobs:
+  integration_deployment:
+    name: Deploy (integration)
+    runs-on: ubuntu-latest
+    environment: integration
+    if: contains(github.event.pull_request.labels.*.name, 'integration')
+
+    steps:
+      - name: Checkout the repository 🎁
+        uses: actions/checkout@v3
+
+      - name: Get branch name
+        id: branch
+        uses: tj-actions/branch-names@v7.0.7
+
+      - name: Get tag
+        shell: bash
+        id: get_tag
+        run: echo TAG=$PREFIX_TAG$(echo $GITHUB_REF | cut -d / -f 3) >> $GITHUB_OUTPUT
+
+      - name: Trigger CI / CD
+        uses: the-actions-org/workflow-dispatch@v4
+        with:
+          workflow: dev-docs-mcp-server-cd.yml
+          repo: PrestaShopCorp/devdocs-cd
+          inputs: '{ "branch": "${{ steps.branch.outputs.current_branch }}", "project": "devdocs-site", "repository": "PrestaShop/devdocs-site", "tag": "${{ steps.get_tag.outputs.TAG }}", "commit": "${{ github.sha }}"}'
+          token: ${{ secrets.TRIGGER_TOKEN }}
+          ref: 'refs/heads/main'
+
