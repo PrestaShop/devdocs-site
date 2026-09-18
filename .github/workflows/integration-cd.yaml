@@ -3,6 +3,13 @@ name: Integration CD for devdocs-mcp
 on:
   pull_request:
     types: [opened, reopened, synchronize, labeled]
+    paths:
+      - "mcp-server/**"
+  push:
+    tags:
+      - "*"
+    paths:
+      - "mcp-server/**"
 
 env:
   LABELS: ${{toJSON(github.event.pull_request.labels)}}
