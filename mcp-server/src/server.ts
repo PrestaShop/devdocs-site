@@ -55,7 +55,7 @@ const server = createServer(async (req, res) => {
 });
 
 server.listen(port, () => {
-  console.log(`devdocs MCP server listening on port :${port} (docs: ${env.DOCS_BASE_URL})`);
+  console.log(`devdocs MCP server listening on port : ${port} (docs: ${env.DOCS_BASE_URL})`);
 });
 
 // Orchestrators send SIGTERM before stopping an instance; close cleanly.
