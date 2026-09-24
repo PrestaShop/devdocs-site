@@ -8,18 +8,16 @@ on:
   push:
     tags:
       - "*"
-    paths:
-      - "mcp-server/**"
 
 env:
   LABELS: ${{toJSON(github.event.pull_request.labels)}}
 
 jobs:
   integration_deployment:
-    name: Deploy (integration)
+    name: Deploy (${{ github.ref_type == 'tag' && 'production' || 'integration' }})
     runs-on: ubuntu-latest
-    environment: integration
-    if: contains(github.event.pull_request.labels.*.name, 'integration')
+    environment: ${{ github.ref_type == 'tag' && 'production' || 'integration' }}'
+    if: ${{ github.ref_type == 'tag' }} || contains(github.event.pull_request.labels.*.name, 'integration')
 
     steps:
       - name: Checkout the repository 🎁
