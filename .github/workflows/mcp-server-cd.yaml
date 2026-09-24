@@ -1,0 +1,44 @@
+name: Integration/Production CD for devdocs-mcp
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, labeled]
+    paths:
+      - "mcp-server/**"
+  push:
+    tags:
+      - "*"
+    paths:
+      - "mcp-server/**"
+
+env:
+  LABELS: ${{toJSON(github.event.pull_request.labels)}}
+
+jobs:
+  integration_deployment:
+    name: Deploy (integration)
+    runs-on: ubuntu-latest
+    environment: integration
+    if: contains(github.event.pull_request.labels.*.name, 'integration')
+
+    steps:
+      - name: Checkout the repository 🎁
+        uses: actions/checkout@v3
+
+      - name: Get branch name
+        id: branch
+        uses: tj-actions/branch-names@v7.0.7
+
+      - name: Get tag
+        shell: bash
+        id: get_tag
+        run: echo TAG=$PREFIX_TAG$(echo $GITHUB_REF | cut -d / -f 3) >> $GITHUB_OUTPUT
+
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          repository: PrestaShopCorp/devdocs-cd
+          token: '${{ secrets.TRIGGER_TOKEN }}'
+          event-type: "dev-docs-mcp-server"
+          client-payload: '{"environment": "${{ github.event.action == ''released'' && ''production'' || ''integration'' }}", "ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "tag": "${{ steps.get_tag.outputs.TAG }}"}'
+

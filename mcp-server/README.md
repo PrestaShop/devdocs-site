@@ -144,7 +144,11 @@ answers through the labelled fallback.
 ## Deployment
 
 **Deployment is owned by the platform/devops team — this repository does not deploy the
-server.** There is deliberately no CI workflow and there are no deployment secrets here.
+server.** There are no deployment secrets here.
+
+To deploy to integration you can tag a PR with `integration` label and make sure the
+workflows are approved or that the branch is in the same repo. To deploy to production
+a tag must be created on main.
 
 Whichever host: Algolia DocSearch is free for open source and already in use by the
 website, and the compute involved is negligible on any platform's free tier.
