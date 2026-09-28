@@ -16,7 +16,7 @@ jobs:
   integration_deployment:
     name: Deploy (${{ github.ref_type == 'tag' && 'production' || 'integration' }})
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_type == 'tag' && 'production' || 'integration' }}'
+    environment: ${{ github.ref_type == 'tag' && 'production' || 'integration' }}
     if: ${{ github.ref_type == 'tag' }} || contains(github.event.pull_request.labels.*.name, 'integration')
 
     steps:
@@ -38,5 +38,5 @@ jobs:
           repository: PrestaShopCorp/devdocs-cd
           token: '${{ secrets.TRIGGER_TOKEN }}'
           event-type: "dev-docs-mcp-server"
-          client-payload: '{"environment": "${{ github.event.action == ''released'' && ''production'' || ''integration'' }}", "ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "tag": "${{ steps.get_tag.outputs.TAG }}"}'
+          client-payload: '{"environment": "${{  github.ref_type == ''tag'' && ''production'' || ''integration'' }}", "ref": "${{ github.ref }}", "sha": "${{ github.sha }}", "tag": "${{ steps.get_tag.outputs.TAG }}"}'
 
