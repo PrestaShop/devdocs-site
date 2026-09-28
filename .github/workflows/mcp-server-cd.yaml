@@ -16,7 +16,7 @@ jobs:
   integration_deployment:
     name: Deploy (${{ github.ref_type == 'tag' && 'production' || 'integration' }})
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_type == 'tag' && 'production' || 'integration' }}'
+    environment: ${{ github.ref_type == 'tag' && 'production' || 'integration' }}
     if: ${{ github.ref_type == 'tag' }} || contains(github.event.pull_request.labels.*.name, 'integration')
 
     steps:
