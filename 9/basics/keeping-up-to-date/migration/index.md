@@ -1,13 +1,13 @@
 ---
-title: "How to migrate to PrestaShop 8"
+title: "How to migrate to PrestaShop 9"
 url: "https://devdocs.prestashop-project.org/9/basics/keeping-up-to-date/migration/"
 version: "9"
-description: "Learn how to migrate your current shop (1.7.x) to PrestaShop 8.0"
+description: "Learn how to migrate your current shop (1.7.x+) to PrestaShop 9.0"
 source: "https://github.com/PrestaShop/docs/blob/9.x/basics/keeping-up-to-date/migration.md"
 ---
 
 
-# How to migrate to PrestaShop 8
+# How to migrate to PrestaShop 9
 
 ## Manual migration - Process details
 
