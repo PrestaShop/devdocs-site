@@ -15,7 +15,7 @@ source: "https://github.com/PrestaShop/docs/blob/9.x/webservice/resources/produc
 | **id_manufacturer**           | isUnsignedId        | ❌        | ✔️       |          |                | Manufacturer ID    |
 | **id_supplier**               | isUnsignedId        | ❌        | ✔️       |          |                | Supplier ID        |
 | **id_category_default**       | isUnsignedId        | ❌        | ✔️       |          |                |                    |
-| **new**                       |                     | ❌        | ✔️       |          |                |                    |
+| **new**                       |                     | ❌        | ❌       |          |                |                    |
 | **cache_default_attribute**   |                     | ❌        | ✔️       |          |                |                    |
 | **id_default_image**          |                     | ❌        | ✔️       |          | true           |                    |
 | **id_default_combination**    |                     | ❌        | ✔️       |          | true           |                    |
